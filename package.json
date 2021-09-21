@@ -10,7 +10,6 @@
     "@types/jest": "^26.0.15",
     "@types/luxon": "^1.26.2",
     "@types/node": "^14.14.5",
-    "@types/react": "^16.9.53",
     "@types/react-custom-scrollbars": "^4.0.7",
     "@types/react-dom": "^16.9.8",
     "@types/react-gtm-module": "^2.0.0",
@@ -60,5 +59,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.22"
   }
 }
