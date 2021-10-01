@@ -5,7 +5,10 @@
   width: 100%;
   height: 100vh;
   /* on mobile, viewport height may be larger than the actual visible part */ 
-  height: -webkit-fill-available;
+  @supports (-webkit-fill-available) {
+    height: -webkit-fill-available;
+  }
+
   overflow: hidden;
 
   .background {
