@@ -8,7 +8,7 @@ import PLANTS from 'assets/home/hero/plants.svg';
 import SCOOTER from 'assets/home/hero/scooter.svg';
 import SUN_RAYS from 'assets/home/hero/sun_rays.svg';
 
-import NavBar from 'components/NavBar';
+// import NavBar from 'components/NavBar';
 import styles from './styles.module.scss';
 
 const Section1: React.FC = () => (

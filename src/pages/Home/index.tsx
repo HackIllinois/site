@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Hero from './Hero';
-import EventInfo from './EventInfo';
-import FAQ from './FAQ';
-import Sponsors from './Sponsors';
+// import EventInfo from './EventInfo';
+// import FAQ from './FAQ';
+// import Sponsors from './Sponsors';
 
 import styles from './styles.module.scss';
 
