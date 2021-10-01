@@ -1,41 +1,30 @@
 import React from 'react';
 
-import STARS from 'assets/home/hero/stars.svg';
-import BOTTOM_LANDSCAPE from 'assets/home/hero/bottom_landscape.svg';
-import MOUNTAINS from 'assets/home/hero/mountains.svg';
-import LEFT_TREES from 'assets/home/hero/left_trees.svg';
-import RIGHT_TREES from 'assets/home/hero/right_trees.svg';
-import WIND from 'assets/home/hero/wind.svg';
-import CAMPERS from 'assets/home/hero/campers.svg';
-import MOON_REFLECTION from 'assets/home/hero/moon_reflection.svg';
-import MOBILE_TREES from 'assets/home/hero/mobile_trees.svg';
-import LOGO from 'assets/logo.svg';
-import LOGO_MOBILE from 'assets/home/hero/logo_mobile.svg';
+import BACKGROUND from 'assets/home/hero/background.svg';
+import BAKERY from 'assets/home/hero/bakery.svg';
+import CLOUDS from 'assets/home/hero/clouds.svg';
+import LOGO from 'assets/home/hero/logo.svg';
+import PLANTS from 'assets/home/hero/plants.svg';
+import SCOOTER from 'assets/home/hero/scooter.svg';
+import SUN_RAYS from 'assets/home/hero/sun_rays.svg';
 
 import NavBar from 'components/NavBar';
 import styles from './styles.module.scss';
 
 const Section1: React.FC = () => (
   <div className={styles.hero}>
-    <NavBar hideLogo />
-    <div className={styles.stars} style={{ backgroundImage: `url(${STARS})` }} />
-    <div className={styles.moon} />
-    <div className={styles.bottomLandscape} style={{ backgroundImage: `url(${BOTTOM_LANDSCAPE})` }} />
-    <div className={styles.mountains} style={{ backgroundImage: `url(${MOUNTAINS})` }} />
-    <div className={styles.water} />
-    <div className={styles.leftTrees} style={{ backgroundImage: `url(${LEFT_TREES})` }} />
-    <div className={styles.rightTrees} style={{ backgroundImage: `url(${RIGHT_TREES})` }} />
-    <div className={styles.wind} style={{ backgroundImage: `url(${WIND})` }} />
-    <div className={styles.campers} style={{ backgroundImage: `url(${CAMPERS})` }} />
+    { // <NavBar hideLogo />
+    }
+    <div className={styles.background} style={{ backgroundImage: `url(${BACKGROUND})` }} />
+    <div className={styles.clouds} style={{ backgroundImage: `url(${CLOUDS})` }} />
+    <div className={styles.sun_rays} style={{ backgroundImage: `url(${SUN_RAYS})` }} />
     <div className={styles.logo} style={{ backgroundImage: `url(${LOGO})` }} />
-    <div className={styles.landingText}>
-      <div className={styles.title}>REKINDLING CONNECTIONS</div>
-      <div className={styles.date}>April 9 - April 12</div>
-      {/* <a className={styles.registerButton} href="/register">Register Now</a> */}
+
+    <div className={styles.foreground}>
+      <img className={styles.plants} src={PLANTS} alt="Small plants" />
+      <img className={styles.bakery} src={BAKERY} alt="Rise to your potential in this bakery" />
+      <img className={styles.scooter} src={SCOOTER} alt="Scooter" />
     </div>
-    <div className={styles.moonReflection} style={{ backgroundImage: `url(${MOON_REFLECTION})` }} />
-    <div className={styles.mobileTrees} style={{ backgroundImage: `url(${MOBILE_TREES})` }} />
-    <div className={styles.logoMobile} style={{ backgroundImage: `url(${LOGO_MOBILE})` }} />
   </div>
 );
 
