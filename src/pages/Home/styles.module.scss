@@ -1,15 +1,13 @@
 .home {
-  background: #286574;
+  height: 100%;
   position: relative;
   overflow: hidden;
-  
+
   .gradient {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 175vh;
-    left: 0;
-    height: 7675px;
-    background: linear-gradient(180deg, #286574 0%, #1E2E55 38.02%);
+    height: 20vh;
+    position: relative;
+    bottom: 0;
+
+    background: linear-gradient(0deg, #F7F4D3 45.96%, #E4EFD6 112.74%);
   }
 }

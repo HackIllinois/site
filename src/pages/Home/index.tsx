@@ -9,13 +9,13 @@ import styles from './styles.module.scss';
 
 const Home: React.FC = () => (
   <div className={styles.home}>
-    <div className={styles.gradient} />
     <Hero />
     { /* Temporarily disable until content is ready
     <EventInfo />
     <FAQ />
     <Sponsors />
     */ }
+    <div className={styles.gradient} />
   </div>
 );
 
