@@ -1,3 +1,5 @@
+@import '../breakpoints.scss';
+
 .hero {
   position: relative;
   width: 100%;
@@ -81,7 +83,7 @@
     z-index: 25;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: $tablet-breakpoint) {
     .plants, .scooter {
       display: none;
     }

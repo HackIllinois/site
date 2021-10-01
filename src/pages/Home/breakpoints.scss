@@ -1,5 +1,5 @@
 // these variables should be imported by components contained within Home
 // (declared here because some transitions for different screen sizes need to be consistent between sections)
 
-$tablet-breakpoint: 1024px; // we have some flexibility with this breakpoint, so maybe want to play around with it
-$mobile-breakpoint: 650px; // same for this
+$tablet-breakpoint: 768px; // we have some flexibility with this breakpoint, so maybe want to play around with it
+$mobile-breakpoint: 480px; // same for this
