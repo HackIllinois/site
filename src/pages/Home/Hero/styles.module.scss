@@ -85,16 +85,13 @@
 
   @media (orientation: portrait) {
     height: 80%;
-  }
 
-  @media (max-width: $mobile-breakpoint) {
-    .plants, .scooter {
-      display: none;
+    .foreground {
+      flex-direction: row-reverse;
     }
 
     .bakery {
-      max-width: 90%;
-      max-height: calc(100% - 80px);
+      margin-left: -10%;
     }
   }
 }
