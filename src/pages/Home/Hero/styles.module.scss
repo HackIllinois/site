@@ -90,9 +90,18 @@
       flex-direction: row-reverse;
     }
 
+    .plants {
+      display: none;
+    }
+
+    .scooter {
+      max-width: 25%;
+      transform: scaleX(-1);
+    }
+
     .bakery {
-      margin-left: -10%;
-      max-width: 70%;
+      margin-left: -12%;
+      max-width: 80%;
     }
   }
 }
