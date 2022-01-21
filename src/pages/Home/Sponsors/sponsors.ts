@@ -8,6 +8,6 @@ export const SPONSORS = [
   { name: 'Github', image: 'github.png', link: 'https://www.github.com' },
   { name: 'IMC', image: 'imc.svg', link: 'https://www.imc.com/us/' },
   { name: 'Schlumberger', image: 'schlumberger.svg', link: 'https://www.slb.com/' },
-  { name: 'Shopee', image: 'shopee.png', link: 'https://shopee.com/' },
+  // { name: 'Shopee', image: 'shopee.png', link: 'https://shopee.com/' },
   { name: 'Venture For America', image: 'vfa.svg', link: 'https://ventureforamerica.org/' },
 ];
