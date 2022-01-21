@@ -21,7 +21,7 @@ const EventInfo: React.FC = () => (
         <h1>The Event</h1>
       </div>
       <div className={styles.cakeMiddle}>
-        <p>HackIllinois is University of Illinois at Urbana-Champaign’s premiere collegiate hackathon. In recent years, we have run our first fully virtual hackathon as well as our very new Open Source Fellowship.</p>
+        <p>HackIllinois is the University of Illinois at Urbana-Champaign’s premiere collegiate hackathon. In recent years, we have run our first fully virtual hackathon as well as our very new Open Source Fellowship.</p>
         <p>This year, participants will take part virtually at HackIllinois. Participants can work individually or in teams to submit projects to a specific track for a chance to win the prize.</p>
       </div>
       <div className={styles.cakeBottom} />

@@ -32,7 +32,7 @@ const FAQS = [
   {
     question: 'Do I need a team? How do I find one?',
     answer: [
-      'No, you are not required to have a team to participate. With that being said, we strongly encourage you to work with other participants in order to get the full experience at HackIllinois. You can make teams prior to the event or find members through our team matching event (As part of Hackathons Crash Course/Hackathons 101) or on the Discord.',
+      'No, you are not required to have a team to participate. With that being said, we strongly encourage you to work with other participants in order to get the full experience at HackIllinois. HackIllinois allows teams of up to 6 members. You can make teams prior to the event or find members through our team matching event (As part of Hackathons Crash Course/Hackathons 101) or on the Discord.',
     ],
   },
   {
