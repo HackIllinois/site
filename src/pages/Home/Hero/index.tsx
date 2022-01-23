@@ -21,7 +21,7 @@ const Section1: React.FC = () => (
     <div className={styles.sun_rays} style={{ backgroundImage: `url(${SUN_RAYS})` }} />
     <div className={styles.logo} style={{ backgroundImage: `url(${LOGO})` }} />
 
-    <Link className={styles.registerButton} to="/register">Apply</Link>
+    <Link className={styles.registerButton} to="/register">Register</Link>
 
     <div className={styles.foreground}>
       <img className={styles.plants} src={PLANTS} alt="Small plants" />
