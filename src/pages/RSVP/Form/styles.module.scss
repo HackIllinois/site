@@ -13,3 +13,37 @@
     margin-bottom: -5px;
   }
 }
+
+.text {
+  font-size: 1.25em;
+  line-height: 1.5em;
+  margin-top: 25px;
+  color: #F6F4D4;
+}
+
+.finish {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  box-sizing: border-box;
+  overflow: visible;
+
+  .logo {
+    display: block;
+    height: 50%;
+
+    img {
+      height: 100%;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+
+  .text {
+    text-align: center;
+
+    a {
+      color: greenyellow;
+    }
+  }
+}

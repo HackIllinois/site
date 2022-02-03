@@ -5,7 +5,7 @@ import { useForm, SubmitHandler, SubmitErrorHandler, FormProvider } from 'react-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DateTime } from 'luxon';
 
-import LOGO_LARGE from 'assets/logo_large.svg';
+import LOGO_LARGE from 'assets/registration/finishLogo.svg';
 import OVEN from 'assets/registration/oven_with_buttons.svg';
 import Input from 'components/form/Input';
 import Button from 'components/form/Button';
@@ -31,16 +31,13 @@ const preProcessData = (data: RSVPSchema) => {
   if (data.lastName) {
     data.lastName = data.lastName.trim();
   }
-  if (data.description) {
-    data.description = data.description.trim().replace(/\n+/g, ' ');
-  }
 };
 
 const Form = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [registration, setRegistration] = useState<WithId<RegistrationType> | null>(null);
-  const [finished, setFinished] = useState(false);
+  const [finished, setFinished] = useState(true);
 
   const methods = useForm<RSVPSchema>({
     resolver: zodResolver(rsvpSchema, { errorMap }),
@@ -93,9 +90,9 @@ const Form = (): JSX.Element => {
     <div className={styles.container} style={{ backgroundImage: `url("${OVEN}")` }}>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit, onError)} className={styles.form}>
-          {(!finished) ? (
-            <>
-              <div className={clsx(styles.screenContainer, styles.visible)}>
+          <div className={clsx(styles.screenContainer, styles.visible)}>
+            {(!finished) ? (
+              <>
                 <Scrollbars>
                   <div className={styles.title}>RSVP</div>
                   <Constant name="firstName" value={registration?.firstName} />
@@ -109,16 +106,16 @@ const Form = (): JSX.Element => {
                   {isLoading && <Button loading>Loading...</Button>}
                   {!isLoading && <Button type="submit">Submit</Button>}
                 </div>
+              </>
+            ) : (
+              <div className={clsx(styles.screen, styles.finish)}>
+                <a className={styles.logo} href="/">
+                  <img src={LOGO_LARGE} alt="HackIllinois" />
+                </a>
+                <p className={styles.text}>Thank you for RSVPing for HackIllinois 2022! Be sure to follow our instagram (<a href="https://www.instagram.com/hackillinois/" target="_blank" rel="noreferrer">@hackillinois</a>) and our twitter (<a href="https://twitter.com/hackillinois/" target="_blank" rel="noreferrer">@hackillinois</a>). We will be posting live updates during the event that you won’t want to miss!</p>
               </div>
-            </>
-          ) : (
-            <div className={styles.finish}>
-              <a className={styles.logo} href="/">
-                <img src={LOGO_LARGE} alt="HackIllinois" />
-              </a>
-              <p className={styles.text}>Thank you for RSVPing for HackIllinois 2021! Be sure to follow our instagram (<a href="https://www.instagram.com/hackillinois/" target="_blank" rel="noreferrer">@hackillinois</a>) and our twitter (<a href="https://twitter.com/hackillinois/" target="_blank" rel="noreferrer">@hackillinois</a>). We will be posting live updates during the event that you won’t want to miss!</p>
-            </div>
-          )}
+            )}
+          </div>
         </form>
       </FormProvider>
     </div>
