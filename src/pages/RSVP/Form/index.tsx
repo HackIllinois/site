@@ -37,7 +37,7 @@ const Form = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [registration, setRegistration] = useState<WithId<RegistrationType> | null>(null);
-  const [finished, setFinished] = useState(true);
+  const [finished, setFinished] = useState(false);
 
   const methods = useForm<RSVPSchema>({
     resolver: zodResolver(rsvpSchema, { errorMap }),
