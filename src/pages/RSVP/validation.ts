@@ -6,9 +6,6 @@ export const rsvpSchema = z.object({
   timezone: z.string(),
   discord: z.string().regex(/^.{1,32}#\d{4}$/, 'Please enter a valid Discord username (e.g. "name#1234")').nonempty(),
   avatarUrl: z.string(),
-  teamStatus: z.enum(['LOOKING_FOR_TEAM', 'LOOKING_FOR_MEMBERS', 'NOT_LOOKING']),
-  interests: z.array(z.string()).optional(),
-  description: z.string().max(400).optional(),
 });
 
 export type RSVPSchema = z.infer<typeof rsvpSchema>;
