@@ -1,110 +1,15 @@
-@import 'common.scss';
+@import 'pages/Registration/Form/styles.module.scss';
 
-.container {
-  flex: 1;
-  position: relative;
-  background-size: auto 108%;
-  background-position: center top;
-  background-repeat: no-repeat;
+.title {
+  font-size: 2em;
+  font-weight: 500;
+  color: #F6F4D4;
 
-
-  @media (min-height: 900px) {
-    flex: none;
-    height: 750px;
-  }
-
-  @media (max-width: 1150px) {
-    background-position: 58.3% top;
+  @media screen and (max-height: 700px) {
+    margin-bottom: -20px;
   }
 
   @include registration-floating-screen {
-    min-height: max(min(calc(100vh - 100px), 750px), 620px);
-    max-height: min(70%, 750px);
-    margin-top: 25px;
-  }
-
-  .form {
-    position: absolute;
-    z-index: 2;
-    height: 70%;
-    width: calc(100vh - 120px);
-    min-width: calc(650px - 120px); // 650px is min-height of registration page
-    max-width: 780px;
-    top: min(max(75px, 50vh - 350px), 100px);
-    left: 50%;
-    transform: translateX(-40%);
-    display: flex;
-    flex-direction: column;
-    
-    @media (max-width: 1150px) {
-      transform: translateX(-50%);
-      left: 53%;
-    }
-    @include registration-floating-screen {
-      min-width: 0;
-      width: 90%;
-      left: 50%;
-    }
-
-    .screenContainer {
-      margin-right: 20px;
-      padding-bottom: 1px;
-
-      .title {
-        font-size: 2em;
-        font-weight: 500;
-        margin-top: 15px;
-        margin-bottom: -15px;
-    
-        @media screen and (max-height: 700px) {
-          margin-bottom: -20px;
-        }
-    
-        @include registration-floating-screen {
-          margin-bottom: -5px;
-        }
-      }
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: flex-end;
-      z-index: 5;
-      margin-top: 10px;
-    }
-  }
-
-  .finish {
-    flex: 1;
-    font-size: 0.85em;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    box-sizing: border-box;
-    overflow: hidden;
-  
-    .logo {
-      display: block;
-      height: 50%;
-  
-      img {
-        height: 100%;
-        margin: 0 auto;
-        display: block;
-      }
-    }
-  
-    .text {
-      text-align: center;
-      font-size: 1.25em;
-      line-height: 1.5em;
-      margin-top: 15px;
-
-      a {
-        font-weight: 600;
-        color: #46959F;
-        text-decoration: none;
-      }
-    }
+    margin-bottom: -5px;
   }
 }

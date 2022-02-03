@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import clsx from 'clsx';
 import Scrollbars from 'react-custom-scrollbars';
 import { useForm, SubmitHandler, SubmitErrorHandler, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DateTime } from 'luxon';
 
-import PROJECTOR from 'assets/registration/projector.svg';
 import LOGO_LARGE from 'assets/logo_large.svg';
+import OVEN from 'assets/registration/oven_with_buttons.svg';
 import Input from 'components/form/Input';
-import Select from 'components/form/Select';
 import Button from 'components/form/Button';
 import Constant from 'components/form/Constant';
 import Random from 'components/form/Random';
@@ -17,20 +17,12 @@ import DISCORD_HELP from 'assets/discord_username_how_to.png';
 
 import styles from './styles.module.scss';
 import { rsvpSchema, RSVPSchema, errorMap, defaultValues } from '../validation';
-import interests from './interests.json';
 
 const NUM_PROFILE_PICTURES = 11;
 const getProfilePicture = (index: number) => ((index >= 0 && index < NUM_PROFILE_PICTURES)
-  ? `https://hackillinois-upload.s3.amazonaws.com/photos/profiles-2021/profile-${index}.png`
+  ? `https://hackillinois-upload.s3.amazonaws.com/photos/profiles-2022/profile-${index}.png`
   : ''
 );
-
-const capitalSnakeCase = (str: string) => str.toUpperCase().replace(/ /g, '_');
-const teamStatusOptions = ['Looking for Team', 'Looking for Members', 'Not Looking'].map((label) => ({ label, value: capitalSnakeCase(label) }));
-const interestOptions = Object.values(interests)
-  .flat()
-  .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
-  .map((value) => ({ label: value, value }));
 
 const preProcessData = (data: RSVPSchema) => {
   if (data.firstName) {
@@ -98,28 +90,25 @@ const Form = (): JSX.Element => {
   };
 
   return (
-    <div className={styles.container} style={{ backgroundImage: `url("${PROJECTOR}")` }}>
+    <div className={styles.container} style={{ backgroundImage: `url("${OVEN}")` }}>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit, onError)} className={styles.form}>
           {(!finished) ? (
             <>
-              <Scrollbars>
-                <div className={styles.screenContainer}>
+              <div className={clsx(styles.screenContainer, styles.visible)}>
+                <Scrollbars>
                   <div className={styles.title}>RSVP</div>
                   <Constant name="firstName" value={registration?.firstName} />
                   <Constant name="lastName" value={registration?.lastName} />
                   <Constant name="timezone" value={DateTime.local().toFormat('ZZZZ', { locale: 'en-US' })} />
                   <Random name="avatarUrl" seed={registration?.id} min={0} max={NUM_PROFILE_PICTURES} generateValue={getProfilePicture} />
-                  <Input name="discord" placeholder="Discord Username *" helpLink={DISCORD_HELP} />
-                  <Select name="teamStatus" placeholder="Team Status *" options={teamStatusOptions} />
-                  <Select name="interests" placeholder="Interests" options={interestOptions} isMulti />
-                  <Input name="description" placeholder="Bio" multiline rows="2" maxlength="400" />
-                </div>
-              </Scrollbars>
+                  <Input name="discord" placeholder="Discord Username *" helpLink={DISCORD_HELP} linkColor="#F6F4D4" />
+                </Scrollbars>
 
-              <div className={styles.buttons}>
-                {isLoading && <Button loading>Loading...</Button>}
-                {!isLoading && <Button type="submit">Submit</Button>}
+                <div className={styles.buttons}>
+                  {isLoading && <Button loading>Loading...</Button>}
+                  {!isLoading && <Button type="submit">Submit</Button>}
+                </div>
               </div>
             </>
           ) : (
