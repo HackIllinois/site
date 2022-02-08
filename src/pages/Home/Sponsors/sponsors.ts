@@ -11,6 +11,7 @@ export const TITLE_SPONSORS: Sponsor[] = [
 export const SPONSORS: Sponsor[] = [
   { name: 'Aeris', image: 'aeris.svg', link: 'https://www.aeris.com/' },
   { name: 'Bloomberg', image: 'bloomberg.png', link: 'https://www.bloomberg.com/' },
+  { name: 'Caterpillar', image: 'caterpillar.png', link: 'https://www.caterpillar.com/' },
   { name: 'Github', image: 'github.png', link: 'https://www.github.com' },
   { name: 'Grainger', image: 'grainger.svg', link: 'https://www.grainger.com/' },
   { name: 'IMC', image: 'imc.svg', link: 'https://www.imc.com/us/' },
