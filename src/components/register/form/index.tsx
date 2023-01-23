@@ -114,7 +114,7 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
     setIsLoading(true);
     return register(isEditing, 'attendee', convertToAPI(data)).then(() => {
       setFormIndex(postSubmitPageIndex);
-      // refreshToken(); // token changes after registration, so need to refetch
+      refreshToken(); // token changes after registration, so need to refetch
     }).catch(() => {
       alert('There was an error while submitting. If this error persists, please email contact@hackillinois.org');
     }).finally(() => {

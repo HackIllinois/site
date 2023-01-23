@@ -77,7 +77,7 @@ const Form = (): JSX.Element => {
     setIsLoading(true);
     try {
       await Promise.all([
-        rsvp(isEditing, { isAttending: true }),//.then(() => refreshToken()),
+        rsvp(isEditing, { isAttending: true }).then(() => refreshToken()),
         createProfile(isEditing, data),
       ]);
       setFinished(true);
@@ -96,9 +96,9 @@ const Form = (): JSX.Element => {
   return (
     <div className={styles.container} style={{ backgroundImage: `url("${MOLEMACHINE}")` }}>
       {!isLoading && (registration === null ? (
-        <div onLoad={() => router.push('/register')}>Finish Registration First</div>
+        // <div onLoad={() => router.push('/register')}>Finish Registration First</div>
         // const router = useRouter()
-        // <div/>
+        <div/>
       ) : (
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit, onError)} className={styles.form}>
