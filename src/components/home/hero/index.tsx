@@ -16,7 +16,7 @@ const Section: React.FC = () => (
         <img className={styles.logo} src={LOGO} />
       </div>
       <div className={styles.leftAlign}>
-        <button className={styles.button} type="button" onClick={() => router.push('/register')}>Registration</button>
+        <button className={styles.button} type="button" onClick={() => router.push('/register')}>Register</button>
       </div>
       <div className={styles.topHeader}>
         <h2>Welcome to</h2>
