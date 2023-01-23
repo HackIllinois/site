@@ -37,7 +37,7 @@
     }
   }
   
-  .text, .textOp {
+  .text, .textOp, .textOp2 {
     font-size: 1.25em;
     line-height: 1.5em;
     margin-top: 25px;
@@ -61,6 +61,15 @@
     color: #FE7098;
     margin-left: 4px
   }
+  .textOp2 {
+    text-align: center;
+    a {
+      font-weight: 600;
+      color: #F99557;
+      text-decoration: none;
+    }
+  }
+  
 }
 
 

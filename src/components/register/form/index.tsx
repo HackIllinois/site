@@ -65,7 +65,7 @@ const convertToAPI = (data: RegistrationSchema): RegistrationType => {
     alert("Please ensure that you are aware that you have to be 18 by the start of our event")
   }
 
-  console.log(registration, firstName, lastName, gender, race, programmingYears, programmingAbility )
+  // console.log(registration, firstName, lastName, gender, race, programmingYears, programmingAbility )
   return { ...registration, firstName, lastName, gender, race, programmingYears, programmingAbility };
 };
 
@@ -94,6 +94,7 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
     getRoles().then((roles) => {
       if (roles.includes('Applicant')) {
         setIsEditing(true);
+        // console.log(isEditing);
         return getRegistration('attendee');
       }
       return null;
@@ -108,8 +109,8 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
   }, []); // deliberately not including `methods`
 
   const onSubmit: SubmitHandler<RegistrationSchema> = (data) => {
-    console.log("data");
-    console.log(data);
+    // console.log("data");
+    // console.log(isEditing);
 
     setIsLoading(true);
     return register(isEditing, 'attendee', convertToAPI(data)).then(() => {
@@ -123,7 +124,7 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
   };
 
   const onError: SubmitErrorHandler<RegistrationSchema> = (errorData) => {
-    console.log(errorData);
+    // console.log(errorData);
     clearErrors();
     let inputName: keyof typeof errorData;
     for (inputName in errorData) {

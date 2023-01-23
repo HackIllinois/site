@@ -14,7 +14,7 @@ const Finish = (): JSX.Element => (
 
     <h1 className={styles.headline}>HACK ILLINOIS</h1>
 
-    <p className={styles.text}>Thank you for registering for HackIllinois 2023! Be sure to follow our <a href="https://www.instagram.com/hackillinois/" target="_blank" rel="noreferrer">instagram (@hackillinois)</a> and our <a href="https://twitter.com/hackillinois/" target="_blank" rel="noreferrer">twitter (@hackillinois)</a>. We will be posting live updates during the event that you won’t want to miss!</p>
+    <p className={styles.textOp2}>Thank you for registering for HackIllinois 2023! Be sure to follow our <a href="https://www.instagram.com/hackillinois/" target="_blank" rel="noreferrer">instagram (@hackillinois)</a> and our <a href="https://twitter.com/hackillinois/" target="_blank" rel="noreferrer">twitter (@hackillinois)</a>. We will be posting live updates during the event that you won’t want to miss!</p>
 
     <div className={styles.homeButton}>
       {/* <Button onClick={() => { window.location.href = '/'; }}>Back Home</Button> */}
