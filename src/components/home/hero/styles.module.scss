@@ -110,6 +110,19 @@
     }
   }
 
+  .subsubtitle {
+    line-height: 12px;
+    font-weight: 500;
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 15px;
+    margin-top: -10px;
+
+    @media screen and (max-width: 800px) {
+      font-size: 32px;
+    }
+  }
+
   .banner {
     width: 250px;
     margin-bottom: 25px;
