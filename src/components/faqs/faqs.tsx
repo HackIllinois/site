@@ -4,6 +4,18 @@ import React from 'react';
    {
      sectionTitle: 'General',
      sectionFaqs: [
+      {
+        question: 'How do I participate?',
+        answer: [
+          <p key={0}>You must apply in order to participate in HackIllinois. We have an Early Application deadline due on February 3rd and Late Application deadline due February 12th. Admissions will be based on a weighted lottery, and applying early will increase your chances of admission. Decisions will be released shortly after both application deadlines, and if you’re accepted, there will be a limited time to RSVP before we reallocate your spot to another student.</p>,
+        ],
+     },
+     {
+      question: 'How can I stay updated with what is going on at the event?',
+      answer: [
+        <p key={0}>Please download the HackIllinois app (available shortly before the event on the App Store and Play Store)! Our website will also be continually updated with new information throughout the year. We will also be sending out reminders for various workshops and events through our mobile apps and Discord.</p>,
+      ],
+    },
        {
           question: 'When and where is HackIllinois?',
           answer: [
@@ -11,23 +23,12 @@ import React from 'react';
           ],
        },
        {
-        question: 'How do I participate?',
-        answer: [
-          <p key={0}>You must apply in order to participate in HackIllinois. We have an Early Application deadline due on February 3rd and Late Application deadline due February 12th. Admissions will be based on a weighted lottery, and applying early will increase your chances of admission. Decisions will be released shortly after both application deadlines, and if you’re accepted, there will be a limited time to RSVP before we reallocate your spot to another student.</p>,
-        ],
-     },
-       {
          question: 'How do I get to the University of Illinois?',
          answer: [
            <p key={0}>HackIllinois will be providing a bus for students traveling from West Lafayette. If you are a University of Illinois student, please walk or utilize the MTD bus system.</p>,
          ],
        },
-       {
-         question: 'How can I stay updated with what is going on at the event?',
-         answer: [
-           <p key={0}>Please download the HackIllinois app (available shortly before the event on the App Store and Play Store)! Our website will also be continually updated with new information throughout the year. We will also be sending out reminders for various workshops and events through our mobile apps and Discord.</p>,
-         ],
-       },
+
        {
          question: 'Do I need to have a programming background to participate?',
          answer: [
