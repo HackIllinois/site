@@ -27,6 +27,12 @@
         margin-bottom: 20px;
     }
 
+    h3 {
+        & > *:not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+
     a {
         color: inherit;
     }
@@ -34,7 +40,6 @@
     .outgoingLinkIcon {
         height: 32px;
         vertical-align: middle;
-        margin-left: 10px;
     }
 
     .firework {
