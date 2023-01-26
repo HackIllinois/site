@@ -4,18 +4,20 @@ import React from 'react';
    {
      sectionTitle: 'General',
      sectionFaqs: [
-       {
-          question: 'When and where is HackIllinois?',
-          answer: [
-            <p key={0}>HackIllinois will be held in-person from February 24-26th on UIUC campus.</p>,
-          ],
-       },
+       
        {
         question: 'How do I participate?',
         answer: [
           <p key={0}>You must apply in order to participate in HackIllinois. We have an Early Application deadline due on February 3rd and Late Application deadline due February 12th. Admissions will be based on a weighted lottery, and applying early will increase your chances of admission. Decisions will be released shortly after both application deadlines, and if you’re accepted, there will be a limited time to RSVP before we reallocate your spot to another student.</p>,
         ],
-     },
+       },
+       {
+        question: 'How can I stay updated with what is going on at the event?',
+        answer: [
+          <p key={0}>Please download the HackIllinois app (available shortly before the event on the App Store and Play Store)! Our website will also be continually updated with new information throughout the year. We will also be sending out reminders for various workshops and events through our mobile apps and Discord.</p>,
+        ],
+       },
+       
        {
          question: 'How do I get to the University of Illinois?',
          answer: [
@@ -23,10 +25,10 @@ import React from 'react';
          ],
        },
        {
-         question: 'How can I stay updated with what is going on at the event?',
-         answer: [
-           <p key={0}>Please download the HackIllinois app (available shortly before the event on the App Store and Play Store)! Our website will also be continually updated with new information throughout the year. We will also be sending out reminders for various workshops and events through our mobile apps and Discord.</p>,
-         ],
+        question: 'When and where is HackIllinois?',
+        answer: [
+          <p key={0}>HackIllinois will be held in-person from February 24-26th on UIUC campus.</p>,
+        ],
        },
        {
          question: 'Do I need to have a programming background to participate?',
@@ -34,6 +36,18 @@ import React from 'react';
            <p key={0}>No! People of all skill levels are welcomed.</p>,
          ],
        },
+       {
+        question: 'Interested in being a sponsor at our event?',
+        answer: [
+          <p key={0}>Email us at sponsor@hackillinois.org!</p>,
+        ],
+      },
+      {
+        question: 'Have more questions?',
+        answer: [
+          <p key={0}>Please don’t hesitate to reach out to us at contact@hackillinois.org if you have any other questions.</p>,
+        ],
+      },
      ],
    },
    {
