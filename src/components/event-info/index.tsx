@@ -32,7 +32,7 @@ const Section = () => {
                 <p>This is where we’ll be posting more of the fun, behind-the-scenes aspects of our event! You’ll get an opportunity to see the work that goes into making the event a possibility through insights from teams and profiles of staff members.</p>
                 <h3>Twitter <a href="https://twitter.com/hackillinois?lang=en" target="_blank"><img className={styles.outgoingLinkIcon} src={TWITTER} /></a></h3>
                 <p>This is where we’ll be posting updates with regard to our schedule, additions to our event, and other things we come up with!</p>
-                <h3>Discord <img className={styles.outgoingLinkIcon} src={DISCORD} onClick={() => alert('Our Discord server will be open to the public between February 13th and February 24th :)')}/></h3>
+                <h3><span>Discord</span> <img className={styles.outgoingLinkIcon} src={DISCORD} onClick={() => alert('Our Discord server will be open to the public between February 13th and February 24th :)')}/></h3>
                 <p>Our discord server will be the secondary hub for our event. You can use this to communicate with attendees and company representatives, get help from mentors, and receive event reminders.</p>
             </div>
             <img className={clsx(styles.firework, styles.firework1)} src={FIREWORK_1} />
