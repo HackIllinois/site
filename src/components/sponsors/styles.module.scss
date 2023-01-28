@@ -1,73 +1,75 @@
 .sponsors {
     .background{
-        background: #C9D2E5;
+        background-image: linear-gradient(to bottom, #196795, #196796);
+  
 
+        .rect{
+            position: absolute;
+            width: 626.73px;
+            height: 160.96px;
+            left: 339.45px;
+            top: 129%;
+            text-align: center;
+    
+    
+    background: #1D2644;
+    border-radius: 20px;
+    transform: matrix(1, -0.05, 0.02, 1, 0, 0);
+    
+    
+    }
+    
+    .emailBox {
+        background-color:#0D387C8F;
+        width: 800px;
+        height: 800px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        position: absolute;
+        left: 50%;
+        top: 150.5%;
+        transform: translate(-50%, -50%);
+        text-align: center; 
+    
+    }
+    .sponsorstitle {
+        text-align: center;
+        text-transform: uppercase; /* convert the text to uppercase */
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 10px; /* add some margin to separate the title from the rectangle */
+    }
+    
+    .email{
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 50px;
+        line-height: 61px;
+        position: relative;
+        margin: 40px;
+        color: #CAD2E5;
+        top:25%
+        
+    }
+    .h1{
+    
+        width: 708.03px;
+        height: 117.18px;
+        left: 299.22px;
+        top: 4070.37px;
+        
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 70px;
+        line-height: 85px;
+        text-align: center;
+        
+        color: #C9D2E5;
+    }
     }
 
 
-    .rect{
-        position: absolute;
-        width: 626.73px;
-        height: 160.96px;
-        left: 339.45px;
-        top: 129%;
-        text-align: center;
 
-
-background: #1D2644;
-border-radius: 20px;
-transform: matrix(1, -0.05, 0.02, 1, 0, 0);
-
-
-}
-
-.emailBox {
-    background-color:#0D387C8F;
-    width: 800px;
-    height: 800px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    position: absolute;
-    left: 50%;
-    top: 150.5%;
-    transform: translate(-50%, -50%);
-    text-align: center; 
-
-}
-.sponsorstitle {
-    text-align: center;
-    text-transform: uppercase; /* convert the text to uppercase */
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 10px; /* add some margin to separate the title from the rectangle */
-}
-
-.email{
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 50px;
-    line-height: 61px;
-    position: relative;
-    margin: 40px;
-    color: #CAD2E5;
-    top:25%
-    
-}
-.h1{
-
-    width: 708.03px;
-    height: 117.18px;
-    left: 299.22px;
-    top: 4070.37px;
-    
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 70px;
-    line-height: 85px;
-    text-align: center;
-    
-    color: #C9D2E5;
-}
 }
