@@ -11,7 +11,7 @@ const Section = () => {
             </div>
       <div className={styles.emailBox}>
     <h2 className={styles.email}> Interested in Sponsoring HackIllinois?</h2>
-    <h2 className = {styles.email}>Email us at <span className={styles.email}>sponsor@hackillinois.org</span></h2>
+    <h2 className = {styles.email}>Email us at <span className={styles.email}><a href = "mailto:sponsor@hackillinois.org">sponsor@hackillinois.org</a></span></h2>
 </div>
 </div>
 </div>
