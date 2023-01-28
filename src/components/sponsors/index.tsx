@@ -6,13 +6,15 @@ const Section = () => {
         <div className={styles.sponsors}>
             <div className={styles.background}>
            
-            <div className={styles.rect}>
-                <h1 className={styles.h1}>SPONSORS</h1>
-            </div>
+         
       <div className={styles.emailBox}>
     <h2 className={styles.email}> Interested in Sponsoring HackIllinois?</h2>
-    <h2 className = {styles.email}>Email us at <span className={styles.email}><a href = "mailto:sponsor@hackillinois.org">sponsor@hackillinois.org</a></span></h2>
+    <h2 className = {styles.email}>Email us at <a href = "mailto:sponsor@hackillinois.org">sponsor@hackillinois.org</a></h2>
+    
 </div>
+<div className={styles.rect}>
+                <h1 className={styles.h1}>SPONSORS</h1>
+            </div>
 </div>
 </div>
      

@@ -1,6 +1,6 @@
 .sponsors {
     .background{
-        background-image: linear-gradient(to bottom, #0d387c, #196795);
+        background-image: linear-gradient(to bottom, #196795, #196797);
         position: absolute;
         width: 1692.9px;
         height: 2139.42px;
@@ -11,17 +11,32 @@
             position: absolute;
             width: 626.73px;
             height: 160.96px;
-            left: 339.45px;
-            top: 21%; //21%
+            left: 30%;
+            top: 8%; //21%
             text-align: center;
             border-radius: 40px;
+            transform: rotate(2.49deg);
     
     
     background: #1D2644;
     border-radius: 20px;
     transform: matrix(1, -0.05, 0.02, 1, 0, 0);
     
-    
+    .h1{
+      
+        align-items: center;
+        justify-content: center;
+        font-family: 'Montserrat';
+        font-style: normal;
+        text-align: center;
+        margin: 26px;
+
+        font-weight: 600;
+        font-size: 70px;
+        line-height: 85px;
+        transform: matrix(1, -0.05, 0.02, 1, 0, 0);
+        color: #C9D2E5;
+    }
     }
     
     .emailBox {
@@ -29,10 +44,10 @@
         background-color:#0D387C8F;
         width: 1337px;
         height: 1555px;
-        border: 1px solid #fff ;
+        border: 1px solid #0D387C8F ;
         border-radius: 40px;
-        left: 88px; //50%
-        top: 4127px; //60%
+        left: 18%; //50%
+        top: 13%; //60%
         text-align: center; 
     
     }
@@ -53,26 +68,10 @@
         position: relative;
         margin: 40px;
         color: #CAD2E5;
-        top:25% //25%
+        top:50% //25%
         
     }
-    .h1{
-    
-        width: 708.03px;
-        height: 117.18px;
-        left: 299.22px;
-        top: 4070.37px;
-        
-        font-family: 'Montserrat';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 70px;
-        line-height: 85px;
-        text-align: center;
-        transform: matrix(1, -0.05, 0.02, 1, 0, 0);
-        
-        color: #C9D2E5;
-    }
+
     }
 
 
