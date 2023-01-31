@@ -26,6 +26,7 @@ const Section: React.FC = () => (
     </div>
     <div className={styles.heroFooter}>
       <span className={styles.subtitle}>making memories</span>
+      <span className={styles.subsubtitle}>February 24 - 26</span>
       <img className={styles.banner} src={BANNER} />
       <img className={styles.lines} src={LINES} />
     </div>

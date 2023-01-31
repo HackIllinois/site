@@ -1,5 +1,4 @@
 .fileUpload {
-  // margin-top: var(--field-margin, 40px);
 
   label {
     border: 2px solid #FCDC8F;
@@ -23,7 +22,8 @@
   }
 
   p {
-    color: #FFFFFF;
     font-style: italic;
+    color: #C9D2E5;
+    font-size: 1.25em;
   }
 }

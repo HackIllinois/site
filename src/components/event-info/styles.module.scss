@@ -1,6 +1,6 @@
 .eventInfo {
     // background-image: linear-gradient(to bottom, #14518a, #196795);
-    margin-top: -8vw;
+    margin-top: -3vw;
     margin-bottom: 0;
     position: relative;
     z-index: 9;
@@ -27,6 +27,12 @@
         margin-bottom: 20px;
     }
 
+    h3 {
+        & > *:not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+
     a {
         color: inherit;
     }
@@ -34,7 +40,6 @@
     .outgoingLinkIcon {
         height: 32px;
         vertical-align: middle;
-        margin-left: 10px;
     }
 
     .firework {

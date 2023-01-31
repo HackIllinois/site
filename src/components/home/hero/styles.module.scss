@@ -129,6 +129,9 @@
 
 .heroFooter {
   position: absolute;
+  // bottom: 100vh;
+  // transform: translateY(-100%);
+  // top: 80vh;
   background-color: #0D387C;
   line-height: 100px;
   width: 100%;
@@ -143,6 +146,19 @@
     font-size: 45px;
     color: #FCDC8F;
     text-shadow: 0px 1px 20px rgba(252, 220, 143, 0.76);
+
+    @media screen and (max-width: 800px) {
+      font-size: 32px;
+    }
+  }
+
+  .subsubtitle {
+    line-height: 12px;
+    font-weight: 500;
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 15px;
+    margin-top: -10px;
 
     @media screen and (max-width: 800px) {
       font-size: 32px;

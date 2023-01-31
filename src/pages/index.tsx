@@ -3,13 +3,11 @@ import Head from 'next/head';
 
 import Hero from '../components/home/hero';
 import EventInfo from '../components/event-info';
-import Sponsor from '../components/sponsors';
 
-// import FAQs from './FAQs';
-// import Sponsors from './Sponsors';
-// import Speakers from './Speakers';
-// import OurTeam from './OurTeam';
-// import Footer from './Footer';
+import Sponsor from '../components/sponsors';
+import FAQs from '../components/faqs';
+import Footer from '../components/Footer';
+
 import styles from './styles.module.scss';
 
 const Home: React.FC = () => (
@@ -20,15 +18,9 @@ const Home: React.FC = () => (
     <div className={styles.home}>
       <Hero />
       <EventInfo />
-
-
-      {/* <Hero/> */}
-      { /*<EventInfo /> */ }
-      {/* <FAQs /> */}
-      {/* <Speakers /> */}
-      {/* <OurTeam /> */}
-      {/* <Sponsors /> */}
-      {/* <Footer /> */}
+      {/* <Sponsor /> */}
+      <FAQs />
+      <Footer />
     </div>
   </>
 );
