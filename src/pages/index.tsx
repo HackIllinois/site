@@ -18,9 +18,11 @@ const Home: React.FC = () => (
     <div className={styles.home}>
       <Hero />
       <EventInfo />
-      {/* <Sponsor /> */}
       <FAQs />
+      <Sponsor /> 
+
       <Footer />
+
     </div>
   </>
 );

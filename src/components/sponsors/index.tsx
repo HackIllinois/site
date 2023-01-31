@@ -13,7 +13,7 @@ const Section = () => {
     
 </div>
 <div className={styles.rect}>
-                <h1 className={styles.h1}>SPONSORS</h1>
+                <h1 className={styles.sponsorstitle}>SPONSORS</h1>
             </div>
 </div>
 </div>

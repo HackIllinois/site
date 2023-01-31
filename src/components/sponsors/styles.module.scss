@@ -1,18 +1,18 @@
 .sponsors {
     .background{
         background-image: linear-gradient(to bottom, #196795, #196797);
-        position: absolute;
-        width: 1692.9px;
-        height: 2139.42px;
-        left: -89px;
-        top: 3853px;
+        position: relative;
+        min-height: 150vh;
+        z-index: 2;
+        margin-bottom: 0;
+     
 
         .rect{
             position: absolute;
             width: 626.73px;
             height: 160.96px;
-            left: 30%;
-            top: 8%; //21%
+            left: 20%;
+            top: 5%; //21%
             text-align: center;
             border-radius: 40px;
             transform: rotate(2.49deg);
@@ -30,7 +30,7 @@
         font-style: normal;
         text-align: center;
         margin: 26px;
-
+        
         font-weight: 600;
         font-size: 70px;
         line-height: 85px;
@@ -42,11 +42,11 @@
     .emailBox {
         position: absolute;
         background-color:#0D387C8F;
-        width: 1337px;
-        height: 1555px;
+        width: 70%;
+        height: 70%;
         border: 1px solid #0D387C8F ;
         border-radius: 40px;
-        left: 18%; //50%
+        left: 14%; //50%
         top: 13%; //60%
         text-align: center; 
     
@@ -54,9 +54,10 @@
     .sponsorstitle {
         text-align: center;
         text-transform: uppercase; /* convert the text to uppercase */
-        font-size: 20px;
+        font-size: 60px;
         font-weight: bold;
         margin-top: 10px; /* add some margin to separate the title from the rectangle */
+        
     }
     
     .email{
@@ -68,7 +69,7 @@
         position: relative;
         margin: 40px;
         color: #CAD2E5;
-        top:50% //25%
+        top:20% //25%
         
     }
 
