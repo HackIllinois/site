@@ -1,6 +1,13 @@
 import React from 'react';
 import styles from './styles.module.scss';
 
+import logo1 from 'assets/sponsors/BATS.svg';
+import logo2  from 'assets/sponsors/BlueHill.svg';
+import logo3 from 'assets/sponsors/Epic Logo.svg';
+import logo4 from 'assets/sponsors/Github_Logo.svg';
+import logo5 from 'assets/sponsors/Caterpillar.svg';
+import logo6 from 'assets/sponsors/John-deere.svg';
+
 const Section = () => {
     return (
         <div className={styles.sponsors}>
@@ -8,11 +15,17 @@ const Section = () => {
            
          
       <div className={styles.emailBox}>
-    <h2 className={styles.email}> Interested in Sponsoring HackIllinois?</h2>
-    <h2 className = {styles.email}>Email us at <a href = "mailto:sponsor@hackillinois.org">sponsor@hackillinois.org</a></h2>
-    
+        <div className={styles.gridContainer}>
+    <img className = {styles.logo4} src = {logo1}/>
+    <img  className = {styles.logo5} src = {logo2}/>
+    <img  className = {styles.logo3} src = {logo3}/>
+    <img  className = {styles.logo2} src = {logo4}/>
+    <img  className = {styles.logo1} src = {logo5}/>
+    <img  className = {styles.logo6} src = {logo6}/>
+    </div>
 </div>
-<div className={styles.rect}>
+
+                <div className={styles.rect}>
                 <h1 className={styles.sponsorstitle}>SPONSORS</h1>
             </div>
 </div>
@@ -21,4 +34,5 @@ const Section = () => {
     );
 };
 
-export default Section;
+
+export default Section; 

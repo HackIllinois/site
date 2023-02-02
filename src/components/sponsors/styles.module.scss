@@ -73,7 +73,66 @@
         
     }
 
-    }
+}
+.gridContainer{
+    display: grid;
+    grid-template-areas: 
+        "john john"
+        "ghub Epic"
+        "BATS Caterpillar"
+        "BLUES BLUES"
+
+
+}
+.logo1{
+    position: relative;
+    grid-area: john;
+    left: 50%;
+    top:20%;
+
+    width: 50%;
+}
+.logo2{
+    position: relative;
+    
+    grid-area: ghub;
+    width: 70%;
+
+}
+.logo3{
+    position: relative;
+    grid-area: epic;
+    width: 95%;
+    top:-15%
+
+}
+.logo4{
+    position: relative;
+    grid-area: BATS;
+    width: 70%;
+    top: 110%;
+
+}
+.logo5{
+    position: relative;
+    grid-area: BLUES;
+    justify-content: right;
+    width: 80%;
+    top:130%
+
+}
+.logo6{
+    position: relative;
+    grid-area: Caterpillar;
+    width: 70%;
+    top:150%;
+    left:20%
+
+}
+.logo7{
+    width: 50%;
+
+}
 
 
 
