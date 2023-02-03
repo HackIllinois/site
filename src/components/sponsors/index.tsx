@@ -3,10 +3,10 @@ import styles from './styles.module.scss';
 
 import logo1 from 'assets/sponsors/BATS.svg';
 import logo2  from 'assets/sponsors/BlueHill.svg';
-import logo3 from 'assets/sponsors/Epic logo.svg';
-import logo4 from 'assets/sponsors/GitHub_Logo.svg';
+import logo3 from 'assets/sponsors/Epic.svg';
+import logo4 from 'assets/sponsors/GitHub.svg';
 import logo5 from 'assets/sponsors/Caterpillar.svg';
-import logo6 from 'assets/sponsors/John-deere.svg';
+import logo6 from 'assets/sponsors/John-Deere.svg';
 import logo7 from 'assets/sponsors/Cardano.svg'
 import logo8 from 'assets/sponsors/1517.svg'
 
