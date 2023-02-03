@@ -43,7 +43,7 @@
         position: absolute;
         background-color:#0D387C8F;
         width: 80%;
-        height: 60%;
+        height: 85%;
         border: 1px solid #0D387C8F ;
         border-radius: 40px;
         left: 9.5%; //50%
@@ -79,7 +79,8 @@
     grid-template-areas: 
         "john john"
         "ghub Epic"
-        "BATS Caterpillar"
+        "Cardano Cardano"
+        "log Caterpillar"
         "BLUES BLUES"
 
 
@@ -87,51 +88,72 @@
 .logo1{
     position: relative;
     grid-area: john;
-    left: 50%;
-    top:20%;
+    left: 45%;
+    top:33%;
 
-    width: 50%;
+    width: 60%;
 }
 .logo2{
     position: relative;
     
     grid-area: ghub;
     width: 70%;
+    top:238%;
+    left:70%;
+    margin-left: 20px;
 
 }
 .logo3{
     position: relative;
     grid-area: epic;
-    width: 95%;
-    top:-15%
+    width: 105%;
+    right:55%;
+    top:-92%
 
 }
 .logo4{
     position: relative;
     grid-area: BATS;
     width: 70%;
-    top: 110%;
+    top: 360%;
+    margin-left: 20px;
+
 
 }
 .logo5{
     position: relative;
     grid-area: BLUES;
-    justify-content: right;
-    width: 80%;
-    top:130%
+    width: 50%;
+    left:45%;
+    top:440%;
+    margin-left: 20px;
+
+    
 
 }
 .logo6{
     position: relative;
     grid-area: Caterpillar;
-    width: 70%;
-    top:150%;
-    left:20%
+    width: 90%;
+    top:260%;
+    left:45%
+
 
 }
 .logo7{
-    width: 50%;
+    position: relative;
+    grid-area:Cardano;
+    width: 70%;
+    top:240%;
+    left:35%;
 
+}
+.logo8{
+    position: relative;
+    grid-area:log;
+    width: 65%;
+    left:55%;
+    top:230%
 }
 
 
