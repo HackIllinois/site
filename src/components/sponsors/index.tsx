@@ -18,7 +18,6 @@ const Section = () => {
          
       <div className={styles.emailBox}>
         <div className={styles.gridContainer}>
-    <img className = {styles.logo4} src = {logo1}/>
     <img  className = {styles.logo5} src = {logo2}/>
     <img  className = {styles.logo3} src = {logo3}/>
     <img  className = {styles.logo2} src = {logo4}/>

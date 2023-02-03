@@ -9,8 +9,8 @@
 
         .rect{
             position: absolute;
-            width: 626.73px;
-            height: 160.96px;
+            width: 60%;
+            height: 10%;
             left: 20%;
             top: 10%; //21%
             text-align: center;
@@ -54,7 +54,7 @@
     .sponsorstitle {
         text-align: center;
         text-transform: uppercase; /* convert the text to uppercase */
-        font-size: 60px;
+        font-size: 45px;
         font-weight: bold;
         margin-top: 15px; /* add some margin to separate the title from the rectangle */
         
@@ -99,7 +99,7 @@
     grid-area: ghub;
     width: 70%;
     top:238%;
-    left:70%;
+    left:58%;
     margin-left: 20px;
 
 }
@@ -107,8 +107,8 @@
     position: relative;
     grid-area: epic;
     width: 105%;
-    right:55%;
-    top:-92%
+    right:50%;
+    top:-95%
 
 }
 .logo4{
