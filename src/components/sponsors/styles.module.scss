@@ -10,9 +10,9 @@
         .rect{
             position: absolute;
             width: 60%;
-            height: 10%;
+            height: auto;
             left: 20%;
-            top: 10%; //21%
+            top: 13%; //21%
             text-align: center;
             border-radius: 40px;
             transform: rotate(2.49deg);
@@ -42,8 +42,8 @@
     .emailBox {
         position: absolute;
         background-color:#0D387C8F;
-        width: 80%;
-        height: 85%;
+        width: auto;
+        height: auto;
         border: 1px solid #0D387C8F ;
         border-radius: 40px;
         left: 9.5%; //50%
