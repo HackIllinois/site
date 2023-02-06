@@ -5,14 +5,16 @@
         min-height: 200vh;
         z-index: 2;
         margin-bottom: 0;
-     
+        @media only screen and (max-width: 768px) {
+             min-height: 100vh;
+          }
 
         .rect{
             position: absolute;
-            width: 60%;
+            width: 57%;
             height: auto;
-            left: 20%;
-            top: 13%; //21%
+            left: 25%;
+            top: 14%; //21%
             text-align: center;
             border-radius: 40px;
             transform: rotate(2.49deg);
@@ -56,7 +58,7 @@
         text-transform: uppercase; /* convert the text to uppercase */
         font-size: 45px;
         font-weight: bold;
-        margin-top: 15px; /* add some margin to separate the title from the rectangle */
+        margin-top: 1px; /* add some margin to separate the title from the rectangle */
         
     }
     
@@ -92,6 +94,9 @@
     top:33%;
 
     width: 60%;
+    @media only screen and (max-width: 768px) {
+        top: 35%;
+     }
 }
 .logo2{
     position: relative;
