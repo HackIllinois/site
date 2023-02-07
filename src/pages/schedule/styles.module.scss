@@ -6,6 +6,21 @@
 
     .frontLights {
         position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+    }
 
+    .ticket1 {
+        z-index: 2;
+    }
+
+    .ticket2 {
+        z-index: 2;
+    }
+
+    .ticket3 {
+        z-index: 2;
     }
 }
