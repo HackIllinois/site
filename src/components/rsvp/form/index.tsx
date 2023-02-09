@@ -48,11 +48,11 @@ const Form = (): JSX.Element => {
   const [registration, setRegistration] = useState<WithId<RegistrationType> | null>(null);
   const [profile, setProfile] = useState<WithId<ProfileType> | null>(null);
 
-  // useEffect(() => {
-  //   if (!isAuthenticated()) {
-  //     authenticate(`${process.env.NEXT_PUBLIC_REACT_APP_URL}${router.pathname}`);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      authenticate(`${process.env.NEXT_PUBLIC_REACT_APP_URL}${router.pathname}`);
+    }
+  }, []);
 
   useEffect(() => {
     const initialize = async () => {
