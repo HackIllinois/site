@@ -10,20 +10,21 @@ type PropTypes = {
   name: string,
   multiline?: boolean;
   helpLink?: string;
+  disabled?: boolean;
   linkColor?: string;
   [key: string]: unknown;
 };
 
-const Input = ({ name, multiline, helpLink, linkColor = 'white', ...props }: PropTypes): JSX.Element => {
+const Input = ({ name, multiline, helpLink, disabled, linkColor = 'white', ...props }: PropTypes): JSX.Element => {
   const { register } = useFormContext();
 
   return (
     <>
       <div className={styles.inputContainer}>
-        <StyledInput type="text" multiline={multiline} {...props} 
-        {...register(name, { required: true })}
+        <StyledInput type="text" multiline={multiline} disabled={disabled} {...props}
+          {...register(name, { required: true })}
         />
-        {helpLink && (
+        {helpLink && !disabled && (
           <a className={styles.helpLink} href={"https://2022.hackillinois.org/static/media/discord_username_how_to.bfc75d98.png"} target="_blank" rel="noreferrer" title="Please add your Discord Username (Ex. yourusername#0123)">
             <HelpIcon color={linkColor} />
           </a>

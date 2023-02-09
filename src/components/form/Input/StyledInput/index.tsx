@@ -6,22 +6,23 @@ import styles from './styles.module.scss';
 type PropTypes = {
   className?: string;
   multiline?: boolean;
+  disabled?: boolean;
   [key: string]: unknown;
 };
 
 // Adapted from https://stackoverflow.com/a/46777664
-const adjustHeight = (textarea: HTMLTextAreaElement|null) => {
+const adjustHeight = (textarea: HTMLTextAreaElement | null) => {
   if (textarea) {
     textarea.style.height = '';
     textarea.style.height = `${textarea.scrollHeight}px`;
   }
 };
 
-const StyledInput = forwardRef<HTMLInputElement|HTMLTextAreaElement, PropTypes>(({ className, multiline = false, ...props }: PropTypes, ref): JSX.Element => {
+const StyledInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, PropTypes>(({ className, multiline = false, disabled, ...props }: PropTypes, ref): JSX.Element => {
   if (multiline) {
     return (
       <textarea
-        className={clsx(styles.input, styles.multiline, className)}
+        className={clsx(styles.input, disabled && styles.disabled, styles.multiline, className)}
         {...props}
         onChange={({ target }) => adjustHeight(target)}
         ref={(r) => {
@@ -36,7 +37,7 @@ const StyledInput = forwardRef<HTMLInputElement|HTMLTextAreaElement, PropTypes>(
     );
   }
 
-  return <input className={clsx(styles.input, className)} {...props} ref={ref as React.Ref<HTMLInputElement>} />;
+  return <input className={clsx(styles.input, disabled && styles.disabled, className)} {...props} ref={ref as React.Ref<HTMLInputElement>} />;
 });
 
 export default StyledInput;

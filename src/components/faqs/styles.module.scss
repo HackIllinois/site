@@ -47,7 +47,7 @@
       h3 {
         margin: 20px 0 5px 0;
         color: #FCDC8F;
-        font-size: 28px;
+        font-size: 22px;
         font-weight: 500;
         font-family: Montserrat, sans-serif;
         line-height: 34px;
@@ -115,6 +115,7 @@
     position: relative;
     top: 0;
     bottom: auto;
+    max-height: 80vh;
 
     @media (max-width: 900px) {
       max-width: 40vw;
@@ -164,5 +165,9 @@
       height: 20vw;
       width: 18vw;
     }
+  }
+
+  p {
+    font-size: 18px;
   }
 }

@@ -15,8 +15,10 @@
 
   .arrowIcon {
     width: 7px;
+
     &.right {
       transform: scale(1.1);
+
       &.margin {
         margin-left: 10px;
       }
@@ -24,6 +26,7 @@
 
     &.left {
       transform: rotate(180deg) scale(1.1);
+
       &.margin {
         margin-right: 10px;
       }
@@ -36,6 +39,8 @@
 
   &.disabled {
     cursor: not-allowed;
+    pointer-events: none;
+    visibility: hidden;
     background-color: #6D7072;
   }
 

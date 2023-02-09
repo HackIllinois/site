@@ -90,6 +90,10 @@ export type RSVPType = {
   isAttending: boolean;
 };
 
+export type DecisionType = {
+  status: string;
+};
+
 export type ProfileType = Partial<{
   firstName: string;
   lastName: string;
