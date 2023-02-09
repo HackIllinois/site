@@ -8,6 +8,11 @@
         @media only screen and (max-width: 768px) {
              min-height: 100vh;
           }
+          @media only screen and (min-width: 1000px) {
+            min-height: 250vh;
+         }
+         
+          
 
         .rect{
             position: absolute;
@@ -48,7 +53,6 @@
         height: auto;
         border: 1px solid #0D387C8F ;
         border-radius: 40px;
-        left: 9.5%; //50%
         top: 18%; //60%
         text-align: center; 
     
