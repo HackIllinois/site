@@ -1,4 +1,5 @@
 import React from 'react';
+import Navbar from 'components/Navbar';
 
 import FERRIS_WHEEL_LARGE from 'assets/home/hero/ferris_wheel_large.svg';
 import FERRIS_WHEEL_SMALL from 'assets/home/hero/ferris_wheel_small.svg';
@@ -11,12 +12,13 @@ const Section: React.FC = () => (
   <section className={styles.hero}>
     <div className={styles.heroBackground}>
       <div className={styles.topHeader}>
-        <nav>
+        {/* <nav>
           <img className={styles.logo} src={LOGO} />
           <ul>
             <li><a href="/register">Register</a></li>
           </ul>
-        </nav>
+        </nav> */}
+        <Navbar path="/"/>
         <div className={styles.welcomeTo}>Welcome to</div>
         <h1>HackIllinois</h1>
         <div className={styles.dates}>Feb 24th - Feb 26th</div>
