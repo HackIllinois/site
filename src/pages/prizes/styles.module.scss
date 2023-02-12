@@ -3,7 +3,7 @@
     overflow: hidden !important;
     min-height: 100vh;
     background-image: linear-gradient(to bottom, #FE7098, #088BC1);
-    padding-top: 40px;
+    // padding-top: 40px;
     position: relative;
 
     .bubbles {
@@ -53,7 +53,7 @@
             .prize {
                 background-color: #FFFFFF;
                 width: 30%;
-                min-height: 30%;
+                min-height: 40%;
                 border-radius: 20px;
                 padding: 40px;
                 display: flex;
@@ -70,13 +70,14 @@
                 .logo {
                     margin: auto;
                     text-align: center;
+                    padding-bottom: 15px;
                 }
     
                 h3 {
                     color: #233C79;
                     text-align: center;
                     // line-height: 30px;
-                    font-size: x-large;
+                    font-size: 22px;
                     
                 }
     
