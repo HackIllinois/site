@@ -1,169 +1,178 @@
 .sponsors {
-    .background{
+    .background {
         background-image: linear-gradient(to bottom, #196799, #27A4B6);
         position: relative;
         min-height: 200vh;
         z-index: 2;
         margin-bottom: 0;
-        @media only screen and (max-width: 768px) {
-             min-height: 100vh;
-          }
-          @media only screen and (min-width: 1000px) {
-            min-height: 250vh;
-         }
-         
-          
 
-        .rect{
+        @media only screen and (max-width: 768px) {
+            min-height: 100vh;
+        }
+
+        .rect {
             position: absolute;
             width: 57%;
             height: auto;
-            left: 25%;
+            left: 22%;
             top: 14%; //21%
             text-align: center;
             border-radius: 40px;
-            transform: rotate(2.49deg);
-    
-    
-    background: #1D2644;
-    border-radius: 20px;
-    transform: matrix(1, -0.05, 0.02, 1, 0, 0);
-    
-    .h1{
-      
-        align-items: center;
-        justify-content: center;
-        font-family: 'Montserrat';
-        font-style: normal;
-        text-align: center;
-        margin: 26px;
-        
-        font-weight: 600;
-        font-size: 70px;
-        line-height: 85px;
-        transform: matrix(1, -0.05, 0.02, 1, 0, 0);
-        color: #C9D2E5;
+            // transform: rotate(2.49deg);
+
+
+            background: #1D2644;
+            border-radius: 20px;
+            transform: matrix(1, -0.05, 0.02, 1, 0, 0);
+
+            .h1 {
+
+                align-items: center;
+                justify-content: center;
+                font-family: 'Montserrat';
+                font-style: normal;
+                text-align: center;
+                margin: 26px;
+
+                font-weight: 600;
+                font-size: 70px;
+                line-height: 85px;
+                transform: matrix(1, -0.05, 0.02, 1, 0, 0);
+                color: #C9D2E5;
+            }
+        }
+
+        .emailBox {
+            position: absolute;
+            background-color: #0D387C8F;
+            width: auto;
+            height: auto;
+            border: 1px solid #0D387C8F;
+            border-radius: 40px;
+            margin-left: 7%;
+            margin-right: 7%;
+            // left: 9.5%; //50%
+            top: 18%; //60%
+            text-align: center;
+
+        }
+
+        .sponsorstitle {
+            text-align: center;
+            text-transform: uppercase;
+            /* convert the text to uppercase */
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-top: 1px;
+            /* add some margin to separate the title from the rectangle */
+
+        }
+
+        .email {
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 50px;
+            line-height: 61px;
+            position: relative;
+            margin: 40px;
+            color: #CAD2E5;
+            top: 35% //25%
+
+        }
+
     }
+
+    .gridContainer {
+        display: grid;
+        grid-template-areas:
+            "john john"
+            "ghub Epic"
+            "Cardano Cardano"
+            "log Caterpillar"
+            "BLUES BLUES"
+
+
     }
-    
-    .emailBox {
-        position: absolute;
-        background-color:#0D387C8F;
-        width: auto;
-        height: auto;
-        border: 1px solid #0D387C8F ;
-        border-radius: 40px;
-        top: 18%; //60%
-        text-align: center; 
-    
-    }
-    .sponsorstitle {
-        text-align: center;
-        text-transform: uppercase; /* convert the text to uppercase */
-        font-size: 45px;
-        font-weight: bold;
-        margin-top: 1px; /* add some margin to separate the title from the rectangle */
-        
-    }
-    
-    .email{
-        font-family: 'Montserrat';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 50px;
-        line-height: 61px;
+
+    .logo1 {
         position: relative;
-        margin: 40px;
-        color: #CAD2E5;
-        top:35% //25%
-        
+        grid-area: john;
+        left: 45%;
+        top: 33%;
+
+        width: 60%;
+
+        @media only screen and (max-width: 768px) {
+            top: 35%;
+        }
     }
 
-}
-.gridContainer{
-    display: grid;
-    grid-template-areas: 
-        "john john"
-        "ghub Epic"
-        "Cardano Cardano"
-        "log Caterpillar"
-        "BLUES BLUES"
+    .logo2 {
+        position: relative;
+
+        grid-area: ghub;
+        width: 70%;
+        top: 238%;
+        left: 58%;
+        margin-left: 20px;
+
+    }
+
+    .logo3 {
+        position: relative;
+        grid-area: epic;
+        width: 105%;
+        right: 50%;
+        top: -95%
+    }
+
+    .logo4 {
+        position: relative;
+        grid-area: BATS;
+        width: 70%;
+        top: 360%;
+        margin-left: 20px;
 
 
-}
-.logo1{
-    position: relative;
-    grid-area: john;
-    left: 45%;
-    top:33%;
+    }
 
-    width: 60%;
-    @media only screen and (max-width: 768px) {
-        top: 35%;
-     }
-}
-.logo2{
-    position: relative;
-    
-    grid-area: ghub;
-    width: 70%;
-    top:238%;
-    left:58%;
-    margin-left: 20px;
-
-}
-.logo3{
-    position: relative;
-    grid-area: epic;
-    width: 105%;
-    right:50%;
-    top:-95%
-
-}
-.logo4{
-    position: relative;
-    grid-area: BATS;
-    width: 70%;
-    top: 360%;
-    margin-left: 20px;
+    .logo5 {
+        position: relative;
+        grid-area: BLUES;
+        width: 50%;
+        left: 45%;
+        top: 440%;
+        margin-left: 20px;
 
 
-}
-.logo5{
-    position: relative;
-    grid-area: BLUES;
-    width: 50%;
-    left:45%;
-    top:440%;
-    margin-left: 20px;
 
-    
+    }
 
-}
-.logo6{
-    position: relative;
-    grid-area: Caterpillar;
-    width: 90%;
-    top:260%;
-    left:45%
+    .logo6 {
+        position: relative;
+        grid-area: Caterpillar;
+        width: 90%;
+        top: 260%;
+        left: 45%
+    }
 
+    .logo7 {
+        position: relative;
+        grid-area: Cardano;
+        width: 70%;
+        top: 240%;
+        left: 35%;
 
-}
-.logo7{
-    position: relative;
-    grid-area:Cardano;
-    width: 70%;
-    top:240%;
-    left:35%;
+    }
 
-}
-.logo8{
-    position: relative;
-    grid-area:log;
-    width: 65%;
-    left:55%;
-    top:230%
-}
+    .logo8 {
+        position: relative;
+        grid-area: log;
+        width: 65%;
+        left: 55%;
+        top: 230%
+    }
 
 
 
