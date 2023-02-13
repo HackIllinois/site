@@ -6,6 +6,7 @@
         z-index: 2;
         margin-bottom: 0;
         
+        
 
         // @media only screen and (max-width: 1768px) {
         //     min-height: 100vh;
@@ -153,22 +154,23 @@
     .coaster {
         position: absolute;
         width: 80%;
-        left: 17%;
-        top: auto;
-        bottom: 20%;
-        z-index: -1;
+        left: 27%;
+        bottom: auto;
+        top: 90%;
+        
+        // z-index: -1;
 
-        @media only screen and (max-width: 600px) {
-            width: 100%;
-            left: 0%;
-        }
+        // @media only screen and (max-width: 600px) {
+        //     width: 100%;
+        //     left: 0%;
+        // }
 
-        @media only screen and (max-height: 550px) {
-            bottom: -140%;
-        }
-        @media only screen and (max-height: 1000px) {
-            bottom: -20%;
-        }
+        // @media only screen and (max-height: 550px) {
+        //     bottom: -140%;
+        // }
+        // @media only screen and (max-height: 1000px) {
+        //     bottom: -20%;
+        // }
     }
 
     .logo1 {

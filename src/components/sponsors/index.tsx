@@ -30,6 +30,7 @@ const Section = () => {
     <img className = {styles.logo7} src = {logo7} />
     <img className = {styles.logo8} src = {logo8} />
     <img  className = {styles.logo5} src = {logo2}/>
+    <img className = {styles.coaster} src = {coaster}/>
 
 
     </div>
@@ -37,7 +38,7 @@ const Section = () => {
     <br></br>
     
 </div>
-<img className = {styles.coaster} src = {coaster}/>
+
 
                 <div className={styles.rect}>
                 <h1 className={styles.sponsorstitle}>SPONSORS</h1>
