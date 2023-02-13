@@ -56,7 +56,7 @@ const Travel = () => {
                             <div className={styles.time}>7:30 PM EST</div>
                             <div className={styles.location}>Richard and Patricia Lawson Computer Science Building, 305 N University St, West Lafayette, IN</div>
                             <div className={styles.time}>9:30 PM EST</div>
-                            <div className={styles.location}>Richard and Patricia Lawson Computer Science Building, 305 N University St, West Lafayette, IN</div>
+                            <div className={styles.location}>Computer and Information Science Department, 732 W Michigan St, Indianapolis, IN</div>
                         </td>
                     </tr>
                 </tbody>
