@@ -5,16 +5,32 @@
         min-height: 200vh;
         z-index: 2;
         margin-bottom: 0;
+        
 
-        @media only screen and (max-width: 768px) {
+        // @media only screen and (max-width: 1768px) {
+        //     min-height: 100vh;
+        // }
+
+        @media only screen and (max-width: 1200px) {
             min-height: 100vh;
         }
 
+        // @media only screen and (max-height: 800px) {
+        //     margin-bottom: 10vh;
+        //     // min-height: 120vh;
+        // }
+
+        // @media only screen and (max-height: 600px) {
+        //     margin-bottom: 10vh;
+        //     // min-height: 80vh;
+        // }
+
+
         .rect {
             position: absolute;
-            width: 57%;
-            height: auto;
-            left: 22%;
+            width: 47%;
+            height: 8%;
+            left: 20%;
             top: 14%; //21%
             text-align: center;
             border-radius: 40px;
@@ -24,6 +40,26 @@
             background: #1D2644;
             border-radius: 20px;
             transform: matrix(1, -0.05, 0.02, 1, 0, 0);
+
+            @media only screen and (max-width: 1200px) {
+                height: 12%;
+            }
+
+            @media only screen and (max-width: 1250px) and (max-height: 900px) {
+                height: 18%;
+            }
+
+            @media only screen and (max-width: 1050px) and (max-height: 600px) {
+                height: 25%;
+            }
+
+            @media only screen and (max-width: 1050px) and (max-height: 400px) {
+                height: 30%;
+            }
+
+            @media only screen and (max-width: 600px) {
+                height: 80px;
+            }
 
             .h1 {
 
@@ -61,11 +97,28 @@
             text-align: center;
             text-transform: uppercase;
             /* convert the text to uppercase */
-            font-size: 1.8em;
+            font-size: 2.8em;
             font-weight: bold;
-            margin-top: 1px;
+            margin: auto;
             /* add some margin to separate the title from the rectangle */
+            margin-top: 5%;
 
+            @media only screen and (max-width: 800px) {
+                font-size: 1.8em;
+            }
+
+            @media only screen and (max-width: 300px) {
+                font-size: 1.2em;
+            }
+
+        }
+
+        .lights {
+            width: 100vw;
+            height: auto;
+            position: fixed;
+            transform: translateX(-44.2%) translateY(-62%) rotate(4deg);
+            object-fit: cover;
         }
 
         .email {
@@ -88,11 +141,34 @@
         grid-template-areas:
             "john john"
             "ghub Epic"
+            "BATS BLUES"
             "Cardano Cardano"
             "log Caterpillar"
-            "BLUES BLUES"
+            
+            
 
 
+    }
+
+    .coaster {
+        position: absolute;
+        width: 80%;
+        left: 17%;
+        top: auto;
+        bottom: 20%;
+        z-index: -1;
+
+        @media only screen and (max-width: 600px) {
+            width: 100%;
+            left: 0%;
+        }
+
+        @media only screen and (max-height: 550px) {
+            bottom: -140%;
+        }
+        @media only screen and (max-height: 1000px) {
+            bottom: -20%;
+        }
     }
 
     .logo1 {
@@ -113,8 +189,8 @@
 
         grid-area: ghub;
         width: 70%;
-        top: 238%;
-        left: 58%;
+        top: 258%;
+        left: 72%;
         margin-left: 20px;
 
     }
@@ -122,17 +198,17 @@
     .logo3 {
         position: relative;
         grid-area: epic;
-        width: 105%;
-        right: 50%;
-        top: -95%
+        width: 115%;
+        right: 65%;
+        top: -90%
     }
 
     .logo4 {
         position: relative;
         grid-area: BATS;
         width: 70%;
-        top: 360%;
-        margin-left: 20px;
+        top: 300%;
+        margin-left: 60%;
 
 
     }
@@ -140,9 +216,9 @@
     .logo5 {
         position: relative;
         grid-area: BLUES;
-        width: 50%;
-        left: 45%;
-        top: 440%;
+        width: 103%;
+        left: 40%;
+        top: 300%;
         margin-left: 20px;
 
 
@@ -161,7 +237,7 @@
         position: relative;
         grid-area: Cardano;
         width: 70%;
-        top: 240%;
+        top: 270%;
         left: 35%;
 
     }
@@ -170,7 +246,7 @@
         position: relative;
         grid-area: log;
         width: 65%;
-        left: 55%;
+        left: 65%;
         top: 230%
     }
 
