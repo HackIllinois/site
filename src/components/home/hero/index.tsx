@@ -11,6 +11,7 @@ import styles from './styles.module.scss';
 const Section: React.FC = () => (
   <section className={styles.hero}>
     <div className={styles.heroBackground}>
+      <Navbar path="/"/>
       <div className={styles.topHeader}>
         {/* <nav>
           <img className={styles.logo} src={LOGO} />
@@ -18,7 +19,7 @@ const Section: React.FC = () => (
             <li><a href="/register">Register</a></li>
           </ul>
         </nav> */}
-        <Navbar path="/"/>
+        
         <div className={styles.welcomeTo}>Welcome to</div>
         <h1>HackIllinois</h1>
         <div className={styles.dates}>Feb 24th - Feb 26th</div>
