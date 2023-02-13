@@ -6,6 +6,8 @@ import styles from './styles.module.scss';
 import FRONT_LIGHTS from '../../assets/travel/lights.svg';
 import UMBRELLA from '../../assets/travel/umbrella.svg';
 import STAND_BOTTOM from '../../assets/travel/stand_bottom.svg';
+import CORNER_LEFT from '../../assets/travel/corner_left.svg';
+import CORNER_RIGHT from '../../assets/travel/corner_right.svg';
 
 const Travel = () => {
   return (
@@ -62,7 +64,11 @@ const Travel = () => {
                 </tbody>
             </table>
           </div>
-          <img className={styles.standBottom} src={STAND_BOTTOM} />
+          <div className={styles.standBottomWrapper}>
+            <img className={styles.standBottom} src={STAND_BOTTOM} />
+            <img className={styles.cornerLeft} src={CORNER_LEFT} />
+            <img className={styles.cornerRight} src={CORNER_RIGHT} />
+          </div>
         </div>
       </div>
     </>
