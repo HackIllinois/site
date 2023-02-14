@@ -115,14 +115,22 @@
     position: absolute;
     width: 100%;
     z-index: 2;
+
+    @media screen and (max-width: 900px) {
+      top: 20%;
+    }
+
+    @media screen and (max-height: 500px) {
+      top: 0;
+    }
   }
 
   .ferrisWheelLarge {
     position: absolute;
     left: 50%;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, 8.8%);
     bottom: 0;
-    height: 60%;
+    height: 55%;
 
     @media screen and (max-width: 800px) {
       display: none;
@@ -136,9 +144,9 @@
       display: inline;
       position: absolute;
       left: 50%;
-      transform: translate(-50%, 0);
+      transform: translate(-50%, 8.8%);
       bottom: 0;
-      height: 55%;
+      height: 50%;
     }
   }
 }

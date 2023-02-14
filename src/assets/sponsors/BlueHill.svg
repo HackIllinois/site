@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1002" height="221" viewBox="0 0 1002 221">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="1.002" x2="0.5" y2="-0.004" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#157efb"/>
+      <stop offset="1" stop-color="#2dacf4"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" y1="1" y2="0" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="0.085" y1="0.22" x2="0.915" y2="0.78" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f28e26"/>
+      <stop offset="1" stop-color="#fd644f"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_360" data-name="Group 360" transform="translate(-218 -477)">
+    <g id="BlueHill_Icon-Test" data-name="BlueHill Icon-Test" transform="translate(218 512)">
+      <g id="Layer_2" transform="translate(0 25.867)">
+        <g id="Group_359" data-name="Group 359">
+          <path id="Path_362" data-name="Path 362" d="M154.958,136.049s-17.309,8.451-30.167,15.266-26,16.166-40.454,28.534-23.6,21.023-34.7,25.145-21.147.98-29.514-2.409S0,191.117,0,191.117s5.1-1.163,18.942-17.39,19.839-23.392,33-38.147S80.3,109.955,99.952,109.051s36.187,10.793,42.189,15.2A111,111,0,0,1,154.958,136.049Z" transform="translate(0 -109.001)" fill="url(#linear-gradient)"/>
+          <path id="Path_363" data-name="Path 363" d="M415.3,295.944s-18.4,5.707-32.146,10.48-28.169,12-44.339,22.02-26.529,17.172-38.133,19.55-21.047-2.262-28.8-6.889-18.135-14.412-18.135-14.412,5.221-.37,21.374-14.293,23.18-20.086,38.444-32.659,31.932-20.995,51.5-18.883,34.116,16.194,39.372,21.467A110.978,110.978,0,0,1,415.3,295.941Z" transform="translate(-193.533 -224.573)" fill="url(#linear-gradient-2)"/>
+        </g>
+      </g>
+      <g id="Layer_1" transform="translate(153.84 0)">
+        <circle id="Ellipse_234" data-name="Ellipse 234" cx="25.917" cy="25.917" r="25.917" fill="url(#linear-gradient-3)"/>
+      </g>
+    </g>
+    <text id="BlueHill_" data-name="BlueHill " transform="translate(837 652)" fill="#28a2f6" font-size="188" font-family="WorkSans-Regular, Work Sans"><tspan x="-382.674" y="0">BlueHill </tspan></text>
+  </g>
+</svg>
