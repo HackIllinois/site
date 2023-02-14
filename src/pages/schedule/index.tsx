@@ -89,8 +89,8 @@ const Schedule: React.FC<IProps> = ({ events }) => {
                           <img className={styles.icon} src={TIME_ICON} />
                           <div>{new Date(event.startTime * 1000).toLocaleTimeString()} - {new Date(event.endTime * 1000).toLocaleTimeString()}</div>
                         </div>
-                        {event.locations.map(location => (
-                          <div>
+                        {event.locations.map((location, i) => (
+                          <div key={i}>
                             <img className={styles.icon} src={LOCATION_ICON} />
                             {location.description}
                           </div>
@@ -101,7 +101,7 @@ const Schedule: React.FC<IProps> = ({ events }) => {
                     <td>
                       <div className={styles.eventBox}>
                         <div className={styles.title}>{event.name}</div>
-                        <div className={styles.points}>{event.points} Points</div>
+                        {event.points > 0 && <div className={styles.points}>{event.points} Points</div>}
                         <div className={styles.description}>{event.description}</div>
                       </div>
                     </td>
@@ -115,27 +115,45 @@ const Schedule: React.FC<IProps> = ({ events }) => {
             <div className={clsx(styles.ticketTitle, styles.ticketTitle1)} onClick={() => setTicketDays(([d0, d1, d2]) => [d1, d0, d2])}>{ticketDays[1]}</div>
             <div className={clsx(styles.ticketTitle, styles.ticketTitle2)} onClick={() => setTicketDays(([d0, d1, d2]) => [d2, d1, d0])}>{ticketDays[2]}</div>
             <img className={styles.tickets} src={TICKETS_VERTICAL} />
-            <table className={styles.ticketContent}>
-              {/* <div>{dayToTitle[ticketDays[0]]}</div> */}
-              {/* <tr className={styles.timeBoxes}>
-                {dayToEvents[ticketDays[0]].map(event => (
-                  <td>
-                    <div className={styles.timeBox}>
-                      <div>
-                        <img className={styles.icon} src={TIME_ICON} />
-                        <div>{new Date(event.startTime * 1000).toLocaleTimeString()} - {new Date(event.endTime * 1000).toLocaleTimeString()}</div>
-                      </div>
-                      {event.locations.map(location => (
-                        <div>
-                          <img className={styles.icon} src={LOCATION_ICON} />
-                          {location.description}
+            <div className={styles.ticketContent}>
+              {/* <div className={styles.ticketHeader}>{dayToTitle[ticketDays[0]]}</div> */}
+              <table>
+                <tbody>
+                  <tr className={styles.timeBoxes}>
+                    {dayToEvents[ticketDays[0]].map(event => (
+                      <td>
+                        <div className={styles.timeBox}>
+                          <div>
+                            <img className={styles.icon} src={TIME_ICON} />
+                            <div>{new Date(event.startTime * 1000).toLocaleTimeString()} - {new Date(event.endTime * 1000).toLocaleTimeString()}</div>
+                          </div>
+                          {event.locations.map(location => (
+                            <div>
+                              <img className={styles.icon} src={LOCATION_ICON} />
+                              {location.description}
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  </td>
-                ))}
-              </tr> */}
-            </table>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr>
+                    {dayToEvents[ticketDays[0]].map(() => <td />)}
+                  </tr>
+                  <tr>
+                    {dayToEvents[ticketDays[0]].map(event => (
+                        <td>
+                          <div className={styles.eventBox}>
+                            <div className={styles.title}>{event.name}</div>
+                            {event.points > 0 && <div className={styles.points}>{event.points} Points</div>}
+                            <div className={styles.description}>{event.description}</div>
+                          </div>
+                        </td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
       </div>
     </>
