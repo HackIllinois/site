@@ -1,5 +1,6 @@
 import styles from "./styles.module.scss";
 import Navbar from "components/Navbar";
+import Head from 'next/head';
 
 import BOOTH from "../../assets/prizes/booth.svg";
 import HACKLOGO from "../../assets/prizes/hacklogo.svg";
@@ -75,3 +76,4 @@ const Prizes: React.FC = () => {
 };
 
 export default Prizes;
+

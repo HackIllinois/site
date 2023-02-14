@@ -14,6 +14,9 @@
 
         return config;
     },
+    compiler: {
+        styledComponents: true,
+    },
 };
 
 module.exports = nextConfig;

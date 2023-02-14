@@ -1,0 +1,243 @@
+.schedule {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(179.18deg, #0D387C 5.86%, #856D93 66.17%, #FEA3AA 109.97%, #FEADA5 120.01%, #FDC899 133.86%, #FCDC8F 152.7%);
+    overflow-y: hidden;
+    color: black;
+    padding: 0px 100px;
+
+    .frontLights {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    .ticketWrapperHorizontal {
+        position: relative;
+
+        .tickets {
+            width: 100%;
+        }
+
+        .ticketTitle {
+            position: absolute;
+            font-size: 2.15vw;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .ticketTitle1 {
+            top: 15.5%;
+            left: 77%;
+            transform: rotate(-2.5deg);
+        }
+
+        .ticketTitle2 {
+            top: 6%;
+            left: 77%;
+            transform: rotate(-5.5deg);
+        }
+
+        table.ticketContent {
+            position: absolute;
+            z-index: 10;
+            left: 6%;
+            top: 30%;
+            right: 6.5%;
+            bottom: 10%;
+            display: block;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            border-spacing: 0;
+            background-color: white;
+
+            border-radius: 25px;
+            border: 4px solid #EEC35B;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+        th, td {
+            background-color: white;
+            height: 1px;
+
+            &:first-child {
+                width: 30%;
+            }
+
+            &:nth-child(2) {
+                padding: 0;
+                width: 50px;
+                background-color: #FFE198;
+                border-left: 4px solid #EEC35B;
+                border-right: 4px solid #EEC35B;
+            }
+        }
+
+        th {
+            font-weight: 600;
+            font-size: 28px;
+            text-align: left;
+            padding: 20px 35px 10px 35px;
+
+            @media only screen and (max-width: 1100px) {
+                font-size: 18px;
+                padding: 10px 17.5px 5px 17.5px;
+            }
+        }
+
+        td {
+            padding: 10px 35px;
+
+            @media only screen and (max-width: 1100px) {
+                padding: 5px 17.5px;
+            }
+        }
+
+        .timeBox {
+            background-color: rgba(201, 210, 229, 0.39);
+            border-radius: 20px;
+            padding: 25px;
+            font-weight: 600;
+            height: 100%;
+
+            @media only screen and (max-width: 1100px) {
+                padding: 12.5px;
+                font-size: 12px;
+            }
+
+            & > div {
+                display: flex;
+                align-items: start;
+
+                &:not(:last-child) {
+                    margin-bottom: 10px;
+                }
+
+                .icon {
+                    margin-right: 10px;
+                    padding-top: 5px;
+                }
+            }
+        }
+
+        .eventBox {
+            background: rgba(201, 210, 229, 0.39);
+            border-radius: 20px;
+            padding: 25px;
+
+            .title {
+                font-weight: 600;
+                font-size: 22px;
+                margin-bottom: 15px;
+
+                @media only screen and (max-width: 1100px) {
+                    font-size: 16px;
+                }
+            }
+
+            .points {
+                border: 3px solid #3FC0DD;
+                border-radius: 20px;
+                display: inline-block;
+                padding: 2px 10px;
+                margin-bottom: 15px;
+            }
+
+            .description {
+                font-size: 18px;
+                color: #000000;
+
+                @media only screen and (max-width: 1100px) {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        // @media only screen and (max-width: 1100px) {
+        //     display: none;
+        // }
+    }
+
+    @media only screen and (max-width: 1100px) {
+        padding: 0;
+    }
+
+    .ticketWrapperVertical {
+        position: relative;
+        display: none;
+
+        .tickets {
+            width: 100%;
+        }
+
+        .ticketTitle {
+            font-weight: 600;
+            font-size: 4.5vw;
+            position: absolute;
+        }
+
+        .ticketTitle1 {
+            top: 10.5%;
+            left: 15%;
+        }
+
+        .ticketTitle2 {
+            top: 4%;
+            left: 15%;
+        }
+
+        .ticketContent {
+            position: absolute;
+            // background-color: white;
+            background-color: red;
+            left: 13%;
+            top: 21%;
+            right: 13%;
+            bottom: 7.5%;
+            display: block;
+            padding: 2vw;
+        }
+
+        .ticketHeader {
+            font-weight: 600;
+            font-size: 3.75vw;
+        }
+
+        table {
+            // display: block;
+            background-color: green;
+            overflow-x: scroll;
+            // height: 103vw;
+            border-collapse: collapse;
+            height: 100%;
+            table-layout: fixed;
+
+            td {
+                border: 1px black solid;
+            }
+
+            tr:nth-child(1) {
+                // display: flex;
+                td {
+                    height: 25%;
+                    // display: inline-block;
+                    // max-height: 10px;
+                    // overflow: hidden;
+                }
+            }
+
+            tr:nth-child(3) {
+                height: 10%;
+            }
+        }
+
+        // @media only screen and (max-width: 1100px) {
+        //     display: block;
+        // }
+    }
+}
