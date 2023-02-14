@@ -13,8 +13,7 @@ import styles from './styles.module.scss';
 const Section: React.FC = () => (
   <section className={styles.footer}>
 
-    {/* <div className={styles.footer}> */}
-        <img className={styles.footerBackground} src={FOOTER} />
+      <img className={styles.footerBackground} src={FOOTER} />
 
       <div className={styles.footerText}>
         <h2>Stay up to date with HackIllinois!</h2>
@@ -32,7 +31,6 @@ const Section: React.FC = () => (
         <a href="mailto:contact@hackillinois.org" target="_blank" rel="noopener noreferrer"><img className={styles.icon} src={EMAIL} /> </a>
         </div>
       </div>
-    {/* </div> */}
 
   </section>
 );

@@ -9,9 +9,9 @@ import { useRouter } from 'next/router';
 const RSVP = (): JSX.Element => {
   const router = useRouter();
 
-  useEffect(() => {
-    router.replace('/register');
-  }, []);
+  // useEffect(() => {
+  //   router.replace('/register');
+  // }, []);
 
   return (
     <div className={styles.rsvp}>

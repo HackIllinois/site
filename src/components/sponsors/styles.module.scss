@@ -1,0 +1,259 @@
+.sponsors {
+    .background {
+        background-image: linear-gradient(to bottom, #196799, #27A4B6);
+        position: relative;
+        min-height: 200vh;
+        z-index: 2;
+        margin-bottom: 0;
+        
+        
+
+        // @media only screen and (max-width: 1768px) {
+        //     min-height: 100vh;
+        // }
+
+        @media only screen and (max-width: 1200px) {
+            min-height: 100vh;
+        }
+
+        // @media only screen and (max-height: 800px) {
+        //     margin-bottom: 10vh;
+        //     // min-height: 120vh;
+        // }
+
+        // @media only screen and (max-height: 600px) {
+        //     margin-bottom: 10vh;
+        //     // min-height: 80vh;
+        // }
+
+
+        .rect {
+            position: absolute;
+            width: 47%;
+            height: 8%;
+            left: 20%;
+            top: 14%; //21%
+            text-align: center;
+            border-radius: 40px;
+            // transform: rotate(2.49deg);
+
+
+            background: #1D2644;
+            border-radius: 20px;
+            transform: matrix(1, -0.05, 0.02, 1, 0, 0);
+
+            @media only screen and (max-width: 1200px) {
+                height: 12%;
+            }
+
+            @media only screen and (max-width: 1250px) and (max-height: 900px) {
+                height: 18%;
+            }
+
+            @media only screen and (max-width: 1050px) and (max-height: 600px) {
+                height: 25%;
+            }
+
+            @media only screen and (max-width: 1050px) and (max-height: 400px) {
+                height: 30%;
+            }
+
+            @media only screen and (max-width: 600px) {
+                height: 80px;
+            }
+
+            .h1 {
+
+                align-items: center;
+                justify-content: center;
+                font-family: 'Montserrat';
+                font-style: normal;
+                text-align: center;
+                margin: 26px;
+
+                font-weight: 600;
+                font-size: 70px;
+                line-height: 85px;
+                transform: matrix(1, -0.05, 0.02, 1, 0, 0);
+                color: #C9D2E5;
+            }
+        }
+
+        .emailBox {
+            position: absolute;
+            background-color: #0D387C8F;
+            width: auto;
+            height: auto;
+            border: 1px solid #0D387C8F;
+            border-radius: 40px;
+            margin-left: 7%;
+            margin-right: 7%;
+            // left: 9.5%; //50%
+            top: 18%; //60%
+            text-align: center;
+
+        }
+
+        .sponsorstitle {
+            text-align: center;
+            text-transform: uppercase;
+            /* convert the text to uppercase */
+            font-size: 2.8em;
+            font-weight: bold;
+            margin: auto;
+            /* add some margin to separate the title from the rectangle */
+            margin-top: 5%;
+
+            @media only screen and (max-width: 800px) {
+                font-size: 1.5em;
+                margin-top: 10%;
+            }
+
+            @media only screen and (max-width: 300px) {
+                font-size: 1.2em;
+            }
+
+        }
+
+        .lights {
+            width: 100vw;
+            height: auto;
+            position: fixed;
+            transform: translateX(-44.2%) translateY(-62%) rotate(4deg);
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .email {
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 50px;
+            line-height: 61px;
+            position: relative;
+            margin: 40px;
+            color: #CAD2E5;
+            top: 35% //25%
+
+        }
+
+    }
+
+    .gridContainer {
+        display: grid;
+        grid-template-areas:
+            "john john"
+            "ghub Epic"
+            "BATS BLUES"
+            "Cardano Cardano"
+            "log Caterpillar"
+            
+            
+
+
+    }
+
+    .coaster {
+        position: absolute;
+        width: 80%;
+        left: 27%;
+        bottom: auto;
+        top: 90%;
+        
+        // z-index: -1;
+
+        // @media only screen and (max-width: 600px) {
+        //     width: 100%;
+        //     left: 0%;
+        // }
+
+        // @media only screen and (max-height: 550px) {
+        //     bottom: -140%;
+        // }
+        // @media only screen and (max-height: 1000px) {
+        //     bottom: -20%;
+        // }
+    }
+
+    .logo1 {
+        position: relative;
+        grid-area: john;
+        left: 45%;
+        top: 33%;
+
+        width: 60%;
+
+        @media only screen and (max-width: 768px) {
+            top: 35%;
+        }
+    }
+
+    .logo2 {
+        position: relative;
+
+        grid-area: ghub;
+        width: 70%;
+        top: 258%;
+        left: 72%;
+        margin-left: 20px;
+
+    }
+
+    .logo3 {
+        position: relative;
+        grid-area: epic;
+        width: 115%;
+        right: 65%;
+        top: -90%
+    }
+
+    .logo4 {
+        position: relative;
+        grid-area: BATS;
+        width: 70%;
+        top: 300%;
+        margin-left: 60%;
+
+
+    }
+
+    .logo5 {
+        position: relative;
+        grid-area: BLUES;
+        width: 103%;
+        left: 40%;
+        top: 300%;
+        margin-left: 20px;
+
+
+
+    }
+
+    .logo6 {
+        position: relative;
+        grid-area: Caterpillar;
+        width: 90%;
+        top: 260%;
+        left: 45%
+    }
+
+    .logo7 {
+        position: relative;
+        grid-area: Cardano;
+        width: 70%;
+        top: 270%;
+        left: 35%;
+
+    }
+
+    .logo8 {
+        position: relative;
+        grid-area: log;
+        width: 65%;
+        left: 65%;
+        top: 230%
+    }
+
+
+
+}

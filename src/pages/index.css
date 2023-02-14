@@ -18,6 +18,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: white;
+  overflow-x: hidden;
 
   /* Temporary Change */
   background-color: #0d387c;

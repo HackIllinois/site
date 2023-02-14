@@ -1,4 +1,4 @@
-import { WithId, MethodType, FileType, RegistrationType, PrizeType, MentorTimeslotType, EventType, RegistrationRole, ProfileType, RSVPType, ProfileResponseType, ZoomLinks } from '../util/types';
+import { WithId, MethodType, FileType, RegistrationType, PrizeType, MentorTimeslotType, EventType, RegistrationRole, ProfileType, RSVPType, DecisionType, ProfileResponseType, ZoomLinks } from '../util/types';
 
 const API = 'https://api.hackillinois.org';
 
@@ -73,6 +73,10 @@ export function getRegistration(role: RegistrationRole): Promise<WithId<Registra
 export function register(isEditing: boolean, role: RegistrationRole, registration: RegistrationType): Promise<WithId<RegistrationType>> {
   const method = isEditing ? 'PUT' : 'POST';
   return request(method, `/registration/${role}/`, registration);
+}
+
+export function getDecision(): Promise<WithId<DecisionType>> {
+  return request('GET', '/decision/');
 }
 
 export function getRSVP(): Promise<WithId<RSVPType>> {

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { getToken } from '../utils/api';
+import { getToken } from '../util/api';
 
 const Auth = () => {
     const router = useRouter();
