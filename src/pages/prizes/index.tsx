@@ -52,10 +52,18 @@ const Prizes: React.FC = () => {
                         <p>$400</p>
                     </div>
                     <div className={styles.prize}>
-                        <h3>To Be Announced!</h3>
+                        <h3>Best Fintech & Payments Build</h3>
+                        <h3>(Sponsored by Bluehill)</h3>
+                        <br />
+                        <p>First Place:</p>
+                        <p>$400</p>
                     </div>
                     <div className={styles.prize}>
-                        <h3>To Be Announced!</h3>
+                        <h3>Building on Cardano Blockchain</h3>
+                        <h3>(Sponsored by Cardano)</h3>
+                        <br/>
+                        <p>First Place:</p>
+                        <p>$400</p>
                     </div>
                 </div>
             </div>
