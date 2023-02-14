@@ -99,9 +99,9 @@ const Navbar = (props: { path: string }) => {
                         isOpen && styles.menuOpen
                     )}
                 >
-                    {/* <a href="/schedule" className={styles.link}>
+                    <a href="/schedule" className={styles.link}>
                         Schedule
-                    </a> */}
+                    </a>
                     {/* <a href="/mentors" className={styles.link}>
                         Mentors
                     </a> */}
