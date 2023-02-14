@@ -18,6 +18,13 @@ const Prizes: React.FC = () => {
             <img src={BOOTH} className={styles.booth} />
             <div className={styles.prizeList}>
                 <div className={styles.prizeColumn}>
+                <div className={styles.prize}>
+                        <img src={HACKLOGO} className={styles.logo} />
+                        <h3>General Track</h3>
+                        <br />
+                        <p>First Place:</p>
+                        <p>$400</p>
+                    </div>
                     <div className={styles.prize}>
                         <img src={HACKLOGO} className={styles.logo} />
                         <h3>Beginner Track</h3>
@@ -32,13 +39,6 @@ const Prizes: React.FC = () => {
                         <img src={GITHUB} className={styles.logo} />
                         <h3>Best Use of Student Devloper Pack</h3>
                         <h3>(Sponsored by GitHub)</h3>
-                        <br />
-                        <p>First Place:</p>
-                        <p>$400</p>
-                    </div>
-                    <div className={styles.prize}>
-                        <img src={HACKLOGO} className={styles.logo} />
-                        <h3>General Track</h3>
                         <br />
                         <p>First Place:</p>
                         <p>$400</p>
