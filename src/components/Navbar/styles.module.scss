@@ -1,0 +1,207 @@
+.navbar {
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    flex-direction: row;
+    top: 0;
+    width: 100vw;
+    z-index: 7;
+    align-items: center;
+    padding: 15px 20px;
+    padding-bottom: 0;
+}
+
+
+.li {
+    position: relative;
+    float: right;
+    gap: 10px;
+    margin: auto;
+}
+
+.links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+    padding: 0px 25px;
+    font-size: larger;
+}
+
+.title {
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: x-large;
+}
+
+.title a {
+    text-decoration: none;
+    color: white;
+}
+
+
+.li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 19px 25px;
+    text-decoration: none;
+}
+
+.li a::before,
+.li.active a::before {
+    content: "";
+    position: absolute;
+    bottom: 16px;
+    right: 50%;
+    height: 0;
+    width: 0%;
+    border-bottom: 2px solid #f1f1f1;
+    transition: width 0.3s ease;
+}
+
+.li a::after,
+.li.active a::after {
+    content: "";
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    height: 0;
+    width: 0%;
+    border-bottom: 2px solid #f1f1f1;
+    transition: width 0.3s ease;
+}
+
+.li a:hover::after,
+.li a:hover::before {
+    width: 28%;
+
+}
+
+.li.active a::before,
+.li.active a::after {
+    width: 28%;
+}
+
+.mobile {
+    display: none;
+    margin: auto;
+    align-items: center;
+    position: relative;
+}
+
+
+
+@media screen and (max-width: 900px){
+    .navbar {
+        display: none;
+    }
+    
+    .mobile {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.mobileTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+
+.hamburger {
+    width: 60px;
+    height: 45px;
+    position: relative;
+    margin: 50px 25px;
+    transform: rotate(0deg) scale(0.9);
+    transition: .5s ease-in-out;
+    z-index: 7;
+    cursor: pointer;
+
+    span {
+        display: block;
+        position: absolute;
+        height: 9px;
+        width: 100%;
+        background: #C9D2E5;
+        border-radius: 9px;
+        opacity: 1;
+        left: 0;
+        transform: rotate(0deg);
+        transition: .5s ease-in-out;
+
+        &:nth-child(1) {
+            top: 0px;
+            transform-origin: left center;
+        }
+      
+        &:nth-child(2) {
+            top: 18px;
+            transform-origin: left center;
+        }
+      
+        &:nth-child(3) {
+            top: 36px;
+            transform-origin: left center;
+        }
+    
+    }
+
+    &.open {
+        span {
+            &:nth-child(1) {
+                transform: rotate(45deg);
+                top: -3px;
+                left: 8px;
+            }
+              
+            &:nth-child(2) {
+                width: 0%;
+                opacity: 0;
+            }
+              
+            &:nth-child(3) {
+                transform: rotate(-45deg);
+                top: 39px;
+                left: 8px;
+            }
+        }
+    }
+    // Hamburger menu code assisted by https://codepen.io/designcouch/pen/ExvwPY
+}
+
+.mobileMenu {
+    display: none;
+    &.menuOpen {
+        position: absolute;
+        background-color: #0D387C;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-bottom: 20px;
+        width: 100%;
+        padding-top: 60px;
+        height: 50vh;
+        z-index: 6;
+
+        a {
+            font-size: x-large;
+            color: white;
+        }
+    }
+}
+  
