@@ -105,7 +105,8 @@
             margin-top: 5%;
 
             @media only screen and (max-width: 800px) {
-                font-size: 1.8em;
+                font-size: 1.5em;
+                margin-top: 10%;
             }
 
             @media only screen and (max-width: 300px) {
@@ -120,6 +121,7 @@
             position: fixed;
             transform: translateX(-44.2%) translateY(-62%) rotate(4deg);
             object-fit: cover;
+            z-index: -1;
         }
 
         .email {
