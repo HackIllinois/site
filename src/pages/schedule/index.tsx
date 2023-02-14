@@ -9,6 +9,7 @@ import TICKETS_HORIZONTAL from '../../assets/schedule/tickets_horizontal.svg';
 import TICKETS_VERTICAL from '../../assets/schedule/tickets_vertical.svg';
 import TIME_ICON from '../../assets/schedule/time_icon.svg';
 import LOCATION_ICON from '../../assets/schedule/location_icon.svg';
+import Navbar from "components/Navbar";
 
 interface Event {
   id: string,
@@ -66,6 +67,7 @@ const Schedule: React.FC<IProps> = ({ events }) => {
       <Head>
         <title>HackIllinois | Schedule</title>
       </Head>
+      <Navbar path="/schedule" />
       <div className={styles.schedule}>
           <img className={styles.frontLights} src={FRONT_LIGHTS} />
           <div className={styles.ticketWrapperHorizontal}>
