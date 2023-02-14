@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
+import Navbar from 'components/Navbar';
 import clsx from 'clsx';
 
 import styles from './styles.module.scss';
@@ -16,6 +17,7 @@ const Travel = () => {
         <title>HackIllinois | Travel</title>
       </Head>
       <div className={styles.travel}>
+        <Navbar path="/travel" />
         <img className={styles.umbrella} src={UMBRELLA} />
         <img className={styles.frontLights} src={FRONT_LIGHTS} />
         <div className={styles.standWrapper}>
