@@ -1,5 +1,6 @@
 import styles from "./styles.module.scss";
 import Navbar from "components/Navbar";
+import Head from 'next/head';
 
 import BOOTH from "../../assets/prizes/booth.svg";
 import HACKLOGO from "../../assets/prizes/hacklogo.svg";
@@ -31,9 +32,7 @@ const Prizes: React.FC = () => {
                         <h3>(Staff Pick)</h3>
                         <br />
                         <p>First Place:</p>
-                        <p>$400</p>
-                        <p>Second Place</p>
-                        <p>$250</p>
+                        <p>$200</p>
                     </div>
                     <div className={styles.prize}>
                         <img src={GITHUB} className={styles.logo} />
@@ -77,3 +76,4 @@ const Prizes: React.FC = () => {
 };
 
 export default Prizes;
+
