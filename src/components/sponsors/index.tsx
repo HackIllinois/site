@@ -16,6 +16,7 @@ const Section = () => {
     return (
         <div className={styles.sponsors}>
             <div className={styles.background}>
+
                 <div className={styles.emailBox}>
                     <br></br>
                     <div className={styles.gridContainer}>

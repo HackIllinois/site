@@ -1,0 +1,167 @@
+.travel {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(179.18deg, #10689A 5.86%, #856D93 66.17%, #FEA3AA 109.97%, #FEADA5 120.01%, #FDC899 133.86%, #FCDC8F 152.7%);
+    overflow-y: hidden;
+    color: black;
+
+    .frontLights {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    .umbrella {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        max-height: 80vh;
+    }
+
+    .standWrapper {
+        margin-top: 10px;
+        position: absolute;
+        right: 1%;
+        max-height: 90vh;
+        width: 1030px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @media screen and (max-width: 1100px) {
+            left: 0;
+            right: 0;
+            max-height: 80vh;
+            height: 80vh;
+            width: 100vw;
+        }
+    }
+
+    .standBottomWrapper {
+        position: relative;
+    }
+
+    .standBottom {
+        width: 100%;
+    }
+
+    .cornerLeft {
+        position: absolute;
+        left: 2%;
+        top: 12%;
+        z-index: 11;
+        width: 20.5%;
+    }
+
+    .cornerRight {
+        position: absolute;
+        right: 2%;
+        top: 15%;
+        z-index: 11;
+        width: 17.5%;
+    }
+
+    .standContent {
+        overflow-y: scroll;
+        padding: 36px;
+        background-color: #CAD2E5;;
+        margin-bottom: -170px;
+        width: 86%;
+        position: relative;
+        border-left: 10px solid #5FC5BF;
+        border-right: 10px solid #5FC5BF;
+        flex: 1;
+        z-index: 10;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        @media screen and (max-width: 1100px) {
+            margin-bottom: -12.5vw;
+        }
+    }
+
+    h1 {
+        text-transform: uppercase;
+        color: white;
+        font-size: 40px;
+        background: #1D2644;
+        border-radius: 10px;
+        align-self: stretch;
+        padding: 15px;
+        text-align: center;
+
+        @media screen and (max-width: 1100px) {
+            font-size: 35px;
+        }
+
+        @media screen and (max-width: 600px) {
+            font-size: 25px;
+        }
+    }
+
+    h2 {
+        color: black;
+        font-size: 38px;
+        font-weight: 600;
+
+        @media screen and (max-width: 1100px) {
+            font-size: 32px;
+        }
+
+        @media screen and (max-width: 600px) {
+            font-size: 22px;
+        }
+    }
+
+    .leftColumn {
+        font-weight: 500;
+        font-size: 27px;
+        padding-right: 30px;
+
+        @media screen and (max-width: 1100px) {
+            font-size: 25px;
+        }
+
+        @media screen and (max-width: 600px) {
+            font-size: 20px;
+        }
+    }
+
+    .time {
+        font-weight: 600;
+        font-size: 27px;
+
+        @media screen and (max-width: 1100px) {
+            font-size: 25px;
+        }
+
+        @media screen and (max-width: 600px) {
+            font-size: 20px;
+        }
+    }
+
+    .location {
+        font-weight: 400;
+        font-size: 27px;
+
+        @media screen and (max-width: 1100px) {
+            font-size: 25px;
+        }
+
+        @media screen and (max-width: 600px) {
+            font-size: 20px;
+        }
+    }
+
+    td {
+        vertical-align: top;
+    }
+
+    table:not(:last-child) {
+        margin-bottom: 30px;
+    }
+}

@@ -7,7 +7,7 @@ import React from 'react';
       {
         question: 'How do I participate?',
         answer: [
-          <p key={0}>You must apply in order to participate in HackIllinois. We have an Early Application deadline due on <b>February 3rd at 11:59 PM CST</b> and Late Application deadline due on <b>February 12th at 11:59 PM CST.</b> Admissions will be based on a weighted lottery, and applying early will increase your chances of admission. Decisions will be released shortly after both application deadlines, and if you’re accepted, there will be a limited time to RSVP before we reallocate your spot to another student.</p>,
+          <p key={0}>You must apply in order to participate in HackIllinois. The application deadline has been extended to <b>Wednesday, February 15th at 11:59 PM CST.</b> Admissions will be based on a weighted lottery, and applying early will increase your chances of admission. Decisions will be released shortly after both application deadlines, and if you’re accepted, there will be a limited time to RSVP before we reallocate your spot to another student.</p>,
         ],
      },
      {
