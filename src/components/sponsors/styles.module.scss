@@ -114,6 +114,99 @@
 
         }
 
+        .gridContainer {
+            grid-area: initial;
+            display: grid;
+            grid-template-areas:
+                "john john"
+                "ghub Epic"
+                "BATS BLUES"
+                "Cardano Cardano"
+                "log Caterpillar";
+                
+                
+    
+    
+        }
+
+        .logo1 {
+            position: relative;
+            grid-area: john;
+            left: 45%;
+            top: 33%;
+    
+            max-width: 60%;
+    
+            @media only screen and (max-width: 408px) {
+                top: 35%;
+            }
+        }
+    
+        .logo2 {
+            position: relative;
+    
+            grid-area: ghub;
+            max-width: 70%;
+            top: 258%;
+            left: 72%;
+            // margin-left: 20px;
+    
+        }
+    
+        .logo3 {
+            position: relative;
+            grid-area: epic;
+            max-width: 115%;
+            right: 65%;
+            top: -87%
+        }
+    
+        .logo4 {
+            position: relative;
+            grid-area: BATS;
+            width: 70%;
+            top: 300%;
+            left: 60%;
+    
+    
+        }
+    
+        .logo5 {
+            position: relative;
+            grid-area: BLUES;
+            width: 103%;
+            left: 50%;
+            top: 300%;
+    
+    
+    
+        }
+    
+        .logo6 {
+            position: relative;
+            grid-area: Caterpillar;
+            width: 90%;
+            top: 260%;
+            left: 45%
+        }
+    
+        .logo7 {
+            position: relative;
+            grid-area: Cardano;
+            width: 70%;
+            top: 270%;
+            left: 35%;
+    
+        }
+    
+        .logo8 {
+            position: relative;
+            grid-area: log;
+            width: 65%;
+            left: 65%;
+            top: 230%
+        }
+
         .lights {
             width: 100vw;
             height: auto;
@@ -137,19 +230,6 @@
 
     }
 
-    .gridContainer {
-        display: grid;
-        grid-template-areas:
-            "john john"
-            "ghub Epic"
-            "BATS BLUES"
-            "Cardano Cardano"
-            "log Caterpillar"
-            
-            
-
-
-    }
 
     .coaster {
         position: absolute;
@@ -172,85 +252,13 @@
         //     bottom: -20%;
         // }
     }
+    
+        
+    // @media screen and (orientation:portrait) {
+        
+    // }
+    
 
-    .logo1 {
-        position: relative;
-        grid-area: john;
-        left: 45%;
-        top: 33%;
-
-        width: 60%;
-
-        @media only screen and (max-width: 768px) {
-            top: 35%;
-        }
-    }
-
-    .logo2 {
-        position: relative;
-
-        grid-area: ghub;
-        width: 70%;
-        top: 258%;
-        left: 72%;
-        margin-left: 20px;
-
-    }
-
-    .logo3 {
-        position: relative;
-        grid-area: epic;
-        width: 115%;
-        right: 65%;
-        top: -90%
-    }
-
-    .logo4 {
-        position: relative;
-        grid-area: BATS;
-        width: 70%;
-        top: 300%;
-        margin-left: 60%;
-
-
-    }
-
-    .logo5 {
-        position: relative;
-        grid-area: BLUES;
-        width: 103%;
-        left: 40%;
-        top: 300%;
-        margin-left: 20px;
-
-
-
-    }
-
-    .logo6 {
-        position: relative;
-        grid-area: Caterpillar;
-        width: 90%;
-        top: 260%;
-        left: 45%
-    }
-
-    .logo7 {
-        position: relative;
-        grid-area: Cardano;
-        width: 70%;
-        top: 270%;
-        left: 35%;
-
-    }
-
-    .logo8 {
-        position: relative;
-        grid-area: log;
-        width: 65%;
-        left: 65%;
-        top: 230%
-    }
 
 
 
