@@ -14,7 +14,7 @@ const Sorry = (): JSX.Element => (
 
     <h1 className={styles.headline}>HACK ILLINOIS</h1>
 
-    <p className={styles.textOp2}>Registration has closed for HackIllinois 2023. If you have already registered and would like to change your information, please contact <a href="mailto:contact@hackillinois.org" target="_blank" rel="noopener noreferrer"/>. Thank you for your interest in HackIllinois!</p>
+    <p className={styles.textOp2}>Registration has closed for HackIllinois 2023. If you have already registered and would like to change your information, please message us at <a href="mailto:contact@hackillinois.org" target="_blank" rel="noopener noreferrer">contact@hackillinois.org</a>. Thank you for your interest in HackIllinois!</p>
 
     <div className={styles.homeButton}>
       <Button onClick={() => { window.location.href = '/'; }}>Back Home</Button>
