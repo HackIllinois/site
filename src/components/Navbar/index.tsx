@@ -114,9 +114,9 @@ const Navbar = (props: { path: string }) => {
                     <a href="/travel" className={styles.link}>
                         Travel
                     </a>
-                    <a href="/register" className={styles.link}>
+                    {/* <a href="/register" className={styles.link}>
                         Register
-                    </a>
+                    </a> */}
                 </div>
             </nav>
         </>
