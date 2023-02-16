@@ -66,11 +66,11 @@ const Navbar = (props: { path: string }) => {
                             Travel
                         </a>
                     </div>
-                    <div className={styles.li}>
+                    {/* <div className={styles.li}>
                         <a href="/register" className={styles.link}>
                             Register
                         </a>
-                    </div>
+                    </div> */}
                 </div>
             </nav>
 
