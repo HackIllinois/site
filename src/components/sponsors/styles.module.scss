@@ -16,6 +16,12 @@
             min-height: 100vh;
         }
 
+        @media only screen and (max-height: 500px) {
+            min-height: 200vh;
+        }
+
+        
+
         // @media only screen and (max-height: 800px) {
         //     margin-bottom: 10vh;
         //     // min-height: 120vh;
@@ -56,6 +62,10 @@
 
             @media only screen and (max-width: 1050px) and (max-height: 400px) {
                 height: 30%;
+            }
+
+            @media only screen and (max-height: 500px) {
+                height: 15%;
             }
 
             @media only screen and (max-width: 600px) {
@@ -121,7 +131,7 @@
                 "john john"
                 "ghub Epic"
                 "BATS BLUES"
-                "Cardano Cardano"
+                "SLB Cardano"
                 "log Caterpillar";
                 
                 
@@ -132,7 +142,7 @@
         .logo1 {
             position: relative;
             grid-area: john;
-            left: 45%;
+            left: 47%;
             top: 33%;
     
             max-width: 60%;
@@ -146,9 +156,9 @@
             position: relative;
     
             grid-area: ghub;
-            max-width: 70%;
+            max-width: 65%;
             top: 258%;
-            left: 72%;
+            left: 78%;
             // margin-left: 20px;
     
         }
@@ -156,9 +166,9 @@
         .logo3 {
             position: relative;
             grid-area: epic;
-            max-width: 115%;
-            right: 65%;
-            top: -87%
+            max-width: 107%;
+            right: 70%;
+            top: -112%
         }
     
         .logo4 {
@@ -193,9 +203,18 @@
         .logo7 {
             position: relative;
             grid-area: Cardano;
-            width: 70%;
-            top: 270%;
+            width: 110%;
+            top: 190%;
             left: 35%;
+    
+        }
+
+        .logo9 {
+            position: relative;
+            grid-area: SLB;
+            width: 70%;
+            top: 160%;
+            left: 55%;
     
         }
     
@@ -236,21 +255,26 @@
 
     .coaster {
         position: absolute;
-        width: 80%;
-        left: 27%;
-        bottom: auto;
-        top: 90%;
+        transform: translateX(40%) translateY(280%);
+        width: 70%;
+        // left: 27%;
+        // bottom: auto;
+        // top: 90%;
         
         // z-index: -1;
 
-        // @media only screen and (max-width: 600px) {
-        //     width: 100%;
-        //     left: 0%;
-        // }
+        @media only screen and (max-width: 800px) {
+            transform: translateX(0%) translateY(220%);
+            width: 100%;
+            
+            //left: 0%;
+        }
 
-        // @media only screen and (max-height: 550px) {
-        //     bottom: -140%;
-        // }
+        @media only screen and (max-height: 450px) {
+            transform: translateX(0%) translateY(200%);
+            width: 100%;
+            // bottom: -140%;
+        }
         // @media only screen and (max-height: 1000px) {
         //     bottom: -20%;
         // }
