@@ -19,7 +19,7 @@ const Section = () => {
             <img className={styles.group} src={GROUP} />
             <div className={styles.textWrapper}>
                 <h2 className={styles.h1}>The Event</h2>
-                <p>HackIllinois is University of Illinois at Urbana-Champaign’s premiere collegiate hackathon.This year, we’re celebrating our 10th Hackiversary!</p>
+                <p>HackIllinois is University of Illinois at Urbana-Champaign’s premiere collegiate hackathon. This year, we’re celebrating our 10th Hackiversary!</p>
                 <p>Join us <strong>in-person</strong> on February 24th to February 26th at the <a href="https://www.google.com/maps/place/Thomas+M.+Siebel+Center+for+Computer+Science/@40.1138028,-88.2270939,17z/data=!3m1!5s0x880cd76a5762dfb7:0xcf6a023935717398!4m5!3m4!1s0x880cd76baa8479a9:0x4e9f01d40d359630!8m2!3d40.1138028!4d-88.2249052">Siebel Center for Computer Science</a> and <a href="https://cif.illinois.edu/" target="_blank">CIF</a>! Participants can work individually or in teams to submit projects to a specific track for a chance to win prizes. Let’s make memories!</p>
                 
                 <h2>Join Us</h2>
