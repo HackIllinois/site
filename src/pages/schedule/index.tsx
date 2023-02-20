@@ -118,7 +118,7 @@ const Schedule: React.FC<IProps> = ({ events }) => {
             <div className={clsx(styles.ticketTitle, styles.ticketTitle2)} onClick={() => setTicketDays(([d0, d1, d2]) => [d2, d1, d0])}>{ticketDays[2]}</div>
             <img className={styles.tickets} src={TICKETS_VERTICAL} />
             <div className={styles.ticketContent}>
-              {/* <div className={styles.ticketHeader}>{dayToTitle[ticketDays[0]]}</div> */}
+              <div className={styles.ticketHeader}>{ticketDays[0]}</div>
               <table>
                 <tbody>
                   <tr className={styles.timeBoxes}>
