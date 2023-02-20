@@ -6,7 +6,7 @@
     flex-direction: row;
     top: 0;
     width: 100vw;
-    z-index: 7;
+    z-index: 1000;
     align-items: center;
     padding: 15px 20px;
     padding-bottom: 0;
@@ -128,7 +128,7 @@
     margin: 50px 25px;
     transform: rotate(0deg) scale(0.9);
     transition: .5s ease-in-out;
-    z-index: 7;
+    z-index: 1001;
     cursor: pointer;
 
     span {
@@ -197,7 +197,7 @@
         width: 100%;
         padding-top: 60px;
         height: 50vh;
-        z-index: 6;
+        z-index: 1000;
 
         a {
             font-size: x-large;

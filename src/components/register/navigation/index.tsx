@@ -9,7 +9,7 @@ type Props = {
 
 const Navigation = ({ setFormIndex, formIndex }: Props): JSX.Element => (
   <div>
-    <Moles setFormIndex={setFormIndex} formIndex={formIndex} />
+    {/* <Moles setFormIndex={setFormIndex} formIndex={formIndex} /> */}
   </div>
 );
 

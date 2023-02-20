@@ -158,9 +158,15 @@
             }
         }
 
+<<<<<<< HEAD
         @media only screen and (max-width: 1100px) {
             display: none;
         }
+=======
+        // @media only screen and (max-width: 1100px) {
+        //     display: none;
+        // }
+>>>>>>> master
     }
 
     @media only screen and (max-width: 1100px) {
@@ -194,14 +200,22 @@
         .ticketContent {
             position: absolute;
             // background-color: white;
+<<<<<<< HEAD
             // background-color: red;
             overflow-y: scroll;
+=======
+            background-color: red;
+>>>>>>> master
             left: 13%;
             top: 21%;
             right: 13%;
             bottom: 7.5%;
             display: block;
+<<<<<<< HEAD
             // padding: 2vw;
+=======
+            padding: 2vw;
+>>>>>>> master
         }
 
         .ticketHeader {
@@ -210,6 +224,7 @@
         }
 
         table {
+<<<<<<< HEAD
             // background-color: green;
             overflow-x: scroll;
             border-collapse: collapse;
@@ -226,12 +241,31 @@
 
                 td {
                     height: 35%;
+=======
+            // display: block;
+            background-color: green;
+            overflow-x: scroll;
+            // height: 103vw;
+            border-collapse: collapse;
+            height: 100%;
+            table-layout: fixed;
+
+            td {
+                border: 1px black solid;
+            }
+
+            tr:nth-child(1) {
+                // display: flex;
+                td {
+                    height: 25%;
+>>>>>>> master
                     // display: inline-block;
                     // max-height: 10px;
                     // overflow: hidden;
                 }
             }
 
+<<<<<<< HEAD
             tr:nth-child(2) {
                 height: 25px;
                 background-color: #FCDC8F;
@@ -280,5 +314,15 @@
         @media only screen and (max-width: 1100px) {
             display: block;
         }
+=======
+            tr:nth-child(3) {
+                height: 10%;
+            }
+        }
+
+        // @media only screen and (max-width: 1100px) {
+        //     display: block;
+        // }
+>>>>>>> master
     }
 }
