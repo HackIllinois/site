@@ -89,7 +89,7 @@ const Schedule: React.FC<IProps> = ({ events }) => {
                       <div className={styles.timeBox}>
                         <div>
                           <img className={styles.icon} src={TIME_ICON} />
-                          <div>{new Date(event.startTime * 1000).toLocaleTimeString()} - {new Date(event.endTime * 1000).toLocaleTimeString()}</div>
+                          <div>{new Date(event.startTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })} - {new Date(event.endTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}</div>
                         </div>
                         {event.locations.map((location, i) => (
                           <div key={i}>
@@ -127,7 +127,7 @@ const Schedule: React.FC<IProps> = ({ events }) => {
                         <div className={styles.timeBox}>
                           <div>
                             <img className={styles.icon} src={TIME_ICON} />
-                            <div>{new Date(event.startTime * 1000).toLocaleTimeString()} - {new Date(event.endTime * 1000).toLocaleTimeString()}</div>
+                            <div>{new Date(event.startTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })} - {new Date(event.endTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}</div>
                           </div>
                           {event.locations.map(location => (
                             <div>
