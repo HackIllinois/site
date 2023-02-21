@@ -20,6 +20,7 @@ import Event from './screens/event-p1';
 import EventP2 from './screens/event-p2';
 import EventP3 from './screens/event-p3';
 import Finish from './screens/finish';
+import EndRegistration from './screens/sorry'
 
 import styles from './styles.module.scss';
 import FormNavigation from './form-navigation';
@@ -46,7 +47,8 @@ const fields: (keyof RegistrationSchema)[][] = [
 ];
 
 // const pages = [Welcome, PersonalInfo, PersonalInfoP2, PersonalInfoP3, Education, EducationP2, Experience, ExperienceP2, Event, EventP2, EventP3, Finish]; //With Welcome Page
-const pages = [PersonalInfoP1, PersonalInfoP2, PersonalInfoP3, Education, EducationP2, Experience, ExperienceP2, Event, EventP2, EventP3, Finish];
+// const pages = [PersonalInfoP1, PersonalInfoP2, PersonalInfoP3, Education, EducationP2, Experience, ExperienceP2, Event, EventP2, EventP3, Finish];
+const pages = [EndRegistration, EndRegistration, EndRegistration, EndRegistration, EndRegistration, EndRegistration, EndRegistration, EndRegistration, EndRegistration, EndRegistration, EndRegistration];
 const submitPageIndex = 9;
 const postSubmitPageIndex = submitPageIndex + 1;
 
@@ -156,18 +158,17 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
           
         </form>
       </FormProvider>
-      {formIndex !== postSubmitPageIndex && ( // last page does not have any buttons
+      {/* {formIndex !== postSubmitPageIndex && ( // last page does not have any buttons
         <div className={styles.buttons}>
-          {/* {(formIndex !== 0) && <Button arrow="right" onClick={nextPage}>Previous</Button>} */}
           <Button arrow="left" hidden={formIndex === 0} onClick={previousPage}>Back</Button>
           <div className={styles.spacer} />
           {isLoading && <Button loading>Loading...</Button>}
           {(!isLoading && formIndex !== submitPageIndex) && <Button arrow="right" onClick={nextPage}>Next</Button>}
           {(!isLoading && formIndex === submitPageIndex) && <Button type="submit" onClick={handleSubmit(onSubmit, onError)}>Submit</Button>}
         </div>
-      )}
+      )} */}
       
-      <FormNavigation setFormIndex={setFormIndex} formIndex={formIndex}></FormNavigation>
+      {/* <FormNavigation setFormIndex={setFormIndex} formIndex={formIndex}></FormNavigation> */}
       
     </div>
   );

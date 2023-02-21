@@ -16,6 +16,12 @@
             min-height: 100vh;
         }
 
+        @media only screen and (max-height: 500px) {
+            min-height: 200vh;
+        }
+
+        
+
         // @media only screen and (max-height: 800px) {
         //     margin-bottom: 10vh;
         //     // min-height: 120vh;
@@ -56,6 +62,10 @@
 
             @media only screen and (max-width: 1050px) and (max-height: 400px) {
                 height: 30%;
+            }
+
+            @media only screen and (max-height: 500px) {
+                height: 15%;
             }
 
             @media only screen and (max-width: 600px) {
@@ -114,6 +124,108 @@
             }
 
         }
+        .gridContainer {
+            grid-area: initial;
+            display: grid;
+            grid-template-areas:
+                "john john"
+                "ghub Epic"
+                "BATS BLUES"
+                "SLB Cardano"
+                "log Caterpillar";
+                
+                
+    
+    
+        }
+
+        .logo1 {
+            position: relative;
+            grid-area: john;
+            left: 47%;
+            top: 33%;
+    
+            max-width: 60%;
+    
+            @media only screen and (max-width: 408px) {
+                top: 35%;
+            }
+        }
+    
+        .logo2 {
+            position: relative;
+    
+            grid-area: ghub;
+            max-width: 65%;
+            top: 258%;
+            left: 78%;
+            // margin-left: 20px;
+    
+        }
+    
+        .logo3 {
+            position: relative;
+            grid-area: epic;
+            max-width: 107%;
+            right: 70%;
+            top: -112%
+        }
+    
+        .logo4 {
+            position: relative;
+            grid-area: BATS;
+            width: 70%;
+            top: 300%;
+            left: 60%;
+    
+    
+        }
+    
+        .logo5 {
+            position: relative;
+            grid-area: BLUES;
+            width: 103%;
+            left: 50%;
+            top: 300%;
+    
+    
+    
+        }
+    
+        .logo6 {
+            position: relative;
+            grid-area: Caterpillar;
+            width: 90%;
+            top: 260%;
+            left: 45%
+        }
+    
+        .logo7 {
+            position: relative;
+            grid-area: Cardano;
+            width: 110%;
+            top: 190%;
+            left: 35%;
+    
+        }
+
+        .logo9 {
+            position: relative;
+            grid-area: SLB;
+            width: 70%;
+            top: 160%;
+            left: 55%;
+    
+        }
+    
+        .logo8 {
+            position: relative;
+            grid-area: log;
+            width: 65%;
+            left: 65%;
+            top: 230%
+        }
+
 
         .lights {
             width: 100vw;
@@ -122,6 +234,7 @@
             transform: translateX(-44.2%) translateY(-62%) rotate(4deg);
             object-fit: cover;
             z-index: -1;
+
         }
 
         .email {
@@ -139,119 +252,32 @@
 
     }
 
-    .gridContainer {
-        display: grid;
-        grid-template-areas:
-            "john john"
-            "ghub Epic"
-            "BATS BLUES"
-            "Cardano Cardano"
-            "log Caterpillar"
-            
-            
-
-
-    }
 
     .coaster {
         position: absolute;
-        width: 80%;
-        left: 27%;
-        bottom: auto;
-        top: 90%;
+        transform: translateX(40%) translateY(280%);
+        width: 70%;
+        // left: 27%;
+        // bottom: auto;
+        // top: 90%;
         
         // z-index: -1;
 
-        // @media only screen and (max-width: 600px) {
-        //     width: 100%;
-        //     left: 0%;
-        // }
+        @media only screen and (max-width: 800px) {
+            transform: translateX(0%) translateY(220%);
+            width: 100%;
+            
+            //left: 0%;
+        }
 
-        // @media only screen and (max-height: 550px) {
-        //     bottom: -140%;
-        // }
+        @media only screen and (max-height: 450px) {
+            transform: translateX(0%) translateY(200%);
+            width: 100%;
+            // bottom: -140%;
+        }
         // @media only screen and (max-height: 1000px) {
         //     bottom: -20%;
         // }
-    }
-
-    .logo1 {
-        position: relative;
-        grid-area: john;
-        left: 45%;
-        top: 33%;
-
-        width: 60%;
-
-        @media only screen and (max-width: 768px) {
-            top: 35%;
-        }
-    }
-
-    .logo2 {
-        position: relative;
-
-        grid-area: ghub;
-        width: 70%;
-        top: 258%;
-        left: 72%;
-        margin-left: 20px;
-
-    }
-
-    .logo3 {
-        position: relative;
-        grid-area: epic;
-        width: 115%;
-        right: 65%;
-        top: -90%
-    }
-
-    .logo4 {
-        position: relative;
-        grid-area: BATS;
-        width: 70%;
-        top: 300%;
-        margin-left: 60%;
-
-
-    }
-
-    .logo5 {
-        position: relative;
-        grid-area: BLUES;
-        width: 103%;
-        left: 40%;
-        top: 300%;
-        margin-left: 20px;
-
-
-
-    }
-
-    .logo6 {
-        position: relative;
-        grid-area: Caterpillar;
-        width: 90%;
-        top: 260%;
-        left: 45%
-    }
-
-    .logo7 {
-        position: relative;
-        grid-area: Cardano;
-        width: 70%;
-        top: 270%;
-        left: 35%;
-
-    }
-
-    .logo8 {
-        position: relative;
-        grid-area: log;
-        width: 65%;
-        left: 65%;
-        top: 230%
     }
 
 

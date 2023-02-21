@@ -1,0 +1,95 @@
+.prizesMain {
+    width: 100vw;
+    overflow: hidden !important;
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, #FE7098, #088BC1);
+    // padding-top: 40px;
+    position: relative;
+
+    .bubbles {
+        position: absolute;
+        z-index: 0;
+        width: 100%;
+    }
+
+    .booth {
+        transform: scaleX(1.1);
+        position: absolute;
+        overflow: hidden !important;
+        width: 100vw;
+        margin: auto;
+        z-index: 4;
+    }
+
+    .balloons {
+        z-index: 2;
+        width: 98%;
+        position: relative;
+        bottom: 0;
+        padding: 0;
+        margin: 0;
+        transform: translateY(50px);
+    }
+
+    .prizeList {
+        padding-top: 20%;
+        z-index: 4;
+
+        .prizeColumn {
+            padding-bottom: 5%;
+            margin: auto;
+            width: 80vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+    
+            @media  screen and (max-width: 900px) {
+                flex-direction: column;   
+                gap: 25px;
+            }
+    
+    
+            .prize {
+                background-color: #FFFFFF;
+                width: 30%;
+                min-height: 40%;
+                border-radius: 20px;
+                padding: 40px;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                z-index: 5;
+    
+                @media  screen and (max-width: 900px) {
+                    width: 90%; 
+                    margin: auto;
+                    min-height: 90%;   
+                }
+    
+                .logo {
+                    margin: auto;
+                    text-align: center;
+                    padding-bottom: 15px;
+                    justify-content: center;
+                }
+    
+                h3 {
+                    color: #233C79;
+                    text-align: center;
+                    // line-height: 30px;
+                    font-size: 22px;
+                    
+                }
+    
+                p {
+                    text-align: center;
+                    color: #233C79;
+                    line-height: 8px;
+                }
+                
+            }
+        }
+    }
+}
+
