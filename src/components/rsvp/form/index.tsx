@@ -48,58 +48,58 @@ const Form = (): JSX.Element => {
   const [registration, setRegistration] = useState<WithId<RegistrationType> | null>(null);
   const [profile, setProfile] = useState<WithId<ProfileType> | null>(null);
 
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      authenticate(`${process.env.NEXT_PUBLIC_REACT_APP_URL}${router.pathname}`);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!isAuthenticated()) {
+  //     authenticate(`${process.env.NEXT_PUBLIC_REACT_APP_URL}${router.pathname}`);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    const initialize = async () => {
-      const roles = await getRoles();
-      if (roles.includes('Applicant')) {
-        const registrationData = await getRegistration('attendee');
-        if (registrationData == null) {
-          router.replace('/register');
-        }
-        setRegistration(registrationData);
+  // useEffect(() => {
+  //   const initialize = async () => {
+  //     const roles = await getRoles();
+  //     if (roles.includes('Applicant')) {
+  //       const registrationData = await getRegistration('attendee');
+  //       if (registrationData == null) {
+  //         router.replace('/register');
+  //       }
+  //       setRegistration(registrationData);
 
-        const decisionData = await getDecision();
-        if (decisionData.status == "ACCEPTED") {
-          setIsAccepted(true);
+  //       const decisionData = await getDecision();
+  //       if (decisionData.status == "ACCEPTED") {
+  //         setIsAccepted(true);
 
-          try {
-            const rsvpData = await getRSVP();
-            console.log(rsvpData.isAttending)
-            if (rsvpData.isAttending == true) {
-              // setAppStatus(true)
-              setIsAccepted(false)
-              setDecisionStatus("accepted and your RSVP has been registered.")
-              // setFirstTimeAccept("UPDATE")
-            } else if (rsvpData.isAttending == false) {
-              // setAppStatus(false)
-              setIsAccepted(false)
-              setDecisionStatus("self-declined. RSVP is unavailable.")
-            }
-          } catch (error) {
+  //         try {
+  //           const rsvpData = await getRSVP();
+  //           console.log(rsvpData.isAttending)
+  //           if (rsvpData.isAttending == true) {
+  //             // setAppStatus(true)
+  //             setIsAccepted(false)
+  //             setDecisionStatus("accepted and your RSVP has been registered.")
+  //             // setFirstTimeAccept("UPDATE")
+  //           } else if (rsvpData.isAttending == false) {
+  //             // setAppStatus(false)
+  //             setIsAccepted(false)
+  //             setDecisionStatus("self-declined. RSVP is unavailable.")
+  //           }
+  //         } catch (error) {
 
-          }
+  //         }
 
-        } else if (decisionData.status == "WAITLISTED") {
-          setDecisionStatus("waitlisted. Please check your email as we may release more acceptances closer to the event start")
-        }
+  //       } else if (decisionData.status == "WAITLISTED") {
+  //         setDecisionStatus("waitlisted. Please check your email as we may release more acceptances closer to the event start")
+  //       }
 
 
-        if (roles.includes('Attendee')) {
-          setIsEditing(true);
-          const { points, ...profileData } = await getProfile();
-          setProfile(profileData);
-        }
-      }
-    };
+  //       if (roles.includes('Attendee')) {
+  //         setIsEditing(true);
+  //         const { points, ...profileData } = await getProfile();
+  //         setProfile(profileData);
+  //       }
+  //     }
+  //   };
 
-    initialize().finally(() => setIsLoading(false));
-  }, []);
+  //   initialize().finally(() => setIsLoading(false));
+  // }, []);
 
   const methods = useForm<RSVPSchema>({
     resolver: zodResolver(rsvpSchema, { errorMap }),
@@ -230,7 +230,7 @@ const Form = (): JSX.Element => {
 
   return (
     <div className={styles.container} style={{ backgroundImage: `url("${MOLEMACHINE}")` }}>
-      {!isLoading && (registration === null ? (
+      {/* {!isLoading && (registration === null ? (
         <div />
       ) : (
         <FormProvider {...methods}>
@@ -268,7 +268,17 @@ const Form = (): JSX.Element => {
             </div>
           </form>
         </FormProvider>
-      ))}
+      ))} */}
+      <form onSubmit={handleSubmit(onSubmit, onError)} className={styles.form}>
+            <div className={clsx(styles.screenContainer, styles.visible)}>
+              <div className={clsx(styles.screen, styles.finish)}>
+                <a className={styles.logo} href="/">
+                  <img src={LOGO_LARGE} alt="HackIllinois" />
+                </a>
+                <p className={styles.text}>RSVPs have closed for HackIllinois 2023. Thank you for your interest in HackIllinois!</p>
+              </div>
+            </div>
+        </form>
     </div>
   );
 };
