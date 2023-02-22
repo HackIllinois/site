@@ -18,7 +18,7 @@ const Travel = () => {
       </Head>
       <div className={styles.travel}>
         <Navbar path="/travel" />
-        <img className={styles.umbrella} src={UMBRELLA} />
+        <img className={styles.umbrella}  src={UMBRELLA} />
         <img className={styles.frontLights} src={FRONT_LIGHTS} />
         <div className={styles.standWrapper}>
           <h1>Travel Details</h1>

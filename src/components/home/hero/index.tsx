@@ -1,17 +1,19 @@
-import React from 'react';
-import Navbar from 'components/Navbar';
+import React from "react";
+import Navbar from "components/Navbar";
 
-import FERRIS_WHEEL_LARGE from 'assets/home/hero/ferris_wheel_large.svg';
-import FERRIS_WHEEL_SMALL from 'assets/home/hero/ferris_wheel_small.svg';
-import BANNER from 'assets/home/hero/banner.svg';
-import LINES from 'assets/home/hero/lines.svg';
-import LOGO from 'assets/home/hero/logo.svg'
-import styles from './styles.module.scss';
+import FERRIS_WHEEL_LARGE from "assets/home/hero/ferris_wheel_large.svg";
+import FERRIS_WHEEL_SMALL from "assets/home/hero/ferris_wheel_small.svg";
+import BANNER from "assets/home/hero/banner.svg";
+import LINES from "assets/home/hero/lines.svg";
+import LOGO from "assets/home/hero/logo.svg";
+import styles from "./styles.module.scss";
+import Lottie from "lottie-react";
+import FERRIS_WHEEL_ANIMATION from "assets/home/hero/ferris_wheel_lottie.json";
 
 const Section: React.FC = () => (
   <section className={styles.hero}>
     <div className={styles.heroBackground}>
-      <Navbar path="/"/>
+      <Navbar path="/" />
       <div className={styles.topHeader}>
         {/* <nav>
           <img className={styles.logo} src={LOGO} />
@@ -19,13 +21,14 @@ const Section: React.FC = () => (
             <li><a href="/register">Register</a></li>
           </ul>
         </nav> */}
-        
+
         <div className={styles.welcomeTo}>Welcome to</div>
         <h1>HackIllinois</h1>
         <div className={styles.dates}>Feb 24th - Feb 26th</div>
       </div>
-      <img className={styles.ferrisWheelLarge} src={FERRIS_WHEEL_LARGE} />
-      <img className={styles.ferrisWheelSmall} src={FERRIS_WHEEL_SMALL} />
+      <Lottie className={styles.ferrisWheelAnimation} animationData={FERRIS_WHEEL_ANIMATION} />;
+      {/* <img className={styles.ferrisWheelLarge} src={FERRIS_WHEEL_LARGE} /> */}
+      {/* <img className={styles.ferrisWheelSmall} src={FERRIS_WHEEL_SMALL} /> */}
     </div>
     <div className={styles.heroFooter}>
       <span className={styles.subtitle}>making memories</span>
