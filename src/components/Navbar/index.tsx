@@ -46,16 +46,16 @@ const Navbar = (props: { path: string }) => {
                             Prizes
                         </a>
                     </div>
-                    {/* <div
+                    <div
                         className={clsx(
                             styles.li,
-                            props.path === "/map" && styles.active
+                            props.path === "/maps" && styles.active
                         )}
                     >
-                        <a href="/map" className={styles.link}>
+                        <a href="/maps" className={styles.link}>
                             Map
                         </a>
-                    </div> */}
+                    </div>
                     <div
                         className={clsx(
                             styles.li,
@@ -108,9 +108,9 @@ const Navbar = (props: { path: string }) => {
                     <a href="/prizes" className={styles.link}>
                         Prizes
                     </a>
-                    {/* <a href="/map" className={styles.link}>
+                    <a href="/maps" className={styles.link}>
                         Map
-                    </a> */}
+                    </a>
                     <a href="/travel" className={styles.link}>
                         Travel
                     </a>
