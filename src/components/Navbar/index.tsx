@@ -108,7 +108,7 @@ const Navbar = (props: { path: string }) => {
                     <a href="/prizes" className={styles.link}>
                         Prizes
                     </a>
-                    <a href="/map" className={styles.link}>
+                    <a href="/maps" className={styles.link}>
                         Map
                     </a>
                     <a href="/travel" className={styles.link}>
