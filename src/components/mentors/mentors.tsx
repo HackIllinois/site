@@ -7,20 +7,58 @@ import CARDANO from "../../assets/sponsors/Cardano.svg";
 import CAT from "../../assets/sponsors/Caterpillar.svg";
 import ILLINI from "../../assets/mentors/block_uiuc.svg";
 
-import jaimeC from "../../assets/mentors/headshots/jaime_caso.svg";
-import brianC from "../../assets/mentors/headshots/brian_coari.svg";
-import adamL from "../../assets/mentors/headshots/adam_letizia.svg";
-import adamB from "../../assets/mentors/headshots/adam_brunner.svg";
-import jasonK from "../../assets/mentors/headshots/jason_kolberg.svg";
-import maxOC from "../../assets/mentors/headshots/max_o_cull.svg";
-import ginoPC from "../../assets/mentors/headshots/gino_p_corrales-delgado.svg";
-import rohanM from "../../assets/mentors/headshots/rohan_minocha.svg";
-import zachP from "../../assets/mentors/headshots/zach_pratt.svg";
-import ryanH from "../../assets/mentors/headshots/ryan_huellen.svg";
-import adamR from "../../assets/mentors/headshots/adam_rusch.svg";
-import joshC from "../../assets/mentors/headshots/joshua_carrington.svg";
-import himanshuM from "../../assets/mentors/headshots/himanshu_minocha.svg";
-import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
+import jaimeC from "../../assets/mentors/corporate_headshots/jaime_caso.svg";
+import brianC from "../../assets/mentors/corporate_headshots/brian_coari.svg";
+import adamL from "../../assets/mentors/corporate_headshots/adam_letizia.svg";
+import adamB from "../../assets/mentors/corporate_headshots/adam_brunner.svg";
+import jasonK from "../../assets/mentors/corporate_headshots/jason_kolberg.svg";
+import maxOC from "../../assets/mentors/corporate_headshots/max_o_cull.svg";
+import ginoPC from "../../assets/mentors/corporate_headshots/gino_p_corrales-delgado.svg";
+import rohanM from "../../assets/mentors/corporate_headshots/rohan_minocha.svg";
+import zachP from "../../assets/mentors/corporate_headshots/zach_pratt.svg";
+import ryanH from "../../assets/mentors/corporate_headshots/ryan_huellen.svg";
+import adamR from "../../assets/mentors/corporate_headshots/adam_rusch.svg";
+import joshC from "../../assets/mentors/corporate_headshots/joshua_carrington.svg";
+import himanshuM from "../../assets/mentors/corporate_headshots/himanshu_minocha.svg";
+import robertoM from "../../assets/mentors/corporate_headshots/roberto_morano.svg";
+
+import ianL from "../../assets/mentors/mentor_headshots/ian_ludden.svg";
+import nigelB from "../../assets/mentors/mentor_headshots/nigel_bosch.svg";
+import harshitA from "../../assets/mentors/mentor_headshots/harshit_agarwal.svg";
+import joshG from "../../assets/mentors/mentor_headshots/josh_gould.svg";
+import qasimA from "../../assets/mentors/mentor_headshots/qasim_abbas.svg";
+import kenT from "../../assets/mentors/mentor_headshots/ken_taylor.svg";
+import mattoxB from "../../assets/mentors/mentor_headshots/mattox_beckman.svg";
+import amberS from "../../assets/mentors/mentor_headshots/amber_sahdev.svg";
+import simonK from "../../assets/mentors/mentor_headshots/simon_kato.svg";
+import rachelM from "../../assets/mentors/mentor_headshots/rachel_moan.svg";
+import abduA from "../../assets/mentors/mentor_headshots/abdu_alawini.svg";
+import samarthG from "../../assets/mentors/mentor_headshots/samarth_gupta.svg";
+import rutaM from "../../assets/mentors/mentor_headshots/ruta_mehta.svg";
+import fengL from "../../assets/mentors/mentor_headshots/feng_liang.svg";
+import shrestaB from "../../assets/mentors/mentor_headshots/shresta_bangaru.svg";
+import isminiL from "../../assets/mentors/mentor_headshots/ismini_lourentzou.svg";
+import gangW from "../../assets/mentors/mentor_headshots/gang_wang.svg";
+import sureshM from "../../assets/mentors/mentor_headshots/suresh_marru.svg";
+import kentonM from "../../assets/mentors/mentor_headshots/kenton_mchenry.svg";
+import adityaA from "../../assets/mentors/mentor_headshots/aditya_allamraju.svg";
+import robertJ from "../../assets/mentors/mentor_headshots/robert_jackson.svg";
+import aswathyA from "../../assets/mentors/mentor_headshots/aswathy_ajith.svg";
+import lisaG from "../../assets/mentors/mentor_headshots/lisa_gatzke.svg";
+import margaretN from "../../assets/mentors/mentor_headshots/margaret_ng.svg";
+import aydanP from "../../assets/mentors/mentor_headshots/aydan_pirani.svg";
+import jasonC from "../../assets/mentors/mentor_headshots/jason_coombs.svg";
+import architP from "../../assets/mentors/mentor_headshots/archit_patke.svg";
+import shenshengZ from "../../assets/mentors/mentor_headshots/shensheng_zhao.svg";
+import dominicD from "../../assets/mentors/mentor_headshots/dominic_damoah.svg";
+import akashM from "../../assets/mentors/mentor_headshots/akash_mittal.svg";
+import yuanshunD from "../../assets/mentors/mentor_headshots/shawn_dong.svg";
+import taliaR from "../../assets/mentors/mentor_headshots/talia_ringer.svg";
+import arishiA from "../../assets/mentors/mentor_headshots/arushi_arora.svg";
+import dyanI from "../../assets/mentors/mentor_headshots/dylan_irlback.svg";
+import yuxiong_wang from "../../assets/mentors/mentor_headshots/yuxiong_wang.svg";
+
+
 
  const mentors = [
    {
@@ -198,21 +236,21 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
     sectionTitle: 'General',
     mentorData: [
     {
-        picture: HACKLOGO,
+        picture: ianL,
         name: 'Ian Ludden',
         bio: [
             <p key={0}>Ian Ludden is a PhD Candidate in Computer Science at the University of Illinois Urbana-Champaign.  His dissertation research integrates algorithmic game theory, graph theory, and combinatorial optimization to tackle partitioning problems in political redistricting and beyond. Ian has also led data analytics projects related to March Madness and public health, including undergraduate research and web development for the BracketOdds website hosted at Illinois. </p>,
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: nigelB,
         name: 'Nigel Bosch',
         bio: [
           <p key={0}>I am an assistant professor in the iSchool and Educational Psychology, where I research machine learning applications to education (and a few other topics). My research uses computer programming for data science, full-stack web development, human–computer interaction, and more.</p>,
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: harshitA,
         name: 'Harshit Agarwal',
         bio: [
           <p key={0}>I am Harshit Agarwal, CS Grad @ UIUC, prior to this at American Express, I led a team of Engineers working on India Data Localization, where we were trying to bring up the Amex network which processes the credit card transactions. It consists of 50+ microservices and other platform components in India. This role allowed me to design/build a complex distributed system network which is 99.9999% available. Apart from this I have contributed on several areas like performance tuning of API's. Built the control plane using envoy for the network. Several CI/CD pipelines to make engineering team's work more productive. Before this, I have built 2 applications for my university during my undergraduate program. Both are deployed on the university network, and they are being used on daily basis by faculty and students at the university. </p>,
@@ -233,28 +271,28 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
       ],
     },
     {
-        picture: HACKLOGO,
+        picture: joshG,
         name: 'Josh Gould',
         bio: [
           <p key={0}>I am a software engineer.  I used to work at Twitter and I lead the Rust-Lang Moderation Team, I also work on Rust-Lang governance.  I am a Rust expert and really excited about teaching you all some Rust :)</p>,
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: qasimA,
         name: 'Qasim Abbas',
         bio: [
           <p key={0}></p>,
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: kenT,
         name: 'Ken Taylor',
         bio: [
           <p key={0}>Ken Taylor currently serves as the Cloud Architect at the University of Illinois Urbana-Champaign. For over a decade he has focused on large-scale data analytics and data engineering using cloud technologies in a variety of industries including agriculture, Internet advertising and finance. He has been mentoring and lecturing on entrepreneurship topics for many years. He got his start in entrepreneurship by co-founding a computer consulting company where he helped secure venture capital funding for a fingerprint biometric device.</p>,
         ],
     },
     {
-      picture: HACKLOGO,
+      picture: mattoxB,
       name: 'Mattox Beckman',
       bio: [
           <p key={0}>Dr Mattox Beckman is a teaching associate professor in the CS department at the
@@ -269,7 +307,7 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: amberS,
         name: 'Amber Sahdev',
         bio: [
           <p key={0}>Gosh</p>,
@@ -290,21 +328,21 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
         ],
     },
     {
-      picture: HACKLOGO,
+      picture: simonK,
       name: 'Simon Kato',
       bio: [
           <p key={0}>Hi my name is Simon Kato, I am a first year Computer Science Ph.D. student at the University of Illinois Urbana-Champaign in Artificial Intelligence. </p>,
       ],
     },
     {
-        picture: HACKLOGO,
+        picture: rachelM,
         name: 'Rachel Moan',
         bio: [
           <p key={0}>Hi I'm Rachel! I am a 1st year PhD student at UIUC studying Computer Science/Artificial Intelligence.</p>,
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: abduA,
         name: 'Abdu Alawini',
         bio: [
           <p key={0}>Dr. Alawini is a teaching assistant professor in the Department of Computer Science at the University of Illinois Urbana-Champaign. His research focuses is on the application of AI and data management in education. He mainly teaches data management courses, including Database Systems and Data Management in the Cloud. </p>,
@@ -325,28 +363,28 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: samarthG,
         name: 'Samarth Gupta',
         bio: [
           <p key={0}>I love hackathons and find it exciting how people can come up with innovative solutions to different real world problems. As of my background, I have been a part of tech teams at companies like Microsoft and SAP where I learnt about scalable systems (which I truly enjoy designing), writing clean code across various technologies and how to deal with ambiguity in the software world. Most importantly, my experience has provided me with the skill and confidence to ramp up on technologies quickly, which I believe is an indispensable skill for any engineer.</p>,
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: rutaM,
         name: 'Ruta Mehta',
         bio: [
           <p key={0}>Ruta Mehta is an Assistant Professor of Computer Science at the University of Illinois at Urbana-Champaign. Prior to joining UIUC, she was a postdoctoral fellow at Simons Institute, UC Berkeley, and at College of Computing, Georgia Tech. She did her Ph.D. from the Indian Institute of Technology Bombay, India. Her research interests lie in theoretical computer science and its interface with economics, games theory, fair division, and learning. For her research, she has received the NSF CAREER Award, the Simons-Berkeley Research Fellowship, and the Best Postdoctoral Award (given by CoC@GT). Her Ph.D. thesis won the ACM India Doctoral Dissertation Award and the IIT-Bombay Excellence in Ph.D. Thesis Award</p>,
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: fengL,
         name: 'Feng Liang',
         bio: [
           <p key={0}></p>,
         ],
     },
     {
-      picture: HACKLOGO,
+      picture: shrestaB,
       name: 'Shresta Bangaru',
       bio: [
           <p key={0}>Shresta is a CS grad student at UIUC and a HackIllinois alum. She enjoys coding, playing the violin, and writing. </p>,
@@ -360,21 +398,21 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: isminiL,
         name: 'Ismini Lourentzou',
         bio: [
           <p key={0}>I am an Assistant Professor of Computer Science at Virginia Tech (VT), where I lead the Perception and LANguage (PLAN) Lab. Prior to VT, I was a Research Scientist at IBM Research. I obtained my Ph.D. from the Computer Science Department, at the University of Illinois at Urbana - Champaign. My research is in the areas of multimodal machine learning and learning with limited supervision, and my work is focused on building multimodal (Vision + Language) task assistants.</p>,
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: gangW,
         name: 'Gang Wang',
         bio: [
           <p key={0}>Gang Wang is an Assistant Professor of Computer Science at University of Illinois at Urbana-Champaign. His research interests are Security and Privacy, Data Mining, and Internet Measurements. His work primarily takes a data-driven approach to understand and address the emerging security threats in massive communication systems, crowdsourcing systems, mobile applications, enterprise networks, and healthcare systems. He is a recipient of the NSF CAREER Award (2018), Amazon Research Award (2021), Google Faculty Research Award (2017), and Best Paper Awards from IMWUT 2019, ACM CCS 2018, and SIGMETRICS 2013. </p>,
         ],
     },
     {
-      picture: HACKLOGO,
+      picture: sureshM,
       name: 'Suresh Marru',
       bio: [
           <p key={0}>Suresh Marru is the vice president of the Apache Airavata project and a Member of the Apache Software Foundation. He is a chief architect and Deputy Director of the Cyberinfrastructure Integration Research Center at Indiana University. Suresh is the Principal Investigator of the Cybershuttle project creating a seamless, secure, and highly usable scientific research continuum platform that integrates all of a scientist’s research tools and data, which may be on the scientist’s laptop, a computing cloud, or a university supercomputer.</p>,
@@ -395,7 +433,7 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: kentonM,
         name: 'Kenton McHenry',
         bio: [
           <p key={0}>Kenton McHenry is the Associate Director for Software at the National Center for Supercomputing Applications (NCSA) at the University of Illinois at Urbana-Champaign. For the past 12 years Kenton has helped establish a team of Research Software Engineers to support the scientific community broadly in the software development, data management, and data analytics needs present in current research activities.  Kenton has further served to drive the advancement of sustainable and reusable research cyberinfrastructure serving as a principal or co-principal investigator on efforts such as DIBBs Brown Dog to prototype a data transformation service, CSSI Clowder to support flexible data management leveraging machine learning, the Open Storage Network to pilot a national data fabric, PEcAn to drive infrastructure in support of ecological forecasting, and EarthCube piloting out activities to elevate software as full scholarly, peer reviewed, published objects.</p>,
@@ -409,28 +447,28 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
       ],
     },
     {
-        picture: HACKLOGO,
+        picture: adityaA,
         name: 'Aditya Allamraju',
         bio: [
           <p key={0}>Aditya Allamraju is currently working as a Product Engineer at Esri (world’s leading GIS products & services organisation) in Redlands, California. She has recently graduated from UIUC with her Professional Science Master’s degree in Geographic Information Science.</p>,
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: robertJ,
         name: 'Robert Jackson',
         bio: [
           <p key={0}>I am an Assistant Atmospheric Scientist at Argonne National Laboratory. My research involves exploring AI techniques to categorize large climate datasets under the Department of Energy AI for Earth System Predictability initiative. In addition I am the lead developer of PyDDA, a Python package for creating 3D wind fields from weather radar networks. I also am a contributor to several open source weather analysis packages.</p>,
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: aswathyA,
         name: 'Aswathy Ajith',
         bio: [
           <p key={0}>I am a second-year PhD student in the Computer Science department at the University of Chicago, where I am advised by Prof. Ian Foster and Dr. Kyle Chard. My research interests lie in scientific information extraction systems and reasoning capabilities of large language models.</p>,
         ],
     },
     {
-      picture: HACKLOGO,
+      picture: lisaG,
       name: 'Lisa Gatzke',
       bio: [
           <p key={0}>Hi! I'm the Lead UIX Research Designer at NCSA here at UIUC. My group collaborates on web applications related to healthcare, genomics and many other scientific and academic domains. We apply design principles and methodology (inherently user-centered) to solve complex data presentation and visualization problems while also optimizing interfaces for the people who will use them. I am looking forward to lending my experience and perspective to the exciting projects happening at HackIllinois!</p>,
@@ -451,14 +489,14 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: margaretN,
         name: 'Margaret Ng',
         bio: [
           <p key={0}>I am Margaret Ng. I'm an Assistant Professor at the University of Illinois's Department of Journalism with an affiliate appointment in the Department of Computer Science. I studied journalism all the way from my undergraduate to my Ph.D. My previous career path was to become a data journalist, but I discovered the computational social science field after working at Pew Research Center. I am fascinated with research using multimodal data (networks, texts, and audio). Currently, I study technology and (mis)information diffusion on social media. I collaborate closely with the UN Global Pulse as a senior analyst. </p>,
         ],
     },
     {
-      picture: HACKLOGO,
+      picture: aydanP,
       name: 'Aydan Pirani',
       bio: [
           <p key={0}>Hello there! I'm Aydan, a computer science student at UIUC, and I really enjoy working with cool people to make cool things. In terms of my technical experience, I'm most familiar with backend development, specifically in the subfields of distributed systems, networking, and databases. I'm super excited to contribute - here's to making something great together!</p>,
@@ -480,7 +518,7 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: jasonC,
         name: 'Jason R. Coombs',
         bio: [
           <p key={0}>Jason is a Software Engineering Manager at Google, recently working on the Next Generation of source control at Google and beyond. Jason is very active in the Python open source community and a maintainer or direct contributor to CPython, CherryPy, setuptools, and others.</p>,
@@ -494,7 +532,7 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: architP,
         name: 'Archit Patke',
         bio: [
           <p key={0}>I am a PhD student working on systems research @ UIUC. I also work part-time at Google Network Infrastructure. I like experimenting with and designing all aspects of the system stack from distributed systems controllers to operating systems and networks to hardware.</p>,
@@ -508,49 +546,49 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: shenshengZ,
         name: 'Shensheng Zhao',
         bio: [
           <p key={0}>I am currently a Ph.D student at ECE Department with experience in product design and programmning. </p>,
         ],
     },
     {
-      picture: HACKLOGO,
+      picture: dominicD,
       name: 'Dominic Damoah',
       bio: [
           <p key={0}>I am a world-class software engineer pursuing a Phd in Computer Science at Purdue</p>,
       ],
     },
     {
-        picture: HACKLOGO,
+        picture: akashM,
         name: 'Akash Mittal',
         bio: [
           <p key={0}>I am a master’s student in the Computer Science department at the University of Illinois, Urbana-Champaign. I am currently working at the intersection of mobile sensing and computer vision. Previously, I worked at Samsung Research Headquarters in South Korea for 3 years. Over the past few years, I have built and deployed end-to-end systems spanning multiple disciplines like Mobile Sensing, Computer Vision, Deep Learning for graphs, Explainable AI, and Big Data in various environments including academic research, as well as industry. I love to build end to end products that solve real world engineering problems. I am passionate about solving problems in the area of Healthcare, Education, and Accessibility using technology.</p>,
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: yuanshunD,
         name: 'Yuanshun Dong',
         bio: [
           <p key={0}>Currently a SDE at AWS, with 2 years of work experience and 6 years of development experience, mainly in full-stack development and cloud-native. I am familiar with most common programming languages and frameworks like Spring, MERN and AWS stack. Worked over China, Japan, and USA</p>,
         ],
     },
     {
-        picture: HACKLOGO,
+        picture: taliaR,
         name: 'Talia Ringer',
         bio: [
           <p key={0}>Talia Ringer is an Assistant Professor at UIUC, working on tools and technologies that make it easier to develop and maintain formally verified software systems.</p>,
         ],
     },
     {
-      picture: HACKLOGO,
+      picture: arishiA,
       name: 'Arushi Arora',
       bio: [
         <p key={0}>Arushi Arora is a highly motivated and dedicated Ph.D. student in Computer Science at Purdue University. As a research assistant under the guidance of Dr. Christina Garman, Arushi's work extends beyond academia to National & Homeland Security at Idaho National Laboratory. Arushi's research interests lie at the intersection of information security, anonymity networks, and applied cryptography.</p>,
       ],
     },
     {
-      picture: HACKLOGO,
+      picture: dyanI,
       name: 'Dylan Irlbeck',
       bio: [
         <p key={0}>I'm currently a software engineer at Flexport, a global logistics company. I specifically work on a domain-aware platform team developing systems and services using tools like Ruby, Java, gRPC, and AWS Kinesis. I'm also a proud alumnus of UIUC, where I studied Computer Science. 
@@ -562,7 +600,7 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
       ],
     },
     {
-      picture: HACKLOGO,
+      picture: yuxiong_wang,
       name: 'Yuxiong Wang',
       bio: [
         <p key={0}>Ken Taylor currently serves as the Cloud Architect at the University of Illinois Urbana-Champaign. For over a decade he has focused on large-scale data analytics and data engineering using cloud technologies in a variety of industries including agriculture, Internet advertising and finance. He has been mentoring and lecturing on entrepreneurship topics for many years. He got his start in entrepreneurship by co-founding a computer consulting company where he helped secure venture capital funding for a fingerprint biometric device.</p>,
