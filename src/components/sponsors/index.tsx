@@ -11,7 +11,8 @@ import logo7 from 'assets/sponsors/Cardano.svg'
 import logo8 from 'assets/sponsors/1517.svg'
 import logo9 from 'assets/sponsors/SLB.svg'
 import lights from 'assets/home/sponsors/boardlights.svg'
-import coaster from 'assets/home/sponsors/coaster.svg'
+import Lottie from "lottie-react";
+import coaster from 'assets/home/sponsors/coaster.json'
 
 const Section = () => {
     return (
@@ -30,7 +31,7 @@ const Section = () => {
                         <img className = {styles.logo8} src = {logo8}/>
                         <img className = {styles.logo6} src = {logo5}/>
                         <img className = {styles.logo9} src = {logo9}/>
-                        <img className = {styles.coaster} src = {coaster}/>
+                        <Lottie className={styles.coaster} animationData={coaster} />;
                     </div>
                     <br></br>
                     <br></br>

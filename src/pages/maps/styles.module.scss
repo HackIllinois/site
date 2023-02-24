@@ -1,0 +1,433 @@
+.maps {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(179.18deg, #10689A 5.86%, #856D93 66.17%, #FEA3AA 109.97%, #FEADA5 120.01%, #FDC899 133.86%, #FCDC8F 152.7%);
+    overflow-y: hidden;
+    color: black;
+    @media screen and (max-height: 550px) {
+        min-height: 150vh;
+    }
+    @media screen and (max-height: 350px) {
+        min-height: 180vh;
+    }
+
+    .frontLights {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    .umbrella {
+        position: absolute;
+        object-fit: fill;
+        left: 3vw;
+        bottom: 0;
+        max-height: 80vh;
+    }
+    .map {
+        margin-left: 30px;
+        margin-right: 30px;
+        position: absolute;
+        display: block;
+        object-fit: fill;
+        left: 0%;
+        // right: auto;
+        top: -30px;
+        bottom: auto;
+        @media screen and (max-width: 1100px) {
+            min-width: 80vw;
+            top: auto;
+
+        }
+        @media screen and (max-height: 400px) {
+            top: -30px;
+
+        }
+    }
+
+    .leftButton {
+        position: absolute;
+        width: 10%;
+        height: 63%;
+        left: 1235px;
+        top: 489px;
+        border: #0D387C;
+        background: #10689A;
+        z-index: 25;
+        
+    }
+    .sign1 {
+        position: absolute;
+        cursor: pointer;
+        z-index: 20;
+        // background-color: #106A9B;
+        height: 16vh;
+        width: 25%;
+        // position: sticky;
+        color: #106A9B;
+        font-size: 0px;
+        // font-size: x-large;
+        // text-align: center;
+        // line-height: 10vh;
+        transform: translateX(10vw) translateY(40.5vh) rotate(-3.52deg);
+        @media screen and (max-width: 1300px) {
+            transform: translateX(20px) translateY(-2.5vh);
+            height: 50px;
+            color: #CAD2E5;
+            background-color: #1D2644;
+            border-radius: 12px;
+            text-align: center;
+            vertical-align: middle;
+            padding: 10px;
+            border: 2px solid #1c87c9;
+            font-weight: bold;
+            font-size: x-large;
+            line-height: 27px;
+            font-family: Montserrat, sans-serif;
+
+        }
+        @media screen and (max-width: 450px) {
+            font-size: 15px;
+        }
+        
+
+
+    }
+
+    .sign1selected {
+        position: absolute;
+        cursor: pointer;
+        z-index: 20;
+        // background-color: #106A9B;
+        height: 16vh;
+        width: 25%;
+        // position: sticky;
+        color: #106A9B;
+        font-size: 0px;
+        // font-size: x-large;
+        // text-align: center;
+        // line-height: 10vh;
+        transform: translateX(10vw) translateY(40.5vh) rotate(-3.52deg);
+        @media screen and (max-width: 1300px) {
+            transform: translateX(20px) translateY(-2.5vh);
+            height: 50px;
+            color: #FBDB8F;
+            background-color: #1D2644;
+            border-radius: 12px;
+            text-align: center;
+            vertical-align: middle;
+            padding: 10px;
+            border: 2px solid #1c87c9;
+            font-weight: bold;
+            font-size: x-large;
+            line-height: 27px;
+            font-family: Montserrat, sans-serif;
+
+        }
+        @media screen and (max-width: 450px) {
+            font-size: 15px;
+        }
+    }
+    .sign2 {
+        position: absolute;
+        cursor: pointer;
+        z-index: 20;
+        // background-color: #106A9B;
+        height: 16vh;
+        width: 25%;
+        // position: sticky;
+        color: #106A9B;
+        font-size: 0px;
+        // font-size: x-large;
+        // text-align: center;
+        // line-height: 10vh;
+        transform: translateX(10vw) translateY(55.5vh) rotate(-3.52deg);
+        @media screen and (max-width: 1300px) {
+            // visibility: hidden;
+            transform: translateX(73vw) translateY(-2.5vh);
+            height: 50px;
+            color: #CAD2E5;
+            background-color: #1D2644;
+            border-radius: 12px;
+            text-align: center;
+            vertical-align: middle;
+            padding: 10px;
+            border: 2px solid #1c87c9;
+            font-weight: bold;
+            font-size: x-large;
+            line-height: 27px;
+            font-family: Montserrat, sans-serif;
+        }
+        @media screen and (max-width: 450px) {
+            font-size: 15px;
+        }
+    }
+    .sign2selected {
+        position: absolute;
+        cursor: pointer;
+        z-index: 20;
+        // background-color: #106A9B;
+        height: 16vh;
+        width: 25%;
+        // position: sticky;
+        color: #106A9B;
+        font-size: 0px;
+        // font-size: x-large;
+        // text-align: center;
+        // line-height: 10vh;
+        transform: translateX(10vw) translateY(55.5vh) rotate(-3.52deg);
+        @media screen and (max-width: 1300px) {
+            // visibility: hidden;
+            transform: translateX(73vw) translateY(-2.5vh);
+            height: 50px;
+            color: #FBDB8F;
+            background-color: #1D2644;
+            border-radius: 12px;
+            text-align: center;
+            vertical-align: middle;
+            padding: 10px;
+            border: 2px solid #1c87c9;
+            font-weight: bold;
+            font-size: x-large;
+            line-height: 27px;
+            font-family: Montserrat, sans-serif;
+        }
+        @media screen and (max-width: 450px) {
+            font-size: 15px;
+        }
+    }
+
+    .pageLeft {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        cursor: pointer;
+        z-index: 20;
+        top: 50vh;
+        right: 875px;
+        height: 50px;
+        color: #0D387C;
+        background-color: #0d387c22;
+        border-radius: 12px;
+        text-align: center;
+        vertical-align: middle;
+        padding: 10px;
+        border: 2px solid #1c87c9;
+        font-weight: bold;
+        font-size: x-large;
+        line-height: 27px;
+        font-family: Montserrat, sans-serif;
+        @media screen and (max-width: 1100px) {
+            position: absolute;
+            background-color: #0d387c22;
+            left: 10vw;
+        }
+        @media screen and (max-height: 500px) {
+            position: fixed;
+            transform: translateX(-30px);
+            background-color: #ffffff22;
+            left: 6vw;
+        }
+    }
+
+    .pageRight {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        cursor: pointer;
+        z-index: 20;
+        top: 50vh;
+        right: 125px;
+        height: 50px;
+        color: #0D387C;
+        background-color: #0d387c22;
+        border-radius: 12px;
+        text-align: center;
+        vertical-align: middle;
+        padding: 10px;
+        border: 2px solid #1c87c9;
+        font-weight: bold;
+        font-size: x-large;
+        line-height: 27px;
+        font-family: Montserrat, sans-serif;
+        @media screen and (max-width: 1100px) {
+            position: absolute;
+            background-color: #0d387c22;
+            // transform: translateX(0px);
+            right: 10vw;
+        }
+        @media screen and (max-height: 500px) {
+            position: fixed;
+            background-color: #ffffff22;
+            transform: translateX(-30px);
+            right: -1vw;
+        }
+    }
+
+    .standWrapper {
+        margin-top: 10px;
+        position: absolute;
+        right: 1%;
+        min-height: 90vh;
+        width: 1030px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @media screen and (max-width: 1100px) {
+            left: 0;
+            right: 0;
+            max-height: 80vh;
+            height: 80vh;
+            width: 100vw;
+        }
+        @media screen and (max-height: 500px) {
+           margin-top: 0px;
+           
+        }
+    }
+
+    .standBottomWrapper {
+        position: relative;
+        @media screen and (max-width: 1100px) {
+            bottom: -7.5vh;
+        }
+    }
+
+    .standBottom {
+        width: 100%;
+        @media screen and (max-width: 1100px) {
+            bottom: 0;
+        }
+    }
+
+    .cornerLeft {
+        position: absolute;
+        left: 3.5%;
+        top: 20.5%;
+        z-index: 11;
+        width: 20.5%;
+    }
+
+    .cornerRight {
+        position: absolute;
+        right: 2%;
+        top: 11%;
+        z-index: 11;
+        width: 17.5%;
+    }
+
+    .standContent {
+        overflow-y: scroll;
+        padding: 36px;
+        background-color: #FFFFFF;
+        margin-bottom: -170px;
+        width: 86%;
+        position: relative;
+        border-left: 10px solid #CAD2E5;
+        border-right: 10px solid #CAD2E5;
+        flex: 1;
+        z-index: 10;
+        min-height: 400px;
+
+        &::-webkit-scrollbar {
+            display: scroll;
+        }
+
+        @media screen and (max-width: 1100px) {
+            margin-bottom: -18.5vw;
+        }
+        @media screen and (max-height: 500px) {
+            margin-bottom: -20.5vw;
+            width: 86%;
+        }
+    }
+
+    h1 {
+        text-transform: uppercase;
+        color: white;
+        font-size: 40px;
+        background: #0D387C;
+        border-radius: 10px;
+        align-self: stretch;
+        padding: 15px;
+        text-align: center;
+
+        @media screen and (max-width: 1100px) {
+            font-size: 35px;
+        }
+
+        @media screen and (max-width: 600px) {
+            font-size: 25px;
+        }
+    }
+
+    h2 {
+        color: black;
+        font-size: 38px;
+        font-weight: 600;
+
+        @media screen and (max-width: 1100px) {
+            font-size: 32px;
+        }
+
+        @media screen and (max-width: 600px) {
+            font-size: 22px;
+        }
+    }
+
+    .leftColumn {
+        font-weight: 500;
+        font-size: 27px;
+        padding-right: 30px;
+
+        @media screen and (max-width: 1100px) {
+            font-size: 25px;
+        }
+
+        @media screen and (max-width: 600px) {
+            font-size: 20px;
+        }
+    }
+
+    .mapBack {
+        display: flex;
+        justify-content: center;
+    }
+
+    .time {
+        font-weight: 600;
+        font-size: 27px;
+
+        @media screen and (max-width: 1100px) {
+            font-size: 25px;
+        }
+
+        @media screen and (max-width: 600px) {
+            font-size: 20px;
+        }
+    }
+
+    .location {
+        font-weight: 400;
+        font-size: 27px;
+
+        @media screen and (max-width: 1100px) {
+            font-size: 25px;
+        }
+
+        @media screen and (max-width: 600px) {
+            font-size: 20px;
+        }
+    }
+
+    td {
+        vertical-align: top;
+    }
+
+    table:not(:last-child) {
+        margin-bottom: 30px;
+    }
+}
