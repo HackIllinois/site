@@ -194,72 +194,72 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
      
     ],
    },
-   {
-     sectionTitle: 'Before',
-     sectionFaqs: [
-       {
-         question: 'What should I bring?',
-         answer: [
-           <p key={0}>You should bring a student ID, reusable water bottle, change of clothing, personal items such as toiletries, laptop, and charger. Due to safety considerations, please do not bring desktop computers, extra monitors, weapons, or alcoholic beverages.</p>,
-         ],
-       },
-       {
-         question: 'Is there anything to do other than code?',
-         answer: [
-           <p key={0}>Absolutely! There will be a bunch of fun mini-events this year, including a Shark Tank competition, keynotes, and opportunities to connect with company representatives. Check out the full schedule when it is posted on our site!</p>,
-         ],
-       },
+//    {
+//      sectionTitle: 'Before',
+//      sectionFaqs: [
+//        {
+//          question: 'What should I bring?',
+//          answer: [
+//            <p key={0}>You should bring a student ID, reusable water bottle, change of clothing, personal items such as toiletries, laptop, and charger. Due to safety considerations, please do not bring desktop computers, extra monitors, weapons, or alcoholic beverages.</p>,
+//          ],
+//        },
+//        {
+//          question: 'Is there anything to do other than code?',
+//          answer: [
+//            <p key={0}>Absolutely! There will be a bunch of fun mini-events this year, including a Shark Tank competition, keynotes, and opportunities to connect with company representatives. Check out the full schedule when it is posted on our site!</p>,
+//          ],
+//        },
        
-       {
-         question: 'Will there be food?',
-         answer: [
-           <p key={0}>Snacks, drinks, and all meals will be provided for the entire weekend. If you have a dietary restriction, please make sure to mention it when you register. We’ll have a wide variety of food available throughout the weekend, including vegetarian and vegan options. We will use our mobile apps to make announcements when food arrives.</p>,
-         ],
-       },
-       {
-         question: 'Where do I sleep?',
-         answer: [
-           <p key={0}>HackIllinois won’t be able to provide sleeping rooms, so you must find separate lodging on-campus or off-campus.</p>,
-         ],
-       },
+//        {
+//          question: 'Will there be food?',
+//          answer: [
+//            <p key={0}>Snacks, drinks, and all meals will be provided for the entire weekend. If you have a dietary restriction, please make sure to mention it when you register. We’ll have a wide variety of food available throughout the weekend, including vegetarian and vegan options. We will use our mobile apps to make announcements when food arrives.</p>,
+//          ],
+//        },
+//        {
+//          question: 'Where do I sleep?',
+//          answer: [
+//            <p key={0}>HackIllinois won’t be able to provide sleeping rooms, so you must find separate lodging on-campus or off-campus.</p>,
+//          ],
+//        },
        
-     ],
-   },
-   {
-     sectionTitle: 'During',
-     sectionFaqs: [
-       {
-         question: 'Do I need a team? How do I find one?',
-         answer: [
-           <p key={0}>No, you are not required to have a team to participate. You are encouraged to work with mentors and other participants in order to get the full experience. If you do have a team, please keep it to a maximum of 4 people.</p>,
-         ],
-       },
-       {
-         question: 'Do I have to go to the opening/ending ceremony?',
-         answer: [
-           <p key={0}>Yes! Swag, prize, and food information will be covered at the opening ceremony. Prizes will be announced at the ending ceremony.</p>,
-         ],
-       },
-       {
-         question: 'Can I work on my own projects?',
-         answer: [
-           <p key={0}>Yes, feel free to work on your own project, people in past years have won creating projects from scratch! However, the benefit of working on a HackIllinois project track is that you get guidance and the opportunity to communicate with experts in the field.</p>,
-         ],
-       },
-       {
-        question: 'What facilities, floors, and rooms are available to work in?',
-        answer: [
-          <p key={0}>Working space will be available in Siebel Computer Science and CIF.</p>,
-        ],
-      },
-      {
-        question: 'How can I stay updated during the event?',
-        answer: [
-          <p key={0}>Please download our mobile apps beforehand and check Discord for notifications!</p>,
-        ],
-      },
-     ],
-   },
+//      ],
+//    },
+//    {
+//      sectionTitle: 'During',
+//      sectionFaqs: [
+//        {
+//          question: 'Do I need a team? How do I find one?',
+//          answer: [
+//            <p key={0}>No, you are not required to have a team to participate. You are encouraged to work with mentors and other participants in order to get the full experience. If you do have a team, please keep it to a maximum of 4 people.</p>,
+//          ],
+//        },
+//        {
+//          question: 'Do I have to go to the opening/ending ceremony?',
+//          answer: [
+//            <p key={0}>Yes! Swag, prize, and food information will be covered at the opening ceremony. Prizes will be announced at the ending ceremony.</p>,
+//          ],
+//        },
+//        {
+//          question: 'Can I work on my own projects?',
+//          answer: [
+//            <p key={0}>Yes, feel free to work on your own project, people in past years have won creating projects from scratch! However, the benefit of working on a HackIllinois project track is that you get guidance and the opportunity to communicate with experts in the field.</p>,
+//          ],
+//        },
+//        {
+//         question: 'What facilities, floors, and rooms are available to work in?',
+//         answer: [
+//           <p key={0}>Working space will be available in Siebel Computer Science and CIF.</p>,
+//         ],
+//       },
+//       {
+//         question: 'How can I stay updated during the event?',
+//         answer: [
+//           <p key={0}>Please download our mobile apps beforehand and check Discord for notifications!</p>,
+//         ],
+//       },
+//      ],
+//    },
  ];
 
  export default mentors;
