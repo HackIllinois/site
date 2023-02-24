@@ -15,7 +15,8 @@
 
     .umbrella {
         position: absolute;
-        left: 0;
+        object-fit: fill;
+        left: 3vw;
         bottom: 0;
         max-height: 80vh;
     }
@@ -41,10 +42,16 @@
 
     .standBottomWrapper {
         position: relative;
+        @media screen and (max-width: 1100px) {
+            bottom: -7.5vh;
+        }
     }
 
     .standBottom {
         width: 100%;
+        @media screen and (max-width: 1100px) {
+            bottom: 0;
+        }
     }
 
     .cornerLeft {
@@ -80,7 +87,7 @@
         }
 
         @media screen and (max-width: 1100px) {
-            margin-bottom: -12.5vw;
+            margin-bottom: -18.5vw;
         }
     }
 
