@@ -1,0 +1,184 @@
+.mentorsMain {
+    width: 100vw;
+    overflow: hidden !important;
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, #0D387C, #FE7098);
+    // padding-top: 40px;
+    position: relative;
+
+    .bubbles {
+        position: absolute;
+        z-index: 0;
+        width: 100%;
+    }
+
+    .booth {
+        transform: scaleX(1);
+        position: absolute;
+        overflow: hidden !important;
+        width: 100vw;
+        margin: auto;
+        z-index: 4;
+    }
+
+    .leftPole {
+        position: absolute;
+        height: 100%;
+        width: 5.11%;
+        left: 4.8%;
+        top: 4%;
+        background-color: #0B3676;
+
+    }
+    .rightPole {
+        position: absolute;
+        height: 100%;
+        width: 5.11%;
+        right: 5%;
+        top: 4%;
+        background-color: #0B3676;
+
+    }
+
+    .balloons {
+        z-index: 2;
+        width: 98%;
+        position: relative;
+        bottom: 0;
+        padding: 0;
+        margin: 0;
+        transform: translateY(50px);
+    }
+
+    .leftBlock {
+        max-width: 20%;
+        min-width: 20%;
+        left: 0;
+        top: 0;
+        object-position: left;
+        
+    }
+    .rightBlock {
+        min-width: 80%;
+        left: 20%;
+        right: 0%;
+        
+    }
+
+    h4 {
+        // position: absolute;
+
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 30px;
+        // line-height: 37px;
+
+        color: #000000;
+
+    }
+
+    .mentorText {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 30px;
+        color: #000000;
+    }
+
+    .prizeList {
+        padding-top: 20%;
+        z-index: 4;
+
+        .prizeColumnSection {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 50px;
+            line-height: 30px;
+            color: #2BA0B4;
+            text-align: center;
+            @media  screen and (max-width: 750px) {
+                font-size: 30px;
+                text-align: center;
+            }
+        }
+
+        .prizeColumn {
+            padding-bottom: 5%;
+            margin: auto;
+            width: 80vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+    
+            @media  screen and (max-width: 900px) {
+                flex-direction: column;   
+                gap: 25px;
+            }
+    
+    
+            .mentor {
+                background-color: #C9D2E5;
+                width: 90%;
+                margin-left: 5%;
+                margin-right: 5%;
+                margin-bottom: 0%;
+                margin-top: 4%;
+                min-height: 40%;
+                border-radius: 20px;
+                padding: 40px;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                z-index: 5;
+                display: flex;
+                flex-direction: row;
+    
+                @media  screen and (max-width: 900px) {
+                    width: 90%; 
+                    margin: auto;
+                    min-height: 90%;   
+                }
+                @media  screen and (max-width: 750px) {
+                    flex-direction: column; 
+                }
+    
+                .logo {
+                    min-height: 100%;
+                    max-height: 150px;
+                    min-width: 100%;
+                    max-width: 100%;
+                    // object-fit: none;
+                    margin: -15px;
+                    text-align: center;
+                    padding-bottom: 15px;
+                    justify-content: center;
+                    @media  screen and (max-width: 750px) {
+                        min-height: 150px;
+                        min-width: 150px;
+                        margin-left: 10px;
+                    }
+                }
+    
+                h3 {
+                    color: #233C79;
+                    text-align: center;
+                    // line-height: 30px;
+                    font-size: 22px;
+                    
+                }
+    
+                p {
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 20px;
+                    line-height: 30px;
+                    color: #000000;
+                }
+                
+            }
+        }
+    }
+}
+
