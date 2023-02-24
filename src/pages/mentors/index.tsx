@@ -11,7 +11,7 @@ import DEERE from "../../assets/prizes/deere.svg";
 import BLUEHILL from "../../assets/prizes/BlueHill.svg";
 import CARDANO from "../../assets/sponsors/Cardano.svg";
 
-import mentors from './mentors';
+import mentors from '../../components/mentors/mentors';
 
 const Mentors: React.FC = () => {
     if(mentors == undefined){
