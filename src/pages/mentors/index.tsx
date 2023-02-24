@@ -14,6 +14,9 @@ import CARDANO from "../../assets/sponsors/Cardano.svg";
 import mentors from './mentors';
 
 const Mentors: React.FC = () => {
+    if(mentors == undefined){
+        return(<div/>)
+    }
     return (
         <div className={styles.mentorsMain}>
             <Navbar path="/mentors" />
