@@ -24,7 +24,7 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
 
  const mentors = [
    {
-    sectionTitle: 'General',
+    sectionTitle: 'Corporate',
     mentorData: [
     {
         picture: jaimeC,
@@ -191,6 +191,398 @@ import robertoM from "../../assets/mentors/headshots/roberto_morano.svg";
           </p>,
         ],
     },
+     
+    ],
+   },
+   {
+    sectionTitle: 'General',
+    mentorData: [
+    {
+        picture: HACKLOGO,
+        name: 'Ian Ludden',
+        bio: [
+            <p key={0}>Ian Ludden is a PhD Candidate in Computer Science at the University of Illinois Urbana-Champaign.  His dissertation research integrates algorithmic game theory, graph theory, and combinatorial optimization to tackle partitioning problems in political redistricting and beyond. Ian has also led data analytics projects related to March Madness and public health, including undergraduate research and web development for the BracketOdds website hosted at Illinois. </p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Nigel Bosch',
+        bio: [
+          <p key={0}>I am an assistant professor in the iSchool and Educational Psychology, where I research machine learning applications to education (and a few other topics). My research uses computer programming for data science, full-stack web development, human–computer interaction, and more.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Harshit Agarwal',
+        bio: [
+          <p key={0}>I am Harshit Agarwal, CS Grad @ UIUC, prior to this at American Express, I led a team of Engineers working on India Data Localization, where we were trying to bring up the Amex network which processes the credit card transactions. It consists of 50+ microservices and other platform components in India. This role allowed me to design/build a complex distributed system network which is 99.9999% available. Apart from this I have contributed on several areas like performance tuning of API's. Built the control plane using envoy for the network. Several CI/CD pipelines to make engineering team's work more productive. Before this, I have built 2 applications for my university during my undergraduate program. Both are deployed on the university network, and they are being used on daily basis by faculty and students at the university. </p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Muhammad Hassan',
+        bio: [
+          <p key={0}>I am a PhD student at University of Illinois with focus on security and privacy in digital spaces. </p>,
+        ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Brett Koonce',
+      bio: [
+          <p key={0}>Brett Koonce grew up on a farm in the midwest where he learned to code at an early age.  He attended USC film school and later the University of Missouri for a master's degree in computer science.  He is passionate about machine learning, writing a book on the subject in 2021.  He is the CTO/co-founder of hallway (joinhallway.com), which enables anyone to express themselves using a digital avatar!</p>,
+      ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Josh Gould',
+        bio: [
+          <p key={0}>I am a software engineer.  I used to work at Twitter and I lead the Rust-Lang Moderation Team, I also work on Rust-Lang governance.  I am a Rust expert and really excited about teaching you all some Rust :)</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Qasim Abbas',
+        bio: [
+          <p key={0}></p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Ken Taylor',
+        bio: [
+          <p key={0}>Ken Taylor currently serves as the Cloud Architect at the University of Illinois Urbana-Champaign. For over a decade he has focused on large-scale data analytics and data engineering using cloud technologies in a variety of industries including agriculture, Internet advertising and finance. He has been mentoring and lecturing on entrepreneurship topics for many years. He got his start in entrepreneurship by co-founding a computer consulting company where he helped secure venture capital funding for a fingerprint biometric device.</p>,
+        ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Mattox Beckman',
+      bio: [
+          <p key={0}>Dr Mattox Beckman is a teaching associate professor in the CS department at the
+          University of Illinois at Urbana-Champaign (UIUC).   Beckman received his PhD
+          from UIUC in 2003, studying partial evaluation and programming languages.
+          After graduating, Beckman taught at the Illinois Institute of Technology in
+          Chicago from 2003 to 2015, where he taught data structures and programming
+          languages.  In 2015 he returned to Champaign county to teach at UIUC, where he
+          lives with his wife and nine year old daughter.  His primary research focus in
+          computer science education.
+          </p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Amber Sahdev',
+        bio: [
+          <p key={0}>Gosh</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Matthew Weston',
+        bio: [
+          <p key={0}>Hello, I'm Matthew Weston. I'm a first-year CS PhD at the University of Illinois. My primary interest is artificial intelligence, but I have broad experience within that field - I'm currently working on projects related to reinforcement learning, multimodal models, and image synthesis. Outside of programming, I like cooking and exercise.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Deepak Vasisht',
+        bio: [
+          <p key={0}>I am an Assistant Professor in Computer Science at UIUC. I work on wireless networks and Internet-of-Things. My current research focuses on next generation networking systems such as satellite networks, 5G, and in-body networks. I graduated with a Ph.D. from MIT, advised by Prof. Dina Katabi. I was also the inaugural Industry Research Fellow at Microsoft, where I worked on FarmBeats among other things.</p>,
+        ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Simon Kato',
+      bio: [
+          <p key={0}>Hi my name is Simon Kato, I am a first year Computer Science Ph.D. student at the University of Illinois Urbana-Champaign in Artificial Intelligence. </p>,
+      ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Rachel Moan',
+        bio: [
+          <p key={0}>Hi I'm Rachel! I am a 1st year PhD student at UIUC studying Computer Science/Artificial Intelligence.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Abdu Alawini',
+        bio: [
+          <p key={0}>Dr. Alawini is a teaching assistant professor in the Department of Computer Science at the University of Illinois Urbana-Champaign. His research focuses is on the application of AI and data management in education. He mainly teaches data management courses, including Database Systems and Data Management in the Cloud. </p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Brian Bailey',
+        bio: [
+          <p key={0}>Professor of Computer Science at the University of Illinois. Teach courses on user interface design and human-computer interaction. Conduct research on creativity support tools, crowdsourcing, teamwork and team formation.</p>,
+        ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Matthew Caesar',
+      bio: [
+          <p key={0}></p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Samarth Gupta',
+        bio: [
+          <p key={0}>I love hackathons and find it exciting how people can come up with innovative solutions to different real world problems. As of my background, I have been a part of tech teams at companies like Microsoft and SAP where I learnt about scalable systems (which I truly enjoy designing), writing clean code across various technologies and how to deal with ambiguity in the software world. Most importantly, my experience has provided me with the skill and confidence to ramp up on technologies quickly, which I believe is an indispensable skill for any engineer.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Ruta Mehta',
+        bio: [
+          <p key={0}>Ruta Mehta is an Assistant Professor of Computer Science at the University of Illinois at Urbana-Champaign. Prior to joining UIUC, she was a postdoctoral fellow at Simons Institute, UC Berkeley, and at College of Computing, Georgia Tech. She did her Ph.D. from the Indian Institute of Technology Bombay, India. Her research interests lie in theoretical computer science and its interface with economics, games theory, fair division, and learning. For her research, she has received the NSF CAREER Award, the Simons-Berkeley Research Fellowship, and the Best Postdoctoral Award (given by CoC@GT). Her Ph.D. thesis won the ACM India Doctoral Dissertation Award and the IIT-Bombay Excellence in Ph.D. Thesis Award</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Feng Liang',
+        bio: [
+          <p key={0}></p>,
+        ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Shresta Bangaru',
+      bio: [
+          <p key={0}>Shresta is a CS grad student at UIUC and a HackIllinois alum. She enjoys coding, playing the violin, and writing. </p>,
+      ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Farzaneh Khajouei',
+        bio: [
+          <p key={0}>Farzaneh is a Senior Computational Scientist at Broad Institute of MIT and Harvard. She is the scientific lead of the pipelines team at Data Science Platform. She leads the development of cloud-based pipelines for large scale single cell genomics data processing.  She has a PhD in Computer Science at University of Illinois at Urbana-Champaign.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Ismini Lourentzou',
+        bio: [
+          <p key={0}>I am an Assistant Professor of Computer Science at Virginia Tech (VT), where I lead the Perception and LANguage (PLAN) Lab. Prior to VT, I was a Research Scientist at IBM Research. I obtained my Ph.D. from the Computer Science Department, at the University of Illinois at Urbana - Champaign. My research is in the areas of multimodal machine learning and learning with limited supervision, and my work is focused on building multimodal (Vision + Language) task assistants.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Gang Wang',
+        bio: [
+          <p key={0}>Gang Wang is an Assistant Professor of Computer Science at University of Illinois at Urbana-Champaign. His research interests are Security and Privacy, Data Mining, and Internet Measurements. His work primarily takes a data-driven approach to understand and address the emerging security threats in massive communication systems, crowdsourcing systems, mobile applications, enterprise networks, and healthcare systems. He is a recipient of the NSF CAREER Award (2018), Amazon Research Award (2021), Google Faculty Research Award (2017), and Best Paper Awards from IMWUT 2019, ACM CCS 2018, and SIGMETRICS 2013. </p>,
+        ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Suresh Marru',
+      bio: [
+          <p key={0}>Suresh Marru is the vice president of the Apache Airavata project and a Member of the Apache Software Foundation. He is a chief architect and Deputy Director of the Cyberinfrastructure Integration Research Center at Indiana University. Suresh is the Principal Investigator of the Cybershuttle project creating a seamless, secure, and highly usable scientific research continuum platform that integrates all of a scientist’s research tools and data, which may be on the scientist’s laptop, a computing cloud, or a university supercomputer.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Dimuthu Wannipurage',
+        bio: [
+          <p key={0}>I work as a Senior Software Engineer at the Cyberinfrastructure Integration Research Center of the Indiana University. Most of my work and research is focused on high throughput data transfer systems, high performance computing integration with science gateways and developing software solutions to make scientific computations flexible.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Hao Zhang',
+        bio: [
+          <p key={0}>PhD student @ UIUC ECE, doing research about computer vision and deep learning.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Kenton McHenry',
+        bio: [
+          <p key={0}>Kenton McHenry is the Associate Director for Software at the National Center for Supercomputing Applications (NCSA) at the University of Illinois at Urbana-Champaign. For the past 12 years Kenton has helped establish a team of Research Software Engineers to support the scientific community broadly in the software development, data management, and data analytics needs present in current research activities.  Kenton has further served to drive the advancement of sustainable and reusable research cyberinfrastructure serving as a principal or co-principal investigator on efforts such as DIBBs Brown Dog to prototype a data transformation service, CSSI Clowder to support flexible data management leveraging machine learning, the Open Storage Network to pilot a national data fabric, PEcAn to drive infrastructure in support of ecological forecasting, and EarthCube piloting out activities to elevate software as full scholarly, peer reviewed, published objects.</p>,
+        ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Fangyu Zhou',
+      bio: [
+          <p key={0}>I'm a UIX Designer in NCSA, most of my projects serve researcher's use, some of them face to general public too. I have 1 year of formal working experience, and multiple interns as industrial designer, design researcher, and UIX designer.</p>,
+      ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Aditya Allamraju',
+        bio: [
+          <p key={0}>Aditya Allamraju is currently working as a Product Engineer at Esri (world’s leading GIS products & services organisation) in Redlands, California. She has recently graduated from UIUC with her Professional Science Master’s degree in Geographic Information Science.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Robert Jackson',
+        bio: [
+          <p key={0}>I am an Assistant Atmospheric Scientist at Argonne National Laboratory. My research involves exploring AI techniques to categorize large climate datasets under the Department of Energy AI for Earth System Predictability initiative. In addition I am the lead developer of PyDDA, a Python package for creating 3D wind fields from weather radar networks. I also am a contributor to several open source weather analysis packages.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Aswathy Ajith',
+        bio: [
+          <p key={0}>I am a second-year PhD student in the Computer Science department at the University of Chicago, where I am advised by Prof. Ian Foster and Dr. Kyle Chard. My research interests lie in scientific information extraction systems and reasoning capabilities of large language models.</p>,
+        ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Lisa Gatzke',
+      bio: [
+          <p key={0}>Hi! I'm the Lead UIX Research Designer at NCSA here at UIUC. My group collaborates on web applications related to healthcare, genomics and many other scientific and academic domains. We apply design principles and methodology (inherently user-centered) to solve complex data presentation and visualization problems while also optimizing interfaces for the people who will use them. I am looking forward to lending my experience and perspective to the exciting projects happening at HackIllinois!</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Albert Li',
+        bio: [
+          <p key={0}>Hey! I'm currently a software engineer at Stripe. I help build customer facing products used by millions. I graduated from UIUC and have attended HackIllinois myself. Previously, I've spent some time at Facebook, Salesforce, Motorola, and others.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Seongha Park',
+        bio: [
+          <p key={0}>I’m a Postdoctoral Appointee at Argonne National Laboratory working with Waggle team (http://wa8.gl/, https://sagecontinuum.org/about/). My research is related to create applications using machine learning algorithms and images to solve science problems such as to estimate solar irradiance or underground traffic states at a local area. </p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Margaret Ng',
+        bio: [
+          <p key={0}>I am Margaret Ng. I'm an Assistant Professor at the University of Illinois's Department of Journalism with an affiliate appointment in the Department of Computer Science. I studied journalism all the way from my undergraduate to my Ph.D. My previous career path was to become a data journalist, but I discovered the computational social science field after working at Pew Research Center. I am fascinated with research using multimodal data (networks, texts, and audio). Currently, I study technology and (mis)information diffusion on social media. I collaborate closely with the UN Global Pulse as a senior analyst. </p>,
+        ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Aydan Pirani',
+      bio: [
+          <p key={0}>Hello there! I'm Aydan, a computer science student at UIUC, and I really enjoy working with cool people to make cool things. In terms of my technical experience, I'm most familiar with backend development, specifically in the subfields of distributed systems, networking, and databases. I'm super excited to contribute - here's to making something great together!</p>,
+      ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Robert Miroballi',
+        bio: [
+          <p key={0}>Technical Architect, Solutions Developer, working on applications used in enterprise settings. 
+          Specialties: Architecture Development, Enterprise Development, Analysis and Design, Distributed Systems, SOA, Integration, Custom Production Support Tools.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Mike Tu',
+        bio: [
+          <p key={0}>Entrepreneur, AI Researcher, Full-stack Engineer | Cofounder of Talklet</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Jason R. Coombs',
+        bio: [
+          <p key={0}>Jason is a Software Engineering Manager at Google, recently working on the Next Generation of source control at Google and beyond. Jason is very active in the Python open source community and a maintainer or direct contributor to CPython, CherryPy, setuptools, and others.</p>,
+        ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Tianjiao Chen',
+      bio: [
+          <p key={0}>I am mainly focus on Chip design, took part in large scale mixed-signal circuit design (e.g. Apple's M chip )</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Archit Patke',
+        bio: [
+          <p key={0}>I am a PhD student working on systems research @ UIUC. I also work part-time at Google Network Infrastructure. I like experimenting with and designing all aspects of the system stack from distributed systems controllers to operating systems and networks to hardware.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'A Das',
+        bio: [
+          <p key={0}></p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Shensheng Zhao',
+        bio: [
+          <p key={0}>I am currently a Ph.D student at ECE Department with experience in product design and programmning. </p>,
+        ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Dominic Damoah',
+      bio: [
+          <p key={0}>I am a world-class software engineer pursuing a Phd in Computer Science at Purdue</p>,
+      ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Akash Mittal',
+        bio: [
+          <p key={0}>I am a master’s student in the Computer Science department at the University of Illinois, Urbana-Champaign. I am currently working at the intersection of mobile sensing and computer vision. Previously, I worked at Samsung Research Headquarters in South Korea for 3 years. Over the past few years, I have built and deployed end-to-end systems spanning multiple disciplines like Mobile Sensing, Computer Vision, Deep Learning for graphs, Explainable AI, and Big Data in various environments including academic research, as well as industry. I love to build end to end products that solve real world engineering problems. I am passionate about solving problems in the area of Healthcare, Education, and Accessibility using technology.</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Yuanshun Dong',
+        bio: [
+          <p key={0}>Currently a SDE at AWS, with 2 years of work experience and 6 years of development experience, mainly in full-stack development and cloud-native. I am familiar with most common programming languages and frameworks like Spring, MERN and AWS stack. Worked over China, Japan, and USA</p>,
+        ],
+    },
+    {
+        picture: HACKLOGO,
+        name: 'Talia Ringer',
+        bio: [
+          <p key={0}>Talia Ringer is an Assistant Professor at UIUC, working on tools and technologies that make it easier to develop and maintain formally verified software systems.</p>,
+        ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Arushi Arora',
+      bio: [
+        <p key={0}>Arushi Arora is a highly motivated and dedicated Ph.D. student in Computer Science at Purdue University. As a research assistant under the guidance of Dr. Christina Garman, Arushi's work extends beyond academia to National & Homeland Security at Idaho National Laboratory. Arushi's research interests lie at the intersection of information security, anonymity networks, and applied cryptography.</p>,
+      ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Dylan Irlbeck',
+      bio: [
+        <p key={0}>I'm currently a software engineer at Flexport, a global logistics company. I specifically work on a domain-aware platform team developing systems and services using tools like Ruby, Java, gRPC, and AWS Kinesis. I'm also a proud alumnus of UIUC, where I studied Computer Science. 
+
+        In my work, I think deeply about how to construct robust systems using approaches like domain-driven design, human-centered design, and functional programming. I’m also interested in technology policy and government/civic technology as avenues to affect change.
+        
+        Previously, I have worked as a product manager with the federal government; advocated for computing ethics at UIUC; and developed software – both open- and closed-source – for many Chicago startups and organizations.
+        </p>,
+      ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Yuxiong Wang',
+      bio: [
+        <p key={0}>Ken Taylor currently serves as the Cloud Architect at the University of Illinois Urbana-Champaign. For over a decade he has focused on large-scale data analytics and data engineering using cloud technologies in a variety of industries including agriculture, Internet advertising and finance. He has been mentoring and lecturing on entrepreneurship topics for many years. He got his start in entrepreneurship by co-founding a computer consulting company where he helped secure venture capital funding for a fingerprint biometric device.</p>,
+      ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Savina Imrhan',
+      bio: [
+        <p key={0}>I'm a user experience designer at nvisia :-)</p>,
+      ],
+    },
+    {
+      picture: HACKLOGO,
+      name: 'Samir Rajani',
+      bio: [
+        <p key={0}>Samir is an AI Researcher at Argonne National Laboratory working primarily in federated and reinforcement learning. He recently graduated with a BA in Physics (and minors in Computer Science and Music) from the University of Chicago. During his time in college, Samir worked for a software-based travel startup and a quantum optics lab, and he ran the UChicago chapter of Lean On Me, a mental health organization which operates a peer support text line. In his free time, Samir is currently developing an educational resource focused on concepts in deep learning. </p>,
+      ],
+    },
+    
      
     ],
    },
