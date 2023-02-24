@@ -26,7 +26,7 @@ const Mentors: React.FC = () => {
             <div className={styles.rightPole}/>
             <div className={styles.prizeList}>
                 <div className={styles.prizeColumn}>
-                <div className={styles.prizeColumnSection}>CORPORATE</div>
+                <div className={styles.prizeColumnSection}> CORPORATE </div>
                     {mentors[0].mentorData.map(({ picture, name, bio }, i) => (
                         <div key={i} className={styles.mentor}>
                             <div className={styles.leftBlock}>
