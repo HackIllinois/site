@@ -5,6 +5,7 @@ import BATS from "../../assets/sponsors/bats.svg";
 import BLUEHILL from "../../assets/prizes/BlueHill.svg";
 import CARDANO from "../../assets/sponsors/Cardano.svg";
 import CAT from "../../assets/sponsors/Caterpillar.svg";
+import SLB from "../../assets/sponsors/SLB.svg";
 import ILLINI from "../../assets/mentors/block_uiuc.svg";
 
 import jaimeC from "../../assets/mentors/corporate_headshots/jaime_caso.svg";
@@ -21,6 +22,9 @@ import adamR from "../../assets/mentors/corporate_headshots/adam_rusch.svg";
 import joshC from "../../assets/mentors/corporate_headshots/joshua_carrington.svg";
 import himanshuM from "../../assets/mentors/corporate_headshots/himanshu_minocha.svg";
 import robertoM from "../../assets/mentors/corporate_headshots/roberto_morano.svg";
+import anuragB from "../../assets/mentors/corporate_headshots/anurag_bihani.svg";
+import karthikK from "../../assets/mentors/corporate_headshots/karthik_krishnamoorthy.svg";
+import aidanG from "../../assets/mentors/corporate_headshots/aidan_glickman.svg";
 
 import ianL from "../../assets/mentors/mentor_headshots/ian_ludden.svg";
 import nigelB from "../../assets/mentors/mentor_headshots/nigel_bosch.svg";
@@ -145,9 +149,25 @@ import yuxiong_wang from "../../assets/mentors/mentor_headshots/yuxiong_wang.svg
     },
     {
         picture: CAT,
-        name: 'Robert Casuso',
+        name: 'Robert Caruso',
         bio: [
-          <p key={0}>18 year tenure, at Caterpillar.  I'm in the infosec space.  Specificially in relation to network/border .</p>,
+          <p key={0}>Robert is an Information security professional at Caterpillar specializing in network protection, network access control firewall policy, and agile development.  He has an MBA and multiple certifications including:
+          CISM – Certified Information Security Manager
+          CISSP – Certified Information Systems Security Professional
+          CCSP – Certified Cloud Security Professional
+          CISCO – Application Centric Infrastructure Certified
+          GIAC GSLC – Cyber Security Leadership Certified
+          GIAC GSNA – Systems and Network Auditing Certified
+          GIAC GCCC – Auditing Critical Security Controls Certified
+          GIAC GCED – Certified Enterprise Defender
+          CSA CCSK – Certified in Cloud Security Knowledge
+          Microsoft – Azure Security Engineer Associate
+          Microsoft – Azure Fundamentals
+          SAP Certified Associate Production Planning (C_TSCM42_66)
+          APICS CPIM Certified in Production and Inventory Management
+          Certified Six Sigma Green Belt
+          SAP production planning and production execution in ECC
+          SAP Planning in SCM/APO</p>,
         ],
     },
     {
@@ -228,6 +248,46 @@ import yuxiong_wang from "../../assets/mentors/mentor_headshots/yuxiong_wang.svg
           What technical areas are you comfortable mentoring in?: Cardano general knowledge (UTXO model, transactions, metadata, libraries...), specialized on backend services deployment. 
           </p>,
         ],
+    },
+    {
+      picture: anuragB,
+      name: 'Anurag Bihani',
+      bio: [
+        <p key={0}>I am a Data Scientist working in the autonomous directional drilling team at SLB (Prev. Schlumberger).  
+        </p>,
+      ],
+    },
+    {
+      picture: DEERE,
+      name: 'Krishna Kumar',
+      bio: [
+        <p key={0}>
+        </p>,
+      ],
+    },
+    {
+      picture: karthikK,
+      name: 'Karthik Krishnamoorthy',
+      bio: [
+        <p key={0}>Expertise on Full Stack Development and AWS Cloud Deployment 
+        </p>,
+      ],
+    },
+    {
+      picture: aidanG,
+      name: 'Aidan Glickman',
+      bio: [
+        <p key={0}>Aidan Glickman is a senior at UIUC, and UIUCs GitHub Campus Expert. He is also a huge coffee, mechanical keyboard and watch nerd.  
+        </p>,
+      ],
+    },
+    {
+      picture: SLB,
+      name: 'Garret Flagg',
+      bio: [
+        <p key={0}>  
+        </p>,
+      ],
     },
      
     ],

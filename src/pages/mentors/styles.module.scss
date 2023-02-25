@@ -66,8 +66,20 @@
         min-width: 80%;
         left: 20%;
         right: 0%;
+        overflow-y: scroll;
+        max-height: 200px;
         
     }
+    ::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 7px;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: #0b367674;
+        box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+      }
 
     h4 {
         // position: absolute;
@@ -162,10 +174,12 @@
                     min-width: 100%;
                     max-width: 100%;
                     // object-fit: none;
+                    margin-top: auto;
                     margin: -15px;
                     text-align: center;
                     padding-bottom: 15px;
                     justify-content: center;
+                    
                     @media  screen and (max-width: 750px) {
                         display: block;
                         margin-left: auto;
