@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import clsx from 'clsx';
 import axios from 'axios';
@@ -23,13 +23,25 @@ interface Event {
   points: number
 };
 
-interface IProps {
-  events: Event[];
-};
 
 type Day = "Friday" | "Saturday" | "Sunday";
 
-const Schedule: React.FC<IProps> = ({ events }) => {
+const Schedule: React.FC = () => {
+  const [events, setEvents] = useState<Event[]>([]);
+
+  useEffect(() => {
+    const getEvents = async() => {
+      const { data } = await axios("https://api.hackillinois.org/event/");
+
+      const { events } = data;
+  
+      setEvents(events);
+    }
+    
+    getEvents();
+  }, [setEvents])
+  
+
   const fridayEvents = events.filter(event => (
     Date.parse("February 24, 2023") < event.startTime * 1000 && event.startTime * 1000 < Date.parse("February 25, 2023")
   )).sort((a, b) => (
@@ -162,17 +174,17 @@ const Schedule: React.FC<IProps> = ({ events }) => {
   );
 };
 
-export const getStaticProps = async () => {
-  const { data } = await axios("https://api.hackillinois.org/event/");
+// export const getStaticProps = async () => {
+//   const { data } = await axios("https://api.hackillinois.org/event/");
 
-  const { events } = data;
+//   const { events } = data;
 
-  return {
-    props: {
-      events
-    }
-  };
-};
+//   return {
+//     props: {
+//       events
+//     }
+//   };
+// };
 
 
 export default Schedule;
