@@ -26,6 +26,7 @@ import anuragB from "../../assets/mentors/corporate_headshots/anurag_bihani.svg"
 import karthikK from "../../assets/mentors/corporate_headshots/karthik_krishnamoorthy.svg";
 import aidanG from "../../assets/mentors/corporate_headshots/aidan_glickman.svg";
 
+
 import ianL from "../../assets/mentors/mentor_headshots/ian_ludden.svg";
 import nigelB from "../../assets/mentors/mentor_headshots/nigel_bosch.svg";
 import harshitA from "../../assets/mentors/mentor_headshots/harshit_agarwal.svg";
@@ -168,6 +169,7 @@ import yuxiong_wang from "../../assets/mentors/mentor_headshots/yuxiong_wang.svg
           Certified Six Sigma Green Belt
           SAP production planning and production execution in ECC
           SAP Planning in SCM/APO</p>,
+
         ],
     },
     {
@@ -289,7 +291,6 @@ import yuxiong_wang from "../../assets/mentors/mentor_headshots/yuxiong_wang.svg
         </p>,
       ],
     },
-     
     ],
    },
    {

@@ -102,9 +102,9 @@ const Navbar = (props: { path: string }) => {
                     <a href="/schedule" className={styles.link}>
                         Schedule
                     </a>
-                    {/* <a href="/mentors" className={styles.link}>
+                    <a href="/mentors" className={styles.link}>
                         Mentors
-                    </a> */}
+                    </a>
                     <a href="/prizes" className={styles.link}>
                         Prizes
                     </a>
