@@ -68,6 +68,7 @@
   // }
 
   h1 {
+    margin-top: 40px;
     font-weight: 700;
     font-size: 75px;
     background: linear-gradient(90deg, #6384BE -7.86%, #305e42 63.14%, #dd7f48 115.38%);
@@ -86,7 +87,7 @@
     }
 
     @media screen and (max-height: 500px) {
-      font-size: 40px;
+      font-size: 35px;
     }
   }
 
@@ -137,6 +138,10 @@
     transform: translate(-50%, 8.8%);
     top: 10%;
     height: 85%;
+
+    @media screen and (max-height: 500px) {
+      height: 95%;
+    }
   }
 
   .ferrisWheelLarge {
@@ -181,6 +186,7 @@
   align-items: center;
 
   .subtitle {
+    margin-top: 50px;
     font-weight: 500;
     font-size: 45px;
     color: #FCDC8F;

@@ -4,20 +4,20 @@
     background: #000000;
     overflow: hidden;
 
-    .footerText {
-        padding-left: 20px;
-        padding-right: 20px;
-        position: relative;
-        z-index: 3 !important;
+    // .footerText {
+    //     padding-left: 20px;
+    //     padding-right: 20px;
+    //     position: relative;
+    //     z-index: 3 !important;
 
-        h2 {
-            color: white;
-            font-weight: 500;
-            text-align: center;
-            padding: 500px 0px 10px 0px;
-            font-size: 30px;
-        }
-    }
+    //     h2 {
+    //         color: white;
+    //         font-weight: 500;
+    //         text-align: center;
+    //         padding: 500px 0px 10px 0px;
+    //         font-size: 30px;
+    //     }
+    // }
 
     .icons {
         margin: auto;
@@ -44,19 +44,19 @@
 
 
 
-    .footerBackground {
-        position: absolute;
-        left: 0;
-        min-width: 100%;
-        // width: fit-content;
-        // max-height: 800px;
-        bottom: 0;
-        z-index: 1;
-        overflow: hidden !important;
+    // .footerBackground {
+    //     position: absolute;
+    //     left: 0;
+    //     min-width: 100%;
+    //     // width: fit-content;
+    //     // max-height: 800px;
+    //     bottom: 0;
+    //     z-index: 1;
+    //     overflow: hidden !important;
 
-    }
+    // }
 
-    a {
-        text-decoration: none;
-    }
+    // a {
+    //     text-decoration: none;
+    // }
 }
