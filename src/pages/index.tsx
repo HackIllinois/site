@@ -21,7 +21,7 @@ const Home: React.FC = () => (
       {/* <FAQs /> */}
       {/* <Sponsor />  */}
 
-      {/* <Footer /> */}
+      <Footer />
 
     </div>
   </>

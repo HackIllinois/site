@@ -1,10 +1,8 @@
-
-
 .footer {
-position: relative;
-min-height: 1050px;
-background: #27A4B6;
-overflow: hidden;
+    position: relative;
+    min-height: 50px;
+    background: #000000;
+    overflow: hidden;
 
     .footerText {
         padding-left: 20px;
@@ -13,11 +11,11 @@ overflow: hidden;
         z-index: 3 !important;
 
         h2 {
-        color: white;
-        font-weight: 500;
-        text-align: center;
-        padding: 500px 0px 10px 0px;
-        font-size: 30px;
+            color: white;
+            font-weight: 500;
+            text-align: center;
+            padding: 500px 0px 10px 0px;
+            font-size: 30px;
         }
     }
 
@@ -30,20 +28,21 @@ overflow: hidden;
         justify-content: center;
         align-items: center;
         flex-flow: wrap;
-        
+        filter: grayscale(30%) invert(10%) hue-rotate(250deg);
+
         .icon {
-        margin: 15px;
-        transform: scale(0.8);
+            margin: 15px;
+            transform: scale(0.8);
         }
 
         @media screen and (max-width: 600px) {
             flex-direction: column;
         }
     }
-    
 
 
-    
+
+
 
     .footerBackground {
         position: absolute;
@@ -61,4 +60,3 @@ overflow: hidden;
         text-decoration: none;
     }
 }
-  
