@@ -17,11 +17,11 @@ const Home: React.FC = () => (
     </Head>
     <div className={styles.home}>
       <Hero />
-      <EventInfo />
-      <FAQs />
-      <Sponsor /> 
+      {/* <EventInfo /> */}
+      {/* <FAQs /> */}
+      {/* <Sponsor />  */}
 
-      <Footer />
+      {/* <Footer /> */}
 
     </div>
   </>

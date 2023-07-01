@@ -3,7 +3,9 @@
   padding: 0;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -21,7 +23,7 @@ body {
   overflow-x: hidden;
 
   /* Temporary Change */
-  background-color: #0d387c;
+  background-color: #000000;
 }
 
 code {
