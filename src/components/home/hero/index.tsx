@@ -11,6 +11,7 @@ import styles from "./styles.module.scss";
 import Lottie from "lottie-react";
 import FERRIS_WHEEL_ANIMATION from "assets/home/hero/ferris_wheel_lottie.json";
 import HACK_I_ANIMATION from "assets/home/hero/Hack_I_Animation.gif"
+console.log(HACK_I_ANIMATION)
 
 const Section: React.FC = () => (
   <section className={styles.hero}>

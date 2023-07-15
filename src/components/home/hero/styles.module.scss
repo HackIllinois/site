@@ -3,6 +3,7 @@
   height: 77vh;
   // background-image: linear-gradient(180deg, #0D387C 5.23%, #856D93 40.28%, #FEA3AA 75.31%, #FEADA5 90.5%, #FDC899 116.2%, #FCDC8F 132.53%);
   background-color: #000000;
+  overflow-x: clip;
 
   @media screen and (max-width: 800px) {
     height: 80vh;
