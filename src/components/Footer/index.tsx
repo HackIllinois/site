@@ -13,11 +13,11 @@ import styles from './styles.module.scss';
 const Section: React.FC = () => (
   <section className={styles.footer}>
 
-      <img className={styles.footerBackground} src={FOOTER} />
+      {/* <img className={styles.footerBackground} src={FOOTER} /> */}
 
-      <div className={styles.footerText}>
+      {/* <div className={styles.footerText}>
         <h2>Stay up to date with HackIllinois!</h2>
-      </div>
+      </div> */}
 
       <div className={styles.icons}>
         <div>
