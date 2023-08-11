@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "components/Navbar";
-
+import Newsletter from "./newsletter";
 
 import FERRIS_WHEEL_LARGE from "assets/home/hero/ferris_wheel_large.svg";
 import FERRIS_WHEEL_SMALL from "assets/home/hero/ferris_wheel_small.svg";
@@ -37,6 +37,7 @@ const Section: React.FC = () => (
     </div>
     <div className={styles.heroFooter}>
       <span className={styles.subtitle}>coming soon</span>
+        <div className={styles.newsletter}><Newsletter/> </div>
       {/* <img className={styles.banner} src={BANNER} />
       <img className={styles.lines} src={LINES} /> */}
     </div>

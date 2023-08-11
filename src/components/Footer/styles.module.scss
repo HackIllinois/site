@@ -21,6 +21,7 @@
 
     .icons {
         margin: auto;
+        margin-top: 75px;
         position: relative;
         z-index: 3;
         display: flex;
@@ -42,6 +43,7 @@
 
         @media screen and (max-width: 600px) {
             flex-direction: column;
+            margin-top: 95px;
         }
 
 
