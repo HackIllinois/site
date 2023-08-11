@@ -12,12 +12,12 @@ const Newsletter:React.FC = () => {
   };
 
   const handleSubscription = async () => {
-    console.log("sending request");
     if (!validator.isEmail(email)) {
       alert("Please enter a valid email address!");
     } else {
+      console.log("sending request");
       subscribe("2024_attendee_interest", email);
-      setEmail("");
+      setEmail(""); // clear input field after submitting
       console.log("request complete");
     }
   };
@@ -30,7 +30,7 @@ const Newsletter:React.FC = () => {
 
   return (
     <>
-      <span>interested in attending? stay updated with our newsletter: </span>
+      <span>Interested? Join our newsletter: </span>
       <div>
         <input className={styles.input} type="email" name="email" placeholder="email" value={email} onChange={handleEmailChange} onKeyDown={handleKeydown}></input> 
         <button className={styles.joinbutton} onClick={() => handleSubscription()}>join</button>
