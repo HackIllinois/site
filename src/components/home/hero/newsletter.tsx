@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "components/Navbar";
 import { subscribe } from "util/api";
 import styles from "./styles.module.scss";
+const validator = require('validator')
 
 const Newsletter:React.FC = () => {
   const [email, setEmail] = useState("");
@@ -12,9 +13,13 @@ const Newsletter:React.FC = () => {
 
   const handleSubscription = async () => {
     console.log("sending request");
-    subscribe("2024_attendee_interest", email);
+    if (!validator.isEmail(email)) {
+      alert("Please enter a valid email address!");
+    } else {
+      subscribe("2024_attendee_interest", email);
+      console.log("request complete");
+    }
     // document.getElementsByClassName(styles.input)[0].textContent = "";
-    console.log("request complete");
   };
 
   const handleKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {

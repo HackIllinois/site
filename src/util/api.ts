@@ -17,7 +17,7 @@ export class APIError extends Error {
 
 
 async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
-  const response = await fetch(APIv2 + endpoint, {
+  const response = await fetch("https://adonix-qilj6qixj-systems-hackillinois.vercel.app/" + endpoint, {
     method,
     mode: 'cors',
     headers: {
