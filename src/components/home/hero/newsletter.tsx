@@ -32,8 +32,8 @@ const Newsletter:React.FC = () => {
     <>
       <span>Interested? Join our newsletter: </span>
       <div>
-        <input className={styles.input} type="email" name="email" placeholder="email" value={email} onChange={handleEmailChange} onKeyDown={handleKeydown}></input> 
-        <button className={styles.joinbutton} onClick={() => handleSubscription()}>join</button>
+        <input className={styles.input} type="email" name="email" placeholder="Email" value={email} onChange={handleEmailChange} onKeyDown={handleKeydown}></input> 
+        <button className={styles.joinbutton} onClick={() => handleSubscription()}>Join</button>
       </div>
     </>
   );
