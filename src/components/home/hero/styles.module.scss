@@ -269,11 +269,15 @@
     align-items: center;
     flex-flow: wrap;
     line-height: 35px;
+    text-align: center;
+    padding: 10px;
 
     @media screen and (max-width: 600px) {
         flex-direction: column;
     }
-  }
-  
 
+    @media screen and (max-width: 500px) {
+      flex-direction: column;
+    }
+  }
 }

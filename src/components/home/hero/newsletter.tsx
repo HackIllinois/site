@@ -17,9 +17,9 @@ const Newsletter:React.FC = () => {
       alert("Please enter a valid email address!");
     } else {
       subscribe("2024_attendee_interest", email);
+      setEmail("");
       console.log("request complete");
     }
-    // document.getElementsByClassName(styles.input)[0].textContent = "";
   };
 
   const handleKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -30,7 +30,7 @@ const Newsletter:React.FC = () => {
 
   return (
     <>
-      <span>interested in attending? join our newsletter: </span>
+      <span>interested in attending? stay updated with our newsletter: </span>
       <div>
         <input className={styles.input} type="email" name="email" placeholder="email" value={email} onChange={handleEmailChange} onKeyDown={handleKeydown}></input> 
         <button className={styles.joinbutton} onClick={() => handleSubscription()}>join</button>
