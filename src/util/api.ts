@@ -19,7 +19,7 @@ export class APIError extends Error {
 async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
   const response = await fetch(APIv2 + endpoint, {
     method,
-    mode: 'no-cors',
+    mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
       'Origin': 'www.hackillinois.org'
@@ -35,7 +35,7 @@ async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
 }
 
 export function subscribe(listName: string, subscriber: string): Promise<string> {
-  return requestv2('POST', '/newsletter/subscribe/', { listName, subscriber });
+  return requestv2('POST', '/newsletter/subscribe/', { "listName": listName, "emailAddress": subscriber });
 }
 
 async function request(method: MethodType, endpoint: string, body?: unknown) {

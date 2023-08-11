@@ -11,9 +11,10 @@ const Newsletter:React.FC = () => {
   };
 
   const handleSubscription = async () => {
-    console.log("herereeeee");
+    console.log("sending request");
     subscribe("2024_attendee_interest", email);
-    console.log("out");
+    // document.getElementsByClassName(styles.input)[0].textContent = "";
+    console.log("request complete");
   };
 
   const handleKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
