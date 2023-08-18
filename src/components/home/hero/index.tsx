@@ -17,7 +17,7 @@ const Section: React.FC = () => (
   <section className={styles.hero}>
     <div className={styles.heroBackground}>
       {/* <Navbar path="/" /> */}
-      <img className={styles.logoAnimation} src={"/_next/static/media/Hack_I_Animation.5013dd4f.gif"} />
+      <img className={styles.logoAnimation} src={"/_next/static/media/Hack_I_Animation.e2a3446c.gif"} />
       <div className={styles.topHeader}>
         {/* <nav>
           <img className={styles.logo} src={LOGO} />
