@@ -5,7 +5,7 @@
 
 [build]
   command = "CI=false npm run build"
-  publish = "out"
+  publish = ".next"
   environment = { NEXT_PUBLIC_REACT_APP_URL = 'https://hackillinois.org' }
 
 [functions]
