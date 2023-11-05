@@ -33,7 +33,11 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export"
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "npx prettier . --write",
+    "prepare": "husky install"
   },
   "browserslist": {
     "production": [
