@@ -11,7 +11,7 @@ const Sponsors: React.FC  =() => {
     return (
         <div className={styles.sponsorsMain}>
             <div className={styles.sponsorsBackground}>
-                <h1>Our Sponsors</h1>
+                <h1 className={styles.sponsorsTitle}>Our Sponsors</h1>
                 <Image className={styles.backgroundSVG} alt="background" src={background} />
             </div>
             <Lottie className={styles.ball} animationData={crystalBall} loop={true} />

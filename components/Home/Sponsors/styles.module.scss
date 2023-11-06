@@ -12,7 +12,18 @@
         height: fit-content;
         z-index: -1;
 
-        h1 {
+        .backgroundSVG {
+            object-fit: cover;
+            width: 100vw;
+            height: auto;
+            transform: translateY(5px);
+
+            @media screen and (max-width: 1152px) {
+            height: 70vh;
+            }
+        }
+
+        .sponsorsTitle {
             color: #763417;
             text-align: center;
             position: absolute;
@@ -31,16 +42,6 @@
         }
 
         
-        .backgroundSVG {
-            object-fit: cover;
-            width: 100vw;
-            height: auto;
-            transform: translateY(5px);
-
-            @media screen and (max-width: 1152px) {
-            height: 70vh;
-            }
-        }
     }
 
     .ball {
