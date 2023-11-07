@@ -1,0 +1,141 @@
+.joinus {
+    background-image: transparent;
+    min-height: fit-content;
+    z-index: 10;
+    display: block;
+    margin-bottom: 4em;
+
+    @media (max-width: 500px) {
+        margin-bottom: 2em;
+    }
+
+    .joinusContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+    }
+
+    .joinusContainerItem1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 4em 0px 2em 0px;
+
+        .joinusHeader {
+            width: 35vw;
+            height: fit-content;
+    
+            @media (max-width: 912px) {
+                width: 60vw;
+            }
+        }
+    }
+
+    .joinusContainerItem2 {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+
+        .socialmediaCloud {
+            position: relative;
+            width: 40vw;
+            height: fit-content;
+            z-index: 0;
+
+            @media (max-width: 912px) {
+                width: 60vw;
+            }
+        }
+
+    }
+
+    .logoContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        gap: 2em;
+        margin-bottom: 50px;
+
+        @media (max-width: 912px) {
+            gap: 2em;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 550px) {
+            gap: 1em;
+            margin-bottom: 20px;
+        }
+
+        .instagram {
+            width:5vw;
+            height: fit-content;
+
+            @media (max-width: 912px) {
+                width: 8vw;
+            }
+
+        }
+        .twitter {
+            width: 5vw;
+            height: fit-content;
+
+            @media (max-width: 912px) {
+                width: 8vw;
+            }
+        }
+
+        
+    }
+
+    .handleContainer {
+        color: black;
+        font-size: 1.8vw;
+        font-weight: 600;
+        margin-top: 3em;
+        position: absolute;
+
+        @media (max-width: 912px) {
+            font-size: 18px;
+            margin-top: 4em;
+        }
+        @media (max-width: 550px) {
+            font-size: 3vw;
+            margin-top: 3em;
+        }
+    }
+
+    .joinusContainerItem3 {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 2em;
+
+        .infoContainer {
+            width: 70%;
+            color: black;
+            font-size: 22px;
+            line-height: 24px;
+            font-weight: 500;
+
+            @media (max-width: 912px) {
+                width: 80%;
+                font-size: 20px;
+            }
+
+            @media (max-width: 425px) {
+                font-size: 18px;
+            }
+            a {
+                text-decoration: underline;
+            }
+
+        }
+        text-align: center;
+
+    }
+
+}
