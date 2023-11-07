@@ -40,8 +40,6 @@
                 font-size: 1.5rem;
             }
         }
-
-        
     }
 
     .ball {
@@ -49,6 +47,6 @@
         height: 100vh;
         @media screen and (max-width: 1152px) {
             height: 70vh;
-         }
+        }
     }
 }

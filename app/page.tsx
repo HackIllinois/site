@@ -6,14 +6,13 @@ import Faq from "@/components/Home/Faq/Faq";
 import Events from "@/components/Home/Events/events";
 import Sponsors from "@/components/Home/Sponsors/sponors";
 
-
 const Home: React.FC = () => {
     return (
         <main className={styles.main}>
-            <Hero/>
+            <Hero />
             <Events />
             <Sponsors />
-            <Faq/>
+            <Faq />
         </main>
     );
 };
