@@ -16,10 +16,10 @@
             object-fit: cover;
             width: 100vw;
             height: auto;
-            transform: translateY(5px);
+            transform: translateY(5px) scaleX(1.001);
 
-            @media screen and (max-width: 1152px) {
-            height: 70vh;
+            @media screen and (max-width: 900px) {
+                height: 70vh;
             }
         }
 
