@@ -1,9 +1,10 @@
 .joinus {
     background-image: transparent;
     min-height: fit-content;
-    z-index: 10;
+    z-index: 100;
     display: block;
     margin-bottom: 4em;
+    position: relative;
 
     @media (max-width: 500px) {
         margin-bottom: 2em;
@@ -16,15 +17,30 @@
 
     }
 
+    // .dividerCloud {
+    //     transform: translateY(-150%) scale(2);
+    //     position: absolute;
+    //     width: 100vw;
+    //     height: fit-content;
+
+    //     @media (max-width: 850px) {
+    //         transform: translateY(-60%);
+    //     }
+    //     @media (max-width: 600px) {
+    //         transform: translateY(-70%);
+    //     }
+    // }
+
     .joinusContainerItem1 {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 4em 0px 2em 0px;
+        margin: 10em 0px 2em 0px;
 
         .joinusHeader {
             width: 35vw;
             height: fit-content;
+            z-index: 11;
     
             @media (max-width: 912px) {
                 width: 60vw;

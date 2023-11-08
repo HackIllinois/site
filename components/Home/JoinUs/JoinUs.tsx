@@ -12,8 +12,8 @@ const JoinUs = () => {
     return ( 
         <section className={styles.joinus}>
             <div className={styles.joinusContainer}>
-                {/* <div>
-                    <Image alt="divider cloud" src={Cloud}></Image>
+                {/* <div >
+                    <Image className={styles.dividerCloud} alt="divider cloud" src={Cloud}></Image>
                 </div> */}
                 
                 <div className={styles.joinusContainerItem1}>
