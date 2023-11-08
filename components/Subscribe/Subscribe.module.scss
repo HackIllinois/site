@@ -1,0 +1,42 @@
+.subscribe {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: nowrap;
+    column-gap: 1.5rem;
+
+    .input {
+        color: #753317;
+        width: 50%;
+        min-height: 100%;
+        padding: 0.75rem;
+        border-radius: 2rem;
+        background-color: #FBAA1D;
+        border: 0;
+        font-size: 2vw;
+        font-weight: 400;
+
+        &::placeholder {
+            font-size: 2vw;
+            font-weight: 400;
+            color: #753317;
+        }
+    }
+
+    .button {
+        background-color: #753317;
+        color: #fff;
+        border-radius: 1000px;
+        height: 100%;
+        padding: 0.5rem 2.75vw;
+        border: 0;
+        font-size: 3vw;
+        font-weight: 600;
+        text-transform: uppercase;
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+    }
+}

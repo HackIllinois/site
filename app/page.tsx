@@ -7,6 +7,8 @@ import Events from "@/components/Home/Events/events";
 import JoinUs from "@/components/Home/JoinUs/JoinUs";
 import Sponsors from "@/components/Home/Sponsors/sponors";
 
+import Footer from "@/components/Footer/Footer";
+
 const Home: React.FC = () => {
     return (
         <main className={styles.main}>
@@ -16,6 +18,7 @@ const Home: React.FC = () => {
             <JoinUs />
 
             <Faq />
+            <Footer />
         </main>
     );
 };
