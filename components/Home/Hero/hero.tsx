@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
                     />
                 </div>
                 <div className={styles.heroButtonWrapper}>
-                    <button className={styles.heroButton}>Register now</button>
+                    <button className={styles.heroButton}>Coming Soon</button>
                 </div>
             </div>
             <div className={styles.villageWrapper}>
