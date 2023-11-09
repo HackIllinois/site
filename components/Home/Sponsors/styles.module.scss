@@ -1,0 +1,52 @@
+.sponsorsMain {
+    height: auto;
+    max-height: 100vh;
+    overflow: hidden;
+    position: relative;
+
+    .sponsorsBackground {
+        position: absolute;
+        left: 0;
+        top: 0;
+        min-width: 100vw;
+        height: fit-content;
+        z-index: -1;
+
+        .backgroundSVG {
+            object-fit: cover;
+            width: 100vw;
+            height: auto;
+            transform: translateY(5px) scaleX(1.001);
+
+            @media screen and (max-width: 900px) {
+                height: 70vh;
+            }
+        }
+
+        .sponsorsTitle {
+            color: #763417;
+            text-align: center;
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            top: 5%;
+            font-size: 3rem;
+            transform: translateX(-50%);
+
+            @media screen and (max-width: 1152px) {
+                font-size: 2rem;
+            }
+            @media screen and (max-width: 640px) {
+                font-size: 1.5rem;
+            }
+        }
+    }
+
+    .ball {
+        padding-top: 10%;
+        height: 100vh;
+        @media screen and (max-width: 1152px) {
+            height: 70vh;
+        }
+    }
+}

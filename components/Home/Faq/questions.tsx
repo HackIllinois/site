@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
  const faqs = [
    {
@@ -128,4 +128,5 @@ import React from 'react';
    },
  ];
 
- export default faqs; 
+
+export default faqs;
