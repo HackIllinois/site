@@ -6,9 +6,9 @@ import Faq from "@/components/Home/Faq/Faq";
 import Events from "@/components/Home/Events/events";
 import JoinUs from "@/components/Home/JoinUs/JoinUs";
 import Sponsors from "@/components/Home/Sponsors/sponors";
-
 import Footer from "@/components/Footer/Footer";
 import DaveHome from "@/components/Home/DaveHome/DaveHome";
+
 
 const Home: React.FC = () => {
     return (

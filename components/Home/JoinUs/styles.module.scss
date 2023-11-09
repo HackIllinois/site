@@ -1,10 +1,10 @@
 .joinus {
     background-image: transparent;
     min-height: fit-content;
-    z-index: 100;
+    z-index: 10;
     display: block;
     margin-bottom: 4em;
-    position: relative;
+
 
     @media (max-width: 500px) {
         margin-bottom: 2em;
@@ -16,6 +16,7 @@
         justify-content: center;
 
     }
+
 
     // .dividerCloud {
     //     transform: translateY(-150%) scale(2);
@@ -31,16 +32,18 @@
     //     }
     // }
 
+
     .joinusContainerItem1 {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 10em 0px 2em 0px;
+        margin: 4em 0px 2em 0px;
+
 
         .joinusHeader {
             width: 35vw;
             height: fit-content;
-            z-index: 11;
+
     
             @media (max-width: 912px) {
                 width: 60vw;

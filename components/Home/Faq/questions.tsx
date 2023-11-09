@@ -1,189 +1,132 @@
 import React from "react";
 
-const faqs = [
-    {
-        sectionTitle: "General",
-        sectionFaqs: [
-            {
-                question: "How do I participate?",
-                answer: [
-                    <p key={0}>
-                        You must apply in order to participate in HackIllinois.
-                        The application deadline has been extended to{" "}
-                        <b>Wednesday, February 15th at 11:59 PM CST.</b>{" "}
-                        Admissions will be based on a weighted lottery, and
-                        applying early will increase your chances of admission.
-                        Decisions will be released shortly after both
-                        application deadlines, and if you’re accepted, there
-                        will be a limited time to RSVP before we reallocate your
-                        spot to another student.
-                    </p>
-                ]
-            },
-            {
-                question:
-                    "How can I stay updated with what is going on at the event?",
-                answer: [
-                    <p key={0}>
-                        Please download the HackIllinois app (available shortly
-                        before the event on the App Store and Play Store)! Our
-                        website will also be continually updated with new
-                        information throughout the year. We will also be sending
-                        out reminders for various workshops and events through
-                        our mobile apps and Discord.
-                    </p>
-                ]
-            },
-            {
-                question: "Who can register",
-                answer: [
-                    <p key={0}>
-                        Anyone 18 years or older and enrolled in a high school,
-                        college, or university (or left school during the
-                        current school year) can register!
-                    </p>
-                ]
-            },
-            {
-                question: "When and where is HackIllinois?",
-                answer: [
-                    <p key={0}>
-                        HackIllinois will be held in-person from February
-                        24-26th on UIUC campus.
-                    </p>
-                ]
-            },
-            {
-                question: "How do I get to the University of Illinois?",
-                answer: [
-                    <p key={0}>
-                        HackIllinois will be providing a bus for students
-                        traveling from West Lafayette. If you are a University
-                        of Illinois student, please walk or utilize the MTD bus
-                        system.
-                    </p>
-                ]
-            },
+ const faqs = [
+   {
+     sectionTitle: 'General',
+     sectionFaqs: [
+      {
+        question: 'What is a hackathon? ',
+        answer: [
+          <p key={0}>A hackathon is a collaborative event where teams utilize their skills to create projects that solve problems or identify new opportunities! They typically run for a short and continuous period of time. For HackIllinois, all meals will be provided. </p>,
+        ],
+      },
+      {
+        question: 'Who can participate?',
+        answer: [
+          <p key={0}>Anyone 18 years of age and over may participate!</p>,
+        ],
+      },
+      {
+        question: 'How long does the hackathon last?',
+        answer: [
+          <p key={0}>HackIllinois runs for 36 hours, from Friday evening to Sunday morning.</p>,
+        ],
+      },
+      {
+        question: 'Are there any prizes or incentives?',
+        answer: [
+          <p key={0}>Yes! Cash prizes will be offered for winning teams in several categories.</p>,
+        ],
+      },
+      
+      {
+          question: 'What should I do if I need help on my project?',
+          answer: [
+            <p key={0}>Both in-person and virtual mentors will be available to assist teams. Mentors are recruited from companies across the country and in many technical specialties.</p>,
+          ],
+      },
+      {
+        question: 'What resources or tools will be provided to attendees?',
+        answer: [
+          <p key={0}>We provide technical workshops, mentors, a GitHub student developer pack, and more! Additional resources will be provided as sponsor/event details are finalized.</p>,
+        ],
+      },
+     ],
+   },
+   {
+     sectionTitle: 'Before',
+     sectionFaqs: [
+       {
+         question: 'How can I register?',
+         answer: [
+           <p key={0}>We have a registration portal, which will open near the end of 2023 or beginning of 2024. Be on the lookout for the registration announcement on our social media platforms (Instagram, Facebook, Reddit, etc.)!
+           <br></br>In addition, we will have a travel reimbursement form. More details will be released shortly. 
+           </p>,
+         ],
+       },
+       {
+         question: 'Are there any themes or specific challenges we need to address?',
+         answer: [
+           <p key={0}>HackIllinois provides several different tracks for teams to follow. The specific track themes will be released soon. </p>,
+         ],
+       },
+       
+       {
+         question: 'Are there facilities for overnight stays?',
+         answer: [
+           <p key={0}>Unfortunately, we do not have a facility that provides overnight stays. We will provide travel and housing reimbursements instead. More information regarding reimbursements will be released soon!
+           </p>,
+         ],
+       },
+       {
+         question: 'What else happens at HackIllinois other than the hackathon? ',
+         answer: [
+           <p key={0}>We provide collaborative events with UIUC classes, student organizations, and other universities for you to check out! We also host social activities as well, listed in the “During the Hackathon” section.</p>,
+         ],
+       },
+       {
+        question: 'How are teams formed, or can I bring my own team? What if I don\'t have a team yet?',
+        answer: [
+          <p key={0}>Feel free to form your own team! But don’t worry if you do not have one -  we will have a team matching workshop available, along with team matching channels on Discord. </p>
+        ],
+       },
 
-            {
-                question:
-                    "Do I need to have a programming background to participate?",
-                answer: [
-                    <p key={0}>No! People of all skill levels are welcomed.</p>
-                ]
-            }
-        ]
-    },
-    {
-        sectionTitle: "Before",
-        sectionFaqs: [
-            {
-                question: "What should I bring?",
-                answer: [
-                    <p key={0}>
-                        You should bring a student ID, reusable water bottle,
-                        change of clothing, personal items such as toiletries,
-                        laptop, and charger. Due to safety considerations,
-                        please do not bring desktop computers, extra monitors,
-                        weapons, or alcoholic beverages.
-                    </p>
-                ]
-            },
-            {
-                question: "Is there anything to do other than code?",
-                answer: [
-                    <p key={0}>
-                        Absolutely! There will be a bunch of fun mini-events
-                        this year, including a Shark Tank competition, keynotes,
-                        and opportunities to connect with company
-                        representatives. Check out the full schedule when it is
-                        posted on our site!
-                    </p>
-                ]
-            },
+       {
+        question: 'What if I\'m new to coding or hackathons, can I still participate? What else can I do?',
+        answer: [
+          <p key={0}>Of course! Hackathons epitomize learning and trying new things, and we are dedicated to fostering a safe learning community. We will be offering as much support as possible through workshops, mentors, and more.</p>
+        ],
+       }
 
-            {
-                question: "Will there be food?",
-                answer: [
-                    <p key={0}>
-                        Snacks, drinks, and all meals will be provided for the
-                        entire weekend. If you have a dietary restriction,
-                        please make sure to mention it when you register. We’ll
-                        have a wide variety of food available throughout the
-                        weekend, including vegetarian and vegan options. We will
-                        use our mobile apps to make announcements when food
-                        arrives.
-                    </p>
-                ]
-            },
-            {
-                question: "Where do I sleep?",
-                answer: [
-                    <p key={0}>
-                        HackIllinois won’t be able to provide sleeping rooms, so
-                        you must find separate lodging on-campus or off-campus.
-                    </p>
-                ]
-            }
-        ]
-    },
-    {
-        sectionTitle: "During",
-        sectionFaqs: [
-            {
-                question: "Do I need a team? How do I find one?",
-                answer: [
-                    <p key={0}>
-                        No, you are not required to have a team to participate.
-                        You are encouraged to work with mentors and other
-                        participants in order to get the full experience. If you
-                        do have a team, please keep it to a maximum of 4 people.
-                    </p>
-                ]
-            },
-            {
-                question: "Do I have to go to the opening/ending ceremony?",
-                answer: [
-                    <p key={0}>
-                        Yes! Swag, prize, and food information will be covered
-                        at the opening ceremony. Prizes will be announced at the
-                        ending ceremony.
-                    </p>
-                ]
-            },
-            {
-                question: "Can I work on my own projects?",
-                answer: [
-                    <p key={0}>
-                        Yes, feel free to work on your own project, people in
-                        past years have won creating projects from scratch!
-                        However, the benefit of working on a HackIllinois
-                        project track is that you get guidance and the
-                        opportunity to communicate with experts in the field.
-                    </p>
-                ]
-            },
-            {
-                question:
-                    "What facilities, floors, and rooms are available to work in?",
-                answer: [
-                    <p key={0}>
-                        Working space will be available in Siebel Computer
-                        Science and CIF.
-                    </p>
-                ]
-            },
-            {
-                question: "How can I stay updated during the event?",
-                answer: [
-                    <p key={0}>
-                        Please download our mobile apps beforehand and check
-                        Discord for notifications!
-                    </p>
-                ]
-            }
-        ]
-    }
-];
+       
+     ],
+   },
+   {
+     sectionTitle: 'During',
+     sectionFaqs: [
+       {
+         question: 'Are there specific APIs, datasets, or tools that we must use? ',
+         answer: [
+           <p key={0}>The world is your oyster - use whatever you like!</p>,
+         ],
+       },
+       {
+         question: 'What are the criteria for judging and how will projects be evaluated?',
+         answer: [
+           <p key={0}>Check our attendee guide for more info!</p>,
+         ],
+       },
+       {
+         question: 'What should we prioritize: the technical details, user experience, business model, or the impact of our solution?',
+         answer: [
+           <p key={0}>Check our attendee guide for more info!</p>,
+         ],
+       },
+       {
+        question: 'Is there a schedule for relaxation or fun activities, like games or entertainment segments? ',
+        answer: [
+          <p key={0}>Other than working on your project, we provide fun themed activities throughout the 36 hours (i.e. gaming tournaments, crafting breaks, coding challenges, snack time, etc.). </p>,
+        ],
+      },
+      {
+        question: 'Are there any networking opportunities with sponsors or industry professionals?',
+        answer: [
+          <p key={0}>Yes! We will have a company expo, project showcases, as well as socials for you to meet and discuss with sponsors. </p>,
+        ],
+      },
+     ],
+   },
+ ];
+
 
 export default faqs;
