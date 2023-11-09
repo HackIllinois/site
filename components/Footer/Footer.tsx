@@ -26,7 +26,7 @@ const Footer: React.FC<FooterProps> = ({
                     {data.map((icon: FooterIcon) =>
                         <a href={icon.url} key={icon.id}>
                             <div className={styles.icon}>
-                                <img src={icon.image} alt={icon.name} />
+                                <img src={icon.image} alt={icon.name} className={styles.image} />
                             </div>
                         </a>)}
                 </div>
