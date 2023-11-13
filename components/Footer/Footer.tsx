@@ -25,7 +25,7 @@ const Footer: React.FC<FooterProps> = ({
                 <span className={styles.title}>{title}</span>
                 <div className={styles.icons}>
                     {socials.map((icon: FooterIcon) => (
-                        <a href={icon.url} key={icon.id}>
+                        <a href={icon.url} key={icon.id} target="_blank">
                             <div className={styles.icon}>
                                 {/* eslint-disable-next-line */}
                                 <img

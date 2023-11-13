@@ -3,13 +3,13 @@
     flex-direction: column;
     row-gap: 3rem;
     width: 100%;
-    background-color: #B3D689;
-    padding: 5rem 7.5%;
+    background-color: #b3d689;
+    padding: 7.5rem 7.5%;
 }
 
 .title {
     display: block;
-    font-size: 4vw;
+    font-size: 4.25rem;
     font-weight: 600;
     color: #753317;
     text-align: center;
@@ -29,8 +29,8 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        background-color: #FBAA1D;
-        padding: 1rem;
+        background-color: #fbaa1d;
+        padding: 1.5rem;
         border-radius: 9999px;
 
         &:hover {
@@ -39,17 +39,30 @@
         }
 
         .image {
-           width: 2.75vw;
-           height: 2.75vw;
+            width: 2.75rem;
+            height: 2.75rem;
         }
     }
 }
 
 .newsletterTitle {
     display: block;
-    font-size: 3vw;
+    font-size: 3.5rem;
     font-weight: 600;
     color: #753317;
     text-align: center;
     margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 640px) {
+    .title{
+
+    }
+    .icons{
+        .icon{}
+    }
+
+    .newsletterTitle{
+        
+    }
 }

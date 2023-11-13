@@ -1,21 +1,20 @@
 .container {
     display: grid;
     grid-row-start: auto;
-    margin-bottom: -5%;
+    margin: -7.5% 0;
 
     .background {
         grid-area: 1/1;
 
         .image {
             width: 100%;
+            aspect-ratio: 1/1;
         }
     }
 
     .dave {
         grid-area: 1/1;
-       // transform: translateY(10%);
         justify-self: end;
-       // height: 150vh;
         float: right;
     }
 }

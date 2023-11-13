@@ -7,8 +7,9 @@
 
     .input {
         color: #753317;
-        width: 50%;
+        width: 48rem;
         min-height: 100%;
+        height: 4.75rem;
         padding: 0.75rem;
         border-radius: 2rem;
         background-color: #FBAA1D;
@@ -17,7 +18,7 @@
         font-weight: 400;
 
         &::placeholder {
-            font-size: 2vw;
+            font-size: 2.5rem;
             font-weight: 400;
             color: #753317;
         }
@@ -27,10 +28,10 @@
         background-color: #753317;
         color: #fff;
         border-radius: 1000px;
-        height: 100%;
-        padding: 0.5rem 2.75vw;
+        height: 4.75rem;
+        padding: 0 3rem;
         border: 0;
-        font-size: 3vw;
+        font-size: 3.5rem;
         font-weight: 600;
         text-transform: uppercase;
 
