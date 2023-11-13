@@ -1,11 +1,8 @@
-// @import '../breakpoints.scss';
-
 .emphasized {
     font-weight: 500;
 }
 
 .faq {
-    // background-image: linear-gradient(to bottom, #a3cfde, #dbfdfd);
     background-image: transparent;
     position: relative;
     min-height: 100vh;
@@ -34,13 +31,12 @@
     .faqContainerItem1 {
         flex-grow: 2;
         max-height: 100vh;
-        // padding-bottom: 100px;
         display: flex;
 
         .faqCloud {
             width: 18vw;
             height: fit-content;
-            transform: translateX(45vw) translateY(7vh);
+            transform: translateX(52vw);
 
             @media (max-width: 912px) {
                 display: none;
@@ -48,8 +44,9 @@
         }
 
         .faqHeader {
-            width: 35vw;
+            width: 26vw;
             height: fit-content;
+            margin-left: 10px;
 
             @media (max-width: 912px) {
                 top: 5vh;
@@ -65,7 +62,7 @@
     .faqContainerItem2 {
         flex-grow: 2;
         display: flex;
-        margin: 80px 0 20px 0;
+        margin: 0px 0 20px 0;
         width: 100%;
 
         @media (max-width: 912px) {
@@ -100,16 +97,21 @@
         h2 {
             left: 5vw;
             position: relative;
-            font-size: 1.5vw;
+            font-size: 18px;
             font-weight: 800;
             line-height: 34px;
-            margin-bottom: 10px;
+            margin-bottom: 0px;
             color: #0a4042;
             height: fit-content;
 
             @media (max-width: 912px) {
-                left: 0vw;
                 font-size: 20px;
+                left: 0vw;
+            }
+
+            @media (max-width: 768px) {
+                left: 0vw;
+                font-size: 16px;
                 text-align: center;
             }
         }
@@ -117,7 +119,7 @@
         .swords {
             cursor: pointer;
             position: relative;
-            width: 16vw;
+            width: 14vw;
             height: fit-content;
             margin-bottom: 50px;
 
@@ -138,48 +140,41 @@
         .faqContentColumn {
             flex: 1 0 43%;
             color: #000000;
-            font-size: 22px;
             font-weight: 500;
-            line-height: 28px;
-
+            line-height: 24px;
+            
             margin-left: 2vw;
             margin-right: 2vw;
 
             @media (max-width: 1200px) {
-                font-size: 24px;
                 margin: 20px 20px 5px 0;
                 line-height: 24px;
             }
 
             @media (max-width: 912px) {
-                font-size: 20px;
-                margin: 20px 5px 5px 5px;
+                margin: 10px 5px 0px 5px;
             }
 
             h3 {
-                margin: 20px 0 5px 0;
+                margin: 20px 0 8px 0;
                 color: #000000;
-                font-size: 22px;
+                font-size: 18px;
                 font-weight: 800;
-                line-height: 34px;
 
                 @media (max-width: 1200px) {
-                    font-size: 24px;
-                    margin: 20px 0 5px 0;
-                    line-height: 30px;
+                    margin: 0px 0 5px 0;
                 }
 
                 @media (max-width: 912px) {
-                    font-size: 20px;
+                    font-size: 16px;
                     margin: 10px 0 5px 0;
-                    line-height: 26px;
                 }
             }
-            p {
-                font-size: 18px;
 
+            p {
+                font-size: 16px;
                 @media (max-width: 912px) {
-                    font-size: 18px;
+                    font-size: 14px;
                 }
             }
         }

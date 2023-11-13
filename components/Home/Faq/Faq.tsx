@@ -7,7 +7,7 @@ import styles from "./styles.module.scss";
 
 import Image from "next/image";
 
-import faqs from "./questions";
+import faqs from "../../../modules/FaqData";
 
 import FaqHeader from "@/public/home/faq/faqHeader.svg";
 import FaqCloud from "@/public/home/faq/cloud.svg";
