@@ -12,9 +12,9 @@
         height: 4.75rem;
         padding: 0.75rem;
         border-radius: 2rem;
-        background-color: #FBAA1D;
+        background-color: #fbaa1d;
         border: 0;
-        font-size: 2vw;
+        font-size: 2rem;
         font-weight: 400;
 
         &::placeholder {
@@ -38,6 +38,106 @@
         &:hover {
             cursor: pointer;
             transform: scale(1.05);
+        }
+    }
+}
+
+@media screen and ((max-width: 640px) or (min-width: 640px)) {
+    .subscribe {
+        column-gap: 0.75rem;
+        .input {
+            width: 10rem;
+            height: 1.75rem;
+
+            &::placeholder {
+                font-size: 0.675rem;
+            }
+        }
+
+        .button {
+            height: 1.75rem;
+            font-size: 0.75rem;
+            padding: 0 0.875rem;
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .subscribe {
+        column-gap: 0.75rem;
+        .input {
+            width: 20rem;
+            height: 2.25rem;
+
+            &::placeholder {
+                font-size: 1.25rem;
+            }
+        }
+
+        .button {
+            height: 2.25rem;
+            font-size: 1.5rem;
+            padding: 0 1.25rem;
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .subscribe {
+        column-gap: 1.25rem;
+        .input {
+            width: 30rem;
+            height: 3rem;
+
+            &::placeholder {
+                font-size: 1.75rem;
+            }
+        }
+
+        .button {
+            height: 3rem;
+            font-size: 2rem;
+            padding: 0 2rem;
+        }
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .subscribe {
+        column-gap: 1.25rem;
+        .input {
+            width: 30rem;
+            height: 3.5rem;
+
+            &::placeholder {
+                font-size: 2.25rem;
+            }
+        }
+
+        .button {
+            height: 3.5rem;
+            font-size: 2.75rem;
+            padding: 0 2.5rem;
+        }
+    }
+}
+
+@media screen and (min-width: 1536px) {
+    .subscribe {
+        column-gap: 1.5rem;
+        .input {
+            width: 48rem;
+            height: 4.75rem;
+            padding: 0.75rem;
+            &::placeholder {
+                font-size: 2.5rem;
+            }
+        }
+
+        .button {
+            font-size: 3.5rem;
+            height: 4.75rem;
+            padding: 0 3rem;
         }
     }
 }
