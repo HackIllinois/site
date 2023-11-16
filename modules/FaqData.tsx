@@ -50,7 +50,7 @@ import React from "react";
          question: 'How can I register?',
          answer: [
            <p key={0}>We have a registration portal, which will open near the end of 2023 or beginning of 2024. Be on the lookout for the registration announcement on our social media platforms (Instagram, Facebook, Reddit, etc.)!
-           <br></br>In addition, we will have a travel reimbursement form. More details will be released shortly. 
+           <br></br><br></br>In addition, we will have a travel reimbursement form. More details will be released shortly. 
            </p>,
          ],
        },

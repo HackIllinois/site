@@ -1,21 +1,58 @@
 .container {
     display: grid;
     grid-row-start: auto;
-    margin-bottom: -5%;
+    margin: -7.5% 0;
 
     .background {
         grid-area: 1/1;
 
         .image {
             width: 100%;
+            aspect-ratio: 1/1;
         }
     }
 
     .dave {
         grid-area: 1/1;
-       // transform: translateY(10%);
         justify-self: end;
-       // height: 150vh;
         float: right;
+    }
+}
+
+@media screen and ((max-width: 640px) or (min-width: 640px)) {
+    .container {
+        margin: -10% 0;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        margin: -7.5% 0;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .container {
+        margin: -7.5% 0;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .container {
+        margin: -7.5% 0;
+        
+        .dave {
+            max-width: 75%;
+        }
+    }
+}
+
+@media screen and (min-width: 1536px) {
+    .container {
+        margin: -7.5% 0;
+
+        .dave {
+            max-width: 100%;
+        }
     }
 }

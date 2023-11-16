@@ -114,13 +114,38 @@ textarea {
     margin: 0; /* 2 */
 }
 
-/**
- * Show the overflow in IE.
- * 1. Show the overflow in Edge.
- */
-
 button,
 input {
     /* 1 */
     overflow: visible;
 }
+
+// @media screen and (max-width: 640px) {
+//     html {
+//         font-size: 12px;
+//     }
+// }
+
+// @media screen and (min-width: 768px) {
+//     html {
+//         font-size: 14px;
+//     }
+// }
+
+// @media screen and (min-width: 1024px) {
+//     html {
+//         font-size: 15px;
+//     }
+// }
+
+// @media screen and (min-width: 1280px) {
+//     html {
+//         font-size: 16px;
+//     }
+// }
+
+// @media screen and (min-width: 1536px) {
+//     html {
+//         font-size: 16px;
+//     }
+// }
