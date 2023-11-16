@@ -3,21 +3,25 @@
     flex-direction: row;
     justify-content: center;
     flex-wrap: nowrap;
-    column-gap: 1.5rem;
+    column-gap: 1rem;
 
     .input {
         color: #753317;
-        width: 50%;
-        min-height: 100%;
-        padding: 0.75rem;
+        width: 60%;
+        // height: fit-content;
+        padding: 1rem;
         border-radius: 2rem;
-        background-color: #FBAA1D;
+        background-color: #fbaa1d;
         border: 0;
-        font-size: 2vw;
+        font-size: 24px;
+        @media screen and (max-width: 640px) {
+            font-size: 16px;
+            padding: 0.5rem;
+        }
         font-weight: 400;
 
         &::placeholder {
-            font-size: 2vw;
+            padding-left: 8px;
             font-weight: 400;
             color: #753317;
         }
@@ -27,13 +31,18 @@
         background-color: #753317;
         color: #fff;
         border-radius: 1000px;
-        height: 100%;
-        padding: 0.5rem 2.75vw;
+
+        padding: 0.5rem 2rem;
+
         border: 0;
-        font-size: 3vw;
+        font-size: 24px;
         font-weight: 600;
         text-transform: uppercase;
 
+        @media screen and (max-width: 640px) {
+            font-size: 16px;
+            padding: 0.25rem 1rem;
+        }
         &:hover {
             cursor: pointer;
             transform: scale(1.05);
