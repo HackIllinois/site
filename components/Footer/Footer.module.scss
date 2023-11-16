@@ -3,7 +3,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 5rem 7.5%;
+    padding: 2rem 7.5%;
 }
 
 .footer {
@@ -31,7 +31,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     column-gap: 5%;
     row-gap: 1.5rem;
@@ -58,6 +58,11 @@
         .image {
             width: 2.75vw;
             height: 2.75vw;
+           
+            @media screen and (max-width: 576px) {
+                width: 4vw;
+                height: 4vw;
+            }
         }
     }
 }
