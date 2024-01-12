@@ -73,27 +73,27 @@ const fields: (keyof RegistrationSchema)[][] = [
 ];
 
 // Old Page counts
-const pages = [
-    Welcome,
-    PersonalInfoP1,
-    PersonalInfoP2,
-    PersonalInfoP3,
-    Educations,
-    EducationP2,
-    Experience,
-    ExperienceP2,
-    Event,
-    EventP2,
-    EventP3,
-    Finish
-];
-const submitPageIndex = 10;
-const postSubmitPageIndex = submitPageIndex + 1;
+// const pages = [
+//     Welcome,
+//     PersonalInfoP1,
+//     PersonalInfoP2,
+//     PersonalInfoP3,
+//     Educations,
+//     EducationP2,
+//     Experience,
+//     ExperienceP2,
+//     Event,
+//     EventP2,
+//     EventP3,
+//     Finish
+// ];
+// const submitPageIndex = 10;
+// const postSubmitPageIndex = submitPageIndex + 1;
 
 // New Variables for above settings
-// const pages = [PersonalInfo, Education, HackSpecific, Review, Complete];
-// const submitPageIndex = 3;
-// const postSubmitPageIndex = submitPageIndex + 1;
+const pages = [PersonalInfo, Education, HackSpecific, Review, Complete];
+const submitPageIndex = 3;
+const postSubmitPageIndex = submitPageIndex + 1;
 
 // Old API Methods
 const convertToAPI = (data: RegistrationSchema): RegistrationType => {

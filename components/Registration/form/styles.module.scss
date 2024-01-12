@@ -1,88 +1,88 @@
 // @import 'common.scss';
 
 .container {
-    overflow: hidden !important;
-    flex: 1;
-    position: relative;
-    background-size: auto 100%;
-    background-position: center top;
-    background-repeat: no-repeat;
-    transform: scale(0.95) translateY(50px);
+    // overflow: hidden !important;
+    // flex: 1;
+    // position: relative;
+    // background-size: auto 100%;
+    // background-position: center top;
+    // background-repeat: no-repeat;
+    // transform: scale(0.95) translateY(50px);
 
-    display: inline-block;
+    // display: inline-block;
 
-    @media (max-width: 1200px) {
-        transform: translateY(0px);
-    }
+    // @media (max-width: 1200px) {
+    //     transform: translateY(0px);
+    // }
 
-    @media (max-height: 600px) {
-        top: 10%;
-        transform: scale(1.28, 1.28);
-        background-size: cover;
-        background-position-x: center;
-    }
+    // @media (max-height: 600px) {
+    //     top: 10%;
+    //     transform: scale(1.28, 1.28);
+    //     background-size: cover;
+    //     background-position-x: center;
+    // }
 
     .form {
-        overflow: visible;
-        position: absolute;
-        z-index: 2;
-        height: 50%;
-        width: calc(100vh - 120px);
-        min-width: calc(
-            650px - 120px
-        ); // 650px is min-height of registration page
-        max-width: 780px;
-        top: 100px;
-        left: 50%;
-        transform: translateX(-50%);
+        // overflow: visible;
+        // position: absolute;
+        // z-index: 2;
+        // height: 50%;
+        // width: calc(100vh - 120px);
+        // min-width: calc(
+        //     650px - 120px
+        // ); // 650px is min-height of registration page
+        // max-width: 780px;
+        // top: 100px;
+        // left: 50%;
+        // transform: translateX(-50%);
 
-        @media (max-width: 1150px) {
-            transform: translateX(-50%);
-            left: 50%;
-        }
-
-        @media (max-width: 800px) {
-            height: 50%;
-            max-width: 70%;
-            top: 10%;
-        }
-
-        @media (max-width: 1100px) {
-            height: 50%;
-            min-width: 70%;
-            top: 10%;
-        }
-
-        @media (min-width: 1100px) {
-            height: 50%;
-            max-width: 50%;
-            top: 10%;
-        }
-        // @include registration-floating-screen {
-        //   min-width: 0;
-        //   width: 90%;
-        //   left: 50%;
+        // @media (max-width: 1150px) {
+        //     transform: translateX(-50%);
+        //     left: 50%;
         // }
-        ::-webkit-scrollbar {
-            width: 7px;
-            height: 100%;
-        }
 
-        /* Track */
-        ::-webkit-scrollbar-track {
-            border-radius: 10px;
-        }
+        // @media (max-width: 800px) {
+        //     height: 50%;
+        //     max-width: 70%;
+        //     top: 10%;
+        // }
 
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background: white;
-            border-radius: 10px;
-        }
+        // @media (max-width: 1100px) {
+        //     height: 50%;
+        //     min-width: 70%;
+        //     top: 10%;
+        // }
 
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #fea3aa;
-        }
+        // @media (min-width: 1100px) {
+        //     height: 50%;
+        //     max-width: 50%;
+        //     top: 10%;
+        // }
+        // // @include registration-floating-screen {
+        // //   min-width: 0;
+        // //   width: 90%;
+        // //   left: 50%;
+        // // }
+        // ::-webkit-scrollbar {
+        //     width: 7px;
+        //     height: 100%;
+        // }
+
+        // /* Track */
+        // ::-webkit-scrollbar-track {
+        //     border-radius: 10px;
+        // }
+
+        // /* Handle */
+        // ::-webkit-scrollbar-thumb {
+        //     background: white;
+        //     border-radius: 10px;
+        // }
+
+        // /* Handle on hover */
+        // ::-webkit-scrollbar-thumb:hover {
+        //     background: #fea3aa;
+        // }
 
         .screenContainer {
             height: 100%;

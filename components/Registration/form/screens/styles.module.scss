@@ -2,19 +2,15 @@
 
 .screen {
     --field-margin: 40px;
-    font-size: 0.85em;
+    font-size: 1em;
     position: relative;
     flex: 1;
+    height: fit-content;
 
     @media (max-height: 750px) {
         margin-top: 18px;
         font-size: 0.75em;
     }
-
-    // @include registration-floating-screen {
-    //   margin-top: -10px;
-    //   font-size: 0.8em;
-    // }
 
     .title {
         color: #ffffff;
@@ -30,31 +26,32 @@
             transform: translateY(15%);
         }
 
-        // @include registration-floating-screen {
-        //   margin-bottom: -5px;
-        // }
     }
 
     .text,
     .textOp,
     .textOp2,
     .note {
-        font-size: 1.25em;
+        font-size: 1.3em;
         line-height: 1.5em;
         margin-top: 25px;
-        color: white;
-        font-weight: 500;
+        color: #B7D6D6;
+        font-weight: 700;
         margin-top: var(--field-margin, 10px);
         margin-bottom: 0px;
 
         a {
-            font-weight: 600;
+            font-weight: 700;
             color: #46959f;
             text-decoration: none;
         }
 
         b {
-            font-weight: 600;
+            font-weight: 700;
+        }
+        @media (max-width: 600px) {
+            font-size: 0.9em;
+            margin-top: 10px;
         }
     }
     .text::after {
@@ -71,6 +68,8 @@
         }
     }
 }
+
+
 
 .welcome {
     margin-bottom: 10px;
@@ -111,8 +110,104 @@
     }
 }
 
-.personalInfo,
-.education,
+.personalInfo {
+    background: linear-gradient(
+        to bottom,
+        #0D3F41 0%,
+        #0D3F41 30%,
+        #0D1414 30%,
+        #0D1414 100%
+    );
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin: 0;
+    .caveContainer {
+        position: relative;
+        height: fit-content;
+        min-height: 120vh;
+        width: 100%;
+        padding-top: 150px;
+    }
+
+    .cave {
+        height: fit-content;
+        width: 100%;
+        z-index: 1000;
+    }
+    .piBackgroundContainer {
+        position: relative;
+        height: fit-content;
+        width: 100%;
+    }
+    .piform {
+        z-index: 1000;
+        overflow: auto;
+        position: absolute;
+        height: fit-content;
+        width: 60%;
+        left: 50%; // 50% from the left of the viewport
+        top: 50%; // 50% from the top of the viewport
+        transform: translate(-50%, -40%); // to center the element
+        justify-content: center;
+        align-items: center;
+        
+        @media (max-width: 1000px) {
+            transform: translate(-50%, -30%);
+            max-height: 100vh;
+        }
+
+        @media (max-width: 700px) {
+            transform: translate(-50%, -25%);
+            max-height: 50vh;
+        }
+        @media (max-width: 400px) {
+            transform: translate(-50%, -10%);
+            max-height: 50vh;
+        }
+    }
+
+    .backMountain {
+        padding-top: 150px;
+        position: absolute;
+        height: fit-content;
+        width: 100%;
+    }
+    .demographicsHeader {
+        padding-top: 110px;
+        position: absolute;
+        z-index: 1000;
+        height: fit-content;
+        width: 60%;
+        right: 0;
+    }
+    .mascot {
+        position: absolute;
+        width: 15%;
+        height: fit-content;
+        z-index: 1000;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        padding-top: 13%;
+    }
+
+}
+.education {
+    height: fit-content;
+    width: 100%;
+
+    .uppercave {
+        position: relative;
+        transform-origin: top;
+        transform: scaleY(0.5);
+    }
+    .header {
+        position: absolute;
+    }
+}
 .experience,
 .eventQuestions {
     min-width: 100%;

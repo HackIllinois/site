@@ -30,7 +30,6 @@ const Registration: React.FC = () => {
                 <title>HackIllinois | Register</title>
             </Head>
             <div className={styles.registration}>
-                <Background />
                 {/* <Navigation setFormIndex={setFormIndex} formIndex={formIndex} /> */}
                 <Form setFormIndex={setFormIndex} formIndex={formIndex} />
             </div>
