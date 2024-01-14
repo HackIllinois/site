@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 
-import Button from "components/form/Button";
+import Button from "@/components/form/Button";
 import LOGO_LARGE from "assets/registration/finishLogo.svg";
 import styles from "./styles.module.scss";
 
