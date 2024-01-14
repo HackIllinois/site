@@ -264,17 +264,8 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
                     onSubmit={handleSubmit(onSubmit, onError)}
                     className={styles.form}
                 >
-                    {pages.map((Page, i) => (
-                        <div
-                            className={clsx(
-                                styles.screenContainer,
-                                formIndex === i && styles.visible
-                            )}
-                            key={i}
-                        >
-                            <Page />
-                        </div>
-                    ))}
+                    {formIndex < postSubmitPageIndex && React.createElement(pages[formIndex])}
+                    
                 </form>
             </FormProvider>
             {formIndex !== postSubmitPageIndex && ( // last page does not have any buttons

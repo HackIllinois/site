@@ -1,19 +1,21 @@
 // TODO - Implement Page
 import styles from "./styles.module.scss";
-import Background from "@/public/registration/personalinfo/Personal Info Page (7).svg";
 import Header from "@/public/registration/personalinfo/demographics header.svg";
 import BackgroundMountain from "@/public/registration/personalinfo/background mountain.svg";
 import Cave from "@/public/registration/personalinfo/cave.svg";
 import Mascot from "@/public/registration/personalinfo/Hack Mascot.svg";
+import MobileCave from "@/public/registration/personalinfo/mobile cave.svg";
+import MobileHeader from "@/public/registration/personalinfo/mobile header.svg";
 
 import Input from "@/components/form/Input";
 import Select from "@/components/form/Select";
-import Constant from "@/components/form/Constant";
 
 import Image from "next/image";
 import clsx from "clsx";
 import Checkboxes from "@/components/form/Checkboxes";
+import { useEffect, useState } from "react";
 const PersonalInfo = () => {
+
     const genderOptions = [
         { label: "Male", value: "Male" },
         { label: "Female", value: "Female" },
@@ -61,19 +63,23 @@ const PersonalInfo = () => {
             isRadio: true
         }
     ];
+   
+    
     return (
     <>
         <div className={clsx(styles.screen, styles.personalInfo)}>
             <div className={styles.piBackgroundContainer}>
                 <Image src={BackgroundMountain} alt="Background Mountain" className={styles.backMountain}/>
                 <Image src={Header} alt="Header" className={styles.demographicsHeader}/>
-                
+                <Image src={MobileHeader} alt="Header" className={styles.mobileHeader}/>
 
             </div>
 
             <div className={styles.caveContainer}>
-                <Image src={Cave} alt="cave" className={styles.cave}/>
                 <Image src={Mascot} alt="Mascot" className={styles.mascot}/>
+                <Image src={Cave} alt="cave" className={styles.cave}/>
+                <Image src={MobileCave} alt="cave" className={styles.mobileCave}/>
+                
 
             </div>
 
@@ -129,11 +135,11 @@ const PersonalInfo = () => {
                     Are you aware that this event will be in person and that you will be
                     responsible for transportation?
                 </p>
-                <Checkboxes
+                {/* <Checkboxes
                     className={styles.checkboxes}
-                    name="ageMin"
-                    options={ageOptions}
-                />
+                    name="transportation"
+                    options={transportation}
+                /> */}
 
                 <p className={styles.text}>
                     Would you like to opt-in for consideration for travel reimbursements? 

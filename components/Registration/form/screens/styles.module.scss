@@ -114,16 +114,18 @@
     background: linear-gradient(
         to bottom,
         #0D3F41 0%,
-        #0D3F41 30%,
-        #0D1414 30%,
+        #0D3F41 40%,
+        #0D1414 40%,
         #0D1414 100%
     );
+    
     height: fit-content;
     width: 100%;
     display: flex;
     position: relative;
     flex-direction: column;
     margin: 0;
+
     .caveContainer {
         position: relative;
         height: fit-content;
@@ -135,37 +137,50 @@
     .cave {
         height: fit-content;
         width: 100%;
-        z-index: 1000;
+        z-index: 2;
+        
     }
+
+    .mobileCave {
+        height: fit-content;
+        width: 100%;
+        z-index: 2;
+        display: none;
+    }
+    
     .piBackgroundContainer {
         position: relative;
         height: fit-content;
         width: 100%;
     }
     .piform {
-        z-index: 1000;
+        z-index: 3;
         overflow: auto;
         position: absolute;
         height: fit-content;
         width: 60%;
         left: 50%; // 50% from the left of the viewport
         top: 50%; // 50% from the top of the viewport
-        transform: translate(-50%, -40%); // to center the element
+        transform: translate(-50%, -30%); // to center the element
         justify-content: center;
         align-items: center;
         
         @media (max-width: 1000px) {
-            transform: translate(-50%, -30%);
+            transform: translate(-50%, -25%);
             max-height: 100vh;
+            width: 80%;
         }
 
         @media (max-width: 700px) {
-            transform: translate(-50%, -25%);
+            transform: translate(-50%, 0%);
+            max-height: 70vh;
+            width: 80%;
+        }
+        @media (max-width: 500px) {
             max-height: 50vh;
         }
-        @media (max-width: 400px) {
-            transform: translate(-50%, -10%);
-            max-height: 50vh;
+        @media (max-width: 300px) {
+            transform: translate(-50%, 7%);
         }
     }
 
@@ -182,6 +197,20 @@
         height: fit-content;
         width: 60%;
         right: 0;
+        
+    }
+    .mobileHeader {
+        position: absolute;
+        z-index: 1000;
+        height: fit-content;
+        width: 80%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        display: none;
+        margin-top: 5%;
+        padding-top: 110px;
+
     }
     .mascot {
         position: absolute;
@@ -191,31 +220,350 @@
         left: 0;
         right: 0;
         margin: 0 auto;
-        padding-top: 13%;
+        margin-top: 13%;
+
+        @media screen and (max-width: 768px) {
+            width: 30%;
+            margin-top: 20%;
+            margin-left: 60%;
+        }
     }
+
+    @media screen and (max-width: 768px) {
+        .mobileHeader {
+            display: block;
+        }
+        .mobileCave {
+            display: block;
+        }
+        .demographicsHeader {
+            display: none;
+        }
+        .cave {
+            display: none;
+        }
+    }
+    
 
 }
 .education {
-    height: fit-content;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin: 0;
+    min-height: 100vh;
+    overflow: auto;
+    .labcave {
+        position: relative;
+        height: 100%;
+    }
+    .lab {
+        position: absolute;
+        z-index: -2;
+        height: fit-content;
+        width: 55%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        margin-top: 22%;
+
+        @media (max-width: 768px) {
+            margin-top: 33%;
+            width: 80%;
+        }
+    }
+    .rabbit {
+        position: absolute;
+        height: fit-content;
+        width: 20%;
+        margin-top: 205%;
+        left: 40%;
+        @media (max-width: 768px) {
+            left: 70%;
+            width: 40%;
+            margin-top: 240%;
+            transform: rotate(-20deg);
+        }
+    }
+    .demographicsHeader2 {
+        position: absolute;
+        z-index: -1;
+        height: fit-content;
+        width: 60%;
+        margin-top: 7%; // need to change this to 20% for mobile
+        margin-left: 2%;
+
+        @media screen and (max-width: 768px) {
+            margin-top: 20%;
+            left:0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    .educationform {
+        z-index: 5;
+        overflow: auto;
+        position: absolute;
+        height: fit-content;
+        width: 60%;
+        left: 50%; // 50% from the left of the viewport
+        margin-top: 120%; // 50% from the top of the viewport
+        transform: translateX(-50%); // to center the element
+        justify-content: center;
+        align-items: center;
+        
+        @media (max-width: 1000px) {
+            width: 70%;
+        }
+
+        @media (max-width: 768px) {
+            margin-top: 150%;
+            width: 80%;
+        }
+        @media (max-width: 500px) {
+            max-height: 60vh;
+            margin-top: 130%;
+        }
+        
+    }
+
+    .uppercave {
+        position: absolute;
+        height: fit-content;
+        transform-origin: top;
+        transform: scaleY(0.7);
+        width: 100%;
+        z-index: -4;
+
+        @media screen and (max-width: 768px) {
+            transform: scaleY(1);
+        }
+    }
+    .icecaveContainer {
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+
+    .icecave {
+        margin-top: 50%;
+        z-index: -5;
+        position: absolute;
+        height: fit-content;
+        width: 100%;
+
+        @media screen and (max-width: 768px) {
+            margin-top: 85%;
+        }
+    }
+    
+}
+.experience {
+    background: #266E83;
+    height: 100%;
     width: 100%;
     display: flex;
     position: relative;
     flex-direction: column;
     margin: 0;
+    min-height: 100vh;
+    overflow: auto;
 
-    .uppercave {
+    .forestContainer {
         position: relative;
-        height: fit-content;
-        min-height: 120vh;
-        transform-origin: top;
-        transform: scaleY(0.65);
-        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 2%;
+
+        @media screen and (max-width: 600px) {
+            margin-top: 10%;
+        }
     }
-    .header {
+    .hackspecificform {
+        z-index: 5;
         position: absolute;
+        height: fit-content;
+        width: 60%;
+        left: 50%; // 50% from the left of the viewport
+        margin-top: 80%; // 50% from the top of the viewport
+        transform: translateX(-50%); // to center the element
+        justify-content: center;
+        align-items: center;
+        
+        @media (max-width: 1000px) {
+            width: 70%;
+            overflow: auto;
+            max-height: 130vh;
+            margin-top: 90%;
+        }
+
+        @media (max-width: 600px) {
+            margin-top: 150%;
+            width: 80%;
+            max-height: 100vh;
+        }
+        // @media (max-width: 500px) {
+        //     margin-top: 130%;
+        // }
+        
+    }
+
+    .forest {
+        position: absolute;
+        height: fit-content;
+        transform-origin: top;
+        transform: scaleY(0.5);
+        width: 100%;
+        z-index: 2;
+
+        @media screen and (max-width: 600px) {
+            transform: scaleY(1);
+        }
+    }
+
+    .rivergrass {
+        position: absolute;
+        height: fit-content;
+        width: 100%;
+        z-index: 2;
+        margin-top: 55%;
+
+        @media screen and (max-width: 600px) {
+            margin-top: 125%;
+        }
+    }
+
+    .hackspecificHeader {
+        position: absolute;
+        z-index: 2;
+        height: fit-content;
+        width: 60%;
+        margin-top: 13%;
+        margin-left: 4%;
+
+        @media screen and (max-width: 600px) {
+            margin-top: 15%;
+            width: 80%;
+        }
+    }
+
+    .mascot {
+        position: absolute;
+        width: 15%;
+        height: fit-content;
+        z-index: 2;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        margin-top: 30%;
+
+        @media screen and (max-width: 600px) {
+            width: 20%;
+            margin-top: 75%;
+            left: 30%;
+            right: 70%;
+        }
+    }
+
+}
+
+.review {
+    background: #004561;
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin: 0;
+    min-height: 130vh;
+    overflow: auto;
+
+
+    .background {
+        position: absolute;
+        height: fit-content;
+        width: 100vw;
+        bottom: 0;
+    }
+
+    .castle {
+        position: absolute;
+        height: fit-content;
+        width: 25%;
+        z-index: 2;
+        right: 0;
+        bottom: 0;
+
+        @media screen and (max-width: 600px) {
+            display: none;
+        }
+    }
+
+    .dragon {
+        position: absolute;
+        height: fit-content;
+        width: 25%;
+        z-index: 2;
+        right: 0;
+        bottom: 0;
+        margin-bottom: 20%;
+
+        @media screen and (max-width: 600px) {
+            display: none;
+        }
+    }
+    
+    .header {
+        margin-top: 8%;
+        z-index: 4;
+        margin-left: 2%;
+        width: 65%;
+        @media screen and (max-width: 600px) {
+            margin-top: 20%;
+            width: 70%;
+            height: fit-content;
+            margin-left: 10%;
+        }
+        @media screen and (max-width: 400px) {
+            margin-top: 30%;
+            height: fit-content;
+        }
+    }
+
+    .sky {
+        position: absolute;
+        right: 0;
+        width: 80%;
+        @media screen and (max-width: 600px) {
+            margin-top: 30%;
+            width: 100%;
+            height: fit-content;
+        }
+    }
+
+    .mountain {
+        position: absolute;
+        margin-top: 20%;
+        bottom: 0;
+        z-index: 1;
+        width: 100%;
+        height: fit-content;
+
+        @media screen and (max-width: 600px) {
+            margin-top: 70%;
+            z-index: 0;
+            width: 100%;
+            transform-origin: bottom;
+            transform: scaleY(0.6);
+            left: 0;
+            
+        }
     }
 }
-.experience,
 .eventQuestions {
     min-width: 100%;
 
