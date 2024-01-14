@@ -39,15 +39,15 @@ const Navbar = () => {
 
     return (
         <nav className={styles.navbar}>
-            <Image alt="HackIllinois Logo" src={Logo} />
+            <Image alt="HackIllinois Logo" onClick={() => window.location.pathname = "/"} style={{cursor: 'pointer'}} src={Logo} />
             <div
                 className={styles.mobileMenu}
                 onClick={() => setShowMobileNavbar(p => !p)}
             >
-                {/* <div className={styles.mobileMenuButton}>
+                <div className={styles.mobileMenuButton}>
                     <span>Menu</span>
                     <Image alt="Menu" src={CloudMenu} />
-                </div> */}
+                </div>
                 {showMobileNavbar && (
                     <ul className={styles.mobileNavbarMenu}>
                         {navbar_items.map((item, index) => (
@@ -55,9 +55,9 @@ const Navbar = () => {
                                 <a href={item.link}>{item.title}</a>
                             </li>
                         ))}
-                        {/* <li>
+                        <li>
                             <KnightsButton />
-                        </li> */}
+                        </li>
                     </ul>
                 )}
             </div>
@@ -67,9 +67,9 @@ const Navbar = () => {
                         <a href={item.link}>{item.title}</a>
                     </li>
                 ))}
-                {/* <li>
+                <li>
                     <KnightsButton />
-                </li> */}
+                </li>
             </ul>
         </nav>
     );
@@ -79,7 +79,7 @@ export default Navbar;
 
 const KnightsButton = () => {
     return (
-        <a>
+        <a href="/knights">
             <button className={styles.knightButton}>
                 <div className={styles.buttonBackground}></div>
                 <div className={styles.buttonContent}>

@@ -1,0 +1,274 @@
+.knightsPage {
+    background-color: #1A142B;
+    min-width: 100vw;
+    min-height: max(90vw, 100vh);
+    
+    @media screen and (max-width: 900px) {
+        min-height: calc(3000px - 100vw);
+    }
+    @media screen and (max-width: 400px) {
+        min-height: calc(3000px - 100vw);
+    }
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+
+    @media screen and (max-width: 900px) {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+}
+
+.saber {
+    position: absolute;
+    top: 0;
+    right: -30vw;
+    width: 100%;
+    max-height: 60vh;
+    // max-height: 900px;
+    @media screen and (min-aspect-ratio: 2) {
+        right: -30vw;
+        max-height: max(80vh, 400px);
+    }
+
+    @media screen and (max-width: 900px) {
+        top: 180px;
+        left: calc(50vw - 270px);
+        width: 500px;
+        height: fit-content;
+    }
+    @media screen and (max-width: 400px) {
+        left: -30vw;
+        width: 140%;
+    }
+
+    
+}
+
+.horse {
+    position: absolute;
+    bottom: -13vh;
+    left: -6vw;
+    width: 40vw;
+    height: 40vh;
+
+    @media screen and (max-aspect-ratio: 3 / 4) {
+        bottom: -15vh;  /* Adjusted for taller screens */
+        left: -4vw;
+        width: 35vw;    /* Adjust size as needed */
+        height: 35vh;
+    }
+    
+    // /* For screens where the width is much greater than the height */
+    @media screen and (min-aspect-ratio: 2) {
+        bottom: -15vh;  /* Adjusted for wider screens */
+        left: -12vw;
+    }
+
+    @media screen and (min-aspect-ratio: 4.2) {
+        left: -15vw;
+    }
+
+    @media screen and (max-width: 900px) {
+        bottom: -50px;
+        left: -50px;
+        width: 500px;
+        height: fit-content;
+    }
+    @media screen and (max-width: 400px) {
+        left: -20vw;
+        width: 120%;
+    }
+}
+
+.text {
+    position: relative;
+    margin: 30px;
+
+    em {
+        color: #FFB23E;
+        font-style: normal;
+    }
+
+    h1 {
+        font-size: 2.5vw;
+        font-weight: 600;
+    }
+
+    h2 {
+        font-size: 1.8vw;
+        font-weight: 600;
+    
+    }
+
+    p {
+        font-size: 1.2vw;
+        font-weight: 400;
+    }
+
+    i {
+        font-size: 1vw;
+        font-weight: 400;
+    }
+
+    @media screen and (min-aspect-ratio: 16/9) {
+        h1 {
+            font-size: 2vw;
+        }
+        h2 {
+            font-size: 1.5vw;
+        }
+        p {
+            font-size: 1vw;
+        }
+        i {
+            font-size: 0.8vw;
+        }
+    }
+    @media screen and (min-aspect-ratio: 2.6) {
+        h1 {
+            font-size: 1.6vw;
+        }
+        h2 {
+            font-size: 1.2vw;
+        }
+        p {
+            font-size: 0.8vw;
+        }
+        i {
+            font-size: 0.6vw;
+        }
+    }
+    @media screen and (max-width: 900px) {
+        margin: 0;
+        padding: 0;
+        h1 {
+            font-size: 35px;
+        }
+        h2 {
+            font-size: 25px;
+        }
+        p {
+            font-size: 18px;
+        }
+        i {
+            font-size: 15px;
+        }
+    }
+    @media screen and (max-width: 300px) {
+        h1 {
+            font-size: 10vw;
+        }
+        h2 {
+            font-size: 8.5vw;
+        }
+        p {
+            font-size: 6vw;
+        }
+        i {
+            font-size: 5vw;
+        }
+    }
+}
+
+.title {
+    position: absolute;
+    top: 150px;
+    left: 5%;
+    width: 150px;
+    height: fit-content;
+    z-index: 2;
+    
+
+    @media screen and (max-width: 900px) {
+        top: 100px
+    }
+}
+
+.descriptionBoxes {
+    position: relative;
+    top: 250px;
+    // left: 10%;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    
+    // font-size: 20px;
+    // font-weight: 600;
+
+    @media screen and (max-width: 900px) {
+        top: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-self: center;
+        left: 0;
+    }
+
+    .whatBox {
+        position: relative;
+        margin-top: 6%;
+        // top: 5vh;
+        width: 40%;
+        left: 5%;
+        @media screen and (max-width: 900px) {
+            margin-top: 0;
+            left: 0;
+            width: 100vw;
+            padding: 50px;
+        }
+        @media screen and (max-width: 400px) {
+            // margin-top: 20px;
+            padding: 20px;
+        }
+    }
+
+    .benefitBox {
+        position: relative;
+        margin-top: 6%;
+        // top: 30px;
+        width: 40%;
+        left: 5%;
+        @media screen and (max-width: 900px) {
+            margin-top: 0;
+            left: 0;
+            width: 100vw;
+            padding: 50px;
+        }
+        @media screen and (max-width: 400px) {
+            margin-top: 20px;
+            padding: 20px;
+        }
+    }
+
+    .differBox {
+        position: absolute;
+        margin-top: 5%;
+        top: 20vh;
+        width: 40%;
+        right: 5%;
+
+        @media screen and (max-width: 900px) {
+            position: relative;
+            top: 0;
+            margin-top: 0;
+            left: 0;
+            width: 100vw;
+            padding: 50px;
+        }
+        @media screen and (max-width: 400px) {
+            margin-top: 20px;
+            padding: 20px;
+        }
+    }
+}

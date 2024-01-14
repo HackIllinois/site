@@ -26,9 +26,8 @@ const JoinUs = () => {
                 </div>
 
                 <div className={styles.joinusText}>
-                    Follow us on Twitter (@<a target="_blank" href="https://www.twitter.com/hackillinois">HackIllinois</a>)  
-                    and Instagram (@<a target="_blank" href="https://www.instagram.com/hackillinois">HackIllinois</a>)
-                    to be notified of our event updates! There will be regular content and posts.
+                    Follow us on Instagram (@<a target="_blank" href="https://www.instagram.com/hackillinois">HackIllinois</a>) 
+                    and Twitter (@<a target="_blank" href="https://www.twitter.com/hackillinois">HackIllinois</a>) to be notified of our event updates! There will be regular content and posts.
                 </div>
 
             </div>
