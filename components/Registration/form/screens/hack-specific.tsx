@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 // TODO - Implement Page
 import styles from "./styles.module.scss";
 import Image from "next/image";
