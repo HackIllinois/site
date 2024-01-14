@@ -1,8 +1,8 @@
 import React from "react";
 import clsx from "clsx";
 
-import Input from "components/form/Input";
-import Select from "components/form/Select";
+import Input from "@/components/form/Input";
+import Select from "@/components/form/Select";
 import styles from "./styles.module.scss";
 
 // const internshipOptions = [
