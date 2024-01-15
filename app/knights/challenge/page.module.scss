@@ -11,6 +11,9 @@
 
     min-width: 100vw;
     min-height: 100vh;
+    @media screen and (max-width: 900px) {
+        background-size: 125vw 100vh;
+    }
     overflow-y: scroll;
 
     display: flex;

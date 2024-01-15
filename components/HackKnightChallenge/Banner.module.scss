@@ -9,6 +9,10 @@
         width: 20rem;
         height: 25rem;
     }
+    @media screen and (max-width: 900px) {
+        width: 20rem;
+        height: 27.5rem;
+    }
 
     .image {
         grid-area: 1/1;
@@ -31,6 +35,9 @@
             @media screen and (max-width: 700px) {
                 font-size: 1.125rem;
             }
+            @media screen and (max-width: 900px) {
+                font-size: 1.125rem;
+            }
             font-weight: 600;
             text-align: center;
         }
@@ -38,6 +45,9 @@
             font-size: 2.75rem;
             @media screen and (max-width: 700px) {
                 font-size: 2rem;
+            }
+            @media screen and (max-width: 900px) {
+                font-size: 2.25rem;
             }
             font-weight: 800;
             .knightText {
