@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useController, useFormContext } from "react-hook-form";
-import seedrandom from "seedrandom";
+// import seedrandom from "seedrandom";
 
 type WithOptionList = { options: unknown[] };
 type WithFunctionGenerator = {
@@ -22,8 +22,8 @@ const Random = ({ name, seed, ...props }: PropTypes): JSX.Element | null => {
     useEffect(() => {
         const random = () => {
             if (seed) {
-                const rng = seedrandom(seed);
-                return rng();
+                // const rng = seedrandom(seed);
+                // return rng();
             }
             return Math.random();
         };
