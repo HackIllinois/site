@@ -33,7 +33,7 @@ const KnightChallenge = (props: any) => {
                                 For all further API calls, include the JWT token
                                 from step 1 in your request header.
                                 <p
-                                    className={styles.colouredText}
+                                    className={`${styles.colouredText} ${styles.marginTop}`}
                                 >{`{“Authorization”: token_here}`}</p>
                             </li>
                             <li className={styles.listItem}>
@@ -81,7 +81,7 @@ const KnightChallenge = (props: any) => {
                                 Receive inputs for the challenge by making a GET
                                 request to this endpoint.
                                 <p
-                                    className={styles.colouredText}
+                                    className={`${styles.colouredText} ${styles.marginTop}`}
                                 >{`GET https://artemis.hackillinois.org/challenge`}</p>
                             </li>
                             <li className={styles.listItem}>
@@ -93,10 +93,10 @@ const KnightChallenge = (props: any) => {
                                 </span>{" "}
                                 in the request body as shown below:
                                 <p
-                                    className={styles.colouredText}
+                                    className={`${styles.colouredText} ${styles.marginTop}`}
                                 >{`POST https://artemis.hackillinois.org/challenge`}</p>
                                 <p
-                                    className={styles.colouredText}
+                                    className={`${styles.colouredText} ${styles.marginTop}`}
                                 >{`{“greatest_total_value”: token_here}`}</p>
                             </li>
                         </ol>
@@ -107,26 +107,26 @@ const KnightChallenge = (props: any) => {
                             <caption>Inputs</caption>
                             <thead>
                                 <tr>
-                                    <th>edges</th>
-                                    <th>nodes</th>
+                                    <th className={styles.colouredText}>edges</th>
+                                    <th className={styles.colouredText}>nodes</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
                                         <p>{`[`}</p>
-                                        <p>{`[“a”, “c”],`}</p>
-                                        <p>{`[“b”, “d”],`}</p>
-                                        <p>{`["e”, “c”],`}</p>
+                                        <p className={styles.marginLeft}>{`[“a”, “c”],`}</p>
+                                        <p className={styles.marginLeft}>{`[“b”, “d”],`}</p>
+                                        <p className={styles.marginLeft}>{`["e”, “c”],`}</p>
                                         <p>{`]`}</p>
                                     </td>
                                     <td>
                                         <p>{`{`}</p>
-                                        <p>{`  "a": 20,`}</p>
-                                        <p>{`"b": 3,`}</p>
-                                        <p>{`"c": 2,`}</p>
-                                        <p>{`"d": 30,`}</p>
-                                        <p>{`"e": -100,`}</p>
+                                        <p className={styles.marginLeft}>{`  "a": 20,`}</p>
+                                        <p className={styles.marginLeft}>{`"b": 3,`}</p>
+                                        <p className={styles.marginLeft}>{`"c": 2,`}</p>
+                                        <p className={styles.marginLeft}>{`"d": 30,`}</p>
+                                        <p className={styles.marginLeft}>{`"e": -100,`}</p>
                                         <p>{`}`}</p>
                                     </td>
                                 </tr>
