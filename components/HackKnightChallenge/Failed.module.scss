@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 30rem;
+    height: 35rem;
+    row-gap: 1.5rem;
+
+    .header {
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .content {
+        padding: 0 20%;
+    }
+
+    .text{
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .subText {
+        font-size: 0.75rem;
+        text-align: center;
+    }
+
+    .marginTop{
+        margin-top: 1.5rem;
+    }
+
+    .button {
+        > img {
+            max-width: 75%;
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.05);
+            }
+        }
+    }
+}

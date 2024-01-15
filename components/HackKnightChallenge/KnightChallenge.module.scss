@@ -1,10 +1,16 @@
 .container {
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 2rem;
+}
+
+.box {
     background-color: #a61e00;
     border: 0.675rem solid #ffb23e;
     padding: 3rem;
     overflow-y: scroll;
     max-width: 75vw;
-    max-height: 50vh;
+    max-height: 27.5rem;
 }
 
 .content {
@@ -18,7 +24,7 @@
         row-gap: 0.5rem;
     }
 
-    .block{
+    .block {
         display: flex;
         flex-flow: column nowrap;
         row-gap: 0.75rem;
@@ -26,7 +32,7 @@
 
     .colouredText {
         //  display: block;
-        color: #188038;
+        color: #20C20E // #188038;
     }
 
     .header {
@@ -42,6 +48,24 @@
         > img {
             width: 50%;
             max-width: 100%;
+        }
+    }
+}
+
+.buttonsDiv {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    column-gap: 2rem;
+
+    .button {
+        > img {
+            max-width: 75%;
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.05);
+            }
         }
     }
 }
