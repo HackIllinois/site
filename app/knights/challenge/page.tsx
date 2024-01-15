@@ -11,7 +11,7 @@ const Challenge: React.FC = () => {
     return (
         <div className={styles.background}>
             <div className={styles.container}>
-                {show === "challenge" ? (
+                {/* {show === "challenge" ? (
                     <KnightChallenge setShow={setShow} />
                 ) : show === "failed" ? (
                     <Failed setShow={setShow} />
@@ -19,7 +19,7 @@ const Challenge: React.FC = () => {
                     <Passed setShow={setShow} />
                 ) : (
                     <Banner setShow={setShow} />
-                )}
+                )} */}
             </div>
         </div>
     );
