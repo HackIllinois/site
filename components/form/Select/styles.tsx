@@ -17,12 +17,12 @@ const customStyles: StylesConfig<Record<string, unknown>, true | false> = {
     }),
     placeholder: base => ({
         ...base,
-        color: "#FFFFFF",
+        color: "--text-color",
         fontWeight: 500,
         bottom: 0,
         top: "unset",
         transform: "none",
-        fontSize: "1.25em",
+        fontSize: "1.1em",
         "::after": {
             content: '"*"',
             color: "#FE7098",
@@ -89,7 +89,7 @@ const customStyles: StylesConfig<Record<string, unknown>, true | false> = {
         borderRadius: 20,
         padding: "0 15px",
         overflow: "visible",
-        maxHeight: "15vh"
+        maxHeight: "25vh"
 
         // transform: 'translateX(-26.7vw)',
         // width: base.width,
@@ -99,7 +99,7 @@ const customStyles: StylesConfig<Record<string, unknown>, true | false> = {
         padding: "16px 0",
         scrollbarColor: `${menuHighlightColor} transparent`,
         scrollbarWidth: "thin",
-        maxHeight: "15vh",
+        maxHeight: "25vh",
         "&::-webkit-scrollbar": {
             WebkitAppearance: "none"
         },

@@ -97,33 +97,26 @@
 }
 
 .buttons {
-    margin-bottom: 20px;
     display: flex;
+    position: absolute;
     z-index: 5;
-    width: 50%;
-    margin: 10px auto;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    
+    width: 100%;
+    bottom: 0%;
+    margin: 20px auto;
 
-    // @media (max-width: 1100px) {
-    //     width: 70%;
-    //     left: 15%;
+    // .spacer {
+    //     width: 50%;
     // }
-    // @media (max-height: 600px) {
-    //     bottom: 30%;
-    // }
+}
 
-    // @media (max-width: 350px) {
-    //     width: 85%;
-    //     left: auto;
-    // }
-    // @media (max-height: 750px) and (min-width: 1200) {
-    //     width: 60%;
-    //     left: auto;
-    // }
-
-    .spacer {
-        width: 80%;
-        margin-right: 22%;
-    }
+.button {
+    width: 80%;
+    height: fit-content;
+    margin: 0 auto;
 }
 
 .formProgress {

@@ -90,65 +90,82 @@ const Education = () => {
     return (
     <>
         <div className={clsx(styles.screen, styles.education)}> 
-            <div className={styles.labcave}>
+            <div className={styles.eduHeader}>
                 <Image src={header} alt="Header" className={styles.demographicsHeader2} />
+            </div>
+            
+            <div className={styles.eduCaveContainer}>
                 <Image src={Lab} alt="Lab" className={styles.lab} />
                 <Image src={Rabbit} alt="Rabbit" className={styles.rabbit} />
 
-                <Image src={uppercave} alt="Upper Cave" className={styles.uppercave} />
-                <Image src={icecave} alt="Ice Cave" className={styles.icecave}/>
-
-
+                <Image src={uppercave} alt="Upper Cave" className={styles.upperCave} />
+                <Image src={icecave} alt="Ice Cave" className={styles.iceCave}/>
             </div>
 
-            <div className={styles.educationform}>
+            <div className={styles.eduForm}>
+                <p className={styles.text}>
+                    What state/country are you currently residing in?
+                </p>
                 <Select
                     className={styles.select}
                     name="location"
                     options={locationOptions}
-                    placeholder="What state/country are you currently residing in?"
                     menuPlacement="bottom"
                 />
+
+                <p className={styles.text}>
+                    What degree are you currently pursuing?
+                </p>
                 <Select
                     className={styles.select}
                     name="degreePursued"
                     options={degreeOptions}
-                    placeholder="What degree are you currently pursuing?"
                     menuPlacement="auto"
                 />
+
+                <p className={styles.text}>
+                    What is your major?
+                </p>
                 <Select
                     className={styles.select}
                     name="major"
                     options={majorOptions}
-                    placeholder="What is your major?"
                     menuPlacement="auto"
                     creatable
                 />
+                
+                <p className={styles.text}>
+                    What is your minor? (Enter N/A if not applicable)
+                </p>
 
                 <Select
                     className={styles.select}
                     name="minor"
                     options={majorOptions}
-                    placeholder="What is your minor? (Enter N/A if not applicable)"
                     menuPlacement="auto"
                     creatable
                 />
+
+                <p className={styles.text}>
+                    What university do you attend?
+                </p>
                 <Select
                     name="school"
                     options={schoolOptions}
-                    placeholder="What university do you attend?"
                     menuPlacement="top"
                     creatable
                 />
 
+                <p className={styles.text}>
+                    What is your graduation year?
+                </p>
                 <Select
                     name="graduationYear"
                     options={graduationYearOptions}
-                    placeholder="What is your graduation year?"
                 />
                 <br />
                 <br />
-                <p className={styles.textOp}>
+                <p className={styles.textOp2}>
                     Please submit a copy of your resume, it will be shared with our
                     sponsors
                 </p>

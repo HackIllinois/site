@@ -34,29 +34,8 @@ const Button = ({
         )}
         {...props}
     >
-        {arrow === "left" && (
-            <Image
-                className={clsx(
-                    styles.arrowIcon,
-                    styles.left,
-                    children && styles.margin
-                )}
-                src={RIGHT_ARROW}
-                alt="<"
-            />
-        )}
         {children}
-        {arrow === "right" && (
-            <Image
-                className={clsx(
-                    styles.arrowIcon,
-                    styles.right,
-                    children && styles.margin
-                )}
-                src={RIGHT_ARROW}
-                alt=">"
-            />
-        )}
+
     </button>
 );
 

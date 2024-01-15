@@ -1,7 +1,4 @@
 .button {
-    background-color: #fcdc8f;
-    color: black;
-    padding: 6px 14px;
     font-weight: 600;
     font-size: 1em;
     font-family: inherit;
@@ -11,27 +8,8 @@
     align-items: center;
     outline: none;
     text-transform: uppercase;
+
     cursor: pointer;
-
-    .arrowIcon {
-        width: 7px;
-
-        &.right {
-            transform: scale(1.1);
-
-            &.margin {
-                margin-left: 10px;
-            }
-        }
-
-        &.left {
-            transform: rotate(180deg) scale(1.1);
-
-            &.margin {
-                margin-right: 10px;
-            }
-        }
-    }
 
     &.hidden {
         visibility: hidden;

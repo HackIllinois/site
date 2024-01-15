@@ -90,7 +90,6 @@ const HackSpecific = () => {
     }
     const [mobile, setMobile] = useState(isMobile());
     const [forest, setForest] = useState(mobile ? Forest : Forest);
-    const [rivergrass, setRivergrass] = useState(mobile ? RiverGrass : RiverGrass);
     const [header, setHeader] = useState(mobile ? Header : Header);
 
     useEffect(() => {
@@ -98,7 +97,6 @@ const HackSpecific = () => {
             const newMobile = isMobile();
             setMobile(newMobile);
             setForest(newMobile ? MobileForest : Forest);
-            setRivergrass(newMobile ? MobileRiverGrass : RiverGrass);
             setHeader(newMobile ? MobileHeader : Header);
         };
         window.addEventListener("resize", handleResize);
@@ -111,43 +109,18 @@ const HackSpecific = () => {
     return (
         <>
             <div className={clsx(styles.screen, styles.experience)}>
-                <div className={styles.forestContainer}>
-                    <Image src={forest} alt="Mushroom Forest" className={styles.forest} />
-                    <Image src={rivergrass} alt="River Grass" className={styles.rivergrass} />
+                <div className={styles.hsHeader}>
                     <Image src={header} alt="Hack Specific" className={styles.hackspecificHeader} />
+                </div>
+
+                <div className={styles.hsForestContainer}>
+                    <Image src={forest} alt="Mushroom Forest" className={styles.forest} />
+                    <Image src={RiverGrass} alt="River Grass" className={styles.rivergrass} />
+                    <Image src={MobileRiverGrass} alt="River Grass" className={styles.mobilerivergrass} />
                     <Image src={Mascot} alt="Mascot" className={styles.mascot} />
                 </div>
 
-                <div className={styles.hackspecificform}>
-                    <p className={styles.text}>
-                        Which of these aspects of the hackathon would you most be interested in engaging in?
-                    </p>
-                    <Select
-                        className={styles.select}
-                        name="interest"
-                        isMulti={true}
-                        options={interestOptions}
-                    />
-
-                    <p className={styles.text}>
-                        How did you hear about HackIllinois?
-                    </p>
-                    <Select
-                        className={styles.select}
-                        name="learn"
-                        isMulti={true}
-                        options={learnOptions}
-                    />
-
-                    <p className={styles.text}>
-                        What food restrictions or allergies do you have?
-                    </p>
-                    <Select
-                        className={styles.select}
-                        name="food"
-                        isMulti={true}
-                        options={foodOptions}
-                    />
+                <div className={styles.hsForm}>
 
 
 
@@ -172,7 +145,7 @@ const HackSpecific = () => {
                     <Input
                         className={styles.input}
                         multiline={true}
-                        name="challenge"
+                        name="challenges"
                         placeholder="Type your response here"
                     />
 
@@ -197,7 +170,7 @@ const HackSpecific = () => {
                     </p>
                     <Select
                         className={styles.select}
-                        name="consideration"
+                        name="generalConsideration"
                         options={considerationOptions}
                     />
 
@@ -210,7 +183,7 @@ const HackSpecific = () => {
                     <Input
                         className={styles.input}
                         multiline={true}
-                        name="additionalbackground"
+                        name="additionalBackground"
                         placeholder="Type your response here"
                     />
 

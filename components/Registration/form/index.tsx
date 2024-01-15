@@ -20,27 +20,19 @@ import {
 
 // Old Pages left for Reference
 import Welcome from "./screens/welcome";
-import PersonalInfoP1 from "./screens/personal-info-p1";
-import PersonalInfoP2 from "./screens/personal-info-p2";
-import PersonalInfoP3 from "./screens/personal-info-p3";
-import Educations from "./screens/education-p1";
-import EducationP2 from "./screens/education-p2";
-import Experience from "./screens/experience-p1";
-import ExperienceP2 from "./screens/experience-p2";
-import Event from "./screens/event-p1";
-import EventP2 from "./screens/event-p2";
-import EventP3 from "./screens/event-p3";
 import Finish from "./screens/finish";
 
 // New Pages for you to build
 import PersonalInfo from "./screens/personal-info";
 import Education from "./screens/education";
-import HackSpecific from "./screens/hack-specific";
+import HackSpecific from "./screens/hack-specific-p1";
 import Review from "./screens/review";
+import HackSpecificP2 from "./screens/hack-specific-p2";
 import Complete from "./screens/complete";
 
 import styles from "./styles.module.scss";
-
+import Image from "next/image";
+import { EducationButton, LoadingButton, PersonalButton, ReviewButton, HackspecificButton, SubmitButton } from "@/public/registration/buttons/index"
 // Probably unneeded given the new designs
 import FormNavigation from "./form-navigation";
 
@@ -51,9 +43,9 @@ type FormProps = {
 
 //New Page Strcture
 // const fields: (keyof RegistrationSchema)[][] = [
-//   ['name', 'gender', 'race', 'age', 'email', 'phone'],
-//   ['location', 'school', 'major', 'minor', 'graduationYear', 'resumeFilename'],
-//   ['whyHack', 'programmingYears', 'programmingAbility', 'outreachSurvey', 'interests', 'dietary', 'travelReimbursement'],
+//   ['preferredName', 'legalName', 'email', 'gender', 'race', 'age', 'transportation', 'requestedTravelReimbursement'],
+//   ['location', 'degree', 'major', 'minor', 'university', 'gradYear', 'resumeFilename'],
+//   ['hackInterest', 'hackOutreach', 'dietaryRestrictions', 'hackEssay1', 'hackEssay2', 'proEssay', 'considerForGeneral', 'optionalEssay'],
 //   []
 // ];
 
@@ -91,9 +83,11 @@ const fields: (keyof RegistrationSchema)[][] = [
 // const postSubmitPageIndex = submitPageIndex + 1;
 
 // New Variables for above settings
-const pages = [PersonalInfo, Education, HackSpecific, Review, Complete];
-const submitPageIndex = 3;
+const pages = [PersonalInfo, Education, HackSpecific, HackSpecificP2, Review, Complete];
+const submitPageIndex = 4;
 const postSubmitPageIndex = submitPageIndex + 1;
+
+const buttons = [LoadingButton, PersonalButton, EducationButton, HackspecificButton, HackspecificButton, ReviewButton, SubmitButton]
 
 // Old API Methods
 const convertToAPI = (data: RegistrationSchema): RegistrationType => {
@@ -254,8 +248,15 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
         }
     };
 
-    const nextPage = () => setFormIndex(current => current + 1);
-    const previousPage = () => setFormIndex(current => current - 1);
+    const nextPage = () => {
+        setFormIndex(current => current + 1);
+        window.scrollTo(0, 0); // scroll to the top of the page
+    }
+    
+    const previousPage = () => {
+        setFormIndex(current => current - 1);
+        window.scrollTo(0, 0); // scroll to the top of the page
+    }
 
     return (
         <div className={styles.container}>
@@ -270,18 +271,18 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
             </FormProvider>
             {formIndex !== postSubmitPageIndex && ( // last page does not have any buttons
                 <div className={styles.buttons}>
-                    <Button
+                    {formIndex > 0 && <Button
                         arrow="left"
                         hidden={formIndex === 0}
                         onClick={previousPage}
                     >
-                        Back
-                    </Button>
+                        <Image src={buttons[formIndex]} alt="next button" className={styles.button} />
+                    </Button>}
                     <div className={styles.spacer} />
-                    {isLoading && <Button loading>Loading...</Button>}
+                    {isLoading && <Button loading><Image src={LoadingButton} alt="loading button" className={styles.button} /></Button>}
                     {!isLoading && formIndex !== submitPageIndex && (
                         <Button arrow="right" onClick={nextPage}>
-                            Next
+                            <Image src={buttons[formIndex+2]} alt="next button" className={styles.button} />
                         </Button>
                     )}
                     {!isLoading && formIndex === submitPageIndex && (
@@ -289,7 +290,7 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
                             type="submit"
                             onClick={handleSubmit(onSubmit, onError)}
                         >
-                            Submit
+                            <Image src={SubmitButton} alt="submit button" className={styles.button} />
                         </Button>
                     )}
                 </div>

@@ -5,9 +5,8 @@
     outline: none;
     font-size: 1.25em;
     font-weight: 300;
-    border-bottom: 1.5px solid #ffffff;
     width: 100%;
-    padding: 10px 0;
+    padding: 10px 5px;
     background-color: transparent;
     color: #ffffff;
 
@@ -21,7 +20,6 @@
     width: 100%;
     min-height: 29vh;
     padding: 10px 0;
-    border: 3px solid #ffffff;
     border-radius: 10px;
     font-family: "Montserrat";
     color: #1d2644;
@@ -29,10 +27,12 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 17px;
-    background-color: #c9d2e5;
+    background-color: #638f70;
 
     &::placeholder {
-        color: #1d2644;
+        font-family: inherit;
+        color: #ffffff;
+        font-weight: 400;
         font-size: 0.9em;
     }
 }
