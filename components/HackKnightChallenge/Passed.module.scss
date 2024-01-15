@@ -1,0 +1,66 @@
+.container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 40rem;
+    height: 40rem;
+
+    .image{
+        height: 100%;
+        width: 100%;
+    }
+
+    .content {
+        padding: 0 20%;
+        display: flex;
+        flex-flow: column nowrap;
+        row-gap: 1rem;
+        margin-top: -5%;
+    }
+
+    .text {
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .hackText {
+        text-align: center;
+        font-size: 2.75rem;
+        font-weight: 800;
+        .knightText {
+            color: #ffb23e;
+        }
+    }
+
+    .text{
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .subText {
+        font-size: 0.75rem;
+        text-align: center;
+    }
+
+    .marginTop{
+        margin-top: 1.5rem;
+    }
+
+    .buttonDiv{
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        padding: 0 10%;
+
+    .button {
+        > img {
+            max-width: 75%;
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.05);
+            }
+        }
+    }}
+}
