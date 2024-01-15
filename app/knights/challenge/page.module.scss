@@ -1,0 +1,19 @@
+.background {
+    background: url("/knights/challenge/background.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100vw auto;
+    background-color: #505370;
+
+    min-width: 100vw;
+    min-height: 50rem;
+    overflow-y: scroll;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+
+}
