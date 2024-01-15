@@ -1,0 +1,47 @@
+.container {
+    background-color: #a61e00;
+    border: 0.675rem solid #ffb23e;
+    padding: 3rem;
+    overflow-y: scroll;
+    max-width: 75vw;
+    max-height: 50vh;
+}
+
+.content {
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 1.5rem;
+
+    .compact {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.5rem;
+    }
+
+    .block{
+        display: flex;
+        flex-flow: column nowrap;
+        row-gap: 0.75rem;
+    }
+
+    .colouredText {
+        //  display: block;
+        color: #188038;
+    }
+
+    .header {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .exampleGraph {
+        display: flex;
+        flex-flow: row nowrap;
+        column-gap: 3rem;
+        padding: 0 2rem;
+        > img {
+            width: 50%;
+            max-width: 100%;
+        }
+    }
+}

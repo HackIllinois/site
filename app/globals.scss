@@ -130,6 +130,11 @@ input {
     overflow: visible;
 }
 
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
 // @media screen and (max-width: 640px) {
 //     html {
 //         font-size: 12px;
