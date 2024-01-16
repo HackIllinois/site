@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./styles.module.scss";
 import Logo from "@/public/logo.svg";
 import CloudMenu from "@/public/cloud-menu.svg";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 type NavbarItem = {
     title: string;
@@ -36,11 +36,29 @@ const navbar_items: NavbarItem[] = [
 
 const Navbar = () => {
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+            setShowMobileNavbar(false);
+        }
+    };
+
+    useEffect(() => {
+        // Add when mounted
+        document.addEventListener("mousedown", handleClickOutside);
+        // Return function to be called when unmounted
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
 
     return (
         <nav className={styles.navbar}>
             <Image alt="HackIllinois Logo" onClick={() => window.location.pathname = "/"} style={{cursor: 'pointer'}} src={Logo} />
             <div
+                ref={menuRef}
                 className={styles.mobileMenu}
                 onClick={() => setShowMobileNavbar(p => !p)}
             >
@@ -106,3 +124,7 @@ const KnightsButton = () => {
         </a>
     );
 };
+function handleClickOutside(this: Document, ev: MouseEvent) {
+    throw new Error("Function not implemented.");
+}
+

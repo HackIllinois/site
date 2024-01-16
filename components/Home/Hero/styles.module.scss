@@ -24,6 +24,15 @@
     width: fit-content;
 }
 
+@keyframes scaleUpDown {
+    0%, 100% {
+        transform: scale(1); /* Normal scale */
+    }
+    50% {
+        transform: scale(1.02); /* Scaled up by 2% */
+    }
+}
+
 .heroImageWrapper {
     z-index: 1;
     width: 852px;
@@ -44,6 +53,7 @@
     @media screen and (max-width: 640px) {
         height: 120px;
     }
+    animation: scaleUpDown 5s infinite;
 }
 
 .heroButtonWrapper {
@@ -81,6 +91,7 @@
             }
         }
     }
+
 }
 
 .heroButton {
@@ -164,6 +175,24 @@
     border-width: 8px;
     font-size: 28px;
     font-weight: 700;
+
+    &:before {
+        z-index: 1;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 12%;
+        width: 20%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: skewX(-30deg);
+        transition: 0.3s;
+    }
+
+    &:hover:before {
+        left: 65%;
+        background: rgba(255, 255, 255, 0.5);
+    }
 }
 
 .villageWrapper {

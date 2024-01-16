@@ -24,7 +24,7 @@ const faqPages: Record<string, FaqPage> = {
     page1: {
         questions: [
             { question: "What is a Hackathon?", answer: (
-                    <p>A hackathon is a collaborative event where teams utilize their skills to create projects that solve problems or identify new opportunities! They typically run for a short and continuous period of time. For HackIllinois, all meals will be provided</p>
+                    <p>A hackathon is a collaborative event where teams utilize their skills to create projects that solve problems or identify new opportunities! They typically run for a short and continuous period of time. For HackIllinois, all meals will be provided.</p>
                 )
             },
             { question: "Who can participate?", answer: (
@@ -60,7 +60,7 @@ const faqPages: Record<string, FaqPage> = {
     page3: {
         questions: [
             { question: "How can I register?", answer: (
-                    <p>We have a registration portal, which will open near the beginning of 2024. Be on the lookout for the registration announcement on our social media platforms (Instagram, Facebook, Reddit, etc.)! In addition, we will have a travel reimbursement form. More details will be released shortly.</p>
+                    <p>We have a registration portal, which will open near the beginning of 2024. Be on the lookout for the registration announcement on our social media platforms (Instagram, Facebook, Reddit, etc.)! <br></br>In addition, we will have a travel reimbursement form. More details will be released shortly.</p>
                 )
             },
             { question: "Are there any themes or specific challenges we need to address?", answer: (
@@ -104,7 +104,7 @@ const faqPages: Record<string, FaqPage> = {
                 )
             },
             { question: "What should we prioritize: the technical details, user experience, business model, or the impact of our solution?", answer: (
-                    <p>Check our attendee guide for more info!</p>
+                    <p>Check our attendee guide (coming soon) for more info!</p>
                 )
             },
             { question: "Is there a schedule for relaxation or fun activities, like games or entertainment segments?", answer: (
@@ -249,7 +249,7 @@ const FAQ = () => {
         setIsVisible(false);
         setTimeout(() => {
             setIsVisible(true);
-        }, 1000);
+        }, 850);
     };
 
     const [usebd, setUsebd] = useState(mobile ? BefDur2 : BefDur);

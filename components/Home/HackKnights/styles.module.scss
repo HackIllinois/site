@@ -46,17 +46,41 @@
                 }
             }
             .hkButton {
+                position: relative;
                 width: 100%;
                 background: none;
                 border: none;
                 margin-top: 1vh;
+                display: inline;
+                overflow: hidden;
                 
 
                 &:hover {
-                    filter: brightness(0.9);
+                    // filter: brightness(0.9);
+                    scale: 1.05;
                     cursor: pointer;
                 }
                 
+            }
+
+            .hkButton:before {
+                content: "";
+                position: absolute;
+                top: 7%;
+                left: 34%;
+                width: 9%;
+                height: 83%;
+                // opacity: 0;
+                background: rgba(255, 255, 255, 0.3);
+                transform: skewX(336deg);
+                transition: 0.3s;
+              }
+
+            .hkButton:hover:before {
+                opacity: 1;
+                left: 62%;
+                background: rgba(255, 255, 255, 0.5);
+                    
             }
 
             .hkLearnMoreButton {
