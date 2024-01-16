@@ -15,7 +15,7 @@ const KnightChallenge = (props: any) => {
                                 a cohort for advanced hackers, here is a simple
                                 challenge to put your skills to the test.
                             </p>
-                            <p>
+                            <p  className={styles.text}>
                                 {`Note: This challenge is not as long and tedious as the write
                     up may look! It’ll be fun, we promise :)`}
                             </p>
@@ -24,22 +24,22 @@ const KnightChallenge = (props: any) => {
                     <div className={styles.block}>
                         <p className={styles.header}>Coding Challenge</p>
                         <ol className={`${styles.compact}`}>
-                            <li className={styles.listItem}>
+                            <li className={styles.text}>
                                 Click this button to retrieve your JWT token.
                                 You must use the same GitHub account you used to
                                 register to HackIllinois
                             </li>
-                            <li className={styles.listItem}>
+                            <li className={styles.text}>
                                 For all further API calls, include the JWT token
                                 from step 1 in your request header.
                                 <p
                                     className={`${styles.colouredText} ${styles.marginTop}`}
                                 >{`{“Authorization”: token_here}`}</p>
                             </li>
-                            <li className={styles.listItem}>
+                            <li className={styles.text}>
                                 <div className={styles.compact}>
-                                    <b>Problem Statement</b>
-                                    <p>
+                                    <b className={styles.text}>Problem Statement</b>
+                                    <p className={styles.text}>
                                         You are given a list,{" "}
                                         <span className={styles.colouredText}>
                                             edges
@@ -54,7 +54,7 @@ const KnightChallenge = (props: any) => {
                                         values assigned to each node in the
                                         graph.
                                     </p>
-                                    <p>
+                                    <p className={styles.text}>
                                         Your task is to find the{" "}
                                         <span className={styles.colouredText}>
                                             total_value
@@ -66,7 +66,7 @@ const KnightChallenge = (props: any) => {
                                         in each connected component in the
                                         provided graph.
                                     </p>
-                                    <p>
+                                    <p className={styles.text}>
                                         The solution to the problems is the
                                         greatest{" "}
                                         <span className={styles.colouredText}>
@@ -77,14 +77,14 @@ const KnightChallenge = (props: any) => {
                                     </p>
                                 </div>
                             </li>
-                            <li className={styles.listItem}>
+                            <li className={styles.text}>
                                 Receive inputs for the challenge by making a GET
                                 request to this endpoint.
                                 <p
-                                    className={`${styles.colouredText} ${styles.marginTop}`}
+                                    className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
                                 >{`GET https://artemis.hackillinois.org/challenge`}</p>
                             </li>
-                            <li className={styles.listItem}>
+                            <li className={styles.text}>
                                 Submit your solution by making a POST request to
                                 this endpoint. Make sure you include your
                                 calculated{" "}
@@ -93,10 +93,10 @@ const KnightChallenge = (props: any) => {
                                 </span>{" "}
                                 in the request body as shown below:
                                 <p
-                                    className={`${styles.colouredText} ${styles.marginTop}`}
+                                    className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
                                 >{`POST https://artemis.hackillinois.org/challenge`}</p>
                                 <p
-                                    className={`${styles.colouredText} ${styles.marginTop}`}
+                                    className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
                                 >{`{“greatest_total_value”: token_here}`}</p>
                             </li>
                         </ol>
@@ -104,30 +104,30 @@ const KnightChallenge = (props: any) => {
                     <div className={styles.block}>
                         <p className={styles.header}>Example</p>
                         <table>
-                            <caption>Inputs</caption>
+                            <caption className={styles.text}>Inputs</caption>
                             <thead>
                                 <tr>
-                                    <th className={styles.colouredText}>edges</th>
-                                    <th className={styles.colouredText}>nodes</th>
+                                    <th className={`${styles.colouredText} ${styles.text}`}>edges</th>
+                                    <th className={`${styles.colouredText} ${styles.text}`}>nodes</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        <p>{`[`}</p>
-                                        <p className={styles.marginLeft}>{`[“a”, “c”],`}</p>
-                                        <p className={styles.marginLeft}>{`[“b”, “d”],`}</p>
-                                        <p className={styles.marginLeft}>{`["e”, “c”],`}</p>
-                                        <p>{`]`}</p>
+                                        <p className={styles.text}>{`[`}</p>
+                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`[“a”, “c”],`}</p>
+                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`[“b”, “d”],`}</p>
+                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`["e”, “c”],`}</p>
+                                        <p className={styles.text}>{`]`}</p>
                                     </td>
                                     <td>
-                                        <p>{`{`}</p>
-                                        <p className={styles.marginLeft}>{`  "a": 20,`}</p>
-                                        <p className={styles.marginLeft}>{`"b": 3,`}</p>
-                                        <p className={styles.marginLeft}>{`"c": 2,`}</p>
-                                        <p className={styles.marginLeft}>{`"d": 30,`}</p>
-                                        <p className={styles.marginLeft}>{`"e": -100,`}</p>
-                                        <p>{`}`}</p>
+                                        <p className={styles.text}>{`{`}</p>
+                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`  "a": 20,`}</p>
+                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`"b": 3,`}</p>
+                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`"c": 2,`}</p>
+                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`"d": 30,`}</p>
+                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`"e": -100,`}</p>
+                                        <p className={styles.text}>{`}`}</p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -136,14 +136,14 @@ const KnightChallenge = (props: any) => {
                     <div className={styles.exampleGraph}>
                         <img src="/knights/challenge/example-graph.png" />
                         <div className={styles.compact}>
-                            <p>
+                            <p className={styles.text}>
                                 Given that the provided graph looks like this,
                                 we have two connected components:{" "}
                                 <span className={styles.colouredText}>ace</span>{" "}
                                 and
                                 <span className={styles.colouredText}>bd</span>.
                             </p>
-                            <p>
+                            <p className={styles.text}>
                                 The{" "}
                                 <span className={styles.colouredText}>
                                     total_value
@@ -154,7 +154,7 @@ const KnightChallenge = (props: any) => {
                                 </span>{" "}
                                 of BD is 33.
                             </p>
-                            <p>
+                            <p className={styles.text}>
                                 Therefore, the{" "}
                                 <span className={styles.colouredText}>
                                     greatest_total_value
@@ -166,19 +166,19 @@ const KnightChallenge = (props: any) => {
                     <div className={styles.block}>
                         <p className={styles.header}>Constraints</p>
                         <ul>
-                            <li>The input edges and nodes will be valid.</li>
-                            <li>
+                            <li className={styles.text}>The input edges and nodes will be valid.</li>
+                            <li className={styles.text}>
                                 Node values can be positive or negative
                                 integers.
                             </li>
-                            <li>
+                            <li className={styles.text}>
                                 The input graph will have <b>no cycles</b>.
                             </li>
-                            <li>
+                            <li className={styles.text}>
                                 The input graph will have multiple connected
                                 components.
                             </li>
-                            <li>
+                            <li className={styles.text}>
                                 Your JWT token will never expire so there is no
                                 time limit to complete the challenge.
                             </li>
@@ -187,7 +187,7 @@ const KnightChallenge = (props: any) => {
                     <div className={styles.block}>
                         <p className={styles.header}>Notes</p>
                         <ul>
-                            <li>
+                            <li className={styles.text}>
                                 We will take into consideration the number of
                                 times you submit your solution to ensure no
                                 brute force methods are used to solve this
@@ -198,13 +198,13 @@ const KnightChallenge = (props: any) => {
                                 </b>
                                 .
                             </li>
-                            <li>
+                            <li className={styles.text}>
                                 Feel free to use any resources, but your work
                                 must be your own.{" "}
                                 <b>No collaboration with other applicants</b> is
                                 permitted.
                             </li>
-                            <li>
+                            <li className={styles.text}>
                                 Note that completing the challenge does not
                                 guarantee admission as a Knight, it only
                                 qualifies you to apply as a Knight.
@@ -214,8 +214,8 @@ const KnightChallenge = (props: any) => {
                     <div className={styles.block}>
                         <p className={styles.header}>Tips</p>
                         <ul>
-                            <li>Use response error codes to help debug.</li>
-                            <li>
+                            <li className={styles.text}>Use response error codes to help debug.</li>
+                            <li className={styles.text}>
                                 Feel free to email us if you have issues with
                                 the coding challenge! Please direct your email
                                 to{" "}
