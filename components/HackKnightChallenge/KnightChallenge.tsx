@@ -1,3 +1,4 @@
+'use client';
 import styles from "./KnightChallenge.module.scss";
 
 const KnightChallenge = (props: any) => {

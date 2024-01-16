@@ -1,3 +1,4 @@
+'use client';
 import styles from "./Passed.module.scss";
 const Passed = (props: any) => {
     const { setShow } = props;

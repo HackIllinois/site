@@ -1,3 +1,4 @@
+'use client';
 import styles from "./Failed.module.scss";
 const Failed = (props: any) => {
     const { setShow } = props;
