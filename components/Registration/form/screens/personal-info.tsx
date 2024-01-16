@@ -37,30 +37,36 @@ const PersonalInfo = () => {
         {
             label: "American Indian or Alaska Native",
             value: "American Indian or Alaska Native",
-            isRadio: true
         },
-        { label: "Asian", value: "Asian", isRadio: true },
+        {
+            label: "Arab or Middle Eastern",
+            value: "Middle Eastern or North African",
+        },
         {
             label: "Black or African American",
             value: "Black or African American",
-            isRadio: true
         },
         {
             label: "Native Hawaiian or Other Pacific Islander",
             value: "Native Hawaiian or Other Pacific Islander",
-            isRadio: true
+        },
+        {
+            label: "East Asian",
+            value: "East Asian",
         },
         { label: "Hispanic or Latino", value: "Hispanic or Latino", isRadio: true },
         { label: "White", value: "White", isRadio: true },
         {
             label: "Biracial/Multiracial",
             value: "Biracial/Multiracial",
-            isRadio: true
+        },
+        {
+            label: "South Asian",
+            value: "South Asian",
         },
         {
             label: "Prefer Not to Answer",
             value: "Prefer Not to Answer",
-            isRadio: true
         }
     ];
    
