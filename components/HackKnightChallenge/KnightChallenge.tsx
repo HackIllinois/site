@@ -1,8 +1,21 @@
-'use client';
+"use client";
+import React from "react";
 import styles from "./KnightChallenge.module.scss";
+
+const jwtUrl = `https://adonix.hackillinois.org/auth/login/github/?device=challenge`;
 
 const KnightChallenge = (props: any) => {
     const { setShow } = props;
+
+    // const [data, setData] = React.useState<string>("");
+    // async function fetchJwt() {
+    //     await fetch(jwtUrl)
+    //         .then(res => res.json())
+    //         .then(data => setData(data));
+
+    //     console.log(data);
+    // }
+
     return (
         <div className={styles.container}>
             <div className={styles.box}>
@@ -16,7 +29,7 @@ const KnightChallenge = (props: any) => {
                                 a cohort for advanced hackers, here is a simple
                                 challenge to put your skills to the test.
                             </p>
-                            <p  className={styles.text}>
+                            <p className={styles.text}>
                                 {`Note: This challenge is not as long and tedious as the write
                     up may look! It’ll be fun, we promise :)`}
                             </p>
@@ -29,6 +42,15 @@ const KnightChallenge = (props: any) => {
                                 Click this button to retrieve your JWT token.
                                 You must use the same GitHub account you used to
                                 register to HackIllinois
+                                <div className={styles.fetchJwtButtonDiv}>
+                                    <button
+                                        className={styles.fetchButton}
+                                    >
+                                        <a href={jwtUrl} target="_blank">
+                                            <span>Fetch JWT</span>
+                                        </a>
+                                    </button>
+                                </div>
                             </li>
                             <li className={styles.text}>
                                 For all further API calls, include the JWT token
@@ -39,7 +61,9 @@ const KnightChallenge = (props: any) => {
                             </li>
                             <li className={styles.text}>
                                 <div className={styles.compact}>
-                                    <b className={styles.text}>Problem Statement</b>
+                                    <b className={styles.text}>
+                                        Problem Statement
+                                    </b>
                                     <p className={styles.text}>
                                         You are given a list,{" "}
                                         <span className={styles.colouredText}>
@@ -108,26 +132,50 @@ const KnightChallenge = (props: any) => {
                             <caption className={styles.text}>Inputs</caption>
                             <thead>
                                 <tr>
-                                    <th className={`${styles.colouredText} ${styles.text}`}>edges</th>
-                                    <th className={`${styles.colouredText} ${styles.text}`}>nodes</th>
+                                    <th
+                                        className={`${styles.colouredText} ${styles.text}`}
+                                    >
+                                        edges
+                                    </th>
+                                    <th
+                                        className={`${styles.colouredText} ${styles.text}`}
+                                    >
+                                        nodes
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
                                         <p className={styles.text}>{`[`}</p>
-                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`[“a”, “c”],`}</p>
-                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`[“b”, “d”],`}</p>
-                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`["e”, “c”],`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`[“a”, “c”],`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`[“b”, “d”],`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`["e”, “c”],`}</p>
                                         <p className={styles.text}>{`]`}</p>
                                     </td>
                                     <td>
                                         <p className={styles.text}>{`{`}</p>
-                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`  "a": 20,`}</p>
-                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`"b": 3,`}</p>
-                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`"c": 2,`}</p>
-                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`"d": 30,`}</p>
-                                        <p className={`${styles.marginLeft} ${styles.text}`}>{`"e": -100,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`  "a": 20,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`"b": 3,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`"c": 2,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`"d": 30,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`"e": -100,`}</p>
                                         <p className={styles.text}>{`}`}</p>
                                     </td>
                                 </tr>
@@ -167,7 +215,9 @@ const KnightChallenge = (props: any) => {
                     <div className={styles.block}>
                         <p className={styles.header}>Constraints</p>
                         <ul>
-                            <li className={styles.text}>The input edges and nodes will be valid.</li>
+                            <li className={styles.text}>
+                                The input edges and nodes will be valid.
+                            </li>
                             <li className={styles.text}>
                                 Node values can be positive or negative
                                 integers.
@@ -215,7 +265,9 @@ const KnightChallenge = (props: any) => {
                     <div className={styles.block}>
                         <p className={styles.header}>Tips</p>
                         <ul>
-                            <li className={styles.text}>Use response error codes to help debug.</li>
+                            <li className={styles.text}>
+                                Use response error codes to help debug.
+                            </li>
                             <li className={styles.text}>
                                 Feel free to email us if you have issues with
                                 the coding challenge! Please direct your email

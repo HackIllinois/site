@@ -136,3 +136,18 @@
         }
     }
 }
+
+.fetchJwtButtonDiv{
+    margin: 0.75rem 0;
+    text-align: center;
+    .fetchButton{
+        width: 8rem;
+        height: 2rem;
+        background-color: #ffb23e;
+        border-radius: 0.875rem;
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+    }
+}
