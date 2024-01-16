@@ -14,7 +14,7 @@ const Challenge: React.FC = () => {
                 {show === "challenge" ? (
                     <KnightChallenge setShow={setShow} />
                 ) : show === "failed" ? (
-                    <Passed setShow={setShow} />
+                    <Failed setShow={setShow} />
                 ) : show === "passed" ? (
                     <Passed setShow={setShow} />
                 ) : (
