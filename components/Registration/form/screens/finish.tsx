@@ -27,16 +27,15 @@ const Finish = (): JSX.Element => (
             >
                 instagram (@hackillinois)
             </a>{" "}
-            and our{" "}
+            and {" "}
             <a
                 href="https://twitter.com/hackillinois/"
                 target="_blank"
                 rel="noreferrer"
             >
-                twitter (@hackillinois)
+                X (@hackillinois)
             </a>
-            . We will be posting live updates during the event that you won’t
-            want to miss!
+            for additional information!
         </p>
 
         <div className={styles.homeButton}>

@@ -11,10 +11,23 @@ import MobileMountain from "@/public/registration/review/mobile mountains.svg"
 
 import Sky from "@/public/registration/review/sky.svg"
 import MobileSky from "@/public/registration/review/mobile sky.svg"
+import Checkboxes from "@/components/form/Checkboxes";
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-const Review = () => {
+import clsx from "clsx";
+
+type FormProps = {
+    formIndex: number;
+    setFormIndex: React.Dispatch<React.SetStateAction<number>>;
+};
+
+
+const Review = ({ formIndex, setFormIndex }: FormProps) => {
+    const returnToPage = (page: number) => {
+        setFormIndex(page);
+        window.scrollTo(0, 0);
+    }
     const isMobile = () => {
         if (typeof window !== "undefined") {
             return window.innerWidth <= 600;
@@ -40,15 +53,23 @@ const Review = () => {
     }, [mobile])
     return (
         <>
-            <div className={styles.review}>
-                    <Image src={Dragon} alt="Review" className={styles.dragon} />
-                    <Image src={Castle} alt="Review" className={styles.castle} />
+            <div className={clsx(styles.screen, styles.review)}>
+                <Image src={Dragon} alt="Review" className={styles.dragon} />
+                <Image src={Castle} alt="Review" className={styles.castle} />
 
-                    <Image src={header} alt="Review" className={styles.header} />
-                    <Image src={sky} alt="Review" className={styles.sky} />
-                    <Image src={mountain} alt="Review" className={styles.mountain} />
+                <Image src={header} alt="Review" className={styles.header} />
+                <Image src={sky} alt="Review" className={styles.sky} />
+                <Image src={mountain} alt="Review" className={styles.mountain} />
 
+                <div className={styles.reviewForm}>
+                    <p className={styles.title2} onClick={() => returnToPage(0)}>Personal Information</p>
+                    <p className={styles.title2} onClick={() => returnToPage(1)}>Education</p>
+                    <p className={styles.title2} onClick={() => returnToPage(2)}>Hack-Specific</p>
+
+                </div>
             </div>
+
+           
         </>
     );
 };

@@ -263,9 +263,11 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
             <FormProvider {...methods}>
                 <form
                     onSubmit={handleSubmit(onSubmit, onError)}
-                    className={styles.form}
                 >
-                    {formIndex < postSubmitPageIndex && React.createElement(pages[formIndex])}
+                    {formIndex < submitPageIndex ? React.createElement(pages[formIndex]) :
+                        formIndex === submitPageIndex ? <Review formIndex={formIndex} setFormIndex={setFormIndex}/> :
+                            <Complete />
+                    }
                     
                 </form>
             </FormProvider>
@@ -276,13 +278,12 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
                         hidden={formIndex === 0}
                         onClick={previousPage}
                     >
-                        <Image src={buttons[formIndex]} alt="next button" className={styles.button} />
+                        <Image src={buttons[formIndex]} alt="previous button" className={styles.button} />
                     </Button>}
-                    <div className={styles.spacer} />
                     {isLoading && <Button loading><Image src={LoadingButton} alt="loading button" className={styles.button} /></Button>}
                     {!isLoading && formIndex !== submitPageIndex && (
                         <Button arrow="right" onClick={nextPage}>
-                            <Image src={buttons[formIndex+2]} alt="next button" className={styles.button} />
+                            <Image src={buttons[formIndex+2]} alt="next button" className={formIndex===0 ? styles.singlebutton : styles.button} />
                         </Button>
                     )}
                     {!isLoading && formIndex === submitPageIndex && (

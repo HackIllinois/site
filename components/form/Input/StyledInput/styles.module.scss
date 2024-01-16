@@ -9,6 +9,7 @@
     padding: 10px 5px;
     background-color: transparent;
     color: #ffffff;
+    border-bottom: 1px solid #ffffff;
 
     &::placeholder {
         color: #ffffff;
@@ -28,6 +29,7 @@
     font-size: 18px;
     line-height: 17px;
     background-color: #638f70;
+    border-bottom: none;
 
     &::placeholder {
         font-family: inherit;

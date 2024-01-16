@@ -1,5 +1,3 @@
-// @import 'common.scss';
-
 .screen {
     --field-margin: 40px;
     font-size: 1em;
@@ -14,24 +12,36 @@
 
     .title {
         color: var(--text-color);
-        // font-family: 'Montserrat';
         font-style: normal;
         font-weight: 700;
         font-size: 36px;
         line-height: 44px;
+        margin-top: 20px;
 
-        @media screen and (max-height: 750px) {
-            font-size: 28px;
+        @media screen and (max-width: 750px) {
+            font-size: 26px;
             transform: translateY(15%);
         }
 
+    }
+
+    .title2 {
+        color: var(--text-color);
+        font-style: normal;
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 44px;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     .text,
     .textOp,
     .textOp2,
     .note {
-        font-size: 1.6em;
+        font-size: 1.3em;
         line-height: 1.5em;
         margin-top: 25px;
         color: var(--text-color);
@@ -49,7 +59,7 @@
             font-weight: 700;
         }
         @media (max-width: 912px) {
-            font-size: 1.0em;
+            font-size: 0.8em;
             margin-top: 20px;
         }
     }
@@ -181,22 +191,13 @@
         justify-content: center;
         align-items: center;
 
-        @media (max-width: 900px) {
-            max-height: 80vh;
-        }
-
-        @media (max-width: 768px) {
-            transform: translate(-50%, 8%);
-            max-height: 100vh;
+        @media (max-height: 950px) and (max-width: 768px){
+            top: 45%;
+            max-height: 70vh;
             width: 80%;
+
         }
-        @media (max-width: 500px) {
-            max-height: 75vh;
-        }
-        @media (max-width: 370px) {
-            transform: translate(-50%, 10%);
-            max-height: 60vh;
-        }
+        
     }
 
     @media screen and (max-width: 768px) {
@@ -236,7 +237,7 @@
         z-index: -1;
         height: fit-content;
         width: 60%;
-        margin-top: 7%; // need to change this to 20% for mobile
+        margin-top: 7%;
         margin-left: 2%;
 
         @media screen and (max-width: 768px) {
@@ -300,14 +301,14 @@
     }
 
     .iceCave {
-        margin-top: 45%;
+        margin-top: 40%;
         z-index: -5;
         position: relative;
         height: fit-content;
         width: 100%;
 
         @media screen and (max-width: 768px) {
-            margin-top: 85%;
+            margin-top: 80%;
         }
     }
 
@@ -323,23 +324,13 @@
         justify-content: center;
         align-items: center;
         top: 40%;
-        margin-top: 20%; // todo: position based on screen width
+        margin-top: 15%; // todo: position based on screen width
         margin-bottom: 80%; // todo: bottom controls how far the image scretches down
         
-        @media (max-width: 1000px) {
-            width: 70%;
-        }
-
-        @media (max-width: 768px) {
-            margin-top: 20%;
-            width: 70%;
-        }
-        @media (max-width: 500px) {
-            max-height: 80vh;
-            margin-top: 15%;
-        }
-        @media (max-width: 370px) {
-            max-height: 60vh;
+        @media (max-height: 950px) and (max-width: 768px) {
+            margin-top: 10%;
+            max-height: 70vh;
+            width: 80%;
         }
         
     }    
@@ -377,6 +368,9 @@
         @media screen and (max-width: 600px) {
             margin-top: 15%;
             width: 80%;
+        }
+        @media screen and (max-width: 350px) {
+            margin-top: 25%;
         }
     }
 
@@ -460,33 +454,34 @@
         transform: translateX(-50%); // to center the element
         justify-content: center;
         align-items: center;
+        overflow: auto;
         
-        @media (max-width: 1000px) {
-            width: 70%;
-            overflow: auto;
-            max-height: 130vh;
-            // margin-top: 90%;
-        }
-
-        @media (max-width: 768px) {
-            // margin-top: 150%;
-            width: 80%;
+        @media (max-height: 1400px) and (max-width: 912px){
             max-height: 90vh;
         }
-        // @media (max-width: 500px) {
-        //     margin-top: 130%;
-        // }
-
-        @media (max-width: 600px) {
-            margin-top: 150%;
-            max-height: 110vh;
+        @media (max-width: 1024px) and (max-height: 1366px) {
+            max-height: 100vh;
+            width: 80%;
         }
+        @media (max-height: 950px) and (max-width: 768px) {
+            margin-top: 150%;
+            max-height: 100vh;
+            width: 80%;
+        }
+    
         
     }
 }
 
 
 .hackspecificp2 {
+    background: linear-gradient(
+        to bottom,
+        #5D639C 0%,
+        #5D639C 50%,
+        #1A494B 50%,
+        #1A494B 100%
+    );
     width: 100%;
     height: fit-content;
     display: flex;
@@ -495,14 +490,20 @@
     justify-content: center;
     align-items: center;
     margin-top: 10%;
-    --text-color: #ffcdde;
+    --text-color: #ffffff;
+    min-height: 100vh;
 
     .header {
         position: absolute;
         z-index: 3;
         height: fit-content;
-        width: 60%;
+        width: 70%;
         left: 5%;
+        margin-top: 3%;
+        
+        @media screen and (max-width: 768px) {
+            margin-top: 10%;
+        }
     }
 
     .background2 {
@@ -510,14 +511,14 @@
         position: relative;
         width: 100%;
         height: fit-content;
-        @media screen and (max-width: 1000px) {
+        @media screen and (max-width: 768px) {
             display: none;
         }
     }
 
     .mobilebackground2 {
         display: none;
-        @media screen and (max-width: 1000px) {
+        @media screen and (max-width: 768px) {
             display: block;
             position: relative;
             width: 100%;
@@ -539,7 +540,18 @@
         margin-top: 35%;
         justify-content: center;
         align-items: center;
+        overflow: auto;
         
+        @media (min-height: 800px) and (max-width: 850px) {
+            font-size: 1.4em;
+            margin-top: 40%;
+        }
+        @media (max-height: 950px) and (max-width: 768px) {
+            margin-top: 60%;
+            max-height: 100vh;
+            width: 80%;
+        }
+
         
     }
 }
@@ -547,14 +559,9 @@
 .review {
     background: #004561;
     width: 100%;
-    display: flex;
     position: relative;
-    flex-direction: column;
     margin: 0;
-    min-height: 130vh;
-    overflow: auto;
-
-
+    height: 100vh;
     .background {
         position: absolute;
         height: fit-content;
@@ -590,6 +597,7 @@
     }
     
     .header {
+        position: absolute;
         margin-top: 8%;
         z-index: 4;
         margin-left: 2%;
@@ -619,7 +627,6 @@
 
     .mountain {
         position: absolute;
-        margin-top: 20%;
         bottom: 0;
         z-index: 1;
         width: 100%;
@@ -627,6 +634,7 @@
 
         @media screen and (max-width: 600px) {
             margin-top: 70%;
+            top: 0%;
             z-index: 0;
             width: 100%;
             transform-origin: bottom;
@@ -635,63 +643,14 @@
             
         }
     }
-}
 
-
-.eventQuestions {
-    min-width: 100%;
-
-    .title {
-        color: #ffffff;
+    .reviewForm {
+        position: absolute;
+        z-index: 5;
+        top: 50%;
+        margin: auto;
+        margin-left: 10%;
     }
-
-    @media (min-height: 800px) {
-        width: 85%;
-    }
-
-    // @include registration-floating-screen {
-    //   width: auto;
-    // }
-
-    .note {
-        position: static;
-        margin-top: 10px;
-        height: fit-content;
-        color: #c9d2e5;
-
-        b {
-            font-weight: 600;
-        }
-
-        // @include registration-floating-screen {
-        //   position: static;
-        //   width: auto;
-        //   transform: none;
-        // }
-    }
-
-    .checkboxes {
-        width: 20%;
-        color: #f6f4d4;
-        // @include registration-floating-screen {
-        //   width: auto;
-        // }
-    }
-
-    @media (max-height: 860px) {
-        .checkboxes {
-            font-size: 0.9em;
-            --checkbox-margin: min(
-                max(12px, calc(13 / 210 * (100vh - 650px) + 12px)),
-                25px
-            );
-        }
-    }
-}
-
-
-.eventQuestions::-webkit-scrollbar {
-    display: none; // Safari and Chrome
 }
 
 .finish {
