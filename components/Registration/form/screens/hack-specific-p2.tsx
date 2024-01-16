@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import Background from "@/public/registration/hack-specific/hackspecific pt 2background.svg";
 import Header from "@/public/registration/hack-specific/hackspecific pt 2 header.svg";
+import MobileHeader from "@/public/registration/hack-specific/mobile header.svg";
 import MobileBackground from "@/public/registration/hack-specific/mobile hackspecific pt 2 background.svg"
 
 import Select from "@/components/form/Select";
@@ -82,6 +83,7 @@ const HackSpecificP2 = () => {
             <div className={clsx(styles.screen, styles.hackspecificp2)}>
                 <div className={styles.hsHeader}>
                     <Image src={Header} alt="HackIllinois Header" className={styles.header} />
+                    <Image src={MobileHeader} alt="HackIllinois Header" className={styles.mobileheader} />
                 </div>
 
                 <div className={styles.backgroundContainer}>
