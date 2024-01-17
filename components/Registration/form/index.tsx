@@ -19,7 +19,6 @@ import {
 } from "../validation";
 
 // Old Pages left for Reference
-import Finish from "./screens/finish";
 import Start from "./screens/start";
 import PersonalInfo from "./screens/personal-info";
 import Education from "./screens/education";
@@ -30,9 +29,7 @@ import Complete from "./screens/complete";
 
 import styles from "./styles.module.scss";
 import Image from "next/image";
-import { EducationButton, LoadingButton, PersonalButton, ReviewButton, HackspecificButton, SubmitButton } from "@/public/registration/buttons/index"
-// Probably unneeded given the new designs
-import FormNavigation from "./form-navigation";
+import { BackButton, EducationButton, LoadingButton, PersonalButton, ReviewButton, HackspecificButton, SubmitButton } from "@/public/registration/buttons/index"
 
 type FormProps = {
     formIndex: number;
@@ -44,17 +41,18 @@ const fields: (keyof RegistrationSchema)[][] = [
     [],
     ['preferredName', 'legalName', 'email', 'gender', 'race', 'ageMin', 'transportation', 'requestedTravelReimbursement'],
     ['location', 'degree', 'major', 'minor', 'university', 'gradYear'],
-    ['hackInterest', 'hackOutreach', 'dietaryRestrictions', 'hackEssay1', 'hackEssay2', 'proEssay', 'considerForGeneral', 'optionalEssay'],
+    ['hackEssay1', 'hackEssay2', 'proEssay', 'considerForGeneral', 'optionalEssay'],
+    ['hackInterest', 'hackOutreach', 'dietaryRestrictions'],
     []
   ];
 
 
 // New Variables for above settings
 const pages = [Start, PersonalInfo, Education, HackSpecific, HackSpecificP2, Review, Complete];
-const submitPageIndex = 4;
+const submitPageIndex = 5;
 const postSubmitPageIndex = submitPageIndex + 1;
 
-const buttons = [LoadingButton, PersonalButton, EducationButton, HackspecificButton, HackspecificButton, ReviewButton, SubmitButton]
+const buttons = [LoadingButton, BackButton, PersonalButton, EducationButton, HackspecificButton, HackspecificButton, ReviewButton, SubmitButton]
 
 // Old API Methods
 const convertToAPI = (data: RegistrationSchema, isPro: Boolean): RegistrationType => {
@@ -63,6 +61,7 @@ const convertToAPI = (data: RegistrationSchema, isPro: Boolean): RegistrationTyp
         gender: possibleGender,
         race: possibleRace,
         ageMin: overEighteen,
+        transportation,
         ...registration
     } = data;
 
@@ -77,7 +76,6 @@ const convertToAPI = (data: RegistrationSchema, isPro: Boolean): RegistrationTyp
             "Please ensure that you are aware that you have to be 18 by the start of our event"
         );
     }
-
     return {
         ...registration,
         isProApplicant,
@@ -89,7 +87,8 @@ const convertToAPI = (data: RegistrationSchema, isPro: Boolean): RegistrationTyp
 
 const convertFromAPI = (registration: RegistrationType): RegistrationSchema => {
     const ageMin = ["YES"];
-    return { ...registration, ageMin };
+    const transportation = ["YES"];
+    return { ...registration, ageMin, transportation };
 };
 
 
@@ -130,7 +129,7 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
     }, []); // deliberately not including `methods`
 
     const onSubmit: SubmitHandler<RegistrationSchema> = data => {
-        // console.log("data");
+        console.log("data");
         // console.log(isEditing);
 
         setIsLoading(true);
@@ -150,7 +149,7 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
     };
 
     const onError: SubmitErrorHandler<RegistrationSchema> = errorData => {
-        // console.log(errorData);
+        console.log(errorData);
         clearErrors();
         let inputName: keyof typeof errorData;
         for (inputName in errorData) {

@@ -10,7 +10,6 @@ export type RegistrationType = {
     gender: string;
     email: string;
     race: string[];
-    transportation: "YES" | "NO";
     requestedTravelReimbursement: "YES" | "NO";
     location: string;
     degree:

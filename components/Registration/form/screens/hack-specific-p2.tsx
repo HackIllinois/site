@@ -97,7 +97,7 @@ const HackSpecificP2 = () => {
                     </p>
                     <Select
                         className={styles.select}
-                        name="interests"
+                        name="hackInterest"
                         isMulti={true}
                         options={interestOptions}
                     />
@@ -107,7 +107,7 @@ const HackSpecificP2 = () => {
                     </p>
                     <Select
                         className={styles.select}
-                        name="outreachSurvey"
+                        name="hackOutreach"
                         isMulti={true}
                         options={learnOptions}
                     />
@@ -117,7 +117,7 @@ const HackSpecificP2 = () => {
                     </p>
                     <Select
                         className={styles.select}
-                        name="foodRestrictions"
+                        name="dietaryRestrictions"
                         isMulti={true}
                         options={foodOptions}
                     />

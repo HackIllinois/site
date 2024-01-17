@@ -78,8 +78,8 @@ const foodOptions = [
 ];
 
 const considerationOptions = [
-    { label: "Yes", value: "Yes" },
-    { label: "No", value: "No" }
+    { label: "Yes", value: "YES" },
+    { label: "No", value: "NO" }
 ];
 
 const HackSpecific = () => {
@@ -135,7 +135,7 @@ const HackSpecific = () => {
                     <Input
                         className={styles.input}
                         multiline={true}
-                        name="whyHack"
+                        name="hackEssay1"
                         placeholder="Type your response here"
                     />
 
@@ -146,7 +146,7 @@ const HackSpecific = () => {
                     <Input
                         className={styles.input}
                         multiline={true}
-                        name="challenges"
+                        name="hackEssay2"
                         placeholder="Type your response here"
                     />
 
@@ -161,7 +161,7 @@ const HackSpecific = () => {
                     <Input
                         className={styles.input}
                         multiline={true}
-                        name="codingChallenge"
+                        name="proEssay"
                         placeholder="Type your response here"
                     />
 
@@ -171,7 +171,7 @@ const HackSpecific = () => {
                     </p>
                     <Select
                         className={styles.select}
-                        name="generalConsideration"
+                        name="considerForGeneral"
                         options={considerationOptions}
                     />
 
@@ -184,7 +184,7 @@ const HackSpecific = () => {
                     <Input
                         className={styles.input}
                         multiline={true}
-                        name="additionalBackground"
+                        name="optionalEssay"
                         placeholder="Type your response here"
                     />
 

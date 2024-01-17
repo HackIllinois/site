@@ -118,7 +118,7 @@ const Education = () => {
                 </p>
                 <Select
                     className={styles.select}
-                    name="degreePursued"
+                    name="degree"
                     options={degreeOptions}
                     menuPlacement="auto"
                 />
@@ -150,7 +150,7 @@ const Education = () => {
                     What university do you attend?
                 </p>
                 <Select
-                    name="school"
+                    name="university"
                     options={schoolOptions}
                     menuPlacement="top"
                     creatable
@@ -160,7 +160,7 @@ const Education = () => {
                     What is your graduation year?
                 </p>
                 <Select
-                    name="graduationYear"
+                    name="gradYear"
                     options={graduationYearOptions}
                 />
                 <br />

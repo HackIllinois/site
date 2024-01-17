@@ -4,3 +4,4 @@ export const LoadingButton = require("./loading button.svg");
 export const PersonalButton = require("./personal button.svg");
 export const ReviewButton = require("./review button.svg");
 export const SubmitButton = require("./submit button.svg");
+export const BackButton = require("./back-button.svg");

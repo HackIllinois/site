@@ -24,9 +24,9 @@ const PersonalInfo = () => {
     ];
 
     const ageOptions = [
-        { label: "Yes", value: "YES", isRadio: true, isRadioButton: false }
+        { label: "Yes", value: "YES", isRadio: true, isRadioButton: false }   
     ];
-    const transportation = [
+    const transportationOptions = [
         { label: "Yes", value: "YES", isRadio: true, isRadioButton: false }
     ];
     const reimbursement = [
@@ -136,11 +136,11 @@ const PersonalInfo = () => {
                         Are you aware that this event will be in person and that you will be
                         responsible for transportation?
                     </p>
-                    {/* <Checkboxes
+                    <Checkboxes
                         className={styles.checkboxes}
-                        name="selfTransport"
-                        options={transportation}
-                    /> */}
+                        name="transportation"
+                        options={ageOptions}
+                    />
 
                     <p className={styles.text}>
                         Would you like to opt-in for consideration for travel reimbursements? 
@@ -148,7 +148,7 @@ const PersonalInfo = () => {
                     </p>
                     <Select
                         className={styles.checkboxes}
-                        name="reimbursement"
+                        name="requestedTravelReimbursement"
                         options={reimbursement}
                     />
                     
