@@ -1,3 +1,15 @@
+@keyframes moveUpDown {
+    0%, 100% {
+        transform: translateY(-6px);
+        // filter: brightness(100%);
+    }
+    50% {
+        transform: translateY(6px);
+        // filter: brightness(120%); /* Adjust value to control brightness */
+    }
+}
+
+
 .hackknights {
 
     .hackknightsContainer {
@@ -23,7 +35,7 @@
             .hkMascots {
                 width: 100%;
                 height: fit-content;
-
+                animation: moveUpDown 5s infinite;
             }
         }
         .hkLearnMoreContainer {

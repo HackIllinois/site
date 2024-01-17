@@ -36,7 +36,7 @@ const faqPages: Record<string, FaqPage> = {
                 )
             },
             { question: "Are there any prizes or incentives?", answer: (
-                    <p>Yes! Cash prizes will be offered for winning teams in several different categories.</p>
+                    <p>Yes! Cash prizes will be offered for winning teams in several different categories, including our brand new path <a onClick={() => window.location.pathname = "/knights"}>HackIllinois Knights</a>. Additionally, there are various mini-games and events that offer plenty of opportunities to win prizes!</p>
                 )
             },
             // More questions for page 1
@@ -60,7 +60,7 @@ const faqPages: Record<string, FaqPage> = {
     page3: {
         questions: [
             { question: "How can I register?", answer: (
-                    <p>We have a registration portal, which will open near the beginning of 2024. Be on the lookout for the registration announcement on our social media platforms (Instagram, Facebook, Reddit, etc.)! <br></br>In addition, we will have a travel reimbursement form. More details will be released shortly.</p>
+                    <p>We have a registration portal, which will open near the beginning of 2024. Be on the lookout for the registration announcement on our social media platforms (Instagram, Facebook, Reddit, etc.)! <br></br>In addition, we will have a travel reimbursement form within registration. More details will be released shortly.</p>
                 )
             },
             { question: "Are there any themes or specific challenges we need to address?", answer: (
@@ -68,7 +68,7 @@ const faqPages: Record<string, FaqPage> = {
                 )
             },
             { question: "Are there facilities for overnight stays?", answer: (
-                    <p>Unfortunately, we do not have a facility that provides overnight stays. We will provide travel and housing reimbursements instead. More information regarding reimbursements will be released soon!</p>
+                    <p>Unfortunately, we do not have a facility that provides overnight stays. During registration, you can opt in to be considered for travel reimbursements. More information regarding reimbursements will be released soon!</p>
                 )
             },
             { question: "Are there any prizes or incentives?", answer: (
@@ -82,7 +82,7 @@ const faqPages: Record<string, FaqPage> = {
     page4: {
         questions: [
             { question: "How are teams formed? Can I bring my own team? What if I don't have a team yet?", answer: (
-                    <p>Feel free to form your own team! But don&apos;t worry if you do not have one - we will have a team matching workshop available, along with team matching channels on Discord.</p>
+                    <p>Feel free to form your own team! (Max size of 4) But don&apos;t worry if you do not have one - we will have a team matching workshop available, along with team matching channels on Discord.</p>
                 )
             },
             { question: "What if I'm new to coding or hackathons, can I still participate? What else can I do?", answer: (
@@ -108,7 +108,7 @@ const faqPages: Record<string, FaqPage> = {
                 )
             },
             { question: "Is there a schedule for relaxation or fun activities, like games or entertainment segments?", answer: (
-                    <p>Other than working on your project, we provide fun themed activities throughout the 36 hours (i.e. gaming tournaments, crafting breaks, coding challenges, snack time, etc.).</p>
+                    <p>Other than working on your project, we provide fun themed activities throughout the 36 hours (i.e. gaming tournaments, crafting breaks, coding challenges, snack time, etc.). This schedule will be released soon.</p>
                 )
             },
             { question: "Are there any networking opportunities with sponsors or industry professionals?", answer: (

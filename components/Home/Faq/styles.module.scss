@@ -113,6 +113,11 @@
         transition: opacity 0.5s, color 0.5s ease-out;
         opacity: 1;
         color: #0F4041;
+
+        a {
+            text-decoration: underline;
+            cursor: pointer;
+        }
     };
 
     .image {
