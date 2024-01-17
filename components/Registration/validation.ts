@@ -1,19 +1,19 @@
 import * as z from "zod";
 
 export const registrationSchema = z.object({
-    name: z
+    legalName: z
         .string()
         .min(1)
         .regex(/^[^ ]+ +[^ ]+.*$/, "Please enter your first and last name."),
+    preferredName: z.string().min(1),
     gender: z.string().min(1),
     email: z.string().min(1).email(),
     race: z.string().array().min(1),
     ageMin: z.string().array().min(1),
-    selfTransport: z.enum(["YES", "NO"]),
-    purdueTransport: z.enum(["YES", "NO", "N/A"]),
-    // timezone: z.string().min(1),
+    transportation: z.enum(["YES", "NO"]),
+    requestedTravelReimbursement: z.enum(["YES", "NO"]),
     location: z.string().min(1),
-    degreePursued: z.enum([
+    degree: z.enum([
         "ASSOCIATES",
         "BACHELORS",
         "MASTERS",
@@ -21,17 +21,19 @@ export const registrationSchema = z.object({
         "GRADUATED",
         "OTHER"
     ]),
-    school: z.string().min(1),
+    university: z.string().min(1),
     major: z.string().min(1),
-    graduationYear: z.number().int(),
-    resumeFilename: z.string().optional(),
-    whyHack: z.string().min(1),
-    programmingYears: z.number().array().min(1), //.int().min(0).max(10),
-    programmingAbility: z.number().array().min(1), //.int().min(1).max(10),
-    // hasInternship: z.enum(['YES', 'NO']).optional(),
-    interests: z.string().array().min(1),
-    outreachSurvey: z.string().array().min(1),
-    dietary: z.string().array().min(1)
+    minor: z.string().min(1),
+    gradYear: z.number().int(),
+    hackEssay1: z.string().min(1),
+    hackEssay2: z.string().min(1),
+    proEssay: z.string().min(1),
+    optionalEssay: z.string().min(1),
+    hackInterest: z.string().array().min(1),
+    hackOutreach: z.string().array().min(1),
+    dietaryRestrictions: z.string().array().min(1),
+    isProApplicant: z.enum(["YES", "NO"]),
+    considerForGeneral: z.enum(["YES", "NO"])
 
     // terms: z.boolean().refine((val: boolean) => val),
 });
