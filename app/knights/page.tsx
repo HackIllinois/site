@@ -58,7 +58,7 @@ const Knights : React.FC = () => {
                             Additionally, all HackIllinois attendees are eligible to compete in all our sponsored tracks.*
                             <br></br>
                             <br></br>
-                            <i>*The Best Beginner track is reserved for HackIllinois General attendees, while the Best Knights track is reserved for HackIllinois Knights attendees.</i>
+                            <i>*The Best Beginner and General tracks are reserved for HackIllinois General attendees, while the Best Knights track is reserved for HackIllinois Knights attendees.</i>
                         </p>
                     </div>
                 </div>
