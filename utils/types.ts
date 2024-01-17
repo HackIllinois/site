@@ -5,34 +5,34 @@ export type FileType = "resume" | "photo" | "blobstore";
 
 // Old Types!
 export type RegistrationType = {
-    firstName: string;
-    lastName: string;
-    // timezone: string;
+    preferredName: string;
+    legalName: string;
     gender: string;
     email: string;
     race: string[];
-    // ageMin: string[];
-    selfTransport: "YES" | "NO";
-    purdueTransport: "YES" | "NO" | "N/A";
+    transportation: "YES" | "NO";
+    requestedTravelReimbursement: "YES" | "NO";
     location: string;
-    degreePursued:
+    degree:
         | "ASSOCIATES"
         | "BACHELORS"
         | "MASTERS"
         | "PHD"
         | "GRADUATED"
         | "OTHER";
-    school: string;
+    university: string;
     major: string;
-    graduationYear: number;
-    resumeFilename?: string | undefined;
-    whyHack: string;
-    programmingYears: number; //number;
-    programmingAbility: number; //number;
-    // hasInternship?: 'YES' | 'NO';
-    interests: string[];
-    outreachSurvey: string[];
-    dietary: string[];
+    minor: string;
+    gradYear: number;
+    hackEssay1: string;
+    hackEssay2: string;
+    hackInterest: string[];
+    hackOutreach: string[];
+    dietaryRestrictions: string[];
+    optionalEssay: string;
+    proEssay: string;
+    considerForGeneral: "YES" | "NO";
+    isProApplicant: "YES" | "NO";
 };
 
 //New Registration Type

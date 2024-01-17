@@ -1,5 +1,5 @@
 // @import 'common.scss';
-
+@use "/app/colors" as *;
 .screen {
     --field-margin: 40px;
     font-size: 1em;
@@ -735,6 +735,307 @@
         margin: 10px auto;
     }
 }
+
+.start {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+
+    .startBackground {
+        position: absolute;
+        bottom: 0px;
+        width: 100vw;
+        height: fit-content;
+        transform: translateY(2rem);
+    } 
+    
+    .heroImageWrapper {
+        // padding-top: 40%;
+        top: 100px;
+        margin: auto;
+        z-index: 1;
+        width: 552px;
+        height: 252px;
+        position: relative;
+        img {
+            object-fit: contain;
+        }
+        @media screen and (max-width: 1440px) {
+            height: 252px;
+        }
+        @media screen and (max-width: 1152px) {
+            height: 222px;
+        }
+        @media screen and (max-width: 960px) {
+            height: 162px;
+        }
+        @media screen and (max-width: 640px) {
+            height: 120px;
+            width: 400px;
+        }
+    }
+
+    .shieldContainer {
+        position: relative;
+        z-index: 3;
+        margin: auto;
+        width: 100vw;
+        min-height: 75vh;
+        
+
+        h2 {
+            position: relative;
+            z-index: 4;
+            margin: auto;
+            text-align: center;
+        }
+
+        .link {
+            position: relative;
+            margin: auto;
+            text-align: center;
+            z-index: 5;
+            padding-bottom: 15px;
+            text-decoration: underline;
+        }
+
+        .contents {
+            position: relative;
+            z-index: 6;
+            transform: translateY(70%);
+
+            @media screen and (max-width: 900px) {
+                transform: translateY(100%);
+            }
+        }
+
+        .shield {
+            z-index: 1;
+            object-fit: contain;
+            width: fit-content;
+            height: auto;
+            
+            @media screen and (max-width: 660px) {
+                transform: scale(1.4);
+            }
+           
+        }
+
+
+        .heroButtonWrapper {
+            position: relative;
+            margin: auto;
+            z-index: 3;
+            width: fit-content;
+            height: 100px;
+
+            @media screen and (max-width: 960px) {
+                height: 70px;
+            }
+        
+            &:hover {
+                .heroButton {
+                    background-color: rgba(217, 147, 27);
+                }
+        
+                transform: translateY(8px);
+                .heroButton::after, .knightButton::after {
+                    top: 0px;
+                }
+                @media screen and (max-width: 1440px) {
+                    transform: translateY(6px);
+                    .heroButton::after, .knightButton::after {
+                        top: 2px;
+                    }
+                }
+                @media screen and (max-width: 1152px) {
+                    transform: translateY(4px);
+                    .heroButton::after, .knightButton::after {
+                        top: 12px;
+                    }
+                }
+                @media screen and (max-width: 960px) {
+                }
+                @media screen and (max-width: 640px) {
+                    transform: translateY(4px);
+                    .heroButton::after, .knightButton::after {
+                        top: 2px;
+                    }
+                }
+            }
+        }
+        
+        .heroButton {
+            background-color: $logo-secondary;
+            border-color: $logo-primary;
+            position: relative;
+            border-style: solid;
+        
+            &::after {
+                content: "";
+                display: block;
+                width: 280px;
+                height: 70px;
+        
+                border-radius: 32px;
+                background-color: $logo-thirdary;
+        
+                z-index: -1;
+                position: absolute;
+                left: -8px;
+                top: 8px;
+            }
+        
+            @media screen and (max-width: 1440px) {
+                width: 240px;
+                height: 78px;
+                font-size: 26px;
+                border-width: 6px;
+                border-radius: 20px;
+        
+                &::after {
+                    width: 240px;
+                    height: 78px;
+        
+                    border-radius: 20px;
+        
+                    left: -6px;
+                    top: 8px;
+                }
+            }
+            @media screen and (max-width: 1152px) {
+                width: 160px;
+                height: 70px;
+                font-size: 22px;
+                border-width: 4px;
+                border-radius: 20px;
+        
+                &::after {
+                    width: 160px;
+                    height: 60px;
+                    border-radius: 20px;
+                    left: -4px;
+                    top: 16px;
+                }
+            }
+            @media screen and (max-width: 960px) {
+                font-size: 20px;
+            }
+            @media screen and (max-width: 640px) {
+                width: 200px;
+                height: 60px;
+                font-size: 18px;
+                border-width: 4px;
+                border-radius: 20px;
+        
+                &::after {
+                    width: 200px;
+                    height: 60px;
+        
+                    border-radius: 20px;
+        
+                    left: -4px;
+                    top: 6px;
+                }
+            }
+        
+            color: rgb(117, 50, 20);
+            width: 280px;
+            height: 70px;
+            border-radius: 32px;
+            border-width: 8px;
+            font-size: 26px;
+            font-weight: 700;
+        }
+    }
+
+
+    .knightButton {
+        background-color: #2E325C;
+        border-color: #212338;
+        position: relative;
+        border-style: solid;
+    
+        &::after {
+            content: "";
+            display: block;
+            width: 280px;
+            height: 70px;
+    
+            border-radius: 32px;
+            background-color: #212338;
+    
+            z-index: -1;
+            position: absolute;
+            left: -8px;
+            top: 8px;
+        }
+    
+        @media screen and (max-width: 1440px) {
+            width: 240px;
+            height: 78px;
+            font-size: 26px;
+            border-width: 6px;
+            border-radius: 20px;
+    
+            &::after {
+                width: 240px;
+                height: 78px;
+    
+                border-radius: 20px;
+    
+                left: -6px;
+                top: 8px;
+            }
+        }
+        @media screen and (max-width: 1152px) {
+            width: 160px;
+            height: 70px;
+            font-size: 22px;
+            border-width: 4px;
+            border-radius: 20px;
+    
+            &::after {
+                width: 160px;
+                height: 60px;
+                border-radius: 20px;
+                left: -4px;
+                top: 16px;
+            }
+        }
+        @media screen and (max-width: 960px) {
+            font-size: 20px;
+        }
+        @media screen and (max-width: 640px) {
+            width: 200px;
+            height: 60px;
+            font-size: 18px;
+            border-width: 4px;
+            border-radius: 20px;
+    
+            &::after {
+                width: 200px;
+                height: 60px;
+    
+                border-radius: 20px;
+    
+                left: -4px;
+                top: 6px;
+            }
+        }
+    
+        color: white;
+        width: 280px;
+        height: 70px;
+        border-radius: 32px;
+        border-width: 8px;
+        font-size: 26px;
+        font-weight: 700;
+    }
+}
+
+
+
 
 .resume-upload {
     color: white;

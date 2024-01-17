@@ -16,13 +16,13 @@ const Registration: React.FC = () => {
 
     // const router = useRouter();
 
-    // useEffect(() => {
-    //     if (!isAuthenticated()) {
-    //         authenticate(
-    //             window.location.href
-    //         );
-    //     }
-    // });
+    useEffect(() => {
+        if (!isAuthenticated()) {
+            authenticate(
+                window.location.href
+            );
+        }
+    });
 
     return (
         <>

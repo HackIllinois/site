@@ -117,6 +117,22 @@ export function getRegistration(
     return request("GET", `/registration/${role}/`);
 }
 
+export async function getChallenge() : Promise<Boolean> {
+    const response = await fetch("artemis.hackillinois.org/status", {
+        method: "GET",
+        headers: {
+            Authorization: sessionStorage.getItem("token") || "",
+            "Content-Type": "application/json"
+        }
+    });
+
+    if (response.status !== 200) {
+        throw new APIError(await response.json());
+    }
+
+    return response.json();
+}
+
 // this function does not have a return type because different roles have different response types
 export function register(
     isEditing: boolean,
