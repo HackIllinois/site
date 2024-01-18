@@ -15,14 +15,14 @@ const CloseIcon = (props: Props) => {
             <path
                 d="M18.4141 1L1.41406 18"
                 stroke="#FFB23E"
-                stroke-width="2"
-                stroke-linecap="round"
+                strokeWidth="2"
+                strokeLinecap="round"
             />
             <path
                 d="M1 1L18 18"
                 stroke="#FFB23E"
-                stroke-width="2"
-                stroke-linecap="round"
+                strokeWidth="2"
+                strokeLinecap="round"
             />
         </svg>
     );
