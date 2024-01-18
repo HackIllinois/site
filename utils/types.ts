@@ -34,6 +34,48 @@ export type RegistrationType = {
     isProApplicant: "YES" | "NO";
 };
 
+export type DecisionStatus = "TBD" | "ACCEPTED" | "REJECTED" | "WAITLISTED";
+export type DecisionResponse = "PENDING" | "ACCEPTED" | "DECLINED";
+
+export type RSVPType = {
+    userId: string;
+    status: DecisionStatus;
+    response: DecisionResponse;
+    admittedPro: boolean;
+    // reviewer: string;
+    // emailSent: false;
+};
+
+export type UserType = {
+    _id: string;
+    userId: string;
+    email: string | null;
+    name: string;
+};
+
+export type ProfileBodyType = {
+    firstName: string;
+    lastName: string;
+    discord: string;
+    avatarUrl: string;
+};
+
+export type ProfileType = {
+    userID: string;
+    displayName: string;
+    discordTag: string;
+    avatarUrl: string;
+    points: number;
+    coins: number;
+};
+
+export type RSVPDecisionType = {
+    userId: string;
+    user: string;
+    reviwer: string;
+    whether: boolean;
+};
+
 //New Registration Type
 // export type RegistrationType = {
 //     firstName: string;

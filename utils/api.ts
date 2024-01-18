@@ -4,7 +4,12 @@ import {
     RegistrationRole,
     WithId,
     FileType,
-    RefreshTokenResType
+    RefreshTokenResType,
+    RSVPType,
+    UserType,
+    ProfileBodyType,
+    ProfileType,
+    RSVPDecisionType
 } from "./types";
 
 const API = "https://api.hackillinois.org";
@@ -62,7 +67,10 @@ async function request(method: MethodType, endpoint: string, body?: unknown) {
     const response = await fetch(APIv2 + endpoint, {
         method,
         headers: {
-            Authorization: sessionStorage.getItem("token") || "",
+            Authorization:
+                sessionStorage.getItem("token") ||
+                process.env.NEXT_PUBLIC_JWT ||
+                "",
             "Content-Type": "application/json"
         },
         body: JSON.stringify(body)
@@ -118,7 +126,10 @@ export async function getChallenge(): Promise<Boolean> {
     const response = await fetch("https://artemis.hackillinois.org/status", {
         method: "GET",
         headers: {
-            Authorization: sessionStorage.getItem("token") || "",
+            Authorization:
+                sessionStorage.getItem("token") ||
+                process.env.NEXT_PUBLIC_JWT ||
+                "",
             "Content-Type": "application/json"
         }
     });
@@ -127,9 +138,8 @@ export async function getChallenge(): Promise<Boolean> {
         throw new APIError(await response.json());
     }
 
-
     const ret = await response.json().then(json => json.status);
-    return ret
+    return ret;
 }
 
 // this function does not have a return type because different roles have different response types
@@ -166,4 +176,28 @@ export function refreshToken(): Promise<void> {
     return request("GET", "/auth/token/refresh/").then(
         (res: RefreshTokenResType) => sessionStorage.setItem("token", res.token)
     );
+}
+
+export function getProfile(): Promise<ProfileType> {
+    return request("GET", "/profile");
+}
+
+export function setProfile(body: ProfileBodyType): Promise<ProfileType> {
+    return request("POST", "/profile", body);
+}
+
+export function getUser(): Promise<UserType> {
+    return request("GET", "/user");
+}
+
+export function getRSVP(): Promise<RSVPType> {
+    return request("GET", "/admission/rsvp");
+}
+
+export function rsvpAccept(): Promise<RSVPDecisionType> {
+    return request("PUT", "/admission/rsvp/accept");
+}
+
+export function rsvpDecline(): Promise<RSVPDecisionType> {
+    return request("PUT", "/admission/rsvp/decline");
 }
