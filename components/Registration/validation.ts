@@ -7,7 +7,7 @@ export const registrationSchema = z.object({
         .regex(/^[^ ]+ +[^ ]+.*$/, "Please enter your first and last name."),
     preferredName: z.string().min(1),
     gender: z.string().min(1),
-    email: z.string().min(1).email(),
+    emailAddress: z.string().min(1).email(),
     race: z.string().array().min(1),
     ageMin: z.string().array().min(1),
     transportation: z.string().array().min(1),
@@ -27,7 +27,7 @@ export const registrationSchema = z.object({
     gradYear: z.number().int(),
     hackEssay1: z.string().min(1),
     hackEssay2: z.string().min(1),
-    proEssay: z.string().min(1),
+    proEssay: z.string().optional(),
     optionalEssay: z.string().min(1),
     hackInterest: z.string().array().min(1),
     hackOutreach: z.string().array().min(1),
@@ -63,5 +63,6 @@ export const defaultValues = {
     hackOutreach: [],
     ageMin: [],
     dietaryRestrictions: [],
-    transportation: []
+    transportation: [],
+    proEssay: ""
 };

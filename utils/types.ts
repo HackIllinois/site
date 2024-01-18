@@ -3,14 +3,14 @@ export type WithId<Type> = Type & { id: string };
 export type MethodType = "GET" | "POST" | "PUT" | "DELETE";
 export type FileType = "resume" | "photo" | "blobstore";
 
-// Old Types!
+
 export type RegistrationType = {
     preferredName: string;
     legalName: string;
     gender: string;
-    email: string;
+    emailAddress: string;
     race: string[];
-    requestedTravelReimbursement: "YES" | "NO";
+    requestedTravelReimbursement: Boolean;
     location: string;
     degree:
         | "ASSOCIATES"
@@ -29,44 +29,18 @@ export type RegistrationType = {
     hackOutreach: string[];
     dietaryRestrictions: string[];
     optionalEssay: string;
-    proEssay: string;
-    considerForGeneral: "YES" | "NO";
-    isProApplicant: "YES" | "NO";
+    proEssay?: string;
+    considerForGeneral: Boolean;
+    isProApplicant: Boolean;
 };
-
-//New Registration Type
-// export type RegistrationType = {
-//     firstName: string;
-//     lastName: string;
-//     gender: string;
-//     email: string;
-//     phone: string;
-//     race: string[];
-//     age: number;
-//     location: string;
-//     degreePursued:
-//     | 'ASSOCIATES'
-//     | 'BACHELORS'
-//     | 'MASTERS'
-//     | 'PHD'
-//     | 'GRADUATED'
-//     | 'OTHER';
-//     school: string;
-//     major: string;
-//     minor: string;
-//     graduationYear: number;
-//     resumeFilename?: string | undefined;
-//     whyHack: string;
-//     programmingYears: number;//number;
-//     programmingAbility: number;//number;
-//     interests: string[];
-//     outreachSurvey: string[];
-//     dietary: string[];
-//     travelReimbursement: string
-//   };
 
 export type RegistrationRole = "attendee" | "mentor";
 
 export type RefreshTokenResType = {
     token: string;
+};
+
+export type FormProps = {
+    formIndex: number;
+    setFormIndex: React.Dispatch<React.SetStateAction<number>>;
 };

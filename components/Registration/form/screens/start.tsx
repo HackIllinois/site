@@ -4,8 +4,9 @@ import styles from "./styles.module.scss";
 import BACKGROUND from "@/public/registration/start/background.svg";
 import LOGO from "@/public/home/hero/logo.svg";
 import SHIELD from "@/public/registration/start/shield.svg";
+import { FormProps } from "@/utils/types";
 
-const Start = () => {
+const Start = ({ formIndex, setFormIndex }: FormProps) => {
     return (
         <div className={styles.start}>
             <div className={styles.heroImageWrapper}>
@@ -30,7 +31,7 @@ const Start = () => {
                         <a href="/knights">What is this?</a>
                     </p>
                     <div className={styles.heroButtonWrapper}>
-                        <button className={styles.heroButton}>
+                        <button className={styles.heroButton} onClick={() => setFormIndex(1)}>
                             General Attendee
                         </button>
                     </div>

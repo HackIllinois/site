@@ -111,7 +111,7 @@ export function getRolesSync(): string[] {
 }
 
 export function getRegistration(): Promise<WithId<RegistrationType>> {
-    return request("GET", `/registration`);
+    return request("GET", `/registration`).catch(() => null);
 }
 
 export async function getChallenge(): Promise<Boolean> {
@@ -127,9 +127,8 @@ export async function getChallenge(): Promise<Boolean> {
         throw new APIError(await response.json());
     }
 
-
     const ret = await response.json().then(json => json.status);
-    return ret
+    return ret;
 }
 
 // this function does not have a return type because different roles have different response types
@@ -146,20 +145,24 @@ export function register(
 }
 
 export function uploadFile(file: File, type: FileType): Promise<unknown> {
-    return request("GET", `/upload/${type}/upload/`)
-        .then(res =>
-            fetch(res[type], {
+    return request("GET", "/s3/upload/")
+        .then(res => res.url)
+        .then(url => {
+            return fetch(url, {
                 method: "PUT",
                 headers: { "Content-Type": file.type },
                 body: file
-            })
-        )
-        .then(res => {
-            if (res.ok) {
-                return res;
-            }
-            throw new Error("response did not have status 200");
+            }).then(res => {
+                if (res.ok) {
+                    return res;
+                }
+                throw new Error("response did not have status 200");
+            });
         });
+}
+
+export function isRegistered(): Promise<any> {
+    return request("GET", "/admission/rsvp").catch(() => null);
 }
 
 export function refreshToken(): Promise<void> {

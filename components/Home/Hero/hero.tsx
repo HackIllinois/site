@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 
 import styles from "./styles.module.scss";
@@ -19,7 +20,7 @@ const Hero: React.FC = () => {
                     />
                 </div>
                 <div className={styles.heroButtonWrapper}>
-                    <button className={styles.heroButton}>{button_text}</button>
+                    <button onClick={() => window.location.pathname = "/register"} className={styles.heroButton}>{button_text}</button>
                 </div>
             </div>
             <div className={styles.villageWrapper}>

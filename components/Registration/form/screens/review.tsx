@@ -16,11 +16,7 @@ import Checkboxes from "@/components/form/Checkboxes";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
-
-type FormProps = {
-    formIndex: number;
-    setFormIndex: React.Dispatch<React.SetStateAction<number>>;
-};
+import { FormProps } from "@/utils/types";
 
 
 const Review = ({ formIndex, setFormIndex }: FormProps) => {
@@ -62,9 +58,9 @@ const Review = ({ formIndex, setFormIndex }: FormProps) => {
                 <Image src={mountain} alt="Review" className={styles.mountain} />
 
                 <div className={styles.reviewForm}>
-                    <p className={styles.title2} onClick={() => returnToPage(0)}>Personal Information</p>
-                    <p className={styles.title2} onClick={() => returnToPage(1)}>Education</p>
-                    <p className={styles.title2} onClick={() => returnToPage(2)}>Hack-Specific</p>
+                    <p className={styles.title2} onClick={() => returnToPage(1)}>Personal Information</p>
+                    <p className={styles.title2} onClick={() => returnToPage(2)}>Education</p>
+                    <p className={styles.title2} onClick={() => returnToPage(3)}>Hack-Specific</p>
 
                 </div>
             </div>
