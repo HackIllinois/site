@@ -8,22 +8,26 @@ import NameBook from "./assets/name-book.svg";
 import RSVPButton from "./assets/rsvp-button.svg";
 
 import styles from "./page.module.scss";
-import { stat } from "fs";
+import { DecisionStatus } from "@/utils/types";
 
 type Props = {
     openModal: () => void;
-    name: string;
-    status: string;
-    admittedPro: boolean;
+    isModalOpen: boolean;
+    name?: string;
+    status?: DecisionStatus;
+    admittedPro?: boolean;
     loading: boolean;
+    onActionClick: () => void;
 };
 
 export const Bookshelf = ({
     openModal,
-    name,
-    status,
+    isModalOpen,
+    name = "",
+    status = "TBD",
+    loading = false,
     admittedPro,
-    loading
+    onActionClick
 }: Props) => {
     function handleRSVPClick() {
         openModal();
@@ -34,43 +38,25 @@ export const Bookshelf = ({
     const action =
         status === "ACCEPTED"
             ? "RSVP"
-            : status === "DEFERRED"
+            : status === "TBD"
             ? "View Application"
             : status === "REJECTED"
             ? "Questions?"
-            : "";
+            : "View Status";
 
     return (
         <div className={styles.bookshelfContainer}>
             <div className={styles.boolshelfWrapper}>
-                <Image
-                    alt="boolshelf"
-                    src={BookshelfSvg}
-                    // width={1148}
-                    // height={584}
-                    fill
-                />
+                <Image alt="boolshelf" src={BookshelfSvg} fill />
             </div>
             <div className={styles.mobileBoolshelfWrapper}>
                 <Image alt="mobile boolshelf" src={MobileBookshelfSvg} fill />
             </div>
             <div className={styles.bookshelfPropsWrapper}>
-                <Image
-                    alt="bookshelf props"
-                    src={BookshelfProps}
-                    // width={169}
-                    // height={982}
-                    fill
-                />
+                <Image alt="bookshelf props" src={BookshelfProps} fill />
             </div>
             <div className={styles.nameBookWrapper}>
-                <Image
-                    alt="bookshelf props"
-                    src={NameBook}
-                    // width={169}
-                    // height={982}
-                    fill
-                />
+                <Image alt="bookshelf props" src={NameBook} fill />
                 <div className={styles.nameInBook}>
                     {loading ? "Loading..." : name}
                 </div>
@@ -81,17 +67,19 @@ export const Bookshelf = ({
             </div>
 
             <div className={styles.tagContainer}>
-                <div className={styles.status}>
-                    {loading ? "Loading..." : status || "HackKnight"}
-                </div>
                 <div className={styles.type}>
                     {loading ? "Loading..." : type}
                 </div>
-                <div className={styles.action}>
+                <div className={styles.status}>
+                    {loading ? "Loading..." : status}
+                </div>
+                <div className={styles.action} onClick={onActionClick}>
                     {loading ? "Loading..." : action}
                 </div>
             </div>
+            {/* hiding it bc if its their first time i dont wanna - nvm... */}
             {accepted && (
+                // !isModalOpen &&
                 <div className={styles.bottomCabinet}>
                     <button
                         onClick={handleRSVPClick}

@@ -156,7 +156,13 @@ export const DiscordIcon = (props: SVGProps<SVGSVGElement>) => {
     );
 };
 
-const GeneralAttendeeAccepted = () => {
+export const HackKnightRejected = ({
+    handleConfirm,
+    handleDecline
+}: {
+    handleConfirm: () => void;
+    handleDecline: () => void;
+}) => {
     return (
         <>
             <BoldFont>
@@ -172,14 +178,36 @@ const GeneralAttendeeAccepted = () => {
             </StandardFont>
 
             <div className={styles.buttonGroup}>
-                <ConfirmButton />
-                <DeclineButton />
+                <button onClick={handleConfirm}>
+                    <ConfirmButton />
+                </button>
+                <button onClick={handleDecline}>
+                    <DeclineButton />
+                </button>
+            </div>
+            <div className={styles.mobileButtonGroup}>
+                <button onClick={handleConfirm}>
+                    <Image
+                        alt="confirm button"
+                        src={MobileConfirmButton}
+                        width={309}
+                        height={54}
+                    />
+                </button>
+                <button onClick={handleDecline}>
+                    <Image
+                        alt="decline button"
+                        src={MobileDeclineButton}
+                        width={309}
+                        height={54}
+                    />
+                </button>
             </div>
         </>
     );
 };
 
-const HackKnightAccepted = ({
+export const HackKnightAccepted = ({
     handleConfirm,
     handleDecline
 }: {
@@ -200,28 +228,86 @@ const HackKnightAccepted = ({
                 </StandardFont>
             </div>
             <div className={styles.buttonGroup}>
-                <ConfirmButton />
-                <DeclineButton />
+                <button onClick={handleConfirm}>
+                    <ConfirmButton />
+                </button>
+                <button onClick={handleDecline}>
+                    <DeclineButton />
+                </button>
             </div>
             <div className={styles.mobileButtonGroup}>
-                <Image
-                    alt="confirm button"
-                    src={MobileConfirmButton}
-                    width={309}
-                    height={54}
-                />
-                <Image
-                    alt="decline button"
-                    src={MobileDeclineButton}
-                    width={309}
-                    height={54}
-                />
+                <button onClick={handleConfirm}>
+                    <Image
+                        alt="confirm button"
+                        src={MobileConfirmButton}
+                        width={309}
+                        height={54}
+                    />
+                </button>
+                <button onClick={handleDecline}>
+                    <Image
+                        alt="decline button"
+                        src={MobileDeclineButton}
+                        width={309}
+                        height={54}
+                    />
+                </button>
             </div>
         </>
     );
 };
 
-const HackKnightRejected = ({ handleOk }: { handleOk: () => void }) => {
+export const GeneralAttendeeAccepted = ({
+    handleConfirm,
+    handleDecline
+}: {
+    handleConfirm: () => void;
+    handleDecline: () => void;
+}) => {
+    return (
+        <>
+            <div className={styles.textBlock}>
+                <BoldFont>
+                    {"Congratulations! You've been accepted as a"}
+                </BoldFont>
+                <ShinyFont>{"General Attendee"}</ShinyFont>
+                <StandardFont>
+                    {
+                        "If you would like to attend HackIllinois 2024, click Confirm to finish the RSVP process. If you won't be attending please click Decline. This cannot be reversed."
+                    }
+                </StandardFont>
+            </div>
+            <div className={styles.buttonGroup}>
+                <button onClick={handleConfirm}>
+                    <ConfirmButton />
+                </button>
+                <button onClick={handleDecline}>
+                    <DeclineButton />
+                </button>
+            </div>
+            <div className={styles.mobileButtonGroup}>
+                <button onClick={handleConfirm}>
+                    <Image
+                        alt="confirm button"
+                        src={MobileConfirmButton}
+                        width={309}
+                        height={54}
+                    />
+                </button>
+                <button onClick={handleDecline}>
+                    <Image
+                        alt="decline button"
+                        src={MobileDeclineButton}
+                        width={309}
+                        height={54}
+                    />
+                </button>
+            </div>
+        </>
+    );
+};
+
+export const Rejected = ({ handleOk }: { handleOk: () => void }) => {
     return (
         <>
             <BoldFont>
@@ -234,14 +320,14 @@ const HackKnightRejected = ({ handleOk }: { handleOk: () => void }) => {
                     "Email us at contact@hackillinois.org if you have any questions!"
                 }
             </BoldFont>
-            <button onClick={handleOk}>
+            <button onClick={handleOk} className={styles.okButton}>
                 <OkButton />
             </button>
         </>
     );
 };
 
-const RSVPConfirmed = () => {
+export const RSVPConfirmed = () => {
     return (
         <>
             <BoldFont>
@@ -259,12 +345,17 @@ const RSVPConfirmed = () => {
     );
 };
 
-export const modalKey = {
-    hackknight: {
-        accepted: HackKnightAccepted,
-        reject: HackKnightRejected,
-        general: GeneralAttendeeAccepted
-    },
-    rsvp: RSVPSteps,
-    rsvp_confirmation: RSVPConfirmed
+export const Questions = ({ handleOk }: { handleOk: () => void }) => {
+    return (
+        <>
+            <BoldFont>
+                {
+                    "Email us at contact@hackillinois.org if you have any questions!"
+                }
+            </BoldFont>
+            <button onClick={handleOk} className={styles.okButton}>
+                <OkButton />
+            </button>
+        </>
+    );
 };
