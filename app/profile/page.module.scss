@@ -213,26 +213,34 @@
 .avatarContainer {
     position: relative;
     padding: 0 32px;
+    user-select: none;
 }
 
 .avatarSlider {
     max-width: 100%;
     display: flex;
-    gap: 48px;
+    gap: 16px;
     overflow-x: scroll;
 }
 
 .avatarSelect {
-    border-radius: 10px;
     border: 3px solid #ffb23e;
-    width: 129px;
-    height: 135px;
-    flex-shrink: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    min-width: 150px;
+    height: 150px;
+    padding: 16px;
+    box-sizing: border-box;
 }
 
 .avatarUnselected {
-    width: 129px;
-    height: 135px;
+    border: 3px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    min-width: 150px;
+    height: 150px;
+    padding: 16px;
+    box-sizing: border-box;
 }
 
 .leftArrow {
@@ -240,6 +248,11 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .rightArrow {
@@ -247,6 +260,11 @@
     right: 0;
     top: 50%;
     transform: translateY(-50%);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .avatarTitle {
