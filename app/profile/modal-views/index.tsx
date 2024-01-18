@@ -1,6 +1,9 @@
 import { ReactNode, SVGProps } from "react";
 import styles from "../page.module.scss";
 import { RSVPSteps } from "./rsvp-steps";
+import MobileConfirmButton from "../assets/mobile-confirm-button.svg";
+import MobileDeclineButton from "../assets/mobile-decline-button.svg";
+import Image from "next/image";
 
 {
     /* TODO: Move all of these to constants (links too) */
@@ -168,7 +171,7 @@ const GeneralAttendeeAccepted = () => {
                 }
             </StandardFont>
 
-            <div style={{ display: "flex", gap: "72px" }}>
+            <div className={styles.buttonGroup}>
                 <ConfirmButton />
                 <DeclineButton />
             </div>
@@ -185,16 +188,34 @@ const HackKnightAccepted = ({
 }) => {
     return (
         <>
-            <BoldFont>{"Congratulations! You've been accepted as a"}</BoldFont>
-            <ShinyFont>{"HackKnight"}</ShinyFont>
-            <StandardFont>
-                {
-                    "If you would like to attend HackIllinois 2024, click Confirm to finish the RSVP process. If you won't be attending please click Decline. This cannot be reversed."
-                }
-            </StandardFont>
-            <div style={{ display: "flex", gap: "72px" }}>
+            <div className={styles.textBlock}>
+                <BoldFont>
+                    {"Congratulations! You've been accepted as a"}
+                </BoldFont>
+                <ShinyFont>{"HackKnight"}</ShinyFont>
+                <StandardFont>
+                    {
+                        "If you would like to attend HackIllinois 2024, click Confirm to finish the RSVP process. If you won't be attending please click Decline. This cannot be reversed."
+                    }
+                </StandardFont>
+            </div>
+            <div className={styles.buttonGroup}>
                 <ConfirmButton />
                 <DeclineButton />
+            </div>
+            <div className={styles.mobileButtonGroup}>
+                <Image
+                    alt="confirm button"
+                    src={MobileConfirmButton}
+                    width={309}
+                    height={54}
+                />
+                <Image
+                    alt="decline button"
+                    src={MobileDeclineButton}
+                    width={309}
+                    height={54}
+                />
             </div>
         </>
     );

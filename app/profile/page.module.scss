@@ -4,28 +4,72 @@
     background-color: #65698e;
     position: relative;
 
-    background-size: cover;
+    background-size: contain;
     // background-position: center;
     background-repeat: no-repeat;
     background-image: url("/profile/background.svg");
+
+    @media screen and (max-width: 720px) {
+        background: none;
+    }
+}
+
+.mobileWindowPaneWrapper {
+    position: absolute;
+    top: 64px;
+    right: 50%;
+    transform: translateX(50%);
+    z-index: -1;
+    width: 60vw;
+    height: calc(60vw * 481 / 273);
+
+    @media screen and (min-width: 720px) {
+        display: none;
+    }
 }
 
 .leftCurtainWrapper {
     position: absolute;
     left: 0;
     z-index: 1;
-
     width: calc(100vh * 170 / 982);
     height: 100vh;
+    @media screen and (max-width: 720px) {
+        display: none;
+    }
 }
 
 .rightCurtainWrapper {
     position: absolute;
     right: 0;
     z-index: 1;
-
     width: calc(100vh * 170 / 982);
     height: 100vh;
+    @media screen and (max-width: 720px) {
+        display: none;
+    }
+}
+
+.mobileLeftCurtainWrapper {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    width: calc(100vh * 115 / 844);
+    height: 100vh;
+    @media screen and (min-width: 720px) {
+        display: none;
+    }
+}
+
+.mobileRightCurtainWrapper {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    width: calc(100vh * 115 / 844);
+    height: 100vh;
+    @media screen and (min-width: 720px) {
+        display: none;
+    }
 }
 
 .bookshelfContainer {
@@ -40,6 +84,18 @@
     height: calc(584 / 1148 * 70vw);
 
     // (1148 584)
+    @media screen and (max-width: 720px) {
+        display: none;
+    }
+}
+
+.mobileBoolshelfWrapper {
+    height: 90vh;
+    width: calc(740 / 342 * 90vh);
+    z-index: -1;
+    @media screen and (min-width: 720px) {
+        display: none;
+    }
 }
 
 .bookshelfPropsWrapper {
@@ -52,6 +108,9 @@
 
     // 503
     // 211
+    @media screen and (max-width: 720px) {
+        display: none;
+    }
 }
 
 .nameBookWrapper {
@@ -64,6 +123,9 @@
 
     // 378
     // 209
+    @media screen and (max-width: 720px) {
+        display: none;
+    }
 }
 
 .nameInBook {
@@ -78,10 +140,29 @@
 
     font-size: 40px;
     font-weight: 700;
-    line-height: 15px;
-
-    text-align: left;
+    line-height: 40px;
+    text-align: center;
     color: hsla(25, 28%, 35%, 1);
+}
+
+.mobileNameInBook {
+    position: absolute;
+    top: 4vh;
+
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: fit-content;
+    width: 24vh;
+
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: center;
+    color: hsla(25, 28%, 35%, 1);
+
+    @media screen and (min-width: 720px) {
+        display: none;
+    }
 }
 
 .action {
@@ -91,11 +172,20 @@
     justify-content: center;
     align-items: center;
 
-    height: 100%;
+    height: 90%;
     width: 14vw;
 
     right: 0;
     bottom: 0;
+
+    @media screen and (max-width: 720px) {
+        height: 15vh;
+        width: 75%;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        padding-top: 32px;
+    }
 }
 
 .status {
@@ -111,6 +201,16 @@
     left: 54%;
     transform: translateX(-54%);
     bottom: 0;
+
+    @media screen and (max-width: 720px) {
+        height: 7.5vh;
+        width: 90%;
+
+        top: 57%;
+        left: 50%;
+        transform: translate(-50%, -57%);
+        padding-top: 28px;
+    }
 }
 
 .type {
@@ -124,9 +224,18 @@
     width: 15vw;
 
     bottom: 0;
+
+    @media screen and (max-width: 720px) {
+        height: 15vh;
+        width: 90%;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        padding-top: 28px;
+    }
 }
 
-.tempTEst {
+.tagContainer {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -134,12 +243,17 @@
     width: 58vw;
     height: 10vw;
 
-    // border: solid 1px blue;
-
     font-size: 25px;
     font-weight: 700;
-    line-height: 15px;
+    line-height: 25px;
+    text-align: center;
     color: hsla(0, 0%, 100%, 1);
+
+    @media screen and (max-width: 720px) {
+        transform: translate(-50%, -37%);
+        height: 52vh;
+        width: 25vh;
+    }
 }
 
 .bottomCabinet {
@@ -160,6 +274,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media screen and (max-width: 720px) {
+        background-color: transparent;
+        width: 100%;
+        height: calc(93 / 560 * 50vh);
+    }
 }
 
 .rsvpButtonWrapper {
@@ -167,6 +287,11 @@
     position: relative;
     width: 30vw;
     height: calc(93 / 560 * 30vw);
+
+    @media screen and (max-width: 720px) {
+        width: 50vh;
+        height: calc(93 / 560 * 50vh);
+    }
 }
 
 .shinyFont {
@@ -193,6 +318,15 @@
     font-size: 18px;
     font-weight: 400;
     line-height: 20px; /* 111.111% */
+
+    @media screen and (max-width: 720px) {
+        color: #fff;
+        text-align: center;
+        font-size: 24px;
+
+        font-weight: 300;
+        line-height: 32px; /* 166.667% */
+    }
 }
 
 .boldFontYellow {
@@ -272,4 +406,45 @@
     font-size: 20px;
     font-weight: 500;
     line-height: normal;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 72px;
+
+    @media screen and (max-width: 720px) {
+        display: none;
+    }
+}
+
+.mobileButtonGroup {
+    padding-bottom: 64px;
+    padding-top: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 32px;
+    flex-direction: column;
+
+    @media screen and (min-width: 720px) {
+        display: none;
+    }
+}
+
+.textBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    padding: 48px;
+
+    @media screen and (max-width: 720px) {
+        padding-top: 128px;
+        padding-bottom: 0px;
+        flex: 1;
+        justify-content: space-between;
+    }
 }
