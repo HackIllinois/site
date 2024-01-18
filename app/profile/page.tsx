@@ -30,6 +30,17 @@ import {
 } from "./modal-views";
 import { RSVPSteps } from "./modal-views/rsvp-steps";
 
+const avatarKey = [
+    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/axolotl.png",
+    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/bunny.png",
+    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/cat.png",
+    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/chester.png",
+    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/fishercat.png",
+    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/goblin.png",
+    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/mushroom.png",
+    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/squirrel.png",
+]
+
 const Some: React.FC = () => {
     const { isModalOpen, closeModal, openModal } = useModal();
     const {
@@ -90,23 +101,24 @@ const Some: React.FC = () => {
         <section className={styles.dashboard}>
             <ModalOverlay isOpen={isModalOpen} onClose={closeModal}>
                 {(() => {
-                    return (
-                        <RSVPSteps
-                            handleSubmit={async (
-                                displayName,
-                                discordTag,
-                                selectedAvatarIndex
-                            ) => {
-                                // TODO: update this post call to have correct values
-                                const response = await setProfile({
-                                    avatarUrl: "",
-                                    discord: discordTag,
-                                    firstName: displayName,
-                                    lastName: displayName
-                                });
-                            }}
-                        />
-                    );
+
+                    // uncomment when certain where this belongs in flow
+                    // return (
+                    //     <RSVPSteps
+                    //         handleSubmit={async (
+                    //             displayName,
+                    //             discordTag,
+                    //             selectedAvatarIndex
+                    //         ) => {
+                    //             // TODO: update this post call to have correct values
+                    //             const response = await setProfile({
+                    //                 avatarUrl: avatarKey[selectedAvatarIndex],
+                    //                 discord: discordTag,
+                    //                 displayName: displayName,
+                    //             });
+                    //         }}
+                    //     />
+                    // );
 
                     if (loading) return "Loading...";
 
