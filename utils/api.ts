@@ -61,7 +61,6 @@ export function subscribe(
 async function request(method: MethodType, endpoint: string, body?: unknown) {
     const response = await fetch(APIv2 + endpoint, {
         method,
-        // mode: 'cors',
         headers: {
             Authorization: sessionStorage.getItem("token") || "",
             "Content-Type": "application/json"
@@ -111,14 +110,12 @@ export function getRolesSync(): string[] {
     return [];
 }
 
-export function getRegistration(
-    role: RegistrationRole
-): Promise<WithId<RegistrationType>> {
-    return request("GET", `/registration/${role}/`);
+export function getRegistration(): Promise<WithId<RegistrationType>> {
+    return request("GET", `/registration`);
 }
 
-export async function getChallenge() : Promise<Boolean> {
-    const response = await fetch("artemis.hackillinois.org/status", {
+export async function getChallenge(): Promise<Boolean> {
+    const response = await fetch("https://artemis.hackillinois.org/status", {
         method: "GET",
         headers: {
             Authorization: sessionStorage.getItem("token") || "",
@@ -130,17 +127,22 @@ export async function getChallenge() : Promise<Boolean> {
         throw new APIError(await response.json());
     }
 
-    return response.json();
+
+    const ret = await response.json().then(json => json.status);
+    return ret
 }
 
 // this function does not have a return type because different roles have different response types
-export function register(
-    isEditing: boolean,
-    role: RegistrationRole,
+export function registerUpdate(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
-    const method = isEditing ? "PUT" : "POST";
-    return request(method, `/registration/${role}/`, registration);
+    return request("POST", `/registration`, registration);
+}
+
+export function register(
+    registration: RegistrationType
+): Promise<WithId<RegistrationType>> {
+    return request("POST", `/registration/submit`, registration);
 }
 
 export function uploadFile(file: File, type: FileType): Promise<unknown> {
