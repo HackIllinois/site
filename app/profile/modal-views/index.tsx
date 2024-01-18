@@ -1,25 +1,24 @@
 import { ReactNode, SVGProps } from "react";
-import styles from "./page.module.scss";
-import { avatars } from "./assets/avatars";
-import Image from "next/image";
+import styles from "../page.module.scss";
+import { RSVPSteps } from "./rsvp-steps";
 
 {
     /* TODO: Move all of these to constants (links too) */
 }
 
-const BoldFont = ({ children }: { children: ReactNode }) => {
+export const BoldFont = ({ children }: { children: ReactNode }) => {
     return <h2 className={styles.boldFont}>{children}</h2>;
 };
 
-const ShinyFont = ({ children }: { children: ReactNode }) => {
+export const ShinyFont = ({ children }: { children: ReactNode }) => {
     return <h1 className={styles.shinyFont}>{children}</h1>;
 };
 
-const StandardFont = ({ children }: { children: ReactNode }) => {
+export const StandardFont = ({ children }: { children: ReactNode }) => {
     return <p className={styles.standardFont}>{children}</p>;
 };
 
-const ConfirmButton = (props: SVGProps<SVGSVGElement>) => {
+export const ConfirmButton = (props: SVGProps<SVGSVGElement>) => {
     return (
         <svg
             width="171"
@@ -46,7 +45,7 @@ const ConfirmButton = (props: SVGProps<SVGSVGElement>) => {
     );
 };
 
-const DeclineButton = (props: SVGProps<SVGSVGElement>) => {
+export const DeclineButton = (props: SVGProps<SVGSVGElement>) => {
     return (
         <svg
             width="171"
@@ -73,7 +72,7 @@ const DeclineButton = (props: SVGProps<SVGSVGElement>) => {
     );
 };
 
-const SubmitButton = (props: SVGProps<SVGSVGElement>) => {
+export const SubmitButton = (props: SVGProps<SVGSVGElement>) => {
     return (
         <svg
             width="208"
@@ -105,7 +104,34 @@ const SubmitButton = (props: SVGProps<SVGSVGElement>) => {
     );
 };
 
-const DiscordIcon = (props: SVGProps<SVGSVGElement>) => {
+export const OkButton = (props: SVGProps<SVGSVGElement>) => {
+    return (
+        <svg
+            width="171"
+            height="43"
+            viewBox="0 0 171 43"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <rect width="171" height="42.6444" rx="16.8889" fill="#FFB23E" />
+            <path
+                d="M69.718 1.89746H92.0545L49.5432 40.3197H25.7656L69.718 1.89746Z"
+                fill="#F5EA83"
+            />
+            <path
+                d="M104.765 1.89746H127.101L84.59 40.3197H60.8125L104.765 1.89746Z"
+                fill="#F5EA83"
+            />
+            <path
+                d="M79.1543 27.3017C78.3031 27.3017 77.5177 27.1649 76.7983 26.8913C76.0788 26.6177 75.4505 26.2326 74.9135 25.7361C74.3865 25.2294 73.9761 24.6417 73.6823 23.9729C73.3884 23.3041 73.2415 22.5694 73.2415 21.7689C73.2415 20.9683 73.3884 20.2337 73.6823 19.5649C73.9761 18.8961 74.3865 18.3134 74.9135 17.8169C75.4505 17.3102 76.0788 16.9201 76.7983 16.6465C77.5177 16.3729 78.3031 16.2361 79.1543 16.2361C80.0156 16.2361 80.8009 16.3729 81.5102 16.6465C82.2297 16.9201 82.8529 17.3102 83.3798 17.8169C83.9068 18.3134 84.3172 18.8961 84.611 19.5649C84.915 20.2337 85.067 20.9683 85.067 21.7689C85.067 22.5694 84.915 23.3091 84.611 23.9881C84.3172 24.6569 83.9068 25.2395 83.3798 25.7361C82.8529 26.2326 82.2297 26.6177 81.5102 26.8913C80.8009 27.1649 80.0156 27.3017 79.1543 27.3017ZM79.1543 24.8089C79.5596 24.8089 79.9345 24.7379 80.279 24.5961C80.6337 24.4542 80.9377 24.2515 81.1911 23.9881C81.4545 23.7145 81.6572 23.3902 81.799 23.0153C81.951 22.6403 82.0271 22.2249 82.0271 21.7689C82.0271 21.3027 81.951 20.8873 81.799 20.5225C81.6572 20.1475 81.4545 19.8283 81.1911 19.5649C80.9377 19.2913 80.6337 19.0835 80.279 18.9417C79.9345 18.7998 79.5596 18.7289 79.1543 18.7289C78.7489 18.7289 78.3689 18.7998 78.0143 18.9417C77.6697 19.0835 77.3657 19.2913 77.1023 19.5649C76.8489 19.8283 76.6463 20.1475 76.4943 20.5225C76.3524 20.8873 76.2815 21.3027 76.2815 21.7689C76.2815 22.2249 76.3524 22.6403 76.4943 23.0153C76.6463 23.3902 76.8489 23.7145 77.1023 23.9881C77.3657 24.2515 77.6697 24.4542 78.0143 24.5961C78.3689 24.7379 78.7489 24.8089 79.1543 24.8089ZM89.3337 24.7329L89.1665 21.3585L93.7417 16.4489H97.0553L92.4953 21.3889L90.8233 23.1369L89.3337 24.7329ZM86.6433 27.0889V16.4489H89.6225V27.0889H86.6433ZM93.7873 27.0889L90.3217 22.6961L92.2825 20.5985L97.2833 27.0889H93.7873Z"
+                fill="#A61E00"
+            />
+        </svg>
+    );
+};
+
+export const DiscordIcon = (props: SVGProps<SVGSVGElement>) => {
     return (
         <svg
             width="133"
@@ -150,7 +176,13 @@ const GeneralAttendeeAccepted = () => {
     );
 };
 
-const HackKnightAccepted = () => {
+const HackKnightAccepted = ({
+    handleConfirm,
+    handleDecline
+}: {
+    handleConfirm: () => void;
+    handleDecline: () => void;
+}) => {
     return (
         <>
             <BoldFont>{"Congratulations! You've been accepted as a"}</BoldFont>
@@ -160,88 +192,30 @@ const HackKnightAccepted = () => {
                     "If you would like to attend HackIllinois 2024, click Confirm to finish the RSVP process. If you won't be attending please click Decline. This cannot be reversed."
                 }
             </StandardFont>
+            <div style={{ display: "flex", gap: "72px" }}>
+                <ConfirmButton />
+                <DeclineButton />
+            </div>
         </>
     );
 };
 
-const HackKnightRejected = () => {
-    return (
-        <>
-            <BoldFont>{"Congratulations! You've been accepted as a"}</BoldFont>
-            <ShinyFont>{"HackKnight"}</ShinyFont>
-            <StandardFont>
-                {
-                    "If you would like to attend HackIllinois 2024, click Confirm to finish the RSVP process. If you won't be attending please click Decline. This cannot be reversed."
-                }
-            </StandardFont>
-        </>
-    );
-};
-
-const RSVPSteps = () => {
+const HackKnightRejected = ({ handleOk }: { handleOk: () => void }) => {
     return (
         <>
             <BoldFont>
-                We are so excited to have you at HackIllinois this year! Please
-                complete the following information to confirm your attendance:
+                {
+                    "Unfortunately, we were unable to offer you a spot at HackIllinois"
+                }
             </BoldFont>
-
-            <div className={styles.block}>
-                <span className={styles.avatarTitle}>Display Name</span>
-                <input placeholder="Type here" />
-            </div>
-
-            <div className={styles.block}>
-                <span className={styles.avatarTitle}>Choose your avatar:</span>
-
-                <div className={styles.avatarContainer}>
-                    <svg
-                        width="11"
-                        height="22"
-                        viewBox="0 0 11 22"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className={styles.leftArrow}
-                    >
-                        <path d="M11 22L0 11L11 0V22Z" fill="white" />
-                    </svg>
-
-                    <div className={styles.avatarSlider}>
-                        {avatars.map(({ name, icon }, index) => {
-                            return (
-                                <Image
-                                    src={icon}
-                                    alt="some"
-                                    key={name}
-                                    className={
-                                        index === 1
-                                            ? styles.avatarSelect
-                                            : styles.avatarUnselected
-                                    }
-                                />
-                            );
-                        })}
-                    </div>
-
-                    <svg
-                        width="11"
-                        height="22"
-                        viewBox="0 0 11 22"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className={styles.rightArrow}
-                    >
-                        <path d="M0 22L11 11L0 0V22Z" fill="white" />
-                    </svg>
-                </div>
-            </div>
-
-            <div className={styles.block}>
-                <span className={styles.avatarTitle}>Discord Tag</span>
-                <input placeholder="Type here" />
-            </div>
-
-            <SubmitButton />
+            <BoldFont>
+                {
+                    "Email us at contact@hackillinois.org if you have any questions!"
+                }
+            </BoldFont>
+            <button onClick={handleOk}>
+                <OkButton />
+            </button>
         </>
     );
 };
