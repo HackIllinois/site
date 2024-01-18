@@ -1,0 +1,257 @@
+.dashboard {
+    width: 100vw;
+    height: 100vh;
+    background-color: #65698e;
+    position: relative;
+
+    background-size: cover;
+    // background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/profile/background.svg");
+}
+
+.leftCurtainWrapper {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+
+    width: calc(100vh * 170 / 982);
+    height: 100vh;
+}
+
+.rightCurtainWrapper {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+
+    width: calc(100vh * 170 / 982);
+    height: 100vh;
+}
+
+.bookshelfContainer {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.boolshelfWrapper {
+    width: 70vw;
+    height: calc(584 / 1148 * 70vw);
+
+    // (1148 584)
+}
+
+.bookshelfPropsWrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(calc(211 / 503 * -1vw * 40));
+    width: 40vw;
+    height: calc(211 / 503 * 1vw * 40);
+
+    // 503
+    // 211
+}
+
+.nameBookWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(calc(209 / 378 * -1vw * 30));
+    width: 30vw;
+    height: calc(209 / 378 * 1vw * 30);
+
+    // 378
+    // 209
+}
+
+.nameInBook {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+
+    // center vertically and horizontally
+    transform: translate(-50%, -50%);
+    width: fit-content;
+    height: fit-content;
+
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 15px;
+
+    text-align: left;
+    color: hsla(25, 28%, 35%, 1);
+}
+
+.action {
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    width: 14vw;
+
+    right: 0;
+    bottom: 0;
+}
+
+.status {
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 55%;
+    width: 17vw;
+
+    left: 54%;
+    transform: translateX(-54%);
+    bottom: 0;
+}
+
+.type {
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 80%;
+    width: 15vw;
+
+    bottom: 0;
+}
+
+.tempTEst {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    width: 58vw;
+    height: 10vw;
+
+    // border: solid 1px blue;
+
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 15px;
+    color: hsla(0, 0%, 100%, 1);
+}
+
+.bottomCabinet {
+    position: absolute;
+
+    bottom: 1.65vw;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 65vw;
+    // height: calc(584 / 1148 * 70vw);
+    height: 8.5vw;
+
+    // border: solid 1px blue;
+
+    background-color: hsla(25, 28%, 35%, 1);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rsvpButtonWrapper {
+    cursor: pointer;
+    position: relative;
+    width: 30vw;
+    height: calc(93 / 560 * 30vw);
+}
+
+.shinyFont {
+    color: #fff;
+    text-align: center;
+    text-shadow: 0px 4px 20px #ffb23e;
+    font-size: 35px;
+    font-weight: 700;
+    line-height: 30px; /* 85.714% */
+}
+
+.boldFont {
+    color: #fff;
+    text-align: center;
+    font-size: 25px;
+
+    font-weight: 700;
+    line-height: 30px; /* 120% */
+}
+
+.standardFont {
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 20px; /* 111.111% */
+}
+
+.boldFontYellow {
+    color: #ffb23e;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 30px;
+}
+
+.block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.avatarContainer {
+    position: relative;
+    padding: 0 32px;
+}
+
+.avatarSlider {
+    max-width: 100%;
+    display: flex;
+    gap: 48px;
+    overflow-x: scroll;
+}
+
+.avatarSelect {
+    border-radius: 10px;
+    border: 3px solid #ffb23e;
+    width: 129px;
+    height: 135px;
+    flex-shrink: 0;
+}
+
+.avatarUnselected {
+    width: 129px;
+    height: 135px;
+}
+
+.leftArrow {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.rightArrow {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.avatarTitle {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: normal;
+}
