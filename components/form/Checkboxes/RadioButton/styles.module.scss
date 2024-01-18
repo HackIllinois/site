@@ -1,0 +1,89 @@
+.checkboxLabel {
+    display: block;
+    position: relative;
+
+    padding-left: 5%;
+    // margin: var(--checkbox-margin, 15px) 0;
+    color: #ffffff;
+
+    font-size: 1.25em;
+    z-index: 1;
+    cursor: pointer;
+    width: 50%;
+    min-height: 40%;
+
+    @media (min-width: 1800px) and (min-width: 1000px) {
+        padding-left: 0%;
+    }
+    @media (max-width: 2100px) {
+        padding-left: 4.2%;
+    }
+    @media (max-width: 900px) {
+        padding-left: 5.5%;
+    }
+    @media (max-width: 800px) {
+        padding-left: 6.2%;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+
+        width: 1.25em;
+        height: 1.25em;
+
+        border: 2px solid #fea3aa;
+
+        border-radius: 0.25em;
+    }
+
+    &:active::before,
+    &.checked::before {
+        background-color: #fea3aa;
+    }
+
+    &:active::before,
+    &.radio::before {
+        border-radius: 1em;
+        border: 3px solid #fea3aa;
+        outline: 3px solid #1d2644;
+        outline-offset: -5px;
+        transform: translateY(16px) translateX(230%);
+        // @media (max-width: 1200px) {
+        //   transform: translateY(16px) translateX(220%);
+        // }
+        // @media (max-width: 900px) {
+        //   transform: translateY(16px) translateX(210%);
+        // }
+        @media (max-width: 800px) {
+            transform: translateY(16px) translateX(4.3vw);
+        }
+        // @media (max-width: 600px) {
+        //   transform: translateY(16px) translateX(5.3vw);
+        // }
+        // @media (max-width: 450px) {
+        //   transform: translateY(16px) translateX(37px);
+        //   margin-left: -10px;
+        // }
+    }
+
+    &.radio {
+        max-width: 10%;
+        text-align: center;
+        margin-left: -10px;
+        // @media (max-width: 600px) {
+        //   margin-left: -5px;
+        // }
+        // @media (max-width: 450px) {
+        //   text-align: right;
+        // }
+    }
+
+    .checkbox {
+        position: absolute;
+        left: -9999px;
+    }
+}
