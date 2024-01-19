@@ -53,11 +53,21 @@ export type UserType = {
     name: string;
 };
 
+export enum Avatars {
+    BUNNY = "bunny",
+    SQUIRREL = "squirrel",
+    GOBLIN = "goblin",
+    CHESTER = "chester",
+    CAT = "cat",
+    MUSHROOM = "mushroom",
+    FISHERCAT = "fishercat",
+    AXOLOTL = "axolotl"
+}
+
 export type ProfileBodyType = {
-    firstName: string;
-    lastName: string;
-    discord: string;
-    avatarUrl: string;
+    displayName: string;
+    discordTag: string;
+    avatarId: Avatars;
 };
 
 export type ProfileType = {
@@ -72,7 +82,7 @@ export type ProfileType = {
 export type RSVPDecisionType = {
     userId: string;
     user: string;
-    reviwer: string;
+    reviewer: string;
     whether: boolean;
 };
 
