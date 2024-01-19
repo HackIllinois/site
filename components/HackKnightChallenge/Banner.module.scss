@@ -23,8 +23,8 @@
         height: 20rem;
     }
     @media screen and (max-width: 700px) {
-        width: 20rem;
-        height: 25rem;
+        width: 17.5rem;
+        height: 17.5rem;
     }
 
     .image {
@@ -100,7 +100,7 @@
                 font-size: 1.5rem;
             }
             @media screen and (max-width: 700px) {
-                font-size: 1.375rem;
+                font-size: 1.5rem;
             }
             font-weight: 800;
             .knightText {
@@ -140,6 +140,9 @@
                     @media screen and (max-width: 1024px) {
                         max-width: 50%;
                     }
+                    @media screen and (max-width: 700px) {
+                        max-width: 60%;
+                    }
                     &:hover {
                         cursor: pointer;
                         transform: scale(1.05);
@@ -176,7 +179,7 @@
                             font-size: 0.5rem;
                         }
                         @media screen and (max-width: 700px) {
-                            font-size: 0.75rem;
+                            font-size: 0.675rem;
                         }
                     }
                 }

@@ -39,7 +39,7 @@
     }
     @media screen and (max-width: 700px) {
         max-height: 60dvh;
-        max-width: 80vw;
+        max-width: 90vw;
     }
 }
 
@@ -106,7 +106,7 @@
             font-size: 1.125rem;
         }
         @media screen and (max-width: 700px) {
-            font-size: 1.125rem;
+            font-size: 1.25rem;
         }
         font-weight: 600;
     }
@@ -130,7 +130,7 @@
             font-size: 1rem;
         }
         @media screen and (max-width: 700px) {
-            font-size: 1rem;
+            font-size: 0.875rem;
         }
         font-weight: 500;
     }
@@ -183,7 +183,7 @@
                 max-width: 50%;
             }
             @media screen and (max-width: 700px) {
-                max-width: 50%;
+                max-width: 75%;
             }
             &:hover {
                 cursor: pointer;
@@ -213,11 +213,14 @@
             font-size: 1rem;
         }
         @media screen and (max-width: 700px) {
-            font-size: 1rem;
+            font-size: 0.875rem;
         }
         font-weight: 700;
         border-radius: 0.875rem;
         padding: 0.75rem 3rem;
+        @media screen and (max-width: 700px) {
+            padding: 0.5rem 1.5rem;
+        }
         &:hover {
             cursor: pointer;
             transform: scale(1.05);
