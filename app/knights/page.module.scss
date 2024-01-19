@@ -1,10 +1,11 @@
 .knightsPage {
     background-color: #1A142B;
+    color: white;
     min-width: 100vw;
     min-height: max(90vw, 100vh);
     
     @media screen and (max-width: 900px) {
-        min-height: calc(3000px - 100vw);
+        min-height: calc(3100px - 100vw);
     }
     @media screen and (max-width: 400px) {
         min-height: calc(3000px - 100vw);
@@ -29,6 +30,46 @@
 
 }
 
+.mobilebg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    @media screen and (min-width: 900px) {
+        display: none;
+    }
+}
+
+.sc1, .sc2 {
+    position: absolute;
+    
+    left: -2vw;
+    width: 102vw;
+    height: auto;
+    @media screen and (min-width: 900px) {
+        display: none;
+    }
+}
+
+.sc1 {
+    top: 30%;
+}
+
+.sc2 {
+    top: 60%;
+}
+
+@keyframes brighten {
+    0%, 100% {
+        filter: brightness(100%);
+    }
+    50% {
+        filter: brightness(120%); /* Adjust value to control brightness */
+    }
+}
+
 .saber {
     position: absolute;
     top: 0;
@@ -42,7 +83,7 @@
     }
 
     @media screen and (max-width: 900px) {
-        top: 180px;
+        top: 250px;
         left: calc(50vw - 270px);
         width: 500px;
         height: fit-content;
@@ -52,8 +93,9 @@
         width: 140%;
     }
 
-    
+    animation: brighten 2s infinite;
 }
+
 
 .horse {
     position: absolute;
@@ -183,15 +225,28 @@
 
 .title {
     position: absolute;
-    top: 150px;
+    top: 100px;
     left: 5%;
     width: 150px;
     height: fit-content;
     z-index: 2;
+
+    @media screen and (min-width: 2000px) {
+        top: 50px;
+    }
     
+    @media screen and (min-width: 3000px) {
+        top: 0px;
+    }
 
     @media screen and (max-width: 900px) {
-        top: 100px
+        top: 130px;
+        left: 0;
+        padding: 50px;
+    }
+
+    @media screen and (max-width: 400px) {
+        padding: 20px;
     }
 }
 
@@ -254,7 +309,7 @@
     .differBox {
         position: absolute;
         margin-top: 5%;
-        top: 20vh;
+        top: 24vh;
         width: 40%;
         right: 5%;
 
