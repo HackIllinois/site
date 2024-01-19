@@ -18,9 +18,8 @@
         height: 16rem;
     }
     @media screen and (max-width: 900px) {
-        width: 30rem;
-        height: 25rem;
-        margin-top: 15%;
+        width: 22rem;
+        height: 16rem;
     }
     @media screen and (max-width: 700px) {
         width: 25rem;
@@ -37,6 +36,13 @@
             margin-bottom: 7.5%;
         }
 
+        
+        @media screen and (max-width: 900px) {
+            display: block;
+            max-width: 100%;
+            height: 100%;
+            margin-bottom: 15%;
+        }
 
     }
 
@@ -52,7 +58,7 @@
             padding: 0 15%;
         }
         @media screen and (max-width: 900px) {
-            padding: 0 20%;
+            padding: 0 30%;
         }
         @media screen and (max-width: 700px) {
             padding: 0 20%;
@@ -72,13 +78,13 @@
             font-size: 1.75rem;
         }
         @media screen and (max-width: 1024px) {
-            font-size: 1.5rem;
+            font-size: 1.625rem;
         }
         @media screen and (max-width: 900px) {
-            font-size: 2.125rem;
+            font-size: 1.5rem;
         }
         @media screen and (max-width: 700px) {
-            font-size: 2rem;
+            font-size: 1.375rem;
         }
         font-weight: 800;
         .knightText {
@@ -101,7 +107,7 @@
             font-size: 1rem;
         }
         @media screen and (max-width: 700px) {
-            font-size: 0.875rem;
+            font-size: 1rem;
         }
         font-weight: 600;
         text-align: center;
@@ -122,7 +128,7 @@
             font-size:0.675rem;
         }
         @media screen and (max-width: 700px) {
-            font-size: 0.5rem;
+            font-size: 0.675rem;
         }
         text-align: center;
     }

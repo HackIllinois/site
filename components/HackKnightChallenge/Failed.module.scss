@@ -22,12 +22,12 @@
         width: 25rem;
     }
     @media screen and (max-width: 900px) {
-        width: 20rem;
-        height: 27.5rem;
+        margin-top: 0rem;
+        width: 25rem;
     }
     @media screen and (max-width: 700px) {
-        width: 20rem;
-        height: 25rem;
+        margin-top: 3rem;
+        width: 25rem;
     }
 
 
@@ -43,7 +43,7 @@
             font-size: 1.0625rem;
         }
         @media screen and (max-width: 900px) {
-            font-size: 1.25rem;
+            font-size: 1.125rem;
         }
         @media screen and (max-width: 700px) {
             font-size: 1.125rem;
@@ -86,7 +86,7 @@
             font-size: 1rem;
         }
         @media screen and (max-width: 700px) {
-            font-size: 0.875rem;
+            font-size: 1rem;
         }
         text-align: center;
     }
@@ -103,10 +103,10 @@
             font-size: 0.625rem;
         }
         @media screen and (max-width: 900px) {
-            font-size:0.6751rem;
+            font-size:0.625rem;
         }
         @media screen and (max-width: 700px) {
-            font-size: 0.5rem;
+            font-size: 0.625rem;
         }
         text-align: center;
     }
@@ -120,10 +120,10 @@
             margin: 2rem 5% 0;
         }
         @media screen and (max-width: 900px) {
-            margin: 2rem 5% 0;
+            margin: 1.5rem 15% 0;
         }
         @media screen and (max-width: 700px) {
-            margin-top: 0.5rem;
+            margin: 1.5rem 15% 0;
         }
     }
 
