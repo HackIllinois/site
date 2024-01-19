@@ -31,7 +31,7 @@ const KnightChallenge = (props: any) => {
                             </p>
                             <p className={styles.text}>
                                 {`Note: This challenge is not as long and tedious as the write
-                    up may look! It’ll be fun, we promise :)`}
+                    up may look! It'll be fun, we promise :)`}
                             </p>
                         </div>
                     </div>
@@ -39,13 +39,17 @@ const KnightChallenge = (props: any) => {
                         <p className={styles.header}>Coding Challenge</p>
                         <ol className={`${styles.compact}`}>
                             <li className={styles.text}>
-                                Click this button to retrieve your JWT token.
-                                You must use the same GitHub account you used to
-                                register to HackIllinois
+                                Your hometown in the mystical realm is being
+                                attacked by Alan the Dragon. You have been
+                                chosen to find a wizarding tribe to help your
+                                town.
+                            </li>
+                            <li className={styles.text}>
+                                Click this button to retrieve your magical JWT
+                                token. You must use the same GitHub account you
+                                used to register to HackIllinois!
                                 <div className={styles.fetchJwtButtonDiv}>
-                                    <button
-                                        className={styles.fetchButton}
-                                    >
+                                    <button className={styles.fetchButton}>
                                         <a href={jwtUrl} target="_blank">
                                             <span>Fetch JWT</span>
                                         </a>
@@ -53,11 +57,53 @@ const KnightChallenge = (props: any) => {
                                 </div>
                             </li>
                             <li className={styles.text}>
-                                For all further API calls, include the JWT token
-                                from step 1 in your request header.
+                                Include the magical JWT token in all future API
+                                calls or the portal master will not understand
+                                your requests!
                                 <p
                                     className={`${styles.colouredText} ${styles.marginTop}`}
                                 >{`{“Authorization”: token_here}`}</p>
+                            </li>
+                            <li className={styles.text}>
+                                <div className={styles.compact}>
+                                    <b className={styles.text}>Problem Setup</b>
+                                    <p className={styles.text}>
+                                        Wizarding tribes are made of both good
+                                        and bad wizards. You are given a
+                                        dictionary,{" "}
+                                        <span className={styles.colouredText}>
+                                            wizards
+                                        </span>
+                                        , indicating the goodness value of each
+                                        wizard.</p> 
+                                        <p className={styles.text}>
+                                            Additionally, you are given a
+                                        list,{" "}
+                                        <span className={styles.colouredText}>
+                                            alliances
+                                        </span>
+                                        , representing connections between pairs
+                                        of wizards, making them part of the same
+                                        wizarding tribe. </p> 
+                                        <p className={styles.text}>
+                                            The nodes (
+                                        <span className={styles.colouredText}>
+                                            wizards
+                                        </span>
+                                        ) and edges (
+                                        <span className={styles.colouredText}>
+                                            alliances
+                                        </span>
+                                        ) together make an undirected graph with
+                                        multiple connected components, each
+                                        representing a wizarding tribe.
+                                    </p>
+                                    Receive these inputs by making a GET request to
+                                    this endpoint.
+                                    <p
+                                        className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
+                                    >{`GET https://artemis.hackillinois.org/challenge`}</p>
+                                </div>
                             </li>
                             <li className={styles.text}>
                                 <div className={styles.compact}>
@@ -65,64 +111,32 @@ const KnightChallenge = (props: any) => {
                                         Problem Statement
                                     </b>
                                     <p className={styles.text}>
-                                        You are given a list,{" "}
-                                        <span className={styles.colouredText}>
-                                            edges
-                                        </span>
-                                        , representing connections between a
-                                        pair of nodes that make an undirected
-                                        graph. You are also given a dictionary,{" "}
-                                        <span className={styles.colouredText}>
-                                            nodes
-                                        </span>
-                                        , containing information about the
-                                        values assigned to each node in the
-                                        graph.
-                                    </p>
-                                    <p className={styles.text}>
-                                        Your task is to find the{" "}
-                                        <span className={styles.colouredText}>
-                                            total_value
-                                        </span>
-                                        , i.e. sum up all the{" "}
-                                        <span className={styles.colouredText}>
-                                            values
-                                        </span>{" "}
-                                        in each connected component in the
-                                        provided graph.
-                                    </p>
-                                    <p className={styles.text}>
-                                        The solution to the problems is the
-                                        greatest{" "}
-                                        <span className={styles.colouredText}>
-                                            total_value
-                                        </span>{" "}
-                                        of all the sums of each connected
-                                        component.
+                                        The town King has tasked you with finding the
+                                        greatest goodness value among all
+                                        wizarding tribes. In other words, find the goodness values of each tribe and return the greatest of those goodness values. If suceeded, the King will handle the rest! 
                                     </p>
                                 </div>
                             </li>
                             <li className={styles.text}>
-                                Receive inputs for the challenge by making a GET
-                                request to this endpoint.
-                                <p
-                                    className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
-                                >{`GET https://artemis.hackillinois.org/challenge`}</p>
-                            </li>
-                            <li className={styles.text}>
-                                Submit your solution by making a POST request to
-                                this endpoint. Make sure you include your
-                                calculated{" "}
-                                <span className={styles.colouredText}>
-                                    greatest_total_value
-                                </span>{" "}
-                                in the request body as shown below:
-                                <p
-                                    className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
-                                >{`POST https://artemis.hackillinois.org/challenge`}</p>
-                                <p
-                                    className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
-                                >{`{“greatest_total_value”: token_here}`}</p>
+                            <div className={styles.compact}>
+                                    <b className={styles.text}>
+                                        Submitting Your Solution
+                                    </b>
+                                    <p className={styles.text}>
+                                    Make a POST request to
+                                    this endpoint and include your
+                                    {" "}<span className={styles.colouredText}>
+                                            max_goodness
+                                        </span>{" "}
+                                    in the request body as shown below.
+                                    </p>
+                                    <p
+                                        className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
+                                    >{`POST https://artemis.hackillinois.org/challenge`}</p>
+                                    <p
+                                        className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
+                                    >{`{"max_goodness": token_here}`}</p>
+                                </div>
                             </li>
                         </ol>
                     </div>
@@ -135,12 +149,12 @@ const KnightChallenge = (props: any) => {
                                     <th
                                         className={`${styles.colouredText} ${styles.text}`}
                                     >
-                                        edges
+                                        alliances
                                     </th>
                                     <th
                                         className={`${styles.colouredText} ${styles.text}`}
                                     >
-                                        nodes
+                                        wizards
                                     </th>
                                 </tr>
                             </thead>
@@ -187,26 +201,26 @@ const KnightChallenge = (props: any) => {
                         <div className={styles.compact}>
                             <p className={styles.text}>
                                 Given that the provided graph looks like this,
-                                we have two connected components:{" "}
+                                we have two wizarding tribes:{" "}
                                 <span className={styles.colouredText}>ace</span>{" "}
                                 and
-                                <span className={styles.colouredText}>bd</span>.
+                                <span className={styles.colouredText}> bd</span>.
                             </p>
                             <p className={styles.text}>
                                 The{" "}
                                 <span className={styles.colouredText}>
-                                    total_value
+                                    goodness
                                 </span>{" "}
-                                of ACE is -78 and the{" "}
+                                of ace is -78 and the{" "}
                                 <span className={styles.colouredText}>
-                                    total_value
+                                    goodness
                                 </span>{" "}
-                                of BD is 33.
+                                of bd is 33.
                             </p>
                             <p className={styles.text}>
                                 Therefore, the{" "}
                                 <span className={styles.colouredText}>
-                                    greatest_total_value
+                                    max_goodness
                                 </span>{" "}
                                 is 33.
                             </p>
@@ -219,18 +233,15 @@ const KnightChallenge = (props: any) => {
                                 The input edges and nodes will be valid.
                             </li>
                             <li className={styles.text}>
-                                Node values can be positive or negative
-                                integers.
+                                Wizard goodness, i.e. node values, can be
+                                positive or negative integers since wizards can
+                                be both good and bad.
                             </li>
                             <li className={styles.text}>
                                 The input graph will have <b>no cycles</b>.
                             </li>
                             <li className={styles.text}>
-                                The input graph will have multiple connected
-                                components.
-                            </li>
-                            <li className={styles.text}>
-                                Your JWT token will never expire so there is no
+                                Your magical JWT token will never expire so there is no
                                 time limit to complete the challenge.
                             </li>
                         </ul>
