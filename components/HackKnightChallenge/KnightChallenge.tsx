@@ -1,6 +1,9 @@
 "use client";
 import React from "react";
 import styles from "./KnightChallenge.module.scss";
+import { Source_Code_Pro } from "next/font/google";
+
+const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
 
 const jwtUrl = `https://adonix.hackillinois.org/auth/login/github/?device=challenge`;
 
@@ -21,7 +24,11 @@ const KnightChallenge = (props: any) => {
             <div className={styles.box}>
                 <div className={styles.content}>
                     <div className={styles.block}>
-                        <p className={`${styles.header} ${styles.challengeText}`}>Knight Challenge</p>
+                        <p
+                            className={`${styles.header} ${styles.challengeText}`}
+                        >
+                            Knight Challenge
+                        </p>
                         <div className={styles.compact}>
                             <p className={styles.text}>
                                 Thank you for your interest in applying to
@@ -36,7 +43,11 @@ const KnightChallenge = (props: any) => {
                         </div>
                     </div>
                     <div className={styles.block}>
-                        <p className={`${styles.header} ${styles.challengeText}`}>Coding Challenge</p>
+                        <p
+                            className={`${styles.header} ${styles.challengeText}`}
+                        >
+                            Coding Challenge
+                        </p>
                         <ol className={`${styles.listItem}`}>
                             <li className={styles.text}>
                                 Your hometown in the mystical realm is being
@@ -61,7 +72,7 @@ const KnightChallenge = (props: any) => {
                                 calls or the portal master will not understand
                                 your requests!
                                 <p
-                                    className={`${styles.colouredText} ${styles.marginTop}`}
+                                    className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop}`}
                                 >{`{“Authorization”: token_here}`}</p>
                             </li>
                             <li className={styles.text}>
@@ -75,7 +86,7 @@ const KnightChallenge = (props: any) => {
                                             good and bad wizards. You are given
                                             a dictionary,{" "}
                                             <span
-                                                className={styles.colouredText}
+                                                className={`${styles.colouredText} ${sourceCodePro.className}`}
                                             >
                                                 wizards
                                             </span>
@@ -85,7 +96,7 @@ const KnightChallenge = (props: any) => {
                                         <li className={styles.text}>
                                             Additionally, you are given a list,{" "}
                                             <span
-                                                className={styles.colouredText}
+                                                className={`${styles.colouredText} ${sourceCodePro.className}`}
                                             >
                                                 alliances
                                             </span>
@@ -96,13 +107,13 @@ const KnightChallenge = (props: any) => {
                                         <li className={styles.text}>
                                             The nodes (
                                             <span
-                                                className={styles.colouredText}
+                                                className={`${styles.colouredText} ${sourceCodePro.className}`}
                                             >
                                                 wizards
                                             </span>
                                             ) and edges (
                                             <span
-                                                className={styles.colouredText}
+                                                className={`${styles.colouredText} ${sourceCodePro.className}`}
                                             >
                                                 alliances
                                             </span>
@@ -114,7 +125,7 @@ const KnightChallenge = (props: any) => {
                                             Receive these inputs by making a GET
                                             request to this endpoint:
                                             <p
-                                                className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
+                                                className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text}`}
                                             >{`GET https://artemis.hackillinois.org/challenge`}</p>
                                         </li>
                                     </ol>
@@ -144,16 +155,16 @@ const KnightChallenge = (props: any) => {
                                     <p className={styles.text}>
                                         Make a POST request to this endpoint and
                                         include your{" "}
-                                        <span className={styles.colouredText}>
+                                        <span className={`${styles.colouredText} ${sourceCodePro.className}`}>
                                             max_goodness
                                         </span>{" "}
                                         in the request body as shown below.
                                     </p>
                                     <p
-                                        className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
+                                        className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text}`}
                                     >{`POST https://artemis.hackillinois.org/challenge`}</p>
                                     <p
-                                        className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
+                                        className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text}`}
                                     >{`{"max_goodness": integer_value_here}`}</p>
                                 </div>
                             </li>
@@ -166,12 +177,12 @@ const KnightChallenge = (props: any) => {
                             <thead>
                                 <tr>
                                     <th
-                                        className={`${styles.colouredText} ${styles.text}`}
+                                        className={`${styles.colouredText} ${sourceCodePro.className} ${styles.text}`}
                                     >
                                         alliances
                                     </th>
                                     <th
-                                        className={`${styles.colouredText} ${styles.text}`}
+                                        className={`${styles.colouredText} ${sourceCodePro.className} ${styles.text}`}
                                     >
                                         wizards
                                     </th>
@@ -180,36 +191,36 @@ const KnightChallenge = (props: any) => {
                             <tbody>
                                 <tr>
                                     <td>
-                                        <p className={styles.text}>{`[`}</p>
+                                        <p className={`${styles.text} ${sourceCodePro.className}`}>{`[`}</p>
                                         <p
-                                            className={`${styles.marginLeft} ${styles.text}`}
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
                                         >{`[“a”, “c”],`}</p>
                                         <p
-                                            className={`${styles.marginLeft} ${styles.text}`}
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
                                         >{`[“b”, “d”],`}</p>
                                         <p
-                                            className={`${styles.marginLeft} ${styles.text}`}
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
                                         >{`["e”, “c”],`}</p>
-                                        <p className={styles.text}>{`]`}</p>
+                                        <p className={`${styles.text} ${sourceCodePro.className}`}>{`]`}</p>
                                     </td>
                                     <td>
-                                        <p className={styles.text}>{`{`}</p>
+                                        <p className={`${styles.text} ${sourceCodePro.className}`}>{`{`}</p>
                                         <p
-                                            className={`${styles.marginLeft} ${styles.text}`}
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
                                         >{`  "a": 20,`}</p>
                                         <p
-                                            className={`${styles.marginLeft} ${styles.text}`}
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
                                         >{`"b": 3,`}</p>
                                         <p
-                                            className={`${styles.marginLeft} ${styles.text}`}
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
                                         >{`"c": 2,`}</p>
                                         <p
-                                            className={`${styles.marginLeft} ${styles.text}`}
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
                                         >{`"d": 30,`}</p>
                                         <p
-                                            className={`${styles.marginLeft} ${styles.text}`}
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
                                         >{`"e": -100,`}</p>
-                                        <p className={styles.text}>{`}`}</p>
+                                        <p className={`${styles.text} ${sourceCodePro.className}`}>{`}`}</p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -221,25 +232,25 @@ const KnightChallenge = (props: any) => {
                             <p className={styles.text}>
                                 Given that the provided graph looks like this,
                                 we have two wizarding tribes:{" "}
-                                <span className={styles.colouredText}>ace</span>{" "}
+                                <span className={`${styles.colouredText} ${sourceCodePro.className}`}>ace</span>{" "}
                                 and
-                                <span className={styles.colouredText}> bd</span>
+                                <span className={`${styles.colouredText} ${sourceCodePro.className}`}> bd</span>
                                 .
                             </p>
                             <p className={styles.text}>
                                 The{" "}
-                                <span className={styles.colouredText}>
+                                <span className={`${styles.colouredText} ${sourceCodePro.className}`}>
                                     goodness
                                 </span>{" "}
                                 of ace is -78 and the{" "}
-                                <span className={styles.colouredText}>
+                                <span className={`${styles.colouredText} ${sourceCodePro.className}`}>
                                     goodness
                                 </span>{" "}
                                 of bd is 33.
                             </p>
                             <p className={styles.text}>
                                 Therefore, the{" "}
-                                <span className={styles.colouredText}>
+                                <span className={`${styles.colouredText} ${sourceCodePro.className}`}>
                                     max_goodness
                                 </span>{" "}
                                 is 33.
