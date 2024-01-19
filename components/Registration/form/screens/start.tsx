@@ -22,7 +22,7 @@ const Start = ({ formIndex, setFormIndex }: FormProps) => {
                 <div className={styles.contents}>
                     <h2>Sign Up As:</h2>
                     <div className={styles.heroButtonsWrapper}>
-                        <button onClick={() => window.location.pathname = "/challenge"}
+                        <button onClick={() => window.location.pathname = "/knights/challenge"}
                             className={styles.knightButton}>
                             HackKnight
                         </button>

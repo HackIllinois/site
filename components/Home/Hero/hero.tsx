@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
                     />
                 </div>
                 <div className={styles.heroButtonWrapper}>
-                    <button onClick={() => window.location.pathname = "/register"} className={styles.heroButton}>{button_text}</button>
+                    <button className={styles.heroButton}>{button_text}</button>
                 </div>
             </div>
             <div className={styles.villageWrapper}>
