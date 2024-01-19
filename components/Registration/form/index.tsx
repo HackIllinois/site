@@ -122,25 +122,25 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
                     window.location.pathname = "/profile";
                     return;
                 }
-            }).then(() => {
-                getRegistration()
-                    .then(registrationWithId => {
-                        if (registrationWithId) {
-                            const { id, ...registration } = registrationWithId;
-                            methods.reset(convertFromAPI(registration));
-                            setFormIndex(1);
-                        }
-                        return getChallenge();
-                    }).then((chal) => {
-                        if (chal) {
-                            setIsKnight(true);
-                            setFormIndex(1);
-                        }
-                    })
-                    .finally(() => {
-                        setIsLoading(false);
-                    });
-            });
+        }).then(() => {
+            getRegistration()
+                .then(registrationWithId => {
+                    if (registrationWithId) {
+                        const { id, ...registration } = registrationWithId;
+                        methods.reset(convertFromAPI(registration));
+                        setFormIndex(1);
+                    }
+                    return getChallenge();
+                }).then((chal) => {
+                    if (chal) {
+                        setIsKnight(true);
+                        setFormIndex(1);
+                    }
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        });
         });
 
     }, []); // deliberately not including `methods`

@@ -1,20 +1,22 @@
 "use client";
 import React from "react";
 import styles from "./KnightChallenge.module.scss";
+import { getChallenge } from "@/utils/api";
 
 const jwtUrl = `https://adonix.hackillinois.org/auth/login/github/?device=challenge`;
 
 const KnightChallenge = (props: any) => {
     const { setShow } = props;
 
-    // const [data, setData] = React.useState<string>("");
-    // async function fetchJwt() {
-    //     await fetch(jwtUrl)
-    //         .then(res => res.json())
-    //         .then(data => setData(data));
-
-    //     console.log(data);
-    // }
+    const checkChallenge = () => {
+        getChallenge().then((passed) => {
+            if (passed) {
+                setShow("passed");
+            } else {
+                setShow("failed");
+            }
+        })
+    };
 
     return (
         <div className={styles.container}>
@@ -321,7 +323,7 @@ const KnightChallenge = (props: any) => {
                     <img src="/knights/challenge/back-button.svg" />
                 </button>
                 <button
-                    onClick={() => setShow("failed")}
+                    onClick={() => checkChallenge()}
                     className={styles.button}
                 >
                     <img src="/knights/challenge/next-button.svg" />

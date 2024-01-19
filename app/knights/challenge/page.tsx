@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
+import { authenticate, isAuthenticated } from "@/utils/api";
 import styles from "./page.module.scss";
 import Banner from "@/components/HackKnightChallenge/Banner";
 import KnightChallenge from "@/components/HackKnightChallenge/KnightChallenge";
@@ -8,6 +9,15 @@ import Failed from "@/components/HackKnightChallenge/Failed";
 
 const Challenge: React.FC = () => {
     const [show, setShow] = React.useState<string>("banner");
+
+    useEffect(() => {
+        if (!isAuthenticated()) {
+            authenticate(
+                window.location.href
+            );
+        }
+    });
+
     return (
         <div className={styles.background}>
             <div className={styles.image}>
