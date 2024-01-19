@@ -5,10 +5,9 @@
     justify-content: center;
     row-gap: 1.5rem;
 
-    margin-top: 4rem;
+    margin-top: 8rem;
 
     width: 30rem;
-    height: 32.5rem;
     @media screen and (max-width: 1280px) {
         width: 27.5rem;
         height: 30rem;
@@ -46,7 +45,7 @@
     }
 
     .content {
-        padding: 0 20%;
+        padding: 0 15%;
         @media screen and (max-width: 1280px) {
             padding: 0 20%;
         }
@@ -113,5 +112,9 @@
                 transform: scale(1.05);
             }
         }
+    }
+
+    .tryAgainButton{
+        margin-top: 5rem;
     }
 }

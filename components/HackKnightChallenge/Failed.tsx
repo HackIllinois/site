@@ -9,7 +9,7 @@ const Failed = (props: any) => {
             </p>
             <button
                 onClick={() => setShow("challenge")}
-                className={styles.button}
+                className={`${styles.button} ${styles.tryAgainButton}`}
             >
                 <img src="/knights/challenge/try-again-button.svg" />
             </button>
