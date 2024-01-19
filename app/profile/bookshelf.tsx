@@ -37,7 +37,7 @@ export const Bookshelf = ({
 
     const type = admittedPro ? "HackKnight" : "General Admission";
     const accepted = status === "ACCEPTED";
-    const action = response === "ACCEPTED" ? "View Status" : "Questions";
+    const action = response === "PENDING" ? "View Status" : "Questions";
 
     return (
         <div className={styles.bookshelfContainer}>

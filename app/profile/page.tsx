@@ -56,7 +56,7 @@ const Some: React.FC = () => {
 
     function onActionClick() {
         // conditional action , different modals
-        RSVP?.response === "ACCEPTED" ? openModal() : openQuestionsModal();
+        RSVP?.response === "PENDING" ? openModal() : openQuestionsModal();
     }
 
     useEffect(() => {
