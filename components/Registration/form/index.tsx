@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import clsx from "clsx";
 import {
     useForm,
     SubmitHandler,
@@ -9,7 +8,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { RegistrationType } from "@/utils/types";
-import { getRegistration, getRoles, refreshToken, register } from "@/utils/api";
+import { getRegistration, register, registerUpdate, getChallenge, isRegistered, getRoles } from "@/utils/api";
 import Button from "@/components/form/Button";
 import {
     registrationSchema,
@@ -18,7 +17,6 @@ import {
     defaultValues
 } from "../validation";
 
-// Old Pages left for Reference
 import Start from "./screens/start";
 import PersonalInfo from "./screens/personal-info";
 import Education from "./screens/education";
@@ -39,8 +37,8 @@ type FormProps = {
 //New Page Strcture
 const fields: (keyof RegistrationSchema)[][] = [
     [],
-    ['preferredName', 'legalName', 'email', 'gender', 'race', 'ageMin', 'transportation', 'requestedTravelReimbursement'],
-    ['location', 'degree', 'major', 'minor', 'university', 'gradYear'],
+    ['preferredName', 'legalName', 'emailAddress', 'gender', 'race', 'ageMin', 'transportation', 'requestedTravelReimbursement'],
+    ['location', 'degree', 'major', 'minor', 'university', 'gradYear', 'resumeFileName'],
     ['hackEssay1', 'hackEssay2', 'proEssay', 'considerForGeneral', 'optionalEssay'],
     ['hackInterest', 'hackOutreach', 'dietaryRestrictions'],
     []
@@ -62,39 +60,43 @@ const convertToAPI = (data: RegistrationSchema, isPro: Boolean): RegistrationTyp
         race: possibleRace,
         ageMin: overEighteen,
         transportation,
+        considerForGeneral: gen,
+        requestedTravelReimbursement: reimburse,
         ...registration
     } = data;
 
     // For gender and race, we default to 'Prefer Not to Answer' if user doesn't select anything so that
     // when they come back to edit registration, they'll see the prefer not to answer option selected
+    const considerForGeneral = gen === "YES" ? true : false;
+    const requestedTravelReimbursement = reimburse === "YES" ? true : false;
     const gender = possibleGender || "Prefer Not to Answer";
-    const isProApplicant = isPro ? "YES" : "NO";
+    const isProApplicant = isPro;
     const race =
         possibleRace.length === 0 ? ["Prefer Not to Answer"] : possibleRace;
-    if (overEighteen[0] != "YES") {
-        alert(
-            "Please ensure that you are aware that you have to be 18 by the start of our event"
-        );
-    }
     return {
         ...registration,
         isProApplicant,
         legalName,
+        considerForGeneral,
+        requestedTravelReimbursement,
         gender,
         race
     };
 };
 
 const convertFromAPI = (registration: RegistrationType): RegistrationSchema => {
+    const {requestedTravelReimbursement: reimburse, considerForGeneral: gen, ...rest} = registration;
     const ageMin = ["YES"];
     const transportation = ["YES"];
-    return { ...registration, ageMin, transportation };
+    const requestedTravelReimbursement = reimburse ? "YES" : "NO";
+    const considerForGeneral = gen ? "YES" : "NO";
+    return { ...rest, ageMin, transportation, requestedTravelReimbursement, considerForGeneral };
 };
 
 
 const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
     const [isLoading, setIsLoading] = useState(true);
-    const [isEditing, setIsEditing] = useState(false);
+    const [isKnight, setIsKnight] = useState(false);
 
     const methods = useForm<RegistrationSchema>({
         resolver: zodResolver(registrationSchema, { errorMap }),
@@ -104,39 +106,52 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
         handleSubmit,
         setError,
         clearErrors,
+        getValues,
         formState: { errors }
     } = methods;
 
     useEffect(() => {
-        getRoles()
-            .then(roles => {
-                if (roles.includes("Applicant")) {
-                    setIsEditing(true);
-                    // console.log(isEditing);
-                    return getRegistration("attendee");
+        getRoles().then((roles) => {
+            if (!roles.includes("TESTER")) {
+                window.location.pathname = "/";
+                return;
+            }
+        }).then(() => {
+            isRegistered().then((isRegistered) => {
+                if (isRegistered) {
+                    window.location.pathname = "/profile";
+                    return;
                 }
-                return null;
-            })
-            .then(registrationWithId => {
-                if (registrationWithId) {
-                    const { id, ...registration } = registrationWithId;
-                    methods.reset(convertFromAPI(registration));
-                }
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        }).then(() => {
+            getRegistration()
+                .then(registrationWithId => {
+                    if (registrationWithId) {
+                        const { id, ...registration } = registrationWithId;
+                        methods.reset(convertFromAPI(registration));
+                        setFormIndex(1);
+                    }
+                    return getChallenge();
+                }).then((chal) => {
+                    if (chal) {
+                        setIsKnight(true);
+                        setFormIndex(1);
+                    }
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        });
+        });
+
     }, []); // deliberately not including `methods`
 
     const onSubmit: SubmitHandler<RegistrationSchema> = data => {
-        console.log("data");
         // console.log(isEditing);
 
         setIsLoading(true);
-        return register(isEditing, "attendee", convertToAPI(data, true))
+        return register(convertToAPI(data, isKnight))
             .then(() => {
                 setFormIndex(postSubmitPageIndex);
-                refreshToken(); // token changes after registration, so need to refetch
             })
             .catch(() => {
                 alert(
@@ -168,6 +183,8 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
     };
 
     const nextPage = () => {
+        const vals = convertToAPI(getValues(), isKnight);
+        registerUpdate(vals).catch(() => {});
         setFormIndex(current => current + 1);
         window.scrollTo(0, 0); // scroll to the top of the page
     }
@@ -177,17 +194,15 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
         window.scrollTo(0, 0); // scroll to the top of the page
     }
 
+    var props = {formIndex: formIndex, setFormIndex: setFormIndex, isKnight: isKnight};
+
     return (
         <div className={styles.container}>
             <FormProvider {...methods}>
                 <form
                     onSubmit={handleSubmit(onSubmit, onError)}
-                >
-                    {formIndex < submitPageIndex ? React.createElement(pages[formIndex]) :
-                        formIndex === submitPageIndex ? <Review formIndex={formIndex} setFormIndex={setFormIndex}/> :
-                            <Complete />
-                    }
-                    
+                >  
+                    {React.createElement(pages[formIndex],props)}    
                 </form>
             </FormProvider>
             {(formIndex !== postSubmitPageIndex && formIndex !== 0) && ( // last page does not have any buttons
@@ -215,8 +230,6 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
                     )}
                 </div>
             )}
-
-            {/* <FormNavigation setFormIndex={setFormIndex} formIndex={formIndex}></FormNavigation> */}
         </div>
     );
 };

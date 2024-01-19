@@ -20,10 +20,9 @@
 .multiline {
     width: 100%;
     min-height: 29vh;
-    padding: 10px 0;
+    padding: 10px 5px;
     border-radius: 10px;
-    font-family: "Montserrat";
-    color: #1d2644;
+    color: #000000;
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
@@ -33,7 +32,7 @@
 
     &::placeholder {
         font-family: inherit;
-        color: #ffffff;
+        color: #000000;
         font-weight: 400;
         font-size: 0.9em;
     }

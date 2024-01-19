@@ -1,6 +1,7 @@
 "use client";
 import styles from "./styles.module.scss";
-
+import { useState, useEffect } from "react";
+import Lottie from "lottie-react";
 import FAQHeader from "@/public/home/faq/faq header.svg";
 import Image from "next/image";
 
@@ -20,9 +21,6 @@ import {
     GenBef2,
     GenDur2
 } from "@/public/home/faq/faq-lotties-scroll/index";
-
-import { useState, useEffect } from "react";
-import Lottie from "lottie-react";
 
 type FaqItem = {
     question: string;
