@@ -37,7 +37,7 @@ const KnightChallenge = (props: any) => {
                     </div>
                     <div className={styles.block}>
                         <p className={styles.header}>Coding Challenge</p>
-                        <ol className={`${styles.compact}`}>
+                        <ol className={`${styles.listItem}`}>
                             <li className={styles.text}>
                                 Your hometown in the mystical realm is being
                                 attacked by Alan the Dragon. You have been
@@ -65,52 +65,66 @@ const KnightChallenge = (props: any) => {
                                 >{`{“Authorization”: token_here}`}</p>
                             </li>
                             <li className={styles.text}>
-                                <div className={styles.compact}>
-                                    <b className={styles.text}>Problem Setup</b>
+                                <div className={styles.problemListItems}>
                                     <p className={styles.text}>
-                                        Wizarding tribes are made of both good
-                                        and bad wizards. You are given a
-                                        dictionary,{" "}
-                                        <span className={styles.colouredText}>
-                                            wizards
-                                        </span>
-                                        , indicating the goodness value of each
-                                        wizard.
+                                        <b>Problem Setup</b>
                                     </p>
-                                    <p className={styles.text}>
-                                        Additionally, you are given a list,{" "}
-                                        <span className={styles.colouredText}>
-                                            alliances
-                                        </span>
-                                        , representing connections between pairs
-                                        of wizards, making them part of the same
-                                        wizarding tribe.{" "}
-                                    </p>
-                                    <p className={styles.text}>
-                                        The nodes (
-                                        <span className={styles.colouredText}>
-                                            wizards
-                                        </span>
-                                        ) and edges (
-                                        <span className={styles.colouredText}>
-                                            alliances
-                                        </span>
-                                        ) together make an undirected graph with
-                                        multiple connected components, each
-                                        representing a wizarding tribe.
-                                    </p>
-                                    Receive these inputs by making a GET request
-                                    to this endpoint.
-                                    <p
-                                        className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
-                                    >{`GET https://artemis.hackillinois.org/challenge`}</p>
+                                    <ol type="a">
+                                        <li className={styles.text}>
+                                            Wizarding tribes are made of both
+                                            good and bad wizards. You are given
+                                            a dictionary,{" "}
+                                            <span
+                                                className={styles.colouredText}
+                                            >
+                                                wizards
+                                            </span>
+                                            , indicating the goodness value of
+                                            each wizard.
+                                        </li>
+                                        <li className={styles.text}>
+                                            Additionally, you are given a list,{" "}
+                                            <span
+                                                className={styles.colouredText}
+                                            >
+                                                alliances
+                                            </span>
+                                            , representing connections between
+                                            pairs of wizards, making them part
+                                            of the same wizarding tribe.{" "}
+                                        </li>
+                                        <li className={styles.text}>
+                                            The nodes (
+                                            <span
+                                                className={styles.colouredText}
+                                            >
+                                                wizards
+                                            </span>
+                                            ) and edges (
+                                            <span
+                                                className={styles.colouredText}
+                                            >
+                                                alliances
+                                            </span>
+                                            ) together make an undirected graph
+                                            with multiple connected components,
+                                            each representing a wizarding tribe.
+                                        </li>
+                                        <li>
+                                            Receive these inputs by making a GET
+                                            request to this endpoint:
+                                            <p
+                                                className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
+                                            >{`GET https://artemis.hackillinois.org/challenge`}</p>
+                                        </li>
+                                    </ol>
                                 </div>
                             </li>
                             <li className={styles.text}>
-                                <div className={styles.compact}>
-                                    <b className={styles.text}>
-                                        Problem Statement
-                                    </b>
+                                <div className={styles.problemListItems}>
+                                    <p className={styles.text}>
+                                        <b> Problem Statement </b>
+                                    </p>
                                     <p className={styles.text}>
                                         The town King has tasked you with
                                         finding the greatest goodness value
@@ -123,10 +137,10 @@ const KnightChallenge = (props: any) => {
                                 </div>
                             </li>
                             <li className={styles.text}>
-                                <div className={styles.compact}>
-                                    <b className={styles.text}>
-                                        Submitting Your Solution
-                                    </b>
+                                <div className={styles.problemListItems}>
+                                    <p className={styles.text}>
+                                        <b>Submitting Your Solution </b>
+                                    </p>
                                     <p className={styles.text}>
                                         Make a POST request to this endpoint and
                                         include your{" "}

@@ -6,13 +6,13 @@
 }
 
 .box {
-    background-color: #8B0A2B;
-    border: 0.25rem solid #FFB23E;
+    background-color: #8b0a2b;
+    border: 0.25rem solid #ffb23e;
     padding: 3rem;
     overflow-y: scroll;
-    max-height: 40rem;
+    max-height: 60dvh;
     max-width: 75vw;
-    
+
     @media screen and (max-width: 1280px) {
         max-height: 37.5rem;
         margin-top: 5rem;
@@ -34,7 +34,7 @@
 .content {
     display: flex;
     flex-flow: column nowrap;
-    row-gap: 1.5rem;
+    row-gap: 3.5rem;
 
     .compact {
         display: flex;
@@ -42,23 +42,41 @@
         row-gap: 0.5rem;
     }
 
+    .listItem {
+        display: flex;
+        flex-direction: column;
+        row-gap: 2.5rem;
+    }
+
+    .problemListItems {
+        > ol {
+            > li {
+                margin-left: 2rem;
+            }
+        }
+    }
+
     .block {
         display: flex;
         flex-flow: column nowrap;
-        row-gap: 0.75rem;
+        row-gap: 0.25rem;
+
+        > ul > li {
+            margin-left: 2rem;
+        }
     }
 
     .colouredText {
         //  display: block;
-        color: #20C20E // #188038;
+        color: #b3d689;
     }
 
-    .marginTop{
-        margin-top: 0.5rem;
+    .marginTop {
+        margin-top: 1rem;
     }
 
-    .marginLeft{
-        margin-left: 1rem;;
+    .marginLeft {
+        margin-left: 1rem;
     }
 
     .header {
@@ -92,6 +110,7 @@
         @media screen and (max-width: 700px) {
             font-size: 0.875rem;
         }
+        font-weight: 500;
     }
 
     .exampleGraph {
@@ -137,14 +156,16 @@
     }
 }
 
-.fetchJwtButtonDiv{
-    margin: 0.75rem 0;
+.fetchJwtButtonDiv {
+    margin: 2.5rem 0 0; // row-gap of listItem will be added on top of margin-top
     text-align: center;
-    .fetchButton{
-        width: 8rem;
-        height: 2rem;
+    .fetchButton {
         background-color: #ffb23e;
+        color: #a61e00;
+        font-size: 1.25rem;
+        font-weight: 700;
         border-radius: 0.875rem;
+        padding: 0.75rem 3rem;
         &:hover {
             cursor: pointer;
             transform: scale(1.05);

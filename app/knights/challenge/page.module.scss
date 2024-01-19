@@ -6,7 +6,7 @@
     // background-position: center top;
     // background-repeat: no-repeat;
     // background-size: 100% 100%;
-    // background-color: #505370;
+    background-color: #505370;
     // background-attachment: fixed;
 
     // min-width: 100vw;
@@ -43,11 +43,12 @@
     grid-area: 1/1;
     max-width: 100%;
     object-fit: cover;
-    padding: 0;
-    display: block;
-    margin: 0 auto;
-    height: 100dvh;
-    width: 100vw;
+    max-height: 100%;
+    // padding: 0;
+    // display: block;
+    // margin: 0 auto;
+    // height: 100dvh;
+    // width: 100vw;
 }
 
 .container {
