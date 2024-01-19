@@ -75,18 +75,19 @@ const KnightChallenge = (props: any) => {
                                             wizards
                                         </span>
                                         , indicating the goodness value of each
-                                        wizard.</p> 
-                                        <p className={styles.text}>
-                                            Additionally, you are given a
-                                        list,{" "}
+                                        wizard.
+                                    </p>
+                                    <p className={styles.text}>
+                                        Additionally, you are given a list,{" "}
                                         <span className={styles.colouredText}>
                                             alliances
                                         </span>
                                         , representing connections between pairs
                                         of wizards, making them part of the same
-                                        wizarding tribe. </p> 
-                                        <p className={styles.text}>
-                                            The nodes (
+                                        wizarding tribe.{" "}
+                                    </p>
+                                    <p className={styles.text}>
+                                        The nodes (
                                         <span className={styles.colouredText}>
                                             wizards
                                         </span>
@@ -98,8 +99,8 @@ const KnightChallenge = (props: any) => {
                                         multiple connected components, each
                                         representing a wizarding tribe.
                                     </p>
-                                    Receive these inputs by making a GET request to
-                                    this endpoint.
+                                    Receive these inputs by making a GET request
+                                    to this endpoint.
                                     <p
                                         className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
                                     >{`GET https://artemis.hackillinois.org/challenge`}</p>
@@ -111,24 +112,28 @@ const KnightChallenge = (props: any) => {
                                         Problem Statement
                                     </b>
                                     <p className={styles.text}>
-                                        The town King has tasked you with finding the
-                                        greatest goodness value among all
-                                        wizarding tribes. In other words, find the goodness values of each tribe and return the greatest of those goodness values. If suceeded, the King will handle the rest! 
+                                        The town King has tasked you with
+                                        finding the greatest goodness value
+                                        among all wizarding tribes. In other
+                                        words, find the goodness values of each
+                                        tribe and return the greatest of those
+                                        goodness values. If suceeded, the King
+                                        will handle the rest!
                                     </p>
                                 </div>
                             </li>
                             <li className={styles.text}>
-                            <div className={styles.compact}>
+                                <div className={styles.compact}>
                                     <b className={styles.text}>
                                         Submitting Your Solution
                                     </b>
                                     <p className={styles.text}>
-                                    Make a POST request to
-                                    this endpoint and include your
-                                    {" "}<span className={styles.colouredText}>
+                                        Make a POST request to this endpoint and
+                                        include your{" "}
+                                        <span className={styles.colouredText}>
                                             max_goodness
                                         </span>{" "}
-                                    in the request body as shown below.
+                                        in the request body as shown below.
                                     </p>
                                     <p
                                         className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
@@ -204,7 +209,8 @@ const KnightChallenge = (props: any) => {
                                 we have two wizarding tribes:{" "}
                                 <span className={styles.colouredText}>ace</span>{" "}
                                 and
-                                <span className={styles.colouredText}> bd</span>.
+                                <span className={styles.colouredText}> bd</span>
+                                .
                             </p>
                             <p className={styles.text}>
                                 The{" "}
@@ -241,8 +247,9 @@ const KnightChallenge = (props: any) => {
                                 The input graph will have <b>no cycles</b>.
                             </li>
                             <li className={styles.text}>
-                                Your magical JWT token will never expire so there is no
-                                time limit to complete the challenge.
+                                Your magical JWT token will never expire so
+                                there is no time limit to complete the
+                                challenge.
                             </li>
                         </ul>
                     </div>
@@ -283,12 +290,8 @@ const KnightChallenge = (props: any) => {
                                 Feel free to email us if you have issues with
                                 the coding challenge! Please direct your email
                                 to{" "}
-                                <a href="mailto:lasya.neti@hackillinois.org">
-                                    <u>lasya.neti@hackillinois.org</u>
-                                </a>{" "}
-                                and{" "}
-                                <a href="mailto:aydan.pirani@hackillinois.org">
-                                    <u>aydan.pirani@hackillinois.org</u>
+                                <a href="mailto:challenge@hackillinois.org">
+                                    <u>challenge@hackillinois.org</u>
                                 </a>
                                 .
                             </li>
