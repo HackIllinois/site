@@ -8,7 +8,7 @@ import NameBook from "./assets/name-book.svg";
 import RSVPButton from "./assets/rsvp-button.svg";
 
 import styles from "./page.module.scss";
-import { DecisionStatus } from "@/utils/types";
+import { DecisionResponse, DecisionStatus } from "@/utils/types";
 
 type Props = {
     openModal: () => void;
@@ -18,6 +18,7 @@ type Props = {
     admittedPro?: boolean;
     loading: boolean;
     onActionClick: () => void;
+    response?: DecisionResponse;
 };
 
 export const Bookshelf = ({
@@ -27,7 +28,8 @@ export const Bookshelf = ({
     status = "TBD",
     loading = false,
     admittedPro,
-    onActionClick
+    onActionClick,
+    response
 }: Props) => {
     function handleRSVPClick() {
         openModal();
@@ -35,14 +37,7 @@ export const Bookshelf = ({
 
     const type = admittedPro ? "HackKnight" : "General Admission";
     const accepted = status === "ACCEPTED";
-    const action =
-        status === "ACCEPTED"
-            ? "RSVP"
-            : status === "TBD"
-            ? "View Application"
-            : status === "REJECTED"
-            ? "Questions?"
-            : "View Status";
+    const action = response === "ACCEPTED" ? "View Status" : "Questions";
 
     return (
         <div className={styles.bookshelfContainer}>
@@ -78,7 +73,7 @@ export const Bookshelf = ({
                 </div>
             </div>
             {/* hiding it bc if its their first time i dont wanna - nvm... */}
-            {accepted && (
+            {accepted && response === "PENDING" && (
                 // !isModalOpen &&
                 <div className={styles.bottomCabinet}>
                     <button

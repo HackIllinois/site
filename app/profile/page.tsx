@@ -29,17 +29,7 @@ import {
     Rejected
 } from "./modal-views";
 import { RSVPSteps } from "./modal-views/rsvp-steps";
-
-const avatarKey = [
-    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/axolotl.png",
-    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/bunny.png",
-    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/cat.png",
-    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/chester.png",
-    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/fishercat.png",
-    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/goblin.png",
-    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/mushroom.png",
-    "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/main/avatars/squirrel.png",
-]
+import { avatars } from "./assets/avatars";
 
 const Some: React.FC = () => {
     const { isModalOpen, closeModal, openModal } = useModal();
@@ -66,9 +56,7 @@ const Some: React.FC = () => {
 
     function onActionClick() {
         // conditional action , different modals
-        if (true) {
-            openQuestionsModal();
-        }
+        RSVP?.response === "ACCEPTED" ? openModal() : openQuestionsModal();
     }
 
     useEffect(() => {
@@ -101,24 +89,25 @@ const Some: React.FC = () => {
         <section className={styles.dashboard}>
             <ModalOverlay isOpen={isModalOpen} onClose={closeModal}>
                 {(() => {
-
                     // uncomment when certain where this belongs in flow
-                    // return (
-                    //     <RSVPSteps
-                    //         handleSubmit={async (
-                    //             displayName,
-                    //             discordTag,
-                    //             selectedAvatarIndex
-                    //         ) => {
-                    //             // TODO: update this post call to have correct values
-                    //             const response = await setProfile({
-                    //                 avatarUrl: avatarKey[selectedAvatarIndex],
-                    //                 discord: discordTag,
-                    //                 displayName: displayName,
-                    //             });
-                    //         }}
-                    //     />
-                    // );
+                    if (RSVP?.response === "ACCEPTED") {
+                        return (
+                            <RSVPSteps
+                                handleSubmit={async (
+                                    displayName,
+                                    discordTag,
+                                    selectedAvatarIndex
+                                ) => {
+                                    const response = await setProfile({
+                                        displayName: displayName,
+                                        discordTag: discordTag,
+                                        avatarId:
+                                            avatars[selectedAvatarIndex].name
+                                    });
+                                }}
+                            />
+                        );
+                    }
 
                     if (loading) return "Loading...";
 
@@ -195,6 +184,7 @@ const Some: React.FC = () => {
                 name={user?.name}
                 admittedPro={RSVP?.admittedPro}
                 status={RSVP?.status}
+                response={RSVP?.response}
                 onActionClick={onActionClick}
             />
         </section>
