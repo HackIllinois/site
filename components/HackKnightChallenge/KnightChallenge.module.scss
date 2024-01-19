@@ -7,6 +7,9 @@
     @media screen and (max-width: 1536px) {
         row-gap: 1.5rem;
     }
+    @media screen and (max-width: 1280px) {
+        row-gap: 1rem;
+    }
 }
 
 .box {
@@ -23,8 +26,8 @@
     }
 
     @media screen and (max-width: 1280px) {
-        max-height: 37.5rem;
-        margin-top: 5rem;
+        max-height: 50dvh;
+        max-width: 80vw;
     }
     @media screen and (max-width: 1024px) {
         max-height: 35rem;
@@ -94,7 +97,7 @@
             font-size: 1.5rem;
         }
         @media screen and (max-width: 1280px) {
-            font-size: 1.5rem;
+            font-size: 1.375rem;
         }
         @media screen and (max-width: 1024px) {
             font-size: 1.375rem;
@@ -118,7 +121,7 @@
             font-size: 1.125rem;
         }
         @media screen and (max-width: 1280px) {
-            font-size: 1.125rem;
+            font-size: 1.0625rem;
         }
         @media screen and (max-width: 1024px) {
             font-size: 1rem;
@@ -171,7 +174,7 @@
                 max-width: 60%;
             }
             @media screen and (max-width: 1280px) {
-                max-width: 75%;
+                max-width: 50%;
             }
             @media screen and (max-width: 1024px) {
                 max-width: 75%;
@@ -201,7 +204,7 @@
             font-size: 1.125rem;
         }
         @media screen and (max-width: 1280px) {
-            font-size: 1.125rem;
+            font-size: 1.0625rem;
         }
         @media screen and (max-width: 1024px) {
             font-size: 1rem;

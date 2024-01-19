@@ -21,7 +21,7 @@ const Failed = (props: any) => {
                 </p>
             </div>
 
-            <p className={`${styles.text} ${styles.marginTop}`}>
+            <p className={`${styles.text} ${styles.margin}`}>
                 If HackKnight isn’t for you, then click continue to go to
                 Regular attendee registration
             </p>

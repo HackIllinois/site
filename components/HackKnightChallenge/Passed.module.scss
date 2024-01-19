@@ -10,9 +10,8 @@
         height: 28rem;
     }
     @media screen and (max-width: 1280px) {
-        width: 40rem;
-        height: 37.5rem;
-        margin-top: 0%;
+        width: 24rem;
+        height: 26rem;
     }
     @media screen and (max-width: 1024px) {
         width: 35rem;
@@ -40,7 +39,7 @@
             padding: 0 3.5%;
         }
         @media screen and (max-width: 1280px) {
-            padding: 0 20%;
+            padding: 0 3%;
         }
         @media screen and (max-width: 1024px) {
             padding: 0 20%;
@@ -63,7 +62,7 @@
             font-size: 2rem;
         }
         @media screen and (max-width: 1280px) {
-            font-size: 2.5rem;
+            font-size: 1.75rem;
         }
         @media screen and (max-width: 1024px) {
             font-size: 2.5rem;
@@ -86,7 +85,7 @@
             font-size: 1.125rem;
         }
         @media screen and (max-width: 1280px) {
-            font-size: 1.125rem;
+            font-size: 1.0625rem;
         }
         @media screen and (max-width: 1024px) {
             font-size: 1rem;
@@ -107,7 +106,7 @@
             font-size: 0.875rem;
         }
         @media screen and (max-width: 1280px) {
-            font-size: 0.875rem;
+            font-size: 0.75rem;
         }
         @media screen and (max-width: 1024px) {
             font-size: 0.75rem;
@@ -143,6 +142,9 @@
                 max-width: 75%;
                 @media screen and (max-width: 1536px) {
                     max-width: 60%;
+                }
+                @media screen and (max-width: 1536px) {
+                    max-width: 50%;
                 }
                 &:hover {
                     cursor: pointer;
