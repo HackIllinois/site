@@ -6,7 +6,8 @@
     width: 32.5rem;
     height: 35rem;
     @media screen and (max-width: 1536px) {
-        margin-top: -30%;
+        width: 26rem;
+        height: 28rem;
     }
     @media screen and (max-width: 1280px) {
         width: 40rem;
@@ -35,6 +36,9 @@
 
     .content {
         padding: 0 5%;
+        @media screen and (max-width: 1536px) {
+            padding: 0 3.5%;
+        }
         @media screen and (max-width: 1280px) {
             padding: 0 20%;
         }
@@ -55,6 +59,9 @@
     .hackText {
         text-align: center;
         font-size: 2.5rem;
+        @media screen and (max-width: 1536px) {
+            font-size: 2rem;
+        }
         @media screen and (max-width: 1280px) {
             font-size: 2.5rem;
         }
@@ -75,6 +82,9 @@
 
     .text {
         font-size: 1.25rem;
+        @media screen and (max-width: 1536px) {
+            font-size: 1.125rem;
+        }
         @media screen and (max-width: 1280px) {
             font-size: 1.125rem;
         }
@@ -93,6 +103,9 @@
 
     .subText {
         font-size: 1rem;
+        @media screen and (max-width: 1536px) {
+            font-size: 0.875rem;
+        }
         @media screen and (max-width: 1280px) {
             font-size: 0.875rem;
         }
@@ -108,8 +121,14 @@
         text-align: center;
     }
 
-    .marginTop {
-        margin-top: 1.5rem;
+    .marginTop{
+        margin-top: 7rem;
+        @media screen and (max-width: 900px) {
+            margin-top: 0.75rem;
+        }
+        @media screen and (max-width: 700px) {
+            margin-top: 0.5rem;
+        }
     }
 
     .buttonDiv {
@@ -122,6 +141,9 @@
         .button {
             > img {
                 max-width: 75%;
+                @media screen and (max-width: 1536px) {
+                    max-width: 60%;
+                }
                 &:hover {
                     cursor: pointer;
                     transform: scale(1.05);

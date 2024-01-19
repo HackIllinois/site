@@ -3,6 +3,10 @@
     flex-flow: column nowrap;
     align-items: center;
     row-gap: 2rem;
+
+    @media screen and (max-width: 1536px) {
+        row-gap: 1.5rem;
+    }
 }
 
 .box {
@@ -12,6 +16,11 @@
     overflow-y: scroll;
     max-height: 60dvh;
     max-width: 75vw;
+
+    @media screen and (max-width: 1536px) {
+        max-height: 50dvh;
+        max-width: 80vw;
+    }
 
     @media screen and (max-width: 1280px) {
         max-height: 37.5rem;
@@ -81,6 +90,9 @@
 
     .header {
         font-size: 1.75rem;
+        @media screen and (max-width: 1536px) {
+            font-size: 1.5rem;
+        }
         @media screen and (max-width: 1280px) {
             font-size: 1.5rem;
         }
@@ -102,6 +114,9 @@
 
     .text {
         font-size: 1.25rem;
+        @media screen and (max-width: 1536px) {
+            font-size: 1.125rem;
+        }
         @media screen and (max-width: 1280px) {
             font-size: 1.125rem;
         }
@@ -152,6 +167,21 @@
     .button {
         > img {
             max-width: 75%;
+            @media screen and (max-width: 1536px) {
+                max-width: 60%;
+            }
+            @media screen and (max-width: 1280px) {
+                max-width: 75%;
+            }
+            @media screen and (max-width: 1024px) {
+                max-width: 75%;
+            }
+            @media screen and (max-width: 900px) {
+                max-width: 75%;
+            }
+            @media screen and (max-width: 700px) {
+                max-width: 75%;
+            }
             &:hover {
                 cursor: pointer;
                 transform: scale(1.05);
@@ -167,6 +197,21 @@
         background-color: #ffb23e;
         color: #a61e00;
         font-size: 1.25rem;
+        @media screen and (max-width: 1536px) {
+            font-size: 1.125rem;
+        }
+        @media screen and (max-width: 1280px) {
+            font-size: 1.125rem;
+        }
+        @media screen and (max-width: 1024px) {
+            font-size: 1rem;
+        }
+        @media screen and (max-width: 900px) {
+            font-size: 1rem;
+        }
+        @media screen and (max-width: 700px) {
+            font-size: 0.875rem;
+        }
         font-weight: 700;
         border-radius: 0.875rem;
         padding: 0.75rem 3rem;
