@@ -21,7 +21,7 @@ const Start = ({ formIndex, setFormIndex }: FormProps) => {
                 />
                 <div className={styles.contents}>
                     <h2>Sign Up As:</h2>
-                    <div className={styles.heroButtonWrapper}>
+                    <div className={styles.heroButtonsWrapper}>
                         <button onClick={() => window.location.pathname = "/challenge"}
                             className={styles.knightButton}>
                             HackKnight
@@ -30,8 +30,8 @@ const Start = ({ formIndex, setFormIndex }: FormProps) => {
                     <p className={styles.link}>
                         <a href="/knights">What is this?</a>
                     </p>
-                    <div className={styles.heroButtonWrapper}>
-                        <button className={styles.heroButton} onClick={() => setFormIndex(1)}>
+                    <div className={styles.heroButtonsWrapper}>
+                        <button className={styles.genButton} onClick={() => setFormIndex(1)}>
                             General Attendee
                         </button>
                     </div>

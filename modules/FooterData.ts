@@ -13,9 +13,9 @@ export const socials = [
     },
     {
         id: 3,
-        name: "X",
-        image: "/footer/twitter.svg",
-        url: "https://www.twitter.com/HackIllinois"
+        name: "TikTok",
+        image: "/footer/tiktok.svg",
+        url: "https://www.tiktok.com/@hackillinoisuiuc"
     },
     {
         id: 4,

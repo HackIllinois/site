@@ -8,7 +8,7 @@ const inter = Montserrat({ subsets: ["latin"] });
 export const metadata: Metadata = {
     title: "HackIllinois",
     description:
-        "The official website of the University of Illinois at Urbana-Champaign's Premiere Hackathon!"
+        "The official website of the University of Illinois at Urbana-Champaign's Premier Hackathon!"
 };
 
 export default function RootLayout({

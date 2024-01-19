@@ -4,6 +4,10 @@
     width: 100%;
     padding: 0 10%;
     background-color: #004561;
+
+    @media screen and (min-width: 950px) {
+        transform: scale(0.8);
+    }
 }
 
 .footer {
@@ -12,7 +16,7 @@
     row-gap: 3rem;
     width: 100%;
     background-color: #004561;
-    padding: min(15vh, 15rem) 0;
+    padding: min(5vh, 15rem) 0;
 
     @media screen and (max-width: 900px) {
         padding: 7.5rem 0;
@@ -34,7 +38,7 @@
 
 .title {
     display: block;
-    font-size: 3rem;
+    font-size: 2.5rem;
     @media screen and (max-width: 1280px) {
         font-size: 2.5rem;
     }
@@ -83,8 +87,8 @@
         background-color: #faa91d;
         // padding: min(1vw, 1rem);
         border-radius: 9999px;
-        width: 5rem;
-        height: 5rem;
+        width: 4rem;
+        height: 4rem;
 
         @media screen and (max-width: 1280px) {
             width: 4rem;
@@ -120,7 +124,7 @@
 
 .newsletterTitle {
     display: block;
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin: 2.5rem 0 3rem;
 
     @media screen and (max-width: 1280px) {

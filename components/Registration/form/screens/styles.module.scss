@@ -806,7 +806,7 @@
         }
 
 
-        .heroButtonWrapper {
+        .heroButtonsWrapper {
             position: relative;
             margin: auto;
             z-index: 3;
@@ -818,23 +818,23 @@
             }
         
             &:hover {
-                .heroButton {
+                .genButton {
                     background-color: rgba(217, 147, 27);
                 }
         
                 transform: translateY(8px);
-                .heroButton::after, .knightButton::after {
+                .genButton::after, .knightButton::after {
                     top: 0px;
                 }
                 @media screen and (max-width: 1440px) {
                     transform: translateY(6px);
-                    .heroButton::after, .knightButton::after {
+                    .genButton::after, .knightButton::after {
                         top: 2px;
                     }
                 }
                 @media screen and (max-width: 1152px) {
                     transform: translateY(4px);
-                    .heroButton::after, .knightButton::after {
+                    .genButton::after, .knightButton::after {
                         top: 12px;
                     }
                 }
@@ -842,14 +842,14 @@
                 }
                 @media screen and (max-width: 640px) {
                     transform: translateY(4px);
-                    .heroButton::after, .knightButton::after {
+                    .genButton::after, .knightButton::after {
                         top: 2px;
                     }
                 }
             }
         }
         
-        .heroButton {
+        .genButton {
             background-color: $logo-secondary;
             border-color: $logo-primary;
             position: relative;

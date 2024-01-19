@@ -16,46 +16,18 @@ const JoinUs = () => {
                     <Image src={Shelf} alt="shelf" className={styles.shelf} />
 
                     <div className={styles.socialmediaContainer}>
-                        <Link
-                            target="_blank"
-                            href="https://twitter.com/HackIllinois"
-                        >
-                            <Image
-                                src={Twitter}
-                                alt="twitter"
-                                className={styles.twitter}
-                            />
+                        <Link target="_blank" href="https://www.instagram.com/hackillinois">
+                            <Image src={Instagram} alt="instagram" className={styles.instagram} />
                         </Link>
-                        <Link
-                            target="_blank"
-                            href="https://www.instagram.com/hackillinois"
-                        >
-                            <Image
-                                src={Instagram}
-                                alt="instagram"
-                                className={styles.instagram}
-                            />
+                        <Link target="_blank" href="https://twitter.com/HackIllinois">
+                            <Image src={Twitter} alt="twitter" className={styles.twitter} />
                         </Link>
                     </div>
                 </div>
 
                 <div className={styles.joinusText}>
-                    Follow us on Twitter (@
-                    <a
-                        target="_blank"
-                        href="https://www.twitter.com/hackillinois"
-                    >
-                        HackIllinois
-                    </a>
-                    ) and Instagram (@
-                    <a
-                        target="_blank"
-                        href="https://www.instagram.com/hackillinois"
-                    >
-                        HackIllinois
-                    </a>
-                    ) to be notified of our event updates! There will be regular
-                    content and posts.
+                    Follow us on Instagram (@<a target="_blank" href="https://www.instagram.com/hackillinois">HackIllinois</a>) 
+                    and Twitter (@<a target="_blank" href="https://www.twitter.com/hackillinois">HackIllinois</a>) to be notified of our event updates! There will be regular content and posts.
                 </div>
             </div>
         </section>
