@@ -14,9 +14,8 @@
         height: 26rem;
     }
     @media screen and (max-width: 1024px) {
-        width: 35rem;
-        height: 35rem;
-        margin-top: 0%;
+        width: 22rem;
+        height: 16rem;
     }
     @media screen and (max-width: 900px) {
         width: 30rem;
@@ -29,8 +28,16 @@
     }
 
     .image {
-        height: 100%;
-        width: 100%;
+        display: none;
+
+        @media screen and (max-width: 1024px) {
+            display: block;
+            max-width: 100%;
+            height: 100%;
+            margin-bottom: 7.5%;
+        }
+
+
     }
 
     .content {
@@ -42,7 +49,7 @@
             padding: 0 3%;
         }
         @media screen and (max-width: 1024px) {
-            padding: 0 20%;
+            padding: 0 15%;
         }
         @media screen and (max-width: 900px) {
             padding: 0 20%;
@@ -65,7 +72,7 @@
             font-size: 1.75rem;
         }
         @media screen and (max-width: 1024px) {
-            font-size: 2.5rem;
+            font-size: 1.5rem;
         }
         @media screen and (max-width: 900px) {
             font-size: 2.125rem;
@@ -112,7 +119,7 @@
             font-size: 0.75rem;
         }
         @media screen and (max-width: 900px) {
-            font-size:0.6751rem;
+            font-size:0.675rem;
         }
         @media screen and (max-width: 700px) {
             font-size: 0.5rem;
@@ -143,7 +150,7 @@
                 @media screen and (max-width: 1536px) {
                     max-width: 60%;
                 }
-                @media screen and (max-width: 1536px) {
+                @media screen and (max-width: 1280px) {
                     max-width: 50%;
                 }
                 &:hover {
