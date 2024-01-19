@@ -10,7 +10,17 @@ const Challenge: React.FC = () => {
     const [show, setShow] = React.useState<string>("banner");
     return (
         <div className={styles.background}>
-            <img src='/knights/challenge/background.svg' className={styles.image} />
+            <div className={styles.image}>
+                <img
+                    src={
+                        show === "passed"
+                            ? "/knights/challenge/background-passed.svg"
+                            : show === "failed"
+                            ? "/knights/challenge/background-failed.svg"
+                            : "/knights/challenge/background.svg"
+                    }
+                />
+            </div>
             <div className={styles.container}>
                 {show === "challenge" ? (
                     <KnightChallenge setShow={setShow} />

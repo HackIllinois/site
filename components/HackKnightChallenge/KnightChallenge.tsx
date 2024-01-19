@@ -21,7 +21,7 @@ const KnightChallenge = (props: any) => {
             <div className={styles.box}>
                 <div className={styles.content}>
                     <div className={styles.block}>
-                        <p className={styles.header}>Knight Challenge</p>
+                        <p className={`${styles.header} ${styles.challengeText}`}>Knight Challenge</p>
                         <div className={styles.compact}>
                             <p className={styles.text}>
                                 Thank you for your interest in applying to
@@ -36,7 +36,7 @@ const KnightChallenge = (props: any) => {
                         </div>
                     </div>
                     <div className={styles.block}>
-                        <p className={styles.header}>Coding Challenge</p>
+                        <p className={`${styles.header} ${styles.challengeText}`}>Coding Challenge</p>
                         <ol className={`${styles.listItem}`}>
                             <li className={styles.text}>
                                 Your hometown in the mystical realm is being

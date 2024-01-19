@@ -3,7 +3,6 @@
     flex-flow: column nowrap;
     align-items: center;
     justify-content: flex-end;
-    margin-top: -50%;
     width: 32.5rem;
     height: 35rem;
     @media screen and (max-width: 1536px) {
@@ -55,9 +54,9 @@
 
     .hackText {
         text-align: center;
-        font-size: 3rem;
+        font-size: 2.5rem;
         @media screen and (max-width: 1280px) {
-            font-size: 2.75rem;
+            font-size: 2.5rem;
         }
         @media screen and (max-width: 1024px) {
             font-size: 2.5rem;

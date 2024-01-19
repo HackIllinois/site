@@ -5,6 +5,8 @@
     justify-content: center;
     row-gap: 1.5rem;
 
+    margin-top: 4rem;
+
     width: 30rem;
     height: 32.5rem;
     @media screen and (max-width: 1280px) {
@@ -44,7 +46,7 @@
     }
 
     .content {
-        padding: 0 5%;
+        padding: 0 20%;
         @media screen and (max-width: 1280px) {
             padding: 0 20%;
         }
@@ -94,7 +96,7 @@
     }
 
     .marginTop{
-        margin-top: 1.5rem;
+        margin-top: 7rem;
         @media screen and (max-width: 900px) {
             margin-top: 0.75rem;
         }
