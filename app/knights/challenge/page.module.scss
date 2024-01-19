@@ -1,38 +1,57 @@
 .background {
-    background-image: url("/knights/challenge/background.svg");
-    @media screen and (max-width: 700px) {
-        background-image: url("/knights/challenge/background-mobile.svg");
-    }
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: 100vw auto;
-    background-color: #505370;
+    // background-image: url("/knights/challenge/background.svg");
+    // @media screen and (max-width: 700px) {
+    //     background-image: url("/knights/challenge/background-mobile.svg");
+    // }
+    // background-position: center top;
+    // background-repeat: no-repeat;
+    // background-size: 100% 100%;
+    // background-color: #505370;
+    // background-attachment: fixed;
 
-    min-width: 100vw;
-    min-height: 150vh;
+    // min-width: 100vw;
+    // min-height: 100vh;
 
-    @media screen and (max-width: 1280px) {
-        background-size: 100vw auto;
-        min-height: 150vh;
-    }
-    @media screen and (max-width: 1024px) {
-        background-size: 125vw 100vh;
-        min-height: 100vh;
-    }
-    @media screen and (max-width: 900px) {
-        background-size: 125vw 100vh;
-        min-height: 100vh;
-    }
-    @media screen and (max-width: 700px) {
-        min-height: 100vh;
-    }
+    // @media screen and (max-width: 1280px) {
+    //     background-size: 100vw auto;
+    //     min-height: 150vh;
+    // }
+    // @media screen and (max-width: 1024px) {
+    //     background-size: 125vw 100vh;
+    //     min-height: 100vh;
+    // }
+    // @media screen and (max-width: 900px) {
+    //     background-size: 125vw 100vh;
+    //     min-height: 100vh;
+    // }
+    // @media screen and (max-width: 700px) {
+    //     min-height: 100vh;
+    // }
 
-    overflow-y: scroll;
+    // overflow-y: scroll;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    place-content: center;
+}
+
+.image {
+    grid-area: 1/1;
+    max-width: 100%;
+    object-fit: cover;
+    padding: 0;
+    display: block;
+    margin: 0 auto;
+    height: 100dvh;
+    width: 100vw;
 }
 
 .container {
+    grid-area: 1/1;
+    align-self: center;
+    justify-self: center;
 }
