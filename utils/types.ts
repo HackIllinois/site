@@ -32,6 +32,7 @@ export type RegistrationType = {
     proEssay?: string;
     considerForGeneral: Boolean;
     isProApplicant: Boolean;
+    resumeFileName?: string;
 };
 
 export type RegistrationRole = "attendee" | "mentor";

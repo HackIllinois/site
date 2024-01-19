@@ -38,7 +38,7 @@ type FormProps = {
 const fields: (keyof RegistrationSchema)[][] = [
     [],
     ['preferredName', 'legalName', 'emailAddress', 'gender', 'race', 'ageMin', 'transportation', 'requestedTravelReimbursement'],
-    ['location', 'degree', 'major', 'minor', 'university', 'gradYear'],
+    ['location', 'degree', 'major', 'minor', 'university', 'gradYear', 'resumeFileName'],
     ['hackEssay1', 'hackEssay2', 'proEssay', 'considerForGeneral', 'optionalEssay'],
     ['hackInterest', 'hackOutreach', 'dietaryRestrictions'],
     []
@@ -230,8 +230,6 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
                     )}
                 </div>
             )}
-
-            {/* <FormNavigation setFormIndex={setFormIndex} formIndex={formIndex}></FormNavigation> */}
         </div>
     );
 };

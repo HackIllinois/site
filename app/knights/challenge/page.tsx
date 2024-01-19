@@ -22,13 +22,7 @@ const Challenge: React.FC = () => {
         <div className={styles.background}>
             <div className={styles.image}>
                 <img
-                    src={
-                        show === "passed"
-                            ? "/knights/challenge/background-passed.svg"
-                            : show === "failed"
-                            ? "/knights/challenge/background-failed.svg"
-                            : "/knights/challenge/background.svg"
-                    }
+                    src={ "/knights/challenge/background.svg" }
                 />
             </div>
             <div className={styles.container}>

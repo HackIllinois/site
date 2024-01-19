@@ -32,7 +32,8 @@ export const registrationSchema = z.object({
     hackInterest: z.string().array().min(1),
     hackOutreach: z.string().array().min(1),
     dietaryRestrictions: z.string().array().min(1),
-    considerForGeneral: z.enum(["YES", "NO"])
+    considerForGeneral: z.enum(["YES", "NO"]).optional(),
+    resumeFileName: z.string().optional()
 
     // terms: z.boolean().refine((val: boolean) => val),
 });
