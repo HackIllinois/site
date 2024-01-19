@@ -25,7 +25,7 @@ const Failed = (props: any) => {
                 If HackKnight isn’t for you, then click continue to go to
                 Regular attendee registration
             </p>
-            <button onClick={() => setShow("banner")} className={styles.button}>
+            <button onClick={() => window.location.pathname = "/register"} className={styles.button}>
                 <img src="/knights/challenge/continue-button.svg" />
             </button>
         </div>
