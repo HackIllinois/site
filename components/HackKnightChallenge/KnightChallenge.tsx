@@ -140,7 +140,7 @@ const KnightChallenge = (props: any) => {
                                     >{`POST https://artemis.hackillinois.org/challenge`}</p>
                                     <p
                                         className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
-                                    >{`{"max_goodness": token_here}`}</p>
+                                    >{`{"max_goodness": integer_value_here}`}</p>
                                 </div>
                             </li>
                         </ol>
