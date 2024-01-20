@@ -183,7 +183,7 @@
     // Form
     .piForm {
         z-index: 3;
-        overflow: auto;
+        overflow: visible;
         position: absolute;
         height: fit-content;
         width: 60%;
@@ -192,6 +192,10 @@
         transform: translateX(-50%); // to center the element
         justify-content: center;
         align-items: center;
+
+        @media (max-width: 1200px) {
+            overflow: auto;
+        }
 
         @media (max-height: 950px) and (max-width: 768px){
             top: 45%;
@@ -470,6 +474,8 @@
             max-height: 100vh;
             width: 80%;
         }
+
+       
     
         
     }
@@ -791,6 +797,7 @@
             object-fit: contain;
             width: fit-content;
             height: auto;
+            transform: scale(1.1);
             
             @media screen and (max-width: 660px) {
                 transform: scale(1.4);
@@ -799,7 +806,7 @@
         }
 
 
-        .heroButtonWrapper {
+        .heroButtonsWrapper {
             position: relative;
             margin: auto;
             z-index: 3;
@@ -811,23 +818,23 @@
             }
         
             &:hover {
-                .heroButton {
+                .genButton {
                     background-color: rgba(217, 147, 27);
                 }
         
                 transform: translateY(8px);
-                .heroButton::after, .knightButton::after {
+                .genButton::after, .knightButton::after {
                     top: 0px;
                 }
                 @media screen and (max-width: 1440px) {
                     transform: translateY(6px);
-                    .heroButton::after, .knightButton::after {
+                    .genButton::after, .knightButton::after {
                         top: 2px;
                     }
                 }
                 @media screen and (max-width: 1152px) {
                     transform: translateY(4px);
-                    .heroButton::after, .knightButton::after {
+                    .genButton::after, .knightButton::after {
                         top: 12px;
                     }
                 }
@@ -835,14 +842,14 @@
                 }
                 @media screen and (max-width: 640px) {
                     transform: translateY(4px);
-                    .heroButton::after, .knightButton::after {
+                    .genButton::after, .knightButton::after {
                         top: 2px;
                     }
                 }
             }
         }
         
-        .heroButton {
+        .genButton {
             background-color: $logo-secondary;
             border-color: $logo-primary;
             position: relative;
@@ -1008,6 +1015,101 @@
         border-width: 8px;
         font-size: 26px;
         font-weight: 700;
+    }
+}
+
+
+.complete {
+    background-color: #414674;
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+
+
+    .completeBackground {
+        position: absolute;
+        bottom: 0px;
+        width: 100vw;
+        height: fit-content;
+        z-index: 1;
+    }
+
+    .completeContainer {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        margin: auto;
+        width: 100vw;
+        z-index: 5;
+
+        @media  screen and (max-width: 768px) {
+            flex-direction: column;  
+            padding-top: 10vh; 
+        }
+
+
+        .completeCol1 {
+            position: relative;
+            margin: auto;
+
+            h1 {
+                font-size: 72px;
+                color: #FEEEFF;
+
+                @media  screen and (max-width: 768px) {
+                    font-size: 48px;   
+                }
+            }
+
+            h2 {
+                font-size: 32px;
+                color: #FEEEFF;
+            } 
+
+            p {
+                padding-top: 15px;
+                width: 20vw;
+                font-weight: 300;
+
+                @media  screen and (max-width: 768px) {
+                    width: 80vw;   
+                }
+            }
+
+            .completeSubContainer {
+
+            }
+
+        }
+
+        .completeCol2 {
+            position: relative;
+            margin: auto;
+            width: 40vw;
+            align-items: center;
+            align-self: center;
+            justify-content: center;
+
+            @media  screen and (max-width: 768px) {
+                width: 80vw;   
+            }
+
+            .completeScroll {
+                @media  screen and (max-width: 768px) {
+                    transform: scale(0.6);
+                }
+            }
+
+            .button {
+                transform: scale(0.7);
+                margin: auto;
+                padding-bottom: 5px;
+                cursor: pointer;
+                align-items: center;
+                align-self: center;
+                justify-content: center;
+            }
+        }
     }
 }
 

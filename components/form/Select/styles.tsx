@@ -43,7 +43,7 @@ const customStyles: StylesConfig<Record<string, unknown>, true | false> = {
     }),
     singleValue: base => ({
         ...base,
-        color: "#F6F4D4",
+        color: "FFFFFF",
         fontWeight: 500,
         fontSize: "1.25em"
     }),

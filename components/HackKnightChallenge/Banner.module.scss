@@ -1,0 +1,151 @@
+.banner {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-content: center;
+    width: 32rem;
+    height: 44rem;
+
+    @media screen and (max-width: 1536px) {
+        width: 25rem;
+        height: 32.5rem;
+    }
+
+    @media screen and (max-width: 1280px) {
+        width: 27.5rem;
+        height: 30rem;
+    }
+    @media screen and (max-width: 1024px) {
+        width: 25rem;
+        height: 30rem;
+    }
+    @media screen and (max-width: 900px) {
+        width: 20rem;
+        height: 27.5rem;
+    }
+    @media screen and (max-width: 700px) {
+        width: 20rem;
+        height: 25rem;
+    }
+
+    .image {
+        grid-area: 1/1;
+        height: 100%;
+        width: 100%;
+    }
+
+    .content {
+        grid-area: 1/1;
+        place-content: center;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4rem;
+        row-gap: 1rem;
+
+        @media screen and (max-width: 1280px) {
+            padding: 0 3.5rem;
+            row-gap: 0.75rem;
+            margin: 0 2rem;
+        }
+        @media screen and (max-width: 1024px) {
+            padding: 0 3rem;
+        }
+        @media screen and (max-width: 900px) {
+            padding: 0 2.5rem;
+        }
+        @media screen and (max-width: 700px) {
+            padding: 0 2rem;
+        }
+
+        .text {
+            font-size: 1.75rem;
+            @media screen and (max-width: 1536px) {
+                font-size: 1.375rem;
+            }
+            @media screen and (max-width: 1280px) {
+                font-size: 1.25rem;
+            }
+            @media screen and (max-width: 1024px) {
+                font-size: 1.25rem;
+            }
+            @media screen and (max-width: 900px) {
+                font-size: 1.125rem;
+            }
+            @media screen and (max-width: 700px) {
+                font-size: 1.125rem;
+            }
+
+            font-weight: 600;
+            text-align: center;
+        }
+        .hackText {
+            font-size: 2.5rem;
+            @media screen and (max-width: 1536px) {
+                font-size: 2.5rem;
+            }
+            @media screen and (max-width: 1280px) {
+                font-size: 2.5rem;
+            }
+            @media screen and (max-width: 1280px) {
+                font-size: 2.5rem;
+            }
+            @media screen and (max-width: 1024px) {
+                font-size: 2.25rem;
+            }
+            @media screen and (max-width: 900px) {
+                font-size: 2.125rem;
+            }
+            @media screen and (max-width: 700px) {
+                font-size: 2rem;
+            }
+            font-weight: 800;
+            .knightText {
+                color: #ffb23e;
+            }
+        }
+
+        .buttons {
+            display: flex;
+            flex-flow: column nowrap;
+            row-gap: 0.75rem;
+            align-items: center;
+            .beginButton {
+                margin-top: 2.5rem; // row-gap of .content will be added on top of this
+                > img {
+                    max-width: 75%;
+                    &:hover {
+                        cursor: pointer;
+                        transform: scale(1.05);
+                    }
+                }
+            }
+
+            .backButton {
+                > div {
+                    display: flex;
+                    flex-flow: row nowrap;
+                    align-items: center;
+
+                    > img {
+                        max-width: 100%;
+                        height: 0.75rem;
+                        @media screen and (max-width: 1280px) {
+                            font-size: 0.5rem;
+                        }
+                    }
+                    > p {
+                        font-size: 1rem;
+                        @media screen and (max-width: 1280px) {
+                            font-size: 0.75rem;
+                        }
+                    }
+                }
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.05);
+                }
+            }
+        }
+    }
+}

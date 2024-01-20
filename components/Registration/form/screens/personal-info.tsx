@@ -102,7 +102,7 @@ const PersonalInfo = () => {
                     <p className={styles.text}>Email Address</p>
                     <Input
                         className={styles.input}
-                        name="email"
+                        name="emailAddress"
                         placeholder="Type your response here"
                     />
                     <p className={styles.text}>Gender</p>

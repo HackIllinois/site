@@ -171,7 +171,7 @@ const Education = () => {
                 </p>
                 <FileUpload
                     className={styles["resume-upload"]}
-                    name="resumeFilename"
+                    name="resumeFileName"
                     type="resume"
                     accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     text="File types accepted: PDF and DOCX "

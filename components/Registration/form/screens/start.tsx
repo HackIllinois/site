@@ -4,8 +4,9 @@ import styles from "./styles.module.scss";
 import BACKGROUND from "@/public/registration/start/background.svg";
 import LOGO from "@/public/home/hero/logo.svg";
 import SHIELD from "@/public/registration/start/shield.svg";
+import { FormProps } from "@/utils/types";
 
-const Start = () => {
+const Start = ({ formIndex, setFormIndex }: FormProps) => {
     return (
         <div className={styles.start}>
             <div className={styles.heroImageWrapper}>
@@ -20,8 +21,8 @@ const Start = () => {
                 />
                 <div className={styles.contents}>
                     <h2>Sign Up As:</h2>
-                    <div className={styles.heroButtonWrapper}>
-                        <button onClick={() => window.location.pathname = "/challenge"}
+                    <div className={styles.heroButtonsWrapper}>
+                        <button onClick={() => window.location.pathname = "/knights/challenge"}
                             className={styles.knightButton}>
                             HackKnight
                         </button>
@@ -29,8 +30,8 @@ const Start = () => {
                     <p className={styles.link}>
                         <a href="/knights">What is this?</a>
                     </p>
-                    <div className={styles.heroButtonWrapper}>
-                        <button className={styles.heroButton}>
+                    <div className={styles.heroButtonsWrapper}>
+                        <button className={styles.genButton} onClick={() => setFormIndex(1)}>
                             General Attendee
                         </button>
                     </div>
