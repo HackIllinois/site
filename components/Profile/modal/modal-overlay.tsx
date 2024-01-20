@@ -1,8 +1,8 @@
 "use client";
 
-import CloseIcon from "../assets/close-icon";
 import { MouseEvent, ReactNode } from "react";
-import styles from "./modal.module.scss";
+import { CloseIcon } from "../icons";
+import styles from "@/components/profile/modal/modal.module.scss";
 
 type Props = {
     children: ReactNode;

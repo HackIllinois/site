@@ -1,9 +1,9 @@
 "use client";
 
-import styles from "../page.module.scss";
+import styles from "@/components/profile/modal-views/modal-views.module.scss";
 import Image from "next/image";
 import { BoldFont, SubmitButton } from ".";
-import { avatars } from "../assets/avatars";
+import { avatars } from "../avatars";
 import { useRef, useState } from "react";
 
 export const RSVPSteps = ({

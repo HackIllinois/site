@@ -2,17 +2,16 @@
 
 import styles from "./page.module.scss";
 import Image from "next/image";
-import LeftCurtain from "./assets/left-curtain.svg";
-import RightCurtain from "./assets/right-curtain.svg";
-import MobileLeftCurtain from "./assets/mobile-left-curtain.svg";
-import MobileRightCurtain from "./assets/mobile-right-curtain.svg";
-import MobileWindowPane from "./assets/mobile-window-pane.svg";
+import LeftCurtain from "@/public/profile/left-curtain.svg";
+import RightCurtain from "@/public/profile/right-curtain.svg";
+import MobileLeftCurtain from "@/public/profile/mobile-left-curtain.svg";
+import MobileRightCurtain from "@/public/profile/mobile-right-curtain.svg";
+import MobileWindowPane from "@/public/profile/mobile-window-pane.svg";
 
-import { Bookshelf } from "./bookshelf";
-import { ModalOverlay, useModal } from "./modal";
+import { Bookshelf } from "../../components/profile/bookshelf";
+import { ModalOverlay, useModal } from "../../components/profile/modal";
 import { useEffect, useState } from "react";
 import {
-    getProfile,
     getRSVP,
     getRegistration,
     getUser,
@@ -27,9 +26,9 @@ import {
     HackKnightRejected,
     Questions,
     Rejected
-} from "./modal-views";
-import { RSVPSteps } from "./modal-views/rsvp-steps";
-import { avatars } from "./assets/avatars";
+} from "../../components/profile/modal-views";
+import { RSVPSteps } from "../../components/profile/modal-views/rsvp-steps";
+import { avatars } from "../../components/profile/avatars";
 
 const Some: React.FC = () => {
     const { isModalOpen, closeModal, openModal } = useModal();
@@ -44,14 +43,15 @@ const Some: React.FC = () => {
         null
     );
     const [loading, setLoading] = useState<boolean>(true);
-    const [acceptedRSVP, setAcceptedRSVP] = useState<boolean>(false);
 
     async function handleConfirm() {
         const response = await rsvpAccept();
+        // do something with response if failed
     }
 
     async function handleDecline() {
         const response = await rsvpDecline();
+        // do something with response if failed
     }
 
     function onActionClick() {
