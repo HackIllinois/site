@@ -18,6 +18,7 @@ import {
     getRegistration,
     getUser,
     isAuthenticated,
+    isRegistered,
     rsvpAccept,
     rsvpDecline,
     setProfile
@@ -99,9 +100,9 @@ const Some: React.FC = () => {
 
         setLoading(true);
 
-        getProfile()
-            .then(profile => {
-                if (profile === null) window.location.pathname = "/register";
+        isRegistered()
+            .then(isRegistered => {
+                if (!isRegistered) window.location.pathname = "/register";
             })
             .then(() => {
                 getUser().then(user => {
@@ -110,9 +111,7 @@ const Some: React.FC = () => {
                 getRSVP().then(rsvp => {
                     setRSVP(rsvp);
 
-                    rsvp.status === "ACCEPTED" &&
-                        rsvp.response === "PENDING" &&
-                        openModal();
+                    if (rsvp.status === "ACCEPTED" && rsvp.response === "PENDING") openModal();
                 });
                 setLoading(false);
             });
@@ -170,10 +169,11 @@ const Some: React.FC = () => {
                                 );
                             }
                         }
-                    } else if (RSVP?.status === "REJECTED") {
+                    } else if (RSVP?.status === "REJECTED" || RSVP?.status === "WAITLISTED") {
                         return <Rejected handleOk={() => closeModal()} />;
                     } else {
-                        // "WAITLISTED" | "TBD";
+                        // "TBD";
+                        return <p>Your application is in review!</p>
                     }
                 })()}
             </ModalOverlay>
