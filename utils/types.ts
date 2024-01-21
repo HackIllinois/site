@@ -34,6 +34,58 @@ export type RegistrationType = {
     resumeFileName?: string;
 };
 
+export type DecisionStatus = "TBD" | "ACCEPTED" | "REJECTED" | "WAITLISTED";
+export type DecisionResponse = "PENDING" | "ACCEPTED" | "DECLINED";
+
+export type RSVPType = {
+    userId: string;
+    status: DecisionStatus;
+    response: DecisionResponse;
+    admittedPro: boolean;
+    // reviewer: string;
+    // emailSent: false;
+};
+
+export type UserType = {
+    _id: string;
+    userId: string;
+    email: string | null;
+    name: string;
+};
+
+export enum Avatars {
+    BUNNY = "bunny",
+    SQUIRREL = "squirrel",
+    GOBLIN = "goblin",
+    CHESTER = "chester",
+    CAT = "cat",
+    MUSHROOM = "mushroom",
+    FISHERCAT = "fishercat",
+    AXOLOTL = "axolotl"
+}
+
+export type ProfileBodyType = {
+    displayName: string;
+    discordTag: string;
+    avatarId: Avatars;
+};
+
+export type ProfileType = {
+    userID: string;
+    displayName: string;
+    discordTag: string;
+    avatarUrl: string;
+    points: number;
+    coins: number;
+};
+
+export type RSVPDecisionType = {
+    userId: string;
+    user: string;
+    reviewer: string;
+    whether: boolean;
+};
+
 export type RegistrationRole = "attendee" | "mentor";
 
 export type RefreshTokenResType = {

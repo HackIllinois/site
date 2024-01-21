@@ -122,7 +122,7 @@ const Some: React.FC = () => {
                         } else {
                             if (
                                 registration &&
-                                registration?.isProApplicant === "YES"
+                                registration?.isProApplicant === true
                             ) {
                                 return (
                                     <HackKnightRejected
