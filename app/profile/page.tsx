@@ -8,8 +8,8 @@ import MobileLeftCurtain from "@/public/profile/mobile-left-curtain.svg";
 import MobileRightCurtain from "@/public/profile/mobile-right-curtain.svg";
 import MobileWindowPane from "@/public/profile/mobile-window-pane.svg";
 
-import { Bookshelf } from "../../components/profile/bookshelf";
-import { ModalOverlay, useModal } from "../../components/profile/modal";
+import { Bookshelf } from "@/components/Profile/Bookshelf";
+import { ModalOverlay, useModal } from "@/components/Profile/modal";
 import { useEffect, useState } from "react";
 import {
     getRSVP,
@@ -26,9 +26,9 @@ import {
     HackKnightRejected,
     Questions,
     Rejected
-} from "../../components/profile/modal-views";
-import { RSVPSteps } from "../../components/profile/modal-views/rsvp-steps";
-import { avatars } from "../../components/profile/avatars";
+} from "@/components/Profile/modal-views";
+import { RSVPSteps } from "@/components/Profile/modal-views/rsvp-steps";
+import { avatars } from "@/components/Profile/avatars";
 
 const Some: React.FC = () => {
     const { isModalOpen, closeModal, openModal } = useModal();
