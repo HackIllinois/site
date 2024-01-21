@@ -7,10 +7,12 @@ const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
 
 const jwtUrl = `https://adonix.hackillinois.org/auth/login/github/?device=challenge`;
 const checkStatusUrl = `http://artemis.hackillinois.org/status`;
+import { getChallenge } from "@/utils/api";
 
 const KnightChallenge = (props: any) => {
     const { setShow } = props;
 
+<<<<<<< HEAD
     // const [data, setData] = React.useState<string>("");
     // async function fetchJwt() {
     //     await fetch(jwtUrl)
@@ -33,17 +35,32 @@ const KnightChallenge = (props: any) => {
     //     // setShow('failed);
     //     // }
     // }
+=======
+    const checkChallenge = () => {
+        getChallenge().then((passed) => {
+            if (passed) {
+                setShow("passed");
+            } else {
+                setShow("failed");
+            }
+        })
+    };
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
 
     return (
         <div className={styles.container}>
             <div className={styles.box}>
                 <div className={styles.content}>
                     <div className={styles.block}>
+<<<<<<< HEAD
                         <p
                             className={`${styles.header} ${styles.challengeText}`}
                         >
                             Knight Challenge
                         </p>
+=======
+                        <p className={`${styles.header} ${styles.challengeText}`}>Knight Challenge</p>
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                         <div className={styles.compact}>
                             <p className={styles.text}>
                                 Thank you for your interest in applying to
@@ -58,11 +75,15 @@ const KnightChallenge = (props: any) => {
                         </div>
                     </div>
                     <div className={styles.block}>
+<<<<<<< HEAD
                         <p
                             className={`${styles.header} ${styles.challengeText}`}
                         >
                             Coding Challenge
                         </p>
+=======
+                        <p className={`${styles.header} ${styles.challengeText}`}>Coding Challenge</p>
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                         <ol className={`${styles.listItem}`}>
                             <li className={styles.text}>
                                 Your hometown in the mystical realm is being
@@ -87,7 +108,11 @@ const KnightChallenge = (props: any) => {
                                 calls or the portal master will not understand
                                 your requests!
                                 <p
+<<<<<<< HEAD
                                     className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop}`}
+=======
+                                    className={`${styles.colouredText} ${styles.marginTop}`}
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                 >{`{“Authorization”: token_here}`}</p>
                             </li>
                             <li className={styles.text}>
@@ -101,7 +126,11 @@ const KnightChallenge = (props: any) => {
                                             good and bad wizards. You are given
                                             a dictionary,{" "}
                                             <span
+<<<<<<< HEAD
                                                 className={`${styles.colouredText} ${sourceCodePro.className}`}
+=======
+                                                className={styles.colouredText}
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                             >
                                                 wizards
                                             </span>
@@ -111,7 +140,11 @@ const KnightChallenge = (props: any) => {
                                         <li className={styles.text}>
                                             Additionally, you are given a list,{" "}
                                             <span
+<<<<<<< HEAD
                                                 className={`${styles.colouredText} ${sourceCodePro.className}`}
+=======
+                                                className={styles.colouredText}
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                             >
                                                 alliances
                                             </span>
@@ -122,13 +155,21 @@ const KnightChallenge = (props: any) => {
                                         <li className={styles.text}>
                                             The nodes (
                                             <span
+<<<<<<< HEAD
                                                 className={`${styles.colouredText} ${sourceCodePro.className}`}
+=======
+                                                className={styles.colouredText}
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                             >
                                                 wizards
                                             </span>
                                             ) and edges (
                                             <span
+<<<<<<< HEAD
                                                 className={`${styles.colouredText} ${sourceCodePro.className}`}
+=======
+                                                className={styles.colouredText}
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                             >
                                                 alliances
                                             </span>
@@ -140,7 +181,11 @@ const KnightChallenge = (props: any) => {
                                             Receive these inputs by making a GET
                                             request to this endpoint:
                                             <p
+<<<<<<< HEAD
                                                 className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text}`}
+=======
+                                                className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                             >{`GET https://artemis.hackillinois.org/challenge`}</p>
                                         </li>
                                     </ol>
@@ -170,18 +215,29 @@ const KnightChallenge = (props: any) => {
                                     <p className={styles.text}>
                                         Make a POST request to this endpoint and
                                         include your{" "}
+<<<<<<< HEAD
                                         <span
                                             className={`${styles.colouredText} ${sourceCodePro.className}`}
                                         >
+=======
+                                        <span className={styles.colouredText}>
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                             max_goodness
                                         </span>{" "}
                                         in the request body as shown below.
                                     </p>
                                     <p
+<<<<<<< HEAD
                                         className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text}`}
                                     >{`POST https://artemis.hackillinois.org/challenge`}</p>
                                     <p
                                         className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text}`}
+=======
+                                        className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
+                                    >{`POST https://artemis.hackillinois.org/challenge`}</p>
+                                    <p
+                                        className={`${styles.colouredText} ${styles.marginTop} ${styles.text}`}
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                     >{`{"max_goodness": integer_value_here}`}</p>
                                 </div>
                             </li>
@@ -194,12 +250,20 @@ const KnightChallenge = (props: any) => {
                             <thead>
                                 <tr>
                                     <th
+<<<<<<< HEAD
                                         className={`${styles.colouredText} ${sourceCodePro.className} ${styles.text}`}
+=======
+                                        className={`${styles.colouredText} ${styles.text}`}
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                     >
                                         alliances
                                     </th>
                                     <th
+<<<<<<< HEAD
                                         className={`${styles.colouredText} ${sourceCodePro.className} ${styles.text}`}
+=======
+                                        className={`${styles.colouredText} ${styles.text}`}
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                     >
                                         wizards
                                     </th>
@@ -208,6 +272,7 @@ const KnightChallenge = (props: any) => {
                             <tbody>
                                 <tr>
                                     <td>
+<<<<<<< HEAD
                                         <p
                                             className={`${styles.text} ${sourceCodePro.className}`}
                                         >{`[`}</p>
@@ -246,6 +311,38 @@ const KnightChallenge = (props: any) => {
                                         <p
                                             className={`${styles.text} ${sourceCodePro.className}`}
                                         >{`}`}</p>
+=======
+                                        <p className={styles.text}>{`[`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`[“a”, “c”],`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`[“b”, “d”],`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`["e”, “c”],`}</p>
+                                        <p className={styles.text}>{`]`}</p>
+                                    </td>
+                                    <td>
+                                        <p className={styles.text}>{`{`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`  "a": 20,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`"b": 3,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`"c": 2,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`"d": 30,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${styles.text}`}
+                                        >{`"e": -100,`}</p>
+                                        <p className={styles.text}>{`}`}</p>
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                     </td>
                                 </tr>
                             </tbody>
@@ -257,6 +354,7 @@ const KnightChallenge = (props: any) => {
                             <p className={styles.text}>
                                 Given that the provided graph looks like this,
                                 we have two wizarding tribes:{" "}
+<<<<<<< HEAD
                                 <span
                                     className={`${styles.colouredText} ${sourceCodePro.className}`}
                                 >
@@ -269,10 +367,16 @@ const KnightChallenge = (props: any) => {
                                     {" "}
                                     bd
                                 </span>
+=======
+                                <span className={styles.colouredText}>ace</span>{" "}
+                                and
+                                <span className={styles.colouredText}> bd</span>
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                 .
                             </p>
                             <p className={styles.text}>
                                 The{" "}
+<<<<<<< HEAD
                                 <span
                                     className={`${styles.colouredText} ${sourceCodePro.className}`}
                                 >
@@ -282,15 +386,26 @@ const KnightChallenge = (props: any) => {
                                 <span
                                     className={`${styles.colouredText} ${sourceCodePro.className}`}
                                 >
+=======
+                                <span className={styles.colouredText}>
+                                    goodness
+                                </span>{" "}
+                                of ace is -78 and the{" "}
+                                <span className={styles.colouredText}>
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                     goodness
                                 </span>{" "}
                                 of bd is 33.
                             </p>
                             <p className={styles.text}>
                                 Therefore, the{" "}
+<<<<<<< HEAD
                                 <span
                                     className={`${styles.colouredText} ${sourceCodePro.className}`}
                                 >
+=======
+                                <span className={styles.colouredText}>
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                                     max_goodness
                                 </span>{" "}
                                 is 33.
@@ -372,7 +487,11 @@ const KnightChallenge = (props: any) => {
                     <img src="/knights/challenge/back-button.svg" />
                 </button>
                 <button
+<<<<<<< HEAD
                     onClick={() => setShow('passed')}
+=======
+                    onClick={() => checkChallenge()}
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                     className={styles.button}
                 >
                     <img src="/knights/challenge/next-button.svg" />

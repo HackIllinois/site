@@ -5,10 +5,17 @@ const Passed = (props: any) => {
     const { setShow } = props;
     return (
         <div className={styles.container}>
+<<<<<<< HEAD
             <img
                 src="/knights/challenge/congratulations-banner.svg"
                 className={styles.image}
             />
+=======
+            {/* <img
+                src="/knights/challenge/congratulations-banner.svg"
+                className={styles.image}
+            /> */}
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
             <div className={styles.content}>
                 <p className={styles.text}>You are invited to apply as a</p>
                 <p className={styles.hackText}>

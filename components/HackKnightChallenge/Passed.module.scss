@@ -6,6 +6,7 @@
     width: 32.5rem;
     height: 35rem;
     @media screen and (max-width: 1536px) {
+<<<<<<< HEAD
         width: 26rem;
         height: 28rem;
     }
@@ -48,10 +49,38 @@
             margin-bottom: 0%;
         }
 
+=======
+        margin-top: -30%;
+    }
+    @media screen and (max-width: 1280px) {
+        width: 40rem;
+        height: 37.5rem;
+        margin-top: 0%;
+    }
+    @media screen and (max-width: 1024px) {
+        width: 35rem;
+        height: 35rem;
+        margin-top: 0%;
+    }
+    @media screen and (max-width: 900px) {
+        width: 30rem;
+        height: 25rem;
+        margin-top: 15%;
+    }
+    @media screen and (max-width: 700px) {
+        width: 25rem;
+        height: 20rem;
+    }
+
+    .image {
+        height: 100%;
+        width: 100%;
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
     }
 
     .content {
         padding: 0 5%;
+<<<<<<< HEAD
         @media screen and (max-width: 1536px) {
             padding: 0 3.5%;
         }
@@ -66,6 +95,19 @@
         }
         @media screen and (max-width: 700px) {
             padding: 0 12.5%;
+=======
+        @media screen and (max-width: 1280px) {
+            padding: 0 20%;
+        }
+        @media screen and (max-width: 1024px) {
+            padding: 0 20%;
+        }
+        @media screen and (max-width: 900px) {
+            padding: 0 20%;
+        }
+        @media screen and (max-width: 700px) {
+            padding: 0 20%;
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
         }
         display: flex;
         flex-flow: column nowrap;
@@ -75,6 +117,7 @@
     .hackText {
         text-align: center;
         font-size: 2.5rem;
+<<<<<<< HEAD
         @media screen and (max-width: 1536px) {
             font-size: 2rem;
         }
@@ -89,6 +132,19 @@
         }
         @media screen and (max-width: 700px) {
             font-size: 1.5rem;
+=======
+        @media screen and (max-width: 1280px) {
+            font-size: 2.5rem;
+        }
+        @media screen and (max-width: 1024px) {
+            font-size: 2.5rem;
+        }
+        @media screen and (max-width: 900px) {
+            font-size: 2.125rem;
+        }
+        @media screen and (max-width: 700px) {
+            font-size: 2rem;
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
         }
         font-weight: 800;
         .knightText {
@@ -98,11 +154,16 @@
 
     .text {
         font-size: 1.25rem;
+<<<<<<< HEAD
         @media screen and (max-width: 1536px) {
             font-size: 1.125rem;
         }
         @media screen and (max-width: 1280px) {
             font-size: 1.0625rem;
+=======
+        @media screen and (max-width: 1280px) {
+            font-size: 1.125rem;
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
         }
         @media screen and (max-width: 1024px) {
             font-size: 1rem;
@@ -111,7 +172,11 @@
             font-size: 1rem;
         }
         @media screen and (max-width: 700px) {
+<<<<<<< HEAD
             font-size: 1rem;
+=======
+            font-size: 0.875rem;
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
         }
         font-weight: 600;
         text-align: center;
@@ -119,24 +184,37 @@
 
     .subText {
         font-size: 1rem;
+<<<<<<< HEAD
         @media screen and (max-width: 1536px) {
             font-size: 0.875rem;
         }
         @media screen and (max-width: 1280px) {
             font-size: 0.75rem;
+=======
+        @media screen and (max-width: 1280px) {
+            font-size: 0.875rem;
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
         }
         @media screen and (max-width: 1024px) {
             font-size: 0.75rem;
         }
         @media screen and (max-width: 900px) {
+<<<<<<< HEAD
             font-size:0.675rem;
         }
         @media screen and (max-width: 700px) {
             font-size: 0.675rem;
+=======
+            font-size:0.6751rem;
+        }
+        @media screen and (max-width: 700px) {
+            font-size: 0.5rem;
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
         }
         text-align: center;
     }
 
+<<<<<<< HEAD
     .marginTop{
         margin-top: 7rem;
         @media screen and (max-width: 900px) {
@@ -145,6 +223,10 @@
         @media screen and (max-width: 700px) {
             margin-top: 0.75rem;
         }
+=======
+    .marginTop {
+        margin-top: 1.5rem;
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
     }
 
     .buttonDiv {
@@ -157,6 +239,7 @@
         .button {
             > img {
                 max-width: 75%;
+<<<<<<< HEAD
                 @media screen and (max-width: 1536px) {
                     max-width: 60%;
                 }
@@ -166,6 +249,8 @@
                 @media screen and (max-width: 1280px) {
                     max-width: 75%;
                 }
+=======
+>>>>>>> 7c67f28198eca53b5cdbd51ddf1814b0c95a28df
                 &:hover {
                     cursor: pointer;
                     transform: scale(1.05);

@@ -1,0 +1,44 @@
+.input {
+    display: block;
+    font-family: inherit;
+    border: none;
+    outline: none;
+    font-size: 1.25em;
+    font-weight: 300;
+    width: 100%;
+    padding: 10px 5px;
+    background-color: transparent;
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+
+    &::placeholder {
+        color: #ffffff;
+        font-size: 0.9em;
+    }
+}
+
+.multiline {
+    width: 100%;
+    min-height: 29vh;
+    padding: 10px 5px;
+    border-radius: 10px;
+    color: #000000;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 17px;
+    background-color: #638f70;
+    border-bottom: none;
+
+    &::placeholder {
+        font-family: inherit;
+        color: #000000;
+        font-weight: 400;
+        font-size: 0.9em;
+    }
+}
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}

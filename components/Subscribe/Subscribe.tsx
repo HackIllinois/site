@@ -19,7 +19,7 @@ const Subscribe = () => {
             const result = subscribe("hackillinois2024_interest", email);
             setEmail(""); // clear input field after submitting
             console.log("request complete");
-            alert("Subscribed to our email list!")
+            alert("Subscribed to our email list!");
         }
     };
 

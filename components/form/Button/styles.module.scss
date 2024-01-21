@@ -1,0 +1,28 @@
+.button {
+    font-weight: 600;
+    font-size: 1em;
+    font-family: inherit;
+    border: none;
+    border-radius: 1000px;
+    display: flex;
+    align-items: center;
+    outline: none;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    &.hidden {
+        visibility: hidden;
+    }
+
+    &.disabled {
+        cursor: not-allowed;
+        pointer-events: none;
+        visibility: hidden;
+        background-color: #6d7072;
+    }
+
+    &.loading {
+        cursor: not-allowed;
+    }
+}
