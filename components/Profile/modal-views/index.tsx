@@ -315,9 +315,11 @@ export const Rejected = ({ handleOk }: { handleOk: () => void }) => {
                 }
             </BoldFont>
             <BoldFont>
-                {
-                    "Email us at contact@hackillinois.org if you have any questions!"
-                }
+                Email us at{" "}
+                <a href="mailto:contact@hackillinois.org">
+                    contact@hackillinois.org
+                </a>{" "}
+                if you have any questions!
             </BoldFont>
             <button onClick={handleOk} className={styles.okButton}>
                 <OkButton />
@@ -348,9 +350,11 @@ export const Questions = ({ handleOk }: { handleOk: () => void }) => {
     return (
         <>
             <BoldFont>
-                {
-                    "Email us at contact@hackillinois.org if you have any questions!"
-                }
+                Email us at{" "}
+                <a href="mailto:contact@hackillinois.org">
+                    contact@hackillinois.org
+                </a>{" "}
+                if you have any questions!
             </BoldFont>
             <button onClick={handleOk} className={styles.okButton}>
                 <OkButton />
