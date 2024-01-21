@@ -54,7 +54,6 @@ const Some: React.FC = () => {
         null
     );
     const [loading, setLoading] = useState<boolean>(true);
-    const router = useRouter();
 
     async function handleConfirm() {
         setLoading(true);
@@ -102,7 +101,8 @@ const Some: React.FC = () => {
             // TOOD: Promise.all
             setLoading(true);
             const profile = await getProfile();
-            if (profile === null) router.push("/register");
+            if (profile === null) window.location.pathname = "/register";
+
             // setProfileState(profile);
 
             const user = await getUser();
