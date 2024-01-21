@@ -1,0 +1,15 @@
+.registration {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    min-height: 100vh;
+    position: relative;
+
+    // @include registration-floating-screen {
+    //   justify-content: center;
+    //   padding: 30px 0;
+    //   box-sizing: border-box;
+    //   min-height: 430px;
+    // }
+}

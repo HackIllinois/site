@@ -3,7 +3,6 @@
     .faqContainer {
         display: flex;
         flex-direction: column;
-
     }
     .faqItemContainer1 {
         .faqHeader {
@@ -15,7 +14,6 @@
             @media (max-width: 768px) {
                 width: 45vw;
             }
-
         }
     }
     .faqLotties {
@@ -157,18 +155,21 @@
         @media screen and (max-width: 1440px) {
             top: -18vh;
         }
-        @media screen and (max-width: 1025px){
+        @media screen and (max-width: 1025px) {
             top: -18vh;
         }
         @media screen and (max-width: 900px) {
             top: -20vh;
         }
-    
 
-        g[id="general"], g[id="before"], g[id="during"], g[aria-label="GENERAL"], g[aria-label="BEFORE"], g[aria-label="DURING"] {
+        g[id="general"],
+        g[id="before"],
+        g[id="during"],
+        g[aria-label="GENERAL"],
+        g[aria-label="BEFORE"],
+        g[aria-label="DURING"] {
             cursor: pointer;
         }
-
     }
 
     .faqScroll {
@@ -180,7 +181,5 @@
         width: 90%;
         min-width: 90%;
         margin: auto;
-
     }
-    
 }

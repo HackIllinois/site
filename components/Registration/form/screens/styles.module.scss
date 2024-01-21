@@ -1,0 +1,1121 @@
+// @import 'common.scss';
+@use "/app/colors" as *;
+.screen {
+    --field-margin: 40px;
+    font-size: 1em;
+    position: relative;
+    flex: 1;
+    height: fit-content;
+
+    @media (max-height: 750px) {
+        margin-top: 18px;
+        font-size: 0.9em;
+    }
+
+    .title {
+        color: var(--text-color);
+        font-style: normal;
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 44px;
+        margin-top: 20px;
+
+        @media screen and (max-width: 750px) {
+            font-size: 26px;
+            transform: translateY(15%);
+        }
+
+    }
+
+    .title2 {
+        color: var(--text-color);
+        font-style: normal;
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 44px;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .text,
+    .textOp,
+    .textOp2,
+    .note {
+        font-size: 1.3em;
+        line-height: 1.5em;
+        margin-top: 25px;
+        color: var(--text-color);
+        font-weight: 600;
+        margin-top: var(--field-margin, 10px);
+        margin-bottom: 0px;
+
+        a {
+            font-weight: 700;
+            color: #46959f;
+            text-decoration: none;
+        }
+
+        b {
+            font-weight: 700;
+        }
+        @media (max-width: 912px) {
+            font-size: 0.8em;
+            margin-top: 20px;
+        }
+    }
+    .text::after {
+        content: "*";
+        color: #fe7098;
+        margin-left: 4px;
+    }
+    .textOp2 {
+        width: 60%;
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+        }
+        a {
+            font-weight: 600;
+            color: #f99557;
+            text-decoration: none;
+        }
+    }
+
+}
+
+
+.personalInfo {
+    background: linear-gradient(
+        to bottom,
+        #0D3F41 0%,
+        #0D3F41 40%,
+        #0D1414 40%,
+        #0D1414 100%
+    );
+    --text-color: #B7D6D6
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin: 0;
+
+    // Headers
+    .piAbsolutes {
+        position: relative;
+        height: fit-content;
+        width: 100%;
+    }
+
+    .demographicsHeader {
+        padding-top: 110px;
+        position: absolute;
+        z-index: 1000;
+        height: fit-content;
+        width: 60%;
+        right: 0;
+    }
+
+    .mobileHeader {
+        position: absolute;
+        z-index: 1000;
+        height: fit-content;
+        width: 80%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        display: none;
+        margin-top: 5%;
+        padding-top: 110px;
+    }
+
+    // Mountains
+    .piCaveContainer {
+        position: relative;
+        height: fit-content;
+        width: 100%;
+    }
+
+    .backMountain {
+        padding-top: 150px;
+        position: absolute;
+        height: fit-content;
+        width: 100%;
+        z-index: 0;
+    }
+
+    .cave {
+        position: relative;
+        height: fit-content;
+        width: 100%;
+        z-index: 3;
+        padding-top: 150px;
+    }
+
+    .mobileCave {
+        height: fit-content;
+        width: 100%;
+        z-index: 3;
+        display: none;
+        padding-top: 150px;
+    }
+
+    .mascot {
+        position: absolute;
+        width: 15%;
+        height: fit-content;
+        z-index: 1000;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        margin-top: 13%;
+        padding-top: 150px;
+
+        @media screen and (max-width: 768px) {
+            width: 30%;
+            margin-top: 20%;
+            margin-left: 60%;
+        }
+    }
+
+    // Form
+    .piForm {
+        z-index: 3;
+        overflow: visible;
+        position: absolute;
+        height: fit-content;
+        width: 60%;
+        top: 40%;
+        left: 50%; // 50% from the left of the viewport
+        transform: translateX(-50%); // to center the element
+        justify-content: center;
+        align-items: center;
+
+        @media (max-width: 1200px) {
+            overflow: auto;
+        }
+
+        @media (max-height: 950px) and (max-width: 768px){
+            top: 45%;
+            max-height: 70vh;
+            width: 80%;
+
+        }
+        
+    }
+
+    @media screen and (max-width: 768px) {
+        .mobileHeader {
+            display: block;
+        }
+        .mobileCave {
+            display: block;
+        }
+        .demographicsHeader {
+            display: none;
+        }
+        .cave {
+            display: none;
+        }
+    }
+}
+
+.education {
+    --text-color: #ead1d0;
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin: 0;
+
+    // Headers
+    .eduHeader {
+        position: relative;
+        height: fit-content;
+        width: 100%;
+    }
+
+    .demographicsHeader2 {
+        position: absolute;
+        z-index: -1;
+        height: fit-content;
+        width: 60%;
+        margin-top: 7%;
+        margin-left: 2%;
+
+        @media screen and (max-width: 768px) {
+            margin-top: 20%;
+            left:0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    // Caves
+    .eduCaveContainer {
+        position: relative;
+        height: fit-content;
+        // min-height: 120vh;
+        width: 100%;
+    }
+
+    .lab {
+        position: absolute;
+        z-index: -2;
+        height: fit-content;
+        width: 55%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        margin-top: 22%;
+
+        @media (max-width: 768px) {
+            margin-top: 33%;
+            width: 80%;
+        }
+    }
+
+    .rabbit {
+        position: absolute;
+        height: fit-content;
+        width: 20%;
+        margin-top: 200%;
+        left: 40%;
+        @media (max-width: 768px) {
+            left: 80%;
+            width: 30%;
+            margin-top: 240%;
+            transform: rotate(-20deg);
+        }
+    }
+
+    .upperCave {
+        position: absolute;
+        height: fit-content;
+        transform-origin: top;
+        transform: scaleY(0.7);
+        width: 100%;
+        z-index: -4;
+
+        @media screen and (max-width: 768px) {
+            transform: scaleY(1);
+        }
+    }
+
+    .iceCave {
+        margin-top: 40%;
+        z-index: -5;
+        position: relative;
+        height: fit-content;
+        width: 100%;
+
+        @media screen and (max-width: 768px) {
+            margin-top: 80%;
+        }
+    }
+
+    // Form
+    .eduForm {
+        z-index: 3;
+        overflow: auto;
+        position: absolute;
+        height: fit-content;
+        width: 60%;
+        left: 50%; // 50% from the left of the viewport
+        transform: translateX(-50%); // to center the element
+        justify-content: center;
+        align-items: center;
+        top: 40%;
+        margin-top: 15%; // todo: position based on screen width
+        margin-bottom: 80%; // todo: bottom controls how far the image scretches down
+        
+        @media (max-height: 950px) and (max-width: 768px) {
+            margin-top: 10%;
+            max-height: 70vh;
+            width: 80%;
+        }
+        
+    }    
+}
+
+.experience {
+    background: #266E83;
+    --text-color: #1a3522;
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin: 0;
+
+    @media  (max-width: 600px) {
+        --text-color: #FFFFFF;
+    }
+
+    // Headers
+    .hsHeader {
+        position: relative;
+        height: fit-content;
+        width: 100%;
+    }
+
+    .hackspecificHeader {
+        position: absolute;
+        z-index: 3;
+        height: fit-content;
+        width: 60%;
+        margin-top: 13%;
+        margin-left: 4%;
+
+        @media screen and (max-width: 600px) {
+            margin-top: 15%;
+            width: 80%;
+        }
+        @media screen and (max-width: 350px) {
+            margin-top: 25%;
+        }
+    }
+
+    // Forest
+    .hsForestContainer {
+        position: relative;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+
+        @media screen and (max-width: 600px) {
+            margin-top: 10%;
+        }
+    }
+
+    .forest {
+        position: absolute;
+        height: fit-content;
+        transform-origin: top;
+        transform: scaleY(0.5);
+        width: 100%;
+        z-index: 2;
+
+        @media screen and (max-width: 600px) {
+            transform: scaleY(1);
+        }
+    }
+
+    .rivergrass {
+        position: relative;
+        height: fit-content;
+        width: 100%;
+        z-index: 2;
+        margin-top: 55%;
+
+        @media screen and (max-width: 600px) {
+            display: none;
+            
+        }
+    }
+
+    .mobilerivergrass {
+        display: none;
+        @media screen and (max-width: 600px) {
+            display: block;
+            position: relative;
+            height: fit-content;
+            width: 100%;
+            z-index: 3;
+            margin-top: 125%;
+        }
+
+    }
+
+    .mascot {
+        position: absolute;
+        width: 15%;
+        height: fit-content;
+        z-index: 2;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        margin-top: 30%;
+
+        @media screen and (max-width: 600px) {
+            width: 20%;
+            margin-top: 75%;
+            left: 30%;
+            right: 70%;
+        }
+    }
+
+    // Form
+    .hsForm {
+        z-index: 5;
+        position: absolute;
+        height: fit-content;
+        width: 60%;
+        left: 50%; // 50% from the left of the viewport
+        margin-top: 80%; // 50% from the top of the viewport
+        transform: translateX(-50%); // to center the element
+        justify-content: center;
+        align-items: center;
+        overflow: auto;
+        
+        @media (max-height: 1400px) and (max-width: 912px){
+            max-height: 90vh;
+        }
+        @media (max-width: 1024px) and (max-height: 1366px) {
+            max-height: 100vh;
+            width: 80%;
+        }
+        @media (max-height: 950px) and (max-width: 768px) {
+            margin-top: 150%;
+            max-height: 100vh;
+            width: 80%;
+        }
+
+       
+    
+        
+    }
+}
+
+
+.hackspecificp2 {
+    background: linear-gradient(
+        to bottom,
+        #5D639C 0%,
+        #5D639C 50%,
+        #1A494B 50%,
+        #1A494B 100%
+    );
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+    --text-color: #ffffff;
+    min-height: 100vh;
+
+    .header {
+        position: absolute;
+        z-index: 3;
+        height: fit-content;
+        width: 70%;
+        left: 5%;
+        margin-top: 3%;
+        
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+    }
+
+    .mobileheader {
+        display: none;
+        @media screen and (max-width: 768px) {
+            display: block;
+            position: absolute;
+            z-index: 3;
+            height: fit-content;
+            width: 70%;
+            left: 5%;
+            margin-top: 15%;
+        }
+    }
+
+    .background2 {
+        margin-top: 5%;
+        position: relative;
+        width: 100%;
+        height: fit-content;
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+    }
+
+    .mobilebackground2 {
+        display: none;
+        @media screen and (max-width: 768px) {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: fit-content;
+        }
+    }
+
+    .backgroundContainer {
+        position: relative;
+        width: 100%;
+        height: fit-content;
+    }
+
+    .hsForm2 {
+        z-index: 5;
+        position: absolute;
+        height: fit-content;
+        width: 70%;
+        margin-top: 35%;
+        justify-content: center;
+        align-items: center;
+        overflow: auto;
+        
+        @media (min-height: 800px) and (max-width: 850px) {
+            font-size: 1.4em;
+            margin-top: 40%;
+        }
+        @media (max-height: 950px) and (max-width: 768px) {
+            margin-top: 60%;
+            max-height: 100vh;
+            width: 80%;
+        }
+
+        
+    }
+}
+
+.review {
+    background: #004561;
+    width: 100%;
+    position: relative;
+    margin: 0;
+    height: 100vh;
+    .background {
+        position: absolute;
+        height: fit-content;
+        width: 100vw;
+        bottom: 0;
+    }
+
+    .castle {
+        position: absolute;
+        height: fit-content;
+        width: 25%;
+        z-index: 2;
+        right: 0;
+        bottom: 0;
+
+        @media screen and (max-width: 600px) {
+            display: none;
+        }
+    }
+
+    .dragon {
+        position: absolute;
+        height: fit-content;
+        width: 25%;
+        z-index: 2;
+        right: 0;
+        bottom: 0;
+        margin-bottom: 20%;
+
+        @media screen and (max-width: 600px) {
+            display: none;
+        }
+    }
+    
+    .header {
+        position: absolute;
+        margin-top: 8%;
+        z-index: 4;
+        margin-left: 2%;
+        width: 65%;
+        @media screen and (max-width: 600px) {
+            margin-top: 20%;
+            width: 70%;
+            height: fit-content;
+            margin-left: 10%;
+        }
+        @media screen and (max-width: 400px) {
+            margin-top: 30%;
+            height: fit-content;
+        }
+    }
+
+    .sky {
+        position: absolute;
+        right: 0;
+        width: 80%;
+        @media screen and (max-width: 600px) {
+            margin-top: 30%;
+            width: 100%;
+            height: fit-content;
+        }
+    }
+
+    .mountain {
+        position: absolute;
+        bottom: 0;
+        z-index: 1;
+        width: 100%;
+        height: fit-content;
+
+        @media screen and (max-width: 600px) {
+            margin-top: 70%;
+            top: 0%;
+            z-index: 0;
+            width: 100%;
+            transform-origin: bottom;
+            transform: scaleY(0.6);
+            left: 0;
+            
+        }
+    }
+
+    .reviewForm {
+        position: absolute;
+        z-index: 5;
+        top: 50%;
+        margin: auto;
+        margin-left: 10%;
+    }
+}
+
+.finish {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: scroll;
+
+    .logo {
+        display: block;
+        position: static;
+        height: 50%;
+
+        img {
+            height: 100%;
+            margin: 0 auto;
+            display: block;
+        }
+    }
+
+    .headline {
+        color: #f99557;
+        width: 100%;
+        text-align: center;
+        font-size: 50px;
+        font-weight: 700;
+    }
+
+    .text {
+        text-align: center;
+        color: #f6f4d4;
+        font-size: 1.5em;
+        transform: translateY(-20px);
+
+        a {
+            color: #f99557;
+        }
+    }
+
+    .homeButton {
+        display: flex;
+        justify-content: flex-end;
+
+        margin: 10px auto;
+    }
+}
+
+.start {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+
+    .startBackground {
+        position: absolute;
+        bottom: 0px;
+        width: 100vw;
+        height: fit-content;
+        transform: translateY(2rem);
+    } 
+    
+    .heroImageWrapper {
+        // padding-top: 40%;
+        top: 100px;
+        margin: auto;
+        z-index: 1;
+        width: 552px;
+        height: 252px;
+        position: relative;
+        img {
+            object-fit: contain;
+        }
+        @media screen and (max-width: 1440px) {
+            height: 252px;
+        }
+        @media screen and (max-width: 1152px) {
+            height: 222px;
+        }
+        @media screen and (max-width: 960px) {
+            height: 162px;
+        }
+        @media screen and (max-width: 640px) {
+            height: 120px;
+            width: 400px;
+        }
+    }
+
+    .shieldContainer {
+        position: relative;
+        z-index: 3;
+        margin: auto;
+        width: 100vw;
+        min-height: 75vh;
+        
+
+        h2 {
+            position: relative;
+            z-index: 4;
+            margin: auto;
+            text-align: center;
+        }
+
+        .link {
+            position: relative;
+            margin: auto;
+            text-align: center;
+            z-index: 5;
+            padding-bottom: 15px;
+            text-decoration: underline;
+        }
+
+        .contents {
+            position: relative;
+            z-index: 6;
+            transform: translateY(70%);
+
+            @media screen and (max-width: 900px) {
+                transform: translateY(100%);
+            }
+        }
+
+        .shield {
+            z-index: 1;
+            object-fit: contain;
+            width: fit-content;
+            height: auto;
+            transform: scale(1.1);
+            
+            @media screen and (max-width: 660px) {
+                transform: scale(1.4);
+            }
+           
+        }
+
+
+        .heroButtonsWrapper {
+            position: relative;
+            margin: auto;
+            z-index: 3;
+            width: fit-content;
+            height: 100px;
+
+            @media screen and (max-width: 960px) {
+                height: 70px;
+            }
+        
+            &:hover {
+                .genButton {
+                    background-color: rgba(217, 147, 27);
+                }
+        
+                transform: translateY(8px);
+                .genButton::after, .knightButton::after {
+                    top: 0px;
+                }
+                @media screen and (max-width: 1440px) {
+                    transform: translateY(6px);
+                    .genButton::after, .knightButton::after {
+                        top: 2px;
+                    }
+                }
+                @media screen and (max-width: 1152px) {
+                    transform: translateY(4px);
+                    .genButton::after, .knightButton::after {
+                        top: 12px;
+                    }
+                }
+                @media screen and (max-width: 960px) {
+                }
+                @media screen and (max-width: 640px) {
+                    transform: translateY(4px);
+                    .genButton::after, .knightButton::after {
+                        top: 2px;
+                    }
+                }
+            }
+        }
+        
+        .genButton {
+            background-color: $logo-secondary;
+            border-color: $logo-primary;
+            position: relative;
+            border-style: solid;
+        
+            &::after {
+                content: "";
+                display: block;
+                width: 280px;
+                height: 70px;
+        
+                border-radius: 32px;
+                background-color: $logo-thirdary;
+        
+                z-index: -1;
+                position: absolute;
+                left: -8px;
+                top: 8px;
+            }
+        
+            @media screen and (max-width: 1440px) {
+                width: 240px;
+                height: 78px;
+                font-size: 26px;
+                border-width: 6px;
+                border-radius: 20px;
+        
+                &::after {
+                    width: 240px;
+                    height: 78px;
+        
+                    border-radius: 20px;
+        
+                    left: -6px;
+                    top: 8px;
+                }
+            }
+            @media screen and (max-width: 1152px) {
+                width: 160px;
+                height: 70px;
+                font-size: 22px;
+                border-width: 4px;
+                border-radius: 20px;
+        
+                &::after {
+                    width: 160px;
+                    height: 60px;
+                    border-radius: 20px;
+                    left: -4px;
+                    top: 16px;
+                }
+            }
+            @media screen and (max-width: 960px) {
+                font-size: 20px;
+            }
+            @media screen and (max-width: 640px) {
+                width: 200px;
+                height: 60px;
+                font-size: 18px;
+                border-width: 4px;
+                border-radius: 20px;
+        
+                &::after {
+                    width: 200px;
+                    height: 60px;
+        
+                    border-radius: 20px;
+        
+                    left: -4px;
+                    top: 6px;
+                }
+            }
+        
+            color: rgb(117, 50, 20);
+            width: 280px;
+            height: 70px;
+            border-radius: 32px;
+            border-width: 8px;
+            font-size: 26px;
+            font-weight: 700;
+        }
+    }
+
+
+    .knightButton {
+        background-color: #2E325C;
+        border-color: #212338;
+        position: relative;
+        border-style: solid;
+    
+        &::after {
+            content: "";
+            display: block;
+            width: 280px;
+            height: 70px;
+    
+            border-radius: 32px;
+            background-color: #212338;
+    
+            z-index: -1;
+            position: absolute;
+            left: -8px;
+            top: 8px;
+        }
+    
+        @media screen and (max-width: 1440px) {
+            width: 240px;
+            height: 78px;
+            font-size: 26px;
+            border-width: 6px;
+            border-radius: 20px;
+    
+            &::after {
+                width: 240px;
+                height: 78px;
+    
+                border-radius: 20px;
+    
+                left: -6px;
+                top: 8px;
+            }
+        }
+        @media screen and (max-width: 1152px) {
+            width: 160px;
+            height: 70px;
+            font-size: 22px;
+            border-width: 4px;
+            border-radius: 20px;
+    
+            &::after {
+                width: 160px;
+                height: 60px;
+                border-radius: 20px;
+                left: -4px;
+                top: 16px;
+            }
+        }
+        @media screen and (max-width: 960px) {
+            font-size: 20px;
+        }
+        @media screen and (max-width: 640px) {
+            width: 200px;
+            height: 60px;
+            font-size: 18px;
+            border-width: 4px;
+            border-radius: 20px;
+    
+            &::after {
+                width: 200px;
+                height: 60px;
+    
+                border-radius: 20px;
+    
+                left: -4px;
+                top: 6px;
+            }
+        }
+    
+        color: white;
+        width: 280px;
+        height: 70px;
+        border-radius: 32px;
+        border-width: 8px;
+        font-size: 26px;
+        font-weight: 700;
+    }
+}
+
+
+.complete {
+    background-color: #414674;
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+
+
+    .completeBackground {
+        position: absolute;
+        bottom: 0px;
+        width: 100vw;
+        height: fit-content;
+        z-index: 1;
+    }
+
+    .completeContainer {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        margin: auto;
+        width: 100vw;
+        z-index: 5;
+
+        @media  screen and (max-width: 768px) {
+            flex-direction: column;  
+            padding-top: 10vh; 
+        }
+
+
+        .completeCol1 {
+            position: relative;
+            margin: auto;
+
+            h1 {
+                font-size: 72px;
+                color: #FEEEFF;
+
+                @media  screen and (max-width: 768px) {
+                    font-size: 48px;   
+                }
+            }
+
+            h2 {
+                font-size: 32px;
+                color: #FEEEFF;
+            } 
+
+            p {
+                padding-top: 15px;
+                width: 20vw;
+                font-weight: 300;
+
+                @media  screen and (max-width: 768px) {
+                    width: 80vw;   
+                }
+            }
+
+            .completeSubContainer {
+
+            }
+
+        }
+
+        .completeCol2 {
+            position: relative;
+            margin: auto;
+            width: 40vw;
+            align-items: center;
+            align-self: center;
+            justify-content: center;
+
+            @media  screen and (max-width: 768px) {
+                width: 80vw;   
+            }
+
+            .completeScroll {
+                @media  screen and (max-width: 768px) {
+                    transform: scale(0.6);
+                }
+            }
+
+            .button {
+                transform: scale(0.7);
+                margin: auto;
+                padding-bottom: 5px;
+                cursor: pointer;
+                align-items: center;
+                align-self: center;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+
+
+
+.resume-upload {
+    color: white;
+}

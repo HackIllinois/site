@@ -1,1 +1,1 @@
-export const button_text = "Coming Soon";
+export const button_text = "Coming Soon!";

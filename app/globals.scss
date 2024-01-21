@@ -90,6 +90,7 @@ body {
     color: rgb(var(--foreground-rgb));
     background-color: #5b619b;
     overflow: clip;
+    padding-right: 0 !important;
 }
 
 a {
@@ -128,6 +129,15 @@ button,
 input {
     /* 1 */
     overflow: visible;
+}
+
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.5rem;
 }
 
 // @media screen and (max-width: 640px) {

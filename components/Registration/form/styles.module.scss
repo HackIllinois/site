@@ -1,0 +1,45 @@
+// @import 'common.scss';
+
+.container {
+    position: relative;
+    background-size: auto 100%;
+    background-position: center top;
+    background-repeat: no-repeat;
+    height: 100%;
+
+    display: inline-block;
+
+}
+
+.buttons {
+    display: flex;
+    position: absolute;
+    z-index: 5;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    
+    width: 100%;
+    bottom: 0%;
+    margin: 20px auto;
+
+    // 
+}
+
+.singlebutton {
+    position: relative;
+    width: 50%;
+    height: fit-content;
+    margin: 0 auto;
+    @media (max-width: 500px) {
+        width: 50%;
+    }
+}
+.button {
+    width: 50%;
+    height: fit-content;
+    margin: 0 auto;
+    @media (max-width: 500px) {
+        width: 80%;
+    }
+}

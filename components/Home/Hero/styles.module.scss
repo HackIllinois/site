@@ -25,7 +25,8 @@
 }
 
 @keyframes scaleUpDown {
-    0%, 100% {
+    0%,
+    100% {
         transform: scale(1); /* Normal scale */
     }
     50% {
@@ -91,7 +92,6 @@
             }
         }
     }
-
 }
 
 .heroButton {
@@ -105,7 +105,7 @@
     &::after {
         content: "";
         display: block;
-        width: 390px;
+        width: 290px;
         height: 90px;
 
         border-radius: 32px;
@@ -118,14 +118,14 @@
     }
 
     @media screen and (max-width: 1440px) {
-        width: 340px;
+        width: 240px;
         height: 78px;
         font-size: 26px;
         border-width: 6px;
         border-radius: 20px;
 
         &::after {
-            width: 340px;
+            width: 240px;
             height: 78px;
 
             border-radius: 20px;
@@ -169,7 +169,7 @@
         }
     }
 
-    width: 390px;
+    width: 290px;
     height: 90px;
     border-radius: 32px;
     border-width: 8px;

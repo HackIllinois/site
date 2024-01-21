@@ -1,0 +1,39 @@
+.checkboxLabel {
+    display: block;
+    position: relative;
+
+    padding-left: 1.95em;
+    margin: var(--checkbox-margin, 15px) 0;
+    color: #ffffff;
+
+    font-size: 1.25em;
+    z-index: 0;
+    cursor: pointer;
+    width: 50%;
+    min-height: 40%;
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+
+        width: 1.25em;
+        height: 1.25em;
+
+        border: 2px solid #fea3aa;
+
+        border-radius: 0.25em;
+    }
+
+    &:active::before,
+    &.checked::before {
+        background-color: #fea3aa;
+    }
+
+    .checkbox {
+        position: absolute;
+        left: -9999px;
+    }
+}

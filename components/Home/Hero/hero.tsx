@@ -14,7 +14,8 @@ const Hero: React.FC = () => {
     const handleClick = () => {
         setClickCount(clickCount + 1);
         if (clickCount + 1 === 10) {
-            window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; // Replace with your external link
+            window.location.href =
+                "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; // Replace with your external link
         }
     };
     return (
@@ -28,7 +29,9 @@ const Hero: React.FC = () => {
                     />
                 </div>
                 <div className={styles.heroButtonWrapper}>
-                    <button className={styles.heroButton} onClick={handleClick}>{button_text}</button>
+                    <button className={styles.heroButton} onClick={handleClick}>
+                        {button_text}
+                    </button>
                 </div>
             </div>
             <div className={styles.villageWrapper}>

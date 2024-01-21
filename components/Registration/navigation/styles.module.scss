@@ -1,0 +1,181 @@
+.ovenLights {
+    position: absolute;
+    top: 78vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    z-index: 5;
+    align-content: center;
+    width: 30vw;
+    max-width: 40vw;
+    min-width: 1075px;
+    align-self: center;
+    margin: auto;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @media (max-width: 1200px) {
+        // display: none;
+        min-width: 100vw;
+        background-color: #fcdc8f;
+        // transform: translateY(0.1vh);
+        bottom: 0vh;
+    }
+
+    @media (max-height: 700px) {
+        top: auto;
+        bottom: 0%;
+        background-color: #fcdc8f;
+        min-width: 100%;
+        max-height: 20vh;
+    }
+
+    @media (max-width: 700px) and (max-height: 750px) {
+        flex-wrap: nowrap;
+    }
+
+    // @media (max-height: 600px) {
+    //   // top: 40vw;
+    //   min-width: 120vh;
+    // //   left: 42vw;
+    // //   transform: scale(0.8) translateX(-50%);
+    // //   width: 75vw;
+    // //   margin: auto;
+    // }
+
+    .lightGroup {
+        text-align: center;
+        margin: auto;
+        .activeMole {
+            width: 95px;
+            height: 106px;
+            // width: auto;
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+            transform: translateY(-30%);
+            @media (max-width: 700px) {
+                width: 18vw;
+                // max-height: 23vw;
+            }
+        }
+        .inactiveMole {
+            width: 95px;
+            height: 106px;
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+            // transform: translateY(-1.5px);
+            @media (max-width: 700px) {
+                width: 18vw;
+                // max-height: 23vw;
+            }
+        }
+        .hole {
+            width: 95px;
+            height: 106px;
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+            // transform: translateY(3px);
+            @media (max-width: 700px) {
+                width: 18vw;
+                // max-height: 23vw;
+                // margin-left: 0%;
+            }
+        }
+        margin: auto;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &.disabled {
+            cursor: default;
+        }
+
+        @media (max-width: 700px) {
+            width: 40vw;
+            height: 10vh;
+            transform: translateX(0vw) translateY(-0vh);
+        }
+
+        @media (max-width: 600px) and (max-height: 750px) {
+            width: 20vw;
+            transform: translateX(0vw);
+        }
+    }
+
+    p {
+        /* Figma Based */
+        color: #10689a;
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+        /* identical to box height */
+
+        // display: flex;
+        // align-items: center;
+        // text-align: center;
+        // text-transform: capitalize;
+        /* Figma Unbased */
+
+        text-align: center;
+        margin-top: 5px;
+        font-size: medium;
+        width: 148px;
+        // height: 25px;
+    }
+
+    .selectedText {
+        transform: translateY(-38.5px);
+        @media (max-height: 750px) {
+            transform: translateY(-50.5px);
+        }
+        @media (max-width: 700px) and (min-height: 750px) {
+            transform: translateY(-45.5px);
+            width: 40vw;
+            left: auto;
+            right: 0;
+            font-size: 3vw;
+        }
+        @media (max-width: 600px) and (max-height: 750px) {
+            width: 20vw;
+            font-size: 2vw;
+        }
+        @media (max-width: 500px) and (max-height: 750px) {
+            visibility: hidden;
+        }
+    }
+
+    .text {
+        --size: 30px;
+        font-size: var(--size);
+        font-family: Montserrat, sans-serif;
+        transform: translateX(calc((16px - var(--size)) * var(--length) * 0.3));
+
+        @media (max-width: 1000px) {
+            --size: 17.5px;
+        }
+        @media (max-width: 900px) {
+            --size: 19px;
+        }
+
+        @media (min-width: 1100px) {
+            --size: 15px;
+        }
+        @media (min-width: 1200px) {
+            --size: 14px;
+        }
+        @media (min-width: 1300px) {
+            --size: 13px;
+        }
+        @media (min-width: 1400px) {
+            --size: 12px;
+        }
+    }
+
+    .disabled {
+        pointer-events: none;
+    }
+}
