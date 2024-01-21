@@ -39,6 +39,7 @@ import {
 import { RSVPSteps } from "@/components/Profile/modal-views/rsvp-steps";
 import { avatars } from "@/components/Profile/avatars";
 import { useRouter } from "next/router";
+import { set } from "zod";
 
 const Some: React.FC = () => {
     const { isModalOpen, closeModal, openModal } = useModal();
@@ -96,25 +97,25 @@ const Some: React.FC = () => {
             authenticate(window.location.href);
         }
 
-        // TODO: do some try catch?
-        (async () => {
-            // TOOD: Promise.all
-            setLoading(true);
-            const profile = await getProfile();
-            if (profile === null) window.location.pathname = "/register";
+        setLoading(true);
 
-            // setProfileState(profile);
+        getProfile()
+            .then(profile => {
+                if (profile === null) window.location.pathname = "/register";
+            })
+            .then(() => {
+                getUser().then(user => {
+                    setUser(user);
+                });
+                getRSVP().then(rsvp => {
+                    setRSVP(rsvp);
 
-            const user = await getUser();
-            setUser(user);
-            const RSVP = await getRSVP();
-            setRSVP(RSVP);
-            setLoading(false);
-
-            RSVP.status === "ACCEPTED" &&
-                RSVP.response === "PENDING" &&
-                openModal();
-        })();
+                    rsvp.status === "ACCEPTED" &&
+                        rsvp.response === "PENDING" &&
+                        openModal();
+                });
+                setLoading(false);
+            });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
