@@ -68,11 +68,14 @@ const Some: React.FC = () => {
 
             const RSVP = await getRSVP();
             setRSVP(RSVP);
-        })();
-        setLoading(false);
 
-        openModal();
-    }, []);
+            setLoading(false);
+
+            RSVP.status === "ACCEPTED" &&
+                RSVP.response === "PENDING" &&
+                openModal();
+        })();
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (RSVP?.admittedPro) return;
@@ -89,7 +92,6 @@ const Some: React.FC = () => {
         <section className={styles.dashboard}>
             <ModalOverlay isOpen={isModalOpen} onClose={closeModal}>
                 {(() => {
-                    // uncomment when certain where this belongs in flow
                     if (RSVP?.response === "ACCEPTED") {
                         return (
                             <RSVPSteps
