@@ -6,7 +6,7 @@ import MobileBookshelfSvg from "@/public/profile/mobile-bookshelf.svg";
 import BookshelfProps from "@/public/profile/bookshelf-props.svg";
 import NameBook from "@/public/profile/name-book.svg";
 import RSVPButton from "@/public/profile/rsvp-button.svg";
-import styles from "@/components/profile/profile.module.scss";
+import styles from "@/components/Profile/profile.module.scss";
 import { DecisionResponse, DecisionStatus } from "@/utils/types";
 
 type Props = {
