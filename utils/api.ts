@@ -1,7 +1,11 @@
 import {
     MethodType,
     RegistrationType,
-    RegistrationRole,
+    ProfileType,
+    RSVPDecisionType,
+    RSVPType,
+    UserType,
+    ProfileBodyType,
     WithId,
     FileType,
     RefreshTokenResType
@@ -80,7 +84,10 @@ export const isAuthenticated = (): string | null =>
 
 export function authenticate(to: string): void {
     if (process.env.NEXT_PUBLIC_REACT_APP_TOKEN) {
-        sessionStorage.setItem("token", process.env.NEXT_PUBLIC_REACT_APP_TOKEN);
+        sessionStorage.setItem(
+            "token",
+            process.env.NEXT_PUBLIC_REACT_APP_TOKEN
+        );
     } else {
         sessionStorage.setItem("to", to);
         to = `${APIv2}/auth/login/github/?device=web`;
@@ -170,4 +177,28 @@ export function refreshToken(): Promise<void> {
     return request("GET", "/auth/token/refresh/").then(
         (res: RefreshTokenResType) => sessionStorage.setItem("token", res.token)
     );
+}
+
+export function getProfile(): Promise<ProfileType> {
+    return request("GET", "/profile");
+}
+
+export function setProfile(body: ProfileBodyType): Promise<ProfileType> {
+    return request("POST", "/profile", body);
+}
+
+export function getUser(): Promise<UserType> {
+    return request("GET", "/user");
+}
+
+export function getRSVP(): Promise<RSVPType> {
+    return request("GET", "/admission/rsvp");
+}
+
+export function rsvpAccept(): Promise<RSVPDecisionType> {
+    return request("PUT", "/admission/rsvp/accept");
+}
+
+export function rsvpDecline(): Promise<RSVPDecisionType> {
+    return request("PUT", "/admission/rsvp/decline");
 }

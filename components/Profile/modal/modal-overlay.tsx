@@ -2,7 +2,7 @@
 
 import { MouseEvent, ReactNode } from "react";
 import { CloseIcon } from "../icons";
-import styles from "@/components/profile/modal/modal.module.scss";
+import styles from "@/components/Profile/modal/modal.module.scss";
 
 type Props = {
     children: ReactNode;

@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "@/components/profile/modal-views/modal-views.module.scss";
+import styles from "@/components/Profile/modal-views/modal-views.module.scss";
 import Image from "next/image";
 import { BoldFont, SubmitButton } from ".";
 import { avatars } from "../avatars";

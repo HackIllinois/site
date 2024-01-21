@@ -19,7 +19,7 @@ const Complete = () => {
                 </div>
                 <div className={styles.completeCol2}>
                     <Image src={scroll} className={styles.completeScroll} alt="scroll" />
-                    <Button className={styles.button} onClick={() => window.location.pathname = "/"}><Image src={button} alt="submit button"/></Button>
+                    <Button className={styles.button} onClick={() => window.location.pathname = "/profile"}><Image src={button} alt="submit button"/></Button>
                 </div>
             </div>
             <Image src={background} className={styles.completeBackground} alt="complete" />

@@ -1,5 +1,5 @@
 import { ReactNode, SVGProps } from "react";
-import styles from "@/components/profile/modal-views/modal-views.module.scss";
+import styles from "@/components/Profile/modal-views/modal-views.module.scss";
 import MobileConfirmButton from "@/public/profile/mobile-confirm-button.svg";
 import MobileDeclineButton from "@/public/profile/mobile-decline-button.svg";
 import Image from "next/image";

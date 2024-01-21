@@ -112,7 +112,7 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
 
     useEffect(() => {
         getRoles().then((roles) => {
-            if (!roles.includes("TESTER")) {
+            if (!roles ||!roles.includes("TESTER")) {
                 window.location.pathname = "/";
                 return;
             }
@@ -194,7 +194,7 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
         window.scrollTo(0, 0); // scroll to the top of the page
     }
 
-    var props = {formIndex: formIndex, setFormIndex: setFormIndex, isKnight: isKnight};
+    var props = {formIndex: formIndex, setFormIndex: setFormIndex, isKnight: isKnight, isLoading: isLoading};
 
     return (
         <div className={styles.container}>
