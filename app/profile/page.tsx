@@ -18,6 +18,7 @@ import {
     getRegistration,
     getUser,
     isAuthenticated,
+    isRegistered,
     rsvpAccept,
     rsvpDecline,
     setProfile
@@ -39,6 +40,7 @@ import {
 import { RSVPSteps } from "@/components/Profile/modal-views/rsvp-steps";
 import { avatars } from "@/components/Profile/avatars";
 import { useRouter } from "next/router";
+import { set } from "zod";
 
 const Some: React.FC = () => {
     const { isModalOpen, closeModal, openModal } = useModal();
@@ -96,25 +98,23 @@ const Some: React.FC = () => {
             authenticate(window.location.href);
         }
 
-        // TODO: do some try catch?
-        (async () => {
-            // TOOD: Promise.all
-            setLoading(true);
-            const profile = await getProfile();
-            if (profile === null) window.location.pathname = "/register";
+        setLoading(true);
 
-            // setProfileState(profile);
+        isRegistered()
+            .then(isRegistered => {
+                if (!isRegistered) window.location.pathname = "/register";
+            })
+            .then(() => {
+                getUser().then(user => {
+                    setUser(user);
+                });
+                getRSVP().then(rsvp => {
+                    setRSVP(rsvp);
 
-            const user = await getUser();
-            setUser(user);
-            const RSVP = await getRSVP();
-            setRSVP(RSVP);
-            setLoading(false);
-
-            RSVP.status === "ACCEPTED" &&
-                RSVP.response === "PENDING" &&
-                openModal();
-        })();
+                    if (rsvp.status === "ACCEPTED" && rsvp.response === "PENDING") openModal();
+                });
+                setLoading(false);
+            });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
@@ -169,10 +169,11 @@ const Some: React.FC = () => {
                                 );
                             }
                         }
-                    } else if (RSVP?.status === "REJECTED") {
+                    } else if (RSVP?.status === "REJECTED" || RSVP?.status === "WAITLISTED") {
                         return <Rejected handleOk={() => closeModal()} />;
                     } else {
-                        // "WAITLISTED" | "TBD";
+                        // "TBD";
+                        return <p>Your application is in review!</p>
                     }
                 })()}
             </ModalOverlay>

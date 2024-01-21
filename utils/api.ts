@@ -180,7 +180,7 @@ export function refreshToken(): Promise<void> {
 }
 
 export function getProfile(): Promise<ProfileType> {
-    return request("GET", "/profile");
+    return request("GET", "/profile").catch(() => null);
 }
 
 export function setProfile(body: ProfileBodyType): Promise<ProfileType> {
