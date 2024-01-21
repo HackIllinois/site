@@ -89,7 +89,7 @@ export function authenticate(to: string): void {
             process.env.NEXT_PUBLIC_REACT_APP_TOKEN
         );
     } else {
-        sessionStorage.setItem("to", to);
+        localStorage.setItem("to", to);
         to = `${APIv2}/auth/login/github/?device=web`;
     }
     window.location.replace(to);
