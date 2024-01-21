@@ -12,9 +12,12 @@ import { Bookshelf } from "@/components/Profile/Bookshelf";
 import { ModalOverlay, useModal } from "@/components/Profile/modal";
 import { useEffect, useState } from "react";
 import {
+    authenticate,
+    getProfile,
     getRSVP,
     getRegistration,
     getUser,
+    isAuthenticated,
     rsvpAccept,
     rsvpDecline,
     setProfile
@@ -35,6 +38,7 @@ import {
 } from "@/components/Profile/modal-views";
 import { RSVPSteps } from "@/components/Profile/modal-views/rsvp-steps";
 import { avatars } from "@/components/Profile/avatars";
+import { useRouter } from "next/router";
 
 const Some: React.FC = () => {
     const { isModalOpen, closeModal, openModal } = useModal();
@@ -50,6 +54,7 @@ const Some: React.FC = () => {
         null
     );
     const [loading, setLoading] = useState<boolean>(true);
+    const router = useRouter();
 
     async function handleConfirm() {
         setLoading(true);
@@ -88,10 +93,18 @@ const Some: React.FC = () => {
     }
 
     useEffect(() => {
+        if (!isAuthenticated()) {
+            authenticate(window.location.href);
+        }
+
         // TODO: do some try catch?
         (async () => {
             // TOOD: Promise.all
             setLoading(true);
+            const profile = await getProfile();
+            if (profile === null) router.push("/register");
+            // setProfileState(profile);
+
             const user = await getUser();
             setUser(user);
             const RSVP = await getRSVP();
