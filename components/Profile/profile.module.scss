@@ -64,12 +64,12 @@ $mobile-bookshelf-height: min(90vh, calc(80vw / 759.59 * 1643.58));
 
     // center vertically and horizontally
     transform: translate(-50%, -50%);
-    width: fit-content;
+    width: calc($bookshelf-width / 70 * 20);
     height: fit-content;
 
-    font-size: 40px;
+    font-size: calc($bookshelf-width / 70 * 4);
     font-weight: 700;
-    line-height: 40px;
+    line-height: calc($bookshelf-width / 70 * 4);
     text-align: center;
     color: hsla(25, 28%, 35%, 1);
 }
@@ -83,9 +83,9 @@ $mobile-bookshelf-height: min(90vh, calc(80vw / 759.59 * 1643.58));
     height: fit-content;
     width: calc($mobile-bookshelf-height / 90 * 24);
 
-    font-size: 40px;
+    font-size: calc($mobile-bookshelf-height / 90 * 4);
     font-weight: 700;
-    line-height: 40px;
+    line-height: calc($mobile-bookshelf-height / 90 * 4);
     text-align: center;
     color: hsla(25, 28%, 35%, 1);
 

@@ -19,12 +19,18 @@ import {
     rsvpDecline,
     setProfile
 } from "@/utils/api";
-import { RSVPType, RegistrationType, UserType } from "@/utils/types";
+import {
+    ProfileType,
+    RSVPType,
+    RegistrationType,
+    UserType
+} from "@/utils/types";
 import {
     GeneralAttendeeAccepted,
     HackKnightAccepted,
     HackKnightRejected,
     Questions,
+    RSVPConfirmed,
     Rejected
 } from "@/components/Profile/modal-views";
 import { RSVPSteps } from "@/components/Profile/modal-views/rsvp-steps";
@@ -39,19 +45,26 @@ const Some: React.FC = () => {
     } = useModal();
     const [user, setUser] = useState<UserType | null>(null);
     const [RSVP, setRSVP] = useState<RSVPType | null>(null);
+    const [profile, setProfileState] = useState<ProfileType | null>(null);
     const [registration, setRegistration] = useState<RegistrationType | null>(
         null
     );
     const [loading, setLoading] = useState<boolean>(true);
 
     async function handleConfirm() {
+        setLoading(true);
         const response = await rsvpAccept();
-        // do something with response if failed
+        const updated_rsvp = await getRSVP();
+        setRSVP(updated_rsvp);
+        setLoading(false);
     }
 
     async function handleDecline() {
+        setLoading(true);
         const response = await rsvpDecline();
-        // do something with response if failed
+        const updated_rsvp = await getRSVP();
+        setRSVP(updated_rsvp);
+        setLoading(false);
     }
 
     function onActionClick() {
@@ -59,16 +72,30 @@ const Some: React.FC = () => {
         RSVP?.response === "PENDING" ? openModal() : openQuestionsModal();
     }
 
+    async function handleSubmitProfile(
+        displayName: string,
+        discordTag: string,
+        selectedAvatarIndex: number
+    ) {
+        setLoading(true);
+        const profile_response = await setProfile({
+            displayName: displayName,
+            discordTag: discordTag,
+            avatarId: avatars[selectedAvatarIndex].name
+        });
+        setProfileState(profile_response);
+        setLoading(false);
+    }
+
     useEffect(() => {
         // TODO: do some try catch?
         (async () => {
             // TOOD: Promise.all
+            setLoading(true);
             const user = await getUser();
             setUser(user);
-
             const RSVP = await getRSVP();
             setRSVP(RSVP);
-
             setLoading(false);
 
             RSVP.status === "ACCEPTED" &&
@@ -80,38 +107,26 @@ const Some: React.FC = () => {
     useEffect(() => {
         if (RSVP?.admittedPro) return;
 
-        setLoading(true);
         (async () => {
+            setLoading(true);
             const registration = await getRegistration();
             setRegistration(registration);
+            setLoading(false);
         })();
-        setLoading(false);
     }, [RSVP]);
 
     return (
         <section className={styles.dashboard}>
             <ModalOverlay isOpen={isModalOpen} onClose={closeModal}>
                 {(() => {
-                    if (RSVP?.response === "ACCEPTED") {
-                        return (
-                            <RSVPSteps
-                                handleSubmit={async (
-                                    displayName,
-                                    discordTag,
-                                    selectedAvatarIndex
-                                ) => {
-                                    const response = await setProfile({
-                                        displayName: displayName,
-                                        discordTag: discordTag,
-                                        avatarId:
-                                            avatars[selectedAvatarIndex].name
-                                    });
-                                }}
-                            />
-                        );
-                    }
-
                     if (loading) return "Loading...";
+
+                    if (RSVP?.response === "ACCEPTED") {
+                        if (profile && !(profile instanceof Error))
+                            return <RSVPConfirmed />;
+
+                        return <RSVPSteps handleSubmit={handleSubmitProfile} />;
+                    }
 
                     if (RSVP?.status === "ACCEPTED") {
                         if (RSVP?.admittedPro) {
