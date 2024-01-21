@@ -9,7 +9,7 @@ const Failed = (props: any) => {
             </p>
             <button
                 onClick={() => setShow("challenge")}
-                className={styles.button}
+                className={`${styles.button} ${styles.tryAgainButton}`}
             >
                 <img src="/knights/challenge/try-again-button.svg" />
             </button>
@@ -21,7 +21,7 @@ const Failed = (props: any) => {
                 </p>
             </div>
 
-            <p className={`${styles.text} ${styles.marginTop}`}>
+            <p className={`${styles.text} ${styles.margin}`}>
                 If HackKnight isn’t for you, then click continue to go to
                 Regular attendee registration
             </p>
