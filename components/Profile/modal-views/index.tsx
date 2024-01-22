@@ -328,6 +328,43 @@ export const Rejected = ({ handleOk }: { handleOk: () => void }) => {
     );
 };
 
+export const Waitlisted = ({ handleOk }: { handleOk: () => void }) => {
+    return (
+        <>
+            <BoldFont>
+                {
+                    "Unfortunately, we are not able to offer you a spot at this time. We will reach out if anything changes!"
+                }
+            </BoldFont>
+            <BoldFont>
+                Email us at{" "}
+                <a href="mailto:contact@hackillinois.org">
+                    contact@hackillinois.org
+                </a>{" "}
+                if you have any questions!
+            </BoldFont>
+            <button onClick={handleOk} className={styles.okButton}>
+                <OkButton />
+            </button>
+        </>
+    );
+};
+
+export const TBD = ({ handleOk }: { handleOk: () => void }) => {
+    return (
+        <>
+            <BoldFont>
+                {
+                    "Your application is in Review! We will reach out to you with a decision soon."
+                }
+            </BoldFont>
+            <button onClick={handleOk} className={styles.okButton}>
+                <OkButton />
+            </button>
+        </>
+    );
+};
+
 export const RSVPConfirmed = () => {
     return (
         <>

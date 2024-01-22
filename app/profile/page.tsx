@@ -35,7 +35,9 @@ import {
     HackKnightRejected,
     Questions,
     RSVPConfirmed,
-    Rejected
+    Rejected,
+    TBD,
+    Waitlisted
 } from "@/components/Profile/modal-views";
 import { RSVPSteps } from "@/components/Profile/modal-views/rsvp-steps";
 import { avatars } from "@/components/Profile/avatars";
@@ -169,11 +171,12 @@ const Some: React.FC = () => {
                                 );
                             }
                         }
-                    } else if (RSVP?.status === "REJECTED" || RSVP?.status === "WAITLISTED") {
+                    } else if (RSVP?.status === "REJECTED") {
                         return <Rejected handleOk={() => closeModal()} />;
+                    } else if (RSVP?.status === "WAITLISTED") {
+                        return <Waitlisted handleOk={() => closeModal()} />;
                     } else {
-                        // "TBD";
-                        return <p>Your application is in review!</p>
+                        return <TBD handleOk={() => closeModal()} />;
                     }
                 })()}
             </ModalOverlay>
