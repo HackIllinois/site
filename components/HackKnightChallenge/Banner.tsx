@@ -1,8 +1,15 @@
 "use client";
 import styles from "./Banner.module.scss";
+import { useRouter } from "next/navigation";
 
 const Banner = (props: any) => {
     const { setShow } = props;
+    const router = useRouter();
+
+    const handleRedirect = () => {
+        router.push("/register");
+    };
+
     return (
         <div className={styles.banner}>
             <img src="/knights/challenge/banner.svg" className={styles.image} />
@@ -19,10 +26,14 @@ const Banner = (props: any) => {
                         onClick={() => setShow("challenge")}
                         className={styles.beginButton}
                     >
-                        <img src="/knights/challenge/begin-button.svg" />
+                        <img
+                            src="/knights/challenge/button-bg-gold.svg"
+                            className={styles.buttonBg}
+                        />
+                        <span className={styles.buttonText}>Begin</span>
                     </button>
                     <button
-                        onClick={() => setShow("banner")}
+                        onClick={() => handleRedirect()}
                         className={styles.backButton}
                     >
                         <div>

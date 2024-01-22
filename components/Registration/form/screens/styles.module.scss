@@ -88,6 +88,29 @@
             margin-top: 20px;
         }
     }
+    .text2 {
+        font-size: 1.3em;
+        line-height: 1.5em;
+        margin-top: 25px;
+        color: var(--text-color);
+        font-weight: 600;
+        margin-top: var(--field-margin, 10px);
+        margin-bottom: 0px;
+
+        a {
+            font-weight: 700;
+            color: #46959f;
+            text-decoration: none;
+        }
+
+        b {
+            font-weight: 700;
+        }
+        @media (max-width: 912px) {
+            font-size: 0.8em;
+            margin-top: 20px;
+        }
+    }
     .text::after {
         content: "*";
         color: #fe7098;
@@ -608,7 +631,17 @@
         @media (max-width: 600px) {
             margin-top: 175%;
         }
-    
+        
+        // @media (max-height: 1200px) and (max-width: 850px) {
+        //     margin-top: 135%;
+        // }
+        // @media (max-height: 900px) and (max-width: 600px) {
+        //     font-size: 1.1em;
+
+        //     margin-top: 175%;
+        //     max-height: 100vh;
+        //     width: 80%;
+        // }
 
         
     }
@@ -887,6 +920,7 @@
         }
         
         .genButton {
+            cursor: pointer;
             background-color: $logo-secondary;
             border-color: $logo-primary;
             position: relative;
@@ -976,6 +1010,14 @@
         border-color: #212338;
         position: relative;
         border-style: solid;
+        cursor: pointer;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        align-content: center;
+        align-self: center;
+        justify-content: center;
+        position: relative;
     
         &::after {
             content: "";

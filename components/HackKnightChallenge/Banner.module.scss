@@ -6,25 +6,25 @@
     height: 44rem;
 
     @media screen and (max-width: 1536px) {
-        width: 25rem;
-        height: 32.5rem;
+        width: 24rem;
+        height: 32rem;
     }
 
     @media screen and (max-width: 1280px) {
-        width: 27.5rem;
-        height: 30rem;
+        width: 22rem;
+        height: 28rem;
     }
     @media screen and (max-width: 1024px) {
         width: 25rem;
-        height: 30rem;
+        height: 26rem;
     }
     @media screen and (max-width: 900px) {
         width: 20rem;
-        height: 27.5rem;
+        height: 20rem;
     }
     @media screen and (max-width: 700px) {
-        width: 20rem;
-        height: 25rem;
+        width: 17.5rem;
+        height: 17.5rem;
     }
 
     .image {
@@ -43,37 +43,43 @@
         padding: 0 4rem;
         row-gap: 1rem;
 
+        @media screen and (max-width: 1536px) {
+            row-gap: 0.75rem;
+        }
+
         @media screen and (max-width: 1280px) {
             padding: 0 3.5rem;
             row-gap: 0.75rem;
-            margin: 0 2rem;
         }
         @media screen and (max-width: 1024px) {
             padding: 0 3rem;
+            row-gap: 0.75rem;
         }
         @media screen and (max-width: 900px) {
             padding: 0 2.5rem;
+            row-gap: 0.675rem;
         }
         @media screen and (max-width: 700px) {
             padding: 0 2rem;
+            row-gap: 0.5rem;
         }
 
         .text {
             font-size: 1.75rem;
             @media screen and (max-width: 1536px) {
-                font-size: 1.375rem;
+                font-size: 1.25rem;
             }
             @media screen and (max-width: 1280px) {
-                font-size: 1.25rem;
+                font-size: 1.125rem;
             }
             @media screen and (max-width: 1024px) {
-                font-size: 1.25rem;
+                font-size: 1.0625rem;
             }
             @media screen and (max-width: 900px) {
-                font-size: 1.125rem;
+                font-size: 1rem;
             }
             @media screen and (max-width: 700px) {
-                font-size: 1.125rem;
+                font-size: 1rem;
             }
 
             font-weight: 600;
@@ -82,22 +88,19 @@
         .hackText {
             font-size: 2.5rem;
             @media screen and (max-width: 1536px) {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
             @media screen and (max-width: 1280px) {
-                font-size: 2.5rem;
-            }
-            @media screen and (max-width: 1280px) {
-                font-size: 2.5rem;
+                font-size: 1.75rem;
             }
             @media screen and (max-width: 1024px) {
-                font-size: 2.25rem;
+                font-size: 1.625rem;
             }
             @media screen and (max-width: 900px) {
-                font-size: 2.125rem;
+                font-size: 1.5rem;
             }
             @media screen and (max-width: 700px) {
-                font-size: 2rem;
+                font-size: 1.5rem;
             }
             font-weight: 800;
             .knightText {
@@ -110,14 +113,73 @@
             flex-flow: column nowrap;
             row-gap: 0.75rem;
             align-items: center;
+
             .beginButton {
-                margin-top: 2.5rem; // row-gap of .content will be added on top of this
-                > img {
-                    max-width: 75%;
-                    &:hover {
-                        cursor: pointer;
-                        transform: scale(1.05);
+                position: relative;
+                display: inline-block;
+            //    width: min(25vw, calc(100vw / (1920 / 298)));
+                width: 15.5vw;
+                @media screen and (max-width: 900px) {
+                    width: 25vw;
+                }
+
+                margin-top: 2.5rem;
+                @media screen and (max-width: 1536px) {
+                    margin-top: 2rem;
+                }
+                @media screen and (max-width: 1280px) {
+                    margin-top: 1.75rem;
+                }
+                @media screen and (max-width: 1024px) {
+                    margin-top: 1.625rem;
+                }
+                @media screen and (max-width: 900px) {
+                    margin-top: 1.5rem;
+                }
+                @media screen and (max-width: 700px) {
+                    margin-top: 1.375rem;
+                }
+
+                .buttonBg {
+                    display: block;
+                    margin: 0 auto;
+                    max-width: 100%;
+                    @media screen and (max-width: 1536px) {
+                        max-width: 80%;
                     }
+                    @media screen and (max-width: 1280px) {
+                        max-width: 100%;
+                    }
+                }
+                .buttonText {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    color: #a61e00;
+                    font-size: 1.25rem;
+                    @media screen and (max-width: 1536px) {
+                        font-size: 1.125rem;
+                    }
+                    @media screen and (max-width: 1280px) {
+                        font-size: 1.0625rem;
+                    }
+                    @media screen and (max-width: 1024px) {
+                        font-size: 1rem;
+                    }
+                    @media screen and (max-width: 900px) {
+                        font-size: 1rem;
+                    }
+                    @media screen and (max-width: 700px) {
+                        font-size: 0.875rem;
+                    }
+                    text-align: center;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                }
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.05);
                 }
             }
 
@@ -131,13 +193,26 @@
                         max-width: 100%;
                         height: 0.75rem;
                         @media screen and (max-width: 1280px) {
-                            font-size: 0.5rem;
+                            max-width: 80%;
+                            height: 0.5rem;
                         }
                     }
                     > p {
                         font-size: 1rem;
+                        @media screen and (max-width: 1536px) {
+                            font-size: 0.875rem;
+                        }
                         @media screen and (max-width: 1280px) {
                             font-size: 0.75rem;
+                        }
+                        @media screen and (max-width: 1024px) {
+                            font-size: 0.625rem;
+                        }
+                        @media screen and (max-width: 900px) {
+                            font-size: 0.5rem;
+                        }
+                        @media screen and (max-width: 700px) {
+                            font-size: 0.675rem;
                         }
                     }
                 }
