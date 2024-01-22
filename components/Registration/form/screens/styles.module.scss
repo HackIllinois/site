@@ -65,6 +65,29 @@
             margin-top: 20px;
         }
     }
+    .text2 {
+        font-size: 1.3em;
+        line-height: 1.5em;
+        margin-top: 25px;
+        color: var(--text-color);
+        font-weight: 600;
+        margin-top: var(--field-margin, 10px);
+        margin-bottom: 0px;
+
+        a {
+            font-weight: 700;
+            color: #46959f;
+            text-decoration: none;
+        }
+
+        b {
+            font-weight: 700;
+        }
+        @media (max-width: 912px) {
+            font-size: 0.8em;
+            margin-top: 20px;
+        }
+    }
     .text::after {
         content: "*";
         color: #fe7098;
@@ -330,10 +353,10 @@
         justify-content: center;
         align-items: center;
         top: 40%;
-        margin-top: 15%; // todo: position based on screen width
+        margin-top: 13%; // todo: position based on screen width
         margin-bottom: 80%; // todo: bottom controls how far the image scretches down
         
-        @media (max-height: 950px) and (max-width: 768px) {
+        @media (max-height: 950px) and (max-width: 500px) {
             margin-top: 10%;
             max-height: 70vh;
             width: 80%;
@@ -497,7 +520,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 10%;
     --text-color: #ffffff;
     min-height: 100vh;
 
@@ -532,14 +554,14 @@
         position: relative;
         width: 100%;
         height: fit-content;
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 600px) {
             display: none;
         }
     }
 
     .mobilebackground2 {
         display: none;
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 600px) {
             display: block;
             position: relative;
             width: 100%;
@@ -554,24 +576,33 @@
     }
 
     .hsForm2 {
-        z-index: 5;
+        z-index: 4;
         position: absolute;
-        height: fit-content;
+        height: 90%;
         width: 70%;
-        margin-top: 35%;
+        margin-top: 130%;
         justify-content: center;
         align-items: center;
         overflow: auto;
+        padding-bottom: 200px;
+
+        @media (max-width: 1000px) {
+            margin-top: 145%;
+        }
+        @media (max-width: 600px) {
+            margin-top: 175%;
+        }
         
-        @media (min-height: 800px) and (max-width: 850px) {
-            font-size: 1.4em;
-            margin-top: 40%;
-        }
-        @media (max-height: 950px) and (max-width: 768px) {
-            margin-top: 60%;
-            max-height: 100vh;
-            width: 80%;
-        }
+        // @media (max-height: 1200px) and (max-width: 850px) {
+        //     margin-top: 135%;
+        // }
+        // @media (max-height: 900px) and (max-width: 600px) {
+        //     font-size: 1.1em;
+
+        //     margin-top: 175%;
+        //     max-height: 100vh;
+        //     width: 80%;
+        // }
 
         
     }

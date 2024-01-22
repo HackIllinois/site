@@ -197,7 +197,7 @@ const HackSpecific = ({ isKnight }: any) => {
                         </>
                     )}
 
-                    <p className={styles.text}>
+                    <p className={styles.text2}>
                         (Optional, 50 words max) If you feel as though an
                         essential aspect of your experience/background has not
                         been included in your application, please use this space

@@ -62,6 +62,7 @@ const convertToAPI = (data: RegistrationSchema, isPro: Boolean): RegistrationTyp
         transportation,
         considerForGeneral: gen,
         requestedTravelReimbursement: reimburse,
+        optionalEssay: optional,
         ...registration
     } = data;
 
@@ -73,6 +74,7 @@ const convertToAPI = (data: RegistrationSchema, isPro: Boolean): RegistrationTyp
     const isProApplicant = isPro;
     const race =
         possibleRace.length === 0 ? ["Prefer Not to Answer"] : possibleRace;
+    const optionalEssay = optional || "";
     return {
         ...registration,
         isProApplicant,
@@ -80,7 +82,8 @@ const convertToAPI = (data: RegistrationSchema, isPro: Boolean): RegistrationTyp
         considerForGeneral,
         requestedTravelReimbursement,
         gender,
-        race
+        race,
+        optionalEssay
     };
 };
 
@@ -95,7 +98,7 @@ const convertFromAPI = (registration: RegistrationType): RegistrationSchema => {
 
 
 const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true); // TODO: change this back to true
     const [isKnight, setIsKnight] = useState(false);
 
     const methods = useForm<RegistrationSchema>({

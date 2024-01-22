@@ -28,7 +28,7 @@ export const registrationSchema = z.object({
     hackEssay1: z.string().min(1),
     hackEssay2: z.string().min(1),
     proEssay: z.string().optional(),
-    optionalEssay: z.string().min(1),
+    optionalEssay: z.string().optional(),
     hackInterest: z.string().array().min(1),
     hackOutreach: z.string().array().min(1),
     dietaryRestrictions: z.string().array().min(1),
@@ -65,5 +65,6 @@ export const defaultValues = {
     ageMin: [],
     dietaryRestrictions: [],
     transportation: [],
-    proEssay: ""
+    proEssay: "",
+    optionalEssay: "",
 };

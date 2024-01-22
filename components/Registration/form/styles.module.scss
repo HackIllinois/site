@@ -17,7 +17,10 @@
     z-index: 5;
     justify-content: center;
     align-items: center;
-    gap: 10%;
+    gap: 30%;
+    @media screen and (max-width: 912px) {
+        gap: 10%;
+    }
     
     width: 100%;
     bottom: 0%;
