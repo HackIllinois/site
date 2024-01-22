@@ -1,8 +1,13 @@
-'use client';
-import Link from "next/link";
+"use client";
+import { useRouter } from "next/navigation";
 import styles from "./Passed.module.scss";
 const Passed = (props: any) => {
     const { setShow } = props;
+    const router = useRouter();
+
+    const handleRedirect = () => {
+        router.push("/register");
+    };
     return (
         <div className={styles.container}>
             <img
@@ -19,14 +24,19 @@ const Passed = (props: any) => {
                     of the application
                 </p>
                 <div className={styles.buttonDiv}>
-                    <Link
-                        href='/register'
+                    <button
+                        onClick={() => handleRedirect()}
                         className={styles.button}
                     >
-                        <img src="/knights/challenge/continue-button.svg" />
-                    </Link>
+                        <img
+                            src="/knights/challenge/button-bg-gold.svg"
+                            className={styles.buttonBg}
+                        />
+                        <span className={styles.buttonText}>Continue</span>
+                    </button>
                     <p className={styles.subText}>
-                    Note: Applying as a HackKnight does not guarantee acceptance due to limited spots
+                        Note: Applying as a HackKnight does not guarantee
+                        acceptance due to limited spots
                     </p>
                 </div>
             </div>

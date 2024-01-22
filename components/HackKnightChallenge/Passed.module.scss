@@ -47,7 +47,6 @@
             height: 100%;
             margin-bottom: 0%;
         }
-
     }
 
     .content {
@@ -129,7 +128,7 @@
             font-size: 0.75rem;
         }
         @media screen and (max-width: 900px) {
-            font-size:0.675rem;
+            font-size: 0.675rem;
         }
         @media screen and (max-width: 700px) {
             font-size: 0.675rem;
@@ -137,7 +136,7 @@
         text-align: center;
     }
 
-    .marginTop{
+    .marginTop {
         margin-top: 7rem;
         @media screen and (max-width: 900px) {
             margin-top: 0.75rem;
@@ -155,21 +154,53 @@
         text-align: center;
 
         .button {
-            > img {
-                max-width: 75%;
+            position: relative;
+            display: inline-block;
+            width: 15.5vw;
+            @media screen and (max-width: 900px) {
+                width: 25vw;
+            }
+
+            .buttonBg {
+                display: block;
+                margin: 0 auto;
+                max-width: 100%;
                 @media screen and (max-width: 1536px) {
-                    max-width: 60%;
-                }
-                @media screen and (max-width: 1280px) {
-                    max-width: 50%;
+                    max-width: 80%;
                 }
                 @media screen and (max-width: 1280px) {
                     max-width: 75%;
                 }
-                &:hover {
-                    cursor: pointer;
-                    transform: scale(1.05);
+            }
+            .buttonText {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: #a61e00;
+                font-size: 1.25rem;
+                @media screen and (max-width: 1536px) {
+                    font-size: 1.125rem;
                 }
+                @media screen and (max-width: 1280px) {
+                    font-size: 1.0625rem;
+                }
+                @media screen and (max-width: 1024px) {
+                    font-size: 1rem;
+                }
+                @media screen and (max-width: 900px) {
+                    font-size: 1rem;
+                }
+                @media screen and (max-width: 700px) {
+                    font-size: 0.875rem;
+                }
+                text-align: center;
+                font-weight: 800;
+                text-transform: uppercase;
+            }
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.05);
             }
         }
     }

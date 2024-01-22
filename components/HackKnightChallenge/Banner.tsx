@@ -26,7 +26,11 @@ const Banner = (props: any) => {
                         onClick={() => setShow("challenge")}
                         className={styles.beginButton}
                     >
-                        <img src="/knights/challenge/begin-button.svg" />
+                        <img
+                            src="/knights/challenge/button-bg-gold.svg"
+                            className={styles.buttonBg}
+                        />
+                        <span className={styles.buttonText}>Begin</span>
                     </button>
                     <button
                         onClick={() => handleRedirect()}

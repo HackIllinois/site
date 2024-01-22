@@ -3,7 +3,7 @@
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
-    row-gap: 1.5rem;
+    row-gap: 1rem;
 
     margin-top: 8rem;
 
@@ -29,7 +29,6 @@
         margin: 0rem 0 10%;
         width: 20rem;
     }
-
 
     .header {
         font-size: 1.75rem;
@@ -71,7 +70,7 @@
         }
     }
 
-    .text{
+    .text {
         font-size: 1.25rem;
         @media screen and (max-width: 1536px) {
             font-size: 1.125rem;
@@ -103,7 +102,7 @@
             font-size: 0.625rem;
         }
         @media screen and (max-width: 900px) {
-            font-size:0.625rem;
+            font-size: 0.625rem;
         }
         @media screen and (max-width: 700px) {
             font-size: 0.625rem;
@@ -111,7 +110,7 @@
         text-align: center;
     }
 
-    .margin{
+    .margin {
         margin-top: 7rem;
         @media screen and (max-width: 1536px) {
             margin-top: 2rem;
@@ -128,25 +127,63 @@
     }
 
     .button {
-        > img {
-            max-width: 75%;
+        position: relative;
+        display: inline-block;
+        width: 15.5vw;
+        @media screen and (max-width: 900px) {
+            width: 25vw;
+        }
+
+        .buttonBg {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
             @media screen and (max-width: 1536px) {
-                max-width: 60%;
+                max-width: 80%;
             }
             @media screen and (max-width: 1280px) {
-                max-width: 50%;
+                max-width: 75%;
             }
-            &:hover {
-                cursor: pointer;
-                transform: scale(1.05);
+        }
+        .buttonText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #a61e00;
+            font-size: 1.25rem;
+            @media screen and (max-width: 1536px) {
+                font-size: 1.125rem;
             }
+            @media screen and (max-width: 1280px) {
+                font-size: 1.0625rem;
+            }
+            @media screen and (max-width: 1024px) {
+                font-size: 1rem;
+            }
+            @media screen and (max-width: 900px) {
+                font-size: 1rem;
+            }
+            @media screen and (max-width: 700px) {
+                font-size: 0.875rem;
+            }
+            text-align: center;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
         }
     }
 
-    .tryAgainButton{
+    .tryAgainButton {
         margin-top: 5rem;
         @media screen and (max-width: 1536px) {
             margin-top: 2rem;
+        }
+        > span {
+            color: #fff !important;
         }
     }
 }

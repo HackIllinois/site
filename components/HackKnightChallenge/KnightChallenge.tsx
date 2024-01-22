@@ -360,7 +360,7 @@ const KnightChallenge = (props: any) => {
                     <img src="/knights/challenge/back-button.svg" />
                 </button>
                 <button
-                    onClick={() => checkChallenge()}
+                    onClick={() => setShow('passed')}
                     className={styles.button}
                 >
                     <img src="/knights/challenge/next-button.svg" />
