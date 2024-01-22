@@ -27,12 +27,12 @@ import clsx from "clsx";
 import FileUpload from "@/components/form/FileUpload";
 
 const degreeOptions: OptionType[] = [
-    { value: "ASSOCIATES", label: "Associates Degree" },
-    { value: "BACHELORS", label: "Bachelor’s Degree" },
-    { value: "MASTERS", label: "Master’s Degree" },
-    { value: "PHD", label: "PhD" },
-    { value: "GRADUATED", label: "Graduated" },
-    { value: "OTHER", label: "Other" }
+    { value: "Associates' Degree", label: "Associates Degree" },
+    { value: "Bachelors' Degree ", label: "Bachelor’s Degree" },
+    { value: "Masters' Degree", label: "Master’s Degree" },
+    { value: "PhD", label: "PhD" },
+    { value: "Graduated", label: "Graduated" },
+    { value: "Other", label: "Other" }
 ];
 
 const graduationYearOptions: OptionType[] = [];

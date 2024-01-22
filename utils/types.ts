@@ -11,13 +11,7 @@ export type RegistrationType = {
     race: string[];
     requestedTravelReimbursement: Boolean;
     location: string;
-    degree:
-        | "ASSOCIATES"
-        | "BACHELORS"
-        | "MASTERS"
-        | "PHD"
-        | "GRADUATED"
-        | "OTHER";
+    degree: string;
     university: string;
     major: string;
     minor: string;
