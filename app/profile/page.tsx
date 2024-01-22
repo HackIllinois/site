@@ -13,7 +13,6 @@ import { ModalOverlay, useModal } from "@/components/Profile/modal";
 import { useEffect, useState } from "react";
 import {
     authenticate,
-    getProfile,
     getRSVP,
     getRegistration,
     getUser,
@@ -30,6 +29,7 @@ import {
     UserType
 } from "@/utils/types";
 import {
+    DeclineConfirmation,
     GeneralAttendeeAccepted,
     HackKnightAccepted,
     HackKnightRejected,
@@ -41,8 +41,6 @@ import {
 } from "@/components/Profile/modal-views";
 import { RSVPSteps } from "@/components/Profile/modal-views/rsvp-steps";
 import { avatars } from "@/components/Profile/avatars";
-import { useRouter } from "next/router";
-import { set } from "zod";
 
 const Some: React.FC = () => {
     const { isModalOpen, closeModal, openModal } = useModal();
@@ -58,6 +56,8 @@ const Some: React.FC = () => {
         null
     );
     const [loading, setLoading] = useState<boolean>(true);
+    const [showDeclineConfirmation, setShowDeclineConfirmation] =
+        useState<boolean>(false);
 
     async function handleConfirm() {
         setLoading(true);
@@ -113,7 +113,11 @@ const Some: React.FC = () => {
                 getRSVP().then(rsvp => {
                     setRSVP(rsvp);
 
-                    if (rsvp.status === "ACCEPTED" && rsvp.response === "PENDING") openModal();
+                    if (
+                        rsvp.status === "ACCEPTED" &&
+                        rsvp.response === "PENDING"
+                    )
+                        openModal();
                 });
                 setLoading(false);
             });
@@ -136,6 +140,16 @@ const Some: React.FC = () => {
                 {(() => {
                     if (loading) return "Loading...";
 
+                    if (showDeclineConfirmation)
+                        return (
+                            <DeclineConfirmation
+                                handleGoBack={() =>
+                                    setShowDeclineConfirmation(false)
+                                }
+                                handleDecline={handleDecline}
+                            />
+                        );
+
                     if (RSVP?.response === "ACCEPTED") {
                         if (profile && !(profile instanceof Error))
                             return <RSVPConfirmed />;
@@ -148,7 +162,9 @@ const Some: React.FC = () => {
                             return (
                                 <HackKnightAccepted
                                     handleConfirm={handleConfirm}
-                                    handleDecline={handleDecline}
+                                    handleDecline={() =>
+                                        setShowDeclineConfirmation(true)
+                                    }
                                 />
                             );
                         } else {
@@ -159,14 +175,18 @@ const Some: React.FC = () => {
                                 return (
                                     <HackKnightRejected
                                         handleConfirm={handleConfirm}
-                                        handleDecline={handleDecline}
+                                        handleDecline={() =>
+                                            setShowDeclineConfirmation(true)
+                                        }
                                     />
                                 );
                             } else {
                                 return (
                                     <GeneralAttendeeAccepted
                                         handleConfirm={handleConfirm}
-                                        handleDecline={handleDecline}
+                                        handleDecline={() =>
+                                            setShowDeclineConfirmation(true)
+                                        }
                                     />
                                 );
                             }

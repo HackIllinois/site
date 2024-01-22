@@ -183,3 +183,28 @@
         font-size: 0.9em;
     }
 }
+
+.unhoveredButton {
+    border: solid 2px white;
+    border-radius: 16px;
+    height: 43px;
+    width: 171px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hoverButton {
+    svg {
+        display: none;
+    }
+    &:hover {
+        div {
+            display: none;
+        }
+        svg {
+            display: block;
+        }
+    }
+}
