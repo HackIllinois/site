@@ -850,6 +850,7 @@
         }
         
         .genButton {
+            cursor: pointer;
             background-color: $logo-secondary;
             border-color: $logo-primary;
             position: relative;
@@ -939,6 +940,14 @@
         border-color: #212338;
         position: relative;
         border-style: solid;
+        cursor: pointer;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        align-content: center;
+        align-self: center;
+        justify-content: center;
+        position: relative;
     
         &::after {
             content: "";
