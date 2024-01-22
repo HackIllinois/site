@@ -252,10 +252,12 @@ export const HackKnightRejected = ({
 
 export const HackKnightAccepted = ({
     handleConfirm,
-    handleDecline
+    handleDecline,
+    reimburse
 }: {
     handleConfirm: () => void;
     handleDecline: () => void;
+    reimburse: number;
 }) => {
     return (
         <>
@@ -269,6 +271,7 @@ export const HackKnightAccepted = ({
                         "If you would like to attend HackIllinois 2024, click Confirm to finish the RSVP process. If you won't be attending please click Decline. This cannot be reversed."
                     }
                 </StandardFont>
+                {reimburse > 0 && <StandardFont>{`Additionally, you have been approved for a travel reimbursement of \$${reimburse}.`}</StandardFont>}
             </div>
             <div className={styles.buttonGroup}>
                 <ConfirmButton onClick={handleConfirm} />
@@ -298,10 +301,12 @@ export const HackKnightAccepted = ({
 
 export const GeneralAttendeeAccepted = ({
     handleConfirm,
-    handleDecline
+    handleDecline,
+    reimburse
 }: {
     handleConfirm: () => void;
     handleDecline: () => void;
+    reimburse: number;
 }) => {
     return (
         <>
@@ -315,6 +320,7 @@ export const GeneralAttendeeAccepted = ({
                         "If you would like to attend HackIllinois 2024, click Confirm to finish the RSVP process. If you won't be attending please click Decline. This cannot be reversed."
                     }
                 </StandardFont>
+                {reimburse > 0 && <StandardFont>{`Additionally, you have been approved for a travel reimbursement of \$${reimburse}.`}</StandardFont>}
             </div>
             <div className={styles.buttonGroup}>
                 <ConfirmButton onClick={handleConfirm} />

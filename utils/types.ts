@@ -36,6 +36,7 @@ export type RSVPType = {
     status: DecisionStatus;
     response: DecisionResponse;
     admittedPro: boolean;
+    reimbursementValue: number;
     // reviewer: string;
     // emailSent: false;
 };
