@@ -13,15 +13,19 @@ const KnightChallenge = (props: any) => {
     const { setShow } = props;
 
     const checkChallenge = () => {
-        getChallenge().then((passed) => {
-            if (passed) {
-                setShow("passed");
-            } else {
-                setShow("failed");
-            }
-        }).catch(() => {
-            alert("You need to attempt the challenge before you can check your status!");
-        })
+        getChallenge()
+            .then(passed => {
+                if (passed) {
+                    setShow("passed");
+                } else {
+                    setShow("failed");
+                }
+            })
+            .catch(() => {
+                alert(
+                    "You need to attempt the challenge before you can check your status!"
+                );
+            });
     };
 
     return (
@@ -73,12 +77,16 @@ const KnightChallenge = (props: any) => {
                                 </div>
                             </li>
                             <li className={styles.text}>
-                                Include the magical JWT token in all future API
-                                calls or the portal master will not understand
-                                your requests!
+                                For all further API calls, include the magical
+                                JWT token from step 1 and the content-type in
+                                your request header. If you fail to do so, the
+                                portal master will not understand your requests.
                                 <p
                                     className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop}`}
                                 >{`{“Authorization”: token_here}`}</p>
+                                                                <p
+                                    className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop}`}
+                                >{`{"Content-Type": "application/json"}`}</p>
                             </li>
                             <li className={styles.text}>
                                 <div className={styles.problemListItems}>
