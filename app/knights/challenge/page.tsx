@@ -10,13 +10,13 @@ import Failed from "@/components/HackKnightChallenge/Failed";
 const Challenge: React.FC = () => {
     const [show, setShow] = React.useState<string>("banner");
 
-    useEffect(() => {
-        if (!isAuthenticated()) {
-            authenticate(
-                window.location.href
-            );
-        }
-    });
+    // useEffect(() => {
+    //     if (!isAuthenticated()) {
+    //         authenticate(
+    //             window.location.href
+    //         );
+    //     }
+    // });
 
     return (
         <div className={styles.background}>
