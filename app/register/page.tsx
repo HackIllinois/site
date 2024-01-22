@@ -13,13 +13,13 @@ import styles from "./styles.module.scss";
 const Registration: React.FC = () => {
     const [formIndex, setFormIndex] = useState(0);
 
-    useEffect(() => {
-        if (!isAuthenticated()) {
-            authenticate(
-                window.location.href
-            );
-        }
-    });
+    // useEffect(() => {
+    //     if (!isAuthenticated()) {
+    //         authenticate(
+    //             window.location.href
+    //         );
+    //     }
+    // });
 
     return (
         <>

@@ -66,7 +66,7 @@ const locationOptions = states
 const Education = () => {
     const isMobile = () => {
         if (typeof window !== "undefined") {
-            return window.innerWidth <= 768;
+            return window.innerWidth <= 760;
         }
     }
     const [mobile, setMobile] = useState(isMobile());
@@ -163,8 +163,6 @@ const Education = () => {
                     name="gradYear"
                     options={graduationYearOptions}
                 />
-                <br />
-                <br />
                 <p className={styles.textOp2}>
                     Please submit a copy of your resume, it will be shared with our
                     sponsors

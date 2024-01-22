@@ -118,9 +118,14 @@ const HackSpecific = ({ isKnight }: any) => {
 
                 <div className={styles.hsForestContainer}>
                     <Image
-                        src={forest}
+                        src={Forest}
                         alt="Mushroom Forest"
                         className={styles.forest}
+                    />
+                    <Image
+                        src={MobileForest}
+                        alt="Mushroom Forest"
+                        className={styles.mobileforest}
                     />
                     <Image
                         src={RiverGrass}

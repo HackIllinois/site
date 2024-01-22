@@ -19,7 +19,7 @@
 
 .multiline {
     width: 100%;
-    min-height: 29vh;
+    min-height: 35vh;
     padding: 10px 5px;
     border-radius: 10px;
     color: #000000;
@@ -29,6 +29,11 @@
     line-height: 17px;
     background-color: #638f70;
     border-bottom: none;
+
+    @media (max-width: 1024px) {
+        font-size: 14px;
+        min-height: 20vh;
+    }
 
     &::placeholder {
         font-family: inherit;
