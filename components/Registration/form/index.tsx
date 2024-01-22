@@ -197,7 +197,7 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
         window.scrollTo(0, 0); // scroll to the top of the page
     }
 
-    var props = {formIndex: formIndex, setFormIndex: setFormIndex, isKnight: isKnight, isLoading: isLoading};
+    var props = {formIndex: formIndex, setFormIndex: setFormIndex, isKnight: isKnight, isLoading: isLoading, getValues: getValues};
 
     return (
         <div className={styles.container}>

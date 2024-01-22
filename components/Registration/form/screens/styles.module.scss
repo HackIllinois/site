@@ -613,7 +613,7 @@
     width: 100%;
     position: relative;
     margin: 0;
-    height: 100vh;
+    // height: 100vh;
     .background {
         position: absolute;
         height: fit-content;
@@ -697,11 +697,20 @@
     }
 
     .reviewForm {
-        position: absolute;
+        position: relative;
         z-index: 5;
+        padding-top: 50vh;
+        width: 50vw;
+        padding-bottom: 15vh;
         top: 50%;
         margin: auto;
         margin-left: 10%;
+
+        @media screen and (max-width: 800px) {
+            width: 90vw;
+            padding-top: 20vh;
+        }
+        
     }
 }
 
