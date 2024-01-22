@@ -112,6 +112,7 @@ const Review = ({ formIndex, setFormIndex, isKnight, getValues }: any) => {
                         </p>
                         <p>{vals.requestedTravelReimbursement}</p>
                     </div>
+                    <br /> <br />
                     <h1
                         className={styles.title2}
                         onClick={() => returnToPage(2)}
@@ -148,16 +149,14 @@ const Review = ({ formIndex, setFormIndex, isKnight, getValues }: any) => {
                         </p>
                         {vals.resumeFileName}
                     </div>
-                    <br />
+                    <br /> <br />
                     <h1
                         className={styles.title2}
                         onClick={() => returnToPage(3)}
                     >
                         Hack-Specific
                     </h1>
-
                     <div className={styles.hsForm}>
-                        <p className={styles.title}>General Questions</p>
 
                         <p className={styles.text}>
                             (50 words max) What opportunity, event, or feature
