@@ -19,6 +19,8 @@ const KnightChallenge = (props: any) => {
             } else {
                 setShow("failed");
             }
+        }).catch(() => {
+            alert("You need to attempt the challenge before you can check your status!");
         })
     };
 

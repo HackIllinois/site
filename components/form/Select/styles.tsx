@@ -13,7 +13,9 @@ const customStyles: StylesConfig<Record<string, unknown>, true | false> = {
     valueContainer: base => ({
         ...base,
         paddingLeft: 0,
-        overflow: "visible"
+        overflow: "visible", 
+        zIndex: 1000
+
     }),
     placeholder: base => ({
         ...base,
@@ -49,7 +51,7 @@ const customStyles: StylesConfig<Record<string, unknown>, true | false> = {
     }),
     multiValue: base => ({
         ...base,
-        backgroundColor: "#C9CF76",
+        backgroundColor: "#A977AB",
         borderRadius: 100,
         padding: "0 2px"
     }),
@@ -89,7 +91,8 @@ const customStyles: StylesConfig<Record<string, unknown>, true | false> = {
         borderRadius: 20,
         padding: "0 15px",
         overflow: "visible",
-        maxHeight: "25vh"
+        maxHeight: "25vh",
+        zIndex: 10000,
 
         // transform: 'translateX(-26.7vw)',
         // width: base.width,
@@ -97,6 +100,7 @@ const customStyles: StylesConfig<Record<string, unknown>, true | false> = {
     menuList: base => ({
         ...base,
         padding: "16px 0",
+
         scrollbarColor: `${menuHighlightColor} transparent`,
         scrollbarWidth: "thin",
         maxHeight: "25vh",

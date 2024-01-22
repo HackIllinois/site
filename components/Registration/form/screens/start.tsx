@@ -22,10 +22,10 @@ const Start = ({ formIndex, setFormIndex, isLoading }: any) => {
                 <div className={styles.contents}>
                     <h2>Sign Up As:</h2>
                     <div className={styles.heroButtonsWrapper}>
-                        <button disabled={isLoading} onClick={() => window.location.pathname = "/knights/challenge"}
+                        <div onClick={() => (isLoading ? "" : window.location.pathname = "/knights/challenge")}
                             className={styles.knightButton}>
-                            {isLoading ? "Loading" : "HackKnight"}
-                        </button>
+                            <p>{isLoading ? "Loading" : "HackKnight"}</p>
+                        </div>
                     </div>
                     <p className={styles.link}>
                         <a href="/knights">What is this?</a>

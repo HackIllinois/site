@@ -1,76 +1,8 @@
-.dashboard {
-    width: 100vw;
-    height: 100vh;
-    background-color: #65698e;
-    position: relative;
+$bookshelf-width: min(70vw, calc(80vh / 52.19705769 * 70));
 
-    background-size: contain;
-    // background-position: center;
-    background-repeat: no-repeat;
-    background-image: url("/profile/background.svg");
-
-    @media screen and (max-width: 720px) {
-        background: none;
-    }
-}
-
-.mobileWindowPaneWrapper {
-    position: absolute;
-    top: 64px;
-    right: 50%;
-    transform: translateX(50%);
-    z-index: -1;
-    width: 60vw;
-    height: calc(60vw * 481 / 273);
-
-    @media screen and (min-width: 720px) {
-        display: none;
-    }
-}
-
-.leftCurtainWrapper {
-    position: absolute;
-    left: 0;
-    z-index: 1;
-    width: calc(100vh * 170 / 982);
-    height: 100vh;
-    @media screen and (max-width: 720px) {
-        display: none;
-    }
-}
-
-.rightCurtainWrapper {
-    position: absolute;
-    right: 0;
-    z-index: 1;
-    width: calc(100vh * 170 / 982);
-    height: 100vh;
-    @media screen and (max-width: 720px) {
-        display: none;
-    }
-}
-
-.mobileLeftCurtainWrapper {
-    position: absolute;
-    left: 0;
-    z-index: 1;
-    width: calc(100vh * 115 / 844);
-    height: 100vh;
-    @media screen and (min-width: 720px) {
-        display: none;
-    }
-}
-
-.mobileRightCurtainWrapper {
-    position: absolute;
-    right: 0;
-    z-index: 1;
-    width: calc(100vh * 115 / 844);
-    height: 100vh;
-    @media screen and (min-width: 720px) {
-        display: none;
-    }
-}
+$mobile-bookshelf-height: min(90vh, calc(80vw / 759.59 * 1643.58));
+// height: calc(584 / 1148 * 70vw) + calc(209 / 378 * 30vw);
+// 35.6097561 + 16.58730159 = 52.19705769
 
 .bookshelfContainer {
     position: absolute;
@@ -80,8 +12,8 @@
 }
 
 .boolshelfWrapper {
-    width: 70vw;
-    height: calc(584 / 1148 * 70vw);
+    width: $bookshelf-width;
+    height: calc(584 / 1148 * $bookshelf-width);
 
     // (1148 584)
     @media screen and (max-width: 720px) {
@@ -90,8 +22,9 @@
 }
 
 .mobileBoolshelfWrapper {
-    height: 90vh;
-    width: calc(740 / 342 * 90vh);
+    $size: $mobile-bookshelf-height;
+    height: $size;
+    width: calc(740 / 342 * $size);
     z-index: -1;
     @media screen and (min-width: 720px) {
         display: none;
@@ -99,30 +32,26 @@
 }
 
 .bookshelfPropsWrapper {
+    $size: calc($bookshelf-width / 70 * 40);
     position: absolute;
     top: 0;
     right: 0;
-    transform: translateY(calc(211 / 503 * -1vw * 40));
-    width: 40vw;
-    height: calc(211 / 503 * 1vw * 40);
-
-    // 503
-    // 211
+    transform: translateY(calc(211 / 503 * -1 * $size));
+    width: $size;
+    height: calc(211 / 503 * $size);
     @media screen and (max-width: 720px) {
         display: none;
     }
 }
 
 .nameBookWrapper {
+    $size: calc($bookshelf-width / 70 * 30);
     position: absolute;
     top: 0;
     left: 0;
-    transform: translateY(calc(209 / 378 * -1vw * 30));
-    width: 30vw;
-    height: calc(209 / 378 * 1vw * 30);
-
-    // 378
-    // 209
+    transform: translateY(calc(209 / 378 * -1 * $size));
+    width: $size;
+    height: calc(209 / 378 * $size);
     @media screen and (max-width: 720px) {
         display: none;
     }
@@ -135,28 +64,28 @@
 
     // center vertically and horizontally
     transform: translate(-50%, -50%);
-    width: fit-content;
+    width: calc($bookshelf-width / 70 * 20);
     height: fit-content;
 
-    font-size: 40px;
+    font-size: calc($bookshelf-width / 70 * 4);
     font-weight: 700;
-    line-height: 40px;
+    line-height: calc($bookshelf-width / 70 * 4);
     text-align: center;
     color: hsla(25, 28%, 35%, 1);
 }
 
 .mobileNameInBook {
     position: absolute;
-    top: 4vh;
+    top: calc($mobile-bookshelf-height / 90 * 4);
 
     left: 50%;
     transform: translate(-50%, 0);
     height: fit-content;
-    width: 24vh;
+    width: calc($mobile-bookshelf-height / 90 * 24);
 
-    font-size: 40px;
+    font-size: calc($mobile-bookshelf-height / 90 * 4);
     font-weight: 700;
-    line-height: 40px;
+    line-height: calc($mobile-bookshelf-height / 90 * 4);
     text-align: center;
     color: hsla(25, 28%, 35%, 1);
 
@@ -175,18 +104,18 @@
     align-items: center;
 
     height: 90%;
-    width: 14vw;
+    width: calc($bookshelf-width / 70 * 14);
 
     right: 0;
     bottom: 0;
 
     @media screen and (max-width: 720px) {
-        height: 15vh;
+        height: calc($mobile-bookshelf-height / 90 * 15);
         width: 75%;
         bottom: 0;
         left: 50%;
         transform: translate(-50%, 0%);
-        padding-top: 32px;
+        padding-top: calc($mobile-bookshelf-height / 90 * 3);
     }
 }
 
@@ -198,20 +127,20 @@
     align-items: center;
 
     height: 55%;
-    width: 17vw;
+    width: calc($bookshelf-width / 70 * 17);
 
     left: 54%;
     transform: translateX(-54%);
     bottom: 0;
 
     @media screen and (max-width: 720px) {
-        height: 7.5vh;
+        height: calc($mobile-bookshelf-height / 90 * 7.5);
         width: 90%;
 
         top: 57%;
         left: 50%;
         transform: translate(-50%, -57%);
-        padding-top: 28px;
+        padding-top: calc($mobile-bookshelf-height / 90 * 3);
     }
 }
 
@@ -223,17 +152,17 @@
     align-items: center;
 
     height: 80%;
-    width: 15vw;
+    width: calc($bookshelf-width / 70 * 15);
 
     bottom: 0;
 
     @media screen and (max-width: 720px) {
-        height: 15vh;
+        height: calc($mobile-bookshelf-height / 90 * 15);
         width: 90%;
         top: 0;
         left: 50%;
         transform: translate(-50%, 0%);
-        padding-top: 28px;
+        padding-top: calc($mobile-bookshelf-height / 90 * 5);
     }
 }
 
@@ -242,8 +171,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -40%);
-    width: 58vw;
-    height: 10vw;
+    width: calc($bookshelf-width / 70 * 58);
+    height: calc($bookshelf-width / 70 * 10);
 
     font-size: 25px;
     font-weight: 700;
@@ -253,21 +182,22 @@
 
     @media screen and (max-width: 720px) {
         transform: translate(-50%, -37%);
-        height: 52vh;
-        width: 25vh;
+        height: calc($mobile-bookshelf-height / 90 * 52);
+        width: calc($mobile-bookshelf-height / 90 * 25);
+        line-height: 20px;
+        font-size: 20px;
     }
 }
 
 .bottomCabinet {
     position: absolute;
 
-    bottom: 1.65vw;
+    bottom: calc($bookshelf-width / 70 * 1.65);
     left: 50%;
     transform: translateX(-50%);
 
-    width: 65vw;
-    // height: calc(584 / 1148 * 70vw);
-    height: 8.5vw;
+    width: calc($bookshelf-width / 70 * 65);
+    height: calc($bookshelf-width / 70 * 8.5);
 
     // border: solid 1px blue;
 
@@ -280,18 +210,19 @@
     @media screen and (max-width: 720px) {
         background-color: transparent;
         width: 100%;
-        height: calc(93 / 560 * 50vh);
+        height: calc(93 / 560 * calc($mobile-bookshelf-height / 90 * 50));
     }
 }
 
 .rsvpButtonWrapper {
     cursor: pointer;
     position: relative;
-    width: 30vw;
-    height: calc(93 / 560 * 30vw);
+    $size: calc($bookshelf-width / 70 * 30);
+    width: $size;
+    height: calc(93 / 560 * $size);
 
     @media screen and (max-width: 720px) {
-        width: 50vh;
-        height: calc(93 / 560 * 50vh);
+        width: calc($mobile-bookshelf-height / 90 * 50);
+        height: calc(93 / 560 * calc($mobile-bookshelf-height / 90 * 50));
     }
 }
