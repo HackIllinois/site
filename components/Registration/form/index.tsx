@@ -8,7 +8,14 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { RegistrationType } from "@/utils/types";
-import { getRegistration, register, registerUpdate, getChallenge, isRegistered, getRoles } from "@/utils/api";
+import {
+    getRegistration,
+    register,
+    registerUpdate,
+    getChallenge,
+    isRegistered,
+    getRoles
+} from "@/utils/api";
 import Button from "@/components/form/Button";
 import {
     registrationSchema,
@@ -27,7 +34,15 @@ import Complete from "./screens/complete";
 
 import styles from "./styles.module.scss";
 import Image from "next/image";
-import { BackButton, EducationButton, LoadingButton, PersonalButton, ReviewButton, HackspecificButton, SubmitButton } from "@/public/registration/buttons/index"
+import {
+    BackButton,
+    EducationButton,
+    LoadingButton,
+    PersonalButton,
+    ReviewButton,
+    HackspecificButton,
+    SubmitButton
+} from "@/public/registration/buttons/index";
 
 type FormProps = {
     formIndex: number;
@@ -37,23 +52,65 @@ type FormProps = {
 //New Page Strcture
 const fields: (keyof RegistrationSchema)[][] = [
     [],
-    ['preferredName', 'legalName', 'emailAddress', 'gender', 'race', 'ageMin', 'transportation', 'requestedTravelReimbursement'],
-    ['location', 'degree', 'major', 'minor', 'university', 'gradYear', 'resumeFileName'],
-    ['hackEssay1', 'hackEssay2', 'proEssay', 'considerForGeneral', 'optionalEssay'],
-    ['hackInterest', 'hackOutreach', 'dietaryRestrictions'],
+    [
+        "preferredName",
+        "legalName",
+        "emailAddress",
+        "gender",
+        "race",
+        "ageMin",
+        "transportation",
+        "requestedTravelReimbursement"
+    ],
+    [
+        "location",
+        "degree",
+        "major",
+        "minor",
+        "university",
+        "gradYear",
+        "resumeFileName"
+    ],
+    [
+        "hackEssay1",
+        "hackEssay2",
+        "proEssay",
+        "considerForGeneral",
+        "optionalEssay"
+    ],
+    ["hackInterest", "hackOutreach", "dietaryRestrictions"],
     []
-  ];
-
+];
 
 // New Variables for above settings
-const pages = [Start, PersonalInfo, Education, HackSpecific, HackSpecificP2, Review, Complete];
+const pages = [
+    Start,
+    PersonalInfo,
+    Education,
+    HackSpecific,
+    HackSpecificP2,
+    Review,
+    Complete
+];
 const submitPageIndex = 5;
 const postSubmitPageIndex = submitPageIndex + 1;
 
-const buttons = [LoadingButton, BackButton, PersonalButton, EducationButton, HackspecificButton, HackspecificButton, ReviewButton, SubmitButton]
+const buttons = [
+    LoadingButton,
+    BackButton,
+    PersonalButton,
+    EducationButton,
+    HackspecificButton,
+    HackspecificButton,
+    ReviewButton,
+    SubmitButton
+];
 
 // Old API Methods
-const convertToAPI = (data: RegistrationSchema, isPro: Boolean): RegistrationType => {
+const convertToAPI = (
+    data: RegistrationSchema,
+    isPro: Boolean
+): RegistrationType => {
     const {
         legalName,
         gender: possibleGender,
@@ -88,14 +145,23 @@ const convertToAPI = (data: RegistrationSchema, isPro: Boolean): RegistrationTyp
 };
 
 const convertFromAPI = (registration: RegistrationType): RegistrationSchema => {
-    const {requestedTravelReimbursement: reimburse, considerForGeneral: gen, ...rest} = registration;
+    const {
+        requestedTravelReimbursement: reimburse,
+        considerForGeneral: gen,
+        ...rest
+    } = registration;
     const ageMin = ["YES"];
     const transportation = ["YES"];
     const requestedTravelReimbursement = reimburse ? "YES" : "NO";
     const considerForGeneral = gen ? "YES" : "NO";
-    return { ...rest, ageMin, transportation, requestedTravelReimbursement, considerForGeneral };
+    return {
+        ...rest,
+        ageMin,
+        transportation,
+        requestedTravelReimbursement,
+        considerForGeneral
+    };
 };
-
 
 const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
     const [isLoading, setIsLoading] = useState(true); // TODO: change this back to true
@@ -114,38 +180,33 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
     } = methods;
 
     useEffect(() => {
-        getRoles().then((roles) => {
-            if (!roles ||!roles.includes("TESTER")) {
-                window.location.pathname = "/";
-                return;
-            }
-        }).then(() => {
-            isRegistered().then((isRegistered) => {
+        isRegistered()
+            .then(isRegistered => {
                 if (isRegistered) {
                     window.location.pathname = "/profile";
                     return;
                 }
-        }).then(() => {
-            getRegistration()
-                .then(registrationWithId => {
-                    if (registrationWithId) {
-                        const { id, ...registration } = registrationWithId;
-                        methods.reset(convertFromAPI(registration));
-                        setFormIndex(1);
-                    }
-                    return getChallenge();
-                }).then((chal) => {
-                    if (chal) {
-                        setIsKnight(true);
-                        setFormIndex(1);
-                    }
-                })
-                .finally(() => {
-                    setIsLoading(false);
-                });
-        });
-        });
-
+            })
+            .then(() => {
+                getRegistration()
+                    .then(registrationWithId => {
+                        if (registrationWithId) {
+                            const { id, ...registration } = registrationWithId;
+                            methods.reset(convertFromAPI(registration));
+                            setFormIndex(1);
+                        }
+                        return getChallenge();
+                    })
+                    .then(chal => {
+                        if (chal) {
+                            setIsKnight(true);
+                            setFormIndex(1);
+                        }
+                    })
+                    .finally(() => {
+                        setIsLoading(false);
+                    });
+            });
     }, []); // deliberately not including `methods`
 
     const onSubmit: SubmitHandler<RegistrationSchema> = data => {
@@ -190,49 +251,80 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
         registerUpdate(vals).catch(() => {});
         setFormIndex(current => current + 1);
         window.scrollTo(0, 0); // scroll to the top of the page
-    }
-    
+    };
+
     const previousPage = () => {
         setFormIndex(current => current - 1);
         window.scrollTo(0, 0); // scroll to the top of the page
-    }
+    };
 
-    var props = {formIndex: formIndex, setFormIndex: setFormIndex, isKnight: isKnight, isLoading: isLoading, getValues: getValues};
+    var props = {
+        formIndex: formIndex,
+        setFormIndex: setFormIndex,
+        isKnight: isKnight,
+        isLoading: isLoading,
+        getValues: getValues
+    };
 
     return (
         <div className={styles.container}>
             <FormProvider {...methods}>
-                <form
-                    onSubmit={handleSubmit(onSubmit, onError)}
-                >  
-                    {React.createElement(pages[formIndex],props)}    
+                <form onSubmit={handleSubmit(onSubmit, onError)}>
+                    {React.createElement(pages[formIndex], props)}
                 </form>
             </FormProvider>
-            {(formIndex !== postSubmitPageIndex && formIndex !== 0) && ( // last page does not have any buttons
-                <div className={styles.buttons}>
-                    {formIndex > 0 && <Button
-                        arrow="left"
-                        hidden={formIndex === 0}
-                        onClick={previousPage}
-                    >
-                        <Image src={buttons[formIndex]} alt="previous button" className={styles.button} />
-                    </Button>}
-                    {isLoading && <Button loading><Image src={LoadingButton} alt="loading button" className={styles.button} /></Button>}
-                    {!isLoading && formIndex !== submitPageIndex && (
-                        <Button arrow="right" onClick={nextPage}>
-                            <Image src={buttons[formIndex+2]} alt="next button" className={formIndex===0 ? styles.singlebutton : styles.button} />
-                        </Button>
-                    )}
-                    {!isLoading && formIndex === submitPageIndex && (
-                        <Button
-                            type="submit"
-                            onClick={handleSubmit(onSubmit, onError)}
-                        >
-                            <Image src={SubmitButton} alt="submit button" className={styles.button} />
-                        </Button>
-                    )}
-                </div>
-            )}
+            {formIndex !== postSubmitPageIndex &&
+                formIndex !== 0 && ( // last page does not have any buttons
+                    <div className={styles.buttons}>
+                        {formIndex > 0 && (
+                            <Button
+                                arrow="left"
+                                hidden={formIndex === 0}
+                                onClick={previousPage}
+                            >
+                                <Image
+                                    src={buttons[formIndex]}
+                                    alt="previous button"
+                                    className={styles.button}
+                                />
+                            </Button>
+                        )}
+                        {isLoading && (
+                            <Button loading>
+                                <Image
+                                    src={LoadingButton}
+                                    alt="loading button"
+                                    className={styles.button}
+                                />
+                            </Button>
+                        )}
+                        {!isLoading && formIndex !== submitPageIndex && (
+                            <Button arrow="right" onClick={nextPage}>
+                                <Image
+                                    src={buttons[formIndex + 2]}
+                                    alt="next button"
+                                    className={
+                                        formIndex === 0
+                                            ? styles.singlebutton
+                                            : styles.button
+                                    }
+                                />
+                            </Button>
+                        )}
+                        {!isLoading && formIndex === submitPageIndex && (
+                            <Button
+                                type="submit"
+                                onClick={handleSubmit(onSubmit, onError)}
+                            >
+                                <Image
+                                    src={SubmitButton}
+                                    alt="submit button"
+                                    className={styles.button}
+                                />
+                            </Button>
+                        )}
+                    </div>
+                )}
         </div>
     );
 };
