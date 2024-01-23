@@ -148,7 +148,7 @@ const HackSpecific = ({ isKnight }: any) => {
                     <p className={styles.title}>General Questions</p>
 
                     <p className={styles.text}>
-                        (50 words max) What opportunity, event, or feature of
+                        (50 words) What opportunity, event, or feature of
                         HackIllinois 2024 are you most excited to take part in
                         and why?
                     </p>
@@ -160,7 +160,7 @@ const HackSpecific = ({ isKnight }: any) => {
                     />
 
                     <p className={styles.text}>
-                        (50 words max) Talk about a challenge you faced in the
+                        (50 words) Talk about a challenge you faced in the
                         field of CS and how you overcame it. This challenge can
                         be related to a technical personal project, experience
                         in a field, personal experience with
@@ -178,7 +178,7 @@ const HackSpecific = ({ isKnight }: any) => {
                             <p className={styles.title}>Knights Questions</p>
 
                             <p className={styles.text}>
-                                (100 words max) How did you complete the coding
+                                (100 words) How did you complete the coding
                                 challenge?
                             </p>
                             <Input
@@ -203,7 +203,7 @@ const HackSpecific = ({ isKnight }: any) => {
                     )}
 
                     <p className={styles.text2}>
-                        (Optional, 50 words max) If you feel as though an
+                        (Optional, 50 words) If you feel as though an
                         essential aspect of your experience/background has not
                         been included in your application, please use this space
                         to do so. Your application will not be negatively
