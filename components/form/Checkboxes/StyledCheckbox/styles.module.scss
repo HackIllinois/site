@@ -6,10 +6,12 @@
     margin: var(--checkbox-margin, 15px) 0;
     color: #ffffff;
 
-    font-size: 1.25em;
+    // font-size: 0.8em;
+    word-wrap: break-word; 
     z-index: 0;
     cursor: pointer;
-    width: 50%;
+    width: 46%;
+    margin: 2%;
     min-height: 40%;
 
     &::before {

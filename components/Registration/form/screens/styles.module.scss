@@ -84,7 +84,7 @@
             font-weight: 700;
         }
         @media (max-width: 912px) {
-            font-size: 0.8em;
+            font-size: 0.9em;
             margin-top: 10px;
         }
     }
@@ -107,7 +107,7 @@
             font-weight: 700;
         }
         @media (max-width: 912px) {
-            font-size: 0.8em;
+            font-size: 0.9em;
             margin-top: 20px;
         }
     }
@@ -130,7 +130,7 @@
             font-weight: 700;
         }
         @media (max-width: 912px) {
-            font-size: 0.8em;
+            font-size: 0.9em;
             margin-top: 20px;
         }
     }
@@ -551,9 +551,10 @@
     .hsForm {
         z-index: 5;
         position: absolute;
-        height: -moz-calc(100% - 900px); /* Firefox */
-        height: -webkit-calc(100% - 900px); /* Chrome, Safari */
-        height: calc(100% - 900px);
+        height: 50%;
+        // height: -moz-calc(100% - 900px); /* Firefox */
+        // height: -webkit-calc(100% - 900px); /* Chrome, Safari */
+        // height: calc(100% - 900px);
         // height: 150vh;
         // height: -web;
         width: 60%;
@@ -568,18 +569,27 @@
 
         @media (max-width: 1024px) and (max-height: 1368px) {
             // max-height: 60vh;
-            height: -moz-calc(100% - 800px); /* Firefox */
-            height: -webkit-calc(100% - 800px); /* Chrome, Safari */
-            height: calc(100% - 600px);
+            // height: -moz-calc(100% - 800px); /* Firefox */
+            // height: -webkit-calc(100% - 800px); /* Chrome, Safari */
+            // height: calc(100% - 600px);
+            height: 50%;
             width: 70%;
         }
-        @media (max-height: 950px) and (max-width: 768px) {
-            margin-top: 150%;
-            height: -moz-calc(100% - 800px); /* Firefox */
-            height: -webkit-calc(100% - 800px); /* Chrome, Safari */
-            height: calc(100% - 800px);
-            width: 80%;
+        @media screen and (max-width: 600px) {
+            margin-top: 120%;
+            height: 65%;
         }
+        @media screen and (max-width: 400px) {
+            margin-top: 120%;
+            height: 60%;
+        }
+        // @media (max-height: 950px) and (max-width: 768px) {
+        //     // margin-top: 150%;
+        //     height: -moz-calc(100% - 800px); /* Firefox */
+        //     height: -webkit-calc(100% - 800px); /* Chrome, Safari */
+        //     height: calc(100% - 800px);
+        //     width: 70%;
+        // }
         @media (max-width: 300px) {
             height: -moz-calc(100% - 500px); /* Firefox */
             height: -webkit-calc(100% - 500px); /* Chrome, Safari */

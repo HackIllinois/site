@@ -25,7 +25,7 @@ const customStyles: StylesConfig<Record<string, unknown>, true | false> = {
         bottom: 0,
         top: "unset",
         transform: "none",
-        fontSize: "1.1em",
+        // fontSize: "1.1em",
         "::after": {
             content: '"*"',
             color: "#FE7098",
@@ -48,7 +48,7 @@ const customStyles: StylesConfig<Record<string, unknown>, true | false> = {
         ...base,
         color: "FFFFFF",
         fontWeight: 500,
-        fontSize: "1.25em"
+        // fontSize: "1.25em"
     }),
     multiValue: base => ({
         ...base,
