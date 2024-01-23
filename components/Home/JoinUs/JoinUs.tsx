@@ -18,16 +18,6 @@ const JoinUs = () => {
                     <div className={styles.socialmediaContainer}>
                         <Link
                             target="_blank"
-                            href="https://twitter.com/HackIllinois"
-                        >
-                            <Image
-                                src={Twitter}
-                                alt="twitter"
-                                className={styles.twitter}
-                            />
-                        </Link>
-                        <Link
-                            target="_blank"
                             href="https://www.instagram.com/hackillinois"
                         >
                             <Image

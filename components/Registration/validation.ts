@@ -13,14 +13,7 @@ export const registrationSchema = z.object({
     transportation: z.string().array().min(1),
     requestedTravelReimbursement: z.enum(["YES", "NO"]),
     location: z.string().min(1),
-    degree: z.enum([
-        "ASSOCIATES",
-        "BACHELORS",
-        "MASTERS",
-        "PHD",
-        "GRADUATED",
-        "OTHER"
-    ]),
+    degree: z.string().min(1),
     university: z.string().min(1),
     major: z.string().min(1),
     minor: z.string().min(1),
@@ -67,4 +60,14 @@ export const defaultValues = {
     transportation: [],
     proEssay: "",
     optionalEssay: "",
+    hackEssay1: "",
+    hackEssay2: "",
+    legalName: "",
+    preferredName: "",
+    emailAddress: "",
+    gender: "",
+    location: "",
+    degree: "",
+    major: "",
+    university: ""
 };

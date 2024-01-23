@@ -11,12 +11,34 @@
         margin-top: 18px;
         font-size: 0.9em;
     }
+    ::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
+    
+    ::-webkit-scrollbar:vertical {
+        width: 8px;
+    }
+    
+    ::-webkit-scrollbar:horizontal {
+        height: 12px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, .5);
+        border-radius: 10px;
+        border: 1px solid #ffffff;
+    }
+    
+    ::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #ffffff;
+    }
 
     .title {
         color: var(--text-color);
         font-style: normal;
         font-weight: 700;
-        font-size: 36px;
+        font-size: 32px;
         line-height: 44px;
         margin-top: 20px;
 
@@ -43,6 +65,29 @@
     .textOp,
     .textOp2,
     .note {
+        font-size: 1.3em;
+        line-height: 1.5em;
+        margin-top: 15px;
+        color: var(--text-color);
+        font-weight: 800;
+        margin-top: var(--field-margin, 10px);
+        margin-bottom: 0px;
+
+        a {
+            font-weight: 700;
+            color: #46959f;
+            text-decoration: none;
+        }
+
+        b {
+            font-weight: 700;
+        }
+        @media (max-width: 912px) {
+            font-size: 0.8em;
+            margin-top: 10px;
+        }
+    }
+    .text2 {
         font-size: 1.3em;
         line-height: 1.5em;
         margin-top: 25px;
@@ -130,15 +175,16 @@
         position: relative;
         height: fit-content;
         width: 100%;
+        z-index: 3;
     }
 
     .demographicsHeader {
-        padding-top: 110px;
+        padding-top: 90px;
+        left: 2%;
         position: absolute;
         z-index: 1000;
         height: fit-content;
         width: 60%;
-        right: 0;
     }
 
     .mobileHeader {
@@ -187,13 +233,12 @@
 
     .mascot {
         position: absolute;
-        width: 15%;
+        width: 12%;
         height: fit-content;
         z-index: 1000;
-        left: 0;
-        right: 0;
+        right: 15%;
         margin: 0 auto;
-        margin-top: 13%;
+        margin-top: 8%;
         padding-top: 150px;
 
         @media screen and (max-width: 768px) {
@@ -206,21 +251,27 @@
     // Form
     .piForm {
         z-index: 3;
-        overflow: visible;
+        overflow: auto;
         position: absolute;
-        height: fit-content;
-        width: 60%;
-        top: 40%;
+        height: 90%;
+        width: 80%;
+        top: 35%;
         left: 50%; // 50% from the left of the viewport
         transform: translateX(-50%); // to center the element
         justify-content: center;
         align-items: center;
 
         @media (max-width: 1200px) {
+
             overflow: auto;
         }
+        @media (max-width: 1024px) and (max-height: 1500px) {
+            top: 35%;
+            line-height: 1.3em;
+            max-height: 70vh;
+        }
 
-        @media (max-height: 950px) and (max-width: 768px){
+        @media (max-height: 1024px) and (max-width: 912px){
             top: 45%;
             max-height: 70vh;
             width: 80%;
@@ -246,8 +297,9 @@
 }
 
 .education {
-    --text-color: #ead1d0;
-    height: fit-content;
+    --text-color: #ffffff;
+    background: #0D3F41;
+    height: 90%;;
     width: 100%;
     display: flex;
     position: relative;
@@ -263,14 +315,15 @@
 
     .demographicsHeader2 {
         position: absolute;
-        z-index: -1;
+        z-index: 3;
         height: fit-content;
-        width: 60%;
+        width: 47%;
         margin-top: 7%;
         margin-left: 2%;
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 760px) {
             margin-top: 20%;
+            width: 60%;
             left:0;
             right: 0;
             margin-left: auto;
@@ -287,16 +340,18 @@
     }
 
     .lab {
-        position: absolute;
-        z-index: -2;
-        height: fit-content;
-        width: 55%;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        margin-top: 22%;
+        display: none;
 
-        @media (max-width: 768px) {
+        @media (max-width: 760px) {
+            display: block;
+            position: absolute;
+            z-index: 2;
+            height: fit-content;
+            width: 55%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            margin-top: 22%;
             margin-top: 33%;
             width: 80%;
         }
@@ -306,9 +361,10 @@
         position: absolute;
         height: fit-content;
         width: 20%;
-        margin-top: 200%;
-        left: 40%;
-        @media (max-width: 768px) {
+        margin-top: 134%;
+        left: 34%;
+        z-index: 1;
+        @media (max-width: 760px) {
             left: 80%;
             width: 30%;
             margin-top: 240%;
@@ -320,23 +376,18 @@
         position: absolute;
         height: fit-content;
         transform-origin: top;
-        transform: scaleY(0.7);
         width: 100%;
-        z-index: -4;
-
-        @media screen and (max-width: 768px) {
-            transform: scaleY(1);
-        }
+        z-index: 1;
     }
 
     .iceCave {
-        margin-top: 40%;
-        z-index: -5;
+        margin-top: 5%;
+        z-index: 0;
         position: relative;
         height: fit-content;
         width: 100%;
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 760px) {
             margin-top: 80%;
         }
     }
@@ -347,19 +398,28 @@
         overflow: auto;
         position: absolute;
         height: fit-content;
-        width: 60%;
+        width: 70%;
         left: 50%; // 50% from the left of the viewport
         transform: translateX(-50%); // to center the element
         justify-content: center;
         align-items: center;
-        top: 40%;
+        top: 28%;
         margin-top: 13%; // todo: position based on screen width
         margin-bottom: 80%; // todo: bottom controls how far the image scretches down
         
+        @media (min-height: 1025px) and (min-width: 769px) {
+            max-height: 50vh;
+        }
+        @media (max-height: 1024px) and (max-width: 760px) {
+            top: 40%;
+        }
         @media (max-height: 950px) and (max-width: 500px) {
             margin-top: 10%;
-            max-height: 70vh;
+            max-height: 90vh;
             width: 80%;
+        }
+        @media (max-width: 300px) {
+            max-height: 60vh;
         }
         
     }    
@@ -367,7 +427,7 @@
 
 .experience {
     background: #266E83;
-    --text-color: #1a3522;
+    --text-color: #FFFFFF;
     height: fit-content;
     width: 100%;
     display: flex;
@@ -375,9 +435,6 @@
     flex-direction: column;
     margin: 0;
 
-    @media  (max-width: 600px) {
-        --text-color: #FFFFFF;
-    }
 
     // Headers
     .hsHeader {
@@ -395,8 +452,8 @@
         margin-left: 4%;
 
         @media screen and (max-width: 600px) {
-            margin-top: 15%;
-            width: 80%;
+            margin-top: 25%;
+            width: 70%;
         }
         @media screen and (max-width: 350px) {
             margin-top: 25%;
@@ -419,12 +476,21 @@
         position: absolute;
         height: fit-content;
         transform-origin: top;
-        transform: scaleY(0.5);
         width: 100%;
         z-index: 2;
-
-        @media screen and (max-width: 600px) {
-            transform: scaleY(1);
+        @media (max-width: 600px) {
+            display: none;
+        }
+    }
+    .mobileforest {
+        display: none;
+        @media (max-width: 600px) {
+            display: block;
+            position: absolute;
+            height: fit-content;
+            transform-origin: top;
+            width: 100%;
+            z-index: 2;
         }
     }
 
@@ -432,8 +498,8 @@
         position: relative;
         height: fit-content;
         width: 100%;
-        z-index: 2;
-        margin-top: 55%;
+        z-index: 1;
+        margin-top: 40%;
 
         @media screen and (max-width: 600px) {
             display: none;
@@ -455,16 +521,13 @@
     }
 
     .mascot {
-        position: absolute;
-        width: 15%;
-        height: fit-content;
-        z-index: 2;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        margin-top: 30%;
-
+        display: none;
         @media screen and (max-width: 600px) {
+            display: block;
+            position: absolute;
+            height: fit-content;
+            z-index: 2;
+            margin: 0 auto;
             width: 20%;
             margin-top: 75%;
             left: 30%;
@@ -476,29 +539,40 @@
     .hsForm {
         z-index: 5;
         position: absolute;
-        height: fit-content;
+        height: -moz-calc(100% - 900px); /* Firefox */
+        height: -webkit-calc(100% - 900px); /* Chrome, Safari */
+        height: calc(100% - 900px);
+        // height: 150vh;
+        // height: -web;
         width: 60%;
         left: 50%; // 50% from the left of the viewport
-        margin-top: 80%; // 50% from the top of the viewport
+        margin-top: 50%; // 50% from the top of the viewport
         transform: translateX(-50%); // to center the element
         justify-content: center;
         align-items: center;
-        overflow: auto;
+        // max-height: 20vh;
+        overflow-y: auto;
         
-        @media (max-height: 1400px) and (max-width: 912px){
-            max-height: 90vh;
-        }
-        @media (max-width: 1024px) and (max-height: 1366px) {
-            max-height: 100vh;
-            width: 80%;
+
+        @media (max-width: 1024px) and (max-height: 1368px) {
+            // max-height: 60vh;
+            height: -moz-calc(100% - 800px); /* Firefox */
+            height: -webkit-calc(100% - 800px); /* Chrome, Safari */
+            height: calc(100% - 600px);
+            width: 70%;
         }
         @media (max-height: 950px) and (max-width: 768px) {
             margin-top: 150%;
-            max-height: 100vh;
+            height: -moz-calc(100% - 800px); /* Firefox */
+            height: -webkit-calc(100% - 800px); /* Chrome, Safari */
+            height: calc(100% - 800px);
             width: 80%;
         }
-
-       
+        @media (max-width: 300px) {
+            height: -moz-calc(100% - 500px); /* Firefox */
+            height: -webkit-calc(100% - 500px); /* Chrome, Safari */
+            height: calc(100% - 500px);
+        }
     
         
     }
@@ -522,6 +596,7 @@
     align-items: center;
     --text-color: #ffffff;
     min-height: 100vh;
+    overflow: auto;
 
     .header {
         position: absolute;
@@ -545,7 +620,7 @@
             height: fit-content;
             width: 70%;
             left: 5%;
-            margin-top: 15%;
+            margin-top: 20%;
         }
     }
 
@@ -576,34 +651,21 @@
     }
 
     .hsForm2 {
-        z-index: 4;
+        z-index: 6;
         position: absolute;
-        height: 90%;
+        // height: calc(100% - 800px);
+        // height: 80%;
         width: 70%;
-        margin-top: 130%;
-        justify-content: center;
-        align-items: center;
-        overflow: auto;
-        padding-bottom: 200px;
+        // margin-top: 100%;
+        overflow: visible;
+        top: 50%;
 
         @media (max-width: 1000px) {
-            margin-top: 145%;
-        }
-        @media (max-width: 600px) {
-            margin-top: 175%;
+            // margin-top: 125%;
+            top: 45%;
         }
         
-        // @media (max-height: 1200px) and (max-width: 850px) {
-        //     margin-top: 135%;
-        // }
-        // @media (max-height: 900px) and (max-width: 600px) {
-        //     font-size: 1.1em;
-
-        //     margin-top: 175%;
-        //     max-height: 100vh;
-        //     width: 80%;
-        // }
-
+    
         
     }
 }
@@ -613,7 +675,7 @@
     width: 100%;
     position: relative;
     margin: 0;
-    height: 100vh;
+    // height: 100vh;
     .background {
         position: absolute;
         height: fit-content;
@@ -697,11 +759,22 @@
     }
 
     .reviewForm {
-        position: absolute;
+        position: relative;
         z-index: 5;
+        padding-top: 50vh;
+        width: 50vw;
+        padding-bottom: 15vh;
         top: 50%;
         margin: auto;
         margin-left: 10%;
+
+        @media screen and (max-width: 900px) {
+            top: 10vh;
+            width: 90vw;
+            padding-top: 20vh;
+            padding-bottom: 20vh;
+        }
+        
     }
 }
 
@@ -767,7 +840,7 @@
         // padding-top: 40%;
         top: 100px;
         margin: auto;
-        z-index: 1;
+        z-index: 4;
         width: 552px;
         height: 252px;
         position: relative;
@@ -816,10 +889,19 @@
         .contents {
             position: relative;
             z-index: 6;
-            transform: translateY(70%);
+            transform: translateY(60%);
 
+            
             @media screen and (max-width: 900px) {
-                transform: translateY(100%);
+                transform: translateY(80%);
+                
+                p {
+                    padding-top: 8px;
+                }
+            }
+
+            @media screen and (max-height: 600px) {
+                transform: translateY(30%);
             }
         }
 
@@ -1125,25 +1207,28 @@
         .completeCol2 {
             position: relative;
             margin: auto;
+            height: fit-content;
             width: 40vw;
             align-items: center;
             align-self: center;
             justify-content: center;
+            display: flex;
+            flex-direction: column;
 
             @media  screen and (max-width: 768px) {
-                width: 80vw;   
+                width: 80vw;  
             }
 
             .completeScroll {
                 @media  screen and (max-width: 768px) {
-                    transform: scale(0.6);
+                    transform: scale(0.5);
                 }
             }
 
             .button {
                 transform: scale(0.7);
                 margin: auto;
-                padding-bottom: 5px;
+                padding-bottom: 15px;
                 cursor: pointer;
                 align-items: center;
                 align-self: center;

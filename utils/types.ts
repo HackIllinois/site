@@ -11,13 +11,7 @@ export type RegistrationType = {
     race: string[];
     requestedTravelReimbursement: Boolean;
     location: string;
-    degree:
-        | "ASSOCIATES"
-        | "BACHELORS"
-        | "MASTERS"
-        | "PHD"
-        | "GRADUATED"
-        | "OTHER";
+    degree: string;
     university: string;
     major: string;
     minor: string;
@@ -42,6 +36,7 @@ export type RSVPType = {
     status: DecisionStatus;
     response: DecisionResponse;
     admittedPro: boolean;
+    reimbursementValue: number;
     // reviewer: string;
     // emailSent: false;
 };
