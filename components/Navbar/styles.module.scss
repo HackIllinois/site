@@ -6,6 +6,10 @@
     color: white;
     width: 100%;
 
+    @media screen and (max-width: 960px) {
+       display: none;
+    }
+
     img {
         object-fit: contain;
 
@@ -95,73 +99,191 @@
     gap: 10px;
 }
 
-.mobileMenu {
-    cursor: pointer;
-    position: relative;
+.mobile {
     display: none;
-    @media screen and (max-width: 960px) {
-        display: block;
+    margin: auto;
+    align-items: center;
+    position: absolute;
+    width: 100vw;
+    z-index: 10;
+
+    @media screen and (max-width: 960px){
+        display: flex;
+        flex-direction: column;
     }
 }
 
-.mobileMenuButton {
-    position: relative;
-    user-select: none;
 
-    img {
-        width: 200px;
-        height: calc(200px * (94 / 242));
-        @media screen and (max-width: 640px) {
-            width: 120px;
-            height: calc(150px * (94 / 242));
-        }
+
+
+.mobileTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+
+    .title {
+        transform: scale(0.7);
     }
+    
+}
+
+
+.hamburger {
+    width: 60px;
+    height: 45px;
+    position: relative;
+    margin: 35px 25px;
+    transform: rotate(0deg) scale(0.7);
+    transition: .5s ease-in-out;
+    z-index: 1001;
+    cursor: pointer;
 
     span {
-        color: white;
+        display: block;
         position: absolute;
-        top: 65%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        height: 9px;
+        width: 100%;
+        background: #C9D2E5;
+        border-radius: 9px;
+        opacity: 1;
+        left: 0;
+        transform: rotate(0deg);
+        transition: .5s ease-in-out;
 
-        font-size: 20px;
-        font-weight: 600;
-        line-height: normal;
+        &:nth-child(1) {
+            top: 0px;
+            transform-origin: left center;
+        }
+      
+        &:nth-child(2) {
+            top: 18px;
+            transform-origin: left center;
+        }
+      
+        &:nth-child(3) {
+            top: 36px;
+            transform-origin: left center;
+        }
+    
+    }
 
-        @media screen and (max-width: 640px) {
-            font-size: 18px;
-            top: 57%;
+    &.open {
+        span {
+            &:nth-child(1) {
+                transform: rotate(45deg);
+                top: -3px;
+                left: 8px;
+            }
+              
+            &:nth-child(2) {
+                width: 0%;
+                opacity: 0;
+            }
+              
+            &:nth-child(3) {
+                transform: rotate(-45deg);
+                top: 39px;
+                left: 8px;
+            }
         }
     }
+    // Hamburger menu code assisted by https://codepen.io/designcouch/pen/ExvwPY
 }
 
-.mobileNavbarMenu {
-    position: absolute;
-    top: calc(100% - 5px);
-    left: 50%;
-    transform: translateX(-50%);
-
-    @media screen and (max-width: 640px) {
-        top: calc(100% - 10px);
-    }
-    li {
-        width: 200px;
-        @media screen and (max-width: 640px) {
-            width: 150px;
-        }
-
-        padding: 18px;
-
-        background-color: rgba(235, 246, 247, 0.11);
-
-        border-radius: 16px;
-
-        list-style: none;
-        font-weight: 500;
-        font-size: 16px;
-
+.mobileMenu {
+    display: none;
+    &.menuOpen {
+        position: absolute;
+        background-color: #5B619B;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-content: center;
+        justify-content: space-evenly;
         align-items: center;
+        margin-bottom: 20px;
+        width: 100%;
+        padding-top: 60px;
+        height: 50vh;
+        z-index: 6;
+
+        a {
+            font-size: x-large;
+            color: white;
+        }
     }
 }
+  
+
+// .mobileMenu {
+//     cursor: pointer;
+//     position: relative;
+//     display: none;
+//     @media screen and (max-width: 960px) {
+//         display: block;
+//     }
+// }
+
+// .mobileMenuButton {
+//     position: relative;
+//     user-select: none;
+
+//     img {
+//         width: 200px;
+//         height: calc(200px * (94 / 242));
+//         @media screen and (max-width: 640px) {
+//             width: 120px;
+//             height: calc(150px * (94 / 242));
+//         }
+//     }
+
+//     span {
+//         color: white;
+//         position: absolute;
+//         top: 65%;
+//         left: 50%;
+//         transform: translate(-50%, -50%);
+
+//         font-size: 20px;
+//         font-weight: 600;
+//         line-height: normal;
+
+//         @media screen and (max-width: 640px) {
+//             font-size: 18px;
+//             top: 57%;
+//         }
+//     }
+// }
+
+// .mobileNavbarMenu {
+//     position: absolute;
+//     top: calc(100% - 5px);
+//     left: 50%;
+//     transform: translateX(-50%);
+
+//     @media screen and (max-width: 640px) {
+//         top: calc(100% - 10px);
+//     }
+//     li {
+//         width: 200px;
+//         @media screen and (max-width: 640px) {
+//             width: 150px;
+//         }
+
+//         padding: 18px;
+
+//         background-color: rgba(235, 246, 247, 0.11);
+
+//         border-radius: 16px;
+
+//         list-style: none;
+//         font-weight: 500;
+//         font-size: 16px;
+
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//     }
+// }

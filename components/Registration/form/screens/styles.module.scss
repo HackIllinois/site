@@ -69,7 +69,7 @@
         line-height: 1.5em;
         margin-top: 15px;
         color: var(--text-color);
-        font-weight: 600;
+        font-weight: 800;
         margin-top: var(--field-margin, 10px);
         margin-bottom: 0px;
 
@@ -175,6 +175,7 @@
         position: relative;
         height: fit-content;
         width: 100%;
+        z-index: 3;
     }
 
     .demographicsHeader {
@@ -261,6 +262,7 @@
         align-items: center;
 
         @media (max-width: 1200px) {
+
             overflow: auto;
         }
         @media (max-width: 1024px) and (max-height: 1500px) {
@@ -546,7 +548,7 @@
         transform: translateX(-50%); // to center the element
         justify-content: center;
         align-items: center;
-        overflow: auto;
+        max-height: 20vh;
         
 
         @media (max-width: 1024px) and (max-height: 1368px) {
@@ -763,9 +765,11 @@
         margin: auto;
         margin-left: 10%;
 
-        @media screen and (max-width: 800px) {
+        @media screen and (max-width: 900px) {
+            top: 10vh;
             width: 90vw;
             padding-top: 20vh;
+            padding-bottom: 20vh;
         }
         
     }
@@ -833,7 +837,7 @@
         // padding-top: 40%;
         top: 100px;
         margin: auto;
-        z-index: 1;
+        z-index: 4;
         width: 552px;
         height: 252px;
         position: relative;
@@ -882,10 +886,19 @@
         .contents {
             position: relative;
             z-index: 6;
-            transform: translateY(70%);
+            transform: translateY(60%);
 
+            
             @media screen and (max-width: 900px) {
-                transform: translateY(100%);
+                transform: translateY(80%);
+                
+                p {
+                    padding-top: 8px;
+                }
+            }
+
+            @media screen and (max-height: 600px) {
+                transform: translateY(30%);
             }
         }
 
@@ -1191,25 +1204,28 @@
         .completeCol2 {
             position: relative;
             margin: auto;
+            height: fit-content;
             width: 40vw;
             align-items: center;
             align-self: center;
             justify-content: center;
+            display: flex;
+            flex-direction: column;
 
             @media  screen and (max-width: 768px) {
-                width: 80vw;   
+                width: 80vw;  
             }
 
             .completeScroll {
                 @media  screen and (max-width: 768px) {
-                    transform: scale(0.6);
+                    transform: scale(0.5);
                 }
             }
 
             .button {
                 transform: scale(0.7);
                 margin: auto;
-                padding-bottom: 5px;
+                padding-bottom: 15px;
                 cursor: pointer;
                 align-items: center;
                 align-self: center;
