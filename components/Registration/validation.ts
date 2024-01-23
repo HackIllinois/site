@@ -63,12 +63,11 @@ export const defaultValues = {
     hackEssay1: "",
     hackEssay2: "",
     legalName: "",
-    prefferedName: "",
+    preferredName: "",
     emailAddress: "",
     gender: "",
     location: "",
     degree: "",
     major: "",
-    university: "",
-    gradYear: 0,
+    university: ""
 };

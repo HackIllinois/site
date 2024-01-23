@@ -179,6 +179,7 @@ const Some: React.FC = () => {
                                         handleDecline={() =>
                                             setShowDeclineConfirmation(true)
                                         }
+                                        reimburse={RSVP?.reimbursementValue}
                                     />
                                 );
                             } else {

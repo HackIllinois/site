@@ -205,10 +205,12 @@ export const DiscordIcon = (props: SVGProps<SVGSVGElement>) => {
 
 export const HackKnightRejected = ({
     handleConfirm,
-    handleDecline
+    handleDecline,
+    reimburse
 }: {
     handleConfirm: () => void;
     handleDecline: () => void;
+    reimburse: number;
 }) => {
     return (
         <>
@@ -223,6 +225,7 @@ export const HackKnightRejected = ({
                     "If you would like to attend HackIllinois 2024, click Confirm to finish the RSVP process. If you won't be attending please click Decline. This cannot be reversed."
                 }
             </StandardFont>
+            {reimburse > 0 && <StandardFont>{`Additionally, you have been approved for a travel reimbursement of \$${reimburse}.`}</StandardFont>}
 
             <div className={styles.buttonGroup}>
                 <ConfirmButton onClick={handleConfirm} />

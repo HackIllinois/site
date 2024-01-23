@@ -47,8 +47,8 @@ const PersonalInfo = () => {
             value: "Black or African American",
         },
         {
-            label: "Native Hawaiian or Other Pacific Islander",
-            value: "Native Hawaiian or Other Pacific Islander",
+            label: "Native Hawaiian or Pacific Islander",
+            value: "Native Hawaiian or Pacific Islander",
         },
         {
             label: "East Asian",

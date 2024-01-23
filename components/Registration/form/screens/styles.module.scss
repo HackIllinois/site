@@ -239,6 +239,7 @@
         align-items: center;
 
         @media (max-width: 1200px) {
+
             overflow: auto;
         }
         @media (max-width: 1024px) and (max-height: 1500px) {
@@ -522,7 +523,7 @@
         transform: translateX(-50%); // to center the element
         justify-content: center;
         align-items: center;
-        overflow: auto;
+        max-height: 20vh;
         
         @media (min-height: 1300px) and (max-width: 912px){
             max-height: 55vh;
@@ -745,9 +746,11 @@
         margin: auto;
         margin-left: 10%;
 
-        @media screen and (max-width: 800px) {
+        @media screen and (max-width: 900px) {
+            top: 10vh;
             width: 90vw;
             padding-top: 20vh;
+            padding-bottom: 20vh;
         }
         
     }
