@@ -30,8 +30,8 @@ const PersonalInfo = () => {
         { label: "Yes", value: "YES", isRadio: true, isRadioButton: false }
     ];
     const reimbursementOptions = [
-        { label: "Yes", value: "YES", isRadio: true, isRadioButton: false }
-        // { label: "No", value: "NO", isRadio: true, isRadioButton: false }
+        { label: "Yes", value: "YES", isRadio: true, isRadioButton: false },
+        { label: "No", value: "NO", isRadio: true, isRadioButton: false }
     ];
     const raceOptions = [
         {
