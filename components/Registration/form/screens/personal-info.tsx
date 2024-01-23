@@ -54,8 +54,14 @@ const PersonalInfo = () => {
             label: "East Asian",
             value: "East Asian",
         },
-        { label: "Hispanic or Latino", value: "Hispanic or Latino", isRadio: true },
-        { label: "White", value: "White", isRadio: true },
+        { 
+            label: "Hispanic or Latino", 
+            value: "Hispanic or Latino" 
+        },
+        { 
+            label: "White", 
+            value: "White",
+        },
         {
             label: "Biracial/Multiracial",
             value: "Biracial/Multiracial",
@@ -115,17 +121,23 @@ const PersonalInfo = () => {
                     />
                     
                     <p className={styles.text}>Race/Ethnicity</p>
-                    <Select
+                    <Checkboxes
+                        className={styles.checkboxes}
+                        name="race"
+                        options={raceOptions}
+                        isRadio={false}
+                    />
+                    {/* <Select
                         className={styles.select}
                         name="race"
                         isMulti={true}
                         options={raceOptions}
-                    />
+                    /> */}
                     <br></br>
 
                     <p className={styles.text}>
                         Are you aware you have to be 18 by the start of our event (February
-                        24th, 2023)?
+                        23th, 2024)?
                     </p>
                     <Checkboxes
                         className={styles.checkboxes}
@@ -134,12 +146,12 @@ const PersonalInfo = () => {
                     />
                     <p className={styles.text}>
                         Are you aware that this event will be in person and that you will be
-                        responsible for transportation?
+                        responsible for transportation and lodging?
                     </p>
                     <Checkboxes
                         className={styles.checkboxes}
                         name="transportation"
-                        options={ageOptions}
+                        options={transportationOptions}
                     />
 
                     <p className={styles.text}>
