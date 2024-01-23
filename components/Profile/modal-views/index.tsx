@@ -398,7 +398,7 @@ export const TBD = ({ handleOk }: { handleOk: () => void }) => {
         <>
             <BoldFont>
                 {
-                    "Your application is in Review! We will reach out to you with a decision soon."
+                    "Your application is in review! We will reach out to you with a decision soon."
                 }
             </BoldFont>
             <button onClick={handleOk} className={styles.okButton}>
