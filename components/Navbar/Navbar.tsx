@@ -5,6 +5,7 @@ import styles from "./styles.module.scss";
 import Logo from "@/public/logo.svg";
 import CloudMenu from "@/public/cloud-menu.svg";
 import { useState, useRef, useEffect } from "react";
+import clsx from "clsx";
 
 type NavbarItem = {
     title: string;
@@ -38,58 +39,103 @@ const Navbar = () => {
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    const handleClickOutside = (event: MouseEvent) => {
-        if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-            setShowMobileNavbar(false);
-        }
-    };
+    // const handleClickOutside = (event: MouseEvent) => {
+    //     if (
+    //         menuRef.current &&
+    //         !menuRef.current.contains(event.target as Node)
+    //     ) {
+    //         setShowMobileNavbar(false);
+    //     }
+    // };
 
-    useEffect(() => {
-        // Add when mounted
-        document.addEventListener("mousedown", handleClickOutside);
-        // Return function to be called when unmounted
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
-
+    // useEffect(() => {
+    //     // Add when mounted
+    //     document.addEventListener("mousedown", handleClickOutside);
+    //     // Return function to be called when unmounted
+    //     return () => {
+    //         document.removeEventListener("mousedown", handleClickOutside);
+    //     };
+    // }, []);
 
     return (
-        <nav className={styles.navbar}>
-            <Image alt="HackIllinois Logo" onClick={() => window.location.pathname = "/"} style={{cursor: 'pointer'}} src={Logo} />
-            <div
-                ref={menuRef}
-                className={styles.mobileMenu}
-                onClick={() => setShowMobileNavbar(p => !p)}
-            >
-                <div className={styles.mobileMenuButton}>
-                    <span>Menu</span>
-                    <Image alt="Menu" src={CloudMenu} />
-                </div>
-                {showMobileNavbar && (
-                    <ul className={styles.mobileNavbarMenu}>
-                        {navbar_items.map((item, index) => (
-                            <li key={item.title}>
-                                <a href={item.link}>{item.title}</a>
+        <>
+            <nav className={styles.navbar}>
+                <Image
+                    alt="HackIllinois Logo"
+                    onClick={() => (window.location.pathname = "/")}
+                    style={{ cursor: "pointer" }}
+                    src={Logo}
+                />
+                <div
+                    ref={menuRef}
+                    className={styles.mobileMenu}
+                    onClick={() => setShowMobileNavbar(p => !p)}
+                >
+                    <div className={styles.mobileMenuButton}>
+                        <span>Menu</span>
+                        <Image alt="Menu" src={CloudMenu} />
+                    </div>
+                    {showMobileNavbar && (
+                        <ul className={styles.mobileNavbarMenu}>
+                            {navbar_items.map((item, index) => (
+                                <li key={item.title}>
+                                    <a href={item.link}>{item.title}</a>
+                                </li>
+                            ))}
+                            <li>
+                                <KnightsButton />
                             </li>
-                        ))}
-                        <li>
-                            <KnightsButton />
+                        </ul>
+                    )}
+                </div>
+                <ul className={styles.navbarList}>
+                    {navbar_items.map((item, index) => (
+                        <li key={item.title}>
+                            <a href={item.link}>{item.title}</a>
                         </li>
-                    </ul>
-                )}
-            </div>
-            <ul className={styles.navbarList}>
-                {navbar_items.map((item, index) => (
-                    <li key={item.title}>
-                        <a href={item.link}>{item.title}</a>
+                    ))}
+                    <li>
+                        <KnightsButton />
                     </li>
-                ))}
-                <li>
+                </ul>
+            </nav>
+            <nav className={styles.mobile}>
+                <div className={styles.mobileTop}>
+                    <div className={styles.title}>
+                        <a href="/">
+                            <Image alt="Logo" src={Logo} className="logo" />
+                        </a>
+                    </div>
+                    <div
+                        className={clsx(
+                            styles.hamburger,
+                            showMobileNavbar && styles.open
+                        )}
+                        ref={menuRef}
+                        onClick={() => setShowMobileNavbar(p => !p)}
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div
+                    className={clsx(
+                        styles.mobileMenu,
+                        showMobileNavbar && styles.menuOpen
+                    )}
+                >
+
+                    {/* <a href="/profile" className={styles.link}>
+                        Profile
+                    </a> */}
                     <KnightsButton />
-                </li>
-            </ul>
-        </nav>
+                    {/* <a href="/register" className={styles.link}>
+                        Register
+                    </a> */}
+                </div>
+            </nav>
+        </>
     );
 };
 
@@ -127,4 +173,3 @@ const KnightsButton = () => {
 function handleClickOutside(this: Document, ev: MouseEvent) {
     throw new Error("Function not implemented.");
 }
-
