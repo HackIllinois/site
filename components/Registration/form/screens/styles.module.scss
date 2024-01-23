@@ -278,6 +278,13 @@
             width: 80%;
             // font-size: 2.5vw;
         }
+
+        @media (min-height: 1024px){
+            top: 40%;
+            max-height: 50%;
+            width: 80%;
+            // font-size: 2.5vw;
+        }
         @media (max-width: 400px){
             top: 42%;
             max-height: 80vh;
