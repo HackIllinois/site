@@ -20,13 +20,13 @@
 .multiline {
     width: 100%;
     min-height: 35vh;
-    padding: 10px 5px;
+    padding: 15px 10px;
     border-radius: 10px;
-    color: #000000;
+    color: #FFFFFF;
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
-    line-height: 17px;
+    line-height: 20px;
     background-color: #638f70;
     border-bottom: none;
 
@@ -37,7 +37,7 @@
 
     &::placeholder {
         font-family: inherit;
-        color: #000000;
+        color: #FFFFFF;
         font-weight: 400;
         font-size: 0.9em;
     }
