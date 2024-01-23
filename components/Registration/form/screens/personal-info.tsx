@@ -29,9 +29,9 @@ const PersonalInfo = () => {
     const transportationOptions = [
         { label: "Yes", value: "YES", isRadio: true, isRadioButton: false }
     ];
-    const reimbursement = [
-        { label: "Yes", value: "YES", isRadio: true, isRadioButton: false },
-        { label: "No", value: "NO", isRadio: true, isRadioButton: false }
+    const reimbursementOptions = [
+        { label: "Yes", value: "YES", isRadio: true, isRadioButton: false }
+        // { label: "No", value: "NO", isRadio: true, isRadioButton: false }
     ];
     const raceOptions = [
         {
@@ -158,10 +158,10 @@ const PersonalInfo = () => {
                         Would you like to opt-in for consideration for travel reimbursements? 
                         Marking this does not guarantee reimbursement, but consideration for reimbursement opportunites.
                     </p>
-                    <Checkboxes
+                    <Select
                         className={styles.checkboxes}
                         name="reimbursement"
-                        options={reimbursement}
+                        options={reimbursementOptions}
                     />
                     
                 </div>
