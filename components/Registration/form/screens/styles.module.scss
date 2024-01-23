@@ -1176,25 +1176,28 @@
         .completeCol2 {
             position: relative;
             margin: auto;
+            height: fit-content;
             width: 40vw;
             align-items: center;
             align-self: center;
             justify-content: center;
+            display: flex;
+            flex-direction: column;
 
             @media  screen and (max-width: 768px) {
-                width: 80vw;   
+                width: 80vw;  
             }
 
             .completeScroll {
                 @media  screen and (max-width: 768px) {
-                    transform: scale(0.6);
+                    transform: scale(0.5);
                 }
             }
 
             .button {
                 transform: scale(0.7);
                 margin: auto;
-                padding-bottom: 5px;
+                padding-bottom: 15px;
                 cursor: pointer;
                 align-items: center;
                 align-self: center;
