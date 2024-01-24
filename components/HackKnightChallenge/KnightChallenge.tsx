@@ -375,13 +375,21 @@ const KnightChallenge = (props: any) => {
                     onClick={() => setShow("banner")}
                     className={styles.button}
                 >
-                    <img src="/knights/challenge/back-button.svg" />
+                    <img
+                        src="/knights/challenge/button-bg-gold.svg"
+                        className={styles.buttonBg}
+                    />
+                    <span className={styles.buttonText}>Back</span>
                 </button>
                 <button
-                    onClick={() => checkChallenge()}
+                    onClick={() => setShow('failed')}
                     className={styles.button}
                 >
-                    <img src="/knights/challenge/next-button.svg" />
+                    <img
+                        src="/knights/challenge/button-bg-gold.svg"
+                        className={styles.buttonBg}
+                    />
+                    <span className={styles.buttonText}>Next</span>
                 </button>
             </div>
         </div>
