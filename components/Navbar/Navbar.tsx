@@ -5,6 +5,7 @@ import styles from "./styles.module.scss";
 import Logo from "@/public/logo.svg";
 import CloudMenu from "@/public/cloud-menu.svg";
 import { useState, useRef, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
 type NavbarItem = {
@@ -38,6 +39,7 @@ const navbar_items: NavbarItem[] = [
 const Navbar = () => {
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    const pathname = usePathname();
 
     // const handleClickOutside = (event: MouseEvent) => {
     //     if (
@@ -59,24 +61,38 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className={styles.navbar}>
-                <Image
-                    alt="HackIllinois Logo"
-                    onClick={() => (window.location.pathname = "/")}
-                    style={{ cursor: "pointer" }}
-                    src={Logo}
-                />
-                <div
-                    ref={menuRef}
-                    className={styles.mobileMenu}
-                    onClick={() => setShowMobileNavbar(p => !p)}
-                >
-                    <div className={styles.mobileMenuButton}>
-                        <span>Menu</span>
-                        <Image alt="Menu" src={CloudMenu} />
-                    </div>
-                    {showMobileNavbar && (
-                        <ul className={styles.mobileNavbarMenu}>
+            {pathname !== "/knights/challenge" && (
+                <>
+                    <nav className={styles.navbar}>
+                        <Image
+                            alt="HackIllinois Logo"
+                            onClick={() => (window.location.pathname = "/")}
+                            style={{ cursor: "pointer" }}
+                            src={Logo}
+                        />
+                        <div
+                            ref={menuRef}
+                            className={styles.mobileMenu}
+                            onClick={() => setShowMobileNavbar(p => !p)}
+                        >
+                            <div className={styles.mobileMenuButton}>
+                                <span>Menu</span>
+                                <Image alt="Menu" src={CloudMenu} />
+                            </div>
+                            {showMobileNavbar && (
+                                <ul className={styles.mobileNavbarMenu}>
+                                    {navbar_items.map((item, index) => (
+                                        <li key={item.title}>
+                                            <a href={item.link}>{item.title}</a>
+                                        </li>
+                                    ))}
+                                    <li>
+                                        <KnightsButton />
+                                    </li>
+                                </ul>
+                            )}
+                        </div>
+                        <ul className={styles.navbarList}>
                             {navbar_items.map((item, index) => (
                                 <li key={item.title}>
                                     <a href={item.link}>{item.title}</a>
@@ -86,55 +102,48 @@ const Navbar = () => {
                                 <KnightsButton />
                             </li>
                         </ul>
-                    )}
-                </div>
-                <ul className={styles.navbarList}>
-                    {navbar_items.map((item, index) => (
-                        <li key={item.title}>
-                            <a href={item.link}>{item.title}</a>
-                        </li>
-                    ))}
-                    <li>
-                        <KnightsButton />
-                    </li>
-                </ul>
-            </nav>
-            <nav className={styles.mobile}>
-                <div className={styles.mobileTop}>
-                    <div className={styles.title}>
-                        <a href="/">
-                            <Image alt="Logo" src={Logo} className="logo" />
-                        </a>
-                    </div>
-                    <div
-                        className={clsx(
-                            styles.hamburger,
-                            showMobileNavbar && styles.open
-                        )}
-                        ref={menuRef}
-                        onClick={() => setShowMobileNavbar(p => !p)}
-                    >
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-                <div
-                    className={clsx(
-                        styles.mobileMenu,
-                        showMobileNavbar && styles.menuOpen
-                    )}
-                >
-
-                    {/* <a href="/profile" className={styles.link}>
+                    </nav>
+                    <nav className={styles.mobile}>
+                        <div className={styles.mobileTop}>
+                            <div className={styles.title}>
+                                <a href="/">
+                                    <Image
+                                        alt="Logo"
+                                        src={Logo}
+                                        className="logo"
+                                    />
+                                </a>
+                            </div>
+                            <div
+                                className={clsx(
+                                    styles.hamburger,
+                                    showMobileNavbar && styles.open
+                                )}
+                                ref={menuRef}
+                                onClick={() => setShowMobileNavbar(p => !p)}
+                            >
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div
+                            className={clsx(
+                                styles.mobileMenu,
+                                showMobileNavbar && styles.menuOpen
+                            )}
+                        >
+                            {/* <a href="/profile" className={styles.link}>
                         Profile
                     </a> */}
-                    <KnightsButton />
-                    {/* <a href="/register" className={styles.link}>
+                            <KnightsButton />
+                            {/* <a href="/register" className={styles.link}>
                         Register
                     </a> */}
-                </div>
-            </nav>
+                        </div>
+                    </nav>
+                </>
+            )}
         </>
     );
 };
