@@ -84,7 +84,7 @@ const KnightChallenge = (props: any) => {
                                 <p
                                     className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop}`}
                                 >{`{“Authorization”: token_here}`}</p>
-                                                                <p
+                                <p
                                     className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop}`}
                                 >{`{"Content-Type": "application/json"}`}</p>
                             </li>
@@ -138,8 +138,12 @@ const KnightChallenge = (props: any) => {
                                             Receive these inputs by making a GET
                                             request to this endpoint:
                                             <p
-                                                className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text}`}
-                                            >{`GET https://artemis.hackillinois.org/challenge`}</p>
+                                                className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text} ${styles.code}`}
+                                            >
+                                                {`GET https://artemis.hackillinois`}
+                                                <wbr />
+                                                {`.org/challenge`}
+                                            </p>
                                         </li>
                                     </ol>
                                 </div>
@@ -176,8 +180,12 @@ const KnightChallenge = (props: any) => {
                                         in the request body as shown below.
                                     </p>
                                     <p
-                                        className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text}`}
-                                    >{`POST https://artemis.hackillinois.org/challenge`}</p>
+                                        className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text} ${styles.code}`}
+                                    >
+                                        {`POST https://artemis.hackillinois`}
+                                        <wbr />
+                                        {`.org/challenge`}
+                                    </p>
                                     <p
                                         className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text}`}
                                     >{`{"max_goodness": integer_value_here}`}</p>
@@ -367,13 +375,21 @@ const KnightChallenge = (props: any) => {
                     onClick={() => setShow("banner")}
                     className={styles.button}
                 >
-                    <img src="/knights/challenge/back-button.svg" />
+                    <img
+                        src="/knights/challenge/button-bg-gold.svg"
+                        className={styles.buttonBg}
+                    />
+                    <span className={styles.buttonText}>Back</span>
                 </button>
                 <button
                     onClick={() => checkChallenge()}
                     className={styles.button}
                 >
-                    <img src="/knights/challenge/next-button.svg" />
+                    <img
+                        src="/knights/challenge/button-bg-gold.svg"
+                        className={styles.buttonBg}
+                    />
+                    <span className={styles.buttonText}>Next</span>
                 </button>
             </div>
         </div>

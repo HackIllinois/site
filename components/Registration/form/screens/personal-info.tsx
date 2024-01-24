@@ -163,6 +163,7 @@ const PersonalInfo = () => {
                         name="race"
                         options={reimbursement}
                         isRadio={false}
+
                     />
                     
                 </div>

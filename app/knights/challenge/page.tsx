@@ -12,14 +12,22 @@ const Challenge: React.FC = () => {
 
     useEffect(() => {
         if (!isAuthenticated()) {
-            authenticate(
-                window.location.href
-            );
+            authenticate(window.location.href);
         }
     });
 
     return (
-        <div className={styles.background}>
+        <div
+            className={
+                show === "passed"
+                    ? `${styles.backgroundPassed}`
+                    : show === "failed"
+                    ? `${styles.backgroundFailed}`
+                    : show === "challenge"
+                    ? `${styles.backgroundPassed}`
+                    : `${styles.background}`
+            }
+        >
             <div className={styles.image}>
                 <img
                     src={
