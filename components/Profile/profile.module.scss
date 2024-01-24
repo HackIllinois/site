@@ -9,6 +9,7 @@ $mobile-bookshelf-height: min(90vh, calc(80vw / 759.59 * 1643.58));
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 3;
 }
 
 .boolshelfWrapper {
@@ -60,7 +61,7 @@ $mobile-bookshelf-height: min(90vh, calc(80vw / 759.59 * 1643.58));
 .nameInBook {
     position: absolute;
     top: 45%;
-    left: 50%;
+    left: 48%;
 
     // center vertically and horizontally
     transform: translate(-50%, -50%);
@@ -174,9 +175,11 @@ $mobile-bookshelf-height: min(90vh, calc(80vw / 759.59 * 1643.58));
     width: calc($bookshelf-width / 70 * 58);
     height: calc($bookshelf-width / 70 * 10);
 
-    font-size: 25px;
+    // font-size: 25px;
+    font-size: calc($bookshelf-width / 70 * 2.5);
     font-weight: 700;
-    line-height: 25px;
+    // line-height: 25px;
+    line-height: calc($bookshelf-width / 70 * 2.5);
     text-align: center;
     color: hsla(0, 0%, 100%, 1);
 
@@ -184,8 +187,19 @@ $mobile-bookshelf-height: min(90vh, calc(80vw / 759.59 * 1643.58));
         transform: translate(-50%, -37%);
         height: calc($mobile-bookshelf-height / 90 * 52);
         width: calc($mobile-bookshelf-height / 90 * 25);
-        line-height: 20px;
-        font-size: 20px;
+        // line-height: 20px;
+        font-size: calc($bookshelf-width / 70 * 3.0);
+        line-height: calc($bookshelf-width / 70 * 3.0);
+    }
+
+    @media screen and (max-width: 500px) {
+        font-size: calc($bookshelf-width / 70 * 4);
+        line-height: calc($bookshelf-width / 70 * 4);
+    }
+
+    @media screen and (max-width: 400px) {
+        font-size: calc($bookshelf-width / 70 * 5);
+        line-height: calc($bookshelf-width / 70 * 5);
     }
 }
 

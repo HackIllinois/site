@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./styles.module.scss";
 import background from "@/public/registration/complete/background.svg";
 import scroll from "@/public/registration/complete/scroll.svg";
+import fireFurry from "@/public/registration/complete/fire_furry.svg";
 import button from "@/public/registration/complete/button.svg";
 import Button from "@/components/form/Button";
 
@@ -19,10 +20,12 @@ const Complete = () => {
                 </div>
                 <div className={styles.completeCol2}>
                     <Image src={scroll} className={styles.completeScroll} alt="scroll" />
+                    
                     <Button className={styles.button} onClick={() => window.location.pathname = "/profile"}><Image src={button} alt="submit button"/></Button>
                 </div>
             </div>
             <Image src={background} className={styles.completeBackground} alt="complete" />
+            <Image src={fireFurry} className={styles.fireFurry} alt="Fire Animal" />
         </div>
     );
 };

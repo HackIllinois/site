@@ -158,13 +158,21 @@ const PersonalInfo = () => {
                         Would you like to opt-in for consideration for travel reimbursements? 
                         Marking this does not guarantee reimbursement, but consideration for reimbursement opportunites.
                     </p>
-                    <Checkboxes
-                        className={styles.checkboxes}
-                        name="race"
+                    
+                            
+                    <Select
+                        className={styles.select}
+                        name="requestedTravelReimbursement"
                         options={reimbursement}
-                        isRadio={false}
+                        /> 
 
-                    />
+                    {/* <Checkboxes
+                        className={styles.checkboxes}
+                        name="requestedTravelReimbursement"
+                        options={reimbursement}
+                        // isRadio={false}
+
+                    /> */}
                     
                 </div>
             </div>

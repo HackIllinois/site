@@ -185,8 +185,10 @@
 }
 
 .unhoveredButton {
-    border: solid 2px white;
+    // border: solid 2px white;
     border-radius: 16px;
+    background-color: #FFB33E;
+    color: #A61F00;
     height: 43px;
     width: 171px;
     font-weight: 700;
@@ -198,6 +200,7 @@
 .hoverButton {
     svg {
         display: none;
+        
     }
     &:hover {
         div {
