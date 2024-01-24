@@ -50,9 +50,8 @@ const firstMajors = [
     "Computer Engineering",
     "Electrical Engineering"
 ];
-const remainingMajors = majors.filter(major => !firstMajors.includes(major));
-const majorOptions: OptionType[] = firstMajors
-    .concat(remainingMajors)
+// const remainingMajors = majors.filter(major => !firstMajors.includes(major));
+const majorOptions: OptionType[] = majors
     .concat("N/A")
     .map(major => ({ value: major, label: major }));
 

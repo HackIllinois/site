@@ -823,6 +823,8 @@
             margin: 0 auto;
             display: block;
         }
+
+       
     }
 
     .headline {
@@ -889,6 +891,9 @@
             height: 120px;
             width: 400px;
         }
+        @media screen and (max-height: 720px) {
+            display: none;
+        }
     }
 
     .shieldContainer {
@@ -913,15 +918,33 @@
             z-index: 5;
             padding-bottom: 15px;
             text-decoration: underline;
+            text-decoration-color: #004561;
+
+            @media screen and (max-width: 600px) {
+                text-decoration-color: white;
+            }
+
+            @media screen and (max-height: 720px) {
+                text-decoration-color: white;
+            }
+            
         }
 
         .contents {
             position: relative;
             z-index: 6;
-            transform: translateY(60%);
+            transform: translateY(70vh);
 
-            
-            @media screen and (max-width: 900px) {
+            h2, a {
+                color: #2E325C;
+                
+            }
+
+            h2 {
+                transform: translateY(-150%);
+            }
+
+            @media screen and (min-width: 970px) {
                 transform: translateY(80%);
                 
                 p {
@@ -929,8 +952,56 @@
                 }
             }
 
-            @media screen and (max-height: 600px) {
-                transform: translateY(30%);
+            
+            @media screen and (max-width: 960px) {
+                transform: translateY(110%);
+                
+                p {
+                    padding-top: 8px;
+                }
+            }
+
+            @media screen and (max-width: 600px) {
+                transform: translateY(90%);
+                h2, a {
+                    color: white;
+                }
+
+                h2 {
+                    transform: translateY(-150%);
+                }
+            }
+
+            @media screen and (max-height: 720px) {
+                h2, a {
+                    color: white;
+                }
+
+                h2 {
+                    transform: translateY(-150%);
+                }
+            }
+
+            @media screen and (max-height: 475px) {
+                transform: translateY(70%);
+                h2, a {
+                    color: white;
+                }
+
+                h2 {
+                    transform: translateY(-100%);
+                }
+            }
+
+            @media screen and (max-height: 375px) {
+                transform: translateY(40%);
+                h2, a {
+                    color: white;
+                }
+
+                h2 {
+                    transform: translateY(-80%);
+                }
             }
         }
 
@@ -941,8 +1012,17 @@
             height: auto;
             transform: scale(1.1);
             
+            
             @media screen and (max-width: 660px) {
                 transform: scale(1.4);
+               
+            }
+
+            @media screen and (max-width: 600px) {
+                display: none;
+            }
+            @media screen and (max-height: 720px) {
+                display: none;
             }
            
         }

@@ -28,7 +28,7 @@ const Start = ({ formIndex, setFormIndex, isLoading }: any) => {
                         </div>
                     </div>
                     <p className={styles.link}>
-                        <a href="/knights">What is this?</a>
+                        <a href="/knights" target="_blank">What is this?</a>
                     </p>
                     <div className={styles.heroButtonsWrapper}>
                         <button disabled={isLoading} className={styles.genButton} onClick={() => setFormIndex(1)}>
