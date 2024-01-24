@@ -91,7 +91,7 @@ const Review = ({ formIndex, setFormIndex, isKnight, getValues }: any) => {
                         <p>{vals.gender}</p>
 
                         <p className={styles.text}>Race/Ethnicity</p>
-                        <p>{vals.race}</p>
+                        <p>{vals.race?.join(", ")}</p>
 
                         <p className={styles.text}>
                             Are you aware you have to be 18 by the start of our
@@ -211,17 +211,17 @@ const Review = ({ formIndex, setFormIndex, isKnight, getValues }: any) => {
                             Which of these aspects of the hackathon would you
                             most be interested in engaging in?
                         </p>
-                        <p>{vals.hackInterest}</p>
+                        <p>{vals.hackInterest?.join(", ")}</p>
 
                         <p className={styles.text}>
                             How did you hear about HackIllinois?
                         </p>
-                        <p>{vals.hackOutreach}</p>
+                        <p>{vals.hackOutreach?.join(", ")}</p>
 
                         <p className={styles.text}>
                             What food restrictions or allergies do you have?
                         </p>
-                        <p>{vals.dietaryRestrictions}</p>
+                        <p>{vals.dietaryRestrictions?.join(", ")}</p>
                     </div>
                 </div>
             </div>

@@ -30,7 +30,7 @@ const interestOptions = [
         value: "Submitting a project to win prizes"
     },
     {
-        label: "Participating in mini-events (e.g. games, socials)",
+        label: "Mini-events (e.g. games, socials)",
         value: "Participating in mini-events (e.g. games, socials)"
     },
     { label: "Meeting new people", value: "Meeting new people" },

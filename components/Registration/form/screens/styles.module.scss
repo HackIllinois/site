@@ -580,7 +580,7 @@
             // height: -webkit-calc(100% - 800px); /* Chrome, Safari */
             // height: calc(100% - 600px);
             height: 50%;
-            width: 70%;
+            width: 85%;
         }
         @media screen and (max-width: 600px) {
             margin-top: 120%;
@@ -625,7 +625,7 @@
     align-items: center;
     --text-color: #ffffff;
     min-height: 100vh;
-    overflow: auto;
+    // overflow: auto;
 
     .header {
         position: absolute;
@@ -633,7 +633,7 @@
         height: fit-content;
         width: 70%;
         left: 5%;
-        margin-top: 3%;
+        margin-top: 6%;
         
         @media screen and (max-width: 768px) {
             display: none;
@@ -649,12 +649,12 @@
             height: fit-content;
             width: 70%;
             left: 5%;
-            margin-top: 20%;
+            margin-top: 30%;
         }
     }
 
     .background2 {
-        margin-top: 5%;
+        margin-top: 9%;
         position: relative;
         width: 100%;
         height: fit-content;
@@ -682,15 +682,20 @@
     .hsForm2 {
         z-index: 6;
         position: absolute;
+        width: 70%;
         // height: calc(100% - 800px);
         // height: 80%;
-        width: 70%;
+        // overflow-x: visible !important;
+        // overflow-y: auto;
+        height: 45vh;
+        overflow-y: auto;
         // margin-top: 100%;
-        overflow: visible;
+        
         top: 50%;
-
+        
         @media (max-width: 1000px) {
             // margin-top: 125%;
+            width: 95%;
             top: 45%;
         }
         
@@ -791,15 +796,15 @@
         position: relative;
         z-index: 5;
         padding-top: 50vh;
-        width: 50vw;
-        padding-bottom: 15vh;
-        top: 50%;
+        width: 70vw;
+        padding-bottom: 25vh;
+        top: 10%;
         margin: auto;
         margin-left: 10%;
 
         @media screen and (max-width: 900px) {
             top: 10vh;
-            width: 90vw;
+            width: 80vw;
             padding-top: 20vh;
             padding-bottom: 20vh;
         }
@@ -1288,7 +1293,8 @@
                 color: #FEEEFF;
 
                 @media  screen and (max-width: 768px) {
-                    font-size: 48px;   
+                    font-size: 48px; 
+                    padding-top: 20px;  
                 }
             }
 
@@ -1329,13 +1335,16 @@
             }
 
             .completeScroll {
+                height: fit-content;
+                transform: scale(0.8);
                 @media  screen and (max-width: 768px) {
-                    transform: scale(0.5);
+                    height: 40vh;
+                    // transform: scale(0.5);
                 }
             }
 
             .button {
-                transform: scale(0.7);
+                transform: scale(0.6);
                 margin: auto;
                 padding-bottom: 15px;
                 cursor: pointer;
