@@ -19,7 +19,17 @@ const Challenge: React.FC = () => {
     // });
 
     return (
-        <div className={styles.background}>
+        <div
+            className={
+                show === "passed"
+                    ? `${styles.backgroundPassed}`
+                    : show === "failed"
+                    ? `${styles.backgroundFailed}`
+                    : show === "challenge"
+                    ? `${styles.backgroundPassed}`
+                    : `${styles.background}`
+            }
+        >
             <div className={styles.image}>
                 <img
                     src={

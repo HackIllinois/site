@@ -382,7 +382,7 @@ const KnightChallenge = (props: any) => {
                     <span className={styles.buttonText}>Back</span>
                 </button>
                 <button
-                    onClick={() => setShow('failed')}
+                    onClick={() => setShow('passed')}
                     className={styles.button}
                 >
                     <img
