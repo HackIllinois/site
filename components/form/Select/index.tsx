@@ -118,7 +118,7 @@ const Select = ({
                 blurInputOnSelect={!isMulti}
                 closeMenuOnSelect={!isMulti}
                 menuPosition="absolute"
-                menuPlacement="auto"
+                menuPlacement="bottom"
                 // menuPortalTarget={document.body}
                 menuShouldBlockScroll
                 filterOption={customFilterOption}

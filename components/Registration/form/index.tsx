@@ -207,6 +207,7 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
                         setIsLoading(false);
                     });
             });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); // deliberately not including `methods`
 
     const onSubmit: SubmitHandler<RegistrationSchema> = data => {

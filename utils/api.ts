@@ -72,6 +72,11 @@ async function request(method: MethodType, endpoint: string, body?: unknown) {
         body: JSON.stringify(body)
     });
 
+    if (response.status === 403) {
+        authenticate(window.location.href);
+        return request(method, endpoint, body);
+    }
+
     if (response.status !== 200) {
         throw new APIError(await response.json());
     }

@@ -12,6 +12,8 @@
         margin-top: 18px;
         font-size: 0.9em;
     }
+
+   
     ::-webkit-scrollbar {
         -webkit-appearance: none;
     }
@@ -27,12 +29,12 @@
     ::-webkit-scrollbar-thumb {
         background-color: rgba(0, 0, 0, .5);
         border-radius: 10px;
-        border: 1px solid #ffffff;
+        border: 1px solid #ffffffa1;
     }
     
     ::-webkit-scrollbar-track {
         border-radius: 10px;
-        background-color: #ffffff;
+        background-color: #ffffffa1;
     }
 
     .title {
@@ -1313,9 +1315,9 @@
                 }
             }
 
-            .completeSubContainer {
+            // .completeSubContainer {
 
-            }
+            // }
 
         }
 
