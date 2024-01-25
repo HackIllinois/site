@@ -6,11 +6,23 @@ import { Source_Code_Pro } from "next/font/google";
 const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
 
 const jwtUrl = `https://adonix.hackillinois.org/auth/login/github/?device=challenge`;
-const checkStatusUrl = `http://artemis.hackillinois.org/status`;
 import { getChallenge } from "@/utils/api";
 
 const KnightChallenge = (props: any) => {
     const { setShow } = props;
+    const [token, setToken] = React.useState("<enter_token>")
+
+    React.useEffect(() => {
+        const loadTokenFromSessionStorage = async() => {
+            const token = await sessionStorage.getItem("token");
+
+            if (token != null) {
+                setToken(token);
+            }
+        }
+
+        loadTokenFromSessionStorage();
+    }, [])
 
     const checkChallenge = () => {
         getChallenge()
@@ -83,7 +95,7 @@ const KnightChallenge = (props: any) => {
                                 portal master will not understand your requests.
                                 <p
                                     className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop}`}
-                                >{`{“Authorization”: token_here}`}</p>
+                                >{`{“Authorization”: <enter_token>}`}</p>
                                 <p
                                     className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop}`}
                                 >{`{"Content-Type": "application/json"}`}</p>
@@ -140,9 +152,7 @@ const KnightChallenge = (props: any) => {
                                             <p
                                                 className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text} ${styles.code}`}
                                             >
-                                                {`GET https://artemis.hackillinois`}
-                                                <wbr />
-                                                {`.org/challenge`}
+                                                {`curl -X GET https://artemis.hackillinois.org/challenge -H "Authorization: ${token}" -H "Content-Type: application/json"`}
                                             </p>
                                         </li>
                                     </ol>
