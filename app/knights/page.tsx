@@ -43,7 +43,7 @@ const Knights : React.FC = () => {
                         <p>Attendees in this path have the exclusive opportunity to compete for the <em>grand Knights prize of $2,000.</em>
                             <br></br>
                             <br></br>
-                            Additionally, they will gain access to <em>special networking opportunities</em> with our event sponsors and the chance to present their project in a <em>thrilling Shark-Tank inspired showcase</em>, among other exciting perks – but spots are limited, so register soon!”
+                            Additionally, they will gain access to <em>special networking opportunities</em> with our event sponsors and the chance to present their project in a <em>thrilling Shark-Tank inspired showcase</em>, among other exciting perks – but spots are limited, so register soon!
                         </p>
                     </div>
                     <div className={styles.differBox}>

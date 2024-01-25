@@ -65,7 +65,17 @@ const faqPages: Record<string, FaqPage> = {
                 answer: (
                     <p>
                         Yes! Cash prizes will be offered for winning teams in
-                        several different categories.
+                        several different categories, including our brand new
+                        path{" "}
+                        <a
+                            onClick={() =>
+                                (window.location.pathname = "/knights")
+                            }
+                        >
+                            HackIllinois Knights
+                        </a>
+                        . Additionally, there are various mini-games and events
+                        that offer plenty of opportunities to win prizes!
                     </p>
                 )
             }
@@ -110,8 +120,9 @@ const faqPages: Record<string, FaqPage> = {
                         beginning of 2024. Be on the lookout for the
                         registration announcement on our social media platforms
                         (Instagram, Facebook, Reddit, etc.)! <br></br>In
-                        addition, we will have a travel reimbursement form. More
-                        details will be released shortly.
+                        addition, we will have a travel reimbursement form
+                        within registration. More details will be released
+                        shortly.
                     </p>
                 )
             },
@@ -131,9 +142,10 @@ const faqPages: Record<string, FaqPage> = {
                 answer: (
                     <p>
                         Unfortunately, we do not have a facility that provides
-                        overnight stays. We will provide travel and housing
-                        reimbursements instead. More information regarding
-                        reimbursements will be released soon!
+                        overnight stays. During registration, you can opt in to
+                        be considered for travel reimbursements. More
+                        information regarding reimbursements will be released
+                        soon!
                     </p>
                 )
             },
@@ -159,10 +171,10 @@ const faqPages: Record<string, FaqPage> = {
                     "How are teams formed? Can I bring my own team? What if I don't have a team yet?",
                 answer: (
                     <p>
-                        Feel free to form your own team! But don&apos;t worry if
-                        you do not have one - we will have a team matching
-                        workshop available, along with team matching channels on
-                        Discord.
+                        Feel free to form your own team! (Max size of 4) But
+                        don&apos;t worry if you do not have one - we will have a
+                        team matching workshop available, along with team
+                        matching channels on Discord.
                     </p>
                 )
             },
@@ -219,7 +231,7 @@ const faqPages: Record<string, FaqPage> = {
                         Other than working on your project, we provide fun
                         themed activities throughout the 36 hours (i.e. gaming
                         tournaments, crafting breaks, coding challenges, snack
-                        time, etc.).
+                        time, etc.). This schedule will be released soon.
                     </p>
                 )
             },

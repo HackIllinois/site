@@ -66,6 +66,18 @@
     width: 140px;
     height: 46px;
     color: white;
+    animation: all 3s;
+}
+
+.knightButton:hover {
+
+    .buttonBackground {
+        filter: blur(12px);
+    }
+    
+    .buttonContent {
+        border: 2px solid white;
+    }
 }
 
 .buttonBackground {

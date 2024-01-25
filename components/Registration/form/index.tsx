@@ -36,6 +36,7 @@ import styles from "./styles.module.scss";
 import Image from "next/image";
 import {
     BackButton,
+    NextButton,
     EducationButton,
     LoadingButton,
     PersonalButton,
@@ -98,10 +99,10 @@ const postSubmitPageIndex = submitPageIndex + 1;
 const buttons = [
     LoadingButton,
     BackButton,
-    PersonalButton,
-    EducationButton,
-    HackspecificButton,
-    HackspecificButton,
+    NextButton,
+    NextButton,
+    NextButton,
+    NextButton,
     ReviewButton,
     SubmitButton
 ];
@@ -282,7 +283,7 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
                                 onClick={previousPage}
                             >
                                 <Image
-                                    src={buttons[formIndex]}
+                                    src={buttons[1]}
                                     alt="previous button"
                                     className={styles.button}
                                 />
@@ -300,7 +301,7 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
                         {!isLoading && formIndex !== submitPageIndex && (
                             <Button arrow="right" onClick={nextPage}>
                                 <Image
-                                    src={buttons[formIndex + 2]}
+                                    src={formIndex == 4 ? buttons[6] : buttons[2]}
                                     alt="next button"
                                     className={
                                         formIndex === 0
