@@ -90,9 +90,9 @@ const KnightChallenge = (props: any) => {
                             </li>
                             <li className={styles.text}>
                                 For all further API calls, include the magical
-                                JWT token from step 1 and the content-type in
-                                your request header. If you fail to do so, the
-                                portal master will not understand your requests.
+                                JWT token (in the exact same format as received in step 1) in the request header. 
+                                Along with that, specify your content-type in the request header as needed. 
+                                If you fail to do these, the portal master will not understand your requests.
                                 <p
                                     className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop}`}
                                 >{`{“Authorization”: <enter_token>}`}</p>
