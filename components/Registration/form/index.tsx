@@ -193,7 +193,6 @@ const Form = ({ formIndex, setFormIndex }: FormProps): JSX.Element => {
                         if (registrationWithId) {
                             const { id, ...registration } = registrationWithId;
                             methods.reset(convertFromAPI(registration));
-                            setFormIndex(1);
                         }
                         return getChallenge();
                     })
