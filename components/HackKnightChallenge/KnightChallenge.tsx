@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 import React from "react";
 import styles from "./KnightChallenge.module.scss";
@@ -10,6 +11,22 @@ import { getChallenge } from "@/utils/api";
 
 const KnightChallenge = (props: any) => {
     const { setShow } = props;
+
+    const checkChallenge = () => {
+        getChallenge()
+            .then(passed => {
+                if (passed) {
+                    setShow("passed");
+                } else {
+                    setShow("failed");
+                }
+            })
+            .catch(() => {
+                alert(
+                    "You need to attempt the challenge before you can check your status!"
+                );
+            });
+    };
 
     return (
         <div className={styles.container}>
@@ -363,7 +380,7 @@ const KnightChallenge = (props: any) => {
                     <span className={styles.buttonText}>Back</span>
                 </button>
                 <button
-                    onClick={() => checkChallenge()}
+                    onClick={() => cheeckChallenge()}
                     className={styles.button}
                 >
                     <img
