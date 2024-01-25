@@ -12,6 +12,7 @@ import Input from "@/components/form/Input";
 import clsx from "clsx";
 
 import { useEffect, useState } from "react";
+import Checkboxes from "@/components/form/Checkboxes";
 
 const interestOptions = [
     {
@@ -125,7 +126,7 @@ const HackSpecificP2 = () => {
                     <p className={styles.text}>
                         What food restrictions or allergies do you have?
                     </p>
-                    <Select
+                    <Checkboxes
                         className={styles.select}
                         name="dietaryRestrictions"
                         isMulti={true}

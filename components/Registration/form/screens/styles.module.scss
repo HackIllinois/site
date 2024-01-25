@@ -689,7 +689,7 @@
         // height: 80%;
         // overflow-x: visible !important;
         // overflow-y: auto;
-        height: 45vh;
+        height: 60vh;
         overflow-y: auto;
         // margin-top: 100%;
         
@@ -697,8 +697,17 @@
         
         @media (max-width: 1000px) {
             // margin-top: 125%;
+            height: 60vh;
             width: 95%;
             top: 45%;
+        }
+        
+        @media (max-width: 750px) {
+            height: 40vh;
+        }
+
+        @media (max-width: 500px) {
+            height: 45vh;
         }
         
     

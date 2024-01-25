@@ -144,7 +144,9 @@ const PersonalInfo = () => {
                     /> */}
                     <br></br>
                     <p className={styles.text}>
-                        Would you like to opt-in for consideration for travel reimbursements? 
+                        Would you like to opt-in for consideration for travel reimbursements? <i>Reimbursements are be contingent on you attending HackIllinois and submitting a project. </i>
+                        <br></br>
+                        <br></br>
                         Marking this does not guarantee reimbursement, but consideration for reimbursement opportunites.
                     </p>
                     
