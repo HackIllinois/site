@@ -1045,7 +1045,7 @@
             }
         
             &:hover {
-                .genButton {
+                .genButtonSelected {
                     background-color: rgba(217, 147, 27);
                 }
         
@@ -1075,11 +1075,30 @@
                 }
             }
         }
+
+        .genButtonSelected {
+            background-color: $logo-secondary;
+            border-color: $logo-primary;
+
+            color: rgb(117, 50, 20);
+
+            &::after {
+                background-color: $logo-thirdary;
+            }
+        }
+
+        .genButtonDisabled {
+            background-color: #68686d;
+            border-color: #444446;
+            color: white;
+
+            &::after {
+                background-color: #444446;
+            }
+        }
         
         .genButton {
             cursor: pointer;
-            background-color: $logo-secondary;
-            border-color: $logo-primary;
             position: relative;
             border-style: solid;
         
@@ -1090,7 +1109,6 @@
                 height: 70px;
         
                 border-radius: 32px;
-                background-color: $logo-thirdary;
         
                 z-index: -1;
                 position: absolute;
@@ -1151,7 +1169,6 @@
                 }
             }
         
-            color: rgb(117, 50, 20);
             width: 280px;
             height: 70px;
             border-radius: 32px;
@@ -1161,10 +1178,25 @@
         }
     }
 
+    .knightButtonDisabled {
+        background-color: #68686d;
+        border-color: #444446;
 
-    .knightButton {
+        &::after {
+            background-color: #444446;
+        }
+    }
+
+    .knightButtonSelected {
         background-color: #2E325C;
         border-color: #212338;
+
+        &::after {
+            background-color: #212338;
+        }
+    }
+
+    .knightButton {
         position: relative;
         border-style: solid;
         cursor: pointer;
@@ -1183,7 +1215,6 @@
             height: 70px;
     
             border-radius: 32px;
-            background-color: #212338;
     
             z-index: -1;
             position: absolute;
@@ -1393,9 +1424,6 @@
         }
     }
 }
-
-
-
 
 .resume-upload {
     color: white;
