@@ -940,7 +940,7 @@
         .contents {
             position: relative;
             z-index: 6;
-            transform: translateY(70vh);
+            transform: translateY(calc(120vh / 5));
 
             h2, a {
                 color: #2E325C;
@@ -952,7 +952,7 @@
             }
 
             @media screen and (min-width: 970px) {
-                transform: translateY(80%);
+                // transform: translateY(80%);
                 
                 p {
                     padding-top: 8px;
@@ -961,7 +961,7 @@
 
             
             @media screen and (max-width: 960px) {
-                transform: translateY(110%);
+                // transform: translateY(110%);
                 
                 p {
                     padding-top: 8px;
@@ -969,7 +969,7 @@
             }
 
             @media screen and (max-width: 600px) {
-                transform: translateY(90%);
+                // transform: translateY(90%);
                 h2, a {
                     color: white;
                 }
@@ -990,7 +990,7 @@
             }
 
             @media screen and (max-height: 475px) {
-                transform: translateY(70%);
+                // transform: translateY(70%);
                 h2, a {
                     color: white;
                 }
@@ -1001,7 +1001,7 @@
             }
 
             @media screen and (max-height: 375px) {
-                transform: translateY(40%);
+                // transform: translateY(40%);
                 h2, a {
                     color: white;
                 }
