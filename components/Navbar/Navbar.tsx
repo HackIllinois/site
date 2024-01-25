@@ -30,10 +30,10 @@ const navbar_items: NavbarItem[] = [
     //     title: "Map",
     //     link: "#"
     // },
-    // {
-    //     title: "Travel",
-    //     link: "#"
-    // }
+    {
+        title: "Profile",
+        link: "/profile"
+    }
 ];
 
 const Navbar = () => {
@@ -133,9 +133,9 @@ const Navbar = () => {
                                 showMobileNavbar && styles.menuOpen
                             )}
                         >
-                            {/* <a href="/profile" className={styles.link}>
+                            <a href="/profile" className={styles.link}>
                         Profile
-                    </a> */}
+                    </a>
                             <KnightsButton />
                             {/* <a href="/register" className={styles.link}>
                         Register
