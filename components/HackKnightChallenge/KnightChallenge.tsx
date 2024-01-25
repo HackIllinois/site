@@ -380,7 +380,7 @@ const KnightChallenge = (props: any) => {
                     <span className={styles.buttonText}>Back</span>
                 </button>
                 <button
-                    onClick={() => cheeckChallenge()}
+                    onClick={() => checkChallenge()}
                     className={styles.button}
                 >
                     <img
