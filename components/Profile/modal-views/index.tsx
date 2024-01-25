@@ -468,6 +468,15 @@ export const DeclineConfirmation = ({
                 </button>
                 <DeclineButton onClick={handleDecline} />
             </div>
+            <div className={styles.mobileButtonGroup}>
+                <button
+                    onClick={handleGoBack}
+                    className={styles.unhoveredButton}
+                >
+                    GO BACK
+                </button>
+                <DeclineButton onClick={handleDecline} />
+            </div>
         </>
     );
 };

@@ -127,13 +127,13 @@
 
 .mobileButtonGroup {
     padding-bottom: 64px;
-    padding-top: 64px;
+    // padding-top: 60px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    gap: 32px;
+    gap: 24px;
     flex-direction: column;
 
     button {
