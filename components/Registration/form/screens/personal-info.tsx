@@ -125,7 +125,7 @@ const PersonalInfo = () => {
                         className={styles.checkboxes}
                         name="race"
                         options={raceOptions}
-                        isRadio={false}
+                        // isRadio={false}
                     />
                     {/* <Select
                         className={styles.select}
