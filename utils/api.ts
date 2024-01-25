@@ -175,7 +175,7 @@ export function uploadFile(file: File, type: FileType): Promise<unknown> {
                     return res;
                 }
                 throw new Error("response did not have status 200");
-            }).catch(err => console.log(err));
+            });                 //.catch(err => console.log(err));
         });
 }
 

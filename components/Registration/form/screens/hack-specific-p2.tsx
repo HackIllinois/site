@@ -76,6 +76,16 @@ const considerationOptions = [
 ];
 
 const HackSpecificP2 = () => {
+    useEffect(() => {
+
+        if (typeof window !== 'undefined' && navigator.userAgent.indexOf('iPhone') > -1) {
+            const viewport = document.querySelector("[name=viewport]");
+            if (viewport) {
+                viewport.setAttribute("content", "width=device-width, initial-scale=1, maximum-scale=1");
+            }
+        }
+    }
+    );
 
     
     return (

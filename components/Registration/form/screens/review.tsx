@@ -44,6 +44,14 @@ const Review = ({ formIndex, setFormIndex, isKnight, getValues }: any) => {
     }, [getValues]);
 
     useEffect(() => {
+
+        if (typeof window !== 'undefined' && navigator.userAgent.indexOf('iPhone') > -1) {
+            const viewport = document.querySelector("[name=viewport]");
+            if (viewport) {
+                viewport.setAttribute("content", "width=device-width, initial-scale=1, maximum-scale=1");
+            }
+        }
+
         const handleResize = () => {
             const newMobile = isMobile();
             setMobile(newMobile);
