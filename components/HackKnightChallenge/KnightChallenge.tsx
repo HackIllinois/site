@@ -10,35 +10,6 @@ import { getChallenge } from "@/utils/api";
 
 const KnightChallenge = (props: any) => {
     const { setShow } = props;
-    const [token, setToken] = React.useState("<enter_token>")
-
-    React.useEffect(() => {
-        const loadTokenFromSessionStorage = async() => {
-            const token = await sessionStorage.getItem("token");
-
-            if (token != null) {
-                setToken(token);
-            }
-        }
-
-        loadTokenFromSessionStorage();
-    }, [])
-
-    const checkChallenge = () => {
-        getChallenge()
-            .then(passed => {
-                if (passed) {
-                    setShow("passed");
-                } else {
-                    setShow("failed");
-                }
-            })
-            .catch(() => {
-                alert(
-                    "You need to attempt the challenge before you can check your status!"
-                );
-            });
-    };
 
     return (
         <div className={styles.container}>
@@ -90,7 +61,7 @@ const KnightChallenge = (props: any) => {
                             </li>
                             <li className={styles.text}>
                                 For all further API calls, include the magical
-                                JWT token (in the exact same format as received in step 1) in the request header. 
+                                JWT token (in the exact same format as received in step 2) in the request header.
                                 Along with that, specify your content-type in the request header as needed. 
                                 If you fail to do these, the portal master will not understand your requests.
                                 <p
@@ -148,11 +119,11 @@ const KnightChallenge = (props: any) => {
                                         </li>
                                         <li>
                                             Receive these inputs by making a GET
-                                            request to this endpoint:
+                                            request to this endpoint (don't forget to include the required headers):
                                             <p
                                                 className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text} ${styles.code}`}
                                             >
-                                                {`curl -X GET https://artemis.hackillinois.org/challenge -H "Authorization: ${token}" -H "Content-Type: application/json"`}
+                                                {`GET https://artemis.hackillinois.org/challenge`}
                                             </p>
                                         </li>
                                     </ol>
