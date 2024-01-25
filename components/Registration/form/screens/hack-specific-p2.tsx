@@ -129,7 +129,7 @@ const HackSpecificP2 = () => {
                     <Checkboxes
                         className={styles.select}
                         name="dietaryRestrictions"
-                        isMulti={true}
+                        // isMulti={true}
                         options={foodOptions}
                     />
 
