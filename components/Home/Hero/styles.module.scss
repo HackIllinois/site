@@ -101,6 +101,7 @@
     color: $logo-primary;
     text-transform: uppercase;
     border-style: solid;
+    cursor: pointer;
 
     &::after {
         content: "";
