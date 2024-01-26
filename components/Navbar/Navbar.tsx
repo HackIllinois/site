@@ -7,7 +7,7 @@ import CloudMenu from "@/public/cloud-menu.svg";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { isRegistered } from "@/utils/api";
+import { isAuthenticated, isRegistered } from "@/utils/api";
 type NavbarItem = {
     title: string;
     link: string;
@@ -39,17 +39,19 @@ const Navbar = () => {
     const [navbarItems, setNavbarItems] = useState(DEFAULT_NAVBAR_ITEMS);
 
     useEffect(() => {
-        isRegistered().then(isRegistered => {
-            if (isRegistered) {
-                setNavbarItems([
-                    ...navbarItems,
-                    {
-                        title: "Profile",
-                        link: "/profile"
-                    }
-                ]);
-            }
-        });
+        if (isAuthenticated() !== null) {
+            isRegistered().then(isRegistered => {
+                if (isRegistered) {
+                    setNavbarItems([
+                        ...navbarItems,
+                        {
+                            title: "Profile",
+                            link: "/profile"
+                        }
+                    ]);
+                }
+            });
+        }
     }, []);
 
     // const handleClickOutside = (event: MouseEvent) => {
@@ -144,9 +146,15 @@ const Navbar = () => {
                                 showMobileNavbar && styles.menuOpen
                             )}
                         >
-                            <a href="/profile" className={styles.link}>
-                                Profile
-                            </a>
+                            {navbarItems.map((item, index) => (
+                                <a
+                                    href={item.link}
+                                    key={index}
+                                    className={styles.link}
+                                >
+                                    {item.title}
+                                </a>
+                            ))}
                             <KnightsButton />
                             {/* <a href="/register" className={styles.link}>
                         Register
