@@ -49,8 +49,24 @@ const Navbar = () => {
                             link: "/profile"
                         }
                     ]);
+                } else {
+                    setNavbarItems([
+                        ...navbarItems,
+                        {
+                            title: "Register",
+                            link: "/register"
+                        }
+                    ]);
                 }
             });
+        } else {
+            setNavbarItems([
+                ...navbarItems,
+                {
+                    title: "Register",
+                    link: "/register"
+                }
+            ]);
         }
     }, []);
 
