@@ -14,7 +14,7 @@ const Complete = () => {
                     <h1>HackIllinois</h1>
                     <h2>Confirmation</h2>
                     <p>Thank you for signing up for Hackillinois 2024! Please check the status of your account in your email.</p>
-                    <div className={styles.completeSubConatiner}>
+                    <div className={styles.completeSubContainer}>
                         <p>Be sure to follow our Instagram (@hackillinois) and X (@hackillinois) for additional information!</p>
                     </div>
                 </div>

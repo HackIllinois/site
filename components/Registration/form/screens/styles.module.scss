@@ -1275,7 +1275,7 @@
     .fireFurry {
         position: absolute;
         bottom: 0px;
-        left: 15%;
+        left: 30%;
         width: 300px;
         height: 300px;
         z-index: 5;
@@ -1342,17 +1342,20 @@
             p {
                 padding-top: 15px;
                 width: 20vw;
-                font-weight: 300;
+                font-weight: 500;
+                color: #CFD0E2;
 
                 @media  screen and (max-width: 768px) {
                     width: 80vw;   
                 }
             }
 
-            // .completeSubContainer {
-
-            // }
-
+            .completeSubContainer {
+                p {
+                    color: #A5A6B8;
+                    font-weight: 400;
+                }
+            }
         }
 
         .completeCol2 {
