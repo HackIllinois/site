@@ -52,9 +52,12 @@ const Some: React.FC = () => {
     const [user, setUser] = useState<UserType | null>(null);
     const [RSVP, setRSVP] = useState<RSVPType | null>(null);
     const [profile, setProfileState] = useState<ProfileType | null>(null);
+
+    // Registration data is non-null only if the applicant wasn't accepted as PRO
     const [registration, setRegistration] = useState<RegistrationType | null>(
         null
     );
+
     const [loading, setLoading] = useState<boolean>(true);
     const [showDeclineConfirmation, setShowDeclineConfirmation] =
         useState<boolean>(false);
@@ -125,6 +128,9 @@ const Some: React.FC = () => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
+        // No need to fetch registration data if the applicant is admitted as a Pro
+        if (RSVP?.admittedPro) return;
+
         (async () => {
             setLoading(true);
             const registration = await getRegistration();
@@ -139,7 +145,11 @@ const Some: React.FC = () => {
             return false;
         }
 
-        if (registration?.isProApplicant && !RSVP?.admittedPro && RSVP?.status === "ACCEPTED") {
+        if (
+            registration?.isProApplicant &&
+            !RSVP?.admittedPro &&
+            RSVP?.status === "ACCEPTED"
+        ) {
             // Applicant was PRO but got deferred and accepted to GENERAL
             return false;
         }
