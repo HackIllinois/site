@@ -9,7 +9,7 @@ export type RegistrationType = {
     gender: string;
     emailAddress: string;
     race: string[];
-    requestedTravelReimbursement: Boolean;
+    requestedTravelReimbursement: boolean;
     location: string;
     degree: string;
     university: string;
@@ -23,8 +23,8 @@ export type RegistrationType = {
     dietaryRestrictions: string[];
     optionalEssay: string;
     proEssay?: string;
-    considerForGeneral: Boolean;
-    isProApplicant: Boolean;
+    considerForGeneral: boolean;
+    isProApplicant: boolean;
     resumeFileName?: string;
 };
 
