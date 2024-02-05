@@ -139,7 +139,7 @@ const Some: React.FC = () => {
             return false;
         }
 
-        if (registration?.isProApplicant && !RSVP?.admittedPro && RSVP?.status) {
+        if (registration?.isProApplicant && !RSVP?.admittedPro && RSVP?.status === "ACCEPTED") {
             // Applicant was PRO but got deferred and accepted to GENERAL
             return false;
         }
