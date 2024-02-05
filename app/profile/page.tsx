@@ -125,8 +125,6 @@ const Some: React.FC = () => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        if (RSVP?.admittedPro) return;
-
         (async () => {
             setLoading(true);
             const registration = await getRegistration();
@@ -134,6 +132,21 @@ const Some: React.FC = () => {
             setLoading(false);
         })();
     }, [RSVP]);
+
+    const getIsPro = () => {
+        if (!registration?.isProApplicant) {
+            // The applicant did not register as PRO
+            return false;
+        }
+
+        if (registration?.isProApplicant && !RSVP?.admittedPro && RSVP?.status) {
+            // Applicant was PRO but got deferred and accepted to GENERAL
+            return false;
+        }
+
+        // Applicant registered as a pro, but can be accepted or not accepted
+        return true;
+    }
 
     return (
         <section className={styles.dashboard}>
@@ -240,7 +253,7 @@ const Some: React.FC = () => {
                 openModal={openModal}
                 isModalOpen={isModalOpen}
                 name={user?.name}
-                admittedPro={RSVP?.admittedPro}
+                isPro={getIsPro()}
                 status={RSVP?.status}
                 response={RSVP?.response}
                 onActionClick={onActionClick}
