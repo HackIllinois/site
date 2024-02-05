@@ -10,7 +10,7 @@ import MobileWindowPane from "@/public/profile/mobile-window-pane.svg";
 
 import { Bookshelf } from "@/components/Profile/Bookshelf";
 import { ModalOverlay, useModal } from "@/components/Profile/modal";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
     authenticate,
     getRSVP,
@@ -133,7 +133,7 @@ const Some: React.FC = () => {
         })();
     }, [RSVP]);
 
-    const getIsPro = () => {
+    const getIsPro = useCallback(() => {
         if (!registration?.isProApplicant) {
             // The applicant did not register as PRO
             return false;
@@ -146,7 +146,7 @@ const Some: React.FC = () => {
 
         // Applicant registered as a pro, but can be accepted or not accepted
         return true;
-    }
+    }, [registration, RSVP]);
 
     return (
         <section className={styles.dashboard}>
