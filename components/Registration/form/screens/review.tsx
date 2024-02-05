@@ -44,6 +44,14 @@ const Review = ({ formIndex, setFormIndex, isKnight, getValues }: any) => {
     }, [getValues]);
 
     useEffect(() => {
+
+        if (typeof window !== 'undefined' && navigator.userAgent.indexOf('iPhone') > -1) {
+            const viewport = document.querySelector("[name=viewport]");
+            if (viewport) {
+                viewport.setAttribute("content", "width=device-width, initial-scale=1, maximum-scale=1");
+            }
+        }
+
         const handleResize = () => {
             const newMobile = isMobile();
             setMobile(newMobile);
@@ -105,10 +113,7 @@ const Review = ({ formIndex, setFormIndex, isKnight, getValues }: any) => {
                         <p>{vals.transportation}</p>
 
                         <p className={styles.text}>
-                            Would you like to opt-in for consideration for
-                            travel reimbursements? Marking this does not
-                            guarantee reimbursement, but consideration for
-                            reimbursement opportunites.
+                        Would you like to opt-in for consideration for travel reimbursements? <i>Reimbursements are contingent on you attending HackIllinois and submitting a project. </i>Marking this does not guarantee reimbursement, but consideration for reimbursement opportunites.
                         </p>
                         <p>{vals.requestedTravelReimbursement}</p>
                     </div>

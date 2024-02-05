@@ -1,8 +1,17 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Sponsors.module.scss";
 
 const Sponsors: React.FC = () => {
+    const [clickCount, setClickCount] = useState(0);
+
+    const handleClick = () => {
+        setClickCount(clickCount + 1);
+        if (clickCount + 1 === 3) {
+            window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; // Replace with your external link
+        }
+    };
+
     return (
         <section className={styles.container}>
             <div className={styles.background}>
@@ -17,7 +26,7 @@ const Sponsors: React.FC = () => {
                                 <span className={styles.text}>Sponsors</span>
                             </div>
                         </div>
-                        <img src="/home/sponsors/potions/mushroom-plant.svg" />
+                        <img src="/home/sponsors/potions/mushroom-plant.svg" onClick={handleClick}/>
                         <img src="/home/sponsors/potions/lamp.svg" />
                     </div>
                     <img src="/home/sponsors/shelf.svg" />

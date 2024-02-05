@@ -50,7 +50,7 @@
     list-style: none;
     font-weight: 500;
     font-size: 20px;
-    gap: 36px;
+    gap: 48px;
     @media screen and (max-width: 960px) {
         display: none;
         visibility: hidden;
@@ -66,6 +66,18 @@
     width: 140px;
     height: 46px;
     color: white;
+    animation: all 3s;
+}
+
+.knightButton:hover {
+
+    .buttonBackground {
+        filter: blur(12px);
+    }
+    
+    .buttonContent {
+        border: 2px solid white;
+    }
 }
 
 .buttonBackground {

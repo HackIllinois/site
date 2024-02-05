@@ -7,13 +7,13 @@ import CloudMenu from "@/public/cloud-menu.svg";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-
+import { isAuthenticated, isRegistered } from "@/utils/api";
 type NavbarItem = {
     title: string;
     link: string;
 };
 
-const navbar_items: NavbarItem[] = [
+const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
     // {
     //     title: "Schedule",
     //     link: "#"
@@ -30,16 +30,45 @@ const navbar_items: NavbarItem[] = [
     //     title: "Map",
     //     link: "#"
     // },
-    // {
-    //     title: "Travel",
-    //     link: "#"
-    // }
 ];
 
 const Navbar = () => {
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
+    const [navbarItems, setNavbarItems] = useState(DEFAULT_NAVBAR_ITEMS);
+
+    useEffect(() => {
+        if (isAuthenticated() !== null) {
+            isRegistered().then(isRegistered => {
+                if (isRegistered) {
+                    setNavbarItems([
+                        ...navbarItems,
+                        {
+                            title: "Profile",
+                            link: "/profile"
+                        }
+                    ]);
+                } else {
+                    setNavbarItems([
+                        ...navbarItems,
+                        {
+                            title: "Register",
+                            link: "/register"
+                        }
+                    ]);
+                }
+            });
+        } else {
+            setNavbarItems([
+                ...navbarItems,
+                {
+                    title: "Register",
+                    link: "/register"
+                }
+            ]);
+        }
+    }, []);
 
     // const handleClickOutside = (event: MouseEvent) => {
     //     if (
@@ -81,7 +110,7 @@ const Navbar = () => {
                             </div>
                             {showMobileNavbar && (
                                 <ul className={styles.mobileNavbarMenu}>
-                                    {navbar_items.map((item, index) => (
+                                    {navbarItems.map((item, index) => (
                                         <li key={item.title}>
                                             <a href={item.link}>{item.title}</a>
                                         </li>
@@ -93,7 +122,7 @@ const Navbar = () => {
                             )}
                         </div>
                         <ul className={styles.navbarList}>
-                            {navbar_items.map((item, index) => (
+                            {navbarItems.map((item, index) => (
                                 <li key={item.title}>
                                     <a href={item.link}>{item.title}</a>
                                 </li>
@@ -133,9 +162,15 @@ const Navbar = () => {
                                 showMobileNavbar && styles.menuOpen
                             )}
                         >
-                            {/* <a href="/profile" className={styles.link}>
-                        Profile
-                    </a> */}
+                            {navbarItems.map((item, index) => (
+                                <a
+                                    href={item.link}
+                                    key={index}
+                                    className={styles.link}
+                                >
+                                    {item.title}
+                                </a>
+                            ))}
                             <KnightsButton />
                             {/* <a href="/register" className={styles.link}>
                         Register

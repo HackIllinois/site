@@ -72,6 +72,11 @@ async function request(method: MethodType, endpoint: string, body?: unknown) {
         body: JSON.stringify(body)
     });
 
+    if (response.status === 403) {
+        alert("Your session has expired. Please close this tab and log in again.");
+        sessionStorage.removeItem("token");
+    }
+
     if (response.status !== 200) {
         throw new APIError(await response.json());
     }
@@ -155,18 +160,22 @@ export function register(
 
 export function uploadFile(file: File, type: FileType): Promise<unknown> {
     return request("GET", "/s3/upload/")
-        .then(res => res.url)
-        .then(url => {
+        .then((res) => {return {url: res.url, fields: res.fields}}).then(({url, fields}) => {
+            let data = new FormData();
+            for (let key in fields) {
+                data.append(key, fields[key]);
+            }
+            data.append("file", file, file.name);
             return fetch(url, {
-                method: "PUT",
-                headers: { "Content-Type": file.type },
-                body: file
+                method: "POST",
+                // headers: { "Content-Type": "multipart/form-data" },
+                body: data
             }).then(res => {
                 if (res.ok) {
                     return res;
                 }
                 throw new Error("response did not have status 200");
-            });
+            });                 //.catch(err => console.log(err));
         });
 }
 

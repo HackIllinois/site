@@ -12,6 +12,8 @@
         margin-top: 18px;
         font-size: 0.9em;
     }
+
+   
     ::-webkit-scrollbar {
         -webkit-appearance: none;
     }
@@ -27,12 +29,12 @@
     ::-webkit-scrollbar-thumb {
         background-color: rgba(0, 0, 0, .5);
         border-radius: 10px;
-        border: 1px solid #ffffff;
+        border: 1px solid #ffffffa1;
     }
     
     ::-webkit-scrollbar-track {
         border-radius: 10px;
-        background-color: #ffffff;
+        background-color: #ffffffa1;
     }
 
     .title {
@@ -687,7 +689,7 @@
         // height: 80%;
         // overflow-x: visible !important;
         // overflow-y: auto;
-        height: 45vh;
+        height: 60vh;
         overflow-y: auto;
         // margin-top: 100%;
         
@@ -695,8 +697,17 @@
         
         @media (max-width: 1000px) {
             // margin-top: 125%;
+            height: 60vh;
             width: 95%;
             top: 45%;
+        }
+        
+        @media (max-width: 750px) {
+            height: 40vh;
+        }
+
+        @media (max-width: 500px) {
+            height: 45vh;
         }
         
     
@@ -938,7 +949,7 @@
         .contents {
             position: relative;
             z-index: 6;
-            transform: translateY(70vh);
+            transform: translateY(calc(120vh / 5));
 
             h2, a {
                 color: #2E325C;
@@ -950,7 +961,7 @@
             }
 
             @media screen and (min-width: 970px) {
-                transform: translateY(80%);
+                // transform: translateY(80%);
                 
                 p {
                     padding-top: 8px;
@@ -959,7 +970,7 @@
 
             
             @media screen and (max-width: 960px) {
-                transform: translateY(110%);
+                // transform: translateY(110%);
                 
                 p {
                     padding-top: 8px;
@@ -967,7 +978,7 @@
             }
 
             @media screen and (max-width: 600px) {
-                transform: translateY(90%);
+                // transform: translateY(90%);
                 h2, a {
                     color: white;
                 }
@@ -988,7 +999,7 @@
             }
 
             @media screen and (max-height: 475px) {
-                transform: translateY(70%);
+                // transform: translateY(70%);
                 h2, a {
                     color: white;
                 }
@@ -999,7 +1010,7 @@
             }
 
             @media screen and (max-height: 375px) {
-                transform: translateY(40%);
+                // transform: translateY(40%);
                 h2, a {
                     color: white;
                 }
@@ -1175,6 +1186,24 @@
             border-width: 8px;
             font-size: 26px;
             font-weight: 700;
+
+            &:before {
+                z-index: 1;
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 15%;
+                width: 20%;
+                height: 100%;
+                background: rgba(255, 255, 255, 0.3);
+                transform: skewX(-30deg);
+                transition: 0.3s;
+            }
+        
+            &:hover:before {
+                left: 65%;
+                background: rgba(255, 255, 255, 0.5);
+            }
         }
     }
 
@@ -1282,6 +1311,24 @@
         border-width: 8px;
         font-size: 26px;
         font-weight: 700;
+
+        &:before {
+            z-index: 1;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 15%;
+            width: 20%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: skewX(-30deg);
+            transition: 0.3s;
+        }
+    
+        &:hover:before {
+            left: 65%;
+            background: rgba(255, 255, 255, 0.5);
+        }
     }
 }
 
@@ -1295,7 +1342,7 @@
     .fireFurry {
         position: absolute;
         bottom: 0px;
-        left: 15%;
+        left: 30%;
         width: 300px;
         height: 300px;
         z-index: 5;
@@ -1362,7 +1409,8 @@
             p {
                 padding-top: 15px;
                 width: 20vw;
-                font-weight: 300;
+                font-weight: 500;
+                color: #CFD0E2;
 
                 @media  screen and (max-width: 768px) {
                     width: 80vw;   
@@ -1370,9 +1418,11 @@
             }
 
             .completeSubContainer {
-
+                p {
+                    color: #A5A6B8;
+                    font-weight: 400;
+                }
             }
-
         }
 
         .completeCol2 {

@@ -143,10 +143,9 @@
         font-weight: 500;
     }
 
-    // .code {
-    //     max-width: 100%;
-    //     word-wrap: break-word;
-    // }
+    .code {
+        word-break: break-all;
+    }
 
     .exampleGraph {
         display: flex;

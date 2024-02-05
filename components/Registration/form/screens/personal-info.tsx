@@ -16,11 +16,21 @@ import Checkboxes from "@/components/form/Checkboxes";
 import { useEffect, useState } from "react";
 const PersonalInfo = () => {
 
+    useEffect(() => {
+
+        if (typeof window !== 'undefined' && navigator.userAgent.indexOf('iPhone') > -1) {
+            const viewport = document.querySelector("[name=viewport]");
+            if (viewport) {
+                viewport.setAttribute("content", "width=device-width, initial-scale=1, maximum-scale=1");
+            }
+        }
+    });
+
     const genderOptions = [
         { label: "Male", value: "Male" },
         { label: "Female", value: "Female" },
         { label: "Non-Binary", value: "Non-Binary" },
-        { label: "Prefer Not to Answer", value: "Prefer Not to Answer" }
+        { label: "Prefer Not To Answer", value: "Prefer Not To Answer" }
     ];
 
     const ageOptions = [
@@ -40,7 +50,7 @@ const PersonalInfo = () => {
         },
         {
             label: "Arab or Middle Eastern",
-            value: "Middle Eastern or North African",
+            value: "Arab or Middle Eastern",
         },
         {
             label: "Black or African American",
@@ -63,16 +73,16 @@ const PersonalInfo = () => {
             value: "White",
         },
         {
-            label: "Biracial/Multiracial",
-            value: "Biracial/Multiracial",
+            label: "South East Asian",
+            value: "South East Asian",
         },
         {
             label: "South Asian",
             value: "South Asian",
         },
         {
-            label: "Prefer Not to Answer",
-            value: "Prefer Not to Answer",
+            label: "Prefer Not To Answer",
+            value: "Prefer Not To Answer",
         }
     ];
    
@@ -125,7 +135,6 @@ const PersonalInfo = () => {
                         className={styles.checkboxes}
                         name="race"
                         options={raceOptions}
-                        isRadio={false}
                     />
                     {/* <Select
                         className={styles.select}
@@ -134,6 +143,19 @@ const PersonalInfo = () => {
                         options={raceOptions}
                     /> */}
                     <br></br>
+                    <p className={styles.text}>
+                        Would you like to opt-in for consideration for travel reimbursements? <i>Reimbursements are be contingent on you attending HackIllinois and submitting a project. </i>
+                        <br></br>
+                        <br></br>
+                        Marking this does not guarantee reimbursement, but consideration for reimbursement opportunites.
+                    </p>
+                    
+                            
+                    <Select
+                        className={styles.select}
+                        name="requestedTravelReimbursement"
+                        options={reimbursement}
+                        /> 
 
                     <p className={styles.text}>
                         Are you aware you have to be 18 by the start of our event (February
@@ -154,17 +176,7 @@ const PersonalInfo = () => {
                         options={transportationOptions}
                     />
 
-                    <p className={styles.text}>
-                        Would you like to opt-in for consideration for travel reimbursements? 
-                        Marking this does not guarantee reimbursement, but consideration for reimbursement opportunites.
-                    </p>
                     
-                            
-                    <Select
-                        className={styles.select}
-                        name="requestedTravelReimbursement"
-                        options={reimbursement}
-                        /> 
 
                     {/* <Checkboxes
                         className={styles.checkboxes}

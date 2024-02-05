@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 import React from "react";
 import styles from "./KnightChallenge.module.scss";
@@ -6,7 +7,6 @@ import { Source_Code_Pro } from "next/font/google";
 const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
 
 const jwtUrl = `https://adonix.hackillinois.org/auth/login/github/?device=challenge`;
-const checkStatusUrl = `http://artemis.hackillinois.org/status`;
 import { getChallenge } from "@/utils/api";
 
 const KnightChallenge = (props: any) => {
@@ -78,12 +78,12 @@ const KnightChallenge = (props: any) => {
                             </li>
                             <li className={styles.text}>
                                 For all further API calls, include the magical
-                                JWT token from step 1 and the content-type in
-                                your request header. If you fail to do so, the
-                                portal master will not understand your requests.
+                                JWT token (in the exact same format as received in step 2) in the request header.
+                                Along with that, specify your content-type in the request header as needed. 
+                                If you fail to do these, the portal master will not understand your requests.
                                 <p
                                     className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop}`}
-                                >{`{“Authorization”: token_here}`}</p>
+                                >{`{“Authorization”: <enter_token>}`}</p>
                                 <p
                                     className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop}`}
                                 >{`{"Content-Type": "application/json"}`}</p>
@@ -136,13 +136,11 @@ const KnightChallenge = (props: any) => {
                                         </li>
                                         <li>
                                             Receive these inputs by making a GET
-                                            request to this endpoint:
+                                            request to this endpoint (don't forget to include the required headers):
                                             <p
                                                 className={`${styles.colouredText} ${sourceCodePro.className} ${styles.marginTop} ${styles.text} ${styles.code}`}
                                             >
-                                                {`GET https://artemis.hackillinois`}
-                                                <wbr />
-                                                {`.org/challenge`}
+                                                {`GET https://artemis.hackillinois.org/challenge`}
                                             </p>
                                         </li>
                                     </ol>

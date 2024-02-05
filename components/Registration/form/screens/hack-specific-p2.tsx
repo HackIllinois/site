@@ -12,6 +12,7 @@ import Input from "@/components/form/Input";
 import clsx from "clsx";
 
 import { useEffect, useState } from "react";
+import Checkboxes from "@/components/form/Checkboxes";
 
 const interestOptions = [
     {
@@ -24,7 +25,7 @@ const interestOptions = [
     },
     {
         label: "Mini-events (e.g. games, socials)",
-        value: "Participating in mini-events (e.g. games, socials)"
+        value: "Participating in mini-events"
     },
     { label: "Meeting new people", value: "Meeting new people" },
     {
@@ -33,7 +34,7 @@ const interestOptions = [
     },
     {
         label: "Company Q&As & Networking events",
-        value: "Company Q&As and Networking events"
+        value: "Company Q&As and networking events"
     },
 
     { label: "Other", value: "Other", isOther: true }
@@ -76,6 +77,16 @@ const considerationOptions = [
 ];
 
 const HackSpecificP2 = () => {
+    useEffect(() => {
+
+        if (typeof window !== 'undefined' && navigator.userAgent.indexOf('iPhone') > -1) {
+            const viewport = document.querySelector("[name=viewport]");
+            if (viewport) {
+                viewport.setAttribute("content", "width=device-width, initial-scale=1, maximum-scale=1");
+            }
+        }
+    }
+    );
 
     
     return (
@@ -115,10 +126,10 @@ const HackSpecificP2 = () => {
                     <p className={styles.text}>
                         What food restrictions or allergies do you have?
                     </p>
-                    <Select
+                    <Checkboxes
                         className={styles.select}
                         name="dietaryRestrictions"
-                        isMulti={true}
+                        // isMulti={true}
                         options={foodOptions}
                     />
 

@@ -61,7 +61,7 @@ const Some: React.FC = () => {
 
     async function handleConfirm() {
         setLoading(true);
-        const response = await rsvpAccept();
+        await rsvpAccept();
         const updated_rsvp = await getRSVP();
         setRSVP(updated_rsvp);
         setLoading(false);
@@ -69,9 +69,10 @@ const Some: React.FC = () => {
 
     async function handleDecline() {
         setLoading(true);
-        const response = await rsvpDecline();
+        await rsvpDecline();
         const updated_rsvp = await getRSVP();
         setRSVP(updated_rsvp);
+        closeModal();
         setLoading(false);
     }
 
