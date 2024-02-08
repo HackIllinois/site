@@ -154,7 +154,7 @@
                     width: min(30vw, 30rem);
                 }
                 @media screen and (max-width: 1024px) {
-                    width: min(25vw, 25rem);
+                    width: min(40vw, 35rem);
                 }
                 @media screen and (max-width: 900px) {
                     width: min(35vw, 30rem);
@@ -171,8 +171,8 @@
                 @media screen and (max-width: 1280px) {
                     width: min(22vw, 22rem);
                 }
-                @media screen and (max-width: 900px) {
-                    width: min(22vw, 22rem);
+                @media screen and (max-width: 1024px) {
+                    width: min(30vw, 35rem);
                 }
                 @media screen and (max-width: 900px) {
                     width: min(27.5vw, 25rem);
@@ -190,7 +190,7 @@
                     width: min(25vw, 25rem);
                 }
                 @media screen and (max-width: 1024px) {
-                    width: min(25vw, 25rem);
+                    width: min(40vw, 35rem);
                 }
                 @media screen and (max-width: 900px) {
                     width: min(35vw, 30rem);
@@ -207,8 +207,8 @@
                 @media screen and (max-width: 900px) {
                     width: min(17.5vw, 17.5rem);
                 }
-                @media screen and (max-width: 900px) {
-                    width: min(17.5vw, 17.5rem);
+                @media screen and (max-width: 1024px) {
+                    width: min(30vw, 30rem);
                 }
                 @media screen and (max-width: 900px) {
                     width: min(25vw, 20rem);
@@ -225,8 +225,8 @@
                 @media screen and (max-width: 1280px) {
                     width: min(17.5vw, 17.5rem);
                 }
-                @media screen and (max-width: 900px) {
-                    width: min(17.5vw, 17.5rem);
+                @media screen and (max-width: 1024px) {
+                    width: min(25vw, 27.5rem);
                 }
                 @media screen and (max-width: 900px) {
                     width: min(25vw, 20rem);
@@ -252,8 +252,8 @@
                     height: min(120vh, 120rem);
                 }
                 @media screen and (max-width: 1024px) {
-                    width: min(50vw, 60rem);
-                    height: min(120vh, 120rem);
+                    width: min(75vw, 75rem);
+                    height: min(140vh, 140rem);
                 }
                 @media screen and (max-width: 900px) {
                     width: min(75vw, 60rem);
@@ -270,7 +270,7 @@
                 margin-top: min(40%, -45rem);
             }
             @media screen and (max-width: 1024px) {
-                margin-top: min(40%, -45rem);
+                margin-top: min(50%, -60rem);
             }
             @media screen and (max-width: 900px) {
                 margin-top: min(40%, -40rem);
