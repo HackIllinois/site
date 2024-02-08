@@ -157,7 +157,7 @@
                     width: min(25vw, 25rem);
                 }
                 @media screen and (max-width: 900px) {
-                    width: min(25vw, 25rem);
+                    width: min(35vw, 30rem);
                 }
                 @media screen and (max-width: 600px) {
                     width: min(35vw, 20rem);
@@ -175,7 +175,7 @@
                     width: min(22vw, 22rem);
                 }
                 @media screen and (max-width: 900px) {
-                    width: min(22vw, 22rem);
+                    width: min(27.5vw, 25rem);
                 }
                 @media screen and (max-width: 600px) {
                     width: min(25vw, 20rem);
@@ -193,7 +193,7 @@
                     width: min(25vw, 25rem);
                 }
                 @media screen and (max-width: 900px) {
-                    width: min(25vw, 25rem);
+                    width: min(35vw, 30rem);
                 }
                 @media screen and (max-width: 600px) {
                     width: min(35vw, 20rem);
@@ -211,7 +211,7 @@
                     width: min(17.5vw, 17.5rem);
                 }
                 @media screen and (max-width: 900px) {
-                    width: min(17.5vw, 17.5rem);
+                    width: min(25vw, 20rem);
                 }
                 @media screen and (max-width: 600px) {
                     width: min(25vw, 20rem);
@@ -229,7 +229,7 @@
                     width: min(17.5vw, 17.5rem);
                 }
                 @media screen and (max-width: 900px) {
-                    width: min(17.5vw, 17.5rem);
+                    width: min(25vw, 20rem);
                 }
                 @media screen and (max-width: 600px) {
                     width: min(25vw, 20rem);
@@ -256,7 +256,7 @@
                     height: min(120vh, 120rem);
                 }
                 @media screen and (max-width: 900px) {
-                    width: min(50vw, 60rem);
+                    width: min(75vw, 60rem);
                     height: min(120vh, 120rem);
                 }
                 @media screen and (max-width: 600px) {
@@ -273,7 +273,8 @@
                 margin-top: min(40%, -45rem);
             }
             @media screen and (max-width: 900px) {
-                margin-top: min(30%, -30rem);
+                margin-top: min(40%, -40rem);
+                margin-bottom: 2%;
             }
             @media screen and (max-width: 600px) {
                 margin-top: min(20%, -20rem);
