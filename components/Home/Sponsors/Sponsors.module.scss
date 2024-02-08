@@ -150,14 +150,17 @@
         .rowOne {
             > img {
                 width: min(35vw, 40rem);
+                @media screen and (max-width: 1280px) {
+                    width: min(30vw, 30rem);
+                }
                 @media screen and (max-width: 1024px) {
-                    width: min(25vh, 25rem);
+                    width: min(25vw, 25rem);
                 }
                 @media screen and (max-width: 900px) {
-                    width: min(25vh, 25rem);
+                    width: min(25vw, 25rem);
                 }
                 @media screen and (max-width: 600px) {
-                    width: min(15vh, 15rem);
+                    width: min(35vw, 20rem);
                 }
             }
         }
@@ -165,14 +168,17 @@
         .rowTwo {
             > img {
                 width: min(30vw, 30rem);
-                @media screen and (max-width: 900px) {
-                    width: min(22vh, 22rem);
+                @media screen and (max-width: 1280px) {
+                    width: min(22vw, 22rem);
                 }
                 @media screen and (max-width: 900px) {
-                    width: min(22vh, 22rem);
+                    width: min(22vw, 22rem);
+                }
+                @media screen and (max-width: 900px) {
+                    width: min(22vw, 22rem);
                 }
                 @media screen and (max-width: 600px) {
-                    width: min(11vh, 11rem);
+                    width: min(25vw, 20rem);
                 }
             }
         }
@@ -180,14 +186,17 @@
         .rowThree {
             > img {
                 width: min(35vw, 40rem);
+                @media screen and (max-width: 1280px) {
+                    width: min(25vw, 25rem);
+                }
                 @media screen and (max-width: 1024px) {
-                    width: min(25vh, 25rem);
+                    width: min(25vw, 25rem);
                 }
                 @media screen and (max-width: 900px) {
-                    width: min(25vh, 25rem);
+                    width: min(25vw, 25rem);
                 }
                 @media screen and (max-width: 600px) {
-                    width: min(15vh, 15rem);
+                    width: min(35vw, 20rem);
                 }
             }
         }
@@ -196,13 +205,16 @@
             > img {
                 width: min(30vw, 32.5rem);
                 @media screen and (max-width: 900px) {
-                    width: min(17.5vh, 17.5rem);
+                    width: min(17.5vw, 17.5rem);
                 }
                 @media screen and (max-width: 900px) {
-                    width: min(17.5vh, 17.5rem);
+                    width: min(17.5vw, 17.5rem);
+                }
+                @media screen and (max-width: 900px) {
+                    width: min(17.5vw, 17.5rem);
                 }
                 @media screen and (max-width: 600px) {
-                    width: min(10vh, 10rem);
+                    width: min(25vw, 20rem);
                 }
             }
         }
@@ -210,14 +222,17 @@
         .rowFive {
             > img {
                 width: min(25vw, 25rem);
-                @media screen and (max-width: 900px) {
-                    width: min(17.5vh, 17.5rem);
+                @media screen and (max-width: 1280px) {
+                    width: min(17.5vw, 17.5rem);
                 }
                 @media screen and (max-width: 900px) {
-                    width: min(17.5vh, 17.5rem);
+                    width: min(17.5vw, 17.5rem);
+                }
+                @media screen and (max-width: 900px) {
+                    width: min(17.5vw, 17.5rem);
                 }
                 @media screen and (max-width: 600px) {
-                    width: min(10vh, 10rem);
+                    width: min(25vw, 20rem);
                 }
             }
         }
@@ -232,20 +247,28 @@
                 max-width: 100%;
                 width: min(65vw, 78rem);
                 height: min(250vh, 162rem);
+                @media screen and (max-width: 1280px) {
+                    width: min(50vw, 60rem);
+                    height: min(120vh, 120rem);
+                }
                 @media screen and (max-width: 1024px) {
-                    width: min(50vh, 60rem);
+                    width: min(50vw, 60rem);
                     height: min(120vh, 120rem);
                 }
                 @media screen and (max-width: 900px) {
-                    width: min(50vh, 60rem);
+                    width: min(50vw, 60rem);
                     height: min(120vh, 120rem);
                 }
                 @media screen and (max-width: 600px) {
-                    width: min(30vh, 30rem);
-                    height: min(50vh, 80rem);
+                    width: min(75vw, 35rem);
+                    height: min(75vh, 80rem);
                 }
             }
             margin-top: min(65%, -65rem);
+            margin-bottom: 5%;
+            @media screen and (max-width: 1280px) {
+                margin-top: min(40%, -45rem);
+            }
             @media screen and (max-width: 1024px) {
                 margin-top: min(40%, -45rem);
             }
@@ -253,10 +276,9 @@
                 margin-top: min(30%, -30rem);
             }
             @media screen and (max-width: 600px) {
-                margin-top: min(15%, -12rem);
+                margin-top: min(20%, -20rem);
+                margin-bottom: 2%;
             }
-
-            margin-bottom: 5%;
         }
 
         // > :nth-child(2n-1) {
