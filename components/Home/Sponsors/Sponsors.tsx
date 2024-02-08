@@ -32,12 +32,14 @@ const Sponsors: React.FC = () => {
                     <img src="/home/sponsors/shelf.svg" />
                 </div>
                 <div className={styles.potions}>
-                    <img src="/home/sponsors/potions/bottle-red.svg" />
-                    <img src="/home/sponsors/potions/bottle-green.svg" />
-                    <img src="/home/sponsors/potions/bottle-orange.svg" />
-                    <img src="/home/sponsors/potions/bottle-blue.svg" />
-                    <img src="/home/sponsors/potions/bottle-yellow.svg" />
-                    <img src="/home/sponsors/potions/bottle-purple.svg" />
+                    <img src="/home/sponsors/potions/solana.svg" />
+                    <img src="/home/sponsors/potions/john-deere.svg" />
+                    <img src="/home/sponsors/potions/caterpillar.svg" />
+                    <img src="/home/sponsors/potions/discover.svg" />
+                    <img src="/home/sponsors/potions/github.svg" />
+                    <img src="/home/sponsors/potions/spectrum.svg" />
+                    <img src="/home/sponsors/potions/warp.svg" />
+                    <img src="/home/sponsors/potions/wolfram.svg" />
                 </div>
                 {/* <div className={styles.gizmo}>
                     <img src="/home/sponsors/gizmo.svg" />
