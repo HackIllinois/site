@@ -67,9 +67,9 @@ export const mentors = [
     },
     {
         id: 12,
-        name: "Yani Julian",
-        image: "mentors/mentor-images/yani.jpg",
-        desc: "Yani Julian graduated from UIUC in 2019 with a B.S in CS. He now works as a Senior Software Engineer at Egen, a Chicago based company that helps Chicago startups scale in the cloud."
+        name: "Jeff Bezanson",
+        image: "mentors/mentor-images/jeff.jpg",
+        desc: "Jeff is a co-creator of the Julia programming language and co-founder of JuliaHub, Inc. Generally interested in systems, runtimes, compilers, technical/scientific computing, and all things lisp-family!"
     },
     {
         id: 13,
@@ -124,12 +124,6 @@ export const mentors = [
         name: "Yongjoo Park",
         image: "mentors/mentor-images/yongjoo.jpg",
         desc: "I am an Assistant Professor at CS@Illinois and also a co-founder and chief-scientist at Keebo.ai."
-    },
-    {
-        id: 22,
-        name: "Yani Julian",
-        image: "mentors/mentor-images/yani.jpg",
-        desc: "Yani Julian graduated from UIUC in 2019 with a B.S in CS. He now works as a Senior Software Engineer at Egen, a Chicago based company that helps Chicago startups scale in the cloud."
     },
     {
         id: 23,
