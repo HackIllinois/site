@@ -64,6 +64,9 @@
 
     .body {
         flex: 1;
+        display: flex;
+        flex-direction: column;
+        row-gap: 2.5%;
         .name {
             font-size: 3rem;
             @media screen and (max-width: 1536px) {
@@ -84,12 +87,12 @@
             font-weight: 700;
         }
         .desc {
-            font-size: 2rem;
+            font-size: 1.5rem;
             @media screen and (max-width: 1536px) {
-                font-size: 1.5rem;
+                font-size: 1.125rem;
             }
             @media screen and (max-width: 1280px) {
-                font-size: 1.25rem;
+                font-size: 1.0625rem;
             }
             @media screen and (max-width: 1024px) {
                 font-size: 1rem;

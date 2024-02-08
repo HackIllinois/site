@@ -2,7 +2,7 @@
     background-color: #5d639c;
     background-image: url("/mentors/background-minus-clouds.svg");
     @media screen and (max-width: 700px) {
-        background-image: url("/mentors/background-mobile.svg");
+        background-image: url("/mentors/background-mobile-minus-clouds.svg");
     }
     background-position: center top;
     background-repeat: repeat;
@@ -25,7 +25,7 @@
 .background {
     display: none;
     grid-area: 1/1;
-    >img {
+    > img {
         object-fit: contain;
     }
 }
