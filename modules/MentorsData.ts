@@ -55,9 +55,9 @@ export const mentors = [
     },
     {
         id: 10,
-        name: "Yani Julian",
-        image: "mentors/mentor-images/yani.jpg",
-        desc: "Yani Julian graduated from UIUC in 2019 with a B.S in CS. He now works as a Senior Software Engineer at Egen, a Chicago based company that helps Chicago startups scale in the cloud."
+        name: "Ana Elissa Cabrera",
+        image: "mentors/mentor-images/ana.jpg",
+        desc: "Ana Elissa is a Master's in Computer Science student at Illinois. She previously studied political science and linguistics at UIUC and transitioned into CS after graduation. Her specialty is programming languages and software engineering. A.E. is motivated to offer guidance to students in non-CS majors interested in pursuing computer science in graduate school! Her first experience in HackIllinois was as a non-STEM undergraduate student in 2020 and she knows first-hand how daunting your first Hackathon can be in a new field that may be outside of your major or comfort zone. A.E. is here to help answer your technical and post-college questions!"
     },
     {
         id: 11,
@@ -142,11 +142,5 @@ export const mentors = [
         name: "Tania Chakraborty",
         image: "mentors/mentor-images/tania.jpg",
         desc: "I'm a grad student at Purdue and my research area is NLP."
-    },
-    {
-        id: 26,
-        name: "Ana Elissa Cabrera",
-        image: "mentors/mentor-images/ana.jpg",
-        desc: "Ana Elissa is a Master's in Computer Science student at Illinois. She previously studied political science and linguistics at UIUC and transitioned into CS after graduation. Her specialty is programming languages and software engineering. A.E. is motivated to offer guidance to students in non-CS majors interested in pursuing computer science in graduate school! Her first experience in HackIllinois was as a non-STEM undergraduate student in 2020 and she knows first-hand how daunting your first Hackathon can be in a new field that may be outside of your major or comfort zone. A.E. is here to help answer your technical and post-college questions!"
     }
 ];
