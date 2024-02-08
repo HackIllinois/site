@@ -73,8 +73,8 @@ async function request(method: MethodType, endpoint: string, body?: unknown) {
     });
 
     if (response.status === 403) {
-        authenticate(window.location.href);
-        return request(method, endpoint, body);
+        alert("Your session has expired. Please close this tab and log in again.");
+        sessionStorage.removeItem("token");
     }
 
     if (response.status !== 200) {

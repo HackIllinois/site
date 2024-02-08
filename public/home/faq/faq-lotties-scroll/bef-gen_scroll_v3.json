@@ -1,1 +1,1818 @@
-{"nm":"Comp 1","ddd":0,"h":1100,"w":390,"meta":{"g":"LottieFiles AE 3.5.3"},"layers":[{"ty":5,"nm":"DURING","sr":1,"st":0,"op":60,"ip":0,"hd":false,"ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[320.25,65,0],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":0,"k":100,"ix":11}},"ef":[],"t":{"m":{"a":{"a":0,"k":[0,0],"ix":2},"g":1},"p":{},"a":[],"d":{"k":[{"s":{"f":"Montserrat-ExtraBold","s":17,"t":"DURING","fc":[0.1412,0.2902,0.1137],"lh":20.4,"tr":0,"ps":[-39.25,-10],"sz":[75.5,14],"j":2,"ca":0},"t":20},{"s":{"f":"Montserrat-ExtraBold","s":17,"t":"DURING","fc":[0.1412,0.2902,0.1137],"lh":20.4,"tr":0,"ps":[-39.25,-10],"sz":[75.5,14],"j":2,"ca":0},"t":25}]}},"ind":1},{"ty":5,"nm":"BEFORE","sr":1,"st":0,"op":60,"ip":0,"hd":false,"ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[196.75,65,0],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":0,"k":100,"ix":11}},"ef":[],"t":{"m":{"a":{"a":0,"k":[0,0],"ix":2},"g":1},"p":{},"a":[],"d":{"k":[{"s":{"f":"Montserrat-ExtraBold","s":17,"t":"BEFORE","fc":[1,1,1],"lh":20.4,"tr":0,"ps":[-39.25,-10],"sz":[75.5,14],"j":2,"ca":0},"t":20},{"s":{"f":"Montserrat-ExtraBold","s":17,"t":"BEFORE","fc":[0.4745,0.1216,0.2118],"lh":20.4,"tr":0,"ps":[-39.25,-10],"sz":[75.5,14],"j":2,"ca":0},"t":25}]}},"ind":2},{"ty":5,"nm":"GENERAL","sr":1,"st":0,"op":60,"ip":0,"hd":false,"ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[67.75,65,0],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":0,"k":100,"ix":11}},"ef":[],"t":{"m":{"a":{"a":0,"k":[0,0],"ix":2},"g":1},"p":{},"a":[],"d":{"k":[{"s":{"f":"Montserrat-ExtraBold","s":17,"t":"GENERAL","fc":[0.5412,0.1098,0.0392],"lh":20.4,"tr":0,"ps":[-39.25,-10],"sz":[103,35.5],"j":0,"ca":0},"t":20},{"s":{"f":"Montserrat-ExtraBold","s":17,"t":"GENERAL","fc":[1,1,1],"lh":20.4,"tr":0,"ps":[-39.25,-10],"sz":[103,35.5],"j":0,"ca":0},"t":25}]}},"ind":3},{"ty":2,"nm":"scrolly bit/BaseScroll.ai","sr":1,"st":0,"op":60,"ip":0,"hd":false,"cl":"ai","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[195,362.5,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[195,669,0],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":0,"k":100,"ix":11}},"ef":[],"refId":"image_0","ind":4},{"ty":2,"nm":"page/BaseScroll.ai","sr":1,"st":0,"op":60,"ip":0,"hd":false,"cl":"ai","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[195,362.5,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[195,445,0],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":0,"k":100,"ix":11}},"ef":[],"refId":"image_1","ind":5},{"ty":4,"nm":"during","sr":1,"st":0,"op":60,"ip":0,"hd":false,"ln":"during","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[200,420,0],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":0,"k":100,"ix":11}},"ef":[],"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"Rectangle 1","ix":1,"cix":2,"np":3,"it":[{"ty":"rc","bm":0,"hd":false,"mn":"ADBE Vector Shape - Rect","nm":"Rectangle Path 1","d":1,"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"s":{"a":0,"k":[103.261,55.027],"ix":2}},{"ty":"st","bm":0,"hd":false,"mn":"ADBE Vector Graphic - Stroke","nm":"Stroke 1","lc":1,"lj":1,"ml":4,"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"c":{"a":0,"k":[0.4549,0.6667,0.651],"ix":3}},{"ty":"fl","bm":0,"hd":false,"mn":"ADBE Vector Graphic - Fill","nm":"Fill 1","c":{"a":0,"k":[0.2353,0.4863,0.1922],"ix":4},"r":1,"o":{"a":0,"k":100,"ix":5}},{"ty":"tr","a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"sk":{"a":0,"k":0,"ix":4},"p":{"a":0,"k":[118.63,-352.986],"ix":2},"r":{"a":0,"k":0,"ix":6},"sa":{"a":0,"k":0,"ix":5},"o":{"a":0,"k":100,"ix":7}}]}],"ind":6},{"ty":4,"nm":"before","sr":1,"st":0,"op":60,"ip":0,"hd":false,"ln":"before","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[76.25,420,0],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":0,"k":100,"ix":11}},"ef":[],"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"Rectangle 1","ix":1,"cix":2,"np":3,"it":[{"ty":"rc","bm":0,"hd":false,"mn":"ADBE Vector Shape - Rect","nm":"Rectangle Path 1","d":1,"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"s":{"a":0,"k":[103.261,55.027],"ix":2}},{"ty":"st","bm":0,"hd":false,"mn":"ADBE Vector Graphic - Stroke","nm":"Stroke 1","lc":1,"lj":1,"ml":4,"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"c":{"a":0,"k":[0.4549,0.6667,0.651],"ix":3}},{"ty":"fl","bm":0,"hd":false,"mn":"ADBE Vector Graphic - Fill","nm":"Fill 1","c":{"a":0,"k":[0.7882,0.2039,0.3529],"ix":4},"r":1,"o":{"a":0,"k":100,"ix":5}},{"ty":"tr","a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"sk":{"a":0,"k":0,"ix":4},"p":{"a":0,"k":[118.63,-352.986],"ix":2},"r":{"a":0,"k":0,"ix":6},"sa":{"a":0,"k":0,"ix":5},"o":{"a":0,"k":100,"ix":7}}]}],"ind":7},{"ty":4,"nm":"general","sr":1,"st":0,"op":60,"ip":0,"hd":false,"ln":"general","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[-47.125,420,0],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":0,"k":100,"ix":11}},"ef":[],"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"Rectangle 1","ix":1,"cix":2,"np":3,"it":[{"ty":"rc","bm":0,"hd":false,"mn":"ADBE Vector Shape - Rect","nm":"Rectangle Path 1","d":1,"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"s":{"a":0,"k":[103.261,55.027],"ix":2}},{"ty":"st","bm":0,"hd":false,"mn":"ADBE Vector Graphic - Stroke","nm":"Stroke 1","lc":1,"lj":1,"ml":4,"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"c":{"a":0,"k":[0.4549,0.6667,0.651],"ix":3}},{"ty":"fl","bm":0,"hd":false,"mn":"ADBE Vector Graphic - Fill","nm":"Fill 1","c":{"a":0,"k":[0.8667,0.3412,0.251],"ix":4},"r":1,"o":{"a":0,"k":100,"ix":5}},{"ty":"tr","a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"sk":{"a":0,"k":0,"ix":4},"p":{"a":0,"k":[118.63,-352.986],"ix":2},"r":{"a":0,"k":0,"ix":6},"sa":{"a":0,"k":0,"ix":5},"o":{"a":0,"k":100,"ix":7}}]}],"ind":8},{"ty":4,"nm":"extended roll","sr":1,"st":0,"op":60,"ip":0,"hd":false,"ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[195,550,0],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":0,"k":100,"ix":11}},"ef":[],"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"Rectangle 1","ix":1,"cix":2,"np":3,"it":[{"ty":"rc","bm":0,"hd":false,"mn":"ADBE Vector Shape - Rect","nm":"Rectangle Path 1","d":1,"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"s":{"a":0,"k":[394.629,282.594],"ix":2}},{"ty":"st","bm":0,"hd":false,"mn":"ADBE Vector Graphic - Stroke","nm":"Stroke 1","lc":1,"lj":1,"ml":4,"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"c":{"a":0,"k":[0.4549,0.6667,0.651],"ix":3}},{"ty":"fl","bm":0,"hd":false,"mn":"ADBE Vector Graphic - Fill","nm":"Fill 1","c":{"a":0,"k":[1,0.9804,0.8],"ix":4},"r":1,"o":{"a":0,"k":100,"ix":5}},{"ty":"tr","a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"sk":{"a":0,"k":0,"ix":4},"p":{"a":0,"k":[0.314,323.297],"ix":2},"r":{"a":0,"k":0,"ix":6},"sa":{"a":0,"k":0,"ix":5},"o":{"a":0,"k":100,"ix":7}}]}],"ind":9},{"ty":4,"nm":"tab highlight","sr":1,"st":0,"op":60,"ip":0,"hd":false,"ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[313.5,551.25,0],"t":20,"ti":[0,0,0],"to":[0,0,0]},{"s":[189.75,551,0],"t":25}],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[100],"t":20},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[0],"t":21},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[0],"t":24},{"s":[100],"t":25}],"ix":11}},"ef":[],"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"Rectangle 1","ix":1,"cix":2,"np":3,"it":[{"ty":"rc","bm":0,"hd":false,"mn":"ADBE Vector Shape - Rect","nm":"Rectangle Path 1","d":1,"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"s":{"a":0,"k":[112.475,48.22],"ix":2}},{"ty":"st","bm":0,"hd":false,"mn":"ADBE Vector Graphic - Stroke","nm":"Stroke 1","lc":1,"lj":1,"ml":4,"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"c":{"a":0,"k":[0.4549,0.6667,0.651],"ix":3}},{"ty":"fl","bm":0,"hd":false,"mn":"ADBE Vector Graphic - Fill","nm":"Fill 1","c":{"a":0,"k":[1,0.698,0.2431],"ix":4},"r":1,"o":{"a":0,"k":100,"ix":5}},{"ty":"tr","a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100.218,117.061],"ix":3},"sk":{"a":0,"k":0,"ix":4},"p":{"a":0,"k":[-118.513,-488.093],"ix":2},"r":{"a":0,"k":0,"ix":6},"sa":{"a":0,"k":0,"ix":5},"o":{"a":0,"k":100,"ix":7}}]}],"ind":10}],"v":"4.8.0","fr":20,"op":40,"ip":0,"fonts":{"list":[{"ascent":74.1989135742188,"fClass":"","fFamily":"Montserrat","fStyle":"ExtraBold","fName":"Montserrat-ExtraBold","fPath":"","fWeight":"","origin":0}]},"chars":[{"ch":"G","fFamily":"Montserrat","size":17,"style":"ExtraBold","w":77,"data":{"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"G","ix":1,"cix":2,"np":3,"it":[{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"G","ix":1,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,0],[3.726,0],[0,11.884],[-12.085,0],[-4.834,-5.338],[0,0],[13.193,0],[0,-21.451],[-22.458,0],[-8.157,5.841],[0,0],[0,0]],"o":[[-3.525,1.611],[-11.884,0],[0,-12.186],[6.747,0],[0,0],[-6.949,-8.359],[-22.861,0],[0,21.451],[10.272,0],[0,0],[0,0],[0,0]],"v":[[54.282,-17.422],[43.506,-15.106],[23.566,-35.248],[43.707,-55.389],[60.828,-47.534],[73.517,-59.015],[42.7,-71.906],[3.424,-35.248],[42.297,1.41],[71.906,-7.553],[71.906,-36.758],[54.282,-36.758]]},"ix":2}}]}]}},{"ch":"E","fFamily":"Montserrat","size":17,"style":"ExtraBold","w":67.2,"data":{"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"E","ix":1,"cix":2,"np":3,"it":[{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"E","ix":1,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[26.788,-15.408],[26.788,-28.299],[58.109,-28.299],[58.109,-43.204],[26.788,-43.204],[26.788,-55.087],[62.338,-55.087],[62.338,-70.496],[7.05,-70.496],[7.05,0],[63.647,0],[63.647,-15.408]]},"ix":2}}]}]}},{"ch":"N","fFamily":"Montserrat","size":17,"style":"ExtraBold","w":80.6,"data":{"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"N","ix":1,"cix":2,"np":3,"it":[{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"N","ix":1,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[54.584,-70.496],[54.584,-32.932],[23.465,-70.496],[7.05,-70.496],[7.05,0],[26.587,0],[26.587,-37.564],[57.706,0],[74.121,0],[74.121,-70.496]]},"ix":2}}]}]}},{"ch":"R","fFamily":"Montserrat","size":17,"style":"ExtraBold","w":74,"data":{"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"R","ix":1,"cix":2,"np":5,"it":[{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"R","ix":1,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,0],[0,0],[0,0],[0,10.373],[19.235,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[8.762,-4.23],[0,-16.113],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[50.656,0],[72.006,0],[56.799,-22.156],[70.596,-44.412],[39.276,-70.496],[7.05,-70.496],[7.05,0],[26.99,0],[26.99,-18.732],[37.866,-18.732]]},"ix":2}},{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"R","ix":2,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,-6.546],[8.258,0],[0,0],[0,0],[0,0]],"o":[[0,6.445],[0,0],[0,0],[0,0],[8.258,0]],"v":[[50.455,-44.412],[38.068,-34.14],[26.99,-34.14],[26.99,-54.785],[38.068,-54.785]]},"ix":2}}]}]}},{"ch":"A","fFamily":"Montserrat","size":17,"style":"ExtraBold","w":81.5,"data":{"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"A","ix":1,"cix":2,"np":5,"it":[{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"A","ix":1,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[59.821,0],[80.566,0],[49.347,-70.496],[29.709,-70.496],[-1.41,0],[18.933,0],[24.472,-13.696],[54.282,-13.696]]},"ix":2}},{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"A","ix":2,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0]],"v":[[30.313,-28.4],[39.377,-50.958],[48.441,-28.4]]},"ix":2}}]}]}},{"ch":"L","fFamily":"Montserrat","size":17,"style":"ExtraBold","w":61,"data":{"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"L","ix":1,"cix":2,"np":3,"it":[{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"L","ix":1,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[7.05,0],[60.626,0],[60.626,-15.811],[26.99,-15.811],[26.99,-70.496],[7.05,-70.496]]},"ix":2}}]}]}},{"ch":"B","fFamily":"Montserrat","size":17,"style":"ExtraBold","w":76.9,"data":{"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"B","ix":1,"cix":2,"np":6,"it":[{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"B","ix":1,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[7.956,2.82],[0,6.747],[18.53,0],[0,0],[0,0],[0,0],[0,12.186]],"o":[[6.042,-3.122],[0,-10.876],[0,0],[0,0],[0,0],[18.933,0],[0,-8.56]],"v":[[61.23,-36.758],[70.697,-52.066],[43.103,-70.496],[7.05,-70.496],[7.05,0],[45.117,0],[74.121,-19.336]]},"ix":2}},{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"B","ix":2,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,0],[0,-4.431],[6.647,0],[0,0],[0,0]],"o":[[6.647,0],[0,4.532],[0,0],[0,0],[0,0]],"v":[[40.485,-56.094],[50.555,-49.347],[40.485,-42.499],[26.788,-42.499],[26.788,-56.094]]},"ix":2}},{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"B","ix":3,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[6.848,0],[0,0],[0,0],[0,0],[0,-4.834]],"o":[[0,0],[0,0],[0,0],[6.848,0],[0,4.834]],"v":[[43.506,-14.401],[26.788,-14.401],[26.788,-28.702],[43.506,-28.702],[53.979,-21.552]]},"ix":2}}]}]}},{"ch":"F","fFamily":"Montserrat","size":17,"style":"ExtraBold","w":64.2,"data":{"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"F","ix":1,"cix":2,"np":3,"it":[{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"F","ix":1,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[62.338,-55.087],[62.338,-70.496],[7.05,-70.496],[7.05,0],[26.99,0],[26.99,-24.17],[58.109,-24.17],[58.109,-39.578],[26.99,-39.578],[26.99,-55.087]]},"ix":2}}]}]}},{"ch":"O","fFamily":"Montserrat","size":17,"style":"ExtraBold","w":84.6,"data":{"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"O","ix":1,"cix":2,"np":5,"it":[{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"O","ix":1,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[-22.559,0],[0,21.149],[22.559,0],[0,-21.149]],"o":[[22.559,0],[0,-21.149],[-22.559,0],[0,21.149]],"v":[[42.599,1.41],[81.775,-35.248],[42.599,-71.906],[3.424,-35.248]]},"ix":2}},{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"O","ix":2,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[10.675,0],[0,12.186],[-10.675,0],[0,-12.186]],"o":[[-10.675,0],[0,-12.186],[10.675,0],[0,12.186]],"v":[[42.599,-15.106],[23.566,-35.248],[42.599,-55.389],[61.633,-35.248]]},"ix":2}}]}]}},{"ch":"D","fFamily":"Montserrat","size":17,"style":"ExtraBold","w":82.6,"data":{"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"D","ix":1,"cix":2,"np":5,"it":[{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"D","ix":1,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,0],[0,0],[0,21.652],[23.364,0],[0,0]],"o":[[0,0],[23.364,0],[0,-21.652],[0,0],[0,0]],"v":[[7.05,0],[40.384,0],[79.761,-35.248],[40.384,-70.496],[7.05,-70.496]]},"ix":2}},{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"D","ix":2,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,0],[0,0],[0,0],[0,-12.186],[11.984,0]],"o":[[0,0],[0,0],[11.984,0],[0,12.186],[0,0]],"v":[[26.99,-15.912],[26.99,-54.584],[39.578,-54.584],[59.619,-35.248],[39.578,-15.912]]},"ix":2}}]}]}},{"ch":"U","fFamily":"Montserrat","size":17,"style":"ExtraBold","w":78.6,"data":{"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"U","ix":1,"cix":2,"np":3,"it":[{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"U","ix":1,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[-20.847,0],[0,21.048],[0,0],[0,0],[0,0],[8.258,0],[0,12.085],[0,0],[0,0],[0,0]],"o":[[20.847,0],[0,0],[0,0],[0,0],[0,12.085],[-8.359,0],[0,0],[0,0],[0,0],[0,21.048]],"v":[[39.578,1.41],[72.711,-31.421],[72.711,-70.496],[53.073,-70.496],[53.073,-32.025],[39.78,-15.106],[26.385,-32.025],[26.385,-70.496],[6.445,-70.496],[6.445,-31.421]]},"ix":2}}]}]}},{"ch":"I","fFamily":"Montserrat","size":17,"style":"ExtraBold","w":33.9,"data":{"shapes":[{"ty":"gr","bm":0,"hd":false,"mn":"ADBE Vector Group","nm":"I","ix":1,"cix":2,"np":3,"it":[{"ty":"sh","bm":0,"hd":false,"mn":"ADBE Vector Shape - Group","nm":"I","ix":1,"d":1,"ks":{"a":0,"k":{"c":true,"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[7.05,0],[26.99,0],[26.99,-70.496],[7.05,-70.496]]},"ix":2}}]}]}}],"assets":[{"id":"image_0","u":"","e":1,"w":390,"h":725,"p":"data:image/png;base64,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"},{"id":"image_1","u":"","e":1,"w":390,"h":725,"p":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYYAAALVCAYAAADEckYhAAAACXBIWXMAAAABAAAAAQBPJcTWAAAAJHpUWHRDcmVhdG9yAAAImXNMyU9KVXBMK0ktUnBNS0tNLikGAEF6Bs5qehXFAAALKElEQVR4nO3aQXIUVQCA4dcZwHIVbgCeACjUNTcgNxBPoEfAG+AJyA2EExi3MlbCDTgCrKgkjO0iCcWvSUmRSBLzfbvp1z31qmb6/T3dM817y3lw8Uzj+XT9642Thud5++bYX22NMe58vklxCm/G9cXtabr3+mN2nt9u356+vPfqxPG95eYY47szmhsX28sx/nw03fh252MPmPd+vzvG2ub4xPVh7VMO4jOYx8N5/8WDE8f3V0+GKFwm6+PdavNjdpx3lxtjsdo5OLmPGReFq+bOGGtbJ30f/u4wClvjFOuDMFxk87R57Obd5cawMFw+/xb7cfhLcBqbY4z14xaDee+PR8NnfxWtj7G2ffj5n+hgfG37YP9PJwwX261598XjDzfMb7dvHy4cXEYnxP69g18VRyd14nBw0s9P/8vpcdHNT+e95ZNjR/aWT87q+zF5xnAJrBZfHd1vnveWO8MtpMttnn+avvjm8T827y43xjR+OeaIN2NMP4oC703j+bi2eDRN917P8/bN8W61Oebx8MzeXhgug+m36cb9B4dXCj+c92w4Ax/Efoz3fyZ4NU55C4Ar5eVYLTbGYvVsnPHFojBcHj8PUfgfOYj90at5f/nsLK/44DSEAc7N9P104/7mvP/iwZinX897NnBEGOD8vBmrxd2xWG2NMW6d92TgyLXzngBcYetjsdoZnitwwfi7KpwvUeDCEQYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAIi/AD3+yCgSoEZJAAAAAElFTkSuQmCC"}]}
+{
+    "nm": "Comp 1",
+    "ddd": 0,
+    "h": 1100,
+    "w": 390,
+    "meta": { "g": "LottieFiles AE 3.5.3" },
+    "layers": [
+        {
+            "ty": 5,
+            "nm": "DURING",
+            "sr": 1,
+            "st": 0,
+            "op": 60,
+            "ip": 0,
+            "hd": false,
+            "ddd": 0,
+            "bm": 0,
+            "hasMask": false,
+            "ao": 0,
+            "ks": {
+                "a": { "a": 0, "k": [0, 0, 0], "ix": 1 },
+                "s": { "a": 0, "k": [100, 100, 100], "ix": 6 },
+                "sk": { "a": 0, "k": 0 },
+                "p": { "a": 0, "k": [320.25, 65, 0], "ix": 2 },
+                "r": { "a": 0, "k": 0, "ix": 10 },
+                "sa": { "a": 0, "k": 0 },
+                "o": { "a": 0, "k": 100, "ix": 11 }
+            },
+            "ef": [],
+            "t": {
+                "m": { "a": { "a": 0, "k": [0, 0], "ix": 2 }, "g": 1 },
+                "p": {},
+                "a": [],
+                "d": {
+                    "k": [
+                        {
+                            "s": {
+                                "f": "Montserrat-ExtraBold",
+                                "s": 17,
+                                "t": "DURING",
+                                "fc": [0.1412, 0.2902, 0.1137],
+                                "lh": 20.4,
+                                "tr": 0,
+                                "ps": [-39.25, -10],
+                                "sz": [75.5, 14],
+                                "j": 2,
+                                "ca": 0
+                            },
+                            "t": 20
+                        },
+                        {
+                            "s": {
+                                "f": "Montserrat-ExtraBold",
+                                "s": 17,
+                                "t": "DURING",
+                                "fc": [0.1412, 0.2902, 0.1137],
+                                "lh": 20.4,
+                                "tr": 0,
+                                "ps": [-39.25, -10],
+                                "sz": [75.5, 14],
+                                "j": 2,
+                                "ca": 0
+                            },
+                            "t": 25
+                        }
+                    ]
+                }
+            },
+            "ind": 1
+        },
+        {
+            "ty": 5,
+            "nm": "BEFORE",
+            "sr": 1,
+            "st": 0,
+            "op": 60,
+            "ip": 0,
+            "hd": false,
+            "ddd": 0,
+            "bm": 0,
+            "hasMask": false,
+            "ao": 0,
+            "ks": {
+                "a": { "a": 0, "k": [0, 0, 0], "ix": 1 },
+                "s": { "a": 0, "k": [100, 100, 100], "ix": 6 },
+                "sk": { "a": 0, "k": 0 },
+                "p": { "a": 0, "k": [196.75, 65, 0], "ix": 2 },
+                "r": { "a": 0, "k": 0, "ix": 10 },
+                "sa": { "a": 0, "k": 0 },
+                "o": { "a": 0, "k": 100, "ix": 11 }
+            },
+            "ef": [],
+            "t": {
+                "m": { "a": { "a": 0, "k": [0, 0], "ix": 2 }, "g": 1 },
+                "p": {},
+                "a": [],
+                "d": {
+                    "k": [
+                        {
+                            "s": {
+                                "f": "Montserrat-ExtraBold",
+                                "s": 17,
+                                "t": "BEFORE",
+                                "fc": [1, 1, 1],
+                                "lh": 20.4,
+                                "tr": 0,
+                                "ps": [-39.25, -10],
+                                "sz": [75.5, 14],
+                                "j": 2,
+                                "ca": 0
+                            },
+                            "t": 20
+                        },
+                        {
+                            "s": {
+                                "f": "Montserrat-ExtraBold",
+                                "s": 17,
+                                "t": "BEFORE",
+                                "fc": [0.4745, 0.1216, 0.2118],
+                                "lh": 20.4,
+                                "tr": 0,
+                                "ps": [-39.25, -10],
+                                "sz": [75.5, 14],
+                                "j": 2,
+                                "ca": 0
+                            },
+                            "t": 25
+                        }
+                    ]
+                }
+            },
+            "ind": 2
+        },
+        {
+            "ty": 5,
+            "nm": "GENERAL",
+            "sr": 1,
+            "st": 0,
+            "op": 60,
+            "ip": 0,
+            "hd": false,
+            "ddd": 0,
+            "bm": 0,
+            "hasMask": false,
+            "ao": 0,
+            "ks": {
+                "a": { "a": 0, "k": [0, 0, 0], "ix": 1 },
+                "s": { "a": 0, "k": [100, 100, 100], "ix": 6 },
+                "sk": { "a": 0, "k": 0 },
+                "p": { "a": 0, "k": [67.75, 65, 0], "ix": 2 },
+                "r": { "a": 0, "k": 0, "ix": 10 },
+                "sa": { "a": 0, "k": 0 },
+                "o": { "a": 0, "k": 100, "ix": 11 }
+            },
+            "ef": [],
+            "t": {
+                "m": { "a": { "a": 0, "k": [0, 0], "ix": 2 }, "g": 1 },
+                "p": {},
+                "a": [],
+                "d": {
+                    "k": [
+                        {
+                            "s": {
+                                "f": "Montserrat-ExtraBold",
+                                "s": 17,
+                                "t": "GENERAL",
+                                "fc": [0.5412, 0.1098, 0.0392],
+                                "lh": 20.4,
+                                "tr": 0,
+                                "ps": [-39.25, -10],
+                                "sz": [103, 35.5],
+                                "j": 0,
+                                "ca": 0
+                            },
+                            "t": 20
+                        },
+                        {
+                            "s": {
+                                "f": "Montserrat-ExtraBold",
+                                "s": 17,
+                                "t": "GENERAL",
+                                "fc": [1, 1, 1],
+                                "lh": 20.4,
+                                "tr": 0,
+                                "ps": [-39.25, -10],
+                                "sz": [103, 35.5],
+                                "j": 0,
+                                "ca": 0
+                            },
+                            "t": 25
+                        }
+                    ]
+                }
+            },
+            "ind": 3
+        },
+        {
+            "ty": 2,
+            "nm": "scrolly bit/BaseScroll.ai",
+            "sr": 1,
+            "st": 0,
+            "op": 60,
+            "ip": 0,
+            "hd": false,
+            "cl": "ai",
+            "ddd": 0,
+            "bm": 0,
+            "hasMask": false,
+            "ao": 0,
+            "ks": {
+                "a": { "a": 0, "k": [195, 362.5, 0], "ix": 1 },
+                "s": { "a": 0, "k": [100, 100, 100], "ix": 6 },
+                "sk": { "a": 0, "k": 0 },
+                "p": { "a": 0, "k": [195, 669, 0], "ix": 2 },
+                "r": { "a": 0, "k": 0, "ix": 10 },
+                "sa": { "a": 0, "k": 0 },
+                "o": { "a": 0, "k": 100, "ix": 11 }
+            },
+            "ef": [],
+            "refId": "image_0",
+            "ind": 4
+        },
+        {
+            "ty": 2,
+            "nm": "page/BaseScroll.ai",
+            "sr": 1,
+            "st": 0,
+            "op": 60,
+            "ip": 0,
+            "hd": false,
+            "cl": "ai",
+            "ddd": 0,
+            "bm": 0,
+            "hasMask": false,
+            "ao": 0,
+            "ks": {
+                "a": { "a": 0, "k": [195, 362.5, 0], "ix": 1 },
+                "s": { "a": 0, "k": [100, 100, 100], "ix": 6 },
+                "sk": { "a": 0, "k": 0 },
+                "p": { "a": 0, "k": [195, 445, 0], "ix": 2 },
+                "r": { "a": 0, "k": 0, "ix": 10 },
+                "sa": { "a": 0, "k": 0 },
+                "o": { "a": 0, "k": 100, "ix": 11 }
+            },
+            "ef": [],
+            "refId": "image_1",
+            "ind": 5
+        },
+        {
+            "ty": 4,
+            "nm": "during",
+            "sr": 1,
+            "st": 0,
+            "op": 60,
+            "ip": 0,
+            "hd": false,
+            "ln": "during",
+            "ddd": 0,
+            "bm": 0,
+            "hasMask": false,
+            "ao": 0,
+            "ks": {
+                "a": { "a": 0, "k": [0, 0, 0], "ix": 1 },
+                "s": { "a": 0, "k": [100, 100, 100], "ix": 6 },
+                "sk": { "a": 0, "k": 0 },
+                "p": { "a": 0, "k": [200, 420, 0], "ix": 2 },
+                "r": { "a": 0, "k": 0, "ix": 10 },
+                "sa": { "a": 0, "k": 0 },
+                "o": { "a": 0, "k": 100, "ix": 11 }
+            },
+            "ef": [],
+            "shapes": [
+                {
+                    "ty": "gr",
+                    "bm": 0,
+                    "hd": false,
+                    "mn": "ADBE Vector Group",
+                    "nm": "Rectangle 1",
+                    "ix": 1,
+                    "cix": 2,
+                    "np": 3,
+                    "it": [
+                        {
+                            "ty": "rc",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Shape - Rect",
+                            "nm": "Rectangle Path 1",
+                            "d": 1,
+                            "p": { "a": 0, "k": [0, 0], "ix": 3 },
+                            "r": { "a": 0, "k": 0, "ix": 4 },
+                            "s": { "a": 0, "k": [103.261, 55.027], "ix": 2 }
+                        },
+                        {
+                            "ty": "st",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Graphic - Stroke",
+                            "nm": "Stroke 1",
+                            "lc": 1,
+                            "lj": 1,
+                            "ml": 4,
+                            "o": { "a": 0, "k": 100, "ix": 4 },
+                            "w": { "a": 0, "k": 0, "ix": 5 },
+                            "c": {
+                                "a": 0,
+                                "k": [0.4549, 0.6667, 0.651],
+                                "ix": 3
+                            }
+                        },
+                        {
+                            "ty": "fl",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Graphic - Fill",
+                            "nm": "Fill 1",
+                            "c": {
+                                "a": 0,
+                                "k": [0.2353, 0.4863, 0.1922],
+                                "ix": 4
+                            },
+                            "r": 1,
+                            "o": { "a": 0, "k": 100, "ix": 5 }
+                        },
+                        {
+                            "ty": "tr",
+                            "a": { "a": 0, "k": [0, 0], "ix": 1 },
+                            "s": { "a": 0, "k": [100, 100], "ix": 3 },
+                            "sk": { "a": 0, "k": 0, "ix": 4 },
+                            "p": { "a": 0, "k": [118.63, -352.986], "ix": 2 },
+                            "r": { "a": 0, "k": 0, "ix": 6 },
+                            "sa": { "a": 0, "k": 0, "ix": 5 },
+                            "o": { "a": 0, "k": 100, "ix": 7 }
+                        }
+                    ]
+                }
+            ],
+            "ind": 6
+        },
+        {
+            "ty": 4,
+            "nm": "before",
+            "sr": 1,
+            "st": 0,
+            "op": 60,
+            "ip": 0,
+            "hd": false,
+            "ln": "before",
+            "ddd": 0,
+            "bm": 0,
+            "hasMask": false,
+            "ao": 0,
+            "ks": {
+                "a": { "a": 0, "k": [0, 0, 0], "ix": 1 },
+                "s": { "a": 0, "k": [100, 100, 100], "ix": 6 },
+                "sk": { "a": 0, "k": 0 },
+                "p": { "a": 0, "k": [76.25, 420, 0], "ix": 2 },
+                "r": { "a": 0, "k": 0, "ix": 10 },
+                "sa": { "a": 0, "k": 0 },
+                "o": { "a": 0, "k": 100, "ix": 11 }
+            },
+            "ef": [],
+            "shapes": [
+                {
+                    "ty": "gr",
+                    "bm": 0,
+                    "hd": false,
+                    "mn": "ADBE Vector Group",
+                    "nm": "Rectangle 1",
+                    "ix": 1,
+                    "cix": 2,
+                    "np": 3,
+                    "it": [
+                        {
+                            "ty": "rc",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Shape - Rect",
+                            "nm": "Rectangle Path 1",
+                            "d": 1,
+                            "p": { "a": 0, "k": [0, 0], "ix": 3 },
+                            "r": { "a": 0, "k": 0, "ix": 4 },
+                            "s": { "a": 0, "k": [103.261, 55.027], "ix": 2 }
+                        },
+                        {
+                            "ty": "st",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Graphic - Stroke",
+                            "nm": "Stroke 1",
+                            "lc": 1,
+                            "lj": 1,
+                            "ml": 4,
+                            "o": { "a": 0, "k": 100, "ix": 4 },
+                            "w": { "a": 0, "k": 0, "ix": 5 },
+                            "c": {
+                                "a": 0,
+                                "k": [0.4549, 0.6667, 0.651],
+                                "ix": 3
+                            }
+                        },
+                        {
+                            "ty": "fl",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Graphic - Fill",
+                            "nm": "Fill 1",
+                            "c": {
+                                "a": 0,
+                                "k": [0.7882, 0.2039, 0.3529],
+                                "ix": 4
+                            },
+                            "r": 1,
+                            "o": { "a": 0, "k": 100, "ix": 5 }
+                        },
+                        {
+                            "ty": "tr",
+                            "a": { "a": 0, "k": [0, 0], "ix": 1 },
+                            "s": { "a": 0, "k": [100, 100], "ix": 3 },
+                            "sk": { "a": 0, "k": 0, "ix": 4 },
+                            "p": { "a": 0, "k": [118.63, -352.986], "ix": 2 },
+                            "r": { "a": 0, "k": 0, "ix": 6 },
+                            "sa": { "a": 0, "k": 0, "ix": 5 },
+                            "o": { "a": 0, "k": 100, "ix": 7 }
+                        }
+                    ]
+                }
+            ],
+            "ind": 7
+        },
+        {
+            "ty": 4,
+            "nm": "general",
+            "sr": 1,
+            "st": 0,
+            "op": 60,
+            "ip": 0,
+            "hd": false,
+            "ln": "general",
+            "ddd": 0,
+            "bm": 0,
+            "hasMask": false,
+            "ao": 0,
+            "ks": {
+                "a": { "a": 0, "k": [0, 0, 0], "ix": 1 },
+                "s": { "a": 0, "k": [100, 100, 100], "ix": 6 },
+                "sk": { "a": 0, "k": 0 },
+                "p": { "a": 0, "k": [-47.125, 420, 0], "ix": 2 },
+                "r": { "a": 0, "k": 0, "ix": 10 },
+                "sa": { "a": 0, "k": 0 },
+                "o": { "a": 0, "k": 100, "ix": 11 }
+            },
+            "ef": [],
+            "shapes": [
+                {
+                    "ty": "gr",
+                    "bm": 0,
+                    "hd": false,
+                    "mn": "ADBE Vector Group",
+                    "nm": "Rectangle 1",
+                    "ix": 1,
+                    "cix": 2,
+                    "np": 3,
+                    "it": [
+                        {
+                            "ty": "rc",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Shape - Rect",
+                            "nm": "Rectangle Path 1",
+                            "d": 1,
+                            "p": { "a": 0, "k": [0, 0], "ix": 3 },
+                            "r": { "a": 0, "k": 0, "ix": 4 },
+                            "s": { "a": 0, "k": [103.261, 55.027], "ix": 2 }
+                        },
+                        {
+                            "ty": "st",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Graphic - Stroke",
+                            "nm": "Stroke 1",
+                            "lc": 1,
+                            "lj": 1,
+                            "ml": 4,
+                            "o": { "a": 0, "k": 100, "ix": 4 },
+                            "w": { "a": 0, "k": 0, "ix": 5 },
+                            "c": {
+                                "a": 0,
+                                "k": [0.4549, 0.6667, 0.651],
+                                "ix": 3
+                            }
+                        },
+                        {
+                            "ty": "fl",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Graphic - Fill",
+                            "nm": "Fill 1",
+                            "c": {
+                                "a": 0,
+                                "k": [0.8667, 0.3412, 0.251],
+                                "ix": 4
+                            },
+                            "r": 1,
+                            "o": { "a": 0, "k": 100, "ix": 5 }
+                        },
+                        {
+                            "ty": "tr",
+                            "a": { "a": 0, "k": [0, 0], "ix": 1 },
+                            "s": { "a": 0, "k": [100, 100], "ix": 3 },
+                            "sk": { "a": 0, "k": 0, "ix": 4 },
+                            "p": { "a": 0, "k": [118.63, -352.986], "ix": 2 },
+                            "r": { "a": 0, "k": 0, "ix": 6 },
+                            "sa": { "a": 0, "k": 0, "ix": 5 },
+                            "o": { "a": 0, "k": 100, "ix": 7 }
+                        }
+                    ]
+                }
+            ],
+            "ind": 8
+        },
+        {
+            "ty": 4,
+            "nm": "extended roll",
+            "sr": 1,
+            "st": 0,
+            "op": 60,
+            "ip": 0,
+            "hd": false,
+            "ddd": 0,
+            "bm": 0,
+            "hasMask": false,
+            "ao": 0,
+            "ks": {
+                "a": { "a": 0, "k": [0, 0, 0], "ix": 1 },
+                "s": { "a": 0, "k": [100, 100, 100], "ix": 6 },
+                "sk": { "a": 0, "k": 0 },
+                "p": { "a": 0, "k": [195, 550, 0], "ix": 2 },
+                "r": { "a": 0, "k": 0, "ix": 10 },
+                "sa": { "a": 0, "k": 0 },
+                "o": { "a": 0, "k": 100, "ix": 11 }
+            },
+            "ef": [],
+            "shapes": [
+                {
+                    "ty": "gr",
+                    "bm": 0,
+                    "hd": false,
+                    "mn": "ADBE Vector Group",
+                    "nm": "Rectangle 1",
+                    "ix": 1,
+                    "cix": 2,
+                    "np": 3,
+                    "it": [
+                        {
+                            "ty": "rc",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Shape - Rect",
+                            "nm": "Rectangle Path 1",
+                            "d": 1,
+                            "p": { "a": 0, "k": [0, 0], "ix": 3 },
+                            "r": { "a": 0, "k": 0, "ix": 4 },
+                            "s": { "a": 0, "k": [394.629, 282.594], "ix": 2 }
+                        },
+                        {
+                            "ty": "st",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Graphic - Stroke",
+                            "nm": "Stroke 1",
+                            "lc": 1,
+                            "lj": 1,
+                            "ml": 4,
+                            "o": { "a": 0, "k": 100, "ix": 4 },
+                            "w": { "a": 0, "k": 0, "ix": 5 },
+                            "c": {
+                                "a": 0,
+                                "k": [0.4549, 0.6667, 0.651],
+                                "ix": 3
+                            }
+                        },
+                        {
+                            "ty": "fl",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Graphic - Fill",
+                            "nm": "Fill 1",
+                            "c": { "a": 0, "k": [1, 0.9804, 0.8], "ix": 4 },
+                            "r": 1,
+                            "o": { "a": 0, "k": 100, "ix": 5 }
+                        },
+                        {
+                            "ty": "tr",
+                            "a": { "a": 0, "k": [0, 0], "ix": 1 },
+                            "s": { "a": 0, "k": [100, 100], "ix": 3 },
+                            "sk": { "a": 0, "k": 0, "ix": 4 },
+                            "p": { "a": 0, "k": [0.314, 323.297], "ix": 2 },
+                            "r": { "a": 0, "k": 0, "ix": 6 },
+                            "sa": { "a": 0, "k": 0, "ix": 5 },
+                            "o": { "a": 0, "k": 100, "ix": 7 }
+                        }
+                    ]
+                }
+            ],
+            "ind": 9
+        },
+        {
+            "ty": 4,
+            "nm": "tab highlight",
+            "sr": 1,
+            "st": 0,
+            "op": 60,
+            "ip": 0,
+            "hd": false,
+            "ddd": 0,
+            "bm": 0,
+            "hasMask": false,
+            "ao": 0,
+            "ks": {
+                "a": { "a": 0, "k": [0, 0, 0], "ix": 1 },
+                "s": { "a": 0, "k": [100, 100, 100], "ix": 6 },
+                "sk": { "a": 0, "k": 0 },
+                "p": {
+                    "a": 1,
+                    "k": [
+                        {
+                            "o": { "x": 0.167, "y": 0.167 },
+                            "i": { "x": 0.833, "y": 0.833 },
+                            "s": [313.5, 551.25, 0],
+                            "t": 20,
+                            "ti": [0, 0, 0],
+                            "to": [0, 0, 0]
+                        },
+                        { "s": [189.75, 551, 0], "t": 25 }
+                    ],
+                    "ix": 2
+                },
+                "r": { "a": 0, "k": 0, "ix": 10 },
+                "sa": { "a": 0, "k": 0 },
+                "o": {
+                    "a": 1,
+                    "k": [
+                        {
+                            "o": { "x": 0.167, "y": 0.167 },
+                            "i": { "x": 0.833, "y": 0.833 },
+                            "s": [100],
+                            "t": 20
+                        },
+                        {
+                            "o": { "x": 0.167, "y": 0.167 },
+                            "i": { "x": 0.833, "y": 0.833 },
+                            "s": [0],
+                            "t": 21
+                        },
+                        {
+                            "o": { "x": 0.167, "y": 0.167 },
+                            "i": { "x": 0.833, "y": 0.833 },
+                            "s": [0],
+                            "t": 24
+                        },
+                        { "s": [100], "t": 25 }
+                    ],
+                    "ix": 11
+                }
+            },
+            "ef": [],
+            "shapes": [
+                {
+                    "ty": "gr",
+                    "bm": 0,
+                    "hd": false,
+                    "mn": "ADBE Vector Group",
+                    "nm": "Rectangle 1",
+                    "ix": 1,
+                    "cix": 2,
+                    "np": 3,
+                    "it": [
+                        {
+                            "ty": "rc",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Shape - Rect",
+                            "nm": "Rectangle Path 1",
+                            "d": 1,
+                            "p": { "a": 0, "k": [0, 0], "ix": 3 },
+                            "r": { "a": 0, "k": 0, "ix": 4 },
+                            "s": { "a": 0, "k": [112.475, 48.22], "ix": 2 }
+                        },
+                        {
+                            "ty": "st",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Graphic - Stroke",
+                            "nm": "Stroke 1",
+                            "lc": 1,
+                            "lj": 1,
+                            "ml": 4,
+                            "o": { "a": 0, "k": 100, "ix": 4 },
+                            "w": { "a": 0, "k": 0, "ix": 5 },
+                            "c": {
+                                "a": 0,
+                                "k": [0.4549, 0.6667, 0.651],
+                                "ix": 3
+                            }
+                        },
+                        {
+                            "ty": "fl",
+                            "bm": 0,
+                            "hd": false,
+                            "mn": "ADBE Vector Graphic - Fill",
+                            "nm": "Fill 1",
+                            "c": { "a": 0, "k": [1, 0.698, 0.2431], "ix": 4 },
+                            "r": 1,
+                            "o": { "a": 0, "k": 100, "ix": 5 }
+                        },
+                        {
+                            "ty": "tr",
+                            "a": { "a": 0, "k": [0, 0], "ix": 1 },
+                            "s": { "a": 0, "k": [100.218, 117.061], "ix": 3 },
+                            "sk": { "a": 0, "k": 0, "ix": 4 },
+                            "p": { "a": 0, "k": [-118.513, -488.093], "ix": 2 },
+                            "r": { "a": 0, "k": 0, "ix": 6 },
+                            "sa": { "a": 0, "k": 0, "ix": 5 },
+                            "o": { "a": 0, "k": 100, "ix": 7 }
+                        }
+                    ]
+                }
+            ],
+            "ind": 10
+        }
+    ],
+    "v": "4.8.0",
+    "fr": 20,
+    "op": 40,
+    "ip": 0,
+    "fonts": {
+        "list": [
+            {
+                "ascent": 74.1989135742188,
+                "fClass": "",
+                "fFamily": "Montserrat",
+                "fStyle": "ExtraBold",
+                "fName": "Montserrat-ExtraBold",
+                "fPath": "",
+                "fWeight": "",
+                "origin": 0
+            }
+        ]
+    },
+    "chars": [
+        {
+            "ch": "G",
+            "fFamily": "Montserrat",
+            "size": 17,
+            "style": "ExtraBold",
+            "w": 77,
+            "data": {
+                "shapes": [
+                    {
+                        "ty": "gr",
+                        "bm": 0,
+                        "hd": false,
+                        "mn": "ADBE Vector Group",
+                        "nm": "G",
+                        "ix": 1,
+                        "cix": 2,
+                        "np": 3,
+                        "it": [
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "G",
+                                "ix": 1,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [0, 0],
+                                            [3.726, 0],
+                                            [0, 11.884],
+                                            [-12.085, 0],
+                                            [-4.834, -5.338],
+                                            [0, 0],
+                                            [13.193, 0],
+                                            [0, -21.451],
+                                            [-22.458, 0],
+                                            [-8.157, 5.841],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "o": [
+                                            [-3.525, 1.611],
+                                            [-11.884, 0],
+                                            [0, -12.186],
+                                            [6.747, 0],
+                                            [0, 0],
+                                            [-6.949, -8.359],
+                                            [-22.861, 0],
+                                            [0, 21.451],
+                                            [10.272, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "v": [
+                                            [54.282, -17.422],
+                                            [43.506, -15.106],
+                                            [23.566, -35.248],
+                                            [43.707, -55.389],
+                                            [60.828, -47.534],
+                                            [73.517, -59.015],
+                                            [42.7, -71.906],
+                                            [3.424, -35.248],
+                                            [42.297, 1.41],
+                                            [71.906, -7.553],
+                                            [71.906, -36.758],
+                                            [54.282, -36.758]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "ch": "E",
+            "fFamily": "Montserrat",
+            "size": 17,
+            "style": "ExtraBold",
+            "w": 67.2,
+            "data": {
+                "shapes": [
+                    {
+                        "ty": "gr",
+                        "bm": 0,
+                        "hd": false,
+                        "mn": "ADBE Vector Group",
+                        "nm": "E",
+                        "ix": 1,
+                        "cix": 2,
+                        "np": 3,
+                        "it": [
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "E",
+                                "ix": 1,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "o": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "v": [
+                                            [26.788, -15.408],
+                                            [26.788, -28.299],
+                                            [58.109, -28.299],
+                                            [58.109, -43.204],
+                                            [26.788, -43.204],
+                                            [26.788, -55.087],
+                                            [62.338, -55.087],
+                                            [62.338, -70.496],
+                                            [7.05, -70.496],
+                                            [7.05, 0],
+                                            [63.647, 0],
+                                            [63.647, -15.408]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "ch": "N",
+            "fFamily": "Montserrat",
+            "size": 17,
+            "style": "ExtraBold",
+            "w": 80.6,
+            "data": {
+                "shapes": [
+                    {
+                        "ty": "gr",
+                        "bm": 0,
+                        "hd": false,
+                        "mn": "ADBE Vector Group",
+                        "nm": "N",
+                        "ix": 1,
+                        "cix": 2,
+                        "np": 3,
+                        "it": [
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "N",
+                                "ix": 1,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "o": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "v": [
+                                            [54.584, -70.496],
+                                            [54.584, -32.932],
+                                            [23.465, -70.496],
+                                            [7.05, -70.496],
+                                            [7.05, 0],
+                                            [26.587, 0],
+                                            [26.587, -37.564],
+                                            [57.706, 0],
+                                            [74.121, 0],
+                                            [74.121, -70.496]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "ch": "R",
+            "fFamily": "Montserrat",
+            "size": 17,
+            "style": "ExtraBold",
+            "w": 74,
+            "data": {
+                "shapes": [
+                    {
+                        "ty": "gr",
+                        "bm": 0,
+                        "hd": false,
+                        "mn": "ADBE Vector Group",
+                        "nm": "R",
+                        "ix": 1,
+                        "cix": 2,
+                        "np": 5,
+                        "it": [
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "R",
+                                "ix": 1,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 10.373],
+                                            [19.235, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "o": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [8.762, -4.23],
+                                            [0, -16.113],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "v": [
+                                            [50.656, 0],
+                                            [72.006, 0],
+                                            [56.799, -22.156],
+                                            [70.596, -44.412],
+                                            [39.276, -70.496],
+                                            [7.05, -70.496],
+                                            [7.05, 0],
+                                            [26.99, 0],
+                                            [26.99, -18.732],
+                                            [37.866, -18.732]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            },
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "R",
+                                "ix": 2,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [0, -6.546],
+                                            [8.258, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "o": [
+                                            [0, 6.445],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [8.258, 0]
+                                        ],
+                                        "v": [
+                                            [50.455, -44.412],
+                                            [38.068, -34.14],
+                                            [26.99, -34.14],
+                                            [26.99, -54.785],
+                                            [38.068, -54.785]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "ch": "A",
+            "fFamily": "Montserrat",
+            "size": 17,
+            "style": "ExtraBold",
+            "w": 81.5,
+            "data": {
+                "shapes": [
+                    {
+                        "ty": "gr",
+                        "bm": 0,
+                        "hd": false,
+                        "mn": "ADBE Vector Group",
+                        "nm": "A",
+                        "ix": 1,
+                        "cix": 2,
+                        "np": 5,
+                        "it": [
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "A",
+                                "ix": 1,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "o": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "v": [
+                                            [59.821, 0],
+                                            [80.566, 0],
+                                            [49.347, -70.496],
+                                            [29.709, -70.496],
+                                            [-1.41, 0],
+                                            [18.933, 0],
+                                            [24.472, -13.696],
+                                            [54.282, -13.696]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            },
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "A",
+                                "ix": 2,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "o": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "v": [
+                                            [30.313, -28.4],
+                                            [39.377, -50.958],
+                                            [48.441, -28.4]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "ch": "L",
+            "fFamily": "Montserrat",
+            "size": 17,
+            "style": "ExtraBold",
+            "w": 61,
+            "data": {
+                "shapes": [
+                    {
+                        "ty": "gr",
+                        "bm": 0,
+                        "hd": false,
+                        "mn": "ADBE Vector Group",
+                        "nm": "L",
+                        "ix": 1,
+                        "cix": 2,
+                        "np": 3,
+                        "it": [
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "L",
+                                "ix": 1,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "o": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "v": [
+                                            [7.05, 0],
+                                            [60.626, 0],
+                                            [60.626, -15.811],
+                                            [26.99, -15.811],
+                                            [26.99, -70.496],
+                                            [7.05, -70.496]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "ch": "B",
+            "fFamily": "Montserrat",
+            "size": 17,
+            "style": "ExtraBold",
+            "w": 76.9,
+            "data": {
+                "shapes": [
+                    {
+                        "ty": "gr",
+                        "bm": 0,
+                        "hd": false,
+                        "mn": "ADBE Vector Group",
+                        "nm": "B",
+                        "ix": 1,
+                        "cix": 2,
+                        "np": 6,
+                        "it": [
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "B",
+                                "ix": 1,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [7.956, 2.82],
+                                            [0, 6.747],
+                                            [18.53, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 12.186]
+                                        ],
+                                        "o": [
+                                            [6.042, -3.122],
+                                            [0, -10.876],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [18.933, 0],
+                                            [0, -8.56]
+                                        ],
+                                        "v": [
+                                            [61.23, -36.758],
+                                            [70.697, -52.066],
+                                            [43.103, -70.496],
+                                            [7.05, -70.496],
+                                            [7.05, 0],
+                                            [45.117, 0],
+                                            [74.121, -19.336]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            },
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "B",
+                                "ix": 2,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [0, 0],
+                                            [0, -4.431],
+                                            [6.647, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "o": [
+                                            [6.647, 0],
+                                            [0, 4.532],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "v": [
+                                            [40.485, -56.094],
+                                            [50.555, -49.347],
+                                            [40.485, -42.499],
+                                            [26.788, -42.499],
+                                            [26.788, -56.094]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            },
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "B",
+                                "ix": 3,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [6.848, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, -4.834]
+                                        ],
+                                        "o": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [6.848, 0],
+                                            [0, 4.834]
+                                        ],
+                                        "v": [
+                                            [43.506, -14.401],
+                                            [26.788, -14.401],
+                                            [26.788, -28.702],
+                                            [43.506, -28.702],
+                                            [53.979, -21.552]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "ch": "F",
+            "fFamily": "Montserrat",
+            "size": 17,
+            "style": "ExtraBold",
+            "w": 64.2,
+            "data": {
+                "shapes": [
+                    {
+                        "ty": "gr",
+                        "bm": 0,
+                        "hd": false,
+                        "mn": "ADBE Vector Group",
+                        "nm": "F",
+                        "ix": 1,
+                        "cix": 2,
+                        "np": 3,
+                        "it": [
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "F",
+                                "ix": 1,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "o": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "v": [
+                                            [62.338, -55.087],
+                                            [62.338, -70.496],
+                                            [7.05, -70.496],
+                                            [7.05, 0],
+                                            [26.99, 0],
+                                            [26.99, -24.17],
+                                            [58.109, -24.17],
+                                            [58.109, -39.578],
+                                            [26.99, -39.578],
+                                            [26.99, -55.087]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "ch": "O",
+            "fFamily": "Montserrat",
+            "size": 17,
+            "style": "ExtraBold",
+            "w": 84.6,
+            "data": {
+                "shapes": [
+                    {
+                        "ty": "gr",
+                        "bm": 0,
+                        "hd": false,
+                        "mn": "ADBE Vector Group",
+                        "nm": "O",
+                        "ix": 1,
+                        "cix": 2,
+                        "np": 5,
+                        "it": [
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "O",
+                                "ix": 1,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [-22.559, 0],
+                                            [0, 21.149],
+                                            [22.559, 0],
+                                            [0, -21.149]
+                                        ],
+                                        "o": [
+                                            [22.559, 0],
+                                            [0, -21.149],
+                                            [-22.559, 0],
+                                            [0, 21.149]
+                                        ],
+                                        "v": [
+                                            [42.599, 1.41],
+                                            [81.775, -35.248],
+                                            [42.599, -71.906],
+                                            [3.424, -35.248]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            },
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "O",
+                                "ix": 2,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [10.675, 0],
+                                            [0, 12.186],
+                                            [-10.675, 0],
+                                            [0, -12.186]
+                                        ],
+                                        "o": [
+                                            [-10.675, 0],
+                                            [0, -12.186],
+                                            [10.675, 0],
+                                            [0, 12.186]
+                                        ],
+                                        "v": [
+                                            [42.599, -15.106],
+                                            [23.566, -35.248],
+                                            [42.599, -55.389],
+                                            [61.633, -35.248]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "ch": "D",
+            "fFamily": "Montserrat",
+            "size": 17,
+            "style": "ExtraBold",
+            "w": 82.6,
+            "data": {
+                "shapes": [
+                    {
+                        "ty": "gr",
+                        "bm": 0,
+                        "hd": false,
+                        "mn": "ADBE Vector Group",
+                        "nm": "D",
+                        "ix": 1,
+                        "cix": 2,
+                        "np": 5,
+                        "it": [
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "D",
+                                "ix": 1,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 21.652],
+                                            [23.364, 0],
+                                            [0, 0]
+                                        ],
+                                        "o": [
+                                            [0, 0],
+                                            [23.364, 0],
+                                            [0, -21.652],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "v": [
+                                            [7.05, 0],
+                                            [40.384, 0],
+                                            [79.761, -35.248],
+                                            [40.384, -70.496],
+                                            [7.05, -70.496]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            },
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "D",
+                                "ix": 2,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, -12.186],
+                                            [11.984, 0]
+                                        ],
+                                        "o": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [11.984, 0],
+                                            [0, 12.186],
+                                            [0, 0]
+                                        ],
+                                        "v": [
+                                            [26.99, -15.912],
+                                            [26.99, -54.584],
+                                            [39.578, -54.584],
+                                            [59.619, -35.248],
+                                            [39.578, -15.912]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "ch": "U",
+            "fFamily": "Montserrat",
+            "size": 17,
+            "style": "ExtraBold",
+            "w": 78.6,
+            "data": {
+                "shapes": [
+                    {
+                        "ty": "gr",
+                        "bm": 0,
+                        "hd": false,
+                        "mn": "ADBE Vector Group",
+                        "nm": "U",
+                        "ix": 1,
+                        "cix": 2,
+                        "np": 3,
+                        "it": [
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "U",
+                                "ix": 1,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [-20.847, 0],
+                                            [0, 21.048],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [8.258, 0],
+                                            [0, 12.085],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "o": [
+                                            [20.847, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 12.085],
+                                            [-8.359, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 21.048]
+                                        ],
+                                        "v": [
+                                            [39.578, 1.41],
+                                            [72.711, -31.421],
+                                            [72.711, -70.496],
+                                            [53.073, -70.496],
+                                            [53.073, -32.025],
+                                            [39.78, -15.106],
+                                            [26.385, -32.025],
+                                            [26.385, -70.496],
+                                            [6.445, -70.496],
+                                            [6.445, -31.421]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "ch": "I",
+            "fFamily": "Montserrat",
+            "size": 17,
+            "style": "ExtraBold",
+            "w": 33.9,
+            "data": {
+                "shapes": [
+                    {
+                        "ty": "gr",
+                        "bm": 0,
+                        "hd": false,
+                        "mn": "ADBE Vector Group",
+                        "nm": "I",
+                        "ix": 1,
+                        "cix": 2,
+                        "np": 3,
+                        "it": [
+                            {
+                                "ty": "sh",
+                                "bm": 0,
+                                "hd": false,
+                                "mn": "ADBE Vector Shape - Group",
+                                "nm": "I",
+                                "ix": 1,
+                                "d": 1,
+                                "ks": {
+                                    "a": 0,
+                                    "k": {
+                                        "c": true,
+                                        "i": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "o": [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                        ],
+                                        "v": [
+                                            [7.05, 0],
+                                            [26.99, 0],
+                                            [26.99, -70.496],
+                                            [7.05, -70.496]
+                                        ]
+                                    },
+                                    "ix": 2
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "assets": [
+        {
+            "id": "image_0",
+            "u": "",
+            "e": 1,
+            "w": 390,
+            "h": 725,
+            "p": "data:image/png;base64,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"
+        },
+        {
+            "id": "image_1",
+            "u": "",
+            "e": 1,
+            "w": 390,
+            "h": 725,
+            "p": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYYAAALVCAYAAADEckYhAAAACXBIWXMAAAABAAAAAQBPJcTWAAAAJHpUWHRDcmVhdG9yAAAImXNMyU9KVXBMK0ktUnBNS0tNLikGAEF6Bs5qehXFAAALKElEQVR4nO3aQXIUVQCA4dcZwHIVbgCeACjUNTcgNxBPoEfAG+AJyA2EExi3MlbCDTgCrKgkjO0iCcWvSUmRSBLzfbvp1z31qmb6/T3dM817y3lw8Uzj+XT9642Thud5++bYX22NMe58vklxCm/G9cXtabr3+mN2nt9u356+vPfqxPG95eYY47szmhsX28sx/nw03fh252MPmPd+vzvG2ub4xPVh7VMO4jOYx8N5/8WDE8f3V0+GKFwm6+PdavNjdpx3lxtjsdo5OLmPGReFq+bOGGtbJ30f/u4wClvjFOuDMFxk87R57Obd5cawMFw+/xb7cfhLcBqbY4z14xaDee+PR8NnfxWtj7G2ffj5n+hgfG37YP9PJwwX261598XjDzfMb7dvHy4cXEYnxP69g18VRyd14nBw0s9P/8vpcdHNT+e95ZNjR/aWT87q+zF5xnAJrBZfHd1vnveWO8MtpMttnn+avvjm8T827y43xjR+OeaIN2NMP4oC703j+bi2eDRN917P8/bN8W61Oebx8MzeXhgug+m36cb9B4dXCj+c92w4Ax/Efoz3fyZ4NU55C4Ar5eVYLTbGYvVsnPHFojBcHj8PUfgfOYj90at5f/nsLK/44DSEAc7N9P104/7mvP/iwZinX897NnBEGOD8vBmrxd2xWG2NMW6d92TgyLXzngBcYetjsdoZnitwwfi7KpwvUeDCEQYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAAhhACCEAYAQBgBCGAAIYQAghAGAEAYAQhgACGEAIIQBgBAGAEIYAIi/AD3+yCgSoEZJAAAAAElFTkSuQmCC"
+        }
+    ]
+}

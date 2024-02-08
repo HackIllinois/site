@@ -14,7 +14,7 @@ type Props = {
     isModalOpen: boolean;
     name?: string;
     status?: DecisionStatus;
-    admittedPro?: boolean;
+    isPro?: boolean;
     loading: boolean;
     onActionClick: () => void;
     response?: DecisionResponse;
@@ -26,7 +26,7 @@ export const Bookshelf = ({
     name = "",
     status = "TBD",
     loading = false,
-    admittedPro,
+    isPro,
     onActionClick,
     response
 }: Props) => {
@@ -34,7 +34,7 @@ export const Bookshelf = ({
         openModal();
     }
 
-    const type = admittedPro ? "HackKnight" : "General Admission";
+    const type = isPro ? "HackKnight" : "General Admission";
     const accepted = status === "ACCEPTED";
     const action = response === "PENDING" ? "View Status" : "Questions";
 
