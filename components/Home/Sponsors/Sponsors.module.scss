@@ -150,30 +150,45 @@
         .rowOne {
             > img {
                 width: min(35vw, 40rem);
+                @media screen and (max-width: 600px) {
+                    width: min(15vh, 15rem);
+                }
             }
         }
 
         .rowTwo {
             > img {
-                height: min(45vh, 34rem);
+                width: min(30vw, 30rem);
+                @media screen and (max-width: 600px) {
+                    width: min(11vh, 11rem);
+                }
             }
         }
 
         .rowThree {
             > img {
                 width: min(35vw, 40rem);
+                @media screen and (max-width: 600px) {
+                    width: min(15vh, 15rem);
+                }
             }
         }
 
         .rowFour {
             > img {
                 width: min(30vw, 32.5rem);
+                @media screen and (max-width: 600px) {
+                    width: min(10vh, 10rem);
+                }
             }
         }
 
         .rowFive {
             > img {
                 width: min(25vw, 25rem);
+                @media screen and (max-width: 600px) {
+                    width: min(10vh, 10rem);
+                }
             }
         }
 
@@ -187,8 +202,15 @@
                 max-width: 100%;
                 width: min(65vw, 78rem);
                 height: min(250vh, 162rem);
+                @media screen and (max-width: 600px) {
+                    width: min(30vh, 30rem);
+                    height: min(50vh, 80rem);
+                }
             }
             margin-top: min(75%, -75rem);
+            @media screen and (max-width: 600px) {
+                margin-top: min(15%, -12rem);
+            }
             margin-bottom: 5%;
         }
 
