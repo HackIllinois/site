@@ -1,28 +1,41 @@
 .container {
     background-color: #5d639c;
-    background-image: url("/mentors/background.svg");
-    @media screen and (max-width: 700px) {
-        background-image: url("/mentors/background-mobile.svg");
-    }
-    background-position: center top;
-    background-repeat: no-repeat;
-    min-width: 100vw;
-    min-height: 100vh;
-    object-fit: cover;
-    display: flex;
-    justify-content: center;
-    flex-flow: column nowrap;
-    align-items: center;
+    // background-image: url("/mentors/background.svg");
+    // @media screen and (max-width: 700px) {
+    //     background-image: url("/mentors/background-mobile.svg");
+    // }
+    // background-position: center top;
+    // background-repeat: no-repeat;
+    // min-width: 100vw;
+    // min-height: 100vh;
+    // object-fit: cover;
+    display: grid;
+    grid-template-rows: 1fr;
 }
 
 .banner {
     margin-bottom: 2rem;
-    width:75%;
+    width: 75%;
     > img {
         overflow: hidden;
         max-width: 100%;
-
     }
+}
+
+.background {
+    display: none;
+    grid-area: 1/1;
+    >img {
+        object-fit: contain;
+    }
+}
+
+.content {
+    grid-area: 1/1;
+    display: flex;
+    justify-content: center;
+    flex-flow: column nowrap;
+    align-items: center;
 }
 
 .body {

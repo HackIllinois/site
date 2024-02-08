@@ -12,18 +12,23 @@ type mentorProps = {
 const Mentors = () => {
     return (
         <div className={styles.container}>
-            <div className={styles.banner}>
-                <img src='/mentors/banner.svg' />
+            <div className={styles.background}>
+                <img src="/mentors/background.svg" />
             </div>
-            <div className={styles.body}>
-                {mentors.map((mentor: any) => (
-                    <MentorCard
-                        id={mentor.id}
-                        name={mentor.name}
-                        image={mentor.image}
-                        desc={mentor.desc}
-                    />
-                ))}
+            <div className={styles.content}>
+                <div className={styles.banner}>
+                    <img src="/mentors/banner.svg" />
+                </div>
+                <div className={styles.body}>
+                    {mentors.map((mentor: any) => (
+                        <MentorCard
+                            id={mentor.id}
+                            name={mentor.name}
+                            image={mentor.image}
+                            desc={mentor.desc}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );
