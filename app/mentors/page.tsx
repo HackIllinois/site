@@ -22,6 +22,7 @@ const Mentors = () => {
                 <div className={styles.body}>
                     {mentors.map((mentor: any) => (
                         <MentorCard
+                            key={mentor.id}
                             id={mentor.id}
                             name={mentor.name}
                             image={mentor.image}
