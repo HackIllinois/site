@@ -260,8 +260,8 @@
 
             > img {
                 max-width: 100%;
-                width: min(65vw, 78rem);
-                height: min(250vh, 162rem);
+                width: min(60vw, 75rem);
+                height: min(225vh, 150rem);
                 @media screen and (max-width: 1536px) {
                     width: min(120vw, 120rem);
                     height: min(250vh, 175rem);
@@ -283,7 +283,7 @@
                     height: min(75vh, 80rem);
                 }
             }
-            margin-top: min(65%, -65rem);
+            margin-top: min(57.5%, -57.5rem);
             margin-bottom: 5%;
             @media screen and (max-width: 1536px) {
                 margin-top: min(-50%, -50rem);
