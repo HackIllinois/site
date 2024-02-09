@@ -1,0 +1,61 @@
+.container {
+    background-color: #5d639c;
+    background-image: url("/mentors/background-minus-clouds.svg");
+    @media screen and (max-width: 700px) {
+        background-image: url("/mentors/background-mobile-minus-clouds.svg");
+    }
+    background-position: center top;
+    background-repeat: repeat;
+    min-width: 100vw;
+    min-height: 100vh;
+    object-fit: cover;
+    display: grid;
+    grid-template-rows: 1fr;
+}
+
+.banner {
+    margin-bottom: 2rem;
+    width: 75%;
+    > img {
+        overflow: hidden;
+        max-width: 100%;
+    }
+}
+
+.background {
+    display: none;
+    grid-area: 1/1;
+    > img {
+        object-fit: contain;
+    }
+}
+
+.content {
+    grid-area: 1/1;
+    display: flex;
+    justify-content: center;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.body {
+    margin-bottom: 2rem;
+    width: 75%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    row-gap: 3rem;
+    @media screen and (max-width: 1280px) {
+        row-gap: 2rem;
+    }
+    @media screen and (max-width: 1024px) {
+        row-gap: 1.5rem;
+    }
+    @media screen and (max-width: 900px) {
+        row-gap: 1.25rem;
+    }
+    @media screen and (max-width: 700px) {
+        row-gap: 1rem;
+    }
+}
