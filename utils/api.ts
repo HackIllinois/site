@@ -128,7 +128,7 @@ export function getRegistration(): Promise<WithId<RegistrationType>> {
     return request("GET", `/registration`).catch(() => null);
 }
 
-export async function getChallenge(): Promise<Boolean> {
+export async function getChallenge(): Promise<boolean> {
     const response = await fetch("https://artemis.hackillinois.org/status", {
         method: "GET",
         headers: {

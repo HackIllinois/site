@@ -110,7 +110,7 @@ const buttons = [
 // Old API Methods
 const convertToAPI = (
     data: RegistrationSchema,
-    isPro: Boolean
+    isPro: boolean
 ): RegistrationType => {
     const {
         legalName,
