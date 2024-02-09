@@ -55,6 +55,10 @@ const Navbar = () => {
                         {
                             title: "Register",
                             link: "/register"
+                        },
+                        {
+                            title: "Mentors",
+                            link: "/mentors"
                         }
                     ]);
                 }
@@ -65,6 +69,10 @@ const Navbar = () => {
                 {
                     title: "Register",
                     link: "/register"
+                },
+                {
+                    title: "Mentors",
+                    link: "/mentors"
                 }
             ]);
         }
