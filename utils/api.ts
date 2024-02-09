@@ -73,8 +73,8 @@ async function request(method: MethodType, endpoint: string, body?: unknown) {
     });
 
     if (response.status === 403) {
-        authenticate(window.location.href);
-        return request(method, endpoint, body);
+        alert("Your session has expired. Please close this tab and log in again.");
+        sessionStorage.removeItem("token");
     }
 
     if (response.status !== 200) {
@@ -128,7 +128,7 @@ export function getRegistration(): Promise<WithId<RegistrationType>> {
     return request("GET", `/registration`).catch(() => null);
 }
 
-export async function getChallenge(): Promise<Boolean> {
+export async function getChallenge(): Promise<boolean> {
     const response = await fetch("https://artemis.hackillinois.org/status", {
         method: "GET",
         headers: {

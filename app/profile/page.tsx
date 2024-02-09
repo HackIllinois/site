@@ -10,7 +10,7 @@ import MobileWindowPane from "@/public/profile/mobile-window-pane.svg";
 
 import { Bookshelf } from "@/components/Profile/Bookshelf";
 import { ModalOverlay, useModal } from "@/components/Profile/modal";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
     authenticate,
     getRSVP,
@@ -52,16 +52,19 @@ const Some: React.FC = () => {
     const [user, setUser] = useState<UserType | null>(null);
     const [RSVP, setRSVP] = useState<RSVPType | null>(null);
     const [profile, setProfileState] = useState<ProfileType | null>(null);
+
+    // Registration data is non-null only if the applicant wasn't accepted as PRO
     const [registration, setRegistration] = useState<RegistrationType | null>(
         null
     );
+
     const [loading, setLoading] = useState<boolean>(true);
     const [showDeclineConfirmation, setShowDeclineConfirmation] =
         useState<boolean>(false);
 
     async function handleConfirm() {
         setLoading(true);
-        const response = await rsvpAccept();
+        await rsvpAccept();
         const updated_rsvp = await getRSVP();
         setRSVP(updated_rsvp);
         setLoading(false);
@@ -69,9 +72,10 @@ const Some: React.FC = () => {
 
     async function handleDecline() {
         setLoading(true);
-        const response = await rsvpDecline();
+        await rsvpDecline();
         const updated_rsvp = await getRSVP();
         setRSVP(updated_rsvp);
+        closeModal();
         setLoading(false);
     }
 
@@ -124,6 +128,7 @@ const Some: React.FC = () => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
+        // No need to fetch registration data if the applicant is admitted as a Pro
         if (RSVP?.admittedPro) return;
 
         (async () => {
@@ -133,6 +138,25 @@ const Some: React.FC = () => {
             setLoading(false);
         })();
     }, [RSVP]);
+
+    const getIsPro = useCallback(() => {
+        if (!registration?.isProApplicant) {
+            // The applicant did not register as PRO
+            return false;
+        }
+
+        if (
+            registration?.isProApplicant &&
+            !RSVP?.admittedPro &&
+            RSVP?.status === "ACCEPTED"
+        ) {
+            // Applicant was PRO but got deferred and accepted to GENERAL
+            return false;
+        }
+
+        // Applicant registered as a pro, but can be accepted or not accepted
+        return true;
+    }, [registration, RSVP]);
 
     return (
         <section className={styles.dashboard}>
@@ -239,7 +263,7 @@ const Some: React.FC = () => {
                 openModal={openModal}
                 isModalOpen={isModalOpen}
                 name={user?.name}
-                admittedPro={RSVP?.admittedPro}
+                isPro={getIsPro()}
                 status={RSVP?.status}
                 response={RSVP?.response}
                 onActionClick={onActionClick}
