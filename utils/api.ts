@@ -8,7 +8,8 @@ import {
     ProfileBodyType,
     WithId,
     FileType,
-    RefreshTokenResType
+    RefreshTokenResType,
+    EventType
 } from "./types";
 
 const API = "https://api.hackillinois.org";
@@ -211,4 +212,8 @@ export function rsvpAccept(): Promise<RSVPDecisionType> {
 
 export function rsvpDecline(): Promise<RSVPDecisionType> {
     return request("PUT", "/admission/rsvp/decline");
+}
+
+export function getEvents(): Promise<EventType[]> {
+    return requestv2("GET", "/event").then((res) => res.events);
 }
