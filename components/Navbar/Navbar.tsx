@@ -33,6 +33,10 @@ const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
     {
         title: "Mentors",
         link: "/mentors"
+    },
+    {
+        title: "Register",
+        link: "/register"
     }
 ];
 
@@ -46,31 +50,15 @@ const Navbar = () => {
         if (isAuthenticated() !== null) {
             isRegistered().then(isRegistered => {
                 if (isRegistered) {
-                    setNavbarItems([
-                        ...navbarItems,
-                        {
-                            title: "Profile",
-                            link: "/profile"
-                        }
-                    ]);
-                } else {
-                    setNavbarItems([
-                        ...navbarItems,
-                        {
-                            title: "Register",
-                            link: "/register"
-                        },
-                    ]);
+                    setNavbarItems(n =>
+                        n.map(item =>
+                            item.title === "Register"
+                                ? { title: "Profile", link: "/profile" }
+                                : item
+                        )
+                    );
                 }
             });
-        } else {
-            setNavbarItems([
-                ...navbarItems,
-                {
-                    title: "Register",
-                    link: "/register"
-                },
-            ]);
         }
     }, []);
 
