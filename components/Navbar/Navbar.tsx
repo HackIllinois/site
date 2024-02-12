@@ -14,10 +14,10 @@ type NavbarItem = {
 };
 
 const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
-    // {
-    //     title: "Schedule",
-    //     link: "#"
-    // },
+    {
+        title: "Schedule",
+        link: "/schedule"
+    },
     // {
     //     title: "Mentors",
     //     link: "#"
