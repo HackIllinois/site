@@ -38,19 +38,19 @@ const Schedule: React.FC = () => {
     }, [isLoading]);
 
     const fridayEvents = events.filter(event => (
-        Date.parse("February 23, 2024") < event.startTime * 1000 && event.startTime * 1000 < Date.parse("February 24, 2024")
+        Date.parse("February 23, 2024") <= event.startTime * 1000 && event.startTime * 1000 < Date.parse("February 24, 2024")
     )).sort((a, b) => (
     a.startTime == b.startTime ? a.endTime - b.endTime : a.startTime - b.startTime
     ));
     
     const saturdayEvents = events.filter(event => (
-        Date.parse("February 24, 2024") < event.startTime * 1000 && event.startTime * 1000 < Date.parse("February 25, 2024")
+        Date.parse("February 24, 2024") <= event.startTime * 1000 && event.startTime * 1000 < Date.parse("February 25, 2024")
     )).sort((a, b) => (
     a.startTime == b.startTime ? a.endTime - b.endTime : a.startTime - b.startTime
     ));
     
     const sundayEvents = events.filter(event => (
-        Date.parse("February 25, 2024") < event.startTime * 1000
+        Date.parse("February 25, 2024") <= event.startTime * 1000
     )).sort((a, b) => (
     a.startTime == b.startTime ? a.endTime - b.endTime : a.startTime - b.startTime
     ));

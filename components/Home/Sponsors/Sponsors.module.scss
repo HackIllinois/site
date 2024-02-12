@@ -123,100 +123,268 @@
     // Arranging the Potion bottles
     > div:nth-child(2) {
         z-index: 2;
-        display: grid;
-        grid-template-columns: auto auto auto;
-        place-items: center;
         padding: 0 5%;
         row-gap: 2.5rem;
-
         @media screen and (max-width: 900px) {
             row-gap: 1.5rem;
         }
-
         @media screen and (max-width: 700px) {
             row-gap: 1rem;
         }
 
-        > :nth-child(2n-1) {
-            height: min(40vh, 25rem);
+        display: flex;
+        flex-direction: column;
+
+        > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            column-gap: 5%;
+        }
+
+        :not(:last-child) {
+            z-index: 10;
+        }
+
+        .rowOne {
+            > img {
+                width: min(35vw, 40rem);
+                @media screen and (max-width: 1536px) {
+                    width: min(32.5vw, 27.5rem);
+                }
+                @media screen and (max-width: 1280px) {
+                    width: min(32.5vw, 27.5rem);
+                }
+                @media screen and (max-width: 1024px) {
+                    width: min(40vw, 35rem);
+                }
+                @media screen and (max-width: 900px) {
+                    width: min(35vw, 30rem);
+                }
+                @media screen and (max-width: 600px) {
+                    width: min(35vw, 20rem);
+                }
+            }
+        }
+
+        .rowTwo {
+            > img {
+                width: min(30vw, 30rem);
+                @media screen and (max-width: 1536px) {
+                    width: min(25vw, 25rem);
+                }
+                @media screen and (max-width: 1280px) {
+                    width: min(25vw, 25rem);
+                }
+                @media screen and (max-width: 1024px) {
+                    width: min(30vw, 35rem);
+                }
+                @media screen and (max-width: 900px) {
+                    width: min(27.5vw, 25rem);
+                }
+                @media screen and (max-width: 600px) {
+                    width: min(25vw, 20rem);
+                }
+            }
+        }
+
+        .rowThree {
+            > img {
+                width: min(35vw, 40rem);
+                @media screen and (max-width: 1536px) {
+                    width: min(32.5vw, 27.5rem);
+                }
+                @media screen and (max-width: 1280px) {
+                    width: min(32.5vw, 27.5rem);
+                }
+                @media screen and (max-width: 1024px) {
+                    width: min(40vw, 35rem);
+                }
+                @media screen and (max-width: 900px) {
+                    width: min(35vw, 30rem);
+                }
+                @media screen and (max-width: 600px) {
+                    width: min(35vw, 20rem);
+                }
+            }
+        }
+
+        .rowFour {
+            > img {
+                width: min(30vw, 32.5rem);
+                @media screen and (max-width: 1536px) {
+                    width: min(22.5vw, 22.5rem);
+                }
+                @media screen and (max-width: 1280px) {
+                    width: min(22.5vw, 22.5rem);
+                }
+                @media screen and (max-width: 1024px) {
+                    width: min(30vw, 30rem);
+                }
+                @media screen and (max-width: 900px) {
+                    width: min(25vw, 20rem);
+                }
+                @media screen and (max-width: 600px) {
+                    width: min(25vw, 20rem);
+                }
+            }
+        }
+
+        .rowFive {
+            > img {
+                width: min(25vw, 25rem);
+                @media screen and (max-width: 1536px) {
+                    width: min(20vw, 20rem);
+                }
+                @media screen and (max-width: 1280px) {
+                    width: min(20vw, 20rem);
+                }
+                @media screen and (max-width: 1024px) {
+                    width: min(25vw, 27.5rem);
+                }
+                @media screen and (max-width: 900px) {
+                    width: min(25vw, 20rem);
+                }
+                @media screen and (max-width: 600px) {
+                    width: min(25vw, 20rem);
+                }
+            }
+        }
+
+        .gizmo {
+            z-index: 1;
+            display: flex;
+            justify-content: center;
             width: 100%;
 
+            > img {
+                max-width: 100%;
+                width: min(80vw, 80rem);
+                height: min(250vh, 175rem);
+                @media screen and (max-width: 1536px) {
+                    width: min(120vw, 120rem);
+                    height: min(250vh, 175rem);
+                }
+                @media screen and (max-width: 1280px) {
+                    width: min(90vw, 90rem);
+                    height: min(200vh, 150rem);
+                }
+                @media screen and (max-width: 1024px) {
+                    width: min(75vw, 75rem);
+                    height: min(140vh, 140rem);
+                }
+                @media screen and (max-width: 900px) {
+                    width: min(75vw, 60rem);
+                    height: min(120vh, 120rem);
+                }
+                @media screen and (max-width: 600px) {
+                    width: min(75vw, 35rem);
+                    height: min(75vh, 80rem);
+                }
+            }
+            margin-top: min(-75%, -75rem);
+            margin-bottom: 5%;
+            @media screen and (max-width: 1536px) {
+                margin-top: min(-50%, -50rem);
+            }
             @media screen and (max-width: 1280px) {
-                height: min(40vh, 25rem);
+                margin-top: min(-30%, -35rem);
             }
-
             @media screen and (max-width: 1024px) {
-                height: min(30vh, 20rem);
+                margin-top: min(-50%, -60rem);
             }
-
             @media screen and (max-width: 900px) {
-                height: min(15vh, 15rem);
+                margin-top: min(-40%, -40rem);
+                margin-bottom: 2%;
             }
-
             @media screen and (max-width: 600px) {
-                height: min(7.5vh, 6rem);
+                margin-top: min(-20%, -20rem);
+                margin-bottom: 2%;
             }
         }
 
-        > :nth-child(2n-2) {
-            width: min(25vw, 22.5rem);
-            height: 100%;
+        // > :nth-child(2n-1) {
+        //     height: min(40vh, 25rem);
+        //     width: 100%;
 
-            @media screen and (max-width: 1280px) {
-                width: min(25vw, 22.5rem);
-            }
+        //     @media screen and (max-width: 1280px) {
+        //         height: min(40vh, 25rem);
+        //     }
 
-            @media screen and (max-width: 1024px) {
-                width: min(25vw, 20rem);
-            }
+        //     @media screen and (max-width: 1024px) {
+        //         height: min(30vh, 20rem);
+        //     }
 
-            @media screen and (max-width: 900px) {
-                width: min(20vw, 20rem);
-            }
+        //     @media screen and (max-width: 900px) {
+        //         height: min(15vh, 15rem);
+        //     }
 
-            @media screen and (max-width: 600px) {
-                width: min(17.5vw, 12.5rem);
-            }
-        }
+        //     @media screen and (max-width: 600px) {
+        //         height: min(7.5vh, 6rem);
+        //     }
+        // }
+
+        // > :nth-child(2n-2) {
+        //     width: min(25vw, 22.5rem);
+        //     height: 100%;
+
+        //     @media screen and (max-width: 1280px) {
+        //         width: min(25vw, 22.5rem);
+        //     }
+
+        //     @media screen and (max-width: 1024px) {
+        //         width: min(25vw, 20rem);
+        //     }
+
+        //     @media screen and (max-width: 900px) {
+        //         width: min(20vw, 20rem);
+        //     }
+
+        //     @media screen and (max-width: 600px) {
+        //         width: min(17.5vw, 12.5rem);
+        //     }
+        // }
 
         > img {
             width: 50%;
         }
     }
 
-    .gizmo {
-        //  z-index: 1;
-        display: flex;
-        justify-content: center;
-        width: 100%;
+    // .gizmo {
+    //     //  z-index: 1;
+    //     display: flex;
+    //     justify-content: center;
+    //     width: 100%;
 
-        > img {
-            max-width: 100%;
-        }
-        // margin: 0 0 calc((100% / 10));
+    //     > img {
+    //         max-width: 100%;
+    //     }
+    //     margin-top: -50%;
+    //    // margin: 0 0 calc((100% / 10));
 
-        // @media screen and (max-width: 1280px) {
-        //     margin: 0 0 calc((100% / 10));
-        // }
+    //     // @media screen and (max-width: 1280px) {
+    //     //     margin: 0 0 calc((100% / 10));
+    //     // }
 
-        // @media screen and (max-width: 1024px) {
-        //     width: min(20vw, 20rem);
-        // }
+    //     // @media screen and (max-width: 1024px) {
+    //     //     width: min(20vw, 20rem);
+    //     // }
 
-        // @media screen and (max-width: 900px) {
-        //     width: min(20vw, 20rem);
-        // }
+    //     // @media screen and (max-width: 900px) {
+    //     //     width: min(20vw, 20rem);
+    //     // }
 
-        // @media screen and (max-width: 600px) {
-        //     width: min(15vw, 15rem);
-        // }
+    //     // @media screen and (max-width: 600px) {
+    //     //     width: min(15vw, 15rem);
+    //     // }
 
-        // > img {
-        //     overflow: hidden;
-        //     width: 100%;
-        //     height: min(150rem, calc(100vh / (1080 / 2100)));
-        //     max-width: 100%;
-        //     //  max-width: 50%;
-        // }
-    }
+    //     // > img {
+    //     //     overflow: hidden;
+    //     //     width: 100%;
+    //     //     height: min(150rem, calc(100vh / (1080 / 2100)));
+    //     //     max-width: 100%;
+    //     //     //  max-width: 50%;
+    //     // }
+    // }
 }

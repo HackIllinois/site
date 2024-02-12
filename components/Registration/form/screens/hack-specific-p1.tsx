@@ -173,6 +173,9 @@ const HackSpecific = ({ isKnight }: any) => {
                         be related to a technical personal project, experience
                         in a field, personal experience with
                         diversity/inclusions, etc.
+                        <br />
+                        <br />
+                        We recommend you keep your response to under 50 words, but we will accept responses up to 100 words.
                     </p>
                     <Input
                         className={styles.input}

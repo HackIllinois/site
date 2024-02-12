@@ -22,17 +22,18 @@ const Start = ({ formIndex, setFormIndex, isLoading }: any) => {
                 <div className={styles.contents}>
                     <h2>Sign Up As:</h2>
                     <div className={styles.heroButtonsWrapper}>
-                        <div onClick={() => (isLoading ? "" : window.location.pathname = "/knights/challenge")}
-                            className={styles.knightButton}>
-                            <p>{isLoading ? "Loading" : "HackKnight"}</p>
+                        <div 
+                            onClick={() => (isLoading ? "" : window.location.pathname = "/knights/challenge")}
+                            className={`${styles.knightButton} ${isLoading ? styles.knightButtonDisabled : styles.knightButtonSelected}`}>
+                            <p>{"HackKnight"}</p>
                         </div>
                     </div>
                     <p className={styles.link}>
                         <a href="/knights" target="_blank">What is this?</a>
                     </p>
                     <div className={styles.heroButtonsWrapper}>
-                        <button disabled={isLoading} className={styles.genButton} onClick={() => setFormIndex(1)}>
-                        {isLoading ? "Loading" : "General Attendee"}
+                        <button disabled={isLoading} className={`${styles.genButton} ${isLoading ? styles.genButtonDisabled : styles.genButtonSelected}`} onClick={() => setFormIndex(1)}>
+                        {"General Attendee"}
                         </button>
                     </div>
                 </div>

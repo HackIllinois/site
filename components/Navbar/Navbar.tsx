@@ -30,6 +30,10 @@ const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
     //     title: "Map",
     //     link: "#"
     // },
+    {
+        title: "Mentors",
+        link: "/mentors"
+    }
 ];
 
 const Navbar = () => {
@@ -55,7 +59,7 @@ const Navbar = () => {
                         {
                             title: "Register",
                             link: "/register"
-                        }
+                        },
                     ]);
                 }
             });
@@ -65,7 +69,7 @@ const Navbar = () => {
                 {
                     title: "Register",
                     link: "/register"
-                }
+                },
             ]);
         }
     }, []);
