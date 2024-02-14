@@ -228,7 +228,7 @@ export const HackKnightRejected = ({
                 }
             </StandardFont>
             {reimburse > 0 && (
-                <StandardFont>{`Additionally, you have been approved for a travel reimbursement of \$${reimburse}.`}</StandardFont>
+                <StandardFont>{`Additionally, you have been approved for a travel reimbursement of \$${reimburse}. Receiving this reimbursement is contingent on you coming to HackIllinois in-person and submitting a project.`}</StandardFont>
             )}
 
             <div className={styles.buttonGroup}>
@@ -279,7 +279,7 @@ export const HackKnightAccepted = ({
                     }
                 </StandardFont>
                 {reimburse > 0 && (
-                    <StandardFont>{`Additionally, you have been approved for a travel reimbursement of \$${reimburse}.`}</StandardFont>
+                    <StandardFont>{`Additionally, you have been approved for a travel reimbursement of \$${reimburse}. Receiving this reimbursement is contingent on you coming to HackIllinois in-person and submitting a project.`}</StandardFont>
                 )}
             </div>
             <div className={styles.buttonGroup}>
@@ -330,7 +330,7 @@ export const GeneralAttendeeAccepted = ({
                     }
                 </StandardFont>
                 {reimburse > 0 && (
-                    <StandardFont>{`Additionally, you have been approved for a travel reimbursement of \$${reimburse}.`}</StandardFont>
+                    <StandardFont>{`Additionally, you have been approved for a travel reimbursement of \$${reimburse}. Receiving this reimbursement is contingent on you coming to HackIllinois in-person and submitting a project.`}</StandardFont>
                 )}
             </div>
             <div className={styles.buttonGroup}>
