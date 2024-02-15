@@ -112,8 +112,8 @@ const Some: React.FC = () => {
                 if (!isRegistered) window.location.pathname = "/register";
             })
             .then(() => getProfile())
-            .then(p => setProfileState(p))
-            .then(() => {
+            .then((p) => {
+                setProfileState(p)
                 getUser().then(user => {
                     setUser(user);
                 });
@@ -122,7 +122,7 @@ const Some: React.FC = () => {
 
                     if (
                         rsvp.status === "ACCEPTED" &&
-                        (rsvp.response === "PENDING" || profile === null)
+                        (rsvp.response === "PENDING" || !p)
                     )
                         openModal();
                 });
