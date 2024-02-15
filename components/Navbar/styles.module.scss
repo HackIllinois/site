@@ -55,6 +55,14 @@
         display: none;
         visibility: hidden;
     }
+
+    .active {
+        color: gold;
+    }
+
+    a:hover {
+        color: gold;
+    }
 }
 
 .knightButton {

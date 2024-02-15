@@ -148,7 +148,7 @@
         }
 
         .rowOne {
-            > img {
+            img {
                 width: min(35vw, 40rem);
                 @media screen and (max-width: 1536px) {
                     width: min(32.5vw, 27.5rem);
@@ -166,10 +166,15 @@
                     width: min(35vw, 20rem);
                 }
             }
+
+            img:hover {
+                animation: shake 0.5s;
+                animation-iteration-count: infinite;
+            }
         }
 
         .rowTwo {
-            > img {
+             img {
                 width: min(30vw, 30rem);
                 @media screen and (max-width: 1536px) {
                     width: min(25vw, 25rem);
@@ -187,10 +192,15 @@
                     width: min(25vw, 20rem);
                 }
             }
+
+            img:hover {
+                animation: shake 0.5s;
+                animation-iteration-count: infinite;
+            }
         }
 
         .rowThree {
-            > img {
+             img {
                 width: min(35vw, 40rem);
                 @media screen and (max-width: 1536px) {
                     width: min(32.5vw, 27.5rem);
@@ -208,10 +218,15 @@
                     width: min(35vw, 20rem);
                 }
             }
+
+            img:hover {
+                animation: shake 0.5s;
+                animation-iteration-count: infinite;
+            }
         }
 
         .rowFour {
-            > img {
+             img {
                 width: min(30vw, 32.5rem);
                 @media screen and (max-width: 1536px) {
                     width: min(22.5vw, 22.5rem);
@@ -229,10 +244,15 @@
                     width: min(25vw, 20rem);
                 }
             }
+
+            img:hover {
+                animation: shake 0.5s;
+                animation-iteration-count: infinite;
+            }
         }
 
         .rowFive {
-            > img {
+             img {
                 width: min(25vw, 25rem);
                 @media screen and (max-width: 1536px) {
                     width: min(20vw, 20rem);
@@ -249,6 +269,11 @@
                 @media screen and (max-width: 600px) {
                     width: min(25vw, 20rem);
                 }
+            }
+
+            img:hover {
+                animation: shake 0.5s;
+                animation-iteration-count: infinite;
             }
         }
 
@@ -348,6 +373,20 @@
 
         > img {
             width: 50%;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
         }
     }
 

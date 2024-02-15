@@ -8,20 +8,19 @@ import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { isAuthenticated, isRegistered } from "@/utils/api";
+
 type NavbarItem = {
     title: string;
     link: string;
+    active: boolean;
 };
 
 const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
     {
         title: "Schedule",
-        link: "/schedule"
+        link: "/schedule",
+        active: false
     },
-    // {
-    //     title: "Mentors",
-    //     link: "#"
-    // },
     // {
     //     title: "Prizes",
     //     link: "#"
@@ -32,11 +31,13 @@ const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
     // },
     {
         title: "Mentors",
-        link: "/mentors"
+        link: "/mentors",
+        active: false
     },
     {
         title: "Register",
-        link: "/register"
+        link: "/register",
+        active: false
     }
 ];
 
@@ -53,14 +54,28 @@ const Navbar = () => {
                     setNavbarItems(n =>
                         n.map(item =>
                             item.title === "Register"
-                                ? { title: "Profile", link: "/profile" }
+                                ? {
+                                      title: "Profile",
+                                      link: "/profile",
+                                      active: pathname === "/profile"
+                                  }
                                 : item
                         )
                     );
                 }
             });
         }
-    }, []);
+
+        if (pathname !== "/" && pathname !== "/knights") {
+            setNavbarItems(n =>
+                n.map(item =>
+                    item.link === pathname
+                        ? { ...item, active: true }
+                        : { ...item, active: false }
+                )
+            );
+        }
+    }, [pathname]);
 
     // const handleClickOutside = (event: MouseEvent) => {
     //     if (
@@ -115,8 +130,15 @@ const Navbar = () => {
                         </div>
                         <ul className={styles.navbarList}>
                             {navbarItems.map((item, index) => (
-                                <li key={item.title}>
-                                    <a href={item.link}>{item.title}</a>
+                                <li key={index}>
+                                    <a
+                                        href={item.link}
+                                        className={
+                                            item.active ? styles.active : ""
+                                        }
+                                    >
+                                        {item.title}
+                                    </a>
                                 </li>
                             ))}
                             <li>
