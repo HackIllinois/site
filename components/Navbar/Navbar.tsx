@@ -21,10 +21,11 @@ const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
         link: "/schedule",
         active: false
     },
-    // {
-    //     title: "Prizes",
-    //     link: "#"
-    // },
+    {
+        title: "Prizes",
+        link: "/prizes",
+        active: false
+    },
     // {
     //     title: "Map",
     //     link: "#"
@@ -34,6 +35,7 @@ const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
         link: "/mentors",
         active: false
     },
+
     {
         title: "Register",
         link: "/register",
