@@ -30,7 +30,7 @@ export const data = [
         prize: 'Attendees keep the kits'
     },
     {
-        id: 3,
+        id: 6,
         name: 'Best Developer Tool',
         logo: 'prizes/warp-logo.svg',
         prize: 'Keychron Keyboards to Each Member'
