@@ -1,6 +1,7 @@
 import PrizesCard from "@/components/Prizes/PrizesCard/PrizesCard";
 import styles from "./page.module.scss";
 import { data } from "@/modules/PrizesData";
+import React from "react";
 
 type prize = {
     id: number;
@@ -34,8 +35,8 @@ const Prizes = () => {
                 <div className={styles.content}>
                     <div className={styles.cupboard_outer}>
                         <div className={styles.cupboard_inner}>
-                            {partitionedData.map((prize: any) => (
-                                <div className={styles.shelf}>
+                            {partitionedData.map((prize: any, index: React.Key) => (
+                                <div className={styles.shelf} key={index}>
                                     <PrizesCard
                                         id={prize[0].id}
                                         name={prize[0].name}
