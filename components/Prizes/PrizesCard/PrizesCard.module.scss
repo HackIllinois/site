@@ -11,50 +11,65 @@
     @media screen and (max-width: 1536px) {
         min-height: 4rem;
     }
+    @media screen and (max-width: 1280px) {
+        min-height: 3rem;
+    }
     align-items: center;
     justify-content: center;
-    transition: transform .7s ease-in-out;
+    transition: transform 0.7s ease-in-out;
 }
 
 .container:hover {
     transform: rotate(360deg);
-  }
+}
 
 .name {
-    color: #01444F;
+    color: #01444f;
     font-size: 3rem;
     @media screen and (max-width: 1536px) {
         font-size: 2.5rem;
+    }
+    @media screen and (max-width: 1280px) {
+        font-size: 2rem;
     }
     font-weight: 700;
     text-align: center;
 }
 
-.name_solana{
-    color: #01444F;
+.name_solana {
+    color: #01444f;
     font-size: 2rem;
     @media screen and (max-width: 1536px) {
         font-size: 1.75rem;
+    }
+    @media screen and (max-width: 1280px) {
+        font-size: 1.5rem;
     }
     font-weight: 700;
     text-align: center;
 }
 
 .name_john {
-    color: #01444F;
+    color: #01444f;
     font-size: 2.5rem;
     @media screen and (max-width: 1536px) {
         font-size: 2rem;
+    }
+    @media screen and (max-width: 1280px) {
+        font-size: 1.75rem;
     }
     font-weight: 700;
     text-align: center;
 }
 
 .name_warp {
-    color: #01444F;
+    color: #01444f;
     font-size: 2.5rem;
     @media screen and (max-width: 1536px) {
         font-size: 2rem;
+    }
+    @media screen and (max-width: 1280px) {
+        font-size: 1.5rem;
     }
     font-weight: 700;
     text-align: center;
@@ -68,6 +83,10 @@
         width: 12rem;
         height: 6rem;
     }
+    @media screen and (max-width: 1280px) {
+        width: 10rem;
+        height: 5rem;
+    }
 }
 
 .image_solana {
@@ -77,6 +96,10 @@
     @media screen and (max-width: 1536px) {
         width: 15rem;
         height: 2.75rem;
+    }
+    @media screen and (max-width: 1280px) {
+        width: 12rem;
+        height: 2rem;
     }
 }
 
@@ -88,6 +111,10 @@
         width: 12rem;
         height: 8rem;
     }
+    @media screen and (max-width: 1280px) {
+        width: 10rem;
+        height: 7.5rem;
+    }
 }
 
 .image_warp {
@@ -98,43 +125,59 @@
         width: 15rem;
         height: 2.75rem;
     }
+    @media screen and (max-width: 1280px) {
+        width: 12rem;
+        height: 2.5rem;
+    }
 }
 
 .desc {
-    color: #FFF;
+    color: #fff;
     font-size: 3rem;
     @media screen and (max-width: 1536px) {
         font-size: 2.5rem;
+    }
+    @media screen and (max-width: 1280px) {
+        font-size: 2rem;
     }
     font-weight: 700;
     text-align: center;
 }
 
 .desc_solana {
-    color: #FFF;
+    color: #fff;
     font-size: 3rem;
     @media screen and (max-width: 1536px) {
         font-size: 2.5rem;
+    }
+    @media screen and (max-width: 1280px) {
+        font-size: 2rem;
     }
     font-weight: 700;
     text-align: center;
 }
 
 .desc_john {
-    color: #FFF;
+    color: #fff;
     font-size: 2rem;
     @media screen and (max-width: 1536px) {
         font-size: 1.5rem;
+    }
+    @media screen and (max-width: 1280px) {
+        font-size: 1.25rem;
     }
     font-weight: 700;
     text-align: center;
 }
 
 .desc_warp {
-    color: #FFF;
+    color: #fff;
     font-size: 2rem;
     @media screen and (max-width: 1536px) {
         font-size: 1.5rem;
+    }
+    @media screen and (max-width: 1280px) {
+        font-size: 1.25rem;
     }
     font-weight: 700;
     text-align: center;
