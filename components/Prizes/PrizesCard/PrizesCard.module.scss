@@ -17,6 +17,9 @@
     @media screen and (max-width: 900px) {
         min-height: 2.5rem;
     }
+    @media screen and (max-width: 700px) {
+        min-height: 2rem;
+    }
     align-items: center;
     justify-content: center;
     transition: transform 0.7s ease-in-out;
@@ -38,6 +41,9 @@
     @media screen and (max-width: 900px) {
         font-size: 1.5rem;
     }
+    @media screen and (max-width: 700px) {
+        font-size: 1.5rem;
+    }
     font-weight: 700;
     text-align: center;
 }
@@ -53,6 +59,9 @@
     }
     @media screen and (max-width: 900px) {
         font-size: 1.125rem;
+    }
+    @media screen and (max-width: 700px) {
+        font-size: 1rem;
     }
     font-weight: 700;
     text-align: center;
@@ -70,6 +79,9 @@
     @media screen and (max-width: 900px) {
         font-size: 1.25rem;
     }
+    @media screen and (max-width: 700px) {
+        font-size: 1.125rem;
+    }
     font-weight: 700;
     text-align: center;
 }
@@ -85,6 +97,9 @@
     }
     @media screen and (max-width: 900px) {
         font-size: 1.25rem;
+    }
+    @media screen and (max-width: 700px) {
+        font-size: 1.125rem;
     }
     font-weight: 700;
     text-align: center;
@@ -106,6 +121,11 @@
         width: 6rem;
         height: 3rem;
     }
+    @media screen and (max-width: 700px) {
+        width: 6rem;
+        height: 3rem;
+    }
+    
 }
 
 .image_solana {
@@ -171,6 +191,12 @@
     @media screen and (max-width: 1280px) {
         font-size: 2rem;
     }
+    @media screen and (max-width: 900px) {
+        font-size: 1.75rem;
+    }
+    @media screen and (max-width: 700px) {
+        font-size: 1.5rem;
+    }
     font-weight: 700;
     text-align: center;
 }
@@ -183,6 +209,12 @@
     }
     @media screen and (max-width: 1280px) {
         font-size: 2rem;
+    }
+    @media screen and (max-width: 900px) {
+        font-size: 1.75rem;
+    }
+    @media screen and (max-width: 700px) {
+        font-size: 1.5rem;
     }
     font-weight: 700;
     text-align: center;
@@ -197,6 +229,12 @@
     @media screen and (max-width: 1280px) {
         font-size: 1.25rem;
     }
+    @media screen and (max-width: 900px) {
+        font-size: 1.125rem;
+    }
+    @media screen and (max-width: 700px) {
+        font-size: 1rem;
+    }
     font-weight: 700;
     text-align: center;
 }
@@ -209,6 +247,12 @@
     }
     @media screen and (max-width: 1280px) {
         font-size: 1.25rem;
+    }
+    @media screen and (max-width: 900px) {
+        font-size: 1.125rem;
+    }
+    @media screen and (max-width: 700px) {
+        font-size: 1rem;
     }
     font-weight: 700;
     text-align: center;

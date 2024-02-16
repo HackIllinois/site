@@ -28,6 +28,9 @@ const Prizes = () => {
                 <div className={styles.cat}>
                     <img src="/prizes/cat.svg" />
                 </div>
+                <div className={styles.mobileCat}>
+                    <img src="/prizes/cat-mobile.svg" />
+                </div>
                 <div className={styles.content}>
                     <div className={styles.cupboard_outer}>
                         <div className={styles.cupboard_inner}>
