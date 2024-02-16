@@ -3,11 +3,14 @@
     padding: 5%;
     display: flex;
     flex-direction: column;
-    row-gap: 2vh;
+    row-gap: 2.5vh;
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
     min-height: 5rem;
+    @media screen and (max-width: 1536px) {
+        min-height: 4rem;
+    }
     align-items: center;
     justify-content: center;
     transition: transform .7s ease-in-out;
@@ -20,6 +23,9 @@
 .name {
     color: #01444F;
     font-size: 3rem;
+    @media screen and (max-width: 1536px) {
+        font-size: 2.5rem;
+    }
     font-weight: 700;
     text-align: center;
 }
@@ -27,6 +33,9 @@
 .name_solana{
     color: #01444F;
     font-size: 2rem;
+    @media screen and (max-width: 1536px) {
+        font-size: 1.75rem;
+    }
     font-weight: 700;
     text-align: center;
 }
@@ -34,6 +43,9 @@
 .name_john {
     color: #01444F;
     font-size: 2.5rem;
+    @media screen and (max-width: 1536px) {
+        font-size: 2rem;
+    }
     font-weight: 700;
     text-align: center;
 }
@@ -41,6 +53,9 @@
 .name_warp {
     color: #01444F;
     font-size: 2.5rem;
+    @media screen and (max-width: 1536px) {
+        font-size: 2rem;
+    }
     font-weight: 700;
     text-align: center;
 }
@@ -49,29 +64,48 @@
     max-width: 100%;
     width: 15rem;
     height: 7.5rem;
+    @media screen and (max-width: 1536px) {
+        width: 12rem;
+        height: 6rem;
+    }
 }
 
 .image_solana {
     max-width: 100%;
     width: 17.5rem;
     height: 4rem;
+    @media screen and (max-width: 1536px) {
+        width: 15rem;
+        height: 2.75rem;
+    }
 }
 
 .image_john {
     max-width: 100%;
     width: 15rem;
     height: 10rem;
+    @media screen and (max-width: 1536px) {
+        width: 12rem;
+        height: 8rem;
+    }
 }
 
 .image_warp {
     max-width: 100%;
     width: 17.5rem;
     height: 4rem;
+    @media screen and (max-width: 1536px) {
+        width: 15rem;
+        height: 2.75rem;
+    }
 }
 
 .desc {
     color: #FFF;
     font-size: 3rem;
+    @media screen and (max-width: 1536px) {
+        font-size: 2.5rem;
+    }
     font-weight: 700;
     text-align: center;
 }
@@ -79,6 +113,9 @@
 .desc_solana {
     color: #FFF;
     font-size: 3rem;
+    @media screen and (max-width: 1536px) {
+        font-size: 2.5rem;
+    }
     font-weight: 700;
     text-align: center;
 }
@@ -86,6 +123,9 @@
 .desc_john {
     color: #FFF;
     font-size: 2rem;
+    @media screen and (max-width: 1536px) {
+        font-size: 1.5rem;
+    }
     font-weight: 700;
     text-align: center;
 }
@@ -93,6 +133,9 @@
 .desc_warp {
     color: #FFF;
     font-size: 2rem;
+    @media screen and (max-width: 1536px) {
+        font-size: 1.5rem;
+    }
     font-weight: 700;
     text-align: center;
 }
