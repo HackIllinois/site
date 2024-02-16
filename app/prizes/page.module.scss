@@ -1,0 +1,31 @@
+.title {
+    font-size: 2rem;
+    color: #ffb23e;
+    text-transform: uppercase;
+}
+
+.body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.cat {
+    flex: 0 0 30%;
+    > img {
+        max-width: 100%;
+    }
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cupboard {
+    border-top-color: #00728C;
+    border-top-width: 2rem;
+    border-top-style: solid;
+}
