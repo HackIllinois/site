@@ -1,0 +1,26 @@
+.container {
+    background-color: rgba(255, 255, 255, 0.48);
+    padding: 5% 10%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5%;
+    width: 100%;
+    min-height: 12rem;
+}
+
+.name {
+    color: #01444F;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.image {
+    max-width: 100%;
+    width: 10%;
+}
+
+.desc {
+    color: #FFF;
+    font-size: 2rem;
+    font-weight: 600;
+}
