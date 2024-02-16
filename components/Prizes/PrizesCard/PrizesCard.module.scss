@@ -14,6 +14,9 @@
     @media screen and (max-width: 1280px) {
         min-height: 3rem;
     }
+    @media screen and (max-width: 900px) {
+        min-height: 2.5rem;
+    }
     align-items: center;
     justify-content: center;
     transition: transform 0.7s ease-in-out;
@@ -32,6 +35,9 @@
     @media screen and (max-width: 1280px) {
         font-size: 2rem;
     }
+    @media screen and (max-width: 900px) {
+        font-size: 1.5rem;
+    }
     font-weight: 700;
     text-align: center;
 }
@@ -44,6 +50,9 @@
     }
     @media screen and (max-width: 1280px) {
         font-size: 1.5rem;
+    }
+    @media screen and (max-width: 900px) {
+        font-size: 1.125rem;
     }
     font-weight: 700;
     text-align: center;
@@ -58,6 +67,9 @@
     @media screen and (max-width: 1280px) {
         font-size: 1.75rem;
     }
+    @media screen and (max-width: 900px) {
+        font-size: 1.25rem;
+    }
     font-weight: 700;
     text-align: center;
 }
@@ -70,6 +82,9 @@
     }
     @media screen and (max-width: 1280px) {
         font-size: 1.5rem;
+    }
+    @media screen and (max-width: 900px) {
+        font-size: 1.25rem;
     }
     font-weight: 700;
     text-align: center;
@@ -87,6 +102,10 @@
         width: 10rem;
         height: 5rem;
     }
+    @media screen and (max-width: 900px) {
+        width: 6rem;
+        height: 3rem;
+    }
 }
 
 .image_solana {
@@ -100,6 +119,10 @@
     @media screen and (max-width: 1280px) {
         width: 12rem;
         height: 2rem;
+    }
+    @media screen and (max-width: 900px) {
+        width: 8rem;
+        height: 1.25rem;
     }
 }
 
@@ -115,6 +138,10 @@
         width: 10rem;
         height: 7.5rem;
     }
+    @media screen and (max-width: 900px) {
+        width: 7.5rem;
+        height: 5rem;
+    }
 }
 
 .image_warp {
@@ -128,6 +155,10 @@
     @media screen and (max-width: 1280px) {
         width: 12rem;
         height: 2.5rem;
+    }
+    @media screen and (max-width: 900px) {
+        width: 8rem;
+        height: 1.25rem;
     }
 }
 
