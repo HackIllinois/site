@@ -13,7 +13,7 @@ const Mentors = () => {
     return (
         <div className={styles.container}>
             <div className={styles.background}>
-                <img src="/mentors/background-minus-clouds.svg" />
+                <img src="/mentors/background-web-minus-clouds.svg" />
             </div>
             <div className={styles.content}>
                 <div className={styles.banner}>

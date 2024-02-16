@@ -13,6 +13,7 @@ import { ModalOverlay, useModal } from "@/components/Profile/modal";
 import { useEffect, useState, useCallback } from "react";
 import {
     authenticate,
+    getProfile,
     getRSVP,
     getRegistration,
     getUser,
@@ -110,7 +111,9 @@ const Some: React.FC = () => {
             .then(isRegistered => {
                 if (!isRegistered) window.location.pathname = "/register";
             })
-            .then(() => {
+            .then(() => getProfile())
+            .then((p) => {
+                setProfileState(p)
                 getUser().then(user => {
                     setUser(user);
                 });
@@ -119,7 +122,7 @@ const Some: React.FC = () => {
 
                     if (
                         rsvp.status === "ACCEPTED" &&
-                        rsvp.response === "PENDING"
+                        (rsvp.response === "PENDING" || !p)
                     )
                         openModal();
                 });

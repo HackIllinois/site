@@ -91,3 +91,22 @@ export type FormProps = {
     formIndex: number;
     setFormIndex: React.Dispatch<React.SetStateAction<number>>;
 };
+
+export interface EventType {
+    id: string;
+    name: string;
+    description: string;
+    isAsync?: boolean;
+    startTime: number;
+    endTime: number;
+    locations: {
+        description: string;
+        tags: string[];
+        latitude: number;
+        longitude: number;
+    }[];
+    sponsor?: string;
+    eventType: string;
+    points: number;
+    isPro: boolean;
+}
