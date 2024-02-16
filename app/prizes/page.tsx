@@ -23,7 +23,7 @@ const Prizes = () => {
     );
 
     return (
-        <div>
+        <div className={styles.container}>
             <p className={styles.title}>Prizes</p>
             <div className={styles.body}>
                 <div className={styles.cat}>
@@ -48,6 +48,7 @@ const Prizes = () => {
                                     />
                                 </div>
                             ))}
+                            <div className={styles.foot} />
                         </div>
                     </div>
                 </div>
