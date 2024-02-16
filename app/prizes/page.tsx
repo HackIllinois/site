@@ -41,10 +41,10 @@ const Prizes = () => {
                                         desc={prize[0].desc}
                                     />
                                     <PrizesCard
-                                        id={prize[1].id}
-                                        name={prize[1].name}
-                                        image={prize[1].image}
-                                        desc={prize[1].desc}
+                                        id={prize[1]?.id}
+                                        name={prize[1]?.name}
+                                        image={prize[1]?.image}
+                                        desc={prize[1]?.desc}
                                     />
                                 </div>
                             ))}

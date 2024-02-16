@@ -3,24 +3,29 @@
     padding: 5% 10%;
     display: flex;
     flex-direction: column;
-    row-gap: 5%;
+    row-gap: 2.5rem;
     width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     min-height: 12rem;
+    align-items: center;
+    justify-content: center;
 }
 
 .name {
     color: #01444F;
-    font-size: 2rem;
+    font-size: 4rem;
     font-weight: 600;
 }
 
 .image {
     max-width: 100%;
-    width: 10%;
+    width: 10rem;
+    height: 10rem;
 }
 
 .desc {
     color: #FFF;
-    font-size: 2rem;
+    font-size: 4rem;
     font-weight: 600;
 }
