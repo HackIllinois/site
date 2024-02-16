@@ -27,7 +27,7 @@ export const mentors = [
         id: 5,
         name: "Herat Joshi",
         image: "mentors/mentor-images/herat.jpg",
-        desc: "Herat Joshi serves as the Project Director at Great River Health System, located in Iowa, USA, complemented by a distinguished Ph.D. in Business Management. With a career dedicated to spearheading healthcare projects and delving into the research of AI applications within project management, Joshi epitomizes the fusion of technological innovation and leadership. His enthusiasm for pushing the boundaries of technology in healthcare is matched by his academic dedication, resulting in significant contributions to AI research through scholarly publications."
+        desc: "Herat Joshi, a seasoned Healthcare Technology Manager and Data Intelligence Architect, excels in integrating AI into healthcare, driving technological advancements and innovation in project management and data analysis."
     },
     {
         id: 6,
