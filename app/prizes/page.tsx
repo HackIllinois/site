@@ -1,14 +1,13 @@
-"use client";
 import PrizesCard from "@/components/Prizes/PrizesCard/PrizesCard";
 import styles from "./page.module.scss";
 import { data } from "@/modules/PrizesData";
 
-import { useEffect } from "react";
 type prize = {
     id: number;
     name: string;
     image: string;
     desc: string;
+    code: string;
 };
 
 const Prizes = () => {
@@ -39,12 +38,14 @@ const Prizes = () => {
                                         name={prize[0].name}
                                         image={prize[0].image}
                                         desc={prize[0].desc}
+                                        code={prize[0].code}
                                     />
                                     <PrizesCard
                                         id={prize[1]?.id}
                                         name={prize[1]?.name}
                                         image={prize[1]?.image}
                                         desc={prize[1]?.desc}
+                                        code={prize[1]?.code}
                                     />
                                 </div>
                             ))}

@@ -1,6 +1,6 @@
 .container {
     background-color: rgba(255, 255, 255, 0.48);
-    padding: 5% 7.5%;
+    padding: 5%;
     display: flex;
     flex-direction: column;
     row-gap: 2vh;
@@ -19,18 +19,80 @@
 
 .name {
     color: #01444F;
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.name_solana{
+    color: #01444F;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.name_john {
+    color: #01444F;
     font-size: 2.5rem;
     font-weight: 700;
+    text-align: center;
+}
+
+.name_warp {
+    color: #01444F;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
 }
 
 .image {
     max-width: 100%;
-    width: 20rem;
-    height: 5rem;
+    width: 15rem;
+    height: 7.5rem;
+}
+
+.image_solana {
+    max-width: 100%;
+    width: 17.5rem;
+    height: 4rem;
+}
+
+.image_john {
+    max-width: 100%;
+    width: 15rem;
+    height: 10rem;
+}
+
+.image_warp {
+    max-width: 100%;
+    width: 17.5rem;
+    height: 4rem;
 }
 
 .desc {
     color: #FFF;
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 700;
+    text-align: center;
+}
+
+.desc_solana {
+    color: #FFF;
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.desc_john {
+    color: #FFF;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.desc_warp {
+    color: #FFF;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
 }
