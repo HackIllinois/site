@@ -1,1 +1,1 @@
-export const button_text = "Register Now!";
+export const button_text = "Powered by Solana";

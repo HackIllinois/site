@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
                     />
                 </div>
                 <div className={styles.heroButtonWrapper}>
-                    <button className={styles.heroButton} onClick={() => window.location.pathname = "/register"}>
+                    <button className={styles.heroButton} onClick={() => window.open("https://solana.com/", "_blank", "noreferrer noopener")}>
                         {button_text}
                     </button>
                 </div>

@@ -106,7 +106,7 @@
     &::after {
         content: "";
         display: block;
-        width: 290px;
+        width: 360px;
         height: 90px;
 
         border-radius: 32px;
@@ -119,14 +119,14 @@
     }
 
     @media screen and (max-width: 1440px) {
-        width: 240px;
+        width: 310px;
         height: 78px;
         font-size: 26px;
         border-width: 6px;
         border-radius: 20px;
 
         &::after {
-            width: 240px;
+            width: 310px;
             height: 78px;
 
             border-radius: 20px;
@@ -170,7 +170,7 @@
         }
     }
 
-    width: 290px;
+    width: 360px;
     height: 90px;
     border-radius: 32px;
     border-width: 8px;

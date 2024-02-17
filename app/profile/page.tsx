@@ -11,6 +11,7 @@ import MobileWindowPane from "@/public/profile/mobile-window-pane.svg";
 import { Bookshelf } from "@/components/Profile/Bookshelf";
 import { ModalOverlay, useModal } from "@/components/Profile/modal";
 import { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import {
     authenticate,
     getProfile,
@@ -53,6 +54,7 @@ const Some: React.FC = () => {
     const [user, setUser] = useState<UserType | null>(null);
     const [RSVP, setRSVP] = useState<RSVPType | null>(null);
     const [profile, setProfileState] = useState<ProfileType | null>(null);
+    const router = useRouter();
 
     // Registration data is non-null only if the applicant wasn't accepted as PRO
     const [registration, setRegistration] = useState<RegistrationType | null>(
@@ -109,7 +111,11 @@ const Some: React.FC = () => {
 
         isRegistered()
             .then(isRegistered => {
-                if (!isRegistered) window.location.pathname = "/register";
+                if (!isRegistered) {
+                    alert("This github account is not associated with any registration.");
+                    window.location.pathname = "/";
+                    return;
+                }
             })
             .then(() => getProfile())
             .then((p) => {

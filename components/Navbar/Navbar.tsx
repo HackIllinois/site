@@ -35,10 +35,15 @@ const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
         active: false
     },
     {
-        title: "Register",
-        link: "/register",
+        title: "Profile",
+        link: "/profile",
         active: false
-    }
+    },
+    // {
+    //     title: "Register",
+    //     link: "/register",
+    //     active: false
+    // }
 ];
 
 const Navbar = () => {
@@ -48,23 +53,23 @@ const Navbar = () => {
     const [navbarItems, setNavbarItems] = useState(DEFAULT_NAVBAR_ITEMS);
 
     useEffect(() => {
-        if (isAuthenticated() !== null) {
-            isRegistered().then(isRegistered => {
-                if (isRegistered) {
-                    setNavbarItems(n =>
-                        n.map(item =>
-                            item.title === "Register"
-                                ? {
-                                      title: "Profile",
-                                      link: "/profile",
-                                      active: pathname === "/profile"
-                                  }
-                                : item
-                        )
-                    );
-                }
-            });
-        }
+        // if (isAuthenticated() !== null) {
+        //     isRegistered().then(isRegistered => {
+        //         if (isRegistered) {
+        //             setNavbarItems(n =>
+        //                 n.map(item =>
+        //                     item.title === "Register"
+        //                         ? {
+        //                               title: "Profile",
+        //                               link: "/profile",
+        //                               active: pathname === "/profile"
+        //                           }
+        //                         : item
+        //                 )
+        //             );
+        //         }
+        //     });
+        // }
 
         if (pathname !== "/" && pathname !== "/knights") {
             setNavbarItems(n =>
