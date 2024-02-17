@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 import Background from "@/components/Registration/background";
 import Navigation from "@/components/Registration/navigation";
