@@ -116,13 +116,12 @@ const faqPages: Record<string, FaqPage> = {
                 question: "How can I register?",
                 answer: (
                     <p>
-                        We have a registration portal, which will open near the
-                        beginning of 2024. Be on the lookout for the
-                        registration announcement on our social media platforms
-                        (Instagram, Facebook, Reddit, etc.)! <br></br>In
+                        We have a registration portal, which has now closed admissions for 2024.
+                        <br></br>
+                        <br></br>In
                         addition, we will have a travel reimbursement form
-                        within registration. More details will be released
-                        shortly.
+                        within registration. More information regarding travel
+                        reimbursements will be available upon acceptance.
                     </p>
                 )
             },
@@ -143,9 +142,8 @@ const faqPages: Record<string, FaqPage> = {
                     <p>
                         Unfortunately, we do not have a facility that provides
                         overnight stays. During registration, you can opt in to
-                        be considered for travel reimbursements. More
-                        information regarding reimbursements will be released
-                        soon!
+                        be considered for travel reimbursements. More information regarding travel
+                        reimbursements will be available upon acceptance.
                     </p>
                 )
             },

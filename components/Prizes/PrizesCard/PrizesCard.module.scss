@@ -131,18 +131,20 @@
 .image_solana {
     max-width: 100%;
     width: 17.5rem;
-    height: 4rem;
+    max-height: 4rem;
+    object-fit: contain;
+
     @media screen and (max-width: 1536px) {
         width: 15rem;
-        height: 2.75rem;
+        max-height: 2.75rem;
     }
     @media screen and (max-width: 1280px) {
         width: 12rem;
-        height: 2rem;
+        max-height: 2rem;
     }
     @media screen and (max-width: 900px) {
         width: 8rem;
-        height: 1.25rem;
+        max-height: 1.25rem;
     }
 }
 
