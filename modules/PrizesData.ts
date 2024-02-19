@@ -24,7 +24,7 @@ export const data = [
         id: 5,
         name: 'Hardware Track',
         image: 'prizes/john-deere-logo.svg',
-        desc: 'Winners keep the autonomous vehicle hardware kits',
+        desc: 'Attendees keep the autonomous vehicle hardware kits',
         code: 'john'
     },
     {
