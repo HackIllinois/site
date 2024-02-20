@@ -191,4 +191,10 @@ export const mentors = [
         image: "mentors/mentor-images/matthew.jpg",
         desc: "Hello. I'm a PhD student studying machine learning. If your project has an ML component, I'd be especially interested in lending a hand."
     },
+    {
+        id: 34,
+        name: "Loren Winzeler",
+        image: "mentors/mentor-images/loren.jpg",
+        desc: "Loren is a Senior Software Engineer who is most recently working in Go on the Backend of apps and microservices. He’s well versed in JS, TS, Ruby, front-end and cloud environments. Loren is a CS UIUC alumni and started his career at Intel and Microsoft before many startups, recently in the blockchain space."
+    },
 ];
