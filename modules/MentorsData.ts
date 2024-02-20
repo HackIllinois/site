@@ -209,4 +209,10 @@ export const mentors = [
         image: "mentors/mentor-images/pengcheng.jpg",
         desc: "I am Pengcheng Xu. I am a master's student in ECE at UIUC. ex Amazon SDE intern. open-source contributer to OpenMLDB.  ex Deep Learning Software engineer Intern at Intel.  I have research experience in artificial intelligence for bioinformatics and molecular optimization."
     },
+    {
+        id: 37,
+        name: "Anusha Ghosh",
+        image: "mentors/mentor-images/anusha.jpg",
+        desc: "grad student @ UIUC. working at the intersection of AI and cybersecurity. let's build something fun together :D"
+    },
 ];
