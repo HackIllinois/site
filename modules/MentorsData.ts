@@ -142,5 +142,11 @@ export const mentors = [
         name: "Tania Chakraborty",
         image: "mentors/mentor-images/tania.jpg",
         desc: "I'm a grad student at Purdue and my research area is NLP."
+    },
+    {
+        id: 26,
+        name: "Gino P. Corrales",
+        image: "mentors/mentor-images/gino.jpg",
+        desc: "I am so proud to be in many of the past Hackillinois as a participant and mentor. I studied System Engineering back at home in Peru, later I went to ISU for Computer Science. Currently I am doing a master’s in management at the University of Illinois UIUC. I interned at State Farm as a mobile developer and later as a business/technical team lead.  I embarked on my journey within Caterpillar since 2013. I started as a System Analyst working with ERP systems, eventually moving to the Cybersecurity division.  Currently, I lead the Identity Access Management support team. I take pride in leading efforts to respond to customer issues, requests, strengthen backend processes and services."
     }
 ];
