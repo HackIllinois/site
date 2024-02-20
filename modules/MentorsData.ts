@@ -203,4 +203,10 @@ export const mentors = [
         image: "mentors/mentor-images/jason.jpg",
         desc: "Jason is a Software Engineering Manager at Google, recently working on the Next Generation of source control at Google based on martinvonz/jj. Jason is very active in the Python open source community and a maintainer or direct contributor to CPython, CherryPy, setuptools, and others."
     },
+    {
+        id: 36,
+        name: "Pengcheng Xu",
+        image: "mentors/mentor-images/pengcheng.jpg",
+        desc: "I am Pengcheng Xu. I am a master's student in ECE at UIUC. ex Amazon SDE intern. open-source contributer to OpenMLDB.  ex Deep Learning Software engineer Intern at Intel.  I have research experience in artificial intelligence for bioinformatics and molecular optimization."
+    },
 ];
