@@ -21,21 +21,21 @@
     @media screen and (max-width: 700px) {
         border-radius: 0.675rem;
     }
-    max-height: 20rem;
+    height: 20rem;
     @media screen and (max-width: 1536px) {
-        max-height: 15rem;
+        height: 15rem;
     }
     @media screen and (max-width: 1280px) {
-        max-height: 12rem;
+        height: 12rem;
     }
     @media screen and (max-width: 1024px) {
-        max-height: 8rem;
+        height: 8rem;
     }
     @media screen and (max-width: 900px) {
-        max-height: 6rem;
+        height: 6rem;
     }
     @media screen and (max-width: 700px) {
-        max-height: 4rem;
+        height: 4rem;
     }
 
     .image {

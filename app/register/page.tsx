@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/navigation";
 
 import Background from "@/components/Registration/background";
 import Navigation from "@/components/Registration/navigation";
@@ -12,13 +13,15 @@ import styles from "./styles.module.scss";
 
 const Registration: React.FC = () => {
     const [formIndex, setFormIndex] = useState(0);
+    const router = useRouter();
 
     useEffect(() => {
-        if (!isAuthenticated()) {
-            authenticate(
-                window.location.href
-            );
-        }
+        router.push("/");
+        // if (!isAuthenticated()) {
+        //     authenticate(
+        //         window.location.href
+        //     );
+        // }
     });
 
     return (

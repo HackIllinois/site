@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import styles from "./page.module.scss";
 import Image from "next/image";
@@ -11,8 +11,11 @@ import MobileWindowPane from "@/public/profile/mobile-window-pane.svg";
 import { Bookshelf } from "@/components/Profile/Bookshelf";
 import { ModalOverlay, useModal } from "@/components/Profile/modal";
 import { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
+
 import {
     authenticate,
+    getProfile,
     getRSVP,
     getRegistration,
     getUser,
@@ -42,6 +45,26 @@ import {
 import { RSVPSteps } from "@/components/Profile/modal-views/rsvp-steps";
 import { avatars } from "@/components/Profile/avatars";
 
+
+const Profile: React.FC = () => {
+    const [auth, setAuth] = useState<boolean>(false);
+    useEffect(() => {
+        if (!isAuthenticated()) {
+            authenticate(window.location.href);
+        } else {
+            setAuth(true);
+        }
+    }, []);
+
+    if (auth) {
+        return <Some />;
+    } else {
+        return <h1>Loading ...</h1>
+    }
+};
+
+
+
 const Some: React.FC = () => {
     const { isModalOpen, closeModal, openModal } = useModal();
     const {
@@ -52,6 +75,7 @@ const Some: React.FC = () => {
     const [user, setUser] = useState<UserType | null>(null);
     const [RSVP, setRSVP] = useState<RSVPType | null>(null);
     const [profile, setProfileState] = useState<ProfileType | null>(null);
+    const router = useRouter();
 
     // Registration data is non-null only if the applicant wasn't accepted as PRO
     const [registration, setRegistration] = useState<RegistrationType | null>(
@@ -98,19 +122,20 @@ const Some: React.FC = () => {
         setProfileState(profile_response);
         setLoading(false);
     }
-
+    
     useEffect(() => {
-        if (!isAuthenticated()) {
-            authenticate(window.location.href);
-        }
-
         setLoading(true);
-
+        
         isRegistered()
             .then(isRegistered => {
-                if (!isRegistered) window.location.pathname = "/register";
+                if (!isRegistered) {
+                    alert("This github account is not associated with any registration.");
+                    window.location.pathname = "/";     
+                }
             })
-            .then(() => {
+            .then(() => getProfile())
+            .then(p => {
+                setProfileState(p);
                 getUser().then(user => {
                     setUser(user);
                 });
@@ -119,7 +144,7 @@ const Some: React.FC = () => {
 
                     if (
                         rsvp.status === "ACCEPTED" &&
-                        rsvp.response === "PENDING"
+                        (rsvp.response === "PENDING" || !p)
                     )
                         openModal();
                 });
@@ -272,4 +297,4 @@ const Some: React.FC = () => {
     );
 };
 
-export default Some;
+export default Profile;

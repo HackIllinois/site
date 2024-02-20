@@ -1,6 +1,6 @@
 .container {
     background-color: #5d639c;
-    background-image: url("/mentors/background-minus-clouds.svg");
+    background-image: url("/mentors/background-web-minus-clouds.svg");
     @media screen and (max-width: 700px) {
         background-image: url("/mentors/background-mobile-minus-clouds.svg");
     }
@@ -11,6 +11,7 @@
     object-fit: cover;
     display: grid;
     grid-template-rows: 1fr;
+    color: #fff;
 }
 
 .banner {
@@ -36,6 +37,10 @@
     justify-content: center;
     flex-flow: column nowrap;
     align-items: center;
+    // Moves the content below the hamburger menu on mobile devices
+    @media screen and (max-width: 700px) {
+        margin-top: 100px;
+    }
 }
 
 .body {
