@@ -185,4 +185,10 @@ export const mentors = [
         image: "mentors/mentor-images/david.jpg",
         desc: "Hi! I am a recent alum of Illinois and have been traveling around to various hackathons being a mentor and judge. My current work involves developing scalable and secure systems. In my free time, I enjoy biking and running! Feel free to ask me about anything related to full stack or system design!"
     },
+    {
+        id: 33,
+        name: "Matthew Weston",
+        image: "mentors/mentor-images/matthew.jpg",
+        desc: "Hello. I'm a PhD student studying machine learning. If your project has an ML component, I'd be especially interested in lending a hand."
+    },
 ];
