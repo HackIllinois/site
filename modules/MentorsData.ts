@@ -160,5 +160,11 @@ export const mentors = [
         name: "Dev Bharel",
         image: "mentors/mentor-images/dev.jpg",
         desc: "A serial hackathoner, Dev has been working in crypto since 2013 and worked across multiple ecosystems. His passion is game design."
-    }
+    },
+    {
+        id: 29,
+        name: "Jonas Hahn",
+        image: "mentors/mentor-images/jonas.jpg",
+        desc: "I worked as a game developer for 13 years and always wanted to integrate blockchain into it. Then I found Solana where this is now actually possible to use a block chain as a game backend. Now I work for Solana Foundation to make this dream a reality."
+    },
 ];
