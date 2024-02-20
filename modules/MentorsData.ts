@@ -178,5 +178,11 @@ export const mentors = [
         name: "Mohammed Rashad",
         image: "mentors/mentor-images/mohammed.jpg",
         desc: "I am currently an Embedded Software Engineer at CNH Industrial. I graduated with a bachelor's degree in CS from UIC (Class of 2021). I have participated in HackIllinois and many hackathons (and won one!). Looking forward to mentoring participants this weekend!"
-    }
+    },
+    {
+        id: 32,
+        name: "David An",
+        image: "mentors/mentor-images/david.jpg",
+        desc: "Hi! I am a recent alum of Illinois and have been traveling around to various hackathons being a mentor and judge. My current work involves developing scalable and secure systems. In my free time, I enjoy biking and running! Feel free to ask me about anything related to full stack or system design!"
+    },
 ];
