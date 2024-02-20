@@ -170,7 +170,7 @@ export const mentors = [
     {
         id: 30,
         name: "Advait Maybhate",
-        image: "mentors/mentor-images/muhammad.jpg",
+        image: "mentors/mentor-images/advait.jpg",
         desc: "Advait Maybhate is a Software Engineer at Warp. He's a Computer Science graduate from the University of Waterloo. In the past, he's completed internships at Ramp, Google, Riot Games and Octant Bio. His interests include developer tools, bioinformatics and EdTech. He's also an avid hackathoner where he's been a hacker, organizer, mentor, sponsor and judge!"
     },
     {
