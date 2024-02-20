@@ -155,4 +155,10 @@ export const mentors = [
         image: "mentors/mentor-images/josh.jpg",
         desc: "I am an IT professional with nearly a decade of experience. I’m currently working as a system admin supporting Cat Digital’s eCommerce application. I’m experienced with Linux, AWS, Docker, and Kubernetes. Reach out on Discord! I look forward to seeing the projects you all develop!"
     },
+    {
+        id: 28,
+        name: "Dev Bharel",
+        image: "mentors/mentor-images/dev.jpg",
+        desc: "A serial hackathoner, Dev has been working in crypto since 2013 and worked across multiple ecosystems. His passion is game design."
+    }
 ];
