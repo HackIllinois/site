@@ -20,15 +20,17 @@ const Mentors = () => {
                     <img src="/mentors/banner.svg" />
                 </div>
                 <div className={styles.body}>
-                    {mentors.map((mentor: any) => (
-                        <MentorCard
-                            key={mentor.id}
-                            id={mentor.id}
-                            name={mentor.name}
-                            image={mentor.image}
-                            desc={mentor.desc}
-                        />
-                    ))}
+                    {mentors
+                        .sort((a, b) => a.id - b.id)
+                        .map((mentor: mentorProps) => (
+                            <MentorCard
+                                key={mentor.id}
+                                id={mentor.id}
+                                name={mentor.name}
+                                image={mentor.image}
+                                desc={mentor.desc}
+                            />
+                        ))}
                 </div>
             </div>
         </div>
