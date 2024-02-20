@@ -197,4 +197,10 @@ export const mentors = [
         image: "mentors/mentor-images/loren.jpg",
         desc: "Loren is a Senior Software Engineer who is most recently working in Go on the Backend of apps and microservices. He’s well versed in JS, TS, Ruby, front-end and cloud environments. Loren is a CS UIUC alumni and started his career at Intel and Microsoft before many startups, recently in the blockchain space."
     },
+    {
+        id: 35,
+        name: "Jason R Coombs",
+        image: "mentors/mentor-images/jason.jpg",
+        desc: "Jason is a Software Engineering Manager at Google, recently working on the Next Generation of source control at Google based on martinvonz/jj. Jason is very active in the Python open source community and a maintainer or direct contributor to CPython, CherryPy, setuptools, and others."
+    },
 ];
