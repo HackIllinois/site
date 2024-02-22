@@ -40,7 +40,8 @@ import {
     RSVPConfirmed,
     Rejected,
     TBD,
-    Waitlisted
+    Waitlisted,
+    QRCanvas
 } from "@/components/Profile/modal-views";
 import { RSVPSteps } from "@/components/Profile/modal-views/rsvp-steps";
 import { avatars } from "@/components/Profile/avatars";
@@ -257,7 +258,13 @@ const Some: React.FC = () => {
                 isOpen={isQuestionsModalOpen}
                 onClose={closeQuestionsModal}
             >
-                <Questions handleOk={() => closeQuestionsModal()} />
+                {(() => {
+                    if (RSVP?.response === "ACCEPTED") {
+                        return <QRCanvas handleOk={() => closeQuestionsModal()} />
+                    } else {
+                        return <Questions handleOk={() => closeQuestionsModal()} />
+                    }
+                })()}
             </ModalOverlay>
 
             <div className={styles.rightCurtainWrapper}></div>
