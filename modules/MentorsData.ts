@@ -95,7 +95,7 @@ export const mentors = [
         image: "mentors/mentor-images/matthew.jpg",
         desc: "Hello. I'm a PhD student studying machine learning. If your project has an ML component, I'd be especially interested in lending a hand."
     },
-    
+
     {
         id: 17,
         name: "Toyosi Bamidele",
@@ -192,7 +192,7 @@ export const mentors = [
         image: "mentors/mentor-images/andre.jpg",
         desc: "Dr. André Bauer did his Ph.D. at the University of Würzburg from 2016 to 2020, achieving Summa Cum Laude honors. His doctoral thesis received both national and international recognition, earning prestigious awards. In January 2021, Dr. Bauer took on a postdoctoral role at the University of Würzburg, followed by a position at the University of Chicago in November 2022. He is a passionate advocate for science communication and an attending speaker at events like the South Side Science Festival. In July 2021, Dr. Bauer founded the SPEC RG Predictive Data Analytics Group. His research spans Performance Engineering and Data Science, focusing on unlocking the potential of data science in scientific computing."
     },
-    
+
     {
         id: 33,
         name: "Kavita Cardozo",
@@ -217,4 +217,34 @@ export const mentors = [
         image: "mentors/mentor-images/loren.jpg",
         desc: "Loren is a Senior Software Engineer who is most recently working in Go on the Backend of apps and microservices. He’s well versed in JS, TS, Ruby, front-end and cloud environments. Loren is a CS UIUC alumni and started his career at Intel and Microsoft before many startups, recently in the blockchain space."
     },
+    {
+        id: 37,
+        name: "Sean Coughlin",
+        image: "mentors/mentor-images/sean.jpg",
+        desc: "Hey! I'm currently a software engineer at Discover Financial Services. I'm a UIUC alumnus and previously attended HackIllinois myself."
+    },
+    {
+        id: 38,
+        name: "Cameron Cross",
+        image: "mentors/mentor-images/cameron.jpg",
+        desc: " Financial Services. I recently graduated from UW-Madison with a degree in CS and math. I’m looking forward to mentoring this weekend!"
+    },
+    {
+        id: 39,
+        name: "Juan Pablo Flores",
+        image: "mentors/mentor-images/juan.jpg",
+        desc: "Juan Pablo Flores is a Program Manager at the GitHub Education Team, where he supports student leaders to build and grow local technical communities in their schools. He is passionate about building opportunities for students, bridges between different communities, and helping people from diverse backgrounds to code. He has worked on the HCI research on how people collaborate in online platforms and explored the social dynamics of live streaming on platforms."
+    },
+    {
+        id: 40,
+        name: "Grace Thompson",
+        image: "mentors/mentor-images/grace.jpg",
+        desc: "Grace is a Full-Stack Software Engineer at Charter Communications."
+    },
+    {
+        id: 41,
+        name: "Arelia Jones",
+        image: "mentors/mentor-images/arelia.jpg",
+        desc: "Arelia is a software engineer on GitHub’s Education team, which provides benefits to teachers, students and schools. She is a co-founder of CoderSpace, a nonprofit that taught web development to high school students on Chicago’s South Side; was a co-organizer of PromptConf, an inclusive conference on the joy of computing; and is a former co-organizer of BlackByte, which provides opportunities for Black women in tech. Arelia has also been an honoree of Crain’s Tech 50 and Chicago Inno’s 50 on Fire."
+    }
 ];
