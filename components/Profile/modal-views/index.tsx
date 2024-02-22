@@ -472,7 +472,7 @@ export const QRCanvas = ({ handleOk }: { handleOk: () => void }) => {
         fetchData();
     }, [isLoading]); 
 
-    if (uri) {
+    if (uri != "") {
         return (
             <>
                 <Canvas
