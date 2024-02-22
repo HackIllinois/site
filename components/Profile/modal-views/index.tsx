@@ -384,7 +384,7 @@ export const Waitlisted = ({ handleOk }: { handleOk: () => void }) => {
         <>
             <BoldFont>
                 {
-                    "Unfortunately, we are not able to offer you a spot at this time. We will reach out if anything changes!"
+                    "Your application has been waitlisted at this time. If you are still interested in participating in HackIllinois 2024, please visit our Help Desk at 7pm on Friday, Feb 23rd for reconsideration opportunities depending on current capacities."
                 }
             </BoldFont>
             <BoldFont>

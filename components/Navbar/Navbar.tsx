@@ -31,6 +31,11 @@ const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
     //     link: "#"
     // },
     {
+        title: "Travel",
+        link: "/travel",
+        active: false
+    },
+    {
         title: "Mentors",
         link: "/mentors",
         active: false

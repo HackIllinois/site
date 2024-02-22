@@ -1,4 +1,4 @@
-<svg preserveAspectRatio='none' viewBox="0 0 646 152" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 646 152" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M96.5783 148.878H22.4838C10.4917 148.878 0.753906 139.161 0.753906 127.145V42.8316C0.753906 30.8383 10.4691 21.0996 22.4838 21.0996H128.52L96.5783 148.878Z" fill="#006EA9"/>
 <path d="M97.1406 0.268555H171.235C183.227 0.268555 192.965 9.98497 192.965 22.0008V106.337C192.965 118.331 183.25 128.07 171.235 128.07H65.1992L97.1406 0.268555Z" fill="#8874B5"/>
 <mask id="mask0_3569_101" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="65" y="0" width="128" height="129">

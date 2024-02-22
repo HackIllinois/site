@@ -7,20 +7,6 @@ export const data = [
         code: 'hack'
     },
     {
-        id: 2,
-        name: 'General',
-        image: 'prizes/hack-logo.svg',
-        desc: '$500',
-        code: 'hack'
-    },
-    {
-        id: 3,
-        name: 'Beginner',
-        image: 'prizes/hack-logo.svg',
-        desc: '$200',
-        code: 'hack'
-    },
-    {
         id: 4,
         name: 'Best Game Made With Solana Blockchain',
         image: 'prizes/solana-logo.svg',
@@ -28,11 +14,25 @@ export const data = [
         code: 'solana'
     },
     {
+        id: 2,
+        name: 'General',
+        image: 'prizes/hack-logo.svg',
+        desc: '$500',
+        code: 'hack'
+    },
+    {
         id: 5,
         name: 'Hardware Track',
         image: 'prizes/john-deere-logo.svg',
-        desc: 'Attendees keep the kits',
+        desc: 'Attendees keep the autonomous vehicle hardware kits',
         code: 'john'
+    },
+    {
+        id: 3,
+        name: 'Beginner',
+        image: 'prizes/hack-logo.svg',
+        desc: '$200',
+        code: 'hack'
     },
     {
         id: 6,
