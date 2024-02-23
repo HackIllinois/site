@@ -217,3 +217,7 @@ export function rsvpDecline(): Promise<RSVPDecisionType> {
 export function getEvents(): Promise<EventType[]> {
     return requestv2("GET", "/event").then((res) => res.events);
 }
+
+export function getAttendeeQrURI(): Promise<String> {
+    return request("GET", "/user/qr").then((res) => res.qrInfo);
+}

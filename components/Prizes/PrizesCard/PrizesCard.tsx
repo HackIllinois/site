@@ -5,6 +5,7 @@ type PrizesCardProps = {
     name: string;
     image: string;
     desc: string;
+    type: string;
     code: string;
 };
 
@@ -13,6 +14,7 @@ const PrizesCard: React.FC<PrizesCardProps> = ({
     name,
     image,
     desc,
+    type,
     code
 }) => {
     return (
@@ -29,6 +31,13 @@ const PrizesCard: React.FC<PrizesCardProps> = ({
                 }
             >
                 {name}
+            </p>
+            <p
+                className={
+                    styles.prize_type
+                }
+            >
+                {type}
             </p>
             <img
                 src={image}

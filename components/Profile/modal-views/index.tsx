@@ -8,6 +8,9 @@ import styles from "@/components/Profile/modal-views/modal-views.module.scss";
 import MobileConfirmButton from "@/public/profile/mobile-confirm-button.svg";
 import MobileDeclineButton from "@/public/profile/mobile-decline-button.svg";
 import Image from "next/image";
+import { useQRCode } from 'next-qrcode';
+import { useState, useEffect } from 'react'
+import { getAttendeeQrURI } from "@/utils/api";
 
 {
     /* TODO: Move all of these to constants (links too) */
@@ -447,6 +450,42 @@ export const Questions = ({ handleOk }: { handleOk: () => void }) => {
             <OkButton onClick={handleOk} />
         </>
     );
+};
+
+export const QRCanvas = ({ handleOk }: { handleOk: () => void }) => {
+    const { Canvas } = useQRCode();
+    const [uri, setUri] = useState<String>('');
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                getAttendeeQrURI().then((data) => {
+                    setUri(data);
+                    setIsLoading(false);
+                });
+                
+            } catch (error) {
+                console.error('Error fetching QR data:', error);
+            } 
+        };
+        fetchData();
+    }, [isLoading]); 
+
+    if (uri != "") {
+        return (
+            <>
+                <Canvas
+                    text={uri.valueOf()}
+                    options={{
+                        width: 200,
+                    }}
+                />
+                <OkButton onClick={handleOk} />
+    
+            </>
+        );
+    }
 };
 
 export const DeclineConfirmation = ({

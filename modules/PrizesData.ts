@@ -4,6 +4,7 @@ export const data = [
         name: 'Knights',
         image: 'prizes/hack-logo.svg',
         desc: '$2,000',
+        type: '(Path)',
         code: 'hack'
     },
     {
@@ -11,6 +12,7 @@ export const data = [
         name: 'Best Game Made With Solana Blockchain',
         image: 'prizes/solana-logo.svg',
         desc: '$3,000',
+        type: '(Track)',
         code: 'solana'
     },
     {
@@ -18,6 +20,7 @@ export const data = [
         name: 'General',
         image: 'prizes/hack-logo.svg',
         desc: '$500',
+        type: '(Path)',
         code: 'hack'
     },
     {
@@ -25,6 +28,7 @@ export const data = [
         name: 'Hardware Track',
         image: 'prizes/john-deere-logo.svg',
         desc: 'Attendees keep the autonomous vehicle hardware kits',
+        type: '(Track)',
         code: 'john'
     },
     {
@@ -32,6 +36,7 @@ export const data = [
         name: 'Beginner',
         image: 'prizes/hack-logo.svg',
         desc: '$200',
+        type: '(Path)',
         code: 'hack'
     },
     {
@@ -39,6 +44,7 @@ export const data = [
         name: 'Best Developer Tool',
         image: 'prizes/warp-logo.svg',
         desc: 'Keychron Keyboards to each member',
+        type: '(Track)',
         code: 'warp'
     },
 ]

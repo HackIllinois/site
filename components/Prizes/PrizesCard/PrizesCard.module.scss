@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     row-gap: 2.5vh;
+
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
@@ -125,7 +126,6 @@
         width: 6rem;
         height: 3rem;
     }
-    
 }
 
 .image_solana {
@@ -258,4 +258,25 @@
     }
     font-weight: 700;
     text-align: center;
+}
+
+.prize_type {
+    color: #01444f;
+    font-size: 1.5rem;
+    @media screen and (max-width: 1536px) {
+        font-size: 1.5rem;
+    }
+    @media screen and (max-width: 1280px) {
+        font-size: 1rem;
+    }
+    @media screen and (max-width: 900px) {
+        font-size: 0.75rem;
+    }
+    @media screen and (max-width: 700px) {
+        font-size: 0.75rem;
+    }
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: -0.5vh; /* With reference to the overal flexbox row-gap */
+    margin-top: -1.5vh; /* With reference to the overal flexbox row-gap */
 }
