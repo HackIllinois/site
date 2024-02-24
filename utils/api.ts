@@ -218,6 +218,7 @@ export function getEvents(): Promise<EventType[]> {
     return requestv2("GET", "/event").then((res) => res.events);
 }
 
+// TODO: Revert to user/qr
 export function getAttendeeQrURI(): Promise<String> {
-    return request("GET", "/user/qr").then((res) => res.qrInfo);
+    return request("GET", "/user/v2-qr").then((res) => res.qrInfo);
 }
