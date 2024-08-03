@@ -1,31 +1,28 @@
-"use client"
+"use client";
 import styles from "./styles.module.scss";
 
 import Image from "next/image";
 
-import Village from "@/public/home/hero/village.svg";
-import { button_text } from "@/modules/HeroData";
-
 const Hero: React.FC = () => {
-
     return (
         <section className={styles.heroMain}>
             <div className={styles.heroContainer}>
-                <div className={styles.heroImageWrapper}>
+                <div className={styles.logoAnimation}>
                     <Image
-                        alt="Hack n Slash Logo"
-                        src="/home/hero/logo.svg"
+                        alt="HackIllinois Hype Animation"
+                        src="/home/hero/hype_animation.gif"
                         fill={true}
                     />
                 </div>
-                <div className={styles.heroButtonWrapper}>
-                    <button className={styles.heroButton} onClick={() => window.open("https://solana.com/", "_blank", "noreferrer noopener")}>
-                        {button_text}
-                    </button>
+
+                <div className={styles.topHeader}>
+
+                    <h1>HackIllinois 2025</h1>
+
                 </div>
             </div>
-            <div className={styles.villageWrapper}>
-                <Image alt="Village Background" src={Village} />
+            <div className={styles.heroFooter}>
+                <span className={styles.subtitle}>coming soon</span>
             </div>
         </section>
     );

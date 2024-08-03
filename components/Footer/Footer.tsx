@@ -22,6 +22,12 @@ const Footer: React.FC<FooterProps> = ({
     return (
         <div className={styles.footerContainer}>
             <div className={styles.footer}>
+                <div id="newsletter-section">
+                    <span className={styles.newsletterTitle}>
+                        {newsletterTitle}
+                    </span>
+                    <Subscribe />
+                </div>
                 <div id="social-section">
                     <span className={styles.title}>{title}</span>
                     <div className={styles.icons}>
@@ -39,12 +45,6 @@ const Footer: React.FC<FooterProps> = ({
                         ))}
                     </div>
                 </div>
-                {/* <div id="newsletter-section">
-                    <span className={styles.newsletterTitle}>
-                        {newsletterTitle}
-                    </span>
-                    <Subscribe />
-                </div> */}
             </div>
         </div>
     );

@@ -13,11 +13,11 @@ const Home: React.FC = () => {
     return (
         <main className={styles.main}>
             <Hero />
-            <Events />
+            {/* <Events />
             <HackKnights />
             <JoinUs />
             <FAQ />
-            <Sponsors />
+            <Sponsors /> */}
             <Footer />
         </main>
     );

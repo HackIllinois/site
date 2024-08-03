@@ -16,7 +16,7 @@ const Subscribe = () => {
             alert("Please enter a valid email address!");
         } else {
             console.log("sending request");
-            const result = subscribe("hackillinois2024_interest", email);
+            const result = subscribe("hackillinois2025_interest", email);
             setEmail(""); // clear input field after submitting
             console.log("request complete");
             alert("Subscribed to our email list!");

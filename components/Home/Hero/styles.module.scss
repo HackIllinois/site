@@ -1,212 +1,120 @@
 @use "/app/colors" as *;
 
 .heroMain {
-    height: max(100vh, 60vw);
-    max-height: 100vh;
-    max-height: -webkit-fill-available;
-    background: linear-gradient(180deg, #5b619b 0%, #5b619b 100%);
-    // background-image: linear-gradient(0deg, #fff 0%, #6ae4ff 100%);
-    position: relative;
+    width: 100%;
+    height: 65vh;
+    background-color: #000000;
+    overflow-x: clip;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @media screen and (max-width: 800px) {
+        height: 50vh;
+    }
 }
 
 .heroContainer {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 48px;
-    @media screen and (max-width: 640px) {
-        gap: 24px;
-    }
-    width: fit-content;
-}
-
-@keyframes scaleUpDown {
-    0%,
-    100% {
-        transform: scale(1); /* Normal scale */
-    }
-    50% {
-        transform: scale(1.02); /* Scaled up by 2% */
-    }
-}
-
-.heroImageWrapper {
-    z-index: 1;
-    width: 852px;
-    height: 352px;
+    width: 100%;
+    height: calc(100% - 175px);
     position: relative;
-    img {
-        object-fit: contain;
-    }
-    @media screen and (max-width: 1440px) {
-        height: 252px;
-    }
-    @media screen and (max-width: 1152px) {
-        height: 222px;
-    }
-    @media screen and (max-width: 960px) {
-        height: 162px;
-    }
-    @media screen and (max-width: 640px) {
-        height: 120px;
-    }
-    animation: scaleUpDown 5s infinite;
-}
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 
-.heroButtonWrapper {
-    z-index: 1;
-    width: fit-content;
-    height: 110px;
+    @media screen and (max-width: 800px) {
+        height: calc(100% - 150px);
+    }
 
-    &:hover {
-        .heroButton {
-            background-color: rgba(217, 147, 27);
+    h1 {
+        font-weight: 700;
+        font-size: 75px;
+        background: linear-gradient(90deg, #6384BE -7.86%, #305e42 63.14%, #dd7f48 115.38%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-align: center;
+        line-height: 1;
+
+        @media screen and (max-width: 800px) {
+            font-size: 50px;
         }
 
-        transform: translateY(8px);
-        .heroButton::after {
-            top: 0px;
+        @media screen and (max-width: 500px) {
+            font-size: 40px;
         }
-        @media screen and (max-width: 1440px) {
-            transform: translateY(6px);
-            .heroButton::after {
-                top: 2px;
-            }
-        }
-        @media screen and (max-width: 1152px) {
-            transform: translateY(4px);
-            .heroButton::after {
-                top: 12px;
-            }
-        }
-        @media screen and (max-width: 960px) {
-        }
-        @media screen and (max-width: 640px) {
-            transform: translateY(4px);
-            .heroButton::after {
-                top: 2px;
-            }
+
+        @media screen and (max-height: 500px) {
+            font-size: 35px;
         }
     }
-}
 
-.heroButton {
-    background-color: $logo-secondary;
-    border-color: $logo-primary;
-    position: relative;
-    color: $logo-primary;
-    text-transform: uppercase;
-    border-style: solid;
-    cursor: pointer;
-
-    &::after {
-        content: "";
-        display: block;
-        width: 360px;
-        height: 90px;
-
-        border-radius: 32px;
-        background-color: $logo-thirdary;
-
-        z-index: -1;
+    .topHeader {
         position: absolute;
-        left: -8px;
-        top: 8px;
-    }
+        width: 100%;
+        z-index: 2;
+        top: 95%;
 
-    @media screen and (max-width: 1440px) {
-        width: 310px;
-        height: 78px;
-        font-size: 26px;
-        border-width: 6px;
-        border-radius: 20px;
-
-        &::after {
-            width: 310px;
-            height: 78px;
-
-            border-radius: 20px;
-
-            left: -6px;
-            top: 8px;
+        @media screen and (max-width: 900px) {
+            top: 95%;
         }
-    }
-    @media screen and (max-width: 1152px) {
-        width: 260px;
-        height: 70px;
-        font-size: 22px;
-        border-width: 4px;
-        border-radius: 20px;
 
-        &::after {
-            width: 260px;
-            height: 60px;
-            border-radius: 20px;
-            left: -4px;
-            top: 16px;
-        }
-    }
-    @media screen and (max-width: 960px) {
-    }
-    @media screen and (max-width: 640px) {
-        width: 200px;
-        height: 60px;
-        font-size: 18px;
-        border-width: 4px;
-        border-radius: 20px;
-
-        &::after {
-            width: 200px;
-            height: 60px;
-
-            border-radius: 20px;
-
-            left: -4px;
-            top: 6px;
+        @media screen and (max-height: 500px) {
+            top: 95%;
         }
     }
 
-    width: 360px;
-    height: 90px;
-    border-radius: 32px;
-    border-width: 8px;
-    font-size: 28px;
-    font-weight: 700;
-
-    &:before {
-        z-index: 1;
-        content: "";
+    .logoAnimation {
         position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
         top: 0;
-        left: 12%;
-        width: 20%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.3);
-        transform: skewX(-30deg);
-        transition: 0.3s;
-    }
+        height: 95%;
+        aspect-ratio: 1;
 
-    &:hover:before {
-        left: 65%;
-        background: rgba(255, 255, 255, 0.5);
+        @media screen and (max-height: 500px) {
+            height: 95%;
+        }
     }
 }
 
-.villageWrapper {
+.heroFooter {
     position: absolute;
-    bottom: 0px;
+    background-color: #000000;
+    line-height: 50px;
+    width: 100%;
+    overflow-y: hidden;
+    margin-top: 35px;
 
-    width: 100vw;
-    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    img {
-        object-fit: cover;
-        width: 100vw;
-        height: auto;
-        transform: translateY(5px);
+    .subtitle {
+        margin-top: 30px;
+        font-weight: 500;
+        font-size: 45px;
+        color: #FCDC8F;
+        text-shadow: 0px 1px 20px rgba(252, 220, 143, 0.76);
+        animation-name: glow;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+
+        @media screen and (max-width: 800px) {
+            margin-top: 0;
+            font-size: 32px;
+        }
+
+        @media screen and (max-height: 500px) {
+            font-size: 32px;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0px 0px 5px #fff, 0px 0px 4px #FCDC8F;
+            }
+
+            to {
+                text-shadow: 0px 0px 20px #fff, 0px 0px 4px #BD7C62;
+            }
+        }
     }
 }

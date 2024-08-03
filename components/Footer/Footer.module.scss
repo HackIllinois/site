@@ -3,27 +3,26 @@
     justify-content: center;
     width: 100%;
     padding: 0 10%;
-    background-color: #004561;
+    background-color: #000000;
 
     @media screen and (min-width: 950px) {
-        transform: scale(0.8);
+        transform: scale(0.8) translateY(-30%);
     }
 }
 
 .footer {
     display: flex;
     flex-direction: column;
-    row-gap: 3rem;
+    row-gap: 2.5rem;
     width: 100%;
-    background-color: #004561;
-    padding: min(5vh, 15rem) 0;
+    background-color: #000000;
 
     @media screen and (max-width: 900px) {
-        padding: 7.5rem 0;
+        padding-bottom: 7.5rem;
     }
 
     @media screen and (max-width: 700px) {
-        padding: 4rem 0;
+        padding-bottom: 4rem;
     }
 
     > div:nth-child(1) {
@@ -53,7 +52,7 @@
 
     @media screen and (max-width: 700px) {
         font-size: 1.25rem;
-        white-space: nowrap;
+        //white-space: nowrap;
     }
     font-weight: 600;
     color: #ffffff;
@@ -84,7 +83,7 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        background-color: #faa91d;
+        background-color: #305e42;
         // padding: min(1vw, 1rem);
         border-radius: 9999px;
         width: 4rem;
