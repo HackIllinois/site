@@ -131,12 +131,15 @@ input {
     overflow: visible;
 }
 
-table, th, td {
+table,
+th,
+td {
     border: 1px solid white;
     border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
     padding: 0.5rem;
 }
 

@@ -1,4 +1,7 @@
 **/.git
 **/node_modules
 **/.next
+**/.husky
+LICENSE
+.prettierignore
 package-lock.json
