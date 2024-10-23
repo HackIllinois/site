@@ -14,9 +14,11 @@
         "@types/node": "^18.7.16",
         "@types/react": "^18.3.11",
         "@types/react-dom": "^18.3.0",
+        "clsx": "^2.1.1",
         "next": "^14.2.15",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
+        "react-hook-form": "^7.53.1",
         "sass": "^1.79.4"
     },
     "devDependencies": {
