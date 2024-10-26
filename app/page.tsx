@@ -1,8 +1,13 @@
 import React from "react";
-import styles from "./page.module.scss";
+import MainDropdown from "@/components/DropdownBox/MainDropdown";
 
 const Home: React.FC = () => {
-    return <main className={styles.main}></main>;
+    const options = ["Option 1", "Option 2", "Option 3"];
+    const name = "school";
+
+    return (
+        <MainDropdown options={options} name={name} />
+    );
 };
 
 export default Home;
