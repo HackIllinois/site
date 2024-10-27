@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useMemo } from "react";
+import React, { ChangeEvent, useCallback, useMemo } from "react";
 import clsx from "clsx";
 // import { useController, useFormContext } from "react-hook-form";
 
@@ -28,7 +28,9 @@ type PropTypes = {
     hideErrors?: boolean;
     className?: string;
     style?: React.CSSProperties;
+    required?: boolean;
     threeColEnabled?: boolean;
+
     [key: string]: unknown;
 };
 
@@ -39,26 +41,54 @@ const Checkboxes = ({
     className,
     style,
     threeColEnabled,
+    required,
     ...props
 }: PropTypes): JSX.Element => {
     // The checkboxes component is a modified version of the one used in the HackIllinois 2024 website.
 
     const { control } = useFormContext();
-    const { field } = useController({ name, control });
 
-    const selectedValues: any[] = field.value || [];
+    // if the given value doesn't match any option's value, then it must have come from the "Other" option
+    const isValueOther = (value: string) =>
+        options.every(option => option.value !== value);
+
+    const { field } = useController({
+        name,
+        control,
+        rules: {
+            validate: value => {
+                if (required) {
+                    if (!value || value.length === 0) {
+                        return "At least one option must be selected";
+                    }
+                    // check that, if an "Other" option is selected, the user has entered a value
+                }
+                if (value) {
+                    const otherOptionValue = value.find(isValueOther);
+                    if (otherOptionValue !== undefined && !otherOptionValue) {
+                        return "Please specify your answer";
+                    }
+                }
+
+                return true;
+            }
+        }
+    });
+
+    const selectedValues: any[] = useMemo(() => {
+        return field.value || [];
+    }, [field]);
 
     // if we can't find an option the desired value, then we assume the user chose the "Other" option
     const findOptionWithValue = (value: string): CheckboxOption | undefined =>
         options.find(option => option.value === value) ||
         options.find(option => option.isOther); // we assume there's only one "Other" option
 
-    // if the given value doesn't match any option's value, then it must have come from the "Other" option
-    const isValueOther = (value: string) =>
-        options.every(option => option.value !== value);
-
     // get the value corresponding to the "Other" checkbox
     const getOtherValue = () => selectedValues.find(isValueOther);
+    const [otherValueTemp, setOtherValueTemp] = React.useState<
+        string | undefined
+    >(getOtherValue());
 
     // remove user-inputted values that were entered through the "Other" option
     // (i.e. not present as the value of any option)
@@ -111,9 +141,29 @@ const Checkboxes = ({
         return options.find(option => option.isOther && isChecked(option));
     }, [options, selectedValues]);
 
-    const handleChangeOther = (e: ChangeEvent<HTMLInputElement>) => {
-        field.onChange(removeOther(selectedValues).concat(e.target.value));
-    };
+    const handleChangeOther = useCallback(
+        (e: ChangeEvent<HTMLInputElement>) => {
+            setOtherValueTemp(e.target.value);
+            field.onChange(removeOther(selectedValues).concat(e.target.value));
+        },
+        [selectedValues, field]
+    );
+
+    const otherOptionInputComponent = useMemo(() => {
+        if (!checkedOtherOption) {
+            return <></>;
+        }
+        return (
+            <StyledInput
+                placeholder={
+                    checkedOtherOption.otherPlaceholder ||
+                    "If selected 'Other', then please specify here"
+                }
+                value={otherValueTemp || ""}
+                onChange={handleChangeOther}
+            />
+        );
+    }, [checkedOtherOption, otherValueTemp, handleChangeOther]);
 
     return (
         <>
@@ -156,19 +206,14 @@ const Checkboxes = ({
                         )}
                     </React.Fragment>
                 ))}
-                <ErrorMessage name={name} type="checkbox" />
             </div>
 
-            {checkedOtherOption && (
-                <StyledInput
-                    placeholder={
-                        checkedOtherOption.otherPlaceholder ||
-                        "If selected 'Other', then please specify here"
-                    }
-                    value={getOtherValue()}
-                    onChange={handleChangeOther}
-                />
-            )}
+            {checkedOtherOption && otherOptionInputComponent}
+
+            <ErrorMessage
+                name={name}
+                type={props.isRadio ? "checkbox" : "radio"}
+            />
         </>
     );
 };

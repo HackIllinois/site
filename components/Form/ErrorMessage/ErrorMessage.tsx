@@ -23,23 +23,7 @@ const ErrorMessage = ({
         if (typeof errorMessage === "string") {
             return (
                 <div>
-                    {type == "checkbox" ? (
-                        <div className={styles.errorMessageCheckbox}>
-                            {" "}
-                            {errorMessage}
-                        </div>
-                    ) : type == "radiobox" ? (
-                        <div className={styles.errorMessageRadiobox}>
-                            {" "}
-                            {errorMessage}
-                        </div>
-                    ) : (
-                        <div className={styles.errorMessage}>
-                            {" "}
-                            {errorMessage}
-                        </div>
-                    )}
-                    ;
+                    <div className={styles.errorMessage}> {errorMessage}</div>
                 </div>
             );
         }

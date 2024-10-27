@@ -34,10 +34,11 @@ const TestForm: React.FC = () => {
                             { label: "Other", value: "Other", isOther: true }
                         ]}
                         threeColEnabled
+                        required
                     />
 
                     <p className={styles.text}>
-                        What are you looking forward to at HackIllinois?
+                        What are you looking forward to at HackIllinois?*
                     </p>
                     <Checkboxes
                         name="LookingForwardTo"
@@ -81,7 +82,7 @@ const TestForm: React.FC = () => {
                     />
 
                     <p className={styles.text}>
-                        Do you have any allergies or restrictions?
+                        Do you have any allergies or restrictions?*
                     </p>
                     <Checkboxes
                         name="AllergiesRestrictions"
@@ -103,11 +104,12 @@ const TestForm: React.FC = () => {
                             },
                             { label: "Other", value: "Other", isOther: true }
                         ]}
+                        required
                     />
 
                     <p className={styles.text}>
                         Would you like to be considered for travel
-                        reimbursement?
+                        reimbursement?*
                     </p>
                     <Checkboxes
                         name="TravelReimbursement"
@@ -123,6 +125,7 @@ const TestForm: React.FC = () => {
                                 isRadio: true
                             }
                         ]}
+                        required
                         threeColEnabled
                     />
                     <p className={styles.text}>
@@ -143,10 +146,11 @@ const TestForm: React.FC = () => {
                                 isRadio: true
                             }
                         ]}
+                        required
                         threeColEnabled
                     />
                     <p className={styles.text}>
-                        How will you be getting to HackIllinois?
+                        How will you be getting to HackIllinois?*
                     </p>
                     <Checkboxes
                         name="HowGetToHackIllinois"
@@ -163,6 +167,7 @@ const TestForm: React.FC = () => {
                             }
                         ]}
                         threeColEnabled
+                        required
                     />
 
                     <button type="submit" className={styles.submitButton}>
