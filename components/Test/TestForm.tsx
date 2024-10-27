@@ -70,7 +70,13 @@ const TestForm: React.FC = () => {
                                 label: "Meeting new people",
                                 value: "Meeting new people"
                             },
-                            { label: "Other", value: "Other", isOther: true }
+                            {
+                                label: "Other",
+                                value: "Other",
+                                isOther: true,
+                                otherPlaceholder:
+                                    "What are you looking forward to..."
+                            }
                         ]}
                     />
 
@@ -109,14 +115,12 @@ const TestForm: React.FC = () => {
                             {
                                 label: "Yes",
                                 value: "Yes",
-                                isRadio: true,
-                                isRadioButton: true
+                                isRadio: true
                             },
                             {
                                 label: "No",
                                 value: "No",
-                                isRadio: true,
-                                isRadioButton: true
+                                isRadio: true
                             }
                         ]}
                         threeColEnabled
@@ -131,14 +135,12 @@ const TestForm: React.FC = () => {
                             {
                                 label: "Yes",
                                 value: "Yes",
-                                isRadio: true,
-                                isRadioButton: true
+                                isRadio: true
                             },
                             {
                                 label: "No",
                                 value: "No",
-                                isRadio: true,
-                                isRadioButton: true
+                                isRadio: true
                             }
                         ]}
                         threeColEnabled
@@ -152,14 +154,12 @@ const TestForm: React.FC = () => {
                             {
                                 label: "Self Travel",
                                 value: "Self Travel",
-                                isRadio: true,
-                                isRadioButton: true
+                                isRadio: true
                             },
                             {
                                 label: "Bus Charter",
                                 value: "Bus Charter",
-                                isRadio: true,
-                                isRadioButton: true
+                                isRadio: true
                             }
                         ]}
                         threeColEnabled

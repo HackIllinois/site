@@ -17,16 +17,10 @@ export type CheckboxOption = {
     // `isRadio: true` indicates that this specific checkbox will act like a radio button
     // (i.e. if this is checked, then no other checkbox may be also checked)
     isRadio?: boolean;
-
-    // `isRadioButton: true` indicates that this specific checkbox is a radio button
-    // and the css will change accordingly
-    isRadioButton?: boolean;
-
-    // there can be exactly one checkbox that serves as an "Other" option, and will allow the user
-    // to enter their own choice for the `value` through a text input
-    isOther?: boolean;
-    otherPlaceholder?: string;
-};
+} & (
+    | { isOther: true; otherPlaceholder?: string }
+    | { isOther?: false; otherPlaceholder?: never }
+);
 
 type PropTypes = {
     name: string;
@@ -134,12 +128,12 @@ const Checkboxes = ({
             >
                 {options.map(option => (
                     <React.Fragment key={option.value}>
-                        {option.isRadioButton ? (
+                        {option.isRadio ? (
                             <RadioButton
                                 value={option.value}
                                 label={option.label}
                                 checked={isChecked(option)}
-                                radio={option.isRadioButton}
+                                radio={option.isRadio}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     handleSelect(e.target.checked, option)
                                 }
@@ -154,7 +148,7 @@ const Checkboxes = ({
                                 value={option.value}
                                 label={option.label}
                                 checked={isChecked(option)}
-                                radio={option.isRadioButton}
+                                radio={option.isRadio}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     handleSelect(e.target.checked, option)
                                 }
