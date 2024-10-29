@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    width: 60%;
+    padding: 1rem;
+    gap: 4rem;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+}
+
+.formHeader {
+    font-weight: 900;
+    font-size: 72px;
+}
+
+.formQuestion {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .formQuestionText {
+        font-weight: 600;
+        font-size: 40px;
+    }
+}
+
+.formRequiredClass {
+    color: red;
+}
