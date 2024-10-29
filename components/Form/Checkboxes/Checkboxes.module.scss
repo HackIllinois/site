@@ -1,0 +1,21 @@
+.checkboxes {
+    // grid with 2 col
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    margin-bottom: 10px;
+    // gap: 10px;
+    @media (max-width: 800px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.checkboxes.threeCol {
+    grid-template-columns: repeat(3, 1fr);
+    @media (max-width: 700px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 500px) {
+        grid-template-columns: 1fr;
+    }
+}

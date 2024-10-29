@@ -1,0 +1,27 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 0 auto;
+    // padding-top: 30px;
+    padding: 100px;
+}
+
+.text {
+    color: white;
+    font-size: 2.5rem;
+    margin-top: 70px;
+}
+
+.submitButton {
+    background-color: #1d2644;
+    color: white;
+    border: none;
+    border-radius: 0.25em;
+    padding: 0.5em 1em;
+    font-size: 1.75rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 70px;
+    margin-bottom: 15px;
+}
