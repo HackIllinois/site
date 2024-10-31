@@ -2,9 +2,9 @@
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-import styles from "./Form.module.scss";
-import Navigation from "../Navigation/Navigation";
-import Transportation from "./pages/Transportation/Transportation";
+import styles from "./Registration.module.scss";
+import Navigation from "./Navigation/Navigation";
+import Transportation from "./Pages/Transportation/Transportation";
 
 const pages: Array<React.FC> = [
     // PersonalInfo,

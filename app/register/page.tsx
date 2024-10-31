@@ -1,4 +1,4 @@
-import Form from "@/components/Registration/Form/Form";
+import Form from "@/components/Registration/Registration";
 import Head from "next/head";
 
 import styles from "./styles.module.scss";
