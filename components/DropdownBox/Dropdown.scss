@@ -1,11 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
 .dropdown {
     display: flex;
     flex-direction: column;
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .dropdown-label {
-    font-size: 18px;
+    font-size: 27px;
     font-weight: bold;
     color: #ffffff;
 }
@@ -18,12 +20,13 @@
 .dropdown-button {
     width: 100%;
     padding: 10px;
-    font-size: 16px;
+    font-size: 21px;
     color: #757575;
     background-color: #ffffff;
     border: 1px solid #d1d1d1;
     border-radius: 2px;
     display: flex;
+    margin-top: 10px;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
@@ -35,7 +38,7 @@
 }
 
 .dropdown-options {
-    position: absolute; 
+    position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
@@ -46,11 +49,12 @@
     border: 1px solid #d1d1d1;
     border-radius: 2px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-height: 200px;
+    max-height: 180px;
     overflow-y: auto;
     z-index: 1000;
-
-    display: none; 
+    font-size: 21px; 
+    color: #757575;
+    display: none;
     opacity: 0;
     height: 0;
     transition: opacity 0.3s ease, height 0.3s ease;
@@ -60,4 +64,16 @@
     display: block;
     opacity: 1;
     height: auto;
+}
+
+.dropdown-options li {
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 21px;
+    color: #757575;
+    cursor: pointer;
+}
+
+.dropdown-options li:hover {
+    background-color: #f0f0f0;
 }
