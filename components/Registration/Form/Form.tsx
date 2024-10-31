@@ -6,23 +6,7 @@ import styles from "./Form.module.scss";
 import Navigation from "../Navigation/Navigation";
 import Transportation from "./pages/Transportation/Transportation";
 
-export type FormPageProps = {
-    containerClass: string;
-    headerClass: string;
-    questionClass: string;
-    questionTextClass: string;
-    requiredClass: string;
-};
-
-const formProps = {
-    containerClass: styles.formContainer,
-    headerClass: styles.formHeader,
-    questionClass: styles.formQuestion,
-    questionTextClass: styles.formQuestionText,
-    requiredClass: styles.formRequiredClass
-} satisfies FormPageProps;
-
-const pages: Array<React.FC<FormPageProps>> = [
+const pages: Array<React.FC> = [
     // PersonalInfo,
     // Education,
     // Experience,
@@ -57,8 +41,8 @@ const Form: React.FC = () => {
         <>
             <div className={styles.container}>
                 <FormProvider {...methods}>
-                    <form>
-                        {React.createElement(pages[formIndex], formProps)}
+                    <form className={styles.form}>
+                        {React.createElement(pages[formIndex])}
                     </form>
                 </FormProvider>
                 {formIndex != pages.length - 1 ||

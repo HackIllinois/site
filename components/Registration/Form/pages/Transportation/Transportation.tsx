@@ -2,8 +2,6 @@ import Checkboxes, {
     CheckboxOption
 } from "@/components/Form/Checkboxes/Checkboxes";
 import styles from "./Transportation.module.scss";
-import { FormPageProps } from "../../Form";
-import clsx from "clsx";
 
 const travelAcknowledgeOptions = [
     {
@@ -31,21 +29,15 @@ const travelMethodOptions = [
     }
 ] satisfies CheckboxOption[];
 
-const Transportation: React.FC<FormPageProps> = ({
-    containerClass,
-    headerClass,
-    questionClass,
-    questionTextClass,
-    requiredClass
-}) => {
+const Transportation: React.FC = () => {
     return (
-        <div className={clsx(containerClass, styles.container)}>
-            <h1 className={clsx(headerClass, styles.header)}>Transportation</h1>
-            <div className={clsx(questionClass, styles.question)}>
-                <h3 className={clsx(questionTextClass, styles.questionText)}>
+        <div className={styles.container}>
+            <h1>Transportation</h1>
+            <div className={styles.question}>
+                <h3>
                     Are you aware that you are responsible for your own
                     transportation to the site?
-                    <span className={requiredClass}>*</span>
+                    <span className={styles.required}>*</span>
                 </h3>
                 <Checkboxes
                     name="travelAcknowledge"
@@ -53,10 +45,10 @@ const Transportation: React.FC<FormPageProps> = ({
                     required
                 />
             </div>
-            <div className={clsx(questionClass, styles.question)}>
-                <h3 className={clsx(questionTextClass, styles.questionText)}>
+            <div className={styles.question}>
+                <h3>
                     How will you be getting to HackIllinois?
-                    <span className={requiredClass}>*</span>
+                    <span className={styles.required}>*</span>
                 </h3>
                 <Checkboxes
                     name="travelMethod"

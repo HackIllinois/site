@@ -9,28 +9,14 @@
     gap: 4rem;
 }
 
-.formContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 6rem;
-}
+.form {
+    h1 {
+        font-weight: 900;
+        font-size: 72px;
+    }
 
-.formHeader {
-    font-weight: 900;
-    font-size: 72px;
-}
-
-.formQuestion {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-
-    .formQuestionText {
+    h3 {
         font-weight: 600;
         font-size: 40px;
     }
-}
-
-.formRequiredClass {
-    color: red;
 }
