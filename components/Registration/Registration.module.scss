@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    width: 60%;
+    padding: 1rem;
+    gap: 4rem;
+}
+
+.form {
+    h1 {
+        font-weight: 900;
+        font-size: 72px;
+    }
+
+    h3 {
+        font-weight: 600;
+        font-size: 40px;
+    }
+}
