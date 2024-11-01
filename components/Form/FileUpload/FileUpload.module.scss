@@ -1,0 +1,49 @@
+.fileUpload {
+    background-color: white;
+    width: 100%;
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    gap: 1rem;
+    position: relative;
+
+    .text {
+        font-size: 28px;
+        color: #6c6c6c;
+        font-style: normal;
+        font-weight: 400;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    label {
+        background-color: #33b1c1;
+        font-weight: 400;
+        font-size: 28px;
+        color: white;
+        padding: 1rem 5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .filename {
+        font-size: 0.875em;
+        color: #6c6c6c;
+        position: absolute;
+        bottom: 2rem;
+    }
+
+    input {
+        display: none;
+    }
+}
+
+.dragOver {
+    background-color: rgba(227, 227, 227);
+}
