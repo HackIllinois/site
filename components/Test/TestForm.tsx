@@ -2,6 +2,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import Checkboxes from "../Form/Checkboxes/Checkboxes";
 import styles from "./TestForm.module.scss";
+import FileUpload from "../Form/FileUpload/FileUpload";
 
 const TestForm: React.FC = () => {
     // This is a testing form developed to test the Checkboxes component.
@@ -17,9 +18,20 @@ const TestForm: React.FC = () => {
         <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)}>
                 <div className={styles.form}>
+                    <p className={styles.text}>Resume*</p>
+                    <FileUpload
+                        className={styles["resume-upload"]}
+                        name="resumeFileName"
+                        type="resume"
+                        accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        text="Upload or drag and drop PDF, DOCX, up to 4MB"
+                        required={true}
+                    />
+
                     <p className={styles.text}>
                         How did you hear about HackIllinois?
                     </p>
+
                     <Checkboxes
                         name="HeardAbout"
                         options={[
