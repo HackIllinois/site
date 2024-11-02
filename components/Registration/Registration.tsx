@@ -48,7 +48,7 @@ const Form: React.FC = () => {
                         {React.createElement(pages[formIndex])}
                     </form>
                 </FormProvider>
-                {formIndex != pages.length - 1 && true && (
+                {formIndex != pages.length - 1 && (
                     <Navigation
                         index={formIndex}
                         handlePrevious={previousPage}
