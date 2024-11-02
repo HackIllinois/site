@@ -1,5 +1,5 @@
-import React from 'react'
-import './DropdownItem.scss'
+import React from "react";
+import "./DropdownItem.scss";
 
 interface DropdownItemProps {
     option: string;
@@ -8,13 +8,10 @@ interface DropdownItemProps {
 
 const DropdownItem: React.FC<DropdownItemProps> = ({ option, onClick }) => {
     return (
-        <li
-            className="dropdown-option"
-            onClick={() => onClick(option)}
-        >
+        <li className="dropdown-option" onClick={() => onClick(option)}>
             {option}
         </li>
-    )
-}
+    );
+};
 
-export default DropdownItem
+export default DropdownItem;

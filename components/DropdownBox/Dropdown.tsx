@@ -6,25 +6,21 @@ import "./Dropdown.scss";
 
 interface DropdownProps {
     name: string;
-    label: string;
     options: string[];
+    width?: string; // Accepting width as an optional prop
     placeholder?: string;
-    width?: string;
     required?: boolean;
-    onSubmit: (data: any) => void;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
     name,
-    label,
     options,
+    width,
     placeholder = "Select...",
-    width = "20%",
-    required = false,
-    onSubmit
+    required = false
 }) => {
     const modOptions = [placeholder, ...options];
-    const { setValue, register, handleSubmit } = useFormContext();
+    const { setValue, register } = useFormContext();
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
@@ -37,15 +33,10 @@ const Dropdown: React.FC<DropdownProps> = ({
         setSelectedOption(option);
         setValue(name, option);
         setIsOpen(false);
-        handleSubmit(onSubmit)();
     };
 
     return (
         <div className="dropdown" style={{ width }}>
-            <h3 className="dropdown-label">
-                {label}
-                {required && "*"}
-            </h3>
             <div className="dropdown-container">
                 <button onClick={handleToggle} className="dropdown-button">
                     {selectedOption || placeholder}

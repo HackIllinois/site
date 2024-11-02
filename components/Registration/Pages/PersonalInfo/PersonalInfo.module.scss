@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    gap: 70px;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.field {
+    flex: 5;
+}
