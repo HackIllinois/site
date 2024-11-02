@@ -1,8 +1,9 @@
-import Dropdown from "@/components/DropdownBox/Dropdown";
 import FileUpload from "@/components/Form/FileUpload/FileUpload";
 import styles from "./Education.module.scss";
 import majors from "@/modules/majors.json";
 import schools from "@/modules/schools.json";
+import DropDownBox from "@/components/DropdownBox/MainDropdown";
+import QuestionHeader from "@/components/QuestionHeader/QuestionHeader";
 
 const graduationYearOptions: string[] = [];
 for (let i = 2030; i >= 1970; i -= 1) {
@@ -19,43 +20,40 @@ const Education: React.FC = () => {
         <div className={styles.container}>
             <h1>Education</h1>
             <div className={styles.dropdownContainer}>
-                <div>
-                    <Dropdown
-                        name={"school"}
-                        label={"School"}
+                <div className={styles.question}>
+                    <QuestionHeader text="School" required />
+                    <DropDownBox
+                        name="school"
                         options={schoolOptions}
-                        required
-                        onSubmit={() => {}}
-                        width={"100%"}
+                        width="100%"
                     />
                 </div>
-                <div>
-                    <Dropdown
-                        name={"Graduation Year"}
-                        label={"Graduation Year"}
+                <div className={styles.question}>
+                    <QuestionHeader text="Graduation Year" required />
+                    <DropDownBox
+                        name="grad year"
                         options={graduationYearOptions}
-                        required
-                        onSubmit={() => {}}
-                        width={"100%"}
+                        width="100%"
                     />
                 </div>
             </div>
             <div className={styles.dropdownContainer}>
-                <Dropdown
-                    name={"Major"}
-                    label={"Major"}
-                    options={majorOptions}
-                    required
-                    onSubmit={() => {}}
-                    width={"100%"}
-                />
-                <Dropdown
-                    name={"Minor"}
-                    label={"Minor"}
-                    options={majorOptions}
-                    onSubmit={() => {}}
-                    width={"100%"}
-                />
+                <div className={styles.question}>
+                    <QuestionHeader text="Major" required />
+                    <DropDownBox
+                        name="majojr"
+                        options={majorOptions}
+                        width="100%"
+                    />
+                </div>
+                <div className={styles.question}>
+                    <QuestionHeader text="Minor" />
+                    <DropDownBox
+                        name="minor"
+                        options={majorOptions}
+                        width="100%"
+                    />
+                </div>
             </div>
 
             <div className={styles.question}>
