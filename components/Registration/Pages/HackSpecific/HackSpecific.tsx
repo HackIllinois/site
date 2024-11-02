@@ -5,6 +5,87 @@ import styles from "./HackSpecific.module.scss";
 import QuestionHeader from "@/components/QuestionHeader/QuestionHeader";
 import TextInput from "@/components/Form/TextInput/TextInput";
 
+const heardAboutOptions = [
+    { label: "Instagram", value: "INSTAGRAM" },
+    { label: "Facebook", value: "FACEBOOK" },
+    { label: "UIUC Flyers", value: "UIUC_FLYERS" },
+    { label: "Twitter", value: "TWITTER" },
+    { label: "Slack", value: "SLACK" },
+    { label: "School Emails", value: "SCHOOL_EMAILS" },
+    { label: "LinkedIn", value: "LINKEDIN" },
+    { label: "Word of Mouth", value: "WORD_OF_MOUTH" },
+    { label: "Other", value: "OTHER", isOther: true }
+] satisfies CheckboxOption[];
+
+const lookingForwardToOptions = [
+    {
+        label: "Attending workshops",
+        value: "ATTENDING_WORKSHOPS"
+    },
+    {
+        label: "Submitting a project to win prizes",
+        value: "SUBMIT_PROJECT_TO_WIN_PRIZES"
+    },
+    {
+        label: "Mini Events & Game Tournaments",
+        value: "MINI_EVENTS_GAME_TOURNAMENTS"
+    },
+    {
+        label: "Working with mentors",
+        value: "WORKING_WITH_MENTORS"
+    },
+    {
+        label: "Pitching your project",
+        value: "PITCHING_YOUR_PROJECT"
+    },
+    {
+        label: "Company Q & A's & Networking",
+        value: "COMPANY_QA_NETWORKING"
+    },
+    {
+        label: "Meeting new people",
+        value: "MEETING_NEW_PEOPLE"
+    },
+    {
+        label: "Other",
+        value: "OTHER",
+        isOther: true,
+        otherPlaceholder: "What are you looking forward to..."
+    }
+] satisfies CheckboxOption[];
+
+const allergiesRestrictionsOptions = [
+    {
+        label: "Peanut allergy",
+        value: "PEANUT_ALLERGY"
+    },
+    {
+        label: "Dairy intolerance",
+        value: "DAIRY_INTOLERANCE"
+    },
+    { label: "Vegetarian", value: "VEGETARIAN" },
+    { label: "Vegan", value: "VEGAN" },
+    { label: "Gluten-free", value: "GLUTEN_FREE" },
+    {
+        label: "Shellfish allergy",
+        value: "SHELLFISH_ALLERGY"
+    },
+    { label: "Other", value: "Other", isOther: true }
+] satisfies CheckboxOption[];
+
+const travelReimbursementOptions = [
+    {
+        label: "Yes",
+        value: "YES",
+        isRadio: true
+    },
+    {
+        label: "No",
+        value: "NO",
+        isRadio: true
+    }
+] satisfies CheckboxOption[];
+
 const HackSpecific: React.FC = () => {
     return (
         <div className={styles.container}>
@@ -15,7 +96,7 @@ const HackSpecific: React.FC = () => {
                     required
                 />
                 <TextInput
-                    name="InterestExplanation"
+                    name="interestExplanation"
                     multiline
                     required
                     placeholder="Type your response..."
@@ -27,18 +108,8 @@ const HackSpecific: React.FC = () => {
                     required
                 />
                 <Checkboxes
-                    name="HeardAbout"
-                    options={[
-                        { label: "Instagram", value: "Instagram" },
-                        { label: "Facebook", value: "Facebook" },
-                        { label: "UIUC Flyers", value: "UIUC Flyers" },
-                        { label: "Twitter", value: "Twitter" },
-                        { label: "Slack", value: "Slack" },
-                        { label: "School Emails", value: "School Emails" },
-                        { label: "LinkedIn", value: "LinkedIn" },
-                        { label: "Word of Mouth", value: "Word of Mouth" },
-                        { label: "Other", value: "Other", isOther: true }
-                    ]}
+                    name="heardAbout"
+                    options={heardAboutOptions}
                     threeColEnabled
                     required
                 />
@@ -49,44 +120,8 @@ const HackSpecific: React.FC = () => {
                     required
                 />
                 <Checkboxes
-                    name="LookingForwardTo"
-                    options={[
-                        {
-                            label: "Attending workshops",
-                            value: "Attending workshops"
-                        },
-                        {
-                            label: "Submitting a project to win prizes",
-                            value: "Submitting a project to win prizes"
-                        },
-                        {
-                            label: "Mini Events & Game Tournaments",
-                            value: "Mini Events & Game Tournaments"
-                        },
-                        {
-                            label: "Working with mentors",
-                            value: "Working with mentors"
-                        },
-                        {
-                            label: "Pitching your project",
-                            value: "Pitching your project"
-                        },
-                        {
-                            label: "Company Q & A's & Networking",
-                            value: "Company Q & A's & Networking"
-                        },
-                        {
-                            label: "Meeting new people",
-                            value: "Meeting new people"
-                        },
-                        {
-                            label: "Other",
-                            value: "Other",
-                            isOther: true,
-                            otherPlaceholder:
-                                "What are you looking forward to..."
-                        }
-                    ]}
+                    name="lookingForwardTo"
+                    options={lookingForwardToOptions}
                 />
             </div>
             <div className={styles.question}>
@@ -95,25 +130,8 @@ const HackSpecific: React.FC = () => {
                     required
                 />
                 <Checkboxes
-                    name="AllergiesRestrictions"
-                    options={[
-                        {
-                            label: "Peanut allergy",
-                            value: "Peanut allergy"
-                        },
-                        {
-                            label: "Dairy intolerance",
-                            value: "Dairy intolerance"
-                        },
-                        { label: "Vegetarian", value: "Vegetarian" },
-                        { label: "Vegan", value: "Vegan" },
-                        { label: "Gluten-free", value: "Gluten-free" },
-                        {
-                            label: "Shellfish allergy",
-                            value: "Shellfish allergy"
-                        },
-                        { label: "Other", value: "Other", isOther: true }
-                    ]}
+                    name="allergiesRestrictions"
+                    options={allergiesRestrictionsOptions}
                     required
                 />
             </div>
@@ -123,19 +141,8 @@ const HackSpecific: React.FC = () => {
                     required
                 />
                 <Checkboxes
-                    name="TravelReimbursement"
-                    options={[
-                        {
-                            label: "Yes",
-                            value: "Yes",
-                            isRadio: true
-                        },
-                        {
-                            label: "No",
-                            value: "No",
-                            isRadio: true
-                        }
-                    ]}
+                    name="travelReimbursement"
+                    options={travelReimbursementOptions}
                     required
                     threeColEnabled
                 />
