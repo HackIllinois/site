@@ -3,7 +3,7 @@ import NavigationButton from "./NavigationButton";
 
 const buttonNames: Array<[string, string]> = [
     // ["Back", "Education"],
-    // ["Personal Info", "Experience"],
+    ["Personal Info", "Experience"],
     // ["Education", "Transportation"],
     ["Experience", "Review Info"]
     // ["Transportation", "Submit"]

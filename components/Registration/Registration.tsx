@@ -5,10 +5,11 @@ import { FormProvider, useForm } from "react-hook-form";
 import styles from "./Registration.module.scss";
 import Navigation from "./Navigation/Navigation";
 import Transportation from "./Pages/Transportation/Transportation";
+import Education from "./Pages/Education/Education";
 
 const pages: Array<React.FC> = [
     // PersonalInfo,
-    // Education,
+    Education,
     // Experience,
     Transportation
     // Review,
@@ -45,14 +46,16 @@ const Form: React.FC = () => {
                         {React.createElement(pages[formIndex])}
                     </form>
                 </FormProvider>
-                {formIndex != pages.length - 1 ||
-                    (true && (
+                {
+                    // formIndex != pages.length - 1 ||
+                    true && (
                         <Navigation
                             index={formIndex}
                             handlePrevious={previousPage}
                             handleNext={nextPage}
                         />
-                    ))}
+                    )
+                }
             </div>
         </>
     );
