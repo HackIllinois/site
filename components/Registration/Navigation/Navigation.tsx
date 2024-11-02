@@ -2,9 +2,9 @@ import styles from "./Navigation.module.scss";
 import NavigationButton from "./NavigationButton";
 
 const buttonNames: Array<[string, string]> = [
-    // ["Back", "Education"],
+    ["Back", "Education"],
     ["Personal Info", "Experience"],
-    // ["Education", "Transportation"],
+    ["Education", "Transportation"],
     ["Experience", "Review Info"]
     // ["Transportation", "Submit"]
 ];

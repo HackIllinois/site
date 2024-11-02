@@ -6,11 +6,14 @@ import styles from "./Registration.module.scss";
 import Navigation from "./Navigation/Navigation";
 import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
+import HackSpecific from "./Pages/HackSpecific/HackSpecific";
+import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
 
 const pages: Array<React.FC> = [
-    // PersonalInfo,
+    PersonalInfo,
     Education,
     // Experience,
+    HackSpecific,
     Transportation
     // Review,
     // Confirmation
@@ -46,16 +49,13 @@ const Form: React.FC = () => {
                         {React.createElement(pages[formIndex])}
                     </form>
                 </FormProvider>
-                {
-                    // formIndex != pages.length - 1 ||
-                    true && (
-                        <Navigation
-                            index={formIndex}
-                            handlePrevious={previousPage}
-                            handleNext={nextPage}
-                        />
-                    )
-                }
+                {formIndex != pages.length - 1 && (
+                    <Navigation
+                        index={formIndex}
+                        handlePrevious={previousPage}
+                        handleNext={nextPage}
+                    />
+                )}
             </div>
         </>
     );
