@@ -1,39 +1,33 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 .dropdown {
     display: flex;
     flex-direction: column;
-    font-family: "Montserrat", sans-serif;
-    width: 100%;
-}
-
-.dropdown-label {
-    font-size: inherit;
-    font-weight: inherit;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .dropdown-container {
     position: relative;
-    width: 100%;
+    width: 100%; 
 }
 
 .dropdown-button {
-    width: 100%;
-    padding: 10px;
-    font-size: 21px;
-    color: #757575;
+    width: 100%; 
+    padding: 11px; 
+    font-size: 28px;
+    color: #a19366;
     background-color: #ffffff;
     border: 1px solid #d1d1d1;
-    border-radius: 2px;
+    border-radius: 4px;
     display: flex;
-    margin-top: 10px;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+
 }
 
 .dropdown-icon {
-    font-size: 16px;
+    font-size: 16px; 
     color: #757575;
 }
 
@@ -41,7 +35,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%;
+    width: 100%; 
     margin-top: 4px;
     padding: 0;
     list-style: none;
@@ -49,17 +43,15 @@
     border: 1px solid #d1d1d1;
     border-radius: 2px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-height: 180px;
-    overflow-y: auto;
+    max-height: 220px; 
+    overflow-y: auto; 
     z-index: 1000;
-    font-size: 21px;
-    color: #757575;
+    font-size: 21px; 
+    color: #ad8e28;
     display: none;
     opacity: 0;
     height: 0;
-    transition:
-        opacity 0.3s ease,
-        height 0.3s ease;
+    transition: opacity 0.3s ease, height 0.3s ease;
 }
 
 .dropdown-options.open {
@@ -69,10 +61,10 @@
 }
 
 .dropdown-options li {
-    padding: 10px;
-    font-family: "Montserrat", sans-serif;
-    font-size: 21px;
-    color: #757575;
+    padding: 15px; 
+    font-family: 'Montserrat', sans-serif;
+    font-size: 21px; 
+    color: #ad8e28;
     cursor: pointer;
 }
 
