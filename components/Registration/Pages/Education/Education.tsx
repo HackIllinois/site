@@ -1,22 +1,8 @@
-// import Checkboxes, {
-//     CheckboxOption
-// } from "@/components/Form/Checkboxes/Checkboxes";
-import MainDropdown from "@/components/DropdownBox/MainDropdown";
 import Dropdown from "@/components/DropdownBox/Dropdown";
 import FileUpload from "@/components/Form/FileUpload/FileUpload";
 import styles from "./Education.module.scss";
 import majors from "@/modules/majors.json";
 import schools from "@/modules/schools.json";
-
-const options = [
-    "Option 1",
-    "Option 2",
-    "Option 3",
-    "Option 3",
-    "Option 3",
-    "Option 3",
-    "Option 3"
-];
 
 const graduationYearOptions: string[] = [];
 for (let i = 2030; i >= 1970; i -= 1) {
@@ -34,23 +20,21 @@ const Education: React.FC = () => {
             <h1>Education</h1>
             <div className={styles.dropdownContainer}>
                 <div>
-                    <h3>School*</h3>
                     <Dropdown
                         name={"school"}
-                        label={""}
+                        label={"School"}
                         options={schoolOptions}
-                        // required
+                        required
                         onSubmit={() => {}}
                         width={"100%"}
                     />
                 </div>
                 <div>
-                    <h3>Graduation Year*</h3>
                     <Dropdown
                         name={"Graduation Year"}
-                        label={""}
+                        label={"Graduation Year"}
                         options={graduationYearOptions}
-                        // required
+                        required
                         onSubmit={() => {}}
                         width={"100%"}
                     />
@@ -75,10 +59,7 @@ const Education: React.FC = () => {
             </div>
 
             <div className={styles.question}>
-                <h3>
-                    Resume*
-                    {/* <span className={styles.required}>*</span> */}
-                </h3>
+                <h3>Resume*</h3>
                 <FileUpload
                     className={styles["resume-upload"]}
                     name="resumeFileName"
