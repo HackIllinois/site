@@ -2,7 +2,6 @@ import Checkboxes, {
     CheckboxOption
 } from "@/components/Form/Checkboxes/Checkboxes";
 import styles from "./HackSpecific.module.scss";
-import QuestionHeader from "@/components/QuestionHeader/QuestionHeader";
 import TextInput from "@/components/Form/TextInput/TextInput";
 
 const heardAboutOptions = [
@@ -91,11 +90,12 @@ const HackSpecific: React.FC = () => {
         <div className={styles.container}>
             <h1>Hack-Specific</h1>
             <div className={styles.question}>
-                <QuestionHeader
-                    text="In a couple of sentences, please explain why you are interested in participating in HackIllinois 2024."
-                    required
-                />
+                <h3>
+                    In a couple of sentences, please explain why you are
+                    interested in participating in HackIllinois 2024.*
+                </h3>
                 <TextInput
+                    className={styles.largeTextField}
                     name="interestExplanation"
                     multiline
                     required
@@ -103,10 +103,7 @@ const HackSpecific: React.FC = () => {
                 />
             </div>
             <div className={styles.question}>
-                <QuestionHeader
-                    text="How did you hear about HackIllinois?"
-                    required
-                />
+                <h3>How did you hear about HackIllinois?*</h3>
                 <Checkboxes
                     name="heardAbout"
                     options={heardAboutOptions}
@@ -115,20 +112,14 @@ const HackSpecific: React.FC = () => {
                 />
             </div>
             <div className={styles.question}>
-                <QuestionHeader
-                    text="What are you looking forward to at HackIllinois?"
-                    required
-                />
+                <h3>What are you looking forward to at HackIllinois?*</h3>
                 <Checkboxes
                     name="lookingForwardTo"
                     options={lookingForwardToOptions}
                 />
             </div>
             <div className={styles.question}>
-                <QuestionHeader
-                    text="Do you have any allergies or restrictions?"
-                    required
-                />
+                <h3>Do you have any allergies or restrictions?*</h3>
                 <Checkboxes
                     name="allergiesRestrictions"
                     options={allergiesRestrictionsOptions}
@@ -136,10 +127,9 @@ const HackSpecific: React.FC = () => {
                 />
             </div>
             <div className={styles.question}>
-                <QuestionHeader
-                    text="Would you like to be considered for travel reimbursement?"
-                    required
-                />
+                <h3>
+                    Would you like to be considered for travel reimbursement?*
+                </h3>
                 <Checkboxes
                     name="travelReimbursement"
                     options={travelReimbursementOptions}

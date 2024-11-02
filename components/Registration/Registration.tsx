@@ -6,8 +6,8 @@ import styles from "./Registration.module.scss";
 import Navigation from "./Navigation/Navigation";
 import Transportation from "./Pages/Transportation/Transportation";
 import HackSpecific from "./Pages/HackSpecific/HackSpecific";
-import PersonalInfo
- from "./Pages/PersonalInfo/PersonalInfo";
+import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
+
 const pages: Array<React.FC> = [
     PersonalInfo,
     // Education,
