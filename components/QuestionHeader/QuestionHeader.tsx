@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useMemo } from "react";
+import React from "react";
 import styles from "./QuestionHeader.module.scss";
 
 type PropTypes = {
