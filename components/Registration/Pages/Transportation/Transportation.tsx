@@ -36,8 +36,7 @@ const Transportation: React.FC = () => {
             <div className={styles.question}>
                 <h3>
                     Are you aware that you are responsible for your own
-                    transportation to the site?
-                    <span className={styles.required}>*</span>
+                    transportation to the site?*
                 </h3>
                 <Checkboxes
                     name="travelAcknowledge"
@@ -46,10 +45,7 @@ const Transportation: React.FC = () => {
                 />
             </div>
             <div className={styles.question}>
-                <h3>
-                    How will you be getting to HackIllinois?
-                    <span className={styles.required}>*</span>
-                </h3>
+                <h3>How will you be getting to HackIllinois?*</h3>
                 <Checkboxes
                     name="travelMethod"
                     options={travelMethodOptions}
