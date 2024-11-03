@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { ElementType, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import styles from "./Registration.module.scss";
@@ -10,22 +10,14 @@ import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
 import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
 
-const Confirmation: React.FC = () => {
-    return <div></div>;
-};
-
-const pages: Array<React.FC> = [
-    PersonalInfo,
-    Education,
-    // Experience,
-    HackSpecific,
-    Transportation,
-    ReviewInfo,
-    Confirmation
-];
+const pages: Array<
+    ElementType<{
+        onChangePage: (newIndex: number) => void;
+    }>
+> = [PersonalInfo, Education, HackSpecific, Transportation, ReviewInfo];
 
 const Form: React.FC = () => {
-    const [formIndex, setFormIndex] = useState(3);
+    const [formIndex, setFormIndex] = useState(0);
 
     const methods = useForm();
 
@@ -51,14 +43,9 @@ const Form: React.FC = () => {
             <div className={styles.container}>
                 <FormProvider {...methods}>
                     <form className={styles.form}>
-                        {React.createElement(
-                            pages[formIndex] as React.ElementType<{
-                                onChangePage?: (newIndex: number) => void;
-                            }>,
-                            formIndex === 3
-                                ? { onChangePage: handlePageChange }
-                                : undefined
-                        )}
+                        {React.createElement(pages[formIndex], {
+                            onChangePage: handlePageChange
+                        })}
                     </form>
                 </FormProvider>
                 {formIndex != pages.length - 1 && (

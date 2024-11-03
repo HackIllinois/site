@@ -15,7 +15,11 @@ const schoolOptions: string[] = schools.concat("N/A");
 
 const majorOptions: string[] = majors.concat("N/A");
 
-const Education: React.FC = () => {
+type PropTypes = {
+    onChangePage: (newIndex: number) => void;
+};
+
+const Education = ({ onChangePage }: PropTypes): JSX.Element => {
     return (
         <div className={styles.container}>
             <h1>Education</h1>

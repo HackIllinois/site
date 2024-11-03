@@ -14,7 +14,11 @@ const race = [
     "Prefer not to say"
 ];
 
-const PersonalInfo: React.FC = () => {
+type PropTypes = {
+    onChangePage: (newIndex: number) => void;
+};
+
+const PersonalInfo = ({ onChangePage }: PropTypes): JSX.Element => {
     return (
         <div className={styles.container}>
             <h1>Personal Info</h1>

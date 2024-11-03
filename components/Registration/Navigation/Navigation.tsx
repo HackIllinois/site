@@ -3,9 +3,9 @@ import NavigationButton from "./NavigationButton";
 
 const buttonNames: Array<[string, string]> = [
     ["Back", "Education"],
-    ["Personal Info", "Experience"],
+    ["Personal Info", "Hack-Specific"],
     ["Education", "Transportation"],
-    ["Experience", "Review Info"],
+    ["Hack-Specific", "Review Info"],
     ["Transportation", "Submit"]
 ];
 

@@ -29,7 +29,11 @@ const travelMethodOptions = [
     }
 ] satisfies CheckboxOption[];
 
-const Transportation: React.FC = () => {
+type PropTypes = {
+    onChangePage: (newIndex: number) => void;
+};
+
+const Transportation = ({ onChangePage }: PropTypes): JSX.Element => {
     return (
         <div className={styles.container}>
             <h1>Transportation</h1>
