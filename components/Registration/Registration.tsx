@@ -7,19 +7,24 @@ import Navigation from "./Navigation/Navigation";
 import Transportation from "./Pages/Transportation/Transportation";
 import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
+import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
+
+const Confirmation: React.FC = () => {
+    return <div></div>;
+};
 
 const pages: Array<React.FC> = [
     PersonalInfo,
     // Education,
     // Experience,
     HackSpecific,
-    Transportation
-    // Review,
-    // Confirmation
+    Transportation,
+    ReviewInfo,
+    Confirmation
 ];
 
 const Form: React.FC = () => {
-    const [formIndex, setFormIndex] = useState(0);
+    const [formIndex, setFormIndex] = useState(3);
 
     const methods = useForm();
 
@@ -45,7 +50,14 @@ const Form: React.FC = () => {
             <div className={styles.container}>
                 <FormProvider {...methods}>
                     <form className={styles.form}>
-                        {React.createElement(pages[formIndex])}
+                        {React.createElement(
+                            pages[formIndex] as React.ElementType<{
+                                onChangePage?: (newIndex: number) => void;
+                            }>,
+                            formIndex === 3
+                                ? { onChangePage: handlePageChange }
+                                : undefined
+                        )}
                     </form>
                 </FormProvider>
                 {formIndex != pages.length - 1 && (

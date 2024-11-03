@@ -5,8 +5,8 @@ const buttonNames: Array<[string, string]> = [
     ["Back", "Education"],
     // ["Personal Info", "Experience"],
     ["Education", "Transportation"],
-    ["Experience", "Review Info"]
-    // ["Transportation", "Submit"]
+    ["Experience", "Review Info"],
+    ["Transportation", "Submit"]
 ];
 
 type NavigationProps = {
