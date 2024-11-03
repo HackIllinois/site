@@ -32,6 +32,7 @@ const PersonalInfo: React.FC = () => {
                             name="gender"
                             options={gender}
                             width="100%"
+                            required
                         />
                     </div>
                 </div>
@@ -41,8 +42,8 @@ const PersonalInfo: React.FC = () => {
                         <QuestionHeader text="Age" required />
                         <TextInput
                             name="age"
-                            required
                             placeholder="Type here..."
+                            required
                         />
                     </div>
                 </div>
@@ -55,6 +56,7 @@ const PersonalInfo: React.FC = () => {
                         name="race/ethnicity"
                         options={race}
                         width="101%"
+                        required
                     />
                 </div>
             </div>
