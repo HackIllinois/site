@@ -3,6 +3,7 @@
 **/.next
 **/.husky
 public/registration/*.svg
+public/registration/progress_bar/*.svg
 LICENSE
 .prettierignore
 package-lock.json

@@ -8,6 +8,7 @@ import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
 import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
+import ProgressBar from "../ProgressBar/ProgressBar";
 
 const pages: Array<React.FC> = [
     PersonalInfo,
@@ -21,6 +22,7 @@ const pages: Array<React.FC> = [
 
 const Form: React.FC = () => {
     const [formIndex, setFormIndex] = useState(0);
+    const [furthestPage, setFurthestPage] = useState(0);
 
     const methods = useForm();
 
@@ -30,6 +32,9 @@ const Form: React.FC = () => {
         }
 
         setFormIndex(() => newIndex);
+        if (newIndex > furthestPage) {
+            setFurthestPage(newIndex);
+        }
         window.scroll(0, 0); // Scroll to top of page
     };
 
@@ -44,6 +49,10 @@ const Form: React.FC = () => {
     return (
         <>
             <div className={styles.container}>
+                <ProgressBar
+                    onChangePage={handlePageChange}
+                    furthestPage={furthestPage}
+                />
                 <FormProvider {...methods}>
                     <form className={styles.form}>
                         {React.createElement(pages[formIndex])}
