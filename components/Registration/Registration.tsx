@@ -5,6 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import styles from "./Registration.module.scss";
 import Navigation from "./Navigation/Navigation";
 import Transportation from "./Pages/Transportation/Transportation";
+import Education from "./Pages/Education/Education";
 import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
 import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
@@ -15,7 +16,7 @@ const Confirmation: React.FC = () => {
 
 const pages: Array<React.FC> = [
     PersonalInfo,
-    // Education,
+    Education,
     // Experience,
     HackSpecific,
     Transportation,
