@@ -26,6 +26,7 @@ const Education: React.FC = () => {
                         name="school"
                         options={schoolOptions}
                         width="100%"
+                        required
                     />
                 </div>
                 <div className={styles.question}>
@@ -34,6 +35,7 @@ const Education: React.FC = () => {
                         name="grad year"
                         options={graduationYearOptions}
                         width="100%"
+                        required
                     />
                 </div>
             </div>
@@ -41,9 +43,10 @@ const Education: React.FC = () => {
                 <div className={styles.question}>
                     <QuestionHeader text="Major" required />
                     <DropDownBox
-                        name="majojr"
+                        name="major"
                         options={majorOptions}
                         width="100%"
+                        required
                     />
                 </div>
                 <div className={styles.question}>
