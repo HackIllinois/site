@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./page.module.scss";
 import Checkboxes from "@/components/Form/Checkboxes/Checkboxes";
 import TestForm from "@/components/Test/TestForm";
-import MainDropdown from "@/components/DropdownBox/MainDropdown";
+import MainDropdown from "@/components/Form/DropdownBox/MainDropdown";
 import Registration from "./register/page";
 
 const Home: React.FC = () => {

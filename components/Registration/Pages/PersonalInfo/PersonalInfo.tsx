@@ -1,7 +1,7 @@
 import styles from "./PersonalInfo.module.scss";
 import QuestionHeader from "@/components/QuestionHeader/QuestionHeader";
 import TextInput from "@/components/Form/TextInput/TextInput";
-import DropDownBox from "@/components/DropdownBox/MainDropdown";
+import Dropdown from "@/components/Form/DropdownBox/Dropdown";
 
 const gender = ["Male", "Female", "Non-Binary", "Other", "Prefer not to say"];
 const race = [
@@ -20,18 +20,32 @@ const PersonalInfo: React.FC = () => {
             <h1>Personal Info</h1>
 
             <div className={styles.question}>
-                <QuestionHeader text="Name" required />
-                <TextInput name="name" required placeholder="Type here..." />
+                <QuestionHeader text="Legal Name" required />
+                <TextInput
+                    name="legalName"
+                    required
+                    placeholder="Type here..."
+                />
+            </div>
+
+            <div className={styles.question}>
+                <QuestionHeader text="Preferred Name" required />
+                <TextInput
+                    name="preferredName"
+                    required
+                    placeholder="Type here..."
+                />
             </div>
 
             <div className={styles.row}>
                 <div className={styles.field}>
                     <div className={styles.question}>
                         <QuestionHeader text="Gender" required />
-                        <DropDownBox
+                        <Dropdown
                             name="gender"
                             options={gender}
                             width="100%"
+                            required
                         />
                     </div>
                 </div>
@@ -41,8 +55,10 @@ const PersonalInfo: React.FC = () => {
                         <QuestionHeader text="Age" required />
                         <TextInput
                             name="age"
-                            required
                             placeholder="Type here..."
+                            type="number"
+                            min="18"
+                            required
                         />
                     </div>
                 </div>
@@ -51,10 +67,11 @@ const PersonalInfo: React.FC = () => {
             <div className={styles.field}>
                 <div className={styles.question}>
                     <QuestionHeader text="Race/Ethnicity" required />
-                    <DropDownBox
-                        name="race/ethnicity"
+                    <Dropdown
+                        name="race"
                         options={race}
                         width="101%"
+                        required
                     />
                 </div>
             </div>
@@ -62,7 +79,7 @@ const PersonalInfo: React.FC = () => {
             <div className={styles.question}>
                 <QuestionHeader text="Email Address" required />
                 <TextInput
-                    name="emailaddress"
+                    name="emailAddress"
                     required
                     placeholder="Type here..."
                 />
@@ -71,7 +88,7 @@ const PersonalInfo: React.FC = () => {
             <div className={styles.question}>
                 <QuestionHeader text="Phone Number" required />
                 <TextInput
-                    name="phonenumber"
+                    name="phoneNumber"
                     required
                     placeholder="Type here..."
                 />

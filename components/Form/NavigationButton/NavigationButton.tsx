@@ -1,4 +1,4 @@
-import styles from "./styles.module.scss";
+import styles from "./NavigationButton.module.scss";
 import Image from "next/image";
 import RIGHT_ARROW from "@/public/registration/right_arrow.svg";
 import LEFT_ARROW from "@/public/registration/left_arrow.svg";
