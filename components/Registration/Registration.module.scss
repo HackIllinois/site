@@ -1,24 +1,27 @@
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     background-color: black;
-    width: 60%;
+    width: 100%;
     padding: 1rem;
+    padding-top: 5rem;
     gap: 4rem;
+    min-height: 100vh;
 }
 
 .form {
     h1 {
         font-weight: 900;
-        font-size: 72px;
+        font-size: 56px;
     }
 
     h3 {
         font-weight: 600;
-        font-size: 40px;
+        font-size: 28px;
     }
 
     width: 100%;
+    max-width: 800px;
 }

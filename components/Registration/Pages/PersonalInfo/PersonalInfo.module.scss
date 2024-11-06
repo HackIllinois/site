@@ -1,7 +1,7 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: 4rem;
+    gap: 3rem;
 }
 
 .question {
@@ -13,9 +13,8 @@
 .row {
     display: flex;
     flex-direction: row;
-    gap: 70px;
+    gap: 3rem;
     align-items: flex-start;
-    margin-top: 20px;
 }
 
 .field {
