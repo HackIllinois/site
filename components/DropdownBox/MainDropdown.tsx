@@ -7,12 +7,14 @@ interface DropdownWrapperProps {
     options: string[];
     name: string;
     width: string;
+    required?: boolean;
 }
 
 const MainDropdown: React.FC<DropdownWrapperProps> = ({
     options,
     name,
-    width
+    width,
+    required
 }) => {
     const methods = useForm();
 
@@ -27,7 +29,7 @@ const MainDropdown: React.FC<DropdownWrapperProps> = ({
                     name={name}
                     options={options}
                     width={width}
-                    required
+                    required={required}
                 />
             </form>
         </FormProvider>
