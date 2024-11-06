@@ -80,6 +80,7 @@ const PersonalInfo: React.FC = () => {
                 <QuestionHeader text="Email Address" required />
                 <TextInput
                     name="emailAddress"
+                    type="email"
                     required
                     placeholder="Type here..."
                 />
@@ -89,6 +90,7 @@ const PersonalInfo: React.FC = () => {
                 <QuestionHeader text="Phone Number" required />
                 <TextInput
                     name="phoneNumber"
+                    type="tel"
                     required
                     placeholder="Type here..."
                 />

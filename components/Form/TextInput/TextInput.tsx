@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./TextInput.module.scss";
 import { useFormContext } from "react-hook-form";
 import clsx from "clsx";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 type TextInputProps = {
     name: string;
@@ -20,18 +21,24 @@ const TextInput: React.FC<TextInputProps> = ({
 }) => {
     const { register } = useFormContext();
 
-    return multiline ? (
-        <textarea
-            className={clsx(styles.input, styles.multiline, className)}
-            {...register(name, { required })}
-            {...props}
-        />
-    ) : (
-        <input
-            className={clsx(styles.input, className)}
-            {...register(name, { required })}
-            {...props}
-        />
+    return (
+        <>
+            {multiline ? (
+                <textarea
+                    className={clsx(styles.input, styles.multiline, className)}
+                    {...register(name, { required })}
+                    {...props}
+                />
+            ) : (
+                <input
+                    className={clsx(styles.input, className)}
+                    {...register(name, { required })}
+                    {...props}
+                />
+            )}
+
+            <ErrorMessage name={name} />
+        </>
     );
 };
 

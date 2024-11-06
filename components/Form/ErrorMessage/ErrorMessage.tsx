@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import styles from "./ErrorMessage.module.scss";
 
@@ -23,7 +23,7 @@ const ErrorMessage = ({
         if (typeof errorMessage === "string") {
             return (
                 <div>
-                    <div className={styles.errorMessage}> {errorMessage}</div>
+                    <div className={styles.errorMessage}>{errorMessage}</div>
                 </div>
             );
         }

@@ -32,7 +32,7 @@ const Education: React.FC = () => {
                 <div className={styles.question}>
                     <QuestionHeader text="Graduation Year" required />
                     <Dropdown
-                        name="grad year"
+                        name="gradYear"
                         options={graduationYearOptions}
                         width="100%"
                         required
@@ -63,11 +63,10 @@ const Education: React.FC = () => {
                 <h3>Resume*</h3>
                 <FileUpload
                     className={styles["resume-upload"]}
-                    name="resumeFileName"
+                    name="resume"
                     type="resume"
                     accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     text="Upload or drag and drop PDF, DOCX, up to 4MB"
-                    required
                 />
             </div>
         </div>

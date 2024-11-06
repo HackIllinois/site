@@ -7,8 +7,7 @@ import StyledCheckbox from "./StyledCheckbox/StyledCheckbox";
 import RadioButton from "./RadioButton/RadioButton";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { useController, useFormContext } from "react-hook-form";
-import TextInput from "../TextInput/TextInput";
-import StyledInput from "../StyledInput/StyledInput";
+import StyledInput from "./StyledInput/StyledInput";
 
 export type CheckboxOption = {
     label: string | number;

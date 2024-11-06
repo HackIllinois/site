@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import {
-    FieldErrors,
     FieldValues,
     FormProvider,
+    SubmitErrorHandler,
+    SubmitHandler,
     useForm
 } from "react-hook-form";
 
@@ -13,13 +14,13 @@ import Education from "./Pages/Education/Education";
 import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registrationSchema, registrationSchemas } from "./validation";
+import { registrationSchemas } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
+import { ZodObject } from "zod";
 
 const pages: Array<React.FC> = [
     PersonalInfo,
     Education,
-    // Experience,
     HackSpecific,
     Transportation
     // Review,
@@ -41,29 +42,37 @@ const Form: React.FC = () => {
         resolver: zodResolver(registrationSchemas[formIndex])
     });
 
-    const { getValues, handleSubmit } = methods;
+    const { handleSubmit, clearErrors, setError } = methods;
 
     const handlePageChange = (newIndex: number) => {
+        console.log("page", newIndex);
         if (newIndex < 0 || newIndex >= pages.length) {
             return; // This shouldn't happen
         }
 
         setFormIndex(() => newIndex);
         window.scroll(0, 0); // Scroll to top of page
-        console.log(getValues());
     };
 
     const previousPage = () => {
+        console.log("prev");
         handlePageChange(formIndex - 1);
     };
 
-    const onSubmit = (values: FieldValues) => {
-        console.log(values);
+    const onSubmit: SubmitHandler<FieldValues> = values => {
+        console.log("submit", values);
         handlePageChange(formIndex + 1);
     };
 
-    const onError = (errors: FieldErrors<FieldValues>) => {
+    const onError: SubmitErrorHandler<ZodObject<{}>> = errors => {
         console.log(errors);
+        clearErrors();
+        for (const [name, error] of Object.entries(errors)) {
+            setError(name, {
+                type: "required",
+                message: error.message
+            });
+        }
     };
 
     return (
@@ -79,6 +88,7 @@ const Form: React.FC = () => {
                             <NavigationButton
                                 text={buttonNames[formIndex][0]}
                                 onClick={previousPage}
+                                type="button"
                             />
                             <NavigationButton
                                 text={buttonNames[formIndex][1]}

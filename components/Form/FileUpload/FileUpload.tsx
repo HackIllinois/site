@@ -6,6 +6,7 @@ import { useController, useFormContext } from "react-hook-form";
 // import { FileType } from "@/utils/types";
 
 import styles from "./FileUpload.module.scss";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 type FileType = "resume" | "photo" | "blobstore";
 
@@ -98,6 +99,8 @@ const FileUpload = ({
 
                 <span className={styles.filename}>{field.value}</span>
             </div>
+
+            <ErrorMessage name={name} />
         </>
     );
 };

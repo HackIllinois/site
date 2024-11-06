@@ -119,11 +119,10 @@ const HackSpecific: React.FC = () => {
                 />
             </div>
             <div className={styles.question}>
-                <h3>Do you have any allergies or restrictions?*</h3>
+                <h3>Do you have any allergies or restrictions?</h3>
                 <Checkboxes
                     name="allergiesRestrictions"
                     options={allergiesRestrictionsOptions}
-                    required
                 />
             </div>
             <div className={styles.question}>
