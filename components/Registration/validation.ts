@@ -22,7 +22,7 @@ const personalInfo = z.object({
     phoneNumber: z
         .string()
         .regex(
-            /^\+?\d{1,3}?\s?\(?\b\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/,
+            /^\+?\d{0,3}\s?\(?\b\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/,
             "Please enter a valid phone number."
         )
 });
