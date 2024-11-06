@@ -19,7 +19,7 @@
     cursor: pointer;
     @media (max-width: 768px) {
         padding: 5px 10px;
-        font-size: 15px;
+        font-size: 20px;
     }
 }
 
@@ -38,4 +38,18 @@
 
 .arrow {
     height: 0.8em;
+}
+
+.desktop {
+    display: block;
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+.mobile {
+    display: none;
+    @media (max-width: 768px) {
+        display: block;
+    }
 }
