@@ -5,21 +5,30 @@
     align-items: center;
     background-color: black;
     width: 100%;
-    padding: 1rem;
-    padding-top: 5rem;
+    padding: 5rem 1rem;
     gap: 4rem;
     min-height: 100vh;
+    @media (max-width: 768px) {
+        padding: 4rem 1.5rem;
+        padding-bottom: 25rem;
+        // Lots of bottom padding for mobile keyboard
+    }
 }
 
 .form {
     h1 {
         font-weight: 900;
         font-size: 56px;
+        @media (max-width: 768px) {
+            font-size: 36px;
+        }
     }
-
     h3 {
         font-weight: 600;
         font-size: 28px;
+        @media (max-width: 768px) {
+            font-size: 22px;
+        }
     }
 
     width: 100%;

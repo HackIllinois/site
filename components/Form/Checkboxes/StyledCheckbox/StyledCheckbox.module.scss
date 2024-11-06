@@ -20,6 +20,10 @@
         height: 32px;
         border: 2px solid #ffffff;
         border-radius: 0.25em;
+        @media (max-width: 768px) {
+            width: 24px;
+            height: 24px;
+        }
     }
 
     &:hover::before {
@@ -32,5 +36,8 @@
 
     .checkbox {
         display: none;
+    }
+    @media (max-width: 768px) {
+        font-size: 20px;
     }
 }

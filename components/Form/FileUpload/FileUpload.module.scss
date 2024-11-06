@@ -17,6 +17,9 @@
         font-weight: 400;
         max-width: 400px;
         text-align: center;
+        @media (max-width: 768px) {
+            font-size: 20px;
+        }
     }
 
     label {
@@ -31,6 +34,9 @@
         border-radius: 5px;
         cursor: pointer;
         max-width: 100%;
+        @media (max-width: 768px) {
+            font-size: 18px;
+        }
     }
 
     .filename {
