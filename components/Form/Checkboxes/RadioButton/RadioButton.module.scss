@@ -6,19 +6,23 @@
     color: #ffffff;
 
     font-weight: 600;
-    font-size: 40px;
+    font-size: 24px;
     z-index: 1;
     cursor: pointer;
 
     &::before {
         content: "";
 
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
 
         border: 2px solid white;
 
         border-radius: 0.25em;
+        @media (max-width: 768px) {
+            width: 24px;
+            height: 24px;
+        }
     }
 
     &:hover::before {
@@ -42,6 +46,10 @@
 
     .checkbox {
         // hide it
+
+        @media (max-width: 768px) {
+            font-size: 20px;
+        }
         display: none;
     }
 }

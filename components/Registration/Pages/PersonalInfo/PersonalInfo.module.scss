@@ -1,17 +1,27 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: 4rem;
+    gap: 3rem;
+
+    @media (max-width: 768px) {
+        gap: 2rem;
+    }
 }
 
 .row {
     display: flex;
     flex-direction: row;
-    gap: 70px;
+    gap: 3rem;
     align-items: flex-start;
-    margin-top: 20px;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 2rem;
+    }
 }
 
 .field {
     flex: 5;
+    @media (max-width: 768px) {
+        width: 100%;
+    }
 }
