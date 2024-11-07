@@ -20,14 +20,14 @@ const PersonalInfo: React.FC = () => {
             <h1>Personal Info</h1>
 
             <div className={styles.question}>
-                <QuestionHeader text="Name" required />
+                <h3>Name*</h3>
                 <TextInput name="name" required placeholder="Type here..." />
             </div>
 
             <div className={styles.row}>
                 <div className={styles.field}>
                     <div className={styles.question}>
-                        <QuestionHeader text="Gender" required />
+                        <h3>Gender*</h3>
                         <DropDownBox
                             name="gender"
                             options={gender}
@@ -39,7 +39,7 @@ const PersonalInfo: React.FC = () => {
 
                 <div className={styles.field}>
                     <div className={styles.question}>
-                        <QuestionHeader text="Age" required />
+                        <h3>Age*</h3>
                         <TextInput
                             name="age"
                             placeholder="Type here..."
@@ -51,7 +51,7 @@ const PersonalInfo: React.FC = () => {
 
             <div className={styles.field}>
                 <div className={styles.question}>
-                    <QuestionHeader text="Race/Ethnicity" required />
+                    <h3>Race/Ethnicity*</h3>
                     <DropDownBox
                         name="race/ethnicity"
                         options={race}
@@ -62,7 +62,7 @@ const PersonalInfo: React.FC = () => {
             </div>
 
             <div className={styles.question}>
-                <QuestionHeader text="Email Address" required />
+                <h3>Email Address*</h3>
                 <TextInput
                     name="emailaddress"
                     required
@@ -71,7 +71,7 @@ const PersonalInfo: React.FC = () => {
             </div>
 
             <div className={styles.question}>
-                <QuestionHeader text="Phone Number" required />
+                <h3>Phone Number*</h3>
                 <TextInput
                     name="phonenumber"
                     required
