@@ -59,7 +59,7 @@ const initialValues = [
 type FieldValues = (typeof initialValues)[number];
 
 const RegistrationForm: React.FC = () => {
-    const [formIndex, setFormIndex] = useState(2);
+    const [formIndex, setFormIndex] = useState(0);
 
     const handlePageChange = (newIndex: number) => {
         console.log("page", newIndex);
