@@ -14,7 +14,7 @@ type ProgressBarProps = {
     furthestPage: number;
 };
 
-const symbols = [MOON, TEAR_DROP, SUN, BOOK, SKULL, LIGHTNING_BOLT];
+const symbols = [MOON, SUN, TEAR_DROP, BOOK, SKULL, LIGHTNING_BOLT];
 
 const ProgressBar: React.FC<ProgressBarProps> = ({
     onChangePage,
