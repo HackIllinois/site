@@ -89,53 +89,42 @@ const HackSpecific: React.FC = () => {
     return (
         <div className={styles.container}>
             <h1>Hack-Specific</h1>
-            <div className={styles.question}>
-                <h3>
-                    In a couple of sentences, please explain why you are
-                    interested in participating in HackIllinois 2024.*
-                </h3>
-                <TextInput
-                    className={styles.largeTextField}
-                    name="interestExplanation"
-                    multiline
-                    required
-                    placeholder="Type your response..."
-                />
-            </div>
-            <div className={styles.question}>
-                <h3>How did you hear about HackIllinois?*</h3>
-                <Checkboxes
-                    name="heardAbout"
-                    options={heardAboutOptions}
-                    threeColEnabled
-                    required
-                />
-            </div>
-            <div className={styles.question}>
-                <h3>What are you looking forward to at HackIllinois?*</h3>
-                <Checkboxes
-                    name="lookingForwardTo"
-                    options={lookingForwardToOptions}
-                />
-            </div>
-            <div className={styles.question}>
-                <h3>Do you have any allergies or restrictions?</h3>
-                <Checkboxes
-                    name="allergiesRestrictions"
-                    options={allergiesRestrictionsOptions}
-                />
-            </div>
-            <div className={styles.question}>
-                <h3>
-                    Would you like to be considered for travel reimbursement?*
-                </h3>
-                <Checkboxes
-                    name="travelReimbursement"
-                    options={travelReimbursementOptions}
-                    required
-                    threeColEnabled
-                />
-            </div>
+            <TextInput
+                className={styles.largeTextField}
+                label="In a couple of sentences, please explain why you are interested in participating in HackIllinois 2024."
+                name="interestExplanation"
+                multiline
+                required
+                placeholder="Type your response..."
+            />
+
+            <Checkboxes
+                name="heardAbout"
+                label="How did you hear about HackIllinois?"
+                options={heardAboutOptions}
+                threeColEnabled
+                required
+            />
+
+            <Checkboxes
+                name="lookingForwardTo"
+                label="What are you looking forward to at HackIllinois?"
+                options={lookingForwardToOptions}
+            />
+
+            <Checkboxes
+                name="allergiesRestrictions"
+                label="Do you have any allergies or restrictions?"
+                options={allergiesRestrictionsOptions}
+            />
+
+            <Checkboxes
+                name="travelReimbursement"
+                label="Would you like to be considered for travel reimbursement?"
+                options={travelReimbursementOptions}
+                required
+                threeColEnabled
+            />
         </div>
     );
 };

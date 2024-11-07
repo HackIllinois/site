@@ -1,13 +1,11 @@
 import React, { ChangeEvent, useCallback, useMemo } from "react";
 import clsx from "clsx";
-// import { useController, useFormContext } from "react-hook-form";
 
 import styles from "./Checkboxes.module.scss";
 import StyledCheckbox from "./StyledCheckbox/StyledCheckbox";
 import RadioButton from "./RadioButton/RadioButton";
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import { useController, useFormContext } from "react-hook-form";
 import StyledInput from "./StyledInput/StyledInput";
+import { useField } from "formik";
 
 export type CheckboxOption = {
     label: string | number;
@@ -23,6 +21,7 @@ export type CheckboxOption = {
 
 type PropTypes = {
     name: string;
+    label: string;
     options: CheckboxOption[];
     hideErrors?: boolean;
     className?: string;
@@ -35,6 +34,7 @@ type PropTypes = {
 
 const Checkboxes = ({
     name,
+    label,
     options = [],
     hideErrors,
     className,
@@ -44,38 +44,18 @@ const Checkboxes = ({
     ...props
 }: PropTypes): JSX.Element => {
     // The checkboxes component is a modified version of the one used in the HackIllinois 2024 website.
+    const [field, meta, helpers] = useField(name);
+    const { setValue } = helpers;
+    const { value } = field;
 
-    const { control } = useFormContext();
+    const showFeedback = meta.error && meta.touched;
 
     // if the given value doesn't match any option's value, then it must have come from the "Other" option
     const isValueOther = (value: string) =>
         options.every(option => option.value !== value);
 
-    const { field } = useController({
-        name,
-        control,
-        rules: {
-            validate: value => {
-                if (required) {
-                    if (!value || value.length === 0) {
-                        return "At least one option must be selected";
-                    }
-                    // check that, if an "Other" option is selected, the user has entered a value
-                }
-                if (value) {
-                    const otherOptionValue = value.find(isValueOther);
-                    if (otherOptionValue !== undefined && !otherOptionValue) {
-                        return "Please specify your answer";
-                    }
-                }
-
-                return true;
-            }
-        }
-    });
-
     const selectedValues: any[] = useMemo(() => {
-        return field.value || [];
+        return value || [];
     }, [field]);
 
     // if we can't find an option the desired value, then we assume the user chose the "Other" option
@@ -123,15 +103,15 @@ const Checkboxes = ({
                 // an empty string, which the user can later modify through a text field
                 newValue = "";
             }
-            field.onChange(newSelectedValues.concat(newValue));
+            setValue(newSelectedValues.concat(newValue));
         }
 
         if (!checked) {
             // we want to unselect the option
             if (isOther) {
-                field.onChange(removeOther(selectedValues));
+                setValue(removeOther(selectedValues));
             } else {
-                field.onChange(selectedValues.filter(val => val !== value));
+                setValue(selectedValues.filter(val => val !== value));
             }
         }
     };
@@ -143,7 +123,7 @@ const Checkboxes = ({
     const handleChangeOther = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
             setOtherValueTemp(e.target.value);
-            field.onChange(removeOther(selectedValues).concat(e.target.value));
+            setValue(removeOther(selectedValues).concat(e.target.value));
         },
         [selectedValues, field]
     );
@@ -165,7 +145,11 @@ const Checkboxes = ({
     }, [checkedOtherOption, otherValueTemp, handleChangeOther]);
 
     return (
-        <>
+        <div className={styles.container}>
+            <label htmlFor={name}>
+                {label}
+                {required && "*"}
+            </label>
             <div
                 className={clsx(
                     styles.checkboxes,
@@ -209,11 +193,8 @@ const Checkboxes = ({
 
             {checkedOtherOption && otherOptionInputComponent}
 
-            <ErrorMessage
-                name={name}
-                type={props.isRadio ? "checkbox" : "radio"}
-            />
-        </>
+            <h4>{showFeedback && meta.error}</h4>
+        </div>
     );
 };
 

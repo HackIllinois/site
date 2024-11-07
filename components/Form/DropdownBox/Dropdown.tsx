@@ -1,29 +1,40 @@
 "use client";
 import React, { useState } from "react";
-import { useFormContext } from "react-hook-form";
 import DropdownItem from "./DropdownItem";
-import "./Dropdown.scss";
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import styles from "./Dropdown.module.scss";
+import { useField } from "formik";
+import clsx from "clsx";
 
 interface DropdownProps {
     name: string;
+    label: string;
     options: string[];
-    width?: string; // Accepting width as an optional prop
     placeholder?: string;
     required?: boolean;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
     name,
+    label,
     options,
-    width,
     placeholder = "Select...",
     required = false
 }) => {
-    const modOptions = required ? options : [placeholder, ...options];
-    const { setValue, register } = useFormContext();
+    const [field, meta, helpers] = useField(name);
+    const { setValue } = helpers;
+    const { value } = field;
+
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const [didFocus, setDidFocus] = useState(false);
+    const [focus, setFocus] = useState(false);
+
+    const handleFocus = () => {
+        setFocus(!focus);
+        setDidFocus(true);
+    };
+    const showFeedback = meta.error && ((didFocus && !focus) || meta.touched);
+
+    const modOptions = required ? options : [placeholder, ...options];
 
     const handleToggle = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -31,65 +42,69 @@ const Dropdown: React.FC<DropdownProps> = ({
     };
 
     const handleOptionClick = (option: string) => {
-        setSelectedOption(option);
-        setValue(name, option);
+        setValue(option);
         setIsOpen(false);
     };
 
     return (
-        <>
-            <div className="dropdown" style={{ width }}>
-                <div className="dropdown-container">
-                    <button onClick={handleToggle} className="dropdown-button">
-                        {selectedOption || placeholder}
-                        <span
-                            className={`dropdown-icon ${isOpen ? "open" : ""}`}
+        <div className={styles.container}>
+            <label htmlFor={name}>
+                {label}
+                {required && "*"}
+            </label>
+            <button
+                className={clsx(
+                    styles.dropdownButton,
+                    showFeedback && styles.invalid
+                )}
+                onClick={handleToggle}
+                onFocus={handleFocus}
+                onBlur={handleFocus}
+            >
+                {value || placeholder}
+                <span
+                    className={clsx(styles.dropdownIcon, isOpen && styles.open)}
+                >
+                    {isOpen ? (
+                        <svg
+                            width="22"
+                            height="22"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
                         >
-                            {isOpen ? (
-                                <svg
-                                    width="22"
-                                    height="22"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                >
-                                    <polygon points="12,8 4,16 20,16" />
-                                </svg>
-                            ) : (
-                                <svg
-                                    width="22"
-                                    height="22"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                >
-                                    <polygon points="4,8 20,8 12,16" />
-                                </svg>
-                            )}
-                        </span>
-                    </button>
-                    {isOpen && (
-                        <ul
-                            className={`dropdown-options ${isOpen ? "open" : ""}`}
+                            <polygon points="12,8 4,16 20,16" />
+                        </svg>
+                    ) : (
+                        <svg
+                            width="22"
+                            height="22"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
                         >
-                            {modOptions.map((option, index) => (
-                                <DropdownItem
-                                    key={index}
-                                    option={option}
-                                    onClick={handleOptionClick}
-                                />
-                            ))}
-                        </ul>
+                            <polygon points="4,8 20,8 12,16" />
+                        </svg>
                     )}
-                </div>
-                <input
-                    type="hidden"
-                    {...register(name, { required })}
-                    value={selectedOption || ""}
-                    onChange={() => {}}
-                />
-            </div>
-
-            <ErrorMessage name={name} />
-        </>
+                </span>
+            </button>
+            {isOpen && (
+                <ul
+                    className={clsx(
+                        styles.dropdownOptions,
+                        isOpen && styles.open
+                    )}
+                    onBlur={() => setIsOpen(false)}
+                >
+                    {modOptions.map((option, index) => (
+                        <DropdownItem
+                            key={index}
+                            option={option}
+                            onClick={handleOptionClick}
+                        />
+                    ))}
+                </ul>
+            )}
+            <h4>{showFeedback && meta.error}</h4>
+        </div>
     );
 };
 

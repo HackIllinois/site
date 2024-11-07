@@ -2,7 +2,6 @@ import FileUpload from "@/components/Form/FileUpload/FileUpload";
 import styles from "./Education.module.scss";
 import majors from "@/modules/majors.json";
 import schools from "@/modules/schools.json";
-import QuestionHeader from "@/components/QuestionHeader/QuestionHeader";
 import Dropdown from "@/components/Form/DropdownBox/Dropdown";
 
 const graduationYearOptions: string[] = [];
@@ -20,55 +19,39 @@ const Education: React.FC = () => {
         <div className={styles.container}>
             <h1>Education</h1>
             <div className={styles.dropdownContainer}>
-                <div className={styles.question}>
-                    <QuestionHeader text="School" required />
-                    <Dropdown
-                        name="school"
-                        options={schoolOptions}
-                        width="100%"
-                        required
-                    />
-                </div>
-                <div className={styles.question}>
-                    <QuestionHeader text="Graduation Year" required />
-                    <Dropdown
-                        name="gradYear"
-                        options={graduationYearOptions}
-                        width="100%"
-                        required
-                    />
-                </div>
-            </div>
-            <div className={styles.dropdownContainer}>
-                <div className={styles.question}>
-                    <QuestionHeader text="Major" required />
-                    <Dropdown
-                        name="major"
-                        options={majorOptions}
-                        width="100%"
-                        required
-                    />
-                </div>
-                <div className={styles.question}>
-                    <QuestionHeader text="Minor" />
-                    <Dropdown
-                        name="minor"
-                        options={majorOptions}
-                        width="100%"
-                    />
-                </div>
-            </div>
+                <Dropdown
+                    name="school"
+                    label="School"
+                    options={schoolOptions}
+                    required
+                />
 
-            <div className={styles.question}>
-                <h3>Resume*</h3>
-                <FileUpload
-                    className={styles["resume-upload"]}
-                    name="resume"
-                    type="resume"
-                    accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                    text="Upload or drag and drop PDF, DOCX, up to 4MB"
+                <Dropdown
+                    name="gradYear"
+                    label="Graduation Year"
+                    options={graduationYearOptions}
+                    required
                 />
             </div>
+            <div className={styles.dropdownContainer}>
+                <Dropdown
+                    name="major"
+                    label="Major"
+                    options={majorOptions}
+                    required
+                />
+
+                <Dropdown name="minor" label="Minor" options={majorOptions} />
+            </div>
+
+            <FileUpload
+                className={styles["resume-upload"]}
+                name="resume"
+                label="Resume"
+                type="resume"
+                accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                text="Upload or drag and drop PDF, DOCX, up to 4MB"
+            />
         </div>
     );
 };

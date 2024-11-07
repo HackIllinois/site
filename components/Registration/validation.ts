@@ -1,57 +1,76 @@
-import { z } from "zod";
+import * as yup from "yup";
 
-const pdfResume = z
-    .string()
-    .endsWith(".pdf", "Please upload a valid file type");
-const docxResume = z
-    .string()
-    .endsWith(".docx", "Please upload a valid file type");
-
-const personalInfo = z.object({
-    legalName: z
+const personalInfo = yup.object({
+    legalName: yup
         .string()
-        .regex(/^[^ ]+ +[^ ]+.*$/, "Please enter your first and last name."),
-    preferredName: z.string().min(1, "Please enter your preferred name"),
-    gender: z.string().min(1, "Please select a gender"),
-    age: z.coerce
+        .required("Please enter your first and last name")
+        .matches(
+            /^[^ ]+ +[^ ]+.*$/,
+            "Please enter both your first and last name"
+        ),
+    preferredName: yup.string().required("Please enter your preferred name"),
+    gender: yup.string().required("Please select a gender"),
+    age: yup
         .number()
-        .int("Please enter a valid age")
+        .required("Please enter your age")
+        .positive("Please enter a valid age")
+        .integer("Please enter a valid age")
         .min(18, "You must be at least 18 years old."),
-    race: z.string().min(1, "Please select a race/ethnicity"),
-    emailAddress: z.string().email("Please enter a valid email address"),
-    phoneNumber: z
+    race: yup.string().required("Please select an ethnicity/race"),
+    emailAddress: yup
         .string()
-        .regex(
+        .required("Please enter your email address")
+        .email("Please enter a valid email address"),
+    phoneNumber: yup
+        .string()
+        .required("Please enter your phone number")
+        .matches(
             /^\+?\d{0,3}\s?\(?\b\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/,
             "Please enter a valid phone number."
         )
 });
 
-const education = z.object({
-    school: z.string().min(1, "Please select a school (or N/A)"),
-    gradYear: z.string().min(1, "Please select a graduation year"),
-    major: z.string().min(1, "Please select a major (or N/A)"),
-    minor: z.string(),
-    resume: pdfResume.or(docxResume).optional()
+const education = yup.object({
+    school: yup.string().required("Please select a school (or N/A)"),
+    gradYear: yup.string().required("Please select a graduation year"),
+    major: yup.string().required("Please select a major (or N/A)"),
+    minor: yup.string(),
+    resume: yup
+        .string()
+        .matches(
+            /((\.pdf)|(\.docx)|(\.doc))$/,
+            "Please upload a valid file type"
+        )
 });
 
-const hackSpecific = z.object({
-    interestExplanation: z.string().min(1, "Please answer this question"),
-    heardAbout: z
-        .string()
+const hackSpecific = yup.object({
+    interestExplanation: yup.string().required("Please answer this question"),
+    heardAbout: yup
         .array()
-        .nonempty("Please select at least one option"),
-    lookingForwardTo: z
-        .string()
+        .of(yup.string().required('"Other" cannot be empty'))
+        .min(1, "Please select at least one option"),
+    lookingForwardTo: yup
         .array()
-        .nonempty("Please select at least one option"),
-    allergiesRestrictions: z.string().array(),
-    travelReimbursement: z.string().array().nonempty("Please select one")
+        .of(yup.string().required('"Other" cannot be empty'))
+        .min(1, "Please select at least one option"),
+    allergiesRestrictions: yup
+        .array()
+        .of(yup.string().required('"Other" cannot be empty')),
+    travelReimbursement: yup
+        .array()
+        .of(yup.string())
+        .min(1, "Please select one option")
 });
 
-const transportation = z.object({
-    travelAcknowledge: z.string().array().nonempty("Please select one"),
-    travelMethod: z.string().array().nonempty("Please select one")
+const transportation = yup.object({
+    travelAcknowledge: yup
+        .array()
+        .of(yup.string())
+        .min(1, "Please select one option"),
+    travelMethod: yup
+        .array()
+        .of(yup.string())
+        .min(1, "Please select one option")
 });
 
 export const registrationSchemas = [
@@ -60,13 +79,3 @@ export const registrationSchemas = [
     hackSpecific,
     transportation
 ];
-
-export function getFullSchema() {
-    let registrationSchema = z.object({});
-
-    for (const schema of registrationSchemas) {
-        registrationSchema = registrationSchema.merge(schema);
-    }
-
-    return registrationSchema;
-}

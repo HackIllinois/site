@@ -11,17 +11,16 @@
         "prepare": "husky"
     },
     "dependencies": {
-        "@hookform/resolvers": "^3.9.1",
         "@types/node": "^18.7.16",
         "@types/react": "^18.3.11",
         "@types/react-dom": "^18.3.0",
         "clsx": "^2.1.1",
+        "formik": "^2.4.6",
         "next": "^15.0.2",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "react-hook-form": "^7.53.1",
         "react-icons": "^5.3.0",
-        "zod": "^3.23.8"
+        "yup": "^1.4.0"
     },
     "devDependencies": {
         "eslint": "^8.57.1",

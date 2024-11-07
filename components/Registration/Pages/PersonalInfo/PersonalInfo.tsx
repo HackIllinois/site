@@ -1,5 +1,4 @@
 import styles from "./PersonalInfo.module.scss";
-import QuestionHeader from "@/components/QuestionHeader/QuestionHeader";
 import TextInput from "@/components/Form/TextInput/TextInput";
 import Dropdown from "@/components/Form/DropdownBox/Dropdown";
 
@@ -19,82 +18,66 @@ const PersonalInfo: React.FC = () => {
         <div className={styles.container}>
             <h1>Personal Info</h1>
 
-            <div className={styles.question}>
-                <QuestionHeader text="Legal Name" required />
-                <TextInput
-                    name="legalName"
-                    required
-                    placeholder="Type here..."
-                />
-            </div>
+            <TextInput
+                name="legalName"
+                label="Legal Name"
+                required
+                placeholder="Type here..."
+            />
 
-            <div className={styles.question}>
-                <QuestionHeader text="Preferred Name" required />
-                <TextInput
-                    name="preferredName"
-                    required
-                    placeholder="Type here..."
-                />
-            </div>
+            <TextInput
+                name="preferredName"
+                label="Preferred Name"
+                required
+                placeholder="Type here..."
+            />
 
             <div className={styles.row}>
                 <div className={styles.field}>
-                    <div className={styles.question}>
-                        <QuestionHeader text="Gender" required />
-                        <Dropdown
-                            name="gender"
-                            options={gender}
-                            width="100%"
-                            required
-                        />
-                    </div>
+                    <Dropdown
+                        name="gender"
+                        label="Gender"
+                        options={gender}
+                        required
+                    />
                 </div>
 
                 <div className={styles.field}>
-                    <div className={styles.question}>
-                        <QuestionHeader text="Age" required />
-                        <TextInput
-                            name="age"
-                            placeholder="Type here..."
-                            type="number"
-                            min="18"
-                            required
-                        />
-                    </div>
-                </div>
-            </div>
-
-            <div className={styles.field}>
-                <div className={styles.question}>
-                    <QuestionHeader text="Race/Ethnicity" required />
-                    <Dropdown
-                        name="race"
-                        options={race}
-                        width="101%"
+                    <TextInput
+                        name="age"
+                        label="Age"
+                        placeholder="Type here..."
+                        type="number"
+                        min="18"
                         required
                     />
                 </div>
             </div>
 
-            <div className={styles.question}>
-                <QuestionHeader text="Email Address" required />
-                <TextInput
-                    name="emailAddress"
-                    type="email"
+            <div className={styles.field}>
+                <Dropdown
+                    name="race"
+                    label="Race/Ethnicity"
+                    options={race}
                     required
-                    placeholder="Type here..."
                 />
             </div>
 
-            <div className={styles.question}>
-                <QuestionHeader text="Phone Number" required />
-                <TextInput
-                    name="phoneNumber"
-                    type="tel"
-                    required
-                    placeholder="Type here..."
-                />
-            </div>
+            <TextInput
+                name="emailAddress"
+                label="Email Address"
+                type="email"
+                required
+                placeholder="Type here..."
+            />
+
+            <TextInput
+                name="phoneNumber"
+                label="Phone Number"
+                type="tel"
+                required
+                placeholder="Type here..."
+            />
         </div>
     );
 };

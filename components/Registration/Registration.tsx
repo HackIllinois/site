@@ -1,22 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import {
-    FieldValues,
-    FormProvider,
-    SubmitErrorHandler,
-    SubmitHandler,
-    useForm
-} from "react-hook-form";
-
 import styles from "./Registration.module.scss";
 import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
 import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { registrationSchemas } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
-import { ZodObject } from "zod";
+import { Formik, Form, FormikHelpers } from "formik";
 
 const pages: Array<React.FC> = [
     PersonalInfo,
@@ -35,14 +26,40 @@ const buttonNames: Array<[string, string]> = [
     // ["Transportation", "Submit"]
 ];
 
-const Form: React.FC = () => {
-    const [formIndex, setFormIndex] = useState(0);
+const initialValues = [
+    {
+        legalName: "",
+        preferredName: "",
+        gender: "",
+        age: "",
+        race: "",
+        emailAddress: "",
+        phoneNumber: ""
+    },
+    {
+        school: "",
+        gradYear: "",
+        major: "",
+        minor: "",
+        resume: ""
+    },
+    {
+        interestExplaination: "",
+        heardAbout: [],
+        lookingForwardTo: [],
+        allergiesRestrictions: [],
+        travelReimbursement: []
+    },
+    {
+        travelAcknowledge: [],
+        travelMethod: []
+    }
+] as const;
 
-    const methods = useForm({
-        resolver: zodResolver(registrationSchemas[formIndex])
-    });
+type FieldValues = (typeof initialValues)[number];
 
-    const { handleSubmit, clearErrors, setError } = methods;
+const RegistrationForm: React.FC = () => {
+    const [formIndex, setFormIndex] = useState(2);
 
     const handlePageChange = (newIndex: number) => {
         console.log("page", newIndex);
@@ -59,30 +76,23 @@ const Form: React.FC = () => {
         handlePageChange(formIndex - 1);
     };
 
-    const onSubmit: SubmitHandler<FieldValues> = values => {
+    const onSubmit = (
+        values: FieldValues,
+        formikHelpers: FormikHelpers<FieldValues>
+    ) => {
         console.log("submit", values);
         handlePageChange(formIndex + 1);
-    };
-
-    const onError: SubmitErrorHandler<ZodObject<{}>> = errors => {
-        console.log(errors);
-        clearErrors();
-        for (const [name, error] of Object.entries(errors)) {
-            setError(name, {
-                type: "required",
-                message: error.message
-            });
-        }
     };
 
     return (
         <>
             <div className={styles.container}>
-                <FormProvider {...methods}>
-                    <form
-                        className={styles.form}
-                        onSubmit={handleSubmit(onSubmit, onError)}
-                    >
+                <Formik
+                    initialValues={initialValues[formIndex]}
+                    onSubmit={onSubmit}
+                    validationSchema={registrationSchemas[formIndex]}
+                >
+                    <Form className={styles.form}>
                         {React.createElement(pages[formIndex])}
                         <div className={styles.navigation}>
                             <NavigationButton
@@ -96,11 +106,11 @@ const Form: React.FC = () => {
                                 type="submit"
                             />
                         </div>
-                    </form>
-                </FormProvider>
+                    </Form>
+                </Formik>
             </div>
         </>
     );
 };
 
-export default Form;
+export default RegistrationForm;
