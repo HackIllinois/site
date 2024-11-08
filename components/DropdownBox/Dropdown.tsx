@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useController } from "react-hook-form";
 import DropdownItem from "./DropdownItem";
 import "./Dropdown.scss";
 
@@ -19,10 +19,11 @@ const Dropdown: React.FC<DropdownProps> = ({
     placeholder = "Select...",
     required = false
 }) => {
-    const modOptions = required ? options : [placeholder, ...options];
-    const { setValue, register } = useFormContext();
+    const { control } = useFormContext();
+    const { field } = useController({ name, control, rules: { required } });
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+    const modOptions = required ? options : [placeholder, ...options];
 
     const handleToggle = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -30,8 +31,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     };
 
     const handleOptionClick = (option: string) => {
-        setSelectedOption(option);
-        setValue(name, option);
+        field.onChange(option);
         setIsOpen(false);
     };
 
@@ -39,7 +39,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         <div className="dropdown" style={{ width }}>
             <div className="dropdown-container">
                 <button onClick={handleToggle} className="dropdown-button">
-                    {selectedOption || placeholder}
+                    {field.value || placeholder}
                     <span className={`dropdown-icon ${isOpen ? "open" : ""}`}>
                         {isOpen ? (
                             <svg
@@ -68,18 +68,13 @@ const Dropdown: React.FC<DropdownProps> = ({
                             <DropdownItem
                                 key={index}
                                 option={option}
-                                onClick={handleOptionClick}
+                                onClick={() => handleOptionClick(option)}
                             />
                         ))}
                     </ul>
                 )}
             </div>
-            <input
-                type="hidden"
-                {...register(name, { required })}
-                value={selectedOption || ""}
-                onChange={() => {}}
-            />
+            <input type="hidden" {...field} />
         </div>
     );
 };

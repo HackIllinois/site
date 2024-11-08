@@ -1,7 +1,7 @@
 import styles from "./PersonalInfo.module.scss";
 import QuestionHeader from "@/components/QuestionHeader/QuestionHeader";
 import TextInput from "@/components/Form/TextInput/TextInput";
-import DropDownBox from "@/components/DropdownBox/MainDropdown";
+import Dropdown from "@/components/DropdownBox/Dropdown";
 
 const gender = ["Male", "Female", "Non-Binary", "Other", "Prefer not to say"];
 const race = [
@@ -28,7 +28,7 @@ const PersonalInfo: React.FC = () => {
                 <div className={styles.field}>
                     <div className={styles.question}>
                         <h3>Gender*</h3>
-                        <DropDownBox
+                        <Dropdown
                             name="gender"
                             options={gender}
                             width="100%"
@@ -52,7 +52,7 @@ const PersonalInfo: React.FC = () => {
             <div className={styles.field}>
                 <div className={styles.question}>
                     <h3>Race/Ethnicity*</h3>
-                    <DropDownBox
+                    <Dropdown
                         name="race/ethnicity"
                         options={race}
                         width="101%"

@@ -2,8 +2,7 @@ import FileUpload from "@/components/Form/FileUpload/FileUpload";
 import styles from "./Education.module.scss";
 import majors from "@/modules/majors.json";
 import schools from "@/modules/schools.json";
-import DropDownBox from "@/components/DropdownBox/MainDropdown";
-import QuestionHeader from "@/components/QuestionHeader/QuestionHeader";
+import Dropdown from "@/components/DropdownBox/Dropdown";
 
 const graduationYearOptions: string[] = [];
 for (let i = 2030; i >= 1970; i -= 1) {
@@ -22,7 +21,7 @@ const Education: React.FC = () => {
             <div className={styles.dropdownContainer}>
                 <div className={styles.question}>
                     <h3>School*</h3>
-                    <DropDownBox
+                    <Dropdown
                         name="school"
                         options={schoolOptions}
                         width="100%"
@@ -31,7 +30,7 @@ const Education: React.FC = () => {
                 </div>
                 <div className={styles.question}>
                     <h3>Graduation Year*</h3>
-                    <DropDownBox
+                    <Dropdown
                         name="grad year"
                         options={graduationYearOptions}
                         width="100%"
@@ -42,7 +41,7 @@ const Education: React.FC = () => {
             <div className={styles.dropdownContainer}>
                 <div className={styles.question}>
                     <h3>Major*</h3>
-                    <DropDownBox
+                    <Dropdown
                         name="major"
                         options={majorOptions}
                         width="100%"
@@ -51,7 +50,7 @@ const Education: React.FC = () => {
                 </div>
                 <div className={styles.question}>
                     <h3>Minor</h3>
-                    <DropDownBox
+                    <Dropdown
                         name="minor"
                         options={majorOptions}
                         width="100%"
