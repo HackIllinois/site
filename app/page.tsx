@@ -20,8 +20,10 @@ const Home: React.FC = () => {
 
     return (
         <main className={styles.main}>
-            <TestForm />
+            {/* <MainDropdown options={options} name={name} />
+            <TestForm /> */}
         </main>
+        // <Registration />
     );
 };
 

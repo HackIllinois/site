@@ -6,4 +6,8 @@ public/registration/*.svg
 LICENSE
 .prettierignore
 package-lock.json
+<<<<<<< HEAD
 yarn.lock
+=======
+.gitignore
+>>>>>>> 2025-dev
