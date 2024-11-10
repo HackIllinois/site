@@ -4,6 +4,7 @@ import Checkboxes from "@/components/Form/Checkboxes/Checkboxes";
 import TestForm from "@/components/Test/TestForm";
 import MainDropdown from "@/components/DropdownBox/MainDropdown";
 import Registration from "./register/page";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 const Home: React.FC = () => {
     const options = [
@@ -18,11 +19,9 @@ const Home: React.FC = () => {
     const name = "school";
 
     return (
-        // <main className={styles.main}>
-        //     <MainDropdown options={options} name={name} />
-        //     <TestForm />
-        // </main>
-        <Registration />
+        <main className={styles.main}>
+            <TestForm />
+        </main>
     );
 };
 

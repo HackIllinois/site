@@ -1,0 +1,50 @@
+.screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 50px;
+    background-color: gray;
+    padding: 50px;
+    padding-bottom: 70px;
+    margin-top: 20px;
+    border-radius: 30px;
+    @media (max-width: 768px) {
+        padding: 30px;
+        gap: 20px;
+    }
+}
+
+.container h1 {
+    position: relative;
+    z-index: 4;
+}
+
+.container .link {
+    position: relative;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #004561;
+}
+
+.container .contentGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
