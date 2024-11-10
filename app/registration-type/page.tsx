@@ -1,7 +1,26 @@
+"use client";
+
 import ShineButton from "@/components/ShineButton/ShineButton";
 import styles from "./styles.module.scss";
+import { useEffect } from "react";
+import { getChallenge } from "@/util/api";
 
 const RegistrationType: React.FC = () => {
+    const handleCheckIfUserCompletedChallenge = async () => {
+        try {
+            const passedChallenge = await getChallenge();
+            if (passedChallenge === true) {
+                window.location.href = "/register";
+            }
+        } catch {
+            // Just leave the user on the page; user did not attempt
+        }
+    };
+
+    useEffect(() => {
+        handleCheckIfUserCompletedChallenge();
+    }, []);
+
     return (
         <div className={styles.screen}>
             <div className={styles.container}>

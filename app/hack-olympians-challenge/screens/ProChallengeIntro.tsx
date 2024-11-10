@@ -1,11 +1,11 @@
 import ShineButton from "@/components/ShineButton/ShineButton";
-import styles from "./HackOlympiansIntro.module.scss";
+import styles from "./ProChallengeIntro.module.scss";
 
-interface HackOlympiansIntroProps {
+interface ProChallengeIntroProps {
     handleBegin: () => void;
 }
 
-const HackOlympiansIntro: React.FC<HackOlympiansIntroProps> = ({
+const ProChallengeIntro: React.FC<ProChallengeIntroProps> = ({
     handleBegin
 }) => {
     return (
@@ -25,4 +25,4 @@ const HackOlympiansIntro: React.FC<HackOlympiansIntroProps> = ({
     );
 };
 
-export default HackOlympiansIntro;
+export default ProChallengeIntro;

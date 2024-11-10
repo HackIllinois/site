@@ -1,5 +1,5 @@
-const AboutHackOlympians: React.FC = () => {
+const AboutProTrack: React.FC = () => {
     return <p>About Hack Olympians</p>;
 };
 
-export default AboutHackOlympians;
+export default AboutProTrack;

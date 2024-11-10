@@ -1,13 +1,11 @@
 import ShineButton from "@/components/ShineButton/ShineButton";
-import styles from "./HackOlympiansStatus.module.scss";
+import styles from "./ProChallengeStatus.module.scss";
 
-interface HackOlympiansStatusProps {
+interface ProChallengeStatusProps {
     success: boolean;
 }
 
-const HackOlympiansStatus: React.FC<HackOlympiansStatusProps> = ({
-    success
-}) => {
+const ProChallengeStatus: React.FC<ProChallengeStatusProps> = ({ success }) => {
     if (success) {
         return (
             <div className={styles.container}>
@@ -70,4 +68,4 @@ const HackOlympiansStatus: React.FC<HackOlympiansStatusProps> = ({
     }
 };
 
-export default HackOlympiansStatus;
+export default ProChallengeStatus;
