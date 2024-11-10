@@ -1,16 +1,17 @@
 import clsx from "clsx";
 import React, { useState } from "react";
-import { useController, useFormContext } from "react-hook-form";
 
 // import { uploadFile } from "@/utils/api";
 // import { FileType } from "@/utils/types";
 
 import styles from "./FileUpload.module.scss";
+import { useField } from "formik";
 
 type FileType = "resume" | "photo" | "blobstore";
 
 type PropTypes = {
     name: string;
+    label: string;
     type: FileType;
     text: string;
     accept: string;
@@ -21,6 +22,7 @@ type PropTypes = {
 
 const FileUpload = ({
     name,
+    label,
     type,
     text,
     accept,
@@ -28,15 +30,18 @@ const FileUpload = ({
     required,
     ...props
 }: PropTypes): JSX.Element => {
-    const { control } = useFormContext();
-    const { field } = useController({ name, control });
+    const [field, meta, helpers] = useField(name);
+    const { setValue } = helpers;
+    const { value } = field;
+
+    const showFeedback = meta.error && meta.touched;
 
     const [isUploading, setIsUploading] = useState(false);
     const [isDragOver, setIsDragOver] = useState(false);
 
     const onFileUpload = (file: File) => {
         setIsUploading(true);
-        field.onChange(file.name);
+        setValue(file.name);
         // uploadFile(file, type)
         //     .then(() => {
         //         field.onChange(file.name);
@@ -75,7 +80,11 @@ const FileUpload = ({
     };
 
     return (
-        <>
+        <div className={styles.container}>
+            <label htmlFor={name}>
+                {label}
+                {required && "*"}
+            </label>
             <div
                 className={clsx(styles.fileUpload, className, {
                     [styles.dragOver]: isDragOver
@@ -96,9 +105,10 @@ const FileUpload = ({
                     />
                 </label>
 
-                <span className={styles.filename}>{field.value}</span>
+                <span className={styles.filename}>{value}</span>
             </div>
-        </>
+            <h4>{showFeedback && meta.error}</h4>
+        </div>
     );
 };
 
