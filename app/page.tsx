@@ -18,11 +18,11 @@ const Home: React.FC = () => {
     const name = "school";
 
     return (
-        // <main className={styles.main}>
-        //     <MainDropdown options={options} name={name} />
-        //     <TestForm />
-        // </main>
-        <Registration />
+        <main className={styles.main}>
+            {/* <MainDropdown options={options} name={name} />
+            <TestForm /> */}
+        </main>
+        // <Registration />
     );
 };
 
