@@ -1,6 +1,7 @@
 .progressStepper {
     position: relative;
     width: 100%;
+    max-width: 1200px;
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 1fr;

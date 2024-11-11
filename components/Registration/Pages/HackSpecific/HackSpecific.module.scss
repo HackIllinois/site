@@ -1,17 +1,10 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: 6rem;
-}
-
-.question {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.required {
-    color: red;
+    gap: 3rem;
+    @media (max-width: 768px) {
+        gap: 2rem;
+    }
 }
 
 .largeTextField {

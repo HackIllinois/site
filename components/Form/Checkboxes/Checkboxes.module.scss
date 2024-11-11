@@ -1,3 +1,9 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 .checkboxes {
     // grid with 2 col
     display: grid;

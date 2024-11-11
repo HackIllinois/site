@@ -29,29 +29,27 @@ const travelMethodOptions = [
     }
 ] satisfies CheckboxOption[];
 
-const Transportation: React.FC = () => {
+type PropTypes = {
+    onChangePage: (newIndex: number) => void;
+};
+
+const Transportation = ({ onChangePage }: PropTypes): JSX.Element => {
     return (
         <div className={styles.container}>
             <h1>Transportation</h1>
-            <div className={styles.question}>
-                <h3>
-                    Are you aware that you are responsible for your own
-                    transportation to the site?*
-                </h3>
-                <Checkboxes
-                    name="travelAcknowledge"
-                    options={travelAcknowledgeOptions}
-                    required
-                />
-            </div>
-            <div className={styles.question}>
-                <h3>How will you be getting to HackIllinois?*</h3>
-                <Checkboxes
-                    name="travelMethod"
-                    options={travelMethodOptions}
-                    required
-                />
-            </div>
+            <Checkboxes
+                name="travelAcknowledge"
+                label="Are you aware that you are responsible for your own
+                    transportation to the site?"
+                options={travelAcknowledgeOptions}
+                required
+            />
+            <Checkboxes
+                name="travelMethod"
+                label="How will you be getting to HackIllinois?"
+                options={travelMethodOptions}
+                required
+            />
         </div>
     );
 };

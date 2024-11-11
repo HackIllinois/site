@@ -1,27 +1,25 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: 6rem;
+    gap: 3rem;
     color: white;
     width: 100%;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 2rem;
+    }
 }
 
 .dropdownContainer {
     display: flex;
-    gap: 5rem;
+    gap: 3rem;
     justify-content: space-between;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 2rem;
+    }
 }
 
 .dropdownContainer div {
     flex: 1;
-}
-
-.question {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.required {
-    color: red;
 }
