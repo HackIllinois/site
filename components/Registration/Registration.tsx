@@ -5,6 +5,7 @@ import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
 import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
+import ProgressBar from "../ProgressBar/ProgressBar";
 import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
 import { registrationSchemas } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
@@ -65,6 +66,7 @@ type FieldValues = (typeof initialValues)[number];
 
 const RegistrationForm: React.FC = () => {
     const [formIndex, setFormIndex] = useState(0);
+    const [furthestPage, setFurthestPage] = useState(0);
 
     const handlePageChange = (newIndex: number) => {
         console.log("page", newIndex);
@@ -73,6 +75,9 @@ const RegistrationForm: React.FC = () => {
         }
 
         setFormIndex(() => newIndex);
+        if (newIndex > furthestPage) {
+            setFurthestPage(newIndex);
+        }
         window.scroll(0, 0); // Scroll to top of page
     };
 
@@ -92,6 +97,10 @@ const RegistrationForm: React.FC = () => {
     return (
         <>
             <div className={styles.container}>
+                <ProgressBar
+                    onChangePage={handlePageChange}
+                    furthestPage={furthestPage}
+                />
                 <Formik
                     initialValues={initialValues[formIndex]}
                     onSubmit={onSubmit}
