@@ -1,20 +1,25 @@
 "use client";
-import React, { useState } from "react";
+import React, { ElementType, useState } from "react";
 import styles from "./Registration.module.scss";
 import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
 import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
+import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
 import { registrationSchemas } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
 
-const pages: Array<React.FC> = [
+const pages: Array<
+    ElementType<{
+        onChangePage: (newIndex: number) => void;
+    }>
+> = [
     PersonalInfo,
     Education,
     HackSpecific,
-    Transportation
-    // Review,
+    Transportation,
+    ReviewInfo
     // Confirmation
 ];
 
@@ -22,8 +27,8 @@ const buttonNames: Array<[string, string]> = [
     ["Back", "Education"],
     ["Personal Info", "Experience"],
     ["Education", "Transportation"],
-    ["Experience", "Review Info"]
-    // ["Transportation", "Submit"]
+    ["Experience", "Review Info"],
+    ["Transportation", "Submit"]
 ];
 
 const initialValues = [
@@ -93,7 +98,9 @@ const RegistrationForm: React.FC = () => {
                     validationSchema={registrationSchemas[formIndex]}
                 >
                     <Form className={styles.form}>
-                        {React.createElement(pages[formIndex])}
+                        {React.createElement(pages[formIndex], {
+                            onChangePage: handlePageChange
+                        })}
                         <div className={styles.navigation}>
                             <NavigationButton
                                 text={buttonNames[formIndex][0]}
