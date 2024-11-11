@@ -1,27 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 .input {
     display: block;
     font-family: inherit;
-    border: 4px solid transparent;
     outline: none;
     font-weight: 400;
     width: 100%;
-    padding: 8px 10px;
+    padding: 10px 10px;
     background-color: #ffffff;
     color: #ad8e28;
     border-radius: 4px;
-    font-size: 28px;
+    font-size: 20px;
 
     &::placeholder {
         color: #a19366;
     }
 
     &:focus {
-        border: 4px solid #ad8e28;
+        outline: 4px solid #ad8e28;
     }
+}
 
-    &:invalid {
-        border: 4px solid rgb(224, 57, 7);
-    }
+.invalid {
+    outline: 4px solid red !important;
 }
 
 .multiline {

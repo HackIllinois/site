@@ -6,3 +6,4 @@ public/registration/*.svg
 LICENSE
 .prettierignore
 package-lock.json
+.gitignore

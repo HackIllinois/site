@@ -1,27 +1,73 @@
 "use client";
 import React, { ElementType, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-
 import styles from "./Registration.module.scss";
-import Navigation from "./Navigation/Navigation";
 import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
 import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
 import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
+import { registrationSchemas } from "./validation";
+import NavigationButton from "../Form/NavigationButton/NavigationButton";
+import { Formik, Form, FormikHelpers } from "formik";
 
 const pages: Array<
     ElementType<{
         onChangePage: (newIndex: number) => void;
     }>
-> = [PersonalInfo, Education, HackSpecific, Transportation, ReviewInfo];
+> = [
+    PersonalInfo,
+    Education,
+    HackSpecific,
+    Transportation,
+    ReviewInfo
+    // Confirmation
+];
 
-const Form: React.FC = () => {
+const buttonNames: Array<[string, string]> = [
+    ["Back", "Education"],
+    ["Personal Info", "Experience"],
+    ["Education", "Transportation"],
+    ["Experience", "Review Info"],
+    ["Transportation", "Submit"]
+];
+
+const initialValues = [
+    {
+        legalName: "",
+        preferredName: "",
+        gender: "",
+        age: "",
+        race: "",
+        emailAddress: "",
+        phoneNumber: ""
+    },
+    {
+        school: "",
+        gradYear: "",
+        major: "",
+        minor: "",
+        resume: ""
+    },
+    {
+        interestExplaination: "",
+        heardAbout: [],
+        lookingForwardTo: [],
+        allergiesRestrictions: [],
+        travelReimbursement: []
+    },
+    {
+        travelAcknowledge: [],
+        travelMethod: []
+    }
+] as const;
+
+type FieldValues = (typeof initialValues)[number];
+
+const RegistrationForm: React.FC = () => {
     const [formIndex, setFormIndex] = useState(0);
 
-    const methods = useForm();
-
     const handlePageChange = (newIndex: number) => {
+        console.log("page", newIndex);
         if (newIndex < 0 || newIndex >= pages.length) {
             return; // This shouldn't happen
         }
@@ -31,33 +77,47 @@ const Form: React.FC = () => {
     };
 
     const previousPage = () => {
+        console.log("prev");
         handlePageChange(formIndex - 1);
     };
 
-    const nextPage = () => {
+    const onSubmit = (
+        values: FieldValues,
+        formikHelpers: FormikHelpers<FieldValues>
+    ) => {
+        console.log("submit", values);
         handlePageChange(formIndex + 1);
     };
 
     return (
         <>
             <div className={styles.container}>
-                <FormProvider {...methods}>
-                    <form className={styles.form}>
+                <Formik
+                    initialValues={initialValues[formIndex]}
+                    onSubmit={onSubmit}
+                    validationSchema={registrationSchemas[formIndex]}
+                >
+                    <Form className={styles.form}>
                         {React.createElement(pages[formIndex], {
                             onChangePage: handlePageChange
                         })}
-                    </form>
-                </FormProvider>
-                {formIndex != pages.length - 1 && (
-                    <Navigation
-                        index={formIndex}
-                        handlePrevious={previousPage}
-                        handleNext={nextPage}
-                    />
-                )}
+                        <div className={styles.navigation}>
+                            <NavigationButton
+                                text={buttonNames[formIndex][0]}
+                                onClick={previousPage}
+                                type="button"
+                            />
+                            <NavigationButton
+                                text={buttonNames[formIndex][1]}
+                                pointRight
+                                type="submit"
+                            />
+                        </div>
+                    </Form>
+                </Formik>
             </div>
         </>
     );
 };
 
-export default Form;
+export default RegistrationForm;

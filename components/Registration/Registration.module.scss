@@ -1,25 +1,54 @@
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     background-color: black;
-    width: 60%;
-    padding: 1rem;
+    width: 100%;
+    padding: 5rem 1rem;
     gap: 4rem;
+    min-height: 100vh;
+    @media (max-width: 768px) {
+        padding: 4rem 1.5rem;
+        padding-bottom: 25rem;
+        // Lots of bottom padding for mobile keyboard
+    }
 }
 
 .form {
     width: 100%;
     h1 {
         font-weight: 900;
-        font-size: 72px;
+        font-size: 56px;
+        @media (max-width: 768px) {
+            font-size: 36px;
+        }
     }
 
-    h3 {
+    h4 {
+        font-weight: 400;
+        font-size: 24px;
+        color: red;
+    }
+
+    label {
         font-weight: 600;
-        font-size: 40px;
+        font-size: 28px;
+        @media (max-width: 768px) {
+            font-size: 22px;
+        }
     }
 
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+    max-width: 800px;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
 }
