@@ -85,7 +85,11 @@ const travelReimbursementOptions = [
     }
 ] satisfies CheckboxOption[];
 
-const HackSpecific: React.FC = () => {
+type PropTypes = {
+    onChangePage: (newIndex: number) => void;
+};
+
+const HackSpecific = ({ onChangePage }: PropTypes): JSX.Element => {
     return (
         <div className={styles.container}>
             <h1>Hack-Specific</h1>

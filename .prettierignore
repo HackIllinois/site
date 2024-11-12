@@ -2,7 +2,7 @@
 **/node_modules
 **/.next
 **/.husky
-public/registration/*.svg
+public/*
 LICENSE
 .prettierignore
 package-lock.json

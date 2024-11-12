@@ -1,20 +1,26 @@
 "use client";
-import React, { useState } from "react";
+import React, { ElementType, useState } from "react";
 import styles from "./Registration.module.scss";
 import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
 import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
+import ProgressBar from "../ProgressBar/ProgressBar";
+import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
 import { registrationSchemas } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
 
-const pages: Array<React.FC> = [
+const pages: Array<
+    ElementType<{
+        onChangePage: (newIndex: number) => void;
+    }>
+> = [
     PersonalInfo,
     Education,
     HackSpecific,
-    Transportation
-    // Review,
+    Transportation,
+    ReviewInfo
     // Confirmation
 ];
 
@@ -22,8 +28,8 @@ const buttonNames: Array<[string, string]> = [
     ["Back", "Education"],
     ["Personal Info", "Experience"],
     ["Education", "Transportation"],
-    ["Experience", "Review Info"]
-    // ["Transportation", "Submit"]
+    ["Experience", "Review Info"],
+    ["Transportation", "Submit"]
 ];
 
 const initialValues = [
@@ -60,6 +66,7 @@ type FieldValues = (typeof initialValues)[number];
 
 const RegistrationForm: React.FC = () => {
     const [formIndex, setFormIndex] = useState(0);
+    const [furthestPage, setFurthestPage] = useState(0);
 
     const handlePageChange = (newIndex: number) => {
         console.log("page", newIndex);
@@ -68,6 +75,9 @@ const RegistrationForm: React.FC = () => {
         }
 
         setFormIndex(() => newIndex);
+        if (newIndex > furthestPage) {
+            setFurthestPage(newIndex);
+        }
         window.scroll(0, 0); // Scroll to top of page
     };
 
@@ -87,13 +97,19 @@ const RegistrationForm: React.FC = () => {
     return (
         <>
             <div className={styles.container}>
+                <ProgressBar
+                    onChangePage={handlePageChange}
+                    furthestPage={furthestPage}
+                />
                 <Formik
                     initialValues={initialValues[formIndex]}
                     onSubmit={onSubmit}
                     validationSchema={registrationSchemas[formIndex]}
                 >
                     <Form className={styles.form}>
-                        {React.createElement(pages[formIndex])}
+                        {React.createElement(pages[formIndex], {
+                            onChangePage: handlePageChange
+                        })}
                         <div className={styles.navigation}>
                             <NavigationButton
                                 text={buttonNames[formIndex][0]}
