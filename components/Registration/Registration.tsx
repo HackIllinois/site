@@ -8,6 +8,8 @@ import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
 import { registrationSchemas } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
+import { getRegistration, registerUpdate } from "@/util/api";
+import { RegistrationType } from "@/util/types";
 
 const pages: Array<React.FC> = [
     PersonalInfo,
@@ -76,12 +78,74 @@ const RegistrationForm: React.FC = () => {
         handlePageChange(formIndex - 1);
     };
 
+    const createRegistrationObject = (
+        fieldValues: FieldValues
+    ): RegistrationType => {
+        const registrationObject: RegistrationType = {
+            preferredName: "",
+            legalName: "",
+            emailAddress: "",
+            university: "",
+            hackEssay1: "",
+            hackEssay2: "",
+            optionalEssay: "",
+            resumeFileName: "",
+            location: "",
+            gender: "",
+            degree: "",
+            major: "",
+            minor: "",
+            gradYear: 0,
+            isProApplicant: false,
+            proEssay: "",
+            considerForGeneral: false,
+            requestedTravelReimbursement: false,
+            dietaryRestrictions: [],
+            race: [],
+            hackInterest: [],
+            hackOutreach: []
+        };
+
+        for (const key in registrationObject) {
+            if (key in fieldValues) {
+                if (key === "race") {
+                    const raceValue = fieldValues[key as keyof FieldValues];
+                    registrationObject.race = raceValue
+                        ? Array.isArray(raceValue)
+                            ? (raceValue as string[])
+                            : [raceValue as string]
+                        : [];
+                } else {
+                    registrationObject[key as keyof RegistrationType] =
+                        fieldValues[key as keyof FieldValues] || "";
+                }
+            }
+        }
+
+        return registrationObject;
+    };
+
     const onSubmit = (
         values: FieldValues,
         formikHelpers: FormikHelpers<FieldValues>
     ) => {
         console.log("submit", values);
+
+        const registrationObject = createRegistrationObject(values);
+        console.log("full thing", registrationObject);
+
         handlePageChange(formIndex + 1);
+        // getRegistration().then(data => console.log(data));
+        // console.log("Request Payload:", JSON.stringify(registrationObject));
+
+        registerUpdate(registrationObject)
+            .then(response => console.log("Response:", response))
+            .catch(error => {
+                console.error(
+                    "Error Response:",
+                    error.response?.data || error.message
+                );
+            });
     };
 
     return (
