@@ -1,0 +1,232 @@
+@use "/app/colors" as *;
+
+.olympianMain {
+    // height: max(100vh, 60vw);
+    height: auto;
+    min-height: 100vh;
+    // max-height: 100vh;
+    // max-height: -webkit-fill-available;
+    background: linear-gradient(0deg, #9af2fb 25%, #32c0e2 60%, #0e87cc 100%);
+    // background-image: linear-gradient(0deg, #fff 0%, #6ae4ff 100%);
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.olympianContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    // gap: 48px;
+    @media screen and (max-width: 640px) {
+        gap: 24px;
+    }
+    width: fit-content;
+}
+
+@keyframes scaleUpDown {
+    0%,
+    100% {
+        transform: scale(1); /* Normal scale */
+    }
+    50% {
+        transform: scale(1.02); /* Scaled up by 2% */
+    }
+}
+
+.olympianImageWrapper {
+    z-index: 1;
+    width: 95vw;
+    height: 711px;
+    position: relative;
+    margin-top: 13%;
+    margin-bottom: 0;
+    img {
+        position: relative;
+        object-fit: contain;
+    }
+
+    // need to adjust these numbers
+    @media screen and (max-width: 1440px) {
+        height: 252px;
+    }
+    @media screen and (max-width: 1152px) {
+        height: 222px;
+    }
+    @media screen and (max-width: 960px) {
+        height: 162px;
+    }
+    @media screen and (max-width: 640px) {
+        height: 120px;
+    }
+    animation: scaleUpDown 5s infinite;
+}
+
+.olympianButtonWrapper {
+    z-index: 1;
+    width: fit-content;
+    height: 110px;
+    // margin: auto;
+
+    &:hover {
+        .olympianButton {
+            background-color: #eed394;
+        }
+
+        transform: translateY(8px);
+        .olympianButton::after {
+            top: 0px;
+        }
+        @media screen and (max-width: 1440px) {
+            transform: translateY(6px);
+            .olympianButton::after {
+                top: 2px;
+            }
+        }
+        @media screen and (max-width: 1152px) {
+            transform: translateY(4px);
+            .olympianButton::after {
+                top: 12px;
+            }
+        }
+        @media screen and (max-width: 960px) {
+        }
+        @media screen and (max-width: 640px) {
+            transform: translateY(4px);
+            .olympianButton::after {
+                top: 2px;
+            }
+        }
+    }
+}
+
+.olympianButton {
+    background-color: #eed394;
+    border-color: #34274a;
+    position: relative;
+    color: #562411;
+    text-transform: uppercase;
+    border-style: solid;
+    cursor: pointer;
+
+    &::after {
+        content: "";
+        display: block;
+        width: 360px;
+        height: 90px;
+
+        border-radius: 32px;
+        background-color: #34274a;
+
+        z-index: -1;
+        position: absolute;
+        left: -8px;
+        top: 8px;
+    }
+
+    @media screen and (max-width: 1440px) {
+        width: 310px;
+        height: 78px;
+        font-size: 26px;
+        border-width: 6px;
+        border-radius: 20px;
+
+        &::after {
+            width: 310px;
+            height: 78px;
+
+            border-radius: 20px;
+
+            left: -6px;
+            top: 8px;
+        }
+    }
+    @media screen and (max-width: 1152px) {
+        width: 260px;
+        height: 70px;
+        font-size: 22px;
+        border-width: 4px;
+        border-radius: 20px;
+
+        &::after {
+            width: 260px;
+            height: 60px;
+            border-radius: 20px;
+            left: -4px;
+            top: 16px;
+        }
+    }
+    @media screen and (max-width: 960px) {
+    }
+    @media screen and (max-width: 640px) {
+        width: 200px;
+        height: 60px;
+        font-size: 18px;
+        border-width: 4px;
+        border-radius: 20px;
+
+        &::after {
+            width: 200px;
+            height: 60px;
+
+            border-radius: 20px;
+
+            left: -4px;
+            top: 6px;
+        }
+    }
+
+    width: 360px;
+    height: 90px;
+    border-radius: 32px;
+    border-width: 8px;
+    font-size: 28px;
+    font-weight: 700;
+
+    // &:before {
+    //     z-index: 1;
+    //     content: "";
+    //     position: absolute;
+    //     top: 0;
+    //     left: 12%;
+    //     width: 20%;
+    //     height: 100%;
+    //     background: rgba(255, 255, 255, 0.3);
+    //     transform: skewX(-30deg);
+    //     transition: 0.3s;
+    // }
+
+    // &:hover:before {
+    //     left: 65%;
+    //     background: rgba(255, 255, 255, 0.5);
+    // }
+}
+
+.backCloudsContainer {
+    position: relative;
+    width: 110%;
+    height: 1000px;
+    margin-top: -30%;
+}
+
+.frontCloudsContainer {
+    position: relative;
+    width: 110%;
+    height: 1000px;
+    margin-top: -50%;
+    z-index: 1;
+}
+
+.chestContainer {
+    // margin-top: 13%;
+    // background-color: red;
+    position: relative;
+    width: 100%;
+    height: 900px;
+    margin-top: -90%;
+    margin-left: -5%;
+    // bottom: -10%;
+    // bottom: 0;
+}

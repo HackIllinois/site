@@ -17,23 +17,43 @@
 }
 
 .form {
+    width: 100%;
     h1 {
         font-weight: 900;
-        font-size: 56px;
+        font-size: 72px;
         color: white;
+        // font-size: 56px;
         @media (max-width: 768px) {
             font-size: 36px;
         }
     }
+
+    h4 {
+        font-weight: 400;
+        font-size: 24px;
+        color: red;
+    }
+
+    label,
     h3 {
         font-weight: 600;
-        font-size: 28px;
+        font-size: 40px;
         color: white;
+        // font-size: 28px;
         @media (max-width: 768px) {
             font-size: 22px;
         }
     }
 
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+    max-width: 900px;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    max-width: 800px;
 }
