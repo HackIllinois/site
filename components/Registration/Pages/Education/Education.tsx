@@ -20,7 +20,7 @@ const Education: React.FC = () => {
             <h1>Education</h1>
             <div className={styles.dropdownContainer}>
                 <Dropdown
-                    name="school"
+                    name="university"
                     label="School"
                     options={schoolOptions}
                     required
@@ -46,7 +46,7 @@ const Education: React.FC = () => {
 
             <FileUpload
                 className={styles["resume-upload"]}
-                name="resume"
+                name="resumeFileName"
                 label="Resume"
                 type="resume"
                 accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"

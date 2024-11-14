@@ -31,11 +31,11 @@ const personalInfo = yup.object({
 });
 
 const education = yup.object({
-    school: yup.string().required("Please select a school (or N/A)"),
+    university: yup.string().required("Please select a school (or N/A)"),
     gradYear: yup.string().required("Please select a graduation year"),
     major: yup.string().required("Please select a major (or N/A)"),
     minor: yup.string(),
-    resume: yup
+    resumeFileName: yup
         .string()
         .matches(
             /((\.pdf)|(\.docx)|(\.doc))$/,
@@ -44,19 +44,19 @@ const education = yup.object({
 });
 
 const hackSpecific = yup.object({
-    interestExplanation: yup.string().required("Please answer this question"),
-    heardAbout: yup
+    hackEssay1: yup.string().required("Please answer this question"),
+    hackOutreach: yup
         .array()
         .of(yup.string().required('"Other" cannot be empty'))
         .min(1, "Please select at least one option"),
-    lookingForwardTo: yup
+    hackInterest: yup
         .array()
         .of(yup.string().required('"Other" cannot be empty'))
         .min(1, "Please select at least one option"),
-    allergiesRestrictions: yup
+    dietaryRestrictions: yup
         .array()
         .of(yup.string().required('"Other" cannot be empty')),
-    travelReimbursement: yup
+    requestedTravelReimbursement: yup
         .array()
         .of(yup.string())
         .min(1, "Please select one option")

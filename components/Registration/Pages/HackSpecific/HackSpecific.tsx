@@ -5,33 +5,33 @@ import styles from "./HackSpecific.module.scss";
 import TextInput from "@/components/Form/TextInput/TextInput";
 
 const heardAboutOptions = [
-    { label: "Instagram", value: "INSTAGRAM" },
-    { label: "Facebook", value: "FACEBOOK" },
-    { label: "UIUC Flyers", value: "UIUC_FLYERS" },
-    { label: "Twitter", value: "TWITTER" },
-    { label: "Slack", value: "SLACK" },
-    { label: "School Emails", value: "SCHOOL_EMAILS" },
-    { label: "LinkedIn", value: "LINKEDIN" },
-    { label: "Word of Mouth", value: "WORD_OF_MOUTH" },
+    { label: "Instagram", value: "Instagram" },
+    { label: "Facebook", value: "Facebook" },
+    { label: "UIUC Flyers", value: "Posters/Flyers on Campus" },
+    { label: "Twitter", value: "Twitter/X" },
+    { label: "Slack", value: "Slack" },
+    { label: "School Emails", value: "CS Department Email" },
+    { label: "LinkedIn", value: "LinkedIn" },
+    { label: "Word of Mouth", value: "Word of Mouth" },
     { label: "Other", value: "OTHER", isOther: true }
 ] satisfies CheckboxOption[];
 
 const lookingForwardToOptions = [
     {
-        label: "Attending workshops",
-        value: "ATTENDING_WORKSHOPS"
+        label: "Attending technical workshops",
+        value: "Attending technical workshops"
     },
     {
         label: "Submitting a project to win prizes",
-        value: "SUBMIT_PROJECT_TO_WIN_PRIZES"
+        value: "Submitting a project to win prizes"
     },
     {
         label: "Mini Events & Game Tournaments",
-        value: "MINI_EVENTS_GAME_TOURNAMENTS"
+        value: "Participating in mini-events"
     },
     {
         label: "Working with mentors",
-        value: "WORKING_WITH_MENTORS"
+        value: "Working with mentors to get feedback"
     },
     {
         label: "Pitching your project",
@@ -39,11 +39,11 @@ const lookingForwardToOptions = [
     },
     {
         label: "Company Q & A's & Networking",
-        value: "COMPANY_QA_NETWORKING"
+        value: "Company Q&As and networking events"
     },
     {
         label: "Meeting new people",
-        value: "MEETING_NEW_PEOPLE"
+        value: "Meeting new people"
     },
     {
         label: "Other",
@@ -56,20 +56,20 @@ const lookingForwardToOptions = [
 const allergiesRestrictionsOptions = [
     {
         label: "Peanut allergy",
-        value: "PEANUT_ALLERGY"
+        value: "Peanut allergy"
     },
     {
         label: "Dairy intolerance",
-        value: "DAIRY_INTOLERANCE"
+        value: "Dairy intolerance"
     },
-    { label: "Vegetarian", value: "VEGETARIAN" },
-    { label: "Vegan", value: "VEGAN" },
-    { label: "Gluten-free", value: "GLUTEN_FREE" },
+    { label: "Vegetarian", value: "Vegetarian" },
+    { label: "Vegan", value: "Vegan" },
+    { label: "Gluten-free", value: "Gluten-free" },
     {
         label: "Shellfish allergy",
-        value: "SHELLFISH_ALLERGY"
+        value: "Shellfish allergy"
     },
-    { label: "Other", value: "Other", isOther: true }
+    { label: "Other", value: "OTHER", isOther: true }
 ] satisfies CheckboxOption[];
 
 const travelReimbursementOptions = [
@@ -92,14 +92,14 @@ const HackSpecific: React.FC = () => {
             <TextInput
                 className={styles.largeTextField}
                 label="In a couple of sentences, please explain why you are interested in participating in HackIllinois 2024."
-                name="interestExplanation"
+                name="hackEssay1"
                 multiline
                 required
                 placeholder="Type your response..."
             />
 
             <Checkboxes
-                name="heardAbout"
+                name="hackOutreach"
                 label="How did you hear about HackIllinois?"
                 options={heardAboutOptions}
                 threeColEnabled
@@ -107,19 +107,19 @@ const HackSpecific: React.FC = () => {
             />
 
             <Checkboxes
-                name="lookingForwardTo"
+                name="hackInterest"
                 label="What are you looking forward to at HackIllinois?"
                 options={lookingForwardToOptions}
             />
 
             <Checkboxes
-                name="allergiesRestrictions"
+                name="dietaryRestrictions"
                 label="Do you have any allergies or restrictions?"
                 options={allergiesRestrictionsOptions}
             />
 
             <Checkboxes
-                name="travelReimbursement"
+                name="requestedTravelReimbursement"
                 label="Would you like to be considered for travel reimbursement?"
                 options={travelReimbursementOptions}
                 required

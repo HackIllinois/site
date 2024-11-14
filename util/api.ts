@@ -53,19 +53,16 @@ export function authenticate(to: string): void {
 async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
     const response = await fetch(APIv2 + endpoint, {
         method,
-        mode: "no-cors",
+        mode: "cors",
         headers: {
             "Content-Type": "application/json",
-            Origin: "www.hackillinois.org"
+            Origin: "www.hackillinois.org",
+            Authorization: sessionStorage.getItem("token") || ""
         },
         body: JSON.stringify(body)
     });
-    console.log("Request body:", JSON.stringify(body, null, 2));
 
     if (response.status !== 200) {
-        console.log("in here");
-        console.log("Response body:", response.body);
-        console.log("Response json:", response.json());
         throw new APIError(await response.json());
     }
 
