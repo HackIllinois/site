@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 150px;
+    margin-right: 150px; 
+    margin-top: 30px; 
+}
+
+.logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 20px; 
+    z-index: 1000; 
+}
+
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ffffff; 
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.message {
+    font-size: 22px;
+    font-weight: 500; 
+    color: #ffffff; 
+    margin-top: 35px;
+    width: 80%;
+
+}
+
+.follow {
+    font-size: 20px;
+    font-weight: 300; 
+    color: #ffffff;
+    width: 100%;
+    margin-top: 45px;
+
+
+}
+
+.link {
+    color: #3498db; /* Custom color for links */
+    text-decoration: none; /* Removes underline */
+    font-weight: 600; /* Semi-bold */
+}
+
+.link:hover {
+    text-decoration: underline; /* Underline on hover */
+}

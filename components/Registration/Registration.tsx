@@ -7,6 +7,7 @@ import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
+import ApplicationSubmitted from "./Pages/ApplicationSubmitted/ApplicationSubmitted";
 import { registrationSchemas } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
@@ -20,8 +21,8 @@ const pages: Array<
     Education,
     HackSpecific,
     Transportation,
-    ReviewInfo
-    // Confirmation
+    ReviewInfo,
+    ApplicationSubmitted
 ];
 
 const buttonNames: Array<[string, string]> = [

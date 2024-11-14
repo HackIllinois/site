@@ -1,4 +1,5 @@
 import React from "react";
+import Registration from "./register/page";
 
 const Home: React.FC = () => {
     const options = [
@@ -13,11 +14,8 @@ const Home: React.FC = () => {
     const name = "school";
 
     return (
-        <main>
-            {/* <MainDropdown options={options} name={name} />
-            <TestForm /> */}
-        </main>
-        // <Registration />
+        
+        <Registration />
     );
 };
 
