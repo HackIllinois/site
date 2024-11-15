@@ -1,0 +1,34 @@
+.screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+    padding: 10px;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    background-color: gray;
+    padding: 50px 0;
+    padding-bottom: 70px;
+    border-radius: 30px;
+}
+
+.container h2 {
+    position: relative;
+    z-index: 4;
+    text-align: center;
+}
+
+.container .link {
+    position: relative;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #004561;
+}

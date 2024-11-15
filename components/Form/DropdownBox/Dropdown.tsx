@@ -26,7 +26,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     const [isOpen, setIsOpen] = useState(false);
     const [didFocus, setDidFocus] = useState(false);
     const [focus, setFocus] = useState(false);
-    const [filterTerm, setFilterTerm] = useState(""); 
+    const [filterTerm, setFilterTerm] = useState("");
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const handleFocus = () => {
@@ -43,9 +43,9 @@ const Dropdown: React.FC<DropdownProps> = ({
     };
 
     const handleOptionClick = (option: string) => {
-        setValue(option)
-        setIsOpen(false)
-        setFilterTerm("")
+        setValue(option);
+        setIsOpen(false);
+        setFilterTerm("");
     };
 
     useEffect(() => {
@@ -55,7 +55,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                 !dropdownRef.current.contains(event.target as Node)
             ) {
                 setIsOpen(false);
-                setFilterTerm("")
+                setFilterTerm("");
             }
         };
 
@@ -69,12 +69,11 @@ const Dropdown: React.FC<DropdownProps> = ({
         const handleKeyDown = (event: KeyboardEvent) => {
             if (isOpen) {
                 if (event.key.length === 1) {
-                    setFilterTerm((prev) => prev + event.key); 
+                    setFilterTerm(prev => prev + event.key);
                 } else if (event.key === "Backspace") {
-                    setFilterTerm((prev) => prev.slice(0, -1)); 
+                    setFilterTerm(prev => prev.slice(0, -1));
                 }
             }
-            
         };
 
         window.addEventListener("keydown", handleKeyDown);
@@ -83,7 +82,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         };
     }, [isOpen]);
 
-    const filteredOptions = modOptions.filter((option) =>
+    const filteredOptions = modOptions.filter(option =>
         option.toLowerCase().includes(filterTerm.toLowerCase())
     );
 
@@ -106,7 +105,10 @@ const Dropdown: React.FC<DropdownProps> = ({
                 >
                     {value || placeholder}
                     <span
-                        className={clsx(styles.dropdownIcon, isOpen && styles.open)}
+                        className={clsx(
+                            styles.dropdownIcon,
+                            isOpen && styles.open
+                        )}
                     >
                         {isOpen ? (
                             <svg
