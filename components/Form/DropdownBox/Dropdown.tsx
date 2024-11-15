@@ -26,12 +26,12 @@ const Dropdown: React.FC<DropdownProps> = ({
     const [isOpen, setIsOpen] = useState(false);
     const [didFocus, setDidFocus] = useState(false);
     const [focus, setFocus] = useState(false);
-    const dropdownRef = useRef<HTMLDivElement>(null); // Create ref for dropdown
+    const [filterTerm, setFilterTerm] = useState(""); 
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     const handleFocus = () => {
         setFocus(!focus);
         setDidFocus(true);
-    
     };
     const showFeedback = meta.error && ((didFocus && !focus) || meta.touched);
 
@@ -43,11 +43,11 @@ const Dropdown: React.FC<DropdownProps> = ({
     };
 
     const handleOptionClick = (option: string) => {
-        setValue(option);
-        setIsOpen(false);
+        setValue(option)
+        setIsOpen(false)
+        setFilterTerm("")
     };
 
-    // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
@@ -55,6 +55,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                 !dropdownRef.current.contains(event.target as Node)
             ) {
                 setIsOpen(false);
+                setFilterTerm("")
             }
         };
 
@@ -64,75 +65,93 @@ const Dropdown: React.FC<DropdownProps> = ({
         };
     }, []);
 
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (isOpen) {
+                if (event.key.length === 1) {
+                    setFilterTerm((prev) => prev + event.key); 
+                } else if (event.key === "Backspace") {
+                    setFilterTerm((prev) => prev.slice(0, -1)); 
+                }
+            }
+            
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [isOpen]);
+
+    const filteredOptions = modOptions.filter((option) =>
+        option.toLowerCase().includes(filterTerm.toLowerCase())
+    );
+
     return (
-        <div className={styles.container} >
+        <div className={styles.container}>
             <label htmlFor={name}>
                 {label}
                 {required && "*"}
             </label>
 
             <div ref={dropdownRef}>
-            <button
-                className={clsx(
-                    styles.dropdownButton,
-                    showFeedback && styles.invalid
-                )}
-                onClick={handleToggle}
-                onFocus={handleFocus}
-                onBlur={handleFocus}
-            >
-                {value || placeholder}
-                <span
-                    className={clsx(styles.dropdownIcon, isOpen && styles.open)}
-                >
-                    {isOpen ? (
-                        <svg
-                            width="22"
-                            height="22"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
-                            <polygon points="12,8 4,16 20,16" />
-                        </svg>
-                    ) : (
-                        <svg
-                            width="22"
-                            height="22"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
-                            <polygon points="4,8 20,8 12,16" />
-                        </svg>
-                    )}
-                </span>
-            </button>
-            {isOpen && (
-                <ul
+                <button
                     className={clsx(
-                        styles.dropdownOptions,
-                        isOpen && styles.open
+                        styles.dropdownButton,
+                        showFeedback && styles.invalid
                     )}
-                    onBlur={() => setIsOpen(false)}
+                    onClick={handleToggle}
+                    onFocus={handleFocus}
+                    onBlur={handleFocus}
                 >
-                    {modOptions.map((option, index) => (
-                        <DropdownItem
-                            key={index}
-                            option={option}
-                            onClick={handleOptionClick}
-
-                        />
-                    ))}
-                </ul>
-            )}
-            
-            {!isOpen ? (
-                <h4 className={styles.errorMessage}>
-                    {showFeedback && meta.error}
-                </h4>
-            ) : null}
-
+                    {value || placeholder}
+                    <span
+                        className={clsx(styles.dropdownIcon, isOpen && styles.open)}
+                    >
+                        {isOpen ? (
+                            <svg
+                                width="22"
+                                height="22"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
+                                <polygon points="12,8 4,16 20,16" />
+                            </svg>
+                        ) : (
+                            <svg
+                                width="22"
+                                height="22"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
+                                <polygon points="4,8 20,8 12,16" />
+                            </svg>
+                        )}
+                    </span>
+                </button>
+                {isOpen && (
+                    <ul
+                        className={clsx(
+                            styles.dropdownOptions,
+                            isOpen && styles.open
+                        )}
+                        onBlur={() => setIsOpen(false)}
+                    >
+                        {filteredOptions.map((option, index) => (
+                            <DropdownItem
+                                key={index}
+                                option={option}
+                                onClick={handleOptionClick}
+                            />
+                        ))}
+                    </ul>
+                )}
+                {!isOpen ? (
+                    <h4 className={styles.errorMessage}>
+                        {showFeedback && meta.error}
+                    </h4>
+                ) : null}
             </div>
-            
         </div>
     );
 };
