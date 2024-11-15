@@ -5,11 +5,7 @@ import styles from "./styles.module.scss";
 import { useEffect } from "react";
 import { getChallenge } from "@/util/api";
 
-type PropTypes = {
-    onChangePage: (newIndex: number) => void;
-};
-
-const RegistrationType = ({ onChangePage }: PropTypes): JSX.Element => {
+const RegistrationType: React.FC = () => {
     const handleCheckIfUserCompletedChallenge = async () => {
         try {
             const passedChallenge = await getChallenge();
