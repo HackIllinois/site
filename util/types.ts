@@ -3,6 +3,24 @@ export type WithId<Type> = Type & { id: string };
 export type MethodType = "GET" | "POST" | "PUT" | "DELETE";
 export type FileType = "resume" | "photo" | "blobstore";
 
+export type RegistrationData = {
+    legalName: string;
+    preferredName: string;
+    gender: string;
+    race: string;
+    emailAddress: string;
+    university: string;
+    gradYear: string;
+    major: string;
+    minor: string;
+    hackEssay1: string;
+    hackOutreach: string[];
+    hackInterest: string[];
+    dietaryRestrictions: string[];
+    requestedTravelReimbursement: string[];
+    isProApplicant: boolean;
+};
+
 export type RegistrationType = {
     preferredName: string;
     legalName: string;
@@ -10,22 +28,21 @@ export type RegistrationType = {
     emailAddress: string;
     race: string[];
     requestedTravelReimbursement: boolean;
-    location: string;
-    degree: string;
+    // location: string;
+    // degree: string;
     university: string;
     major: string;
     minor: string;
     gradYear: number;
     hackEssay1: string;
-    hackEssay2: string;
+    // hackEssay2: string;
     hackInterest: string[];
     hackOutreach: string[];
     dietaryRestrictions: string[];
-    optionalEssay: string;
-    proEssay?: string;
-    considerForGeneral: boolean;
+    // optionalEssay: string;
+    // proEssay?: string;
+    // considerForGeneral: boolean;
     isProApplicant: boolean;
-    resumeFileName?: string;
 };
 
 export type DecisionStatus = "TBD" | "ACCEPTED" | "REJECTED" | "WAITLISTED";

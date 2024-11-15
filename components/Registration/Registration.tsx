@@ -10,8 +10,8 @@ import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
 import { registrationSchemas } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
-import { getRegistration, registerUpdate } from "@/util/api";
-import { RegistrationType } from "@/util/types";
+import { registerUpdate, registrationToAPI } from "@/util/api";
+import { RegistrationData } from "@/util/types";
 
 const pages: Array<
     ElementType<{
@@ -34,43 +34,15 @@ const buttonNames: Array<[string, string]> = [
     ["Transportation", "Submit"]
 ];
 
-const initialValues = [
-    {
-        legalName: "",
-        preferredName: "",
-        gender: "",
-        age: "",
-        race: "",
-        emailAddress: "",
-        phoneNumber: ""
-    },
-    {
-        university: "",
-        gradYear: "",
-        major: "",
-        minor: "",
-        resumeFileName: ""
-    },
-    {
-        hackEssay1: "",
-        hackOutreach: [],
-        hackInterest: [],
-        dietaryRestrictions: [],
-        requestedTravelReimbursement: false
-    },
-    {
-        travelAcknowledge: [],
-        travelMethod: []
-    }
-] as const;
+type RegistrationFormProps = {
+    registration: RegistrationData;
+};
 
-type FieldValues = (typeof initialValues)[number];
-
-const RegistrationForm: React.FC = () => {
+const RegistrationForm: React.FC<RegistrationFormProps> = ({
+    registration
+}) => {
     const [formIndex, setFormIndex] = useState(0);
     const [furthestPage, setFurthestPage] = useState(0);
-    const [isLoading, setIsLoading] = useState(true);
-    const [savedData, setSavedData] = useState<FieldValues | null>(null);
 
     const handlePageChange = (newIndex: number) => {
         console.log("page", newIndex);
@@ -90,85 +62,22 @@ const RegistrationForm: React.FC = () => {
         handlePageChange(formIndex - 1);
     };
 
-    const createRegistrationObject = async (
-        fieldValues: FieldValues
-    ): Promise<RegistrationType> => {
-        const registrationWithId = await getRegistration();
-        let finalRegistrationObject: RegistrationType = {
-            preferredName: "",
-            legalName: "",
-            emailAddress: "",
-            university: "",
-            hackEssay1: "",
-            hackEssay2: "",
-            optionalEssay: "",
-            resumeFileName: "",
-            location: "",
-            gender: "",
-            degree: "",
-            major: "",
-            minor: "",
-            gradYear: 0,
-            isProApplicant: false,
-            proEssay: "",
-            considerForGeneral: false,
-            requestedTravelReimbursement: false,
-            dietaryRestrictions: [],
-            race: [],
-            hackInterest: [],
-            hackOutreach: []
-        };
-
-        if (registrationWithId) {
-            const { id, ...registration } = registrationWithId;
-            finalRegistrationObject = {
-                ...finalRegistrationObject,
-                ...registration
-            };
-        }
-
-        for (const key in finalRegistrationObject) {
-            if (key in fieldValues) {
-                if (key === "race") {
-                    const raceValue = fieldValues[key as keyof FieldValues];
-                    finalRegistrationObject.race = raceValue
-                        ? Array.isArray(raceValue)
-                            ? (raceValue as string[])
-                            : [raceValue as string]
-                        : [];
-                } else if (key === "gradYear") {
-                    const gradYearValue = fieldValues[key as keyof FieldValues];
-                    finalRegistrationObject.gradYear = Number(gradYearValue);
-                } else if (key === "requestedTravelReimbursement") {
-                    if (fieldValues[key as keyof FieldValues][0] === "YES") {
-                        finalRegistrationObject.requestedTravelReimbursement =
-                            true;
-                    }
-                } else {
-                    // console.log("key", key);
-                    finalRegistrationObject[key as keyof RegistrationType] =
-                        fieldValues[key as keyof FieldValues];
-                }
-            }
-        }
-
-        return finalRegistrationObject;
-    };
-
     const onSubmit = async (
-        values: FieldValues,
-        formikHelpers: FormikHelpers<FieldValues>
+        values: RegistrationData,
+        formikHelpers: FormikHelpers<RegistrationData>
     ) => {
-        // console.log("submit", values);
-
-        const registrationObject = await createRegistrationObject(values);
-
-        // console.log("full thing", registrationObject);
+        console.log(registration);
+        console.log(values);
+        registration = {
+            ...registration,
+            ...values
+        };
+        console.log(registration);
 
         handlePageChange(formIndex + 1);
+        console.log(registration);
 
-        registerUpdate(registrationObject)
-            // repsonse is not returning resumefileName even though registration object has the field, can't figure out why
+        registerUpdate(registrationToAPI(registration))
             .then(response => console.log("Response:", response))
             .catch(error => {
                 console.error(
@@ -178,82 +87,6 @@ const RegistrationForm: React.FC = () => {
             });
     };
 
-    useEffect(() => {
-        getRegistration()
-            .then(registrationWithId => {
-                if (registrationWithId) {
-                    const { id, ...registration } = registrationWithId;
-
-                    const fieldsWithDefaults = {
-                        legalName: "",
-                        preferredName: "",
-                        gender: "",
-                        age: 0,
-                        race: "",
-                        emailAddress: "",
-                        phoneNumber: "",
-                        university: "",
-                        gradYear: "",
-                        major: "",
-                        minor: "",
-                        resumeFileName: "",
-                        interestExplanation: "",
-                        hackOutreach: [],
-                        hackInterest: [],
-                        dietaryRestrictions: [],
-                        requestedTravelReimbursement: false,
-                        travelAcknowledge: [],
-                        travelMethod: []
-                    };
-
-                    // console.log("registration", registration);
-
-                    const completeRegistration = {
-                        ...fieldsWithDefaults,
-                        ...registration,
-                        race:
-                            registration.race.length === 1
-                                ? registration.race[0]
-                                : "",
-                        gradYear:
-                            registration.gradYear === 0
-                                ? ""
-                                : registration.gradYear,
-                        requestedTravelReimbursement:
-                            // when boolean is false, it will set it to no, but how can we tell the difference between the default false and if a user set it to be false?
-                            registration.requestedTravelReimbursement
-                                ? ["YES"]
-                                : ["NO"]
-                    };
-
-                    // console.log("completeRegistrion", completeRegistration);
-
-                    if (completeRegistration.legalName != "") {
-                        const savedFields = registrationSchemas[
-                            formIndex
-                        ]?.cast(completeRegistration, {
-                            stripUnknown: true
-                        }) as FieldValues | null;
-
-                        // console.log("saved fields", savedFields);
-
-                        setSavedData(savedFields || null);
-                    }
-                }
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    }, [formIndex]);
-
-    if (isLoading) {
-        return (
-            <div className={styles.container} style={{ color: "white" }}>
-                Loading...
-            </div>
-        );
-    }
-
     return (
         <>
             <div className={styles.container}>
@@ -262,7 +95,7 @@ const RegistrationForm: React.FC = () => {
                     furthestPage={furthestPage}
                 />
                 <Formik
-                    initialValues={savedData || initialValues[formIndex]}
+                    initialValues={registration}
                     onSubmit={onSubmit}
                     validationSchema={registrationSchemas[formIndex]}
                     enableReinitialize

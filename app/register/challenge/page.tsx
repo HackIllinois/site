@@ -4,7 +4,13 @@ import ProChallengeContent from "../../../components/Challenge/ProChallengeConte
 import ProChallengeIntro from "../../../components/Challenge/ProChallengeIntro";
 import ProChallengeStatus from "../../../components/Challenge/ProChallengeStatus";
 import styles from "./styles.module.scss";
-import { getChallenge } from "@/util/api";
+import {
+    authenticate,
+    getChallenge,
+    getRegistrationOrDefault,
+    isAuthenticated,
+    registerUpdate
+} from "@/util/api";
 
 enum Pages {
     Intro,
@@ -19,7 +25,10 @@ const ProChallenge: React.FC = () => {
         setPage(Pages.Challenge);
     };
 
-    const handleSuccess = () => {
+    const handleSuccess = async () => {
+        const registration = await getRegistrationOrDefault();
+        registration.isProApplicant = true;
+        await registerUpdate(registration);
         setPage(Pages.Pass);
     };
 
@@ -40,6 +49,10 @@ const ProChallenge: React.FC = () => {
     };
 
     useEffect(() => {
+        if (!isAuthenticated()) {
+            authenticate(window.location.href);
+        }
+
         handleCheckIfUserCompletedChallenge();
     }, []);
 

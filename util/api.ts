@@ -1,15 +1,8 @@
 import {
     MethodType,
     RegistrationType,
-    ProfileType,
-    RSVPDecisionType,
-    RSVPType,
-    UserType,
-    ProfileBodyType,
     WithId,
-    FileType,
-    RefreshTokenResType,
-    EventType
+    RegistrationData
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -87,11 +80,69 @@ export async function getChallenge(): Promise<boolean> {
 }
 
 export function getRegistration(): Promise<WithId<RegistrationType>> {
-    return requestv2("GET", `/registration`).catch(() => null);
+    return requestv2("GET", `/registration`);
+}
+
+export function getRegistrationOrDefault(): Promise<
+    WithId<RegistrationType> | RegistrationType
+> {
+    return getRegistration().catch(() => {
+        return {
+            legalName: "",
+            preferredName: "",
+            gender: "",
+            age: 0,
+            race: [],
+            emailAddress: "",
+            phoneNumber: "",
+            university: "",
+            gradYear: 0,
+            major: "",
+            minor: "",
+            resumeFileName: "",
+            hackEssay1: "",
+            hackOutreach: [],
+            hackInterest: [],
+            dietaryRestrictions: [],
+            requestedTravelReimbursement: false,
+            travelAcknowledge: [],
+            travelMethod: [],
+            isProApplicant: false
+        };
+    });
 }
 
 export function registerUpdate(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
+    console.log("submitted", registration);
     return requestv2("POST", `/registration`, registration);
+}
+
+export function registrationToAPI(
+    registration: RegistrationData
+): RegistrationType {
+    return {
+        ...registration,
+        race: [registration.race],
+        requestedTravelReimbursement:
+            registration.requestedTravelReimbursement[0] === "YES",
+        gradYear:
+            registration.gradYear === ""
+                ? 0
+                : Number.parseInt(registration.gradYear, 10)
+    };
+}
+
+export function registrationFromAPI(
+    registration: RegistrationType
+): RegistrationData {
+    return {
+        ...registration,
+        race: registration.race.length === 1 ? registration.race[0] : "",
+        gradYear: registration.gradYear === 0 ? "" : `${registration.gradYear}`,
+        requestedTravelReimbursement: registration.requestedTravelReimbursement
+            ? ["YES"]
+            : ["NO"]
+    };
 }
