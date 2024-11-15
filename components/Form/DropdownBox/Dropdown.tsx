@@ -1,5 +1,4 @@
-"use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import DropdownItem from "./DropdownItem";
 import styles from "./Dropdown.module.scss";
 import { useField } from "formik";
@@ -27,10 +26,12 @@ const Dropdown: React.FC<DropdownProps> = ({
     const [isOpen, setIsOpen] = useState(false);
     const [didFocus, setDidFocus] = useState(false);
     const [focus, setFocus] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null); // Create ref for dropdown
 
     const handleFocus = () => {
         setFocus(!focus);
         setDidFocus(true);
+    
     };
     const showFeedback = meta.error && ((didFocus && !focus) || meta.touched);
 
@@ -46,12 +47,31 @@ const Dropdown: React.FC<DropdownProps> = ({
         setIsOpen(false);
     };
 
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     return (
-        <div className={styles.container}>
+        <div className={styles.container} >
             <label htmlFor={name}>
                 {label}
                 {required && "*"}
             </label>
+
+            <div ref={dropdownRef}>
             <button
                 className={clsx(
                     styles.dropdownButton,
@@ -99,11 +119,20 @@ const Dropdown: React.FC<DropdownProps> = ({
                             key={index}
                             option={option}
                             onClick={handleOptionClick}
+
                         />
                     ))}
                 </ul>
             )}
-            <h4>{showFeedback && meta.error}</h4>
+            
+            {!isOpen ? (
+                <h4 className={styles.errorMessage}>
+                    {showFeedback && meta.error}
+                </h4>
+            ) : null}
+
+            </div>
+            
         </div>
     );
 };
