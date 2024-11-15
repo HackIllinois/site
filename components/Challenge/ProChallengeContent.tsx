@@ -179,7 +179,7 @@ const ProChallengeContent: React.FC<ProChallengeContentProps> = ({
                 </p> */}
 
                 <p className={styles.link}>
-                    <a href="/registration-type">Back to signup</a>
+                    <a href="/register/sign-up-as">Back to signup</a>
                 </p>
             </div>
         </div>

@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import ProChallengeContent from "./screens/ProChallengeContent";
-import ProChallengeIntro from "./screens/ProChallengeIntro";
-import ProChallengeStatus from "./screens/ProChallengeStatus";
+import ProChallengeContent from "../../../components/Challenge/ProChallengeContent";
+import ProChallengeIntro from "../../../components/Challenge/ProChallengeIntro";
+import ProChallengeStatus from "../../../components/Challenge/ProChallengeStatus";
 import styles from "./styles.module.scss";
 import { getChallenge } from "@/util/api";
 

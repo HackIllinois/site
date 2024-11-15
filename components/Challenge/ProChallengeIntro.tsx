@@ -18,7 +18,7 @@ const ProChallengeIntro: React.FC<ProChallengeIntroProps> = ({
             <div className={styles.contentGroup}>
                 <ShineButton text="Begin" onClick={handleBegin} />
                 <p className={styles.link}>
-                    <a href="/registration-type">Back to signup</a>
+                    <a href="/register/sign-up-as">Back to signup</a>
                 </p>
             </div>
         </div>

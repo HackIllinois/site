@@ -39,7 +39,7 @@ const ProChallengeStatus: React.FC<ProChallengeStatusProps> = ({ success }) => {
                     <ShineButton
                         text={"Try Again"}
                         onClick={() => {
-                            window.location.href = "/hack-olympians-challenge";
+                            window.location.href = "/register/challenge";
                         }}
                     />
                     <h3 className={styles.unlimitedAttempts}>
