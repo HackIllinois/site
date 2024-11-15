@@ -69,6 +69,23 @@ async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
     return response.json();
 }
 
+export async function getChallenge(): Promise<boolean> {
+    const response = await fetch("https://artemis.hackillinois.org/status", {
+        method: "GET",
+        headers: {
+            Authorization: sessionStorage.getItem("token") || "",
+            "Content-Type": "application/json"
+        }
+    });
+
+    if (response.status !== 200) {
+        throw new APIError(await response.json());
+    }
+
+    const ret = await response.json().then(json => json.status);
+    return ret;
+}
+
 export function getRegistration(): Promise<WithId<RegistrationType>> {
     return requestv2("GET", `/registration`).catch(() => null);
 }
