@@ -23,6 +23,10 @@
     &:focus {
         outline: 4px solid #ad8e28;
     }
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
 }
 
 .invalid {

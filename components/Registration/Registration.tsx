@@ -1,5 +1,5 @@
 "use client";
-import React, { ElementType, useState } from "react";
+import React, { ElementType, useRef, useState } from "react";
 import styles from "./Registration.module.scss";
 import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
@@ -17,8 +17,16 @@ import HACK_SPECIFIC from "@/public/registration/backgrounds/hack_specific.jpg";
 import TRANSPORTATION from "@/public/registration/backgrounds/transportation.jpg";
 import REVIEW_INFO from "@/public/registration/backgrounds/review_info.jpg";
 
+import PERSONAL_INFO_MOBILE from "@/public/registration/mobile_backgrounds/personal_info.jpg";
+import EDUCATION_MOBILE from "@/public/registration/mobile_backgrounds/education.jpg";
+import HACK_SPECIFIC_MOBILE from "@/public/registration/mobile_backgrounds/hack_specific.jpg";
+import TRANSPORTATION_MOBILE from "@/public/registration/mobile_backgrounds/transportation.jpg";
+import REVIEW_INFO_MOBILE from "@/public/registration/mobile_backgrounds/review_info.jpg";
+
 import ARTEMIS from "@/public/registration/characters/artemis.png";
 import APOLLO from "@/public/registration/characters/apollo.png";
+import NONE from "@/public/registration/characters/none.png";
+import useWindowSize from "@/hooks/use-window-size";
 
 const pages: Array<
     ElementType<{
@@ -42,7 +50,16 @@ const backgrounds = [
     // TODO: Add confirmation background
 ];
 
-const characters = [ARTEMIS, APOLLO, null, null, null];
+const backgroundsMobile = [
+    PERSONAL_INFO_MOBILE,
+    EDUCATION_MOBILE,
+    HACK_SPECIFIC_MOBILE,
+    TRANSPORTATION_MOBILE,
+    REVIEW_INFO_MOBILE
+    // TODO: Add confirmation background
+];
+
+const characters = [ARTEMIS, APOLLO, null, NONE, NONE];
 
 const buttonNames: Array<[string, string]> = [
     ["Back", "Education"],
@@ -85,8 +102,12 @@ const initialValues = [
 type FieldValues = (typeof initialValues)[number];
 
 const RegistrationForm: React.FC = () => {
+    const windowSizeHook = useWindowSize();
+
     const [formIndex, setFormIndex] = useState(0);
     const [furthestPage, setFurthestPage] = useState(0);
+
+    const contentRef = useRef<HTMLDivElement>(null);
 
     const handlePageChange = (newIndex: number) => {
         console.log("page", newIndex);
@@ -99,10 +120,20 @@ const RegistrationForm: React.FC = () => {
             setFurthestPage(newIndex);
         }
         window.scroll(0, 0); // Scroll to top of page
+        contentRef?.current?.scroll({
+            // Necessary for mobile: the content div is fixed to the screen height, and is scrollable
+            top: 0,
+            left: 0
+        });
     };
 
     const previousPage = () => {
         console.log("prev");
+        window.scrollTo(0, 0);
+        contentRef?.current?.scroll({
+            top: 0,
+            left: 0
+        });
         handlePageChange(formIndex - 1);
     };
 
@@ -114,11 +145,17 @@ const RegistrationForm: React.FC = () => {
         handlePageChange(formIndex + 1);
     };
 
+    const size = useWindowSize();
+
     return (
         <>
             <div
+                ref={contentRef}
                 style={{
-                    backgroundImage: `url(${backgrounds[formIndex].src})`
+                    backgroundImage:
+                        !windowSizeHook?.width || windowSizeHook?.width > 768
+                            ? `url(${backgrounds[formIndex].src})`
+                            : `url(${backgroundsMobile[formIndex].src})`
                 }}
                 className={styles.container}
             >
@@ -152,7 +189,14 @@ const RegistrationForm: React.FC = () => {
                             </Form>
                         </Formik>
                     </div>
-                    <div className={styles.character}></div>
+                    {characters[formIndex] && (
+                        <div className={styles.character}>
+                            <img
+                                src={characters[formIndex].src}
+                                alt="Character"
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
         </>

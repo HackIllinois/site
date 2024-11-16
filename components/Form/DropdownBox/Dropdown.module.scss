@@ -3,12 +3,12 @@
     flex-direction: column;
     position: relative;
     width: 100%;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .dropdownButton {
     width: 100%;
-    padding: 11px;
+    padding: 10px;
     font-size: 20px;
     color: #a19366;
     background-color: #ffffff;
@@ -21,10 +21,15 @@
     &:focus {
         outline: 4px solid #ad8e28;
     }
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
 }
 
 .dropdownIcon {
-    font-size: 16px;
+    font-size: 14px;
+    height: 22px;
     color: #757575;
 }
 
@@ -51,6 +56,10 @@
     transition:
         opacity 0.3s ease,
         height 0.3s ease;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
 }
 
 .dropdownOptions.open {
@@ -65,6 +74,9 @@
     font-size: 18px;
     color: #ad8e28;
     cursor: pointer;
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
 }
 
 .dropdownOptions li:hover {

@@ -114,7 +114,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                             <svg
                                 width="22"
                                 height="22"
-                                viewBox="0 0 24 24"
+                                viewBox="0 0 22 22"
                                 fill="currentColor"
                             >
                                 <polygon points="12,8 4,16 20,16" />
@@ -123,7 +123,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                             <svg
                                 width="22"
                                 height="22"
-                                viewBox="0 0 24 24"
+                                viewBox="0 0 22 22"
                                 fill="currentColor"
                             >
                                 <polygon points="4,8 20,8 12,16" />
