@@ -38,7 +38,7 @@ export function authenticate(to: string): void {
         );
     } else {
         localStorage.setItem("to", to);
-        to = `${APIv2}/auth/login/github/?device=dev`;
+        to = `${APIv2}/auth/login/github/?device=web`;
     }
     window.location.replace(to);
 }

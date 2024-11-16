@@ -7,7 +7,7 @@ import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
-import { registrationSchemas } from "./validation";
+import { getRegistrationSchema } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
 import { registerUpdate, registrationToAPI } from "@/util/api";
@@ -105,7 +105,10 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 <Formik
                     initialValues={registration}
                     onSubmit={onSubmit}
-                    validationSchema={registrationSchemas[formIndex]}
+                    validationSchema={getRegistrationSchema(
+                        formIndex,
+                        registration.isProApplicant
+                    )}
                     enableReinitialize
                 >
                     <Form className={styles.form}>

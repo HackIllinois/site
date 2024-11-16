@@ -64,17 +64,45 @@ const transportation = yup.object({
         .min(1, "Please select one option")
 });
 
-export const registrationSchemas = [
+const registrationSchemas = [
     personalInfo,
     education,
     hackSpecific,
     transportation
 ];
 
-export const proHackSpecific = yup.object({
+const proHackSpecific = yup.object({
+    hackEssay1: yup.string().required("Please answer this question"),
+    hackEssay2: yup.string().required("Please answer this question"),
+    optionalEssay: yup.string(),
+    hackOutreach: yup
+        .array()
+        .of(yup.string().required('"Other" cannot be empty'))
+        .min(1, "Please select at least one option"),
+    hackInterest: yup
+        .array()
+        .of(yup.string().required('"Other" cannot be empty'))
+        .min(1, "Please select at least one option"),
+    dietaryRestrictions: yup
+        .array()
+        .of(yup.string().required('"Other" cannot be empty')),
+    requestedTravelReimbursement: yup
+        .array()
+        .of(yup.string())
+        .min(1, "Please select one option"),
     proEssay: yup.string().required("Please answer this question"),
     considerForGeneral: yup
         .array()
         .of(yup.string())
         .min(1, "Please select one option")
 });
+
+export function getRegistrationSchema(index: number, isProApplicant: boolean) {
+    let schema = registrationSchemas[index];
+
+    if (index === 2 && isProApplicant) {
+        schema = proHackSpecific;
+    }
+
+    return schema;
+}
