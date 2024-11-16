@@ -11,6 +11,15 @@ import { registrationSchemas } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
 
+import PERSONAL_INFO from "@/public/registration/backgrounds/personal_info.jpg";
+import EDUCATION from "@/public/registration/backgrounds/education.jpg";
+import HACK_SPECIFIC from "@/public/registration/backgrounds/hack_specific.jpg";
+import TRANSPORTATION from "@/public/registration/backgrounds/transportation.jpg";
+import REVIEW_INFO from "@/public/registration/backgrounds/review_info.jpg";
+
+import ARTEMIS from "@/public/registration/characters/artemis.png";
+import APOLLO from "@/public/registration/characters/apollo.png";
+
 const pages: Array<
     ElementType<{
         onChangePage: (newIndex: number) => void;
@@ -23,6 +32,17 @@ const pages: Array<
     ReviewInfo
     // Confirmation
 ];
+
+const backgrounds = [
+    PERSONAL_INFO,
+    EDUCATION,
+    HACK_SPECIFIC,
+    TRANSPORTATION,
+    REVIEW_INFO
+    // TODO: Add confirmation background
+];
+
+const characters = [ARTEMIS, APOLLO, null, null, null];
 
 const buttonNames: Array<[string, string]> = [
     ["Back", "Education"],
@@ -96,34 +116,44 @@ const RegistrationForm: React.FC = () => {
 
     return (
         <>
-            <div className={styles.container}>
+            <div
+                style={{
+                    backgroundImage: `url(${backgrounds[formIndex].src})`
+                }}
+                className={styles.container}
+            >
                 <ProgressBar
                     onChangePage={handlePageChange}
                     furthestPage={furthestPage}
                 />
-                <Formik
-                    initialValues={initialValues[formIndex]}
-                    onSubmit={onSubmit}
-                    validationSchema={registrationSchemas[formIndex]}
-                >
-                    <Form className={styles.form}>
-                        {React.createElement(pages[formIndex], {
-                            onChangePage: handlePageChange
-                        })}
-                        <div className={styles.navigation}>
-                            <NavigationButton
-                                text={buttonNames[formIndex][0]}
-                                onClick={previousPage}
-                                type="button"
-                            />
-                            <NavigationButton
-                                text={buttonNames[formIndex][1]}
-                                pointRight
-                                type="submit"
-                            />
-                        </div>
-                    </Form>
-                </Formik>
+                <div className={styles.formWrapper}>
+                    <div className={styles.formContent}>
+                        <Formik
+                            initialValues={initialValues[formIndex]}
+                            onSubmit={onSubmit}
+                            validationSchema={registrationSchemas[formIndex]}
+                        >
+                            <Form className={styles.form}>
+                                {React.createElement(pages[formIndex], {
+                                    onChangePage: handlePageChange
+                                })}
+                                <div className={styles.navigation}>
+                                    <NavigationButton
+                                        text={buttonNames[formIndex][0]}
+                                        onClick={previousPage}
+                                        type="button"
+                                    />
+                                    <NavigationButton
+                                        text={buttonNames[formIndex][1]}
+                                        pointRight
+                                        type="submit"
+                                    />
+                                </div>
+                            </Form>
+                        </Formik>
+                    </div>
+                    <div className={styles.character}></div>
+                </div>
             </div>
         </>
     );
