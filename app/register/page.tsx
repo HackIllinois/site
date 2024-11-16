@@ -8,7 +8,9 @@ import {
     authenticate,
     getRegistrationOrDefault,
     isAuthenticated,
-    registrationFromAPI
+    registerUpdate,
+    registrationFromAPI,
+    registrationToAPI
 } from "@/util/api";
 import TrackSelection from "@/components/Registration/TrackSelection/TrackSelection";
 import { RegistrationType, WithId } from "@/util/types";
@@ -47,10 +49,22 @@ const Registration: React.FC = () => {
                 ) : hasChosen ? (
                     <RegistrationForm
                         registration={registrationFromAPI(data!)}
+                        setHasChosen={setHasChosen}
                     />
                 ) : (
                     <TrackSelection
                         handleGeneral={() => {
+                            data!.isProApplicant = false; // alows backing out of the pro track after completing the challenge
+                            registerUpdate(data!)
+                                .then(response =>
+                                    console.log("Response:", response)
+                                )
+                                .catch(error => {
+                                    console.error(
+                                        "Error Response:",
+                                        error.response?.data || error.message
+                                    );
+                                });
                             setHasChosen(true);
                         }}
                     />

@@ -10,28 +10,17 @@ const personalInfo = yup.object({
         ),
     preferredName: yup.string().required("Please enter your preferred name"),
     gender: yup.string().required("Please select a gender"),
-    age: yup
-        .number()
-        .required("Please enter your age")
-        .positive("Please enter a valid age")
-        .integer("Please enter a valid age")
-        .min(18, "You must be at least 18 years old."),
     race: yup.string().required("Please select an ethnicity/race"),
     emailAddress: yup
         .string()
         .required("Please enter your email address")
-        .email("Please enter a valid email address"),
-    phoneNumber: yup
-        .string()
-        .required("Please enter your phone number")
-        .matches(
-            /^\+?\d{0,3}\s?\(?\b\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/,
-            "Please enter a valid phone number."
-        )
+        .email("Please enter a valid email address")
 });
 
 const education = yup.object({
+    location: yup.string().required("Please select a location"),
     university: yup.string().required("Please select a school (or N/A)"),
+    degree: yup.string().required("Please select a degree (or N/A)"),
     gradYear: yup.string().required("Please select a graduation year"),
     major: yup.string().required("Please select a major (or N/A)"),
     minor: yup.string(),
@@ -45,6 +34,8 @@ const education = yup.object({
 
 const hackSpecific = yup.object({
     hackEssay1: yup.string().required("Please answer this question"),
+    hackEssay2: yup.string().required("Please answer this question"),
+    optionalEssay: yup.string(),
     hackOutreach: yup
         .array()
         .of(yup.string().required('"Other" cannot be empty'))
@@ -79,3 +70,11 @@ export const registrationSchemas = [
     hackSpecific,
     transportation
 ];
+
+export const proHackSpecific = yup.object({
+    proEssay: yup.string().required("Please answer this question"),
+    considerForGeneral: yup
+        .array()
+        .of(yup.string())
+        .min(1, "Please select one option")
+});

@@ -16,6 +16,7 @@ import { RegistrationData } from "@/util/types";
 const pages: Array<
     ElementType<{
         onChangePage: (newIndex: number) => void;
+        proTrack: boolean;
     }>
 > = [
     PersonalInfo,
@@ -36,18 +37,25 @@ const buttonNames: Array<[string, string]> = [
 
 type RegistrationFormProps = {
     registration: RegistrationData;
+    setHasChosen: (hasChosen: boolean) => void;
 };
 
 const RegistrationForm: React.FC<RegistrationFormProps> = ({
-    registration
+    registration,
+    setHasChosen
 }) => {
     const [formIndex, setFormIndex] = useState(0);
     const [furthestPage, setFurthestPage] = useState(0);
 
     const handlePageChange = (newIndex: number) => {
         console.log("page", newIndex);
-        if (newIndex < 0 || newIndex >= pages.length) {
+        if (newIndex >= pages.length) {
             return; // This shouldn't happen
+        }
+
+        if (newIndex < 0) {
+            setHasChosen(false);
+            return;
         }
 
         setFormIndex(() => newIndex);
@@ -102,7 +110,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 >
                     <Form className={styles.form}>
                         {React.createElement(pages[formIndex], {
-                            onChangePage: handlePageChange
+                            onChangePage: handlePageChange,
+                            proTrack: registration.isProApplicant
                         })}
                         <div className={styles.navigation}>
                             <NavigationButton

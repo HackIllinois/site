@@ -95,12 +95,16 @@ export function getRegistrationOrDefault(): Promise<
             race: [],
             emailAddress: "",
             phoneNumber: "",
+            location: "",
+            degree: "",
             university: "",
             gradYear: 0,
             major: "",
             minor: "",
             resumeFileName: "",
             hackEssay1: "",
+            hackEssay2: "",
+            optionalEssay: "",
             hackOutreach: [],
             hackInterest: [],
             dietaryRestrictions: [],
@@ -130,7 +134,10 @@ export function registrationToAPI(
         gradYear:
             registration.gradYear === ""
                 ? 0
-                : Number.parseInt(registration.gradYear, 10)
+                : Number.parseInt(registration.gradYear, 10),
+        considerForGeneral: registration.considerForGeneral
+            ? registration.considerForGeneral[0] === "YES"
+            : undefined
     };
 }
 
@@ -143,6 +150,12 @@ export function registrationFromAPI(
         gradYear: registration.gradYear === 0 ? "" : `${registration.gradYear}`,
         requestedTravelReimbursement: registration.requestedTravelReimbursement
             ? ["YES"]
-            : ["NO"]
+            : ["NO"],
+        considerForGeneral:
+            registration.considerForGeneral === undefined
+                ? undefined
+                : registration.considerForGeneral
+                  ? ["YES"]
+                  : ["NO"]
     };
 }

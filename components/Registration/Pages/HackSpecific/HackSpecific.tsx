@@ -4,16 +4,33 @@ import Checkboxes, {
 import styles from "./HackSpecific.module.scss";
 import TextInput from "@/components/Form/TextInput/TextInput";
 
+const generalConsiderationOptions = [
+    {
+        label: "Yes",
+        value: "YES",
+        isRadio: true
+    },
+    {
+        label: "No",
+        value: "NO",
+        isRadio: true
+    }
+] satisfies CheckboxOption[];
+
 const heardAboutOptions = [
+    { label: "HackIllinois Newsletter", value: "HackIllinois Newsletter" },
     { label: "Instagram", value: "Instagram" },
     { label: "Facebook", value: "Facebook" },
     { label: "UIUC Flyers", value: "Posters/Flyers on Campus" },
-    { label: "Twitter", value: "Twitter/X" },
+    { label: "Discord", value: "Discord" },
+    { label: "Twitter/X", value: "Twitter/X" },
+    { label: "TikTok", value: "TikTok" },
     { label: "Slack", value: "Slack" },
     { label: "School Emails", value: "CS Department Email" },
     { label: "LinkedIn", value: "LinkedIn" },
+    { label: "Reddit", value: "Reddit" },
     { label: "Word of Mouth", value: "Word of Mouth" },
-    { label: "Other", value: "OTHER", isOther: true }
+    { label: "Other", value: "OTHER" }
 ] satisfies CheckboxOption[];
 
 const lookingForwardToOptions = [
@@ -34,10 +51,6 @@ const lookingForwardToOptions = [
         value: "Working with mentors to get feedback"
     },
     {
-        label: "Pitching your project",
-        value: "PITCHING_YOUR_PROJECT"
-    },
-    {
         label: "Company Q & A's & Networking",
         value: "Company Q&As and networking events"
     },
@@ -47,27 +60,33 @@ const lookingForwardToOptions = [
     },
     {
         label: "Other",
-        value: "OTHER",
-        isOther: true,
-        otherPlaceholder: "What are you looking forward to..."
+        value: "OTHER"
     }
 ] satisfies CheckboxOption[];
 
 const allergiesRestrictionsOptions = [
     {
-        label: "Peanut allergy",
-        value: "Peanut allergy"
-    },
-    {
-        label: "Dairy intolerance",
-        value: "Dairy intolerance"
+        label: "Lactose Intolerant",
+        value: "Lactose Intolerant"
     },
     { label: "Vegetarian", value: "Vegetarian" },
     { label: "Vegan", value: "Vegan" },
     { label: "Gluten-free", value: "Gluten-free" },
     {
-        label: "Shellfish allergy",
-        value: "Shellfish allergy"
+        label: "No Beef",
+        value: "No Beef"
+    },
+    {
+        label: "Kosher",
+        value: "Kosher"
+    },
+    {
+        label: "No Pork",
+        value: "No Pork"
+    },
+    {
+        label: "Halal",
+        value: "Halal"
     },
     { label: "Other", value: "OTHER", isOther: true }
 ] satisfies CheckboxOption[];
@@ -87,20 +106,57 @@ const travelReimbursementOptions = [
 
 type PropTypes = {
     onChangePage: (newIndex: number) => void;
+    proTrack: boolean;
 };
 
-const HackSpecific = ({ onChangePage }: PropTypes): JSX.Element => {
+const HackSpecific = ({ onChangePage, proTrack }: PropTypes): JSX.Element => {
     return (
         <div className={styles.container}>
             <h1>Hack-Specific</h1>
             <TextInput
                 className={styles.largeTextField}
-                label="In a couple of sentences, please explain why you are interested in participating in HackIllinois 2024."
+                label="(50 words) What opportunity, event, or feature of HackIllinois 2024 are you most excited to take part in and why?"
                 name="hackEssay1"
                 multiline
                 required
                 placeholder="Type your response..."
             />
+
+            <TextInput
+                className={styles.largeTextField}
+                label="(50 words) Talk about a challenge you faced in the field of CS and how you overcame it. This challenge can be related to a technical personal project, experience in a field, personal experience with diversity/inclusions, etc. We recommend you keep your response to under 50 words, but we will accept responses up to 100 words."
+                name="hackEssay2"
+                multiline
+                required
+                placeholder="Type your response..."
+            />
+
+            <TextInput
+                className={styles.largeTextField}
+                label="(Optional, 50 words) If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to do so. Your application will not be negatively impacted if you choose not to answer this question."
+                name="optionalEssay"
+                multiline
+                placeholder="Type your response..."
+            />
+
+            {proTrack && (
+                <>
+                    <TextInput
+                        className={styles.largeTextField}
+                        label="How did you complete the coding challenge?"
+                        name="proEssay"
+                        multiline
+                        required
+                        placeholder="Type your response..."
+                    />
+                    <Checkboxes
+                        name="considerForGeneral"
+                        label="Would you like to be considered for HackIllinois's General hackathon? This does not impact your Knights application, but will be considered if you are not selected for Knights."
+                        options={generalConsiderationOptions}
+                        required
+                    />
+                </>
+            )}
 
             <Checkboxes
                 name="hackOutreach"
@@ -112,13 +168,13 @@ const HackSpecific = ({ onChangePage }: PropTypes): JSX.Element => {
 
             <Checkboxes
                 name="hackInterest"
-                label="What are you looking forward to at HackIllinois?"
+                label="Which of these aspects of the hackathon would you most be interested in engaging in?"
                 options={lookingForwardToOptions}
             />
 
             <Checkboxes
                 name="dietaryRestrictions"
-                label="Do you have any allergies or restrictions?"
+                label="What food restrictions or allergies do you have?"
                 options={allergiesRestrictionsOptions}
             />
 
