@@ -146,6 +146,12 @@ export function registerUpdate(
     return requestv2("POST", `/registration`, registration);
 }
 
+export function registerSubmit(
+    registration: RegistrationType
+): Promise<WithId<RegistrationType>> {
+    return requestv2("POST", `/registration/submit`, registration);
+}
+
 export function registrationToAPI(
     registration: RegistrationData
 ): RegistrationType {

@@ -11,7 +11,7 @@ import ApplicationSubmitted from "./Pages/ApplicationSubmitted/ApplicationSubmit
 import { getRegistrationSchema } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
-import { registerUpdate, registrationToAPI } from "@/util/api";
+import { registerSubmit, registerUpdate, registrationToAPI } from "@/util/api";
 import { RegistrationData } from "@/util/types";
 
 const pages: Array<
@@ -72,6 +72,13 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     };
 
     const onSubmit = async (values: RegistrationData) => {
+        if (formIndex === reviewPageIndex) {
+            // @TODO validate final registration
+            await registerSubmit(registrationToAPI(registration));
+            handlePageChange(submittedPageIndex);
+            return;
+        }
+
         registration = {
             ...registration,
             ...values
