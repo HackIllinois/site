@@ -4,72 +4,91 @@ import Checkboxes, {
 import styles from "./HackSpecific.module.scss";
 import TextInput from "@/components/Form/TextInput/TextInput";
 
+const generalConsiderationOptions = [
+    {
+        label: "Yes",
+        value: "YES",
+        isRadio: true
+    },
+    {
+        label: "No",
+        value: "NO",
+        isRadio: true
+    }
+] satisfies CheckboxOption[];
+
 const heardAboutOptions = [
-    { label: "Instagram", value: "INSTAGRAM" },
-    { label: "Facebook", value: "FACEBOOK" },
-    { label: "UIUC Flyers", value: "UIUC_FLYERS" },
-    { label: "Twitter", value: "TWITTER" },
-    { label: "Slack", value: "SLACK" },
-    { label: "School Emails", value: "SCHOOL_EMAILS" },
-    { label: "LinkedIn", value: "LINKEDIN" },
-    { label: "Word of Mouth", value: "WORD_OF_MOUTH" },
-    { label: "Other", value: "OTHER", isOther: true }
+    { label: "HackIllinois Newsletter", value: "HackIllinois Newsletter" },
+    { label: "Instagram", value: "Instagram" },
+    { label: "Facebook", value: "Facebook" },
+    { label: "UIUC Flyers", value: "Posters/Flyers on Campus" },
+    { label: "Discord", value: "Discord" },
+    { label: "Twitter/X", value: "Twitter/X" },
+    { label: "TikTok", value: "TikTok" },
+    { label: "Slack", value: "Slack" },
+    { label: "School Emails", value: "CS Department Email" },
+    { label: "LinkedIn", value: "LinkedIn" },
+    { label: "Reddit", value: "Reddit" },
+    { label: "Word of Mouth", value: "Word of Mouth" },
+    { label: "Other", value: "OTHER" }
 ] satisfies CheckboxOption[];
 
 const lookingForwardToOptions = [
     {
-        label: "Attending workshops",
-        value: "ATTENDING_WORKSHOPS"
+        label: "Attending technical workshops",
+        value: "Attending technical workshops"
     },
     {
         label: "Submitting a project to win prizes",
-        value: "SUBMIT_PROJECT_TO_WIN_PRIZES"
+        value: "Submitting a project to win prizes"
     },
     {
         label: "Mini Events & Game Tournaments",
-        value: "MINI_EVENTS_GAME_TOURNAMENTS"
+        value: "Participating in mini-events"
     },
     {
         label: "Working with mentors",
-        value: "WORKING_WITH_MENTORS"
-    },
-    {
-        label: "Pitching your project",
-        value: "PITCHING_YOUR_PROJECT"
+        value: "Working with mentors to get feedback"
     },
     {
         label: "Company Q & A's & Networking",
-        value: "COMPANY_QA_NETWORKING"
+        value: "Company Q&As and networking events"
     },
     {
         label: "Meeting new people",
-        value: "MEETING_NEW_PEOPLE"
+        value: "Meeting new people"
     },
     {
         label: "Other",
-        value: "OTHER",
-        isOther: true,
-        otherPlaceholder: "What are you looking forward to..."
+        value: "OTHER"
     }
 ] satisfies CheckboxOption[];
 
 const allergiesRestrictionsOptions = [
     {
-        label: "Peanut allergy",
-        value: "PEANUT_ALLERGY"
+        label: "Lactose Intolerant",
+        value: "Lactose Intolerant"
+    },
+    { label: "Vegetarian", value: "Vegetarian" },
+    { label: "Vegan", value: "Vegan" },
+    { label: "Gluten-free", value: "Gluten-free" },
+    {
+        label: "No Beef",
+        value: "No Beef"
     },
     {
-        label: "Dairy intolerance",
-        value: "DAIRY_INTOLERANCE"
+        label: "Kosher",
+        value: "Kosher"
     },
-    { label: "Vegetarian", value: "VEGETARIAN" },
-    { label: "Vegan", value: "VEGAN" },
-    { label: "Gluten-free", value: "GLUTEN_FREE" },
     {
-        label: "Shellfish allergy",
-        value: "SHELLFISH_ALLERGY"
+        label: "No Pork",
+        value: "No Pork"
     },
-    { label: "Other", value: "Other", isOther: true }
+    {
+        label: "Halal",
+        value: "Halal"
+    },
+    { label: "Other", value: "OTHER", isOther: true }
 ] satisfies CheckboxOption[];
 
 const travelReimbursementOptions = [
@@ -87,23 +106,60 @@ const travelReimbursementOptions = [
 
 type PropTypes = {
     onChangePage: (newIndex: number) => void;
+    proTrack: boolean;
 };
 
-const HackSpecific = ({ onChangePage }: PropTypes): JSX.Element => {
+const HackSpecific = ({ onChangePage, proTrack }: PropTypes): JSX.Element => {
     return (
         <div className={styles.container}>
             <h1>Hack-Specific</h1>
             <TextInput
                 className={styles.largeTextField}
-                label="In a couple of sentences, please explain why you are interested in participating in HackIllinois 2024."
-                name="interestExplanation"
+                label="(50 words) What opportunity, event, or feature of HackIllinois 2024 are you most excited to take part in and why?"
+                name="hackEssay1"
                 multiline
                 required
                 placeholder="Type your response..."
             />
 
+            <TextInput
+                className={styles.largeTextField}
+                label="(50 words) Talk about a challenge you faced in the field of CS and how you overcame it. This challenge can be related to a technical personal project, experience in a field, personal experience with diversity/inclusions, etc. We recommend you keep your response to under 50 words, but we will accept responses up to 100 words."
+                name="hackEssay2"
+                multiline
+                required
+                placeholder="Type your response..."
+            />
+
+            <TextInput
+                className={styles.largeTextField}
+                label="(Optional, 50 words) If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to do so. Your application will not be negatively impacted if you choose not to answer this question."
+                name="optionalEssay"
+                multiline
+                placeholder="Type your response..."
+            />
+
+            {proTrack && (
+                <>
+                    <TextInput
+                        className={styles.largeTextField}
+                        label="How did you complete the coding challenge?"
+                        name="proEssay"
+                        multiline
+                        required
+                        placeholder="Type your response..."
+                    />
+                    <Checkboxes
+                        name="considerForGeneral"
+                        label="Would you like to be considered for HackIllinois's General hackathon? This does not impact your Knights application, but will be considered if you are not selected for Knights."
+                        options={generalConsiderationOptions}
+                        required
+                    />
+                </>
+            )}
+
             <Checkboxes
-                name="heardAbout"
+                name="hackOutreach"
                 label="How did you hear about HackIllinois?"
                 options={heardAboutOptions}
                 threeColEnabled
@@ -111,19 +167,19 @@ const HackSpecific = ({ onChangePage }: PropTypes): JSX.Element => {
             />
 
             <Checkboxes
-                name="lookingForwardTo"
-                label="What are you looking forward to at HackIllinois?"
+                name="hackInterest"
+                label="Which of these aspects of the hackathon would you most be interested in engaging in?"
                 options={lookingForwardToOptions}
             />
 
             <Checkboxes
-                name="allergiesRestrictions"
-                label="Do you have any allergies or restrictions?"
+                name="dietaryRestrictions"
+                label="What food restrictions or allergies do you have?"
                 options={allergiesRestrictionsOptions}
             />
 
             <Checkboxes
-                name="travelReimbursement"
+                name="requestedTravelReimbursement"
                 label="Would you like to be considered for travel reimbursement?"
                 options={travelReimbursementOptions}
                 required
