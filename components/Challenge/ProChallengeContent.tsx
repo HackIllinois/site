@@ -2,6 +2,9 @@ import ShineButton from "@/components/ShineButton/ShineButton";
 import styles from "./ProChallengeContent.module.scss";
 import { getChallenge } from "@/util/api";
 import { useState } from "react";
+import { redirect } from "next/navigation";
+
+const jwtUrl = `https://adonix.hackillinois.org/auth/login/github/?device=challenge`;
 
 interface ProChallengeContentProps {
     handleSuccess: () => void;
@@ -151,12 +154,7 @@ const ProChallengeContent: React.FC<ProChallengeContentProps> = ({
                 HackIllinois 
             </p>
 
-            <ShineButton
-                text="Fetch JWT"
-                onClick={() => {
-                    // TODO: Fetch the JWT
-                }}
-            />
+            <ShineButton text="Fetch JWT" link={jwtUrl} target={"_blank"} />
 
             <div className={styles.finishedChallenge}>
                 <ShineButton

@@ -1,3 +1,10 @@
+import {
+    MethodType,
+    RegistrationType,
+    WithId,
+    RegistrationData
+} from "./types";
+
 const APIv2 = "https://adonix.hackillinois.org";
 
 export class APIError extends Error {
@@ -20,6 +27,12 @@ export class APIError extends Error {
     }
 }
 
+// function handleError(body) {
+//     alert(body.message || body);
+
+//     throw new APIError(body);
+// }
+
 export const isAuthenticated = (): string | null =>
     sessionStorage.getItem("token");
 
@@ -31,9 +44,36 @@ export function authenticate(to: string): void {
         );
     } else {
         localStorage.setItem("to", to);
-        to = `${APIv2}/auth/login/github/?device=dev`;
+        to = `${APIv2}/auth/login/github/?device=web`;
     }
     window.location.replace(to);
+}
+
+async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
+    const response = await fetch(APIv2 + endpoint, {
+        method,
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+            Origin: "www.hackillinois.org",
+            Authorization: sessionStorage.getItem("token") || ""
+        },
+        body: JSON.stringify(body)
+    });
+
+    if (response.status === 403) {
+        alert(
+            "Your session has expired. Please close this tab and log in again."
+        );
+        sessionStorage.removeItem("token");
+        // TODO: reauth
+    }
+
+    if (response.status !== 200) {
+        throw new APIError(await response.json());
+    }
+
+    return response.json();
 }
 
 export async function getChallenge(): Promise<boolean> {
@@ -51,4 +91,94 @@ export async function getChallenge(): Promise<boolean> {
 
     const ret = await response.json().then(json => json.status);
     return ret;
+}
+
+export function getRegistration(): Promise<WithId<RegistrationType>> {
+    return requestv2("GET", `/registration`);
+    //.catch(() => handleError);
+}
+
+export function getRegistrationOrDefault(): Promise<
+    WithId<RegistrationType> | RegistrationType
+> {
+    return requestv2("GET", `/registration`).catch(() => {
+        return {
+            legalName: "",
+            preferredName: "",
+            gender: "",
+            age: 0,
+            race: [],
+            emailAddress: "",
+            phoneNumber: "",
+            location: "",
+            degree: "",
+            university: "",
+            gradYear: 0,
+            major: "",
+            minor: "",
+            resumeFileName: "",
+            hackEssay1: "",
+            hackEssay2: "",
+            optionalEssay: "",
+            hackOutreach: [],
+            hackInterest: [],
+            dietaryRestrictions: [],
+            requestedTravelReimbursement: false,
+            travelAcknowledge: [],
+            travelMethod: [],
+            isProApplicant: false
+        };
+    });
+
+    //     .catch((body) => {
+    //         if (body.error === "NotFound") {
+    //             return null;
+    //         }
+
+    //         handleError(body);
+    // });
+}
+
+export function registerUpdate(
+    registration: RegistrationType
+): Promise<WithId<RegistrationType>> {
+    console.log("submitted", registration);
+    return requestv2("POST", `/registration`, registration);
+}
+
+export function registrationToAPI(
+    registration: RegistrationData
+): RegistrationType {
+    return {
+        ...registration,
+        race: [registration.race],
+        requestedTravelReimbursement:
+            registration.requestedTravelReimbursement[0] === "YES",
+        gradYear:
+            registration.gradYear === ""
+                ? 0
+                : Number.parseInt(registration.gradYear, 10),
+        considerForGeneral: registration.considerForGeneral
+            ? registration.considerForGeneral[0] === "YES"
+            : undefined
+    };
+}
+
+export function registrationFromAPI(
+    registration: RegistrationType
+): RegistrationData {
+    return {
+        ...registration,
+        race: registration.race.length === 1 ? registration.race[0] : "",
+        gradYear: registration.gradYear === 0 ? "" : `${registration.gradYear}`,
+        requestedTravelReimbursement: registration.requestedTravelReimbursement
+            ? ["YES"]
+            : ["NO"],
+        considerForGeneral:
+            registration.considerForGeneral === undefined
+                ? undefined
+                : registration.considerForGeneral
+                  ? ["YES"]
+                  : ["NO"]
+    };
 }
