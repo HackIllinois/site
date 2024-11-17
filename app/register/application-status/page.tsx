@@ -87,11 +87,11 @@ const ApplicationStatus: React.FC = () => {
                             isHighlighted={currentRSVP?.status === "REJECTED"}
                         />
                     </div>
-                    <div className={styles.col}>
+                    {/* <div className={styles.col}>
                         <h3>Actions</h3>
                         <p>View Form</p>
                         <p>RSVP</p>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
