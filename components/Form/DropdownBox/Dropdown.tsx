@@ -27,9 +27,9 @@ const Dropdown: React.FC<DropdownProps> = ({
     const [didFocus, setDidFocus] = useState(false);
     const [focus, setFocus] = useState(false);
     const [filterTerm, setFilterTerm] = useState("");
-    const [focusedIndex, setFocusedIndex] = useState<number | null>(null); 
+    const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const ulRef = useRef<HTMLUListElement>(null); 
+    const ulRef = useRef<HTMLUListElement>(null);
 
     const handleFocus = () => {
         setFocus(true);
@@ -54,49 +54,61 @@ const Dropdown: React.FC<DropdownProps> = ({
         if (isOpen) {
             if (event.key === "ArrowDown") {
                 event.preventDefault();
-                let scroll = true
+                let scroll = true;
 
-               if (focusedIndex == modOptions.length - 1 && ulRef.current) {
-                 ulRef.current.scrollTop = 0;
-                 scroll = false
-               }
+                if (focusedIndex == modOptions.length - 1 && ulRef.current) {
+                    ulRef.current.scrollTop = 0;
+                    scroll = false;
+                }
 
-                setFocusedIndex((prevIndex) => {
-                    if (prevIndex === null || prevIndex === modOptions.length - 1) {
-                        return 0; 
+                setFocusedIndex(prevIndex => {
+                    if (
+                        prevIndex === null ||
+                        prevIndex === modOptions.length - 1
+                    ) {
+                        return 0;
                     }
                     return prevIndex + 1;
                 });
 
-               
-                if (ulRef.current && (focusedIndex != null && focusedIndex >= 0) && scroll) {
-                    const optionHeight = ulRef.current.clientHeight / modOptions.length;
+                if (
+                    ulRef.current &&
+                    focusedIndex != null &&
+                    focusedIndex >= 0 &&
+                    scroll
+                ) {
+                    const optionHeight =
+                        ulRef.current.clientHeight / modOptions.length;
                     ulRef.current.scrollTop += optionHeight;
                 }
-
             } else if (event.key === "ArrowUp") {
                 event.preventDefault();
 
-                let scroll = true
+                let scroll = true;
 
                 if (ulRef.current && focusedIndex == 0) {
-                    ulRef.current.scrollTop = ulRef.current.clientHeight * modOptions.length;;
-                    scroll = false
+                    ulRef.current.scrollTop =
+                        ulRef.current.clientHeight * modOptions.length;
+                    scroll = false;
                 }
 
-                setFocusedIndex((prevIndex) => {
+                setFocusedIndex(prevIndex => {
                     if (prevIndex === null || prevIndex === 0) {
-                        return modOptions.length - 1; 
+                        return modOptions.length - 1;
                     }
                     return prevIndex - 1;
                 });
 
-
-                if (ulRef.current && (focusedIndex != null && focusedIndex <= modOptions.length) && scroll) {
-                    const optionHeight = ulRef.current.clientHeight / modOptions.length;
+                if (
+                    ulRef.current &&
+                    focusedIndex != null &&
+                    focusedIndex <= modOptions.length &&
+                    scroll
+                ) {
+                    const optionHeight =
+                        ulRef.current.clientHeight / modOptions.length;
                     ulRef.current.scrollTop -= optionHeight;
                 }
-
             } else if (event.key === "Enter") {
                 event.preventDefault();
                 if (focusedIndex !== null) {
@@ -140,9 +152,9 @@ const Dropdown: React.FC<DropdownProps> = ({
         const handleKeyDown = (event: KeyboardEvent) => {
             if (isOpen) {
                 if (event.key.length === 1) {
-                    setFilterTerm((prev) => prev + event.key);
+                    setFilterTerm(prev => prev + event.key);
                 } else if (event.key === "Backspace") {
-                    setFilterTerm((prev) => prev.slice(0, -1));
+                    setFilterTerm(prev => prev.slice(0, -1));
                 }
             }
         };

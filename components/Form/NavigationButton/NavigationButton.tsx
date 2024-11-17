@@ -32,7 +32,11 @@ const NavigationButton: React.FC<NavButtonProps> = ({
             {...props}
         >
             {!pointRight ? (
-                <Image alt="left arrow" src={LEFT_ARROW} className={styles.arrow} />
+                <Image
+                    alt="left arrow"
+                    src={LEFT_ARROW}
+                    className={styles.arrow}
+                />
             ) : null}
             <p
                 className={`${pointRight ? styles.right : styles.left} ${styles.desktop}`}
