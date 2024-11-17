@@ -13,17 +13,8 @@ const Olympian: React.FC = () => {
         <section className={styles.olympianMain}>
             <Image alt="HackOlympus Logo" src={LOGO} className={styles.logo} />
             <div className={styles.olympianButtonWrapper}>
-                <button
-                    className={styles.olympianButton}
-                    onClick={() =>
-                        window.open(
-                            "https://solana.com/",
-                            "_blank",
-                            "noreferrer noopener"
-                        )
-                    }
-                >
-                    Register Now
+                <button className={styles.olympianButton}>
+                    <a href="/register">Register Now</a>
                 </button>
             </div>
             <Image alt="chest" src={CHEST} className={styles.chest} />

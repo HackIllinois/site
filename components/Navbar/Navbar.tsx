@@ -15,29 +15,34 @@ type NavbarItem = {
 };
 
 const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
+    // {
+    //     title: "Schedule",
+    //     link: "/schedule",
+    //     active: false
+    // },
+    // {
+    //     title: "Mentors",
+    //     link: "/mentors",
+    //     active: false
+    // },
+    // {
+    //     title: "Prizes",
+    //     link: "/prizes",
+    //     active: false
+    // },
+    // {
+    //     title: "Map",
+    //     link: "#",
+    //     active: false
+    // },
+    // {
+    //     title: "Travel",
+    //     link: "/travel",
+    //     active: false
+    // },
     {
-        title: "Schedule",
-        link: "/schedule",
-        active: false
-    },
-    {
-        title: "Mentors",
-        link: "/mentors",
-        active: false
-    },
-    {
-        title: "Prizes",
-        link: "/prizes",
-        active: false
-    },
-    {
-        title: "Map",
-        link: "#",
-        active: false
-    },
-    {
-        title: "Travel",
-        link: "/travel",
+        title: "Register",
+        link: "/register",
         active: false
     }
 ];
@@ -47,6 +52,18 @@ const Navbar = () => {
     const menuRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
     const [navbarItems, setNavbarItems] = useState(DEFAULT_NAVBAR_ITEMS);
+
+    useEffect(() => {
+        if (pathname !== "/" && pathname !== "/olympians") {
+            setNavbarItems(n =>
+                n.map(item =>
+                    item.link === pathname
+                        ? { ...item, active: true }
+                        : { ...item, active: false }
+                )
+            );
+        }
+    }, [pathname]);
 
     return (
         <>
@@ -91,6 +108,9 @@ const Navbar = () => {
                                     </a>
                                 </li>
                             ))}
+                            <li>
+                                <OlympianButton />
+                            </li>
                         </ul>
                     </nav>
                     <nav className={styles.mobile}>
@@ -132,6 +152,7 @@ const Navbar = () => {
                                     {item.title}
                                 </a>
                             ))}
+                            <OlympianButton />
                             {/* <a href="/register" className={styles.link}>
                         Register
                     </a> */}
@@ -144,3 +165,33 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+const OlympianButton = () => {
+    return (
+        <a href="/olympians">
+            <button className={styles.olympianButton}>
+                <div className={styles.buttonBackground}></div>
+                <div className={styles.buttonContent}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="17"
+                        height="20"
+                        viewBox="0 0 17 20"
+                        fill="none"
+                    >
+                        <path
+                            d="M6.5 0.5L8.25559 5.24441L13 7L8.25559 8.75559L6.5 13.5L4.74441 8.75559L0 7L4.74441 5.24441L6.5 0.5Z"
+                            fill="white"
+                        />
+                        <path
+                            d="M13 11.5L14.0804 14.4196L17 15.5L14.0804 16.5804L13 19.5L11.9196 16.5804L9 15.5L11.9196 14.4196L13 11.5Z"
+                            fill="white"
+                        />
+                    </svg>
+
+                    <span>Olympians</span>
+                </div>
+            </button>
+        </a>
+    );
+};
