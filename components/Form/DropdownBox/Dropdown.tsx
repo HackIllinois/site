@@ -27,19 +27,102 @@ const Dropdown: React.FC<DropdownProps> = ({
     const [didFocus, setDidFocus] = useState(false);
     const [focus, setFocus] = useState(false);
     const [filterTerm, setFilterTerm] = useState("");
+    const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const ulRef = useRef<HTMLUListElement>(null);
 
     const handleFocus = () => {
-        setFocus(!focus);
+        setFocus(true);
         setDidFocus(true);
     };
+
+    const handleBlur = () => {
+        setFocus(false);
+    };
+
     const showFeedback = meta.error && ((didFocus && !focus) || meta.touched);
 
     const modOptions = required ? options : [placeholder, ...options];
 
     const handleToggle = (e: React.MouseEvent) => {
-        e.preventDefault();
-        setIsOpen(!isOpen);
+        if (focus) {
+            e.preventDefault();
+            setIsOpen(!isOpen);
+        }
+    };
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (isOpen) {
+            if (event.key === "ArrowDown") {
+                event.preventDefault();
+                let scroll = true;
+
+                if (focusedIndex == modOptions.length - 1 && ulRef.current) {
+                    ulRef.current.scrollTop = 0;
+                    scroll = false;
+                }
+
+                setFocusedIndex(prevIndex => {
+                    if (
+                        prevIndex === null ||
+                        prevIndex === modOptions.length - 1
+                    ) {
+                        return 0;
+                    }
+                    return prevIndex + 1;
+                });
+
+                if (
+                    ulRef.current &&
+                    focusedIndex != null &&
+                    focusedIndex >= 0 &&
+                    scroll
+                ) {
+                    const optionHeight =
+                        ulRef.current.clientHeight / modOptions.length;
+                    ulRef.current.scrollTop += optionHeight;
+                }
+            } else if (event.key === "ArrowUp") {
+                event.preventDefault();
+
+                let scroll = true;
+
+                if (ulRef.current && focusedIndex == 0) {
+                    ulRef.current.scrollTop =
+                        ulRef.current.clientHeight * modOptions.length;
+                    scroll = false;
+                }
+
+                setFocusedIndex(prevIndex => {
+                    if (prevIndex === null || prevIndex === 0) {
+                        return modOptions.length - 1;
+                    }
+                    return prevIndex - 1;
+                });
+
+                if (
+                    ulRef.current &&
+                    focusedIndex != null &&
+                    focusedIndex <= modOptions.length &&
+                    scroll
+                ) {
+                    const optionHeight =
+                        ulRef.current.clientHeight / modOptions.length;
+                    ulRef.current.scrollTop -= optionHeight;
+                }
+            } else if (event.key === "Enter") {
+                event.preventDefault();
+                if (focusedIndex !== null) {
+                    setValue(modOptions[focusedIndex]);
+                    setIsOpen(false);
+                    setFilterTerm("");
+                }
+            } else if (event.key === "Tab") {
+                setIsOpen(false);
+                setFocus(false);
+                setDidFocus(true);
+                setFilterTerm("");
+            }
+        }
     };
 
     const handleOptionClick = (option: string) => {
@@ -93,7 +176,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                 {required && "*"}
             </label>
 
-            <div ref={dropdownRef}>
+            <div ref={dropdownRef} onKeyDown={handleKeyDown}>
                 <button
                     className={clsx(
                         styles.dropdownButton,
@@ -101,7 +184,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                     )}
                     onClick={handleToggle}
                     onFocus={handleFocus}
-                    onBlur={handleFocus}
+                    onBlur={handleBlur}
                 >
                     {value || placeholder}
                     <span
@@ -133,6 +216,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                 </button>
                 {isOpen && (
                     <ul
+                        ref={ulRef} // Reference for the dropdown options list
                         className={clsx(
                             styles.dropdownOptions,
                             isOpen && styles.open
@@ -144,6 +228,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                                 key={index}
                                 option={option}
                                 onClick={handleOptionClick}
+                                isFocused={index === focusedIndex} // Highlight focused option
                             />
                         ))}
                     </ul>
