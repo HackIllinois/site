@@ -7,6 +7,7 @@ import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
+import ApplicationSubmitted from "./Pages/ApplicationSubmitted/ApplicationSubmitted";
 import { getRegistrationSchema } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
@@ -23,8 +24,8 @@ const pages: Array<
     Education,
     HackSpecific,
     Transportation,
-    ReviewInfo
-    // Confirmation
+    ReviewInfo,
+    ApplicationSubmitted
 ];
 const reviewPageIndex = 4;
 
@@ -33,7 +34,8 @@ const buttonNames: Array<[string, string]> = [
     ["Personal Info", "Experience"],
     ["Education", "Transportation"],
     ["Experience", "Review Info"],
-    ["Transportation", "Submit"]
+    ["Transportation", "Submit"],
+    ["", "Exit"]
 ];
 
 type RegistrationFormProps = {
@@ -118,11 +120,13 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                             proTrack: registration.isProApplicant
                         })}
                         <div className={styles.navigation}>
-                            <NavigationButton
-                                text={buttonNames[formIndex][0]}
-                                onClick={previousPage}
-                                type="button"
-                            />
+                            {buttonNames[formIndex][0] !== "" && (
+                                <NavigationButton
+                                    text={buttonNames[formIndex][0]}
+                                    onClick={previousPage}
+                                    type="button"
+                                />
+                            )}
                             <NavigationButton
                                 text={buttonNames[formIndex][1]}
                                 pointRight
