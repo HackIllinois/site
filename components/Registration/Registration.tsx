@@ -11,20 +11,20 @@ import { registrationSchemas } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
 
-import PERSONAL_INFO from "@/public/registration/backgrounds/personal_info.jpg";
-import EDUCATION from "@/public/registration/backgrounds/education.jpg";
-import HACK_SPECIFIC from "@/public/registration/backgrounds/hack_specific.jpg";
-import TRANSPORTATION from "@/public/registration/backgrounds/transportation.jpg";
-import REVIEW_INFO from "@/public/registration/backgrounds/review_info.jpg";
+import PERSONAL_INFO from "@/public/registration/backgrounds/personal_info.svg";
+import EDUCATION from "@/public/registration/backgrounds/education.svg";
+import HACK_SPECIFIC from "@/public/registration/backgrounds/hack_specific.svg";
+import TRANSPORTATION from "@/public/registration/backgrounds/transportation.svg";
+import REVIEW_INFO from "@/public/registration/backgrounds/review_info.svg";
 
-import PERSONAL_INFO_MOBILE from "@/public/registration/mobile_backgrounds/personal_info.jpg";
-import EDUCATION_MOBILE from "@/public/registration/mobile_backgrounds/education.jpg";
-import HACK_SPECIFIC_MOBILE from "@/public/registration/mobile_backgrounds/hack_specific.jpg";
-import TRANSPORTATION_MOBILE from "@/public/registration/mobile_backgrounds/transportation.jpg";
-import REVIEW_INFO_MOBILE from "@/public/registration/mobile_backgrounds/review_info.jpg";
+import PERSONAL_INFO_MOBILE from "@/public/registration/mobile_backgrounds/personal_info.svg";
+import EDUCATION_MOBILE from "@/public/registration/mobile_backgrounds/education.svg";
+import HACK_SPECIFIC_MOBILE from "@/public/registration/mobile_backgrounds/hack_specific.svg";
+import TRANSPORTATION_MOBILE from "@/public/registration/mobile_backgrounds/transportation.svg";
+import REVIEW_INFO_MOBILE from "@/public/registration/mobile_backgrounds/review_info.svg";
 
-import ARTEMIS from "@/public/registration/characters/artemis.png";
-import APOLLO from "@/public/registration/characters/apollo.png";
+import ARTEMIS from "@/public/registration/characters/artemis.svg";
+import APOLLO from "@/public/registration/characters/apollo.svg";
 import NONE from "@/public/registration/characters/none.png";
 import useWindowSize from "@/hooks/use-window-size";
 
