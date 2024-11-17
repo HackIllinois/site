@@ -1,0 +1,82 @@
+.progressStepper {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    margin-top: 1rem;
+    padding: 1rem;
+
+    .progressBar {
+        position: relative;
+        height: 3px;
+        width: 100%;
+        background-color: white;
+        margin: auto;
+        grid-row: 1;
+        grid-column: 1;
+        border-radius: 3px;
+
+        .progressBarFill {
+            height: 100%;
+            background-color: #a19366;
+            transition: width 1s ease;
+            border-radius: 3px;
+        }
+    }
+
+    .steps {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 100%;
+        grid-row: 1;
+        grid-column: 1;
+        z-index: 1;
+
+        .stepIcon {
+            width: 10px;
+            height: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 2rem;
+            width: 2rem;
+
+            img {
+                width: 40px;
+                height: 40px;
+                opacity: 0.5;
+                transition: opacity 0.3s ease;
+
+                &.active {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .progressStepper {
+        padding: 0;
+        .progressBar {
+            height: 2px;
+        }
+
+        .steps {
+            .step {
+                height: 1.5rem;
+                width: 1.5rem;
+            }
+        }
+    }
+}

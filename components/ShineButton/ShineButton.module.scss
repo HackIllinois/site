@@ -1,0 +1,55 @@
+.styledButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    border-style: solid;
+
+    &::after {
+        content: "";
+        display: block;
+        width: 280px;
+        height: 70px;
+
+        border-radius: 32px;
+
+        z-index: -1;
+        position: absolute;
+        left: -8px;
+        top: 8px;
+    }
+
+    height: 70px;
+
+    &::after {
+        width: 240px;
+        height: 78px;
+
+        border-radius: 20px;
+    }
+
+    width: 280px;
+    height: 70px;
+    border-radius: 20px;
+    border-width: 5px;
+    font-size: 22px;
+    font-weight: 700;
+
+    &:before {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 15%;
+        width: 20%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: skewX(-30deg);
+        transition: 0.3s;
+    }
+
+    &:hover:before {
+        left: 65%;
+        background: rgba(255, 255, 255, 0.5);
+    }
+}

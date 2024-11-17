@@ -1,73 +1,81 @@
-import * as z from "zod";
+import * as yup from "yup";
 
-export const registrationSchema = z.object({
-    legalName: z
+const personalInfo = yup.object({
+    legalName: yup
         .string()
-        .min(1)
-        .regex(/^[^ ]+ +[^ ]+.*$/, "Please enter your first and last name."),
-    preferredName: z.string().min(1),
-    gender: z.string().min(1),
-    emailAddress: z.string().min(1).email(),
-    race: z.string().array().min(1),
-    ageMin: z.string().array().min(1),
-    transportation: z.string().array().min(1),
-    requestedTravelReimbursement: z.enum(["YES", "NO"]),
-    location: z.string().min(1),
-    degree: z.string().min(1),
-    university: z.string().min(1),
-    major: z.string().min(1),
-    minor: z.string().min(1),
-    gradYear: z.number().int(),
-    hackEssay1: z.string().min(1),
-    hackEssay2: z.string().min(1),
-    proEssay: z.string().optional(),
-    optionalEssay: z.string().optional(),
-    hackInterest: z.string().array().min(1),
-    hackOutreach: z.string().array().min(1),
-    dietaryRestrictions: z.string().array().min(1),
-    considerForGeneral: z.enum(["YES", "NO"]).optional(),
-    resumeFileName: z.string().optional()
-
-    // terms: z.boolean().refine((val: boolean) => val),
+        .required("Please enter your first and last name")
+        .matches(
+            /^[^ ]+ +[^ ]+.*$/,
+            "Please enter both your first and last name"
+        ),
+    preferredName: yup.string().required("Please enter your preferred name"),
+    gender: yup.string().required("Please select a gender"),
+    age: yup
+        .number()
+        .required("Please enter your age")
+        .positive("Please enter a valid age")
+        .integer("Please enter a valid age")
+        .min(18, "You must be at least 18 years old."),
+    race: yup.string().required("Please select an ethnicity/race"),
+    emailAddress: yup
+        .string()
+        .required("Please enter your email address")
+        .email("Please enter a valid email address"),
+    phoneNumber: yup
+        .string()
+        .required("Please enter your phone number")
+        .matches(
+            /^\+?\d{0,3}\s?\(?\b\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/,
+            "Please enter a valid phone number."
+        )
 });
 
-export type RegistrationSchema = z.infer<typeof registrationSchema>;
+const education = yup.object({
+    school: yup.string().required("Please select a school (or N/A)"),
+    gradYear: yup.string().required("Please select a graduation year"),
+    major: yup.string().required("Please select a major (or N/A)"),
+    minor: yup.string(),
+    resume: yup
+        .string()
+        .matches(
+            /((\.pdf)|(\.docx)|(\.doc))$/,
+            "Please upload a valid file type"
+        )
+});
 
-export const errorMap: z.ZodErrorMap = (error, ctx) => {
-    if (error.message) return { message: error.message };
+const hackSpecific = yup.object({
+    interestExplanation: yup.string().required("Please answer this question"),
+    heardAbout: yup
+        .array()
+        .of(yup.string().required('"Other" cannot be empty'))
+        .min(1, "Please select at least one option"),
+    lookingForwardTo: yup
+        .array()
+        .of(yup.string().required('"Other" cannot be empty'))
+        .min(1, "Please select at least one option"),
+    allergiesRestrictions: yup
+        .array()
+        .of(yup.string().required('"Other" cannot be empty')),
+    travelReimbursement: yup
+        .array()
+        .of(yup.string())
+        .min(1, "Please select one option")
+});
 
-    if (error.code === z.ZodIssueCode.too_small && error.type === "string") {
-        return { message: "Required" };
-    }
+const transportation = yup.object({
+    travelAcknowledge: yup
+        .array()
+        .of(yup.string())
+        .min(1, "Please select one option"),
+    travelMethod: yup
+        .array()
+        .of(yup.string())
+        .min(1, "Please select one option")
+});
 
-    if (error.code === z.ZodIssueCode.too_small && error.type === "array") {
-        return { message: "Required" };
-    }
-
-    if (error.code === z.ZodIssueCode.invalid_enum_value) {
-        return { message: "Required" };
-    }
-
-    return { message: ctx.defaultError };
-};
-
-export const defaultValues = {
-    race: [],
-    hackInterest: [],
-    hackOutreach: [],
-    ageMin: [],
-    dietaryRestrictions: [],
-    transportation: [],
-    proEssay: "",
-    optionalEssay: "",
-    hackEssay1: "",
-    hackEssay2: "",
-    legalName: "",
-    preferredName: "",
-    emailAddress: "",
-    gender: "",
-    location: "",
-    degree: "",
-    major: "",
-    university: ""
-};
+export const registrationSchemas = [
+    personalInfo,
+    education,
+    hackSpecific,
+    transportation
+];

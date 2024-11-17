@@ -1,0 +1,79 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: black;
+    width: 100%;
+    padding: 5rem 1rem;
+    padding-top: 2rem;
+    gap: 3rem;
+    min-height: 100vh;
+    background-size: cover;
+    // transition fade
+    transition: background-image 0.5s linear;
+
+    @media (max-width: 768px) {
+        padding: 4rem 1.5rem;
+        padding-bottom: 25rem;
+        // Lots of bottom padding for mobile keyboard
+    }
+}
+
+.form {
+    width: 100%;
+    h1 {
+        font-weight: 900;
+        font-size: 36px;
+        color: white;
+        // font-size: 56px;
+        @media (max-width: 768px) {
+            font-size: 36px;
+        }
+    }
+
+    h4 {
+        font-weight: 400;
+        font-size: 20px;
+        color: red;
+    }
+
+    label,
+    h3 {
+        font-weight: 600;
+        font-size: 20px;
+        color: white;
+        // font-size: 28px;
+        @media (max-width: 768px) {
+            font-size: 22px;
+        }
+    }
+
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.formWrapper {
+    display: flex;
+    width: 100%;
+    gap: 1.5rem;
+
+    max-width: 1200px;
+}
+
+.formContent {
+    flex: 3;
+}
+
+.character {
+    flex: 1;
+    background-color: gray;
+}
