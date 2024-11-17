@@ -2,57 +2,47 @@
 import styles from "./Olympian.module.scss";
 
 import Image from "next/image";
-
-// import Village from "@/public/home/hero/village.svg";
+import LOGO from "@/public/home/olympian/logo.svg";
+import CHEST from "@/public/home/olympian/chest.svg";
+import FRONT_CLOUDS from "@/public/home/olympian/front-clouds.svg";
+import BACK_CLOUDS from "@/public/home/olympian/back-clouds.svg";
+import BACKGROUND from "@/public/home/olympian/staircase-background.svg";
 
 const Olympian: React.FC = () => {
     return (
         <section className={styles.olympianMain}>
-            <div className={styles.olympianContainer}>
-                <div className={styles.olympianImageWrapper}>
-                    <Image
-                        alt="HackOlympus Logo"
-                        src="/home/olympian/logo.svg"
-                        fill={true}
-                    />
-                </div>
-                <div className={styles.olympianButtonWrapper}>
-                    <button
-                        className={styles.olympianButton}
-                        onClick={() =>
-                            window.open(
-                                "https://solana.com/",
-                                "_blank",
-                                "noreferrer noopener"
-                            )
-                        }
-                    >
-                        {/* {button_text} */}
-                        Register Now
-                    </button>
-                </div>
-                <div className={styles.backCloudsContainer}>
-                    <Image
-                        alt="clouds"
-                        src="/home/olympian/back-clouds.svg"
-                        fill={true}
-                    />
-                </div>
-                <div className={styles.frontCloudsContainer}>
-                    <Image
-                        alt="clouds"
-                        src="/home/olympian/front-clouds.svg"
-                        fill={true}
-                    />
-                </div>
-                <div className={styles.chestContainer}>
-                    <Image
-                        alt="chest"
-                        src="/home/olympian/chest.svg"
-                        fill={true}
-                    />
-                </div>
+            <Image alt="HackOlympus Logo" src={LOGO} className={styles.logo} />
+            <div className={styles.olympianButtonWrapper}>
+                <button
+                    className={styles.olympianButton}
+                    onClick={() =>
+                        window.open(
+                            "https://solana.com/",
+                            "_blank",
+                            "noreferrer noopener"
+                        )
+                    }
+                >
+                    Register Now
+                </button>
             </div>
+            <Image alt="chest" src={CHEST} className={styles.chest} />
+            <Image
+                alt="cloud"
+                src={BACK_CLOUDS}
+                className={styles.backClouds}
+            />
+            <Image
+                alt="cloud"
+                src={FRONT_CLOUDS}
+                className={styles.frontClouds}
+            />
+
+            <Image
+                alt="background"
+                src={BACKGROUND}
+                className={styles.background}
+            />
         </section>
     );
 };

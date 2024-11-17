@@ -50,7 +50,7 @@ const Navbar = () => {
 
     return (
         <>
-            {pathname !== "/knights/challenge" && (
+            {pathname !== "/olympians/challenge" && (
                 <>
                     <nav className={styles.navbar}>
                         <Image

@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./Footer.module.scss";
 import { socials } from "@/modules/FooterData";
 import Subscribe from "@/components/Subscribe/Subscribe";
+import BACKGROUND from "@/public/footer/background.svg";
 
 interface FooterProps {
     title?: string;
@@ -21,7 +22,11 @@ const Footer: React.FC<FooterProps> = ({
 }) => {
     return (
         <div className={styles.footerContainer}>
-            {/* <Image src="/footer/footer-background.svg" alt="background" width="1600" height="3500" className={styles.footerBackground}/> */}
+            <Image
+                alt="background"
+                src={BACKGROUND}
+                className={styles.background}
+            />
             <div className={styles.footer}>
                 <div id="social-section">
                     <span className={styles.title}>{title}</span>

@@ -65,59 +65,6 @@
     }
 }
 
-.knightButton {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 140px;
-    height: 46px;
-    color: white;
-    animation: all 3s;
-}
-
-.knightButton:hover {
-    .buttonBackground {
-        filter: blur(12px);
-    }
-
-    .buttonContent {
-        border: 2px solid white;
-    }
-}
-
-.buttonBackground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    border-radius: 5px;
-    background: radial-gradient(
-        103.26% 294.42% at 81.79% 29.35%,
-        #ff9dcc 0%,
-        #d0fdc9 47.4%,
-        #c1f6f3 100%
-    );
-}
-
-.buttonContent {
-    z-index: 1;
-    background: #000;
-    border: 2px solid transparent;
-    border-radius: 5px;
-    width: 100%;
-    height: 100%;
-    background-clip: padding-box;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    gap: 10px;
-}
-
 .mobile {
     display: none;
     margin: auto;
@@ -210,7 +157,7 @@
     display: none;
     &.menuOpen {
         position: absolute;
-        background-color: #5b619b;
+        background-color: #0e87cc;
         display: flex;
         flex-direction: column;
         align-content: center;

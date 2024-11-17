@@ -2,34 +2,34 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 0 10%;
     background: linear-gradient(180deg, #343f3f 6%, #51242b 51%);
-
-    // @media screen and (min-width: 950px) {
-    //     transform: scale(0.8);
-    // }
+    margin-top: -35%;
+    padding-top: 5%;
 }
 
-.footerBackground {
-    // position: absolute;
-    // margin-top: -20%;
+.background {
+    height: fit-content;
+    width: 100vw;
 }
 
 .footer {
     display: flex;
     flex-direction: column;
-    row-gap: 3rem;
-    width: 100%;
-    // background-color: #004561;
-    background: radial-gradient(#f8eda9 24%, #d08042 72%);
+    width: 80%;
+    position: absolute;
+    bottom: 6%;
     padding: min(5vh, 15rem) 0;
 
-    @media screen and (max-width: 900px) {
-        padding: 7.5rem 0;
+    @media screen and (max-width: 700px) {
+        row-gap: 0rem;
     }
 
-    @media screen and (max-width: 700px) {
-        padding: 4rem 0;
+    @media screen and (max-width: 670px) {
+        bottom: 5%;
+    }
+
+    @media screen and (max-width: 475px) {
+        bottom: 3%;
     }
 
     > div:nth-child(1) {
@@ -45,7 +45,6 @@
 .title {
     display: block;
     font-size: 2.5rem;
-    width: 80%;
     @media screen and (max-width: 1280px) {
         font-size: 2.5rem;
     }
@@ -60,7 +59,10 @@
 
     @media screen and (max-width: 700px) {
         font-size: 1.25rem;
-        white-space: nowrap;
+    }
+
+    @media screen and (max-width: 550px) {
+        font-size: 1rem;
     }
     font-weight: bold;
     color: #022838;
@@ -75,17 +77,17 @@
     align-items: center;
     margin-top: 2rem;
     gap: 2rem;
-    width: 80%;
 
     @media screen and (max-width: 900px) {
         margin-top: 1.5rem;
-        gap: 2.5rem;
+        gap: 1.5rem;
     }
 
     @media screen and (max-width: 700px) {
         margin-top: 1.5rem;
         column-gap: 20%;
-        row-gap: 2rem;
+        row-gap: 1rem;
+        margin-bottom: 0;
     }
 
     .icon {
@@ -126,8 +128,6 @@
         .image {
             width: 50%;
             height: 50%;
-            // background-color: #F5ECA1;
-            // filter: brightness(0) saturate(100%) invert(43%) sepia(80%) saturate(3941%) hue-rotate(340deg) brightness(98%) contrast(98%);
         }
     }
 }
@@ -135,7 +135,7 @@
 .newsletterTitle {
     display: block;
     font-size: 2rem;
-    margin-bottom: 3rem;
+    margin: 2.5rem 0 3rem;
 
     @media screen and (max-width: 1280px) {
         font-size: 2rem;
@@ -155,6 +155,14 @@
     @media screen and (max-width: 700px) {
         font-size: 1.125rem;
         margin: 1rem 0 1.5rem;
+    }
+    @media screen and (max-width: 550px) {
+        font-size: 1rem;
+        margin: 0.5rem 0;
+    }
+    @media screen and (max-width: 470px) {
+        width: 80%;
+        margin: 0.5rem auto;
     }
     font-weight: 600;
     color: #022838;
