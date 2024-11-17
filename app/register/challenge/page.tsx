@@ -4,7 +4,12 @@ import ProChallengeContent from "../../../components/Challenge/ProChallengeConte
 import ProChallengeIntro from "../../../components/Challenge/ProChallengeIntro";
 import ProChallengeStatus from "../../../components/Challenge/ProChallengeStatus";
 import styles from "./styles.module.scss";
-import { getChallenge } from "@/util/api";
+import {
+    authenticate,
+    getChallenge,
+    getRegistration,
+    isAuthenticated
+} from "@/util/api";
 
 enum Pages {
     Intro,
@@ -29,10 +34,19 @@ const ProChallenge: React.FC = () => {
 
     const handleCheckIfUserCompletedChallenge = async () => {
         try {
+            if (!isAuthenticated()) {
+                authenticate(window.location.href);
+            }
+            const registration = await getRegistration();
+            if (registration && registration.hasSubmitted) {
+                window.location.href = "/register/application-status";
+                return;
+            }
             const passedChallenge = await getChallenge();
             if (passedChallenge) {
                 setPage(Pages.Pass);
             }
+
             // Leave it if the user failed, so they can try again
         } catch {
             // Just leave the user on the same page
