@@ -1,13 +1,14 @@
 .container {
+    margin-top: 13%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: black;
     width: 100%;
     padding: 5rem 1rem;
     gap: 4rem;
     min-height: 100vh;
+    position: relative;
     @media (max-width: 768px) {
         padding: 4rem 1.5rem;
         padding-bottom: 25rem;
@@ -25,12 +26,13 @@
         @media (max-width: 768px) {
             font-size: 36px;
         }
+        color: white;
     }
 
     h4 {
         font-weight: 400;
         font-size: 24px;
-        color: red;
+        color: white;
     }
 
     label,
@@ -42,6 +44,7 @@
         @media (max-width: 768px) {
             font-size: 22px;
         }
+        color: white;
     }
 
     display: flex;

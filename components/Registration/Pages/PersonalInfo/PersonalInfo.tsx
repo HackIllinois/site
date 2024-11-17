@@ -47,38 +47,19 @@ const PersonalInfo = ({ onChangePage }: PropTypes): JSX.Element => {
                 </div>
 
                 <div className={styles.field}>
-                    <TextInput
-                        name="age"
-                        label="Age"
-                        placeholder="Type here..."
-                        type="number"
-                        min="18"
+                    <Dropdown
+                        name="race"
+                        label="Race/Ethnicity"
+                        options={race}
                         required
                     />
                 </div>
-            </div>
-
-            <div className={styles.field}>
-                <Dropdown
-                    name="race"
-                    label="Race/Ethnicity"
-                    options={race}
-                    required
-                />
             </div>
 
             <TextInput
                 name="emailAddress"
                 label="Email Address"
                 type="email"
-                required
-                placeholder="Type here..."
-            />
-
-            <TextInput
-                name="phoneNumber"
-                label="Phone Number"
-                type="tel"
                 required
                 placeholder="Type here..."
             />
