@@ -1,3 +1,17 @@
+import {
+    MethodType,
+    RegistrationType,
+    ProfileType,
+    RSVPDecisionType,
+    RSVPType,
+    UserType,
+    ProfileBodyType,
+    WithId,
+    FileType,
+    RefreshTokenResType,
+    EventType
+} from "./types";
+
 const APIv2 = "https://adonix.hackillinois.org";
 
 export class APIError extends Error {
@@ -36,6 +50,25 @@ export function authenticate(to: string): void {
     window.location.replace(to);
 }
 
+async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
+    const response = await fetch(APIv2 + endpoint, {
+        method,
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+            Origin: "www.hackillinois.org",
+            Authorization: sessionStorage.getItem("token") || ""
+        },
+        body: JSON.stringify(body)
+    });
+
+    if (response.status !== 200) {
+        throw new APIError(await response.json());
+    }
+
+    return response.json();
+}
+
 export async function getChallenge(): Promise<boolean> {
     const response = await fetch("https://artemis.hackillinois.org/status", {
         method: "GET",
@@ -51,4 +84,18 @@ export async function getChallenge(): Promise<boolean> {
 
     const ret = await response.json().then(json => json.status);
     return ret;
+}
+
+export function getRegistration(): Promise<WithId<RegistrationType>> {
+    return requestv2("GET", `/registration`).catch(() => null);
+}
+
+export function registerUpdate(
+    registration: RegistrationType
+): Promise<WithId<RegistrationType>> {
+    return requestv2("POST", `/registration`, registration);
+}
+
+export function getRSVP(): Promise<RSVPType> {
+    return requestv2("GET", "/admission/rsvp");
 }

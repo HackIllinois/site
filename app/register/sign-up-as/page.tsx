@@ -3,14 +3,27 @@
 import ShineButton from "@/components/ShineButton/ShineButton";
 import styles from "./styles.module.scss";
 import { useEffect } from "react";
-import { getChallenge } from "@/util/api";
+import {
+    authenticate,
+    getChallenge,
+    getRegistration,
+    isAuthenticated
+} from "@/util/api";
 
 const RegistrationType: React.FC = () => {
-    const handleCheckIfUserCompletedChallenge = async () => {
+    const handleCheckIfUserCompletedFormOrChallenge = async () => {
         try {
-            const passedChallenge = await getChallenge();
-            if (passedChallenge === true) {
-                window.location.href = "/register";
+            if (!isAuthenticated()) {
+                authenticate(window.location.href);
+            }
+            const registration = await getRegistration();
+            if (!registration || !registration.hasSubmitted) {
+                const passedChallenge = await getChallenge();
+                if (passedChallenge === true) {
+                    window.location.href = "/register";
+                }
+            } else {
+                window.location.href = "/register/application-status";
             }
         } catch {
             // Just leave the user on the page; user did not attempt
@@ -18,7 +31,7 @@ const RegistrationType: React.FC = () => {
     };
 
     useEffect(() => {
-        handleCheckIfUserCompletedChallenge();
+        handleCheckIfUserCompletedFormOrChallenge();
     }, []);
 
     return (

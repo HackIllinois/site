@@ -1,0 +1,9 @@
+.valueItem {
+    padding: 5px;
+    border-radius: 5px;
+    color: #d8d8d8;
+}
+.valueItem.highlighted {
+    background-color: #c6a317;
+    color: white;
+}
