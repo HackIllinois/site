@@ -26,6 +26,7 @@ const pages: Array<
     ReviewInfo
     // Confirmation
 ];
+const reviewPageIndex = 4;
 
 const buttonNames: Array<[string, string]> = [
     ["Back", "Education"],

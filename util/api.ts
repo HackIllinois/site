@@ -27,6 +27,12 @@ export class APIError extends Error {
     }
 }
 
+// function handleError(body) {
+//     alert(body.message || body);
+
+//     throw new APIError(body);
+// }
+
 export const isAuthenticated = (): string | null =>
     sessionStorage.getItem("token");
 
@@ -55,6 +61,14 @@ async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
         body: JSON.stringify(body)
     });
 
+    if (response.status === 403) {
+        alert(
+            "Your session has expired. Please close this tab and log in again."
+        );
+        sessionStorage.removeItem("token");
+        // TODO: reauth
+    }
+
     if (response.status !== 200) {
         throw new APIError(await response.json());
     }
@@ -81,12 +95,13 @@ export async function getChallenge(): Promise<boolean> {
 
 export function getRegistration(): Promise<WithId<RegistrationType>> {
     return requestv2("GET", `/registration`);
+    //.catch(() => handleError);
 }
 
 export function getRegistrationOrDefault(): Promise<
     WithId<RegistrationType> | RegistrationType
 > {
-    return getRegistration().catch(() => {
+    return requestv2("GET", `/registration`).catch(() => {
         return {
             legalName: "",
             preferredName: "",
@@ -114,6 +129,14 @@ export function getRegistrationOrDefault(): Promise<
             isProApplicant: false
         };
     });
+
+    //     .catch((body) => {
+    //         if (body.error === "NotFound") {
+    //             return null;
+    //         }
+
+    //         handleError(body);
+    // });
 }
 
 export function registerUpdate(
