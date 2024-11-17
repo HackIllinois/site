@@ -1,5 +1,5 @@
 "use client";
-import React, { ElementType, useState } from "react";
+import React, { ElementType, useState, useEffect } from "react";
 import styles from "./Registration.module.scss";
 import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
@@ -7,13 +7,16 @@ import HackSpecific from "./Pages/HackSpecific/HackSpecific";
 import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
-import { registrationSchemas } from "./validation";
+import { getRegistrationSchema } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
+import { registerUpdate, registrationToAPI } from "@/util/api";
+import { RegistrationData } from "@/util/types";
 
 const pages: Array<
     ElementType<{
         onChangePage: (newIndex: number) => void;
+        proTrack: boolean;
     }>
 > = [
     PersonalInfo,
@@ -23,6 +26,7 @@ const pages: Array<
     ReviewInfo
     // Confirmation
 ];
+const reviewPageIndex = 4;
 
 const buttonNames: Array<[string, string]> = [
     ["Back", "Education"],
@@ -32,46 +36,27 @@ const buttonNames: Array<[string, string]> = [
     ["Transportation", "Submit"]
 ];
 
-const initialValues = [
-    {
-        legalName: "",
-        preferredName: "",
-        gender: "",
-        age: "",
-        race: "",
-        emailAddress: "",
-        phoneNumber: ""
-    },
-    {
-        school: "",
-        gradYear: "",
-        major: "",
-        minor: "",
-        resume: ""
-    },
-    {
-        interestExplaination: "",
-        heardAbout: [],
-        lookingForwardTo: [],
-        allergiesRestrictions: [],
-        travelReimbursement: []
-    },
-    {
-        travelAcknowledge: [],
-        travelMethod: []
-    }
-] as const;
+type RegistrationFormProps = {
+    registration: RegistrationData;
+    setHasChosen: (hasChosen: boolean) => void;
+};
 
-type FieldValues = (typeof initialValues)[number];
-
-const RegistrationForm: React.FC = () => {
+const RegistrationForm: React.FC<RegistrationFormProps> = ({
+    registration,
+    setHasChosen
+}) => {
     const [formIndex, setFormIndex] = useState(0);
     const [furthestPage, setFurthestPage] = useState(0);
 
     const handlePageChange = (newIndex: number) => {
         console.log("page", newIndex);
-        if (newIndex < 0 || newIndex >= pages.length) {
+        if (newIndex >= pages.length) {
             return; // This shouldn't happen
+        }
+
+        if (newIndex < 0) {
+            setHasChosen(false);
+            return;
         }
 
         setFormIndex(() => newIndex);
@@ -86,12 +71,29 @@ const RegistrationForm: React.FC = () => {
         handlePageChange(formIndex - 1);
     };
 
-    const onSubmit = (
-        values: FieldValues,
-        formikHelpers: FormikHelpers<FieldValues>
+    const onSubmit = async (
+        values: RegistrationData,
+        formikHelpers: FormikHelpers<RegistrationData>
     ) => {
-        console.log("submit", values);
+        console.log(registration);
+        console.log(values);
+        registration = {
+            ...registration,
+            ...values
+        };
+        console.log(registration);
+
         handlePageChange(formIndex + 1);
+        console.log(registration);
+
+        registerUpdate(registrationToAPI(registration))
+            .then(response => console.log("Response:", response))
+            .catch(error => {
+                console.error(
+                    "Error Response:",
+                    error.response?.data || error.message
+                );
+            });
     };
 
     return (
@@ -102,13 +104,18 @@ const RegistrationForm: React.FC = () => {
                     furthestPage={furthestPage}
                 />
                 <Formik
-                    initialValues={initialValues[formIndex]}
+                    initialValues={registration}
                     onSubmit={onSubmit}
-                    validationSchema={registrationSchemas[formIndex]}
+                    validationSchema={getRegistrationSchema(
+                        formIndex,
+                        registration.isProApplicant
+                    )}
+                    enableReinitialize
                 >
                     <Form className={styles.form}>
                         {React.createElement(pages[formIndex], {
-                            onChangePage: handlePageChange
+                            onChangePage: handlePageChange,
+                            proTrack: registration.isProApplicant
                         })}
                         <div className={styles.navigation}>
                             <NavigationButton
