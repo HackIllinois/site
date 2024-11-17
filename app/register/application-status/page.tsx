@@ -37,7 +37,7 @@ const ApplicationStatus: React.FC = () => {
     };
 
     useEffect(() => {
-        // handleCheckUserAppliedStatus();
+        handleCheckUserAppliedStatus();
     }, []);
 
     return (
