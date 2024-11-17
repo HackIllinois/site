@@ -1,5 +1,5 @@
 "use client";
-import React, { ElementType, useState, useEffect } from "react";
+import React, { ElementType, useState } from "react";
 import styles from "./Registration.module.scss";
 import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
@@ -28,14 +28,14 @@ const pages: Array<
     ApplicationSubmitted
 ];
 const reviewPageIndex = 4;
+const submittedPageIndex = 5;
 
 const buttonNames: Array<[string, string]> = [
     ["Back", "Education"],
     ["Personal Info", "Experience"],
     ["Education", "Transportation"],
     ["Experience", "Review Info"],
-    ["Transportation", "Submit"],
-    ["", "Exit"]
+    ["Transportation", "Submit"]
 ];
 
 type RegistrationFormProps = {
@@ -51,7 +51,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     const [furthestPage, setFurthestPage] = useState(0);
 
     const handlePageChange = (newIndex: number) => {
-        console.log("page", newIndex);
         if (newIndex >= pages.length) {
             return; // This shouldn't happen
         }
@@ -69,33 +68,18 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     };
 
     const previousPage = () => {
-        console.log("prev");
         handlePageChange(formIndex - 1);
     };
 
-    const onSubmit = async (
-        values: RegistrationData,
-        formikHelpers: FormikHelpers<RegistrationData>
-    ) => {
-        console.log(registration);
-        console.log(values);
+    const onSubmit = async (values: RegistrationData) => {
         registration = {
             ...registration,
             ...values
         };
-        console.log(registration);
 
         handlePageChange(formIndex + 1);
-        console.log(registration);
 
-        registerUpdate(registrationToAPI(registration))
-            .then(response => console.log("Response:", response))
-            .catch(error => {
-                console.error(
-                    "Error Response:",
-                    error.response?.data || error.message
-                );
-            });
+        registerUpdate(registrationToAPI(registration));
     };
 
     return (
@@ -119,20 +103,20 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                             onChangePage: handlePageChange,
                             proTrack: registration.isProApplicant
                         })}
-                        <div className={styles.navigation}>
-                            {buttonNames[formIndex][0] !== "" && (
+                        {formIndex !== submittedPageIndex && (
+                            <div className={styles.navigation}>
                                 <NavigationButton
                                     text={buttonNames[formIndex][0]}
                                     onClick={previousPage}
                                     type="button"
                                 />
-                            )}
-                            <NavigationButton
-                                text={buttonNames[formIndex][1]}
-                                pointRight
-                                type="submit"
-                            />
-                        </div>
+                                <NavigationButton
+                                    text={buttonNames[formIndex][1]}
+                                    pointRight
+                                    type="submit"
+                                />
+                            </div>
+                        )}
                     </Form>
                 </Formik>
             </div>
