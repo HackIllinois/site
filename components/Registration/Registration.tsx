@@ -113,7 +113,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
     const onSubmit = async (values: RegistrationData) => {
         if (formIndex === reviewPageIndex) {
-            // @TODO validate final registration
             await registerSubmit(registrationToAPI(registration));
             handlePageChange(submittedPageIndex);
             return;
@@ -124,9 +123,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             ...values
         };
 
+        await registerUpdate(registrationToAPI(registration));
         handlePageChange(formIndex + 1);
-
-        registerUpdate(registrationToAPI(registration));
     };
 
     return (

@@ -2,7 +2,8 @@ import {
     MethodType,
     RegistrationType,
     WithId,
-    RegistrationData
+    RegistrationData,
+    FileType
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -137,6 +138,21 @@ export function getRegistrationOrDefault(): Promise<
 
     //         handleError(body);
     // });
+}
+
+export async function uploadFile(file: File, type: FileType): Promise<unknown> {
+    const { url, fields } = await requestv2("GET", "/s3/upload");
+    let data = new FormData();
+    for (let key in fields) {
+        data.append(key, fields[key]);
+    }
+    data.append("file", file, file.name);
+    const res = await fetch(url, { method: "POST", body: data });
+
+    if (!res.ok) {
+        throw new Error("response did not have status 200");
+    }
+    return res;
 }
 
 export function registerUpdate(
