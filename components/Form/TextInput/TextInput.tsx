@@ -64,7 +64,7 @@ const TextInput: React.FC<TextInputProps> = ({
                     {...props}
                 />
             )}
-            <h4>{showFeedback && meta.error}</h4>
+            {showFeedback && <h4>{meta.error}</h4>}
         </div>
     );
 };

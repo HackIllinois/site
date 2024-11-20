@@ -1,5 +1,5 @@
 "use client";
-import React, { ElementType, useState, useEffect } from "react";
+import React, { ElementType, useRef, useState, useEffect } from "react";
 import styles from "./Registration.module.scss";
 import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
@@ -14,6 +14,25 @@ import { Formik, Form, FormikHelpers } from "formik";
 import { registerUpdate, registrationToAPI } from "@/util/api";
 import { RegistrationData } from "@/util/types";
 
+import PERSONAL_INFO from "@/public/registration/backgrounds/personal_info.svg";
+import EDUCATION from "@/public/registration/backgrounds/education.svg";
+import HACK_SPECIFIC from "@/public/registration/backgrounds/hack_specific.svg";
+import TRANSPORTATION from "@/public/registration/backgrounds/transportation.svg";
+import REVIEW_INFO from "@/public/registration/backgrounds/review_info.svg";
+import APPLICATION_SUBMITTED from "@/public/registration/backgrounds/application_submitted.svg";
+
+import PERSONAL_INFO_MOBILE from "@/public/registration/mobile_backgrounds/personal_info.svg";
+import EDUCATION_MOBILE from "@/public/registration/mobile_backgrounds/education.svg";
+import HACK_SPECIFIC_MOBILE from "@/public/registration/mobile_backgrounds/hack_specific.svg";
+import TRANSPORTATION_MOBILE from "@/public/registration/mobile_backgrounds/transportation.svg";
+import REVIEW_INFO_MOBILE from "@/public/registration/mobile_backgrounds/review_info.svg";
+import APPLICATION_SUBMITTED_MOBILE from "@/public/registration/mobile_backgrounds/application_submitted.svg";
+
+import ARTEMIS from "@/public/registration/characters/artemis.svg";
+import APOLLO from "@/public/registration/characters/apollo.svg";
+import NONE from "@/public/registration/characters/none.png";
+import useWindowSize from "@/hooks/use-window-size";
+
 const pages: Array<
     ElementType<{
         onChangePage: (newIndex: number) => void;
@@ -27,7 +46,26 @@ const pages: Array<
     ReviewInfo,
     ApplicationSubmitted
 ];
-const reviewPageIndex = 4;
+
+const backgrounds = [
+    PERSONAL_INFO,
+    EDUCATION,
+    HACK_SPECIFIC,
+    TRANSPORTATION,
+    REVIEW_INFO,
+    APPLICATION_SUBMITTED
+];
+
+const backgroundsMobile = [
+    PERSONAL_INFO_MOBILE,
+    EDUCATION_MOBILE,
+    HACK_SPECIFIC_MOBILE,
+    TRANSPORTATION_MOBILE,
+    REVIEW_INFO_MOBILE,
+    APPLICATION_SUBMITTED_MOBILE
+];
+
+const characters = [ARTEMIS, APOLLO, null, NONE, null];
 
 const buttonNames: Array<[string, string]> = [
     ["Back", "Education"],
@@ -47,6 +85,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     registration,
     setHasChosen
 }) => {
+    const windowSizeHook = useWindowSize();
     const [formIndex, setFormIndex] = useState(0);
     const [furthestPage, setFurthestPage] = useState(0);
 
@@ -70,6 +109,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
     const previousPage = () => {
         console.log("prev");
+        window.scrollTo(0, 0);
         handlePageChange(formIndex - 1);
     };
 
@@ -100,41 +140,63 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
     return (
         <>
-            <div className={styles.container}>
-                <ProgressBar
-                    onChangePage={handlePageChange}
-                    furthestPage={furthestPage}
-                />
-                <Formik
-                    initialValues={registration}
-                    onSubmit={onSubmit}
-                    validationSchema={getRegistrationSchema(
-                        formIndex,
-                        registration.isProApplicant
-                    )}
-                    enableReinitialize
-                >
-                    <Form className={styles.form}>
-                        {React.createElement(pages[formIndex], {
-                            onChangePage: handlePageChange,
-                            proTrack: registration.isProApplicant
-                        })}
-                        <div className={styles.navigation}>
-                            {buttonNames[formIndex][0] !== "" && (
-                                <NavigationButton
-                                    text={buttonNames[formIndex][0]}
-                                    onClick={previousPage}
-                                    type="button"
-                                />
-                            )}
-                            <NavigationButton
-                                text={buttonNames[formIndex][1]}
-                                pointRight
-                                type="submit"
-                            />
+            <div
+                style={{
+                    backgroundImage:
+                        !windowSizeHook?.width || windowSizeHook?.width > 768
+                            ? `url(${backgrounds[formIndex].src})`
+                            : `url(${backgroundsMobile[formIndex].src})`
+                }}
+                className={styles.container}
+            >
+                <div className={styles.contentWrapper}>
+                    <ProgressBar
+                        onChangePage={handlePageChange}
+                        furthestPage={furthestPage}
+                    />
+                    <div className={styles.formWrapper}>
+                        <div className={styles.formContent}>
+                            <Formik
+                                initialValues={registration}
+                                onSubmit={onSubmit}
+                                validationSchema={getRegistrationSchema(
+                                    formIndex,
+                                    registration.isProApplicant
+                                )}
+                                enableReinitialize
+                            >
+                                <Form className={styles.form}>
+                                    {React.createElement(pages[formIndex], {
+                                        onChangePage: handlePageChange,
+                                        proTrack: registration.isProApplicant
+                                    })}
+                                    <div className={styles.navigation}>
+                                        {buttonNames[formIndex][0] !== "" && (
+                                            <NavigationButton
+                                                text={buttonNames[formIndex][0]}
+                                                onClick={previousPage}
+                                                type="button"
+                                            />
+                                        )}
+                                        <NavigationButton
+                                            text={buttonNames[formIndex][1]}
+                                            pointRight
+                                            type="submit"
+                                        />
+                                    </div>
+                                </Form>
+                            </Formik>
                         </div>
-                    </Form>
-                </Formik>
+                        {characters[formIndex] && (
+                            <div className={styles.character}>
+                                <img
+                                    src={characters[formIndex].src}
+                                    alt="Character"
+                                />
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
         </>
     );
