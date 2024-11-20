@@ -1,18 +1,39 @@
 .container {
-    margin-top: 13%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 100%;
+    width: 1750px;
     padding: 5rem 1rem;
-    gap: 4rem;
+    padding-top: 2rem;
+    gap: 3rem;
     min-height: 100vh;
-    position: relative;
+    background-repeat: no-repeat;
+    background-size: 1750px;
+
+    @media (max-width: 1024px) {
+        background-size: 1256px;
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+
     @media (max-width: 768px) {
-        padding: 4rem 1.5rem;
-        padding-bottom: 25rem;
-        // Lots of bottom padding for mobile keyboard
+        background-size: 400px;
+        gap: 2rem;
+        padding-bottom: 25rem; // bottom padding is for mobile keyboard
+    }
+}
+
+.contentWrapper {
+    margin-top: 126px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3rem;
+    width: 80%;
+    @media (max-width: 768px) {
+        margin-top: 68px;
     }
 }
 
@@ -20,7 +41,7 @@
     width: 100%;
     h1 {
         font-weight: 900;
-        font-size: 72px;
+        font-size: 36px;
         color: white;
         // font-size: 56px;
         @media (max-width: 768px) {
@@ -31,26 +52,27 @@
 
     h4 {
         font-weight: 400;
-        font-size: 24px;
-        color: white;
+        font-size: 20px;
+        color: red;
+        @media (max-width: 768px) {
+            font-size: 16px;
+        }
     }
 
     label,
     h3 {
         font-weight: 600;
-        font-size: 40px;
+        font-size: 20px;
         color: white;
-        // font-size: 28px;
         @media (max-width: 768px) {
-            font-size: 22px;
+            font-size: 18px;
         }
         color: white;
     }
 
     display: flex;
     flex-direction: column;
-    gap: 6rem;
-    max-width: 900px;
+    gap: 3rem;
 }
 
 .navigation {
@@ -58,4 +80,36 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+}
+
+.formWrapper {
+    display: flex;
+    width: 100%;
+    gap: 3rem;
+
+    max-width: 1200px;
+}
+
+.formContent {
+    flex: 2;
+}
+
+.character {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex: 0.5;
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        // scale up 1.5x
+    }
+    @media (max-width: 1000px) {
+        flex: 1;
+    }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
