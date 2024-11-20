@@ -44,7 +44,6 @@ const pages: Array<
     ReviewInfo,
     ApplicationSubmitted
 ];
-const reviewPageIndex = 4;
 
 const backgrounds = [
     PERSONAL_INFO,
@@ -88,8 +87,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     const [formIndex, setFormIndex] = useState(0);
     const [furthestPage, setFurthestPage] = useState(0);
 
-    const contentRef = useRef<HTMLDivElement>(null);
-
     const handlePageChange = (newIndex: number) => {
         console.log("page", newIndex);
         if (newIndex >= pages.length) {
@@ -106,20 +103,11 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             setFurthestPage(newIndex);
         }
         window.scroll(0, 0); // Scroll to top of page
-        contentRef?.current?.scroll({
-            // Necessary for mobile: the content div is fixed to the screen height, and is scrollable
-            top: 0,
-            left: 0
-        });
     };
 
     const previousPage = () => {
         console.log("prev");
         window.scrollTo(0, 0);
-        contentRef?.current?.scroll({
-            top: 0,
-            left: 0
-        });
         handlePageChange(formIndex - 1);
     };
 
@@ -148,12 +136,9 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             });
     };
 
-    const size = useWindowSize();
-
     return (
         <>
             <div
-                ref={contentRef}
                 style={{
                     backgroundImage:
                         !windowSizeHook?.width || windowSizeHook?.width > 768

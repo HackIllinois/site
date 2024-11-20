@@ -17,11 +17,9 @@
     }
     @media (max-width: 640px) {
         padding-top: 100px;
-        max-height: 100vh;
         overflow-y: auto;
         gap: 2rem;
-        padding-bottom: 25rem;
-        // Lots of bottom padding for mobile keyboard
+        padding-bottom: 25rem; // bottom padding is for mobile keyboard
     }
 }
 
