@@ -1,0 +1,32 @@
+.input {
+    display: block;
+    font-family: inherit;
+    border: 4px solid transparent;
+    outline: none;
+    font-weight: 400;
+    width: 100%;
+    padding: 8px 10px;
+    background-color: #ededed;
+    color: #ad8e28;
+    border-radius: 4px;
+    font-size: 20px;
+
+    &::placeholder {
+        color: #a19366;
+    }
+
+    &:focus {
+        border: 4px solid #ad8e28;
+    }
+
+    &:invalid {
+        border: 4px solid rgb(224, 57, 7);
+    }
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+}
+
+.multiline {
+    resize: none;
+}

@@ -1,24 +1,21 @@
 import React from "react";
 import styles from "./page.module.scss";
-
-import Hero from "@/components/Home/Hero/hero";
-import Events from "@/components/Home/Events/events";
-import JoinUs from "@/components/Home/JoinUs/JoinUs";
-import Sponsors from "@/components/Home/Sponsors/Sponsors";
+import Registration from "./register/page";
+import Olympian from "@/components/Home/Olympian/Olympian";
 import Footer from "@/components/Footer/Footer";
-import FAQ from "@/components/Home/Faq/Faq";
-import HackKnights from "@/components/Home/HackKnights/HackKnights";
+import Events from "@/components/Home/Events/Events";
+import FAQJoinUs from "@/components/Home/FAQJoinUs/FAQJoinUs";
+import Sponsors from "@/components/Home/Sponsors/Sponsors";
 
 const Home: React.FC = () => {
     return (
         <main className={styles.main}>
-            <Hero />
-            {/* <Events />
-            <HackKnights />
-            <JoinUs />
-            <FAQ />
-            <Sponsors /> */}
+            <Olympian />
+            <Events />
+            <FAQJoinUs />
+            <Sponsors />
             <Footer />
+            {/* <Registration /> */}
         </main>
     );
 };

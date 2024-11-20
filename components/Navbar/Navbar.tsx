@@ -1,13 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import styles from "./styles.module.scss";
+import styles from "./Navbar.module.scss";
 import Logo from "@/public/logo.svg";
-import CloudMenu from "@/public/cloud-menu.svg";
+// import CloudMenu from "@/public/cloud-menu.svg";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { isAuthenticated, isRegistered } from "@/utils/api";
 
 type NavbarItem = {
     title: string;
@@ -16,41 +15,36 @@ type NavbarItem = {
 };
 
 const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
-    {
-        title: "Schedule",
-        link: "/schedule",
-        active: false
-    },
-    {
-        title: "Prizes",
-        link: "/prizes",
-        active: false
-    },
+    // {
+    //     title: "Schedule",
+    //     link: "/schedule",
+    //     active: false
+    // },
+    // {
+    //     title: "Mentors",
+    //     link: "/mentors",
+    //     active: false
+    // },
+    // {
+    //     title: "Prizes",
+    //     link: "/prizes",
+    //     active: false
+    // },
     // {
     //     title: "Map",
-    //     link: "#"
+    //     link: "#",
+    //     active: false
+    // },
+    // {
+    //     title: "Travel",
+    //     link: "/travel",
+    //     active: false
     // },
     {
-        title: "Travel",
-        link: "/travel",
+        title: "Register",
+        link: "/register",
         active: false
-    },
-    {
-        title: "Mentors",
-        link: "/mentors",
-        active: false
-    },
-
-    {
-        title: "Profile",
-        link: "/profile",
-        active: false
-    },
-    // {
-    //     title: "Register",
-    //     link: "/register",
-    //     active: false
-    // }
+    }
 ];
 
 const Navbar = () => {
@@ -60,25 +54,7 @@ const Navbar = () => {
     const [navbarItems, setNavbarItems] = useState(DEFAULT_NAVBAR_ITEMS);
 
     useEffect(() => {
-        // if (isAuthenticated() !== null) {
-        //     isRegistered().then(isRegistered => {
-        //         if (isRegistered) {
-        //             setNavbarItems(n =>
-        //                 n.map(item =>
-        //                     item.title === "Register"
-        //                         ? {
-        //                               title: "Profile",
-        //                               link: "/profile",
-        //                               active: pathname === "/profile"
-        //                           }
-        //                         : item
-        //                 )
-        //             );
-        //         }
-        //     });
-        // }
-
-        if (pathname !== "/" && pathname !== "/knights") {
+        if (pathname !== "/" && pathname !== "/olympians") {
             setNavbarItems(n =>
                 n.map(item =>
                     item.link === pathname
@@ -89,27 +65,9 @@ const Navbar = () => {
         }
     }, [pathname]);
 
-    // const handleClickOutside = (event: MouseEvent) => {
-    //     if (
-    //         menuRef.current &&
-    //         !menuRef.current.contains(event.target as Node)
-    //     ) {
-    //         setShowMobileNavbar(false);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     // Add when mounted
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     // Return function to be called when unmounted
-    //     return () => {
-    //         document.removeEventListener("mousedown", handleClickOutside);
-    //     };
-    // }, []);
-
     return (
         <>
-            {pathname !== "/knights/challenge" && (
+            {pathname !== "/olympians/challenge" && (
                 <>
                     <nav className={styles.navbar}>
                         <Image
@@ -125,7 +83,7 @@ const Navbar = () => {
                         >
                             <div className={styles.mobileMenuButton}>
                                 <span>Menu</span>
-                                <Image alt="Menu" src={CloudMenu} />
+                                {/* <Image alt="Menu" src={CloudMenu} /> */}
                             </div>
                             {showMobileNavbar && (
                                 <ul className={styles.mobileNavbarMenu}>
@@ -134,9 +92,6 @@ const Navbar = () => {
                                             <a href={item.link}>{item.title}</a>
                                         </li>
                                     ))}
-                                    <li>
-                                        <KnightsButton />
-                                    </li>
                                 </ul>
                             )}
                         </div>
@@ -154,7 +109,7 @@ const Navbar = () => {
                                 </li>
                             ))}
                             <li>
-                                <KnightsButton />
+                                <OlympianButton />
                             </li>
                         </ul>
                     </nav>
@@ -197,7 +152,7 @@ const Navbar = () => {
                                     {item.title}
                                 </a>
                             ))}
-                            <KnightsButton />
+                            <OlympianButton />
                             {/* <a href="/register" className={styles.link}>
                         Register
                     </a> */}
@@ -211,10 +166,10 @@ const Navbar = () => {
 
 export default Navbar;
 
-const KnightsButton = () => {
+const OlympianButton = () => {
     return (
-        <a href="/knights">
-            <button className={styles.knightButton}>
+        <a href="/olympians">
+            <button className={styles.olympianButton}>
                 <div className={styles.buttonBackground}></div>
                 <div className={styles.buttonContent}>
                     <svg
@@ -234,12 +189,9 @@ const KnightsButton = () => {
                         />
                     </svg>
 
-                    <span>Knights</span>
+                    <span>Olympians</span>
                 </div>
             </button>
         </a>
     );
 };
-function handleClickOutside(this: Document, ev: MouseEvent) {
-    throw new Error("Function not implemented.");
-}

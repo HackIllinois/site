@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.input {
+    display: block;
+    font-family: inherit;
+    outline: none;
+    font-weight: 400;
+    width: 100%;
+    padding: 10px 10px;
+    background-color: #ffffff;
+    color: #ad8e28;
+    border-radius: 4px;
+    font-size: 20px;
+
+    &::placeholder {
+        color: #a19366;
+    }
+
+    &:focus {
+        outline: 4px solid #ad8e28;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+}
+
+.invalid {
+    outline: 4px solid red !important;
+}
+
+.multiline {
+    resize: none;
+}

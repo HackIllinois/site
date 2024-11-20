@@ -6,10 +6,10 @@
     column-gap: 5%;
 
     .input {
-        color: #ffffff;
+        color: #f5eca1;
         width: 60%;
         border-radius: 0.75rem;
-        background-color: #0a697f;
+        background-color: #022838;
         border: 0;
         font-size: 1.5rem;
         padding: 1rem;
@@ -39,13 +39,13 @@
         &::placeholder {
             padding-left: 0.5rem;
             font-weight: 400;
-            color: #ffffff;
+            color: #f5eca1;
         }
     }
 
     .button {
-        background-color: #305e42;
-        color: #ffffff;
+        background-color: #022838;
+        color: #f5eca1;
         border-radius: 0.75rem;
         padding: 0.25rem 2.5rem;
         border: 0;
