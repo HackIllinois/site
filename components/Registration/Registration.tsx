@@ -19,12 +19,14 @@ import EDUCATION from "@/public/registration/backgrounds/education.svg";
 import HACK_SPECIFIC from "@/public/registration/backgrounds/hack_specific.svg";
 import TRANSPORTATION from "@/public/registration/backgrounds/transportation.svg";
 import REVIEW_INFO from "@/public/registration/backgrounds/review_info.svg";
+import APPLICATION_SUBMITTED from "@/public/registration/backgrounds/application_submitted.svg";
 
 import PERSONAL_INFO_MOBILE from "@/public/registration/mobile_backgrounds/personal_info.svg";
 import EDUCATION_MOBILE from "@/public/registration/mobile_backgrounds/education.svg";
 import HACK_SPECIFIC_MOBILE from "@/public/registration/mobile_backgrounds/hack_specific.svg";
 import TRANSPORTATION_MOBILE from "@/public/registration/mobile_backgrounds/transportation.svg";
 import REVIEW_INFO_MOBILE from "@/public/registration/mobile_backgrounds/review_info.svg";
+import APPLICATION_SUBMITTED_MOBILE from "@/public/registration/mobile_backgrounds/application_submitted.svg";
 
 import ARTEMIS from "@/public/registration/characters/artemis.svg";
 import APOLLO from "@/public/registration/characters/apollo.svg";
@@ -51,8 +53,8 @@ const backgrounds = [
     EDUCATION,
     HACK_SPECIFIC,
     TRANSPORTATION,
-    REVIEW_INFO
-    // TODO: Add confirmation background
+    REVIEW_INFO,
+    APPLICATION_SUBMITTED
 ];
 
 const backgroundsMobile = [
@@ -60,8 +62,8 @@ const backgroundsMobile = [
     EDUCATION_MOBILE,
     HACK_SPECIFIC_MOBILE,
     TRANSPORTATION_MOBILE,
-    REVIEW_INFO_MOBILE
-    // TODO: Add confirmation background
+    REVIEW_INFO_MOBILE,
+    APPLICATION_SUBMITTED_MOBILE
 ];
 
 const characters = [ARTEMIS, APOLLO, null, NONE, NONE];
@@ -162,51 +164,53 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 }}
                 className={styles.container}
             >
-                <ProgressBar
-                    onChangePage={handlePageChange}
-                    furthestPage={furthestPage}
-                />
-                <div className={styles.formWrapper}>
-                    <div className={styles.formContent}>
-                        <Formik
-                            initialValues={registration}
-                            onSubmit={onSubmit}
-                            validationSchema={getRegistrationSchema(
-                                formIndex,
-                                registration.isProApplicant
-                            )}
-                            enableReinitialize
-                        >
-                            <Form className={styles.form}>
-                                {React.createElement(pages[formIndex], {
-                                    onChangePage: handlePageChange,
-                                    proTrack: registration.isProApplicant
-                                })}
-                                <div className={styles.navigation}>
-                                    {buttonNames[formIndex][0] !== "" && (
+                <div className={styles.contentWrapper}>
+                    <ProgressBar
+                        onChangePage={handlePageChange}
+                        furthestPage={furthestPage}
+                    />
+                    <div className={styles.formWrapper}>
+                        <div className={styles.formContent}>
+                            <Formik
+                                initialValues={registration}
+                                onSubmit={onSubmit}
+                                validationSchema={getRegistrationSchema(
+                                    formIndex,
+                                    registration.isProApplicant
+                                )}
+                                enableReinitialize
+                            >
+                                <Form className={styles.form}>
+                                    {React.createElement(pages[formIndex], {
+                                        onChangePage: handlePageChange,
+                                        proTrack: registration.isProApplicant
+                                    })}
+                                    <div className={styles.navigation}>
+                                        {buttonNames[formIndex][0] !== "" && (
+                                            <NavigationButton
+                                                text={buttonNames[formIndex][0]}
+                                                onClick={previousPage}
+                                                type="button"
+                                            />
+                                        )}
                                         <NavigationButton
-                                            text={buttonNames[formIndex][0]}
-                                            onClick={previousPage}
-                                            type="button"
+                                            text={buttonNames[formIndex][1]}
+                                            pointRight
+                                            type="submit"
                                         />
-                                    )}
-                                    <NavigationButton
-                                        text={buttonNames[formIndex][1]}
-                                        pointRight
-                                        type="submit"
-                                    />
-                                </div>
-                            </Form>
-                        </Formik>
-                    </div>
-                    {characters[formIndex] && (
-                        <div className={styles.character}>
-                            <img
-                                src={characters[formIndex].src}
-                                alt="Character"
-                            />
+                                    </div>
+                                </Form>
+                            </Formik>
                         </div>
-                    )}
+                        {characters[formIndex] && (
+                            <div className={styles.character}>
+                                <img
+                                    src={characters[formIndex].src}
+                                    alt="Character"
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </>
