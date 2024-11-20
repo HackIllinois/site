@@ -1,5 +1,5 @@
 "use client";
-import React, { ElementType, useRef, useState, useEffect } from "react";
+import React, { ElementType, useState } from "react";
 import styles from "./Registration.module.scss";
 import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
@@ -11,7 +11,7 @@ import ApplicationSubmitted from "./Pages/ApplicationSubmitted/ApplicationSubmit
 import { getRegistrationSchema } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
-import { registerUpdate, registrationToAPI } from "@/util/api";
+import { registerSubmit, registerUpdate, registrationToAPI } from "@/util/api";
 import { RegistrationData } from "@/util/types";
 
 import PERSONAL_INFO from "@/public/registration/backgrounds/personal_info.svg";
@@ -46,6 +46,8 @@ const pages: Array<
     ReviewInfo,
     ApplicationSubmitted
 ];
+const reviewPageIndex = 4;
+const submittedPageIndex = 5;
 
 const backgrounds = [
     PERSONAL_INFO,
@@ -72,8 +74,7 @@ const buttonNames: Array<[string, string]> = [
     ["Personal Info", "Experience"],
     ["Education", "Transportation"],
     ["Experience", "Review Info"],
-    ["Transportation", "Submit"],
-    ["", "Exit"]
+    ["Transportation", "Submit"]
 ];
 
 type RegistrationFormProps = {
@@ -90,7 +91,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     const [furthestPage, setFurthestPage] = useState(0);
 
     const handlePageChange = (newIndex: number) => {
-        console.log("page", newIndex);
         if (newIndex >= pages.length) {
             return; // This shouldn't happen
         }
@@ -108,34 +108,23 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     };
 
     const previousPage = () => {
-        console.log("prev");
-        window.scrollTo(0, 0);
         handlePageChange(formIndex - 1);
     };
 
-    const onSubmit = async (
-        values: RegistrationData,
-        formikHelpers: FormikHelpers<RegistrationData>
-    ) => {
-        console.log(registration);
-        console.log(values);
+    const onSubmit = async (values: RegistrationData) => {
+        if (formIndex === reviewPageIndex) {
+            await registerSubmit(registrationToAPI(registration));
+            handlePageChange(submittedPageIndex);
+            return;
+        }
+
         registration = {
             ...registration,
             ...values
         };
-        console.log(registration);
 
+        await registerUpdate(registrationToAPI(registration));
         handlePageChange(formIndex + 1);
-        console.log(registration);
-
-        registerUpdate(registrationToAPI(registration))
-            .then(response => console.log("Response:", response))
-            .catch(error => {
-                console.error(
-                    "Error Response:",
-                    error.response?.data || error.message
-                );
-            });
     };
 
     return (
@@ -170,20 +159,20 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                                         onChangePage: handlePageChange,
                                         proTrack: registration.isProApplicant
                                     })}
-                                    <div className={styles.navigation}>
-                                        {buttonNames[formIndex][0] !== "" && (
+                                    {formIndex !== submittedPageIndex && (
+                                        <div className={styles.navigation}>
                                             <NavigationButton
                                                 text={buttonNames[formIndex][0]}
                                                 onClick={previousPage}
                                                 type="button"
                                             />
-                                        )}
-                                        <NavigationButton
-                                            text={buttonNames[formIndex][1]}
-                                            pointRight
-                                            type="submit"
-                                        />
-                                    </div>
+                                            <NavigationButton
+                                                text={buttonNames[formIndex][1]}
+                                                pointRight
+                                                type="submit"
+                                            />
+                                        </div>
+                                    )}
                                 </Form>
                             </Formik>
                         </div>

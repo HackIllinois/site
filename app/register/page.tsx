@@ -27,6 +27,10 @@ const Registration: React.FC = () => {
 
         getRegistrationOrDefault()
             .then(registration => {
+                if (registration.hasSubmitted) {
+                    window.location.replace("/status");
+                }
+
                 if ("_id" in registration) {
                     setHasChosen(true);
                 }
@@ -55,16 +59,7 @@ const Registration: React.FC = () => {
                     <TrackSelection
                         handleGeneral={() => {
                             data!.isProApplicant = false; // alows backing out of the pro track after completing the challenge
-                            registerUpdate(data!)
-                                .then(response =>
-                                    console.log("Response:", response)
-                                )
-                                .catch(error => {
-                                    console.error(
-                                        "Error Response:",
-                                        error.response?.data || error.message
-                                    );
-                                });
+                            registerUpdate(data!);
                             setHasChosen(true);
                         }}
                     />
