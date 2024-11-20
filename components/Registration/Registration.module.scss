@@ -5,16 +5,21 @@
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    padding: 5rem 1rem;
-    padding-top: 12%;
+    padding: 5rem 64px;
+    padding-top: 150px;
     gap: 3rem;
     background-size: cover;
     min-height: 100vh;
-    @media (max-width: 768px) {
+
+    @media screen and (max-width: 960px) {
+        padding: 4rem 32px;
+        padding-top: 125px;
+    }
+    @media (max-width: 640px) {
+        padding-top: 100px;
         max-height: 100vh;
         overflow-y: auto;
         gap: 2rem;
-        padding: 4rem 1.5rem;
         padding-bottom: 25rem;
         // Lots of bottom padding for mobile keyboard
     }
