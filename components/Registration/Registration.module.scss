@@ -10,12 +10,16 @@
     min-height: 100vh;
     background-repeat: no-repeat;
     background-size: 1750px;
-    @media (max-width: 768px) {
-        background-size: 400px;
+
+    @media (max-width: 1024px) {
+        background-size: 1256px;
         max-height: 100vh;
         overflow-y: auto;
+    }
+
+    @media (max-width: 768px) {
+        background-size: 400px;
         gap: 2rem;
-        padding: 4rem 1.5rem;
         padding-bottom: 25rem;
         // Lots of bottom padding for mobile keyboard
     }
@@ -30,7 +34,7 @@
     gap: 3rem;
     width: 80%;
     @media (max-width: 768px) {
-        margin-top: 46px;
+        margin-top: 68px;
     }
 }
 
