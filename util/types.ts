@@ -49,7 +49,7 @@ export type RegistrationType = {
     proEssay?: string;
     considerForGeneral?: boolean;
     isProApplicant: boolean;
-    hasSubmitted: boolean;
+    hasSubmitted?: boolean;
 };
 
 export type DecisionStatus = "TBD" | "ACCEPTED" | "REJECTED" | "WAITLISTED";
