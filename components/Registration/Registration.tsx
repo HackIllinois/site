@@ -63,7 +63,7 @@ const backgroundsMobile = [
     // TODO: Add confirmation background
 ];
 
-const characters = [ARTEMIS, APOLLO, null, NONE, NONE];
+const characters = [ARTEMIS, APOLLO, null, NONE, null];
 
 const buttonNames: Array<[string, string]> = [
     ["Back", "Education"],
