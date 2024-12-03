@@ -194,13 +194,19 @@ export function registrationToAPI(
 export function registrationFromAPI(
     registration: RegistrationType
 ): RegistrationData {
+    // If user has not submitted Hack-Specific, the travelReimbursement field should not have a selection
+    const requestedTravelReimbursement = [];
+    if (registration.hackOutreach.length !== 0) {
+        requestedTravelReimbursement.push(
+            registration.requestedTravelReimbursement ? "YES" : "NO"
+        );
+    }
+
     return {
         ...registration,
         race: registration.race.length === 1 ? registration.race[0] : "",
         gradYear: registration.gradYear === 0 ? "" : `${registration.gradYear}`,
-        requestedTravelReimbursement: registration.requestedTravelReimbursement
-            ? ["YES"]
-            : ["NO"],
+        requestedTravelReimbursement,
         considerForGeneral:
             registration.considerForGeneral === undefined
                 ? undefined
