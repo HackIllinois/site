@@ -28,11 +28,15 @@ export class APIError extends Error {
     }
 }
 
-// function handleError(body) {
-//     alert(body.message || body);
+function handleError(body: { message: string; status: number; type: string }) {
+    if (body && body.message) {
+        alert(body.message);
+    } else {
+        alert(body);
+    }
 
-//     throw new APIError(body);
-// }
+    throw new APIError(body);
+}
 
 export const isAuthenticated = (): string | null =>
     sessionStorage.getItem("token");
@@ -70,8 +74,9 @@ async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
         // TODO: reauth
     }
 
-    if (response.status !== 200) {
-        throw new APIError(await response.json());
+    if (!response.ok) {
+        const errorBody = await response.json();
+        handleError(errorBody);
     }
 
     return response.json();
@@ -86,23 +91,26 @@ export async function getChallenge(): Promise<boolean> {
         }
     });
 
-    if (response.status !== 200) {
-        throw new APIError(await response.json());
+    if (!response.ok) {
+        const errorBody = await response.json();
+        handleError(errorBody);
     }
-
     const ret = await response.json().then(json => json.status);
     return ret;
 }
 
 export function getRegistration(): Promise<WithId<RegistrationType>> {
-    return requestv2("GET", `/registration`);
-    //.catch(() => handleError);
+    return requestv2("GET", `/registration`).catch(body => handleError(body));
 }
 
 export function getRegistrationOrDefault(): Promise<
     WithId<RegistrationType> | RegistrationType
 > {
-    return requestv2("GET", `/registration`).catch(() => {
+    return requestv2("GET", `/registration`).catch(body => {
+        if (body.error !== "NotFound") {
+            handleError(body);
+        }
+
         return {
             legalName: "",
             preferredName: "",
@@ -130,14 +138,6 @@ export function getRegistrationOrDefault(): Promise<
             isProApplicant: false
         };
     });
-
-    //     .catch((body) => {
-    //         if (body.error === "NotFound") {
-    //             return null;
-    //         }
-
-    //         handleError(body);
-    // });
 }
 
 export async function uploadFile(file: File, type: FileType): Promise<unknown> {
@@ -150,7 +150,8 @@ export async function uploadFile(file: File, type: FileType): Promise<unknown> {
     const res = await fetch(url, { method: "POST", body: data });
 
     if (!res.ok) {
-        throw new Error("response did not have status 200");
+        const errorBody = await res.json();
+        handleError(errorBody);
     }
     return res;
 }
@@ -159,13 +160,17 @@ export function registerUpdate(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
     console.log("submitted", registration);
-    return requestv2("POST", `/registration`, registration);
+    return requestv2("POST", `/registration`, registration).catch(body =>
+        handleError(body)
+    );
 }
 
 export function registerSubmit(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
-    return requestv2("POST", `/registration/submit`, registration);
+    return requestv2("POST", `/registration/submit`, registration).catch(body =>
+        handleError(body)
+    );
 }
 
 export function registrationToAPI(
