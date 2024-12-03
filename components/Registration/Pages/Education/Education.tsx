@@ -73,8 +73,8 @@ const Education = ({ onChangePage }: PropTypes): JSX.Element => {
                 name="resumeFileName"
                 label="Resume"
                 type="resume"
-                accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                text="Upload or drag and drop PDF, DOCX, up to 4MB"
+                accept="application/pdf"
+                text="Upload or drag and drop PDF up to 2MB"
             />
         </div>
     );

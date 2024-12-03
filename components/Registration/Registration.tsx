@@ -89,6 +89,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     const windowSizeHook = useWindowSize();
     const [formIndex, setFormIndex] = useState(0);
     const [furthestPage, setFurthestPage] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handlePageChange = (newIndex: number) => {
         if (newIndex >= pages.length) {
@@ -105,6 +106,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             setFurthestPage(newIndex);
         }
         window.scroll(0, 0); // Scroll to top of page
+        setIsLoading(false);
     };
 
     const previousPage = () => {
@@ -112,6 +114,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     };
 
     const onSubmit = async (values: RegistrationData) => {
+        setIsLoading(true);
+
         if (formIndex === reviewPageIndex) {
             await registerSubmit(registrationToAPI(registration));
             handlePageChange(submittedPageIndex);
@@ -129,6 +133,11 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
     return (
         <>
+            {isLoading && (
+                <div className={styles.loading}>
+                    <h2>Loading...</h2>
+                </div>
+            )}
             <div
                 style={{
                     backgroundImage:
@@ -142,6 +151,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                     <ProgressBar
                         onChangePage={handlePageChange}
                         furthestPage={furthestPage}
+                        disabled={formIndex === submittedPageIndex}
                     />
                     <div className={styles.formWrapper}>
                         <div className={styles.formContent}>

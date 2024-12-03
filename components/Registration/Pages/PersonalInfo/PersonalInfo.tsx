@@ -2,15 +2,25 @@ import styles from "./PersonalInfo.module.scss";
 import TextInput from "@/components/Form/TextInput/TextInput";
 import Dropdown from "@/components/Form/DropdownBox/Dropdown";
 
-const gender = ["Male", "Female", "Non-Binary", "Other", "Prefer not to say"];
+const gender = [
+    "Male",
+    "Female",
+    "Non-Binary",
+    "Other",
+    "Prefer Not To Answer"
+];
 const race = [
     "American Indian or Alaska Native",
-    "Asian",
+    "Arab or Middle Eastern",
     "Black or African American",
-    "Native Hawaiian or Other Pacific Islander",
+    "East Asian",
+    "Hispanic or Latino",
+    "Native Hawaiian or Pacific Islander",
+    "South East Asian",
+    "South Asian",
     "White",
     "Other",
-    "Prefer not to say"
+    "Prefer Not To Answer"
 ];
 
 type PropTypes = {

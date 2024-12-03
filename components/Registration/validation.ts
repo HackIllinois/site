@@ -27,8 +27,18 @@ const education = yup.object({
 });
 
 const hackSpecific = yup.object({
-    hackEssay1: yup.string().required("Please answer this question"),
-    hackEssay2: yup.string().required("Please answer this question"),
+    hackEssay1: yup
+        .string()
+        .required("Please answer this question")
+        .test("word-count", "Please type at least 50 words", value => {
+            return value.trim().split(/\s+/).length >= 50;
+        }),
+    hackEssay2: yup
+        .string()
+        .required("Please answer this question")
+        .test("word-count", "Please type at least 50 words", value => {
+            return value.trim().split(/\s+/).length >= 50;
+        }),
     optionalEssay: yup.string(),
     hackOutreach: yup
         .array()
@@ -66,8 +76,18 @@ const registrationSchemas = [
 ];
 
 const proHackSpecific = yup.object({
-    hackEssay1: yup.string().required("Please answer this question"),
-    hackEssay2: yup.string().required("Please answer this question"),
+    hackEssay1: yup
+        .string()
+        .required("Please answer this question")
+        .test("word-count", "Please type at least 50 words", value => {
+            return value.trim().split(/\s+/).length >= 50;
+        }),
+    hackEssay2: yup
+        .string()
+        .required("Please answer this question")
+        .test("word-count", "Please type at least 50 words", value => {
+            return value.trim().split(/\s+/).length >= 50;
+        }),
     optionalEssay: yup.string(),
     hackOutreach: yup
         .array()
@@ -84,7 +104,12 @@ const proHackSpecific = yup.object({
         .array()
         .of(yup.string())
         .min(1, "Please select one option"),
-    proEssay: yup.string().required("Please answer this question"),
+    proEssay: yup
+        .string()
+        .required("Please answer this question")
+        .test("word-count", "Please type at least 50 words", value => {
+            return value.trim().split(/\s+/).length >= 50;
+        }),
     considerForGeneral: yup
         .array()
         .of(yup.string())
