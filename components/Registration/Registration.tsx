@@ -142,6 +142,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                     <ProgressBar
                         onChangePage={handlePageChange}
                         furthestPage={furthestPage}
+                        disabled={formIndex === submittedPageIndex}
                     />
                     <div className={styles.formWrapper}>
                         <div className={styles.formContent}>

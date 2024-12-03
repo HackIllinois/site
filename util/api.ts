@@ -76,7 +76,7 @@ async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
 
     if (!response.ok) {
         const errorBody = await response.json();
-        handleError(errorBody);
+        throw errorBody;
     }
 
     return response.json();

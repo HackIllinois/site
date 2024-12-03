@@ -28,7 +28,7 @@ const Registration: React.FC = () => {
         getRegistrationOrDefault()
             .then(registration => {
                 if (registration.hasSubmitted) {
-                    window.location.replace("/status");
+                    window.location.replace("/profile");
                 }
 
                 if ("_id" in registration) {
