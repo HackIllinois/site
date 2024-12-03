@@ -24,7 +24,7 @@ const PersonalInfo = ({ onChangePage }: PropTypes): JSX.Element => {
 
             <TextInput
                 name="legalName"
-                label="Legal Name"
+                label="Full Legal Name"
                 required
                 placeholder="Type here..."
             />
