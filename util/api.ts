@@ -76,7 +76,7 @@ async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
         !process.env.NEXT_PUBLIC_REACT_APP_TOKEN
     ) {
         sessionStorage.removeItem("token");
-        await new Promise(resolve => setTimeout(resolve, 10));
+        // await new Promise(resolve => setTimeout(resolve, 10));
         authenticate(window.location.href);
         return;
     }
