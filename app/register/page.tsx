@@ -23,6 +23,7 @@ const Registration: React.FC = () => {
     useEffect(() => {
         if (!isAuthenticated()) {
             authenticate(window.location.href);
+            return;
         }
 
         getRegistrationOrDefault()
