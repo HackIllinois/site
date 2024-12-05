@@ -12,13 +12,15 @@ import clsx from "clsx";
 type ProgressBarProps = {
     onChangePage: (newIndex: number) => void;
     furthestPage: number;
+    disabled?: boolean;
 };
 
 const symbols = [MOON, SUN, TEAR_DROP, BOOK, SKULL, LIGHTNING_BOLT];
 
 const ProgressBar: React.FC<ProgressBarProps> = ({
     onChangePage,
-    furthestPage
+    furthestPage,
+    disabled
 }) => {
     const totalSteps = symbols.length;
 
@@ -48,7 +50,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
                                         : "brightness(0) saturate(100%) invert(1)"
                             }}
                             onClick={() => {
-                                if (i <= furthestPage) {
+                                if (i <= furthestPage && !disabled) {
                                     onChangePage(i);
                                 }
                             }}

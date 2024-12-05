@@ -2,7 +2,8 @@ import {
     MethodType,
     RegistrationType,
     WithId,
-    RegistrationData
+    RegistrationData,
+    FileType
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -27,11 +28,15 @@ export class APIError extends Error {
     }
 }
 
-// function handleError(body) {
-//     alert(body.message || body);
+function handleError(body: { message: string; status: number; type: string }) {
+    if (body && body.message) {
+        alert(body.message);
+    } else {
+        alert(body);
+    }
 
-//     throw new APIError(body);
-// }
+    throw new APIError(body);
+}
 
 export const isAuthenticated = (): string | null =>
     sessionStorage.getItem("token");
@@ -81,7 +86,7 @@ async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
         return;
     }
 
-    if (response.status !== 200) {
+    if (!response.ok) {
         throw new APIError(responseJSON);
     }
     return responseJSON;
@@ -96,23 +101,26 @@ export async function getChallenge(): Promise<boolean> {
         }
     });
 
-    if (response.status !== 200) {
-        throw new APIError(await response.json());
+    if (!response.ok) {
+        const errorBody = await response.json();
+        handleError(errorBody);
     }
-
     const ret = await response.json().then(json => json.status);
     return ret;
 }
 
 export function getRegistration(): Promise<WithId<RegistrationType>> {
-    return requestv2("GET", `/registration`);
-    //.catch(() => handleError);
+    return requestv2("GET", `/registration`).catch(body => handleError(body));
 }
 
 export function getRegistrationOrDefault(): Promise<
     WithId<RegistrationType> | RegistrationType
 > {
-    return requestv2("GET", `/registration`).catch(() => {
+    return requestv2("GET", `/registration`).catch(body => {
+        if (body.error !== "NotFound") {
+            handleError(body);
+        }
+
         return {
             legalName: "",
             preferredName: "",
@@ -140,21 +148,39 @@ export function getRegistrationOrDefault(): Promise<
             isProApplicant: false
         };
     });
+}
 
-    //     .catch((body) => {
-    //         if (body.error === "NotFound") {
-    //             return null;
-    //         }
+export async function uploadFile(file: File, type: FileType): Promise<unknown> {
+    const { url, fields } = await requestv2("GET", "/s3/upload");
+    let data = new FormData();
+    for (let key in fields) {
+        data.append(key, fields[key]);
+    }
+    data.append("file", file, file.name);
+    const res = await fetch(url, { method: "POST", body: data });
 
-    //         handleError(body);
-    // });
+    if (!res.ok) {
+        const errorBody = await res.json();
+        handleError(errorBody);
+    }
+    return res;
 }
 
 export function registerUpdate(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
     console.log("submitted", registration);
-    return requestv2("POST", `/registration`, registration);
+    return requestv2("POST", `/registration`, registration).catch(body =>
+        handleError(body)
+    );
+}
+
+export function registerSubmit(
+    registration: RegistrationType
+): Promise<WithId<RegistrationType>> {
+    return requestv2("POST", `/registration/submit`, registration).catch(body =>
+        handleError(body)
+    );
 }
 
 export function registrationToAPI(
@@ -178,13 +204,19 @@ export function registrationToAPI(
 export function registrationFromAPI(
     registration: RegistrationType
 ): RegistrationData {
+    // If user has not submitted Hack-Specific, the travelReimbursement field should not have a selection
+    const requestedTravelReimbursement = [];
+    if (registration.hackOutreach.length !== 0) {
+        requestedTravelReimbursement.push(
+            registration.requestedTravelReimbursement ? "YES" : "NO"
+        );
+    }
+
     return {
         ...registration,
         race: registration.race.length === 1 ? registration.race[0] : "",
         gradYear: registration.gradYear === 0 ? "" : `${registration.gradYear}`,
-        requestedTravelReimbursement: registration.requestedTravelReimbursement
-            ? ["YES"]
-            : ["NO"],
+        requestedTravelReimbursement,
         considerForGeneral:
             registration.considerForGeneral === undefined
                 ? undefined

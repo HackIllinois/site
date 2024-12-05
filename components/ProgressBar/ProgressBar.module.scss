@@ -6,7 +6,7 @@
     grid-template-rows: 1fr;
     grid-template-columns: 1fr;
     margin-top: 1rem;
-    padding: 1rem;
+    padding: 1rem 0.75rem;
 
     .progressBar {
         position: relative;
@@ -67,7 +67,8 @@
 
 @media (max-width: 768px) {
     .progressStepper {
-        padding: 0;
+        padding: 0 0.5rem;
+        padding-top: 0.75rem;
         .progressBar {
             height: 2px;
         }

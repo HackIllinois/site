@@ -35,6 +35,8 @@ const PersonalInfo: React.FC = () => {
                 <Image
                     src="/logo.svg"
                     alt="HackIllinois Logo"
+                    onClick={() => (window.location.pathname = "/")}
+                    style={{ cursor: "pointer" }}
                     width={150}
                     height={150}
                     className={styles.logo}

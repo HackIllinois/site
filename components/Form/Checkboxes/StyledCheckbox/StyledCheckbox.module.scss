@@ -21,8 +21,10 @@
         border: 2px solid #ffffff;
         border-radius: 0.25em;
         @media (max-width: 768px) {
-            width: 24px;
-            height: 24px;
+            min-width: 28px;
+            min-height: 28px;
+            width: 28px;
+            height: 28px;
         }
     }
 
@@ -36,8 +38,5 @@
 
     .checkbox {
         display: none;
-    }
-    @media (max-width: 768px) {
-        font-size: 20px;
     }
 }
