@@ -1,19 +1,77 @@
-.container {
+.background {
     width: 100%;
-    max-width: 1200px;
+    height: 100vh;
+    background-size: cover; /* Ensures the image covers the entire div height and width */
+    background-position: center; /* Centers the image within the div */
+    background-repeat: no-repeat; /* Prevents the image from tiling */
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+}
+
+.container {
+    flex: 1;
+    // width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 50px;
-    background-color: gray;
-    padding: 50px;
-    padding-bottom: 70px;
-    margin-top: 20px;
-    border-radius: 30px;
+    gap: 3.5rem;
+    // background-color: gray;
+    padding: 50px 0;
+    padding-right: 30px;
+    // border-radius: 30px;
+    margin-left: 22%;
+    margin-right: 17%;
+    margin-top: 7%;
+    margin-bottom: 4%;
+    overflow-y: scroll;
     @media (max-width: 768px) {
+        padding-top: 150px;
+        margin-left: 12%;
+        margin-right: 8%;
+        margin-top: 12%;
+        margin-bottom: 10%;
         padding: 30px;
         gap: 20px;
     }
+    @media (max-width: 600px) {
+        margin: 80px 0;
+        margin-top: 100px;
+    }
+}
+
+.footerButtons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    height: 9%;
+
+    margin-left: 22%;
+    margin-right: 17%;
+
+    @media (max-width: 768px) {
+        margin-left: 12%;
+        margin-right: 8%;
+        gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+        margin-left: 10px;
+        margin-right: 10px;
+        gap: 10px;
+    }
+}
+
+.container > .block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.container ul > li {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .container h1 {
@@ -41,11 +99,19 @@
     align-items: flex-start;
 }
 
-.error {
-}
-
 .finishedChallenge {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.codeText {
+    color: #b3d689;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.error {
+    color: red;
 }

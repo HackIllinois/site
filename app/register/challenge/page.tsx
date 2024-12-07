@@ -27,10 +27,10 @@ const ProChallenge: React.FC = () => {
     };
 
     const handleSuccess = async () => {
+        setPage(Pages.Pass);
         const registration = await getRegistrationOrDefault();
         registration.isProApplicant = true;
         await registerUpdate(registration);
-        setPage(Pages.Pass);
     };
 
     const handleFailure = () => {

@@ -3,8 +3,9 @@
 import Image from "next/image";
 import styles from "./Navbar.module.scss";
 import Logo from "@/public/logo.svg";
+import LogoDark from "@/public/logo_dark.svg";
 // import CloudMenu from "@/public/cloud-menu.svg";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
@@ -47,11 +48,17 @@ const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
     }
 ];
 
+const DARK_MODE_PATHS = ["/register/challenge"];
+
 const Navbar = () => {
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
     const [navbarItems, setNavbarItems] = useState(DEFAULT_NAVBAR_ITEMS);
+
+    const isDark = useMemo(() => {
+        return DARK_MODE_PATHS.includes(pathname);
+    }, [pathname]);
 
     useEffect(() => {
         if (pathname !== "/" && pathname !== "/olympians") {
@@ -69,12 +76,12 @@ const Navbar = () => {
         <>
             {pathname !== "/olympians/challenge" && (
                 <>
-                    <nav className={styles.navbar}>
+                    <nav className={clsx(styles.navbar, isDark && styles.dark)}>
                         <Image
                             alt="HackIllinois Logo"
                             onClick={() => (window.location.pathname = "/")}
                             style={{ cursor: "pointer" }}
-                            src={Logo}
+                            src={isDark ? LogoDark : Logo}
                         />
                         <div
                             ref={menuRef}
