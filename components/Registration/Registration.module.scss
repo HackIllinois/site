@@ -3,24 +3,16 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 1750px;
-    padding: 5rem 1rem;
-    padding-top: 2rem;
     gap: 3rem;
-    min-height: 100vh;
-    background-repeat: no-repeat;
-    background-size: 1750px;
-
-    @media (max-width: 1024px) {
-        background-size: 1256px;
-        max-height: 100vh;
-        overflow-y: auto;
-    }
+    height: 100vh;
+    position: relative;
+    // overflow: scroll;
 
     @media (max-width: 768px) {
         background-size: 400px;
         gap: 2rem;
         padding-bottom: 25rem; // bottom padding is for mobile keyboard
+        // overflow: auto;
     }
 }
 
@@ -36,16 +28,55 @@
     z-index: 1000;
 }
 
+.background {
+    height: fit-content;
+    width: 1519px;
+    position: fixed;
+
+    // position: absolute;
+
+    @media (min-width: 1519px) {
+        width: 100vw;
+    }
+
+    @media (max-width: 768px) {
+        width: 100vw;
+        // position: absolute;
+    }
+
+    // @media (max-width: 540px) {
+    //     width: 110vw;
+    // }
+
+    // @media (max-width: 500px) {
+    //     width: 130vw;
+    // }
+
+    // @media (max-width: 468px) {
+    //     width: 150vw;
+    // }
+}
+
 .contentWrapper {
-    margin-top: 126px;
+    // margin-top: 126px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 3rem;
-    width: 80%;
+    // width: 80vw;
+    // margin: 13rem 4rem;
+    // background-color: green;
     @media (max-width: 768px) {
-        margin-top: 68px;
+        // margin-top: 100px;
+        top: 100px;
+        position: absolute;
+        overflow: scroll;
+        bottom: 0;
+        // height: 80%;
+        // padding: 40rem 0 80rem;
+        // overflow: auto;
+        // position: absolute;
     }
 }
 
@@ -98,7 +129,6 @@
     display: flex;
     width: 100%;
     gap: 3rem;
-
     max-width: 1200px;
 }
 
