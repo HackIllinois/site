@@ -8,6 +8,8 @@ import { Source_Code_Pro } from "next/font/google";
 const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
 
 import PRO_TRACK_CHALLENGE_BACKGROUND from "@/public/registration/backgrounds/pro_track_challenge.svg";
+import EXAMPLE_CHALLENGE_GRAPHIC from "@/public/registration/example_challenge_graphic.svg";
+
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 
 const jwtUrl = `https://adonix.hackillinois.org/auth/login/github/?device=challenge`;
@@ -172,6 +174,86 @@ const ProChallengeContent: React.FC<ProChallengeContentProps> = ({
                             divine power of 87.
                         </li>
                     </ul>
+
+                    <div className={styles.block}>
+                        <table>
+                            <caption className={styles.text}>Inputs</caption>
+                            <thead>
+                                <tr>
+                                    <th
+                                        className={`${styles.colouredText} ${sourceCodePro.className} ${styles.text}`}
+                                    >
+                                        alliances
+                                    </th>
+                                    <th
+                                        className={`${styles.colouredText} ${sourceCodePro.className} ${styles.text}`}
+                                    >
+                                        people
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p
+                                            className={`${styles.text} ${sourceCodePro.className}`}
+                                        >{`[`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
+                                        >{`[“Zeus”, “Apollo”],`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
+                                        >{`["Apollo", "Athena"],`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
+                                        >{`[“Hades”, “Hermes”]`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
+                                        >{`[“Hermes”, "Artemis"]`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
+                                        >{`[“Hades”, "Artemis"]`}</p>
+                                        <p
+                                            className={`${styles.text} ${sourceCodePro.className}`}
+                                        >{`]`}</p>
+                                    </td>
+                                    <td>
+                                        <p
+                                            className={`${styles.text} ${sourceCodePro.className}`}
+                                        >{`{`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
+                                        >{`  "Zeus": 36,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
+                                        >{`"Apollo": 32,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
+                                        >{`"Athena": 34,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
+                                        >{`"Hades": 28,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
+                                        >{`"Hermes": 29,`}</p>
+                                        <p
+                                            className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
+                                        >{`"Artemis": 30`}</p>
+                                        <p
+                                            className={`${styles.text} ${sourceCodePro.className}`}
+                                        >{`}`}</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <img
+                        className={styles.exampleGraph}
+                        src={EXAMPLE_CHALLENGE_GRAPHIC.src}
+                        alt="Example"
+                    />
+
                     <p>Therefore, the max_divine_power is 102.</p>
                 </div>
                 <div className={styles.block}>

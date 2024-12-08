@@ -1,13 +1,14 @@
 "use client";
 
-import Image from "next/image";
-import styles from "./Navbar.module.scss";
 import Logo from "@/public/logo.svg";
 import LogoDark from "@/public/logo_dark.svg";
+import Image from "next/image";
+import styles from "./Navbar.module.scss";
 // import CloudMenu from "@/public/cloud-menu.svg";
-import { useState, useRef, useEffect, useMemo } from "react";
-import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { usePathname } from "next/navigation";
+import { useContext, useEffect, useRef, useState } from "react";
+import { NavbarContext } from "./NavbarContext";
 
 type NavbarItem = {
     title: string;
@@ -48,17 +49,12 @@ const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
     }
 ];
 
-const DARK_MODE_PATHS = ["/register/challenge"];
-
 const Navbar = () => {
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
     const [navbarItems, setNavbarItems] = useState(DEFAULT_NAVBAR_ITEMS);
-
-    const isDark = useMemo(() => {
-        return DARK_MODE_PATHS.includes(pathname);
-    }, [pathname]);
+    const navbarContext = useContext(NavbarContext);
 
     useEffect(() => {
         if (pathname !== "/" && pathname !== "/olympians") {
@@ -76,12 +72,17 @@ const Navbar = () => {
         <>
             {pathname !== "/olympians/challenge" && (
                 <>
-                    <nav className={clsx(styles.navbar, isDark && styles.dark)}>
+                    <nav
+                        className={clsx(
+                            styles.navbar,
+                            navbarContext?.isDark && styles.dark
+                        )}
+                    >
                         <Image
                             alt="HackIllinois Logo"
                             onClick={() => (window.location.pathname = "/")}
                             style={{ cursor: "pointer" }}
-                            src={isDark ? LogoDark : Logo}
+                            src={navbarContext?.isDark ? LogoDark : Logo}
                         />
                         <div
                             ref={menuRef}

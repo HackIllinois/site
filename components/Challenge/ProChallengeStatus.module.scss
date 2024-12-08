@@ -6,6 +6,26 @@
     height: 100vh;
 }
 
+.successContainer {
+    width: 700px;
+    height: 700px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 2rem;
+    margin: auto 0;
+    padding: 0 3rem;
+    // margin-right: 3rem;
+    @media (max-width: 768px) {
+        width: 600px;
+        height: 600px;
+    }
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -13,6 +33,7 @@
     justify-content: center;
     text-align: center;
     gap: 2rem;
+    padding-top: 7rem;
 }
 
 .container h1 {
@@ -21,7 +42,11 @@
     text-align: center;
 }
 
-.container .highlightText {
+.container .description {
+    font-size: 20px;
+}
+
+.successContainer .highlightText {
     color: #f3ea96;
     font-weight: 600;
     text-shadow:
@@ -36,12 +61,20 @@
     font-weight: 500;
 }
 
+.successContainer p {
+    font-size: 16px;
+    font-weight: 500;
+}
+
 .container .smallNote {
     font-size: 10px;
 }
+.successContainer h3 {
+    font-size: 25px;
+}
 
 .container h3 {
-    font-size: 24px;
+    font-size: 50px;
 }
 
 .container .link {
@@ -52,14 +85,14 @@
     text-decoration-color: #004561;
 }
 
-.container .contentGroup {
+.successContainer .contentGroup {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
 }
 
-.container .footnote {
+.successContainer .footnote {
     font-size: 12px;
 }
 
@@ -70,7 +103,7 @@
 .background {
     display: flex;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -81,24 +114,37 @@
     height: 100%;
 }
 
+.background .spacer.failure {
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
 .background .container {
+    width: 100%;
     flex: 1.6;
-    height: 100%;
+    @media (max-width: 768px) {
+        padding-top: 150px;
+    }
 }
 
 .options {
     display: flex;
     gap: 20px;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding-bottom: 50px;
+    }
 }
 
 .options .optionContainer {
     width: 300px;
     height: 300px;
-    max-width: 300px;
-    max-height: 300px;
     // background-color: rgb(105, 105, 105);
 
-    background-size: 550px;
+    background-size: 350px;
     background-position: center;
     background-repeat: no-repeat;
 
@@ -108,6 +154,12 @@
     align-items: center;
     overflow: visible;
     gap: 12px;
+
+    @media (max-width: 768px) {
+        width: 400px;
+        height: 340px;
+        background-size: 400px;
+    }
 }
 
 .optionContainer .optionText {
@@ -121,6 +173,6 @@
 }
 
 .optionContainer .optionHeader {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
 }

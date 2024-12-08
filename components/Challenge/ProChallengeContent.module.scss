@@ -22,21 +22,26 @@
     // border-radius: 30px;
     margin-left: 22%;
     margin-right: 17%;
-    margin-top: 7%;
-    margin-bottom: 4%;
+    margin-top: 10%;
+    margin-bottom: 9%;
     overflow-y: scroll;
+    @media (max-width: 1000px) {
+        margin-left: 8%;
+        margin-right: 5%;
+        margin-top: 15%;
+        margin-bottom: 12%;
+    }
     @media (max-width: 768px) {
         padding-top: 150px;
-        margin-left: 12%;
-        margin-right: 8%;
-        margin-top: 12%;
-        margin-bottom: 10%;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 20%;
+        margin-bottom: 15%;
         padding: 30px;
         gap: 20px;
     }
-    @media (max-width: 600px) {
-        margin: 80px 0;
-        margin-top: 100px;
+    @media (max-width: 500px) {
+        margin: 100px 0px;
     }
 }
 
@@ -50,15 +55,23 @@
     margin-left: 22%;
     margin-right: 17%;
 
+    @media (max-width: 1000px) {
+        padding-right: 30px;
+        margin-left: 8%;
+        margin-right: 5%;
+    }
+
     @media (max-width: 768px) {
-        margin-left: 12%;
-        margin-right: 8%;
+        padding: 0 30px;
+        margin-left: 5%;
+        margin-right: 5%;
         gap: 20px;
     }
 
-    @media (max-width: 600px) {
-        margin-left: 10px;
-        margin-right: 10px;
+    @media (max-width: 500px) {
+        padding: 0 30px;
+        margin-left: 0px;
+        margin-right: 0px;
         gap: 10px;
     }
 }
@@ -114,4 +127,17 @@
 
 .error {
     color: red;
+}
+
+.marginLeft {
+    margin-left: 1rem;
+}
+
+caption.text {
+    margin-bottom: 8px;
+}
+
+.exampleGraph {
+    width: 400px;
+    max-width: 100%;
 }
