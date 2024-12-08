@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProChallengeContent from "../../../components/Challenge/ProChallengeContent";
 import ProChallengeIntro from "../../../components/Challenge/ProChallengeIntro";
 import ProChallengeStatus from "../../../components/Challenge/ProChallengeStatus";
@@ -12,6 +12,7 @@ import {
     registerUpdate
 } from "@/util/api";
 import { RegistrationType } from "@/util/types";
+import { NavbarContext } from "@/components/Navbar/NavbarContext";
 
 enum Pages {
     Intro,
@@ -21,19 +22,23 @@ enum Pages {
 }
 
 const ProChallenge: React.FC = () => {
+    const navbarContext = useContext(NavbarContext);
     const [page, setPage] = useState(Pages.Intro);
     const handleBegin = () => {
+        navbarContext?.handleSetDark();
         setPage(Pages.Challenge);
     };
 
     const handleSuccess = async () => {
+        navbarContext?.handleSetNotDark();
+        setPage(Pages.Pass);
         const registration = await getRegistrationOrDefault();
         registration.isProApplicant = true;
         await registerUpdate(registration);
-        setPage(Pages.Pass);
     };
 
     const handleFailure = () => {
+        navbarContext?.handleSetNotDark();
         setPage(Pages.Fail);
     };
 

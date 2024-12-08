@@ -91,6 +91,8 @@ export async function getChallenge(): Promise<boolean> {
         }
     });
 
+    // issue -- here -- no challenge attempt -> error occurs
+
     if (!response.ok) {
         const errorBody = await response.json();
         handleError(errorBody);
