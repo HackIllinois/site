@@ -6,6 +6,7 @@ import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
 import {
     authenticate,
+    getRegistration,
     getRegistrationOrDefault,
     isAuthenticated,
     registerUpdate,

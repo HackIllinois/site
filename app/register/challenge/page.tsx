@@ -7,6 +7,7 @@ import styles from "./styles.module.scss";
 import {
     authenticate,
     getChallenge,
+    getRegistration,
     getRegistrationOrDefault,
     isAuthenticated,
     registerUpdate
@@ -44,10 +45,19 @@ const ProChallenge: React.FC = () => {
 
     const handleCheckIfUserCompletedChallenge = async () => {
         try {
+            if (!isAuthenticated()) {
+                authenticate(window.location.href);
+            }
+            const registration = await getRegistration();
+            if (registration && registration.hasSubmitted) {
+                window.location.href = "/profile";
+                return;
+            }
             const passedChallenge = await getChallenge();
             if (passedChallenge) {
                 await handleSuccess();
             }
+
             // Leave it if the user failed, so they can try again
         } catch {
             // Just leave the user on the same page
