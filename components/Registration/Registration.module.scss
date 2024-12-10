@@ -57,6 +57,16 @@
     // }
 }
 
+.scrollWrapper {
+    @media (max-width: 768px) {
+        margin-top: 100px;
+        position: absolute;
+        bottom: 10px;
+        padding-bottom: 40vh; // Space for mobile keyboard
+        overflow: scroll;
+    }
+}
+
 .contentWrapper {
     // margin-top: 126px;
     display: flex;
@@ -68,11 +78,10 @@
     // margin: 13rem 4rem;
     // background-color: green;
     @media (max-width: 768px) {
-        // margin-top: 100px;
-        top: 100px;
-        position: absolute;
-        overflow: scroll;
-        bottom: 0;
+        // top: 100px;
+        // position: absolute;
+        // overflow: scroll;
+        // bottom: 0;
         // height: 80%;
         // padding: 40rem 0 80rem;
         // overflow: auto;
