@@ -86,7 +86,7 @@ async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
     }
 
     if (!response.ok) {
-        throw new APIError(responseJSON);
+        throw responseJSON;
     }
     return responseJSON;
 }
