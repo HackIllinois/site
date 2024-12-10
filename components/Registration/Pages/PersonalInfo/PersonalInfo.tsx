@@ -2,15 +2,25 @@ import styles from "./PersonalInfo.module.scss";
 import TextInput from "@/components/Form/TextInput/TextInput";
 import Dropdown from "@/components/Form/DropdownBox/Dropdown";
 
-const gender = ["Male", "Female", "Non-Binary", "Other", "Prefer not to say"];
+const gender = [
+    "Male",
+    "Female",
+    "Non-Binary",
+    "Other",
+    "Prefer Not To Answer"
+];
 const race = [
     "American Indian or Alaska Native",
-    "Asian",
+    "Arab or Middle Eastern",
     "Black or African American",
-    "Native Hawaiian or Other Pacific Islander",
+    "East Asian",
+    "Hispanic or Latino",
+    "Native Hawaiian or Pacific Islander",
+    "South East Asian",
+    "South Asian",
     "White",
     "Other",
-    "Prefer not to say"
+    "Prefer Not To Answer"
 ];
 
 type PropTypes = {
@@ -24,7 +34,7 @@ const PersonalInfo = ({ onChangePage }: PropTypes): JSX.Element => {
 
             <TextInput
                 name="legalName"
-                label="Legal Name"
+                label="Full Legal Name"
                 required
                 placeholder="Type here..."
             />
@@ -47,38 +57,19 @@ const PersonalInfo = ({ onChangePage }: PropTypes): JSX.Element => {
                 </div>
 
                 <div className={styles.field}>
-                    <TextInput
-                        name="age"
-                        label="Age"
-                        placeholder="Type here..."
-                        type="number"
-                        min="18"
+                    <Dropdown
+                        name="race"
+                        label="Race/Ethnicity"
+                        options={race}
                         required
                     />
                 </div>
-            </div>
-
-            <div className={styles.field}>
-                <Dropdown
-                    name="race"
-                    label="Race/Ethnicity"
-                    options={race}
-                    required
-                />
             </div>
 
             <TextInput
                 name="emailAddress"
                 label="Email Address"
                 type="email"
-                required
-                placeholder="Type here..."
-            />
-
-            <TextInput
-                name="phoneNumber"
-                label="Phone Number"
-                type="tel"
                 required
                 placeholder="Type here..."
             />

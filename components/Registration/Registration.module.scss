@@ -3,20 +3,49 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: black;
-    width: 100%;
+    width: 1750px;
     padding: 5rem 1rem;
     padding-top: 2rem;
     gap: 3rem;
     min-height: 100vh;
-    background-size: cover;
-    // transition fade
-    transition: background-image 0.5s linear;
+    background-repeat: no-repeat;
+    background-size: 1750px;
+
+    @media (max-width: 1024px) {
+        background-size: 1256px;
+        max-height: 100vh;
+        overflow-y: auto;
+    }
 
     @media (max-width: 768px) {
-        padding: 4rem 1.5rem;
-        padding-bottom: 25rem;
-        // Lots of bottom padding for mobile keyboard
+        background-size: 400px;
+        gap: 2rem;
+        padding-bottom: 25rem; // bottom padding is for mobile keyboard
+    }
+}
+
+.loading {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.contentWrapper {
+    margin-top: 126px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3rem;
+    width: 80%;
+    @media (max-width: 768px) {
+        margin-top: 68px;
     }
 }
 
@@ -30,12 +59,16 @@
         @media (max-width: 768px) {
             font-size: 36px;
         }
+        color: white;
     }
 
     h4 {
         font-weight: 400;
         font-size: 20px;
         color: red;
+        @media (max-width: 768px) {
+            font-size: 16px;
+        }
     }
 
     label,
@@ -43,10 +76,10 @@
         font-weight: 600;
         font-size: 20px;
         color: white;
-        // font-size: 28px;
         @media (max-width: 768px) {
-            font-size: 22px;
+            font-size: 18px;
         }
+        color: white;
     }
 
     display: flex;
@@ -64,16 +97,31 @@
 .formWrapper {
     display: flex;
     width: 100%;
-    gap: 1.5rem;
+    gap: 3rem;
 
     max-width: 1200px;
 }
 
 .formContent {
-    flex: 3;
+    flex: 2;
 }
 
 .character {
-    flex: 1;
-    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex: 0.5;
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        // scale up 1.5x
+    }
+    @media (max-width: 1000px) {
+        flex: 1;
+    }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 }

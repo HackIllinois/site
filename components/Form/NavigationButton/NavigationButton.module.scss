@@ -17,6 +17,12 @@
     font-size: 24px;
     height: auto;
     cursor: pointer;
+
+    // Make sure focus state works
+    &:focus {
+        outline: 4px solid #ad8e28;
+    }
+
     @media (max-width: 768px) {
         padding: 5px 10px;
         font-size: 20px;

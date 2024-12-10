@@ -1,0 +1,248 @@
+.navbar {
+    position: absolute;
+    top: 0;
+    z-index: 6;
+    padding: 48px 64px;
+    color: white;
+    width: 100%;
+
+    @media screen and (max-width: 960px) {
+        display: none;
+    }
+
+    img {
+        object-fit: contain;
+
+        width: 228px;
+        height: 75px;
+
+        @media screen and (max-width: 1440px) {
+            width: 182.4px;
+            height: 60px;
+        }
+        @media screen and (max-width: 960px) {
+            width: 152px;
+            height: 50px;
+        }
+        @media screen and (max-width: 640px) {
+            width: 121.6px;
+            height: 40px;
+        }
+    }
+
+    @media screen and (max-width: 1152px) {
+    }
+    @media screen and (max-width: 960px) {
+        padding: 32px 42.66px;
+    }
+    @media screen and (max-width: 640px) {
+        padding: 24px 32px;
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar.dark {
+    color: black;
+}
+
+.navbarList {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    font-weight: 500;
+    font-size: 20px;
+    gap: 48px;
+    @media screen and (max-width: 960px) {
+        display: none;
+        visibility: hidden;
+    }
+
+    .active {
+        color: #eed394;
+    }
+
+    a:hover {
+        color: #eed394;
+    }
+}
+
+.navbar.dark .navbarList {
+    .active {
+        color: #004561;
+    }
+
+    a:hover {
+        color: #004561;
+    }
+}
+
+.mobile {
+    display: none;
+    margin: auto;
+    align-items: center;
+    position: absolute;
+    width: 100vw;
+    z-index: 10;
+
+    @media screen and (max-width: 960px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.mobileTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+
+    .title {
+        transform: scale(0.7);
+    }
+}
+
+.hamburger {
+    width: 60px;
+    height: 45px;
+    position: relative;
+    margin: 35px 25px;
+    transform: rotate(0deg) scale(0.7);
+    transition: 0.5s ease-in-out;
+    z-index: 1001;
+    cursor: pointer;
+
+    span {
+        display: block;
+        position: absolute;
+        height: 9px;
+        width: 100%;
+        background: #c9d2e5;
+        border-radius: 9px;
+        opacity: 1;
+        left: 0;
+        transform: rotate(0deg);
+        transition: 0.5s ease-in-out;
+
+        &:nth-child(1) {
+            top: 0px;
+            transform-origin: left center;
+        }
+
+        &:nth-child(2) {
+            top: 18px;
+            transform-origin: left center;
+        }
+
+        &:nth-child(3) {
+            top: 36px;
+            transform-origin: left center;
+        }
+    }
+
+    &.open {
+        span {
+            &:nth-child(1) {
+                transform: rotate(45deg);
+                top: -3px;
+                left: 8px;
+            }
+
+            &:nth-child(2) {
+                width: 0%;
+                opacity: 0;
+            }
+
+            &:nth-child(3) {
+                transform: rotate(-45deg);
+                top: 39px;
+                left: 8px;
+            }
+        }
+    }
+    // Hamburger menu code assisted by https://codepen.io/designcouch/pen/ExvwPY
+}
+
+.mobileMenu {
+    display: none;
+    &.menuOpen {
+        position: absolute;
+        background-color: #0e87cc;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-bottom: 20px;
+        width: 100%;
+        padding-top: 60px;
+        height: 50vh;
+        z-index: 6;
+
+        a {
+            font-size: x-large;
+            color: white;
+        }
+
+        .buttonContent {
+            font-size: 18px;
+        }
+    }
+}
+
+.olympianButton {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 150px;
+    height: 46px;
+    color: white;
+    animation: all 3s;
+}
+
+.olympianButton:hover {
+    .buttonBackground {
+        filter: blur(12px);
+    }
+
+    .buttonContent {
+        border: 2px solid white;
+    }
+}
+
+.buttonBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    background: radial-gradient(
+        103.26% 294.42% at 81.79% 29.35%,
+        #ff9dcc 0%,
+        #d0fdc9 47.4%,
+        #c1f6f3 100%
+    );
+}
+
+.buttonContent {
+    z-index: 1;
+    background: #000;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    background-clip: padding-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+}

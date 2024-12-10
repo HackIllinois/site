@@ -6,6 +6,7 @@ import React, { useState } from "react";
 
 import styles from "./FileUpload.module.scss";
 import { useField } from "formik";
+import { uploadFile } from "@/util/api";
 
 type FileType = "resume" | "photo" | "blobstore";
 
@@ -42,17 +43,16 @@ const FileUpload = ({
     const onFileUpload = (file: File) => {
         setIsUploading(true);
         setValue(file.name);
-        // uploadFile(file, type)
-        //     .then(() => {
-        //         field.onChange(file.name);
-        //     })
-        //     .catch(() => {
-        //         alert("Failed to upload file.");
-        //     })
-        //     .finally(() => {
-        //         setIsUploading(false);
-        //     });
-        setIsUploading(false);
+        uploadFile(file, type)
+            .then(() => {
+                field.onChange(file.name);
+            })
+            .catch(() => {
+                alert("Failed to upload file.");
+            })
+            .finally(() => {
+                setIsUploading(false);
+            });
     };
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

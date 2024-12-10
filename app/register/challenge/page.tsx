@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProChallengeContent from "../../../components/Challenge/ProChallengeContent";
 import ProChallengeIntro from "../../../components/Challenge/ProChallengeIntro";
 import ProChallengeStatus from "../../../components/Challenge/ProChallengeStatus";
@@ -8,8 +8,12 @@ import {
     authenticate,
     getChallenge,
     getRegistration,
-    isAuthenticated
+    getRegistrationOrDefault,
+    isAuthenticated,
+    registerUpdate
 } from "@/util/api";
+import { RegistrationType } from "@/util/types";
+import { NavbarContext } from "@/components/Navbar/NavbarContext";
 
 enum Pages {
     Intro,
@@ -19,16 +23,23 @@ enum Pages {
 }
 
 const ProChallenge: React.FC = () => {
+    const navbarContext = useContext(NavbarContext);
     const [page, setPage] = useState(Pages.Intro);
     const handleBegin = () => {
+        navbarContext?.handleSetDark();
         setPage(Pages.Challenge);
     };
 
-    const handleSuccess = () => {
+    const handleSuccess = async () => {
+        navbarContext?.handleSetNotDark();
         setPage(Pages.Pass);
+        const registration = await getRegistrationOrDefault();
+        registration.isProApplicant = true;
+        await registerUpdate(registration);
     };
 
     const handleFailure = () => {
+        navbarContext?.handleSetNotDark();
         setPage(Pages.Fail);
     };
 
@@ -44,7 +55,7 @@ const ProChallenge: React.FC = () => {
             }
             const passedChallenge = await getChallenge();
             if (passedChallenge) {
-                setPage(Pages.Pass);
+                await handleSuccess();
             }
 
             // Leave it if the user failed, so they can try again
@@ -54,6 +65,10 @@ const ProChallenge: React.FC = () => {
     };
 
     useEffect(() => {
+        if (!isAuthenticated()) {
+            authenticate(window.location.href);
+        }
+
         handleCheckIfUserCompletedChallenge();
     }, []);
 

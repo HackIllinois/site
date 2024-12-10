@@ -1,8 +1,10 @@
 import "./globals.scss";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import Navbar from "@/components/Navbar/Navbar";
+import NavbarContextProvider from "@/components/Navbar/NavbarContext";
 
-const inter = Montserrat({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
     title: "HackIllinois",
@@ -17,7 +19,12 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body className={inter.className}>{children}</body>
+            <body className={montserrat.className}>
+                <NavbarContextProvider>
+                    <Navbar />
+                    {children}
+                </NavbarContextProvider>
+            </body>
         </html>
     );
 }
