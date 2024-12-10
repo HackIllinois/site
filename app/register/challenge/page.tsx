@@ -50,7 +50,7 @@ const ProChallenge: React.FC = () => {
             }
             const registration = await getRegistration();
             if (registration && registration.hasSubmitted) {
-                window.location.href = "/register/application-status";
+                window.location.href = "/profile";
                 return;
             }
             const passedChallenge = await getChallenge();
