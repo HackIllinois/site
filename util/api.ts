@@ -50,7 +50,6 @@ export function authenticate(to: string): void {
     } else {
         localStorage.setItem("to", to);
         to = `${APIv2}/auth/login/github/?device=web`;
-        console.log("to", to);
     }
     window.location.replace(to);
 }
