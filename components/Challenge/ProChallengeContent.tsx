@@ -294,15 +294,6 @@ const ProChallengeContent: React.FC<ProChallengeContentProps> = ({
                         </li>
                     </ul>
                 </div>
-
-                <div className={styles.links}>
-                    <p onClick={handleSuccess} className={styles.link}>
-                        <a>Test success case</a>
-                    </p>
-                    <p onClick={handleFailure} className={styles.link}>
-                        <a>Test failure case</a>
-                    </p>
-                </div>
             </div>
             <div className={styles.footerButtons}>
                 <NavigationButton
