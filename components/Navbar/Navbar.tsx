@@ -1,12 +1,14 @@
 "use client";
 
+import Logo from "@/public/logo.svg";
+import LogoDark from "@/public/logo_dark.svg";
 import Image from "next/image";
 import styles from "./Navbar.module.scss";
-import Logo from "@/public/logo.svg";
 // import CloudMenu from "@/public/cloud-menu.svg";
-import { useState, useRef, useEffect } from "react";
-import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { usePathname } from "next/navigation";
+import { useContext, useEffect, useRef, useState } from "react";
+import { NavbarContext } from "./NavbarContext";
 
 type NavbarItem = {
     title: string;
@@ -52,6 +54,7 @@ const Navbar = () => {
     const menuRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
     const [navbarItems, setNavbarItems] = useState(DEFAULT_NAVBAR_ITEMS);
+    const navbarContext = useContext(NavbarContext);
 
     useEffect(() => {
         if (pathname !== "/" && pathname !== "/olympians") {
@@ -69,12 +72,17 @@ const Navbar = () => {
         <>
             {pathname !== "/olympians/challenge" && (
                 <>
-                    <nav className={styles.navbar}>
+                    <nav
+                        className={clsx(
+                            styles.navbar,
+                            navbarContext?.isDark && styles.dark
+                        )}
+                    >
                         <Image
                             alt="HackIllinois Logo"
                             onClick={() => (window.location.pathname = "/")}
                             style={{ cursor: "pointer" }}
-                            src={Logo}
+                            src={navbarContext?.isDark ? LogoDark : Logo}
                         />
                         <div
                             ref={menuRef}
