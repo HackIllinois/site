@@ -65,21 +65,30 @@ async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
         },
         body: JSON.stringify(body)
     });
+    // if (response.status === 403) {
+    //     alert(
+    //         "Your session has expired. Please close this tab and log in again."
+    //     );
+    //     sessionStorage.removeItem("token");
+    //     // TODO: Call the authenticate endpoint, making the user reauthenticate
+    // }
 
-    if (response.status === 403) {
-        alert(
-            "Your session has expired. Please close this tab and log in again."
-        );
+    const responseJSON = await response.json();
+
+    if (
+        responseJSON.error === "TokenInvalid" &&
+        !process.env.NEXT_PUBLIC_REACT_APP_TOKEN
+    ) {
         sessionStorage.removeItem("token");
-        // TODO: reauth
+        // await new Promise(resolve => setTimeout(resolve, 10));
+        authenticate(window.location.href);
+        return;
     }
 
     if (!response.ok) {
-        const errorBody = await response.json();
-        throw errorBody;
+        throw new APIError(responseJSON);
     }
-
-    return response.json();
+    return responseJSON;
 }
 
 export async function getChallenge(): Promise<boolean> {
