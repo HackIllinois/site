@@ -11,31 +11,33 @@ import styles from "./styles.module.scss";
 import { RegistrationType, RSVPType } from "@/util/types";
 import ValueItem from "@/components/ApplicationStatus/ValueItem";
 import Loading from "@/components/Loading/Loading";
+import APPLICATION_STATUS_BACKGROUND from "@/public/registration/backgrounds/application_status_background.svg";
+import APPLICATION_STATUS_BOARD from "@/public/registration/backgrounds/application_status_board.svg";
 
 const Profile: React.FC = () => {
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    // const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [currentRegistration, setCurrentRegistration] =
         useState<RegistrationType | null>();
     const [currentRSVP, setCurrentRSVP] = useState<RSVPType | null>(null);
 
     const handleCheckUserAppliedStatus = async () => {
-        try {
-            if (!isAuthenticated()) {
-                authenticate(window.location.href);
-            }
-            const registration = await getRegistration();
-            if (!registration || !registration.hasSubmitted) {
-                window.location.href = "/register/";
-                return;
-            }
-            setCurrentRegistration(registration);
-            const rsvp = await getRSVP();
-            setCurrentRSVP(rsvp);
-
-            setIsLoading(false);
-        } catch {
-            window.location.href = "/register/";
-        }
+        // try {
+        //     if (!isAuthenticated()) {
+        //         authenticate(window.location.href);
+        //     }
+        //     const registration = await getRegistration();
+        //     if (!registration || !registration.hasSubmitted) {
+        //         window.location.href = "/register/";
+        //         return;
+        //     }
+        //     setCurrentRegistration(registration);
+        //     const rsvp = await getRSVP();
+        //     setCurrentRSVP(rsvp);
+        //     setIsLoading(false);
+        // } catch {
+        //     window.location.href = "/register/";
+        // }
     };
 
     useEffect(() => {
@@ -45,8 +47,18 @@ const Profile: React.FC = () => {
     return (
         <>
             {isLoading && <Loading />}
-            <div className={styles.screen}>
-                <div className={styles.container}>
+            <div
+                style={{
+                    backgroundImage: `url(${APPLICATION_STATUS_BACKGROUND?.src})`
+                }}
+                className={styles.screen}
+            >
+                <div
+                    style={{
+                        backgroundImage: `url(${APPLICATION_STATUS_BOARD?.src})`
+                    }}
+                    className={styles.container}
+                >
                     <h2>
                         {currentRegistration?.preferredName
                             ? `${currentRegistration?.preferredName.trim()}'s `
