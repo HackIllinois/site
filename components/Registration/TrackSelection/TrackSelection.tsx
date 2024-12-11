@@ -12,7 +12,7 @@ const TrackSelection: React.FC<TrackSelectionProps> = ({ handleGeneral }) => {
                 <h2>Sign Up As:</h2>
                 <ShineButton text="HackOlympian" link="/register/challenge" />
                 <p className={styles.link}>
-                    <a href="/about-hack-olympians" target="_blank">
+                    <a href="/olympians" target="_blank">
                         What is this?
                     </a>
                 </p>
