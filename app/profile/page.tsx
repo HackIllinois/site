@@ -15,29 +15,28 @@ import APPLICATION_STATUS_BACKGROUND from "@/public/registration/backgrounds/app
 import APPLICATION_STATUS_BOARD from "@/public/registration/backgrounds/application_status_board.svg";
 
 const Profile: React.FC = () => {
-    // const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [currentRegistration, setCurrentRegistration] =
         useState<RegistrationType | null>();
     const [currentRSVP, setCurrentRSVP] = useState<RSVPType | null>(null);
 
     const handleCheckUserAppliedStatus = async () => {
-        // try {
-        //     if (!isAuthenticated()) {
-        //         authenticate(window.location.href);
-        //     }
-        //     const registration = await getRegistration();
-        //     if (!registration || !registration.hasSubmitted) {
-        //         window.location.href = "/register/";
-        //         return;
-        //     }
-        //     setCurrentRegistration(registration);
-        //     const rsvp = await getRSVP();
-        //     setCurrentRSVP(rsvp);
-        //     setIsLoading(false);
-        // } catch {
-        //     window.location.href = "/register/";
-        // }
+        try {
+            if (!isAuthenticated()) {
+                authenticate(window.location.href);
+            }
+            const registration = await getRegistration();
+            if (!registration || !registration.hasSubmitted) {
+                window.location.href = "/register/";
+                return;
+            }
+            setCurrentRegistration(registration);
+            const rsvp = await getRSVP();
+            setCurrentRSVP(rsvp);
+            setIsLoading(false);
+        } catch {
+            window.location.href = "/register/";
+        }
     };
 
     useEffect(() => {
