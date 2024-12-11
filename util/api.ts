@@ -3,7 +3,8 @@ import {
     RegistrationType,
     WithId,
     RegistrationData,
-    FileType
+    FileType,
+    RSVPType
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -223,4 +224,8 @@ export function registrationFromAPI(
                   ? ["YES"]
                   : ["NO"]
     };
+}
+
+export function getRSVP(): Promise<RSVPType> {
+    return requestv2("GET", "/admission/rsvp").catch(body => handleError(body));
 }

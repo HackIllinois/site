@@ -32,6 +32,7 @@ import ARTEMIS from "@/public/registration/characters/artemis.svg";
 import APOLLO from "@/public/registration/characters/apollo.svg";
 import NONE from "@/public/registration/characters/none.png";
 import useWindowSize from "@/hooks/use-window-size";
+import Loading from "../Loading/Loading";
 
 const pages: Array<
     ElementType<{
@@ -133,11 +134,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
     return (
         <>
-            {isLoading && (
-                <div className={styles.loading}>
-                    <h2>Loading...</h2>
-                </div>
-            )}
+            {isLoading && <Loading />}
             <div
                 style={{
                     backgroundImage:
