@@ -15,6 +15,7 @@ import {
 } from "@/util/api";
 import TrackSelection from "@/components/Registration/TrackSelection/TrackSelection";
 import { RegistrationType, WithId } from "@/util/types";
+import Loading from "@/components/Loading/Loading";
 
 const Registration: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -50,9 +51,8 @@ const Registration: React.FC = () => {
                 <title>HackIllinois | Register</title>
             </Head>
             <main className={styles.container}>
-                {isLoading ? (
-                    <p>Loading...</p>
-                ) : hasChosen ? (
+                {isLoading && <Loading />}
+                {hasChosen ? (
                     <RegistrationForm
                         registration={registrationFromAPI(data!)}
                         setHasChosen={setHasChosen}
