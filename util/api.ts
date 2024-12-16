@@ -3,7 +3,8 @@ import {
     RegistrationType,
     WithId,
     RegistrationData,
-    FileType
+    FileType,
+    RSVPType
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -42,16 +43,12 @@ export const isAuthenticated = (): string | null =>
     sessionStorage.getItem("token");
 
 export function authenticate(to: string): void {
-    if (process.env.NEXT_PUBLIC_REACT_APP_TOKEN) {
-        sessionStorage.setItem(
-            "token",
-            process.env.NEXT_PUBLIC_REACT_APP_TOKEN
-        );
-    } else {
-        localStorage.setItem("to", to);
-        to = `${APIv2}/auth/login/github/?device=web`;
-    }
-    window.location.replace(to);
+    localStorage.setItem("to", to);
+    const authUrl =
+        process.env.NODE_ENV == "development"
+            ? `${APIv2}/auth/login/github/?redirect=${window.location.origin}/auth/`
+            : `${APIv2}/auth/login/github/?device=web`;
+    window.location.replace(authUrl);
 }
 
 async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
@@ -65,21 +62,30 @@ async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
         },
         body: JSON.stringify(body)
     });
+    // if (response.status === 403) {
+    //     alert(
+    //         "Your session has expired. Please close this tab and log in again."
+    //     );
+    //     sessionStorage.removeItem("token");
+    //     // TODO: Call the authenticate endpoint, making the user reauthenticate
+    // }
 
-    if (response.status === 403) {
-        alert(
-            "Your session has expired. Please close this tab and log in again."
-        );
+    const responseJSON = await response.json();
+
+    if (
+        responseJSON.error === "TokenInvalid" &&
+        !process.env.NEXT_PUBLIC_REACT_APP_TOKEN
+    ) {
         sessionStorage.removeItem("token");
-        // TODO: reauth
+        // await new Promise(resolve => setTimeout(resolve, 10));
+        authenticate(window.location.href);
+        return;
     }
 
     if (!response.ok) {
-        const errorBody = await response.json();
-        throw errorBody;
+        throw responseJSON;
     }
-
-    return response.json();
+    return responseJSON;
 }
 
 export async function getChallenge(): Promise<boolean> {
@@ -214,4 +220,8 @@ export function registrationFromAPI(
                   ? ["YES"]
                   : ["NO"]
     };
+}
+
+export function getRSVP(): Promise<RSVPType> {
+    return requestv2("GET", "/admission/rsvp").catch(body => handleError(body));
 }
