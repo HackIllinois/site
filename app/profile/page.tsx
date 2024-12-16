@@ -3,6 +3,7 @@
 import {
     authenticate,
     getRegistration,
+    getRegistrationOrDefault,
     getRSVP,
     isAuthenticated
 } from "@/util/api";
@@ -25,8 +26,8 @@ const Profile: React.FC = () => {
             if (!isAuthenticated()) {
                 authenticate(window.location.href);
             }
-            const registration = await getRegistration();
-            if (!registration || !registration.hasSubmitted) {
+            const registration = await getRegistrationOrDefault();
+            if (!registration.hasSubmitted) {
                 window.location.href = "/register/";
                 return;
             }
