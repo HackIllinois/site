@@ -6,6 +6,7 @@ import states from "@/modules/states.json";
 import countries from "@/modules/countries.json";
 import degrees from "@/modules/degrees.json";
 import Dropdown from "@/components/Form/DropdownBox/Dropdown";
+import React from "react";
 
 const graduationYearOptions: string[] = [];
 for (let i = 2030; i >= 1970; i -= 1) {
@@ -25,7 +26,7 @@ type PropTypes = {
     onChangePage: (newIndex: number) => void;
 };
 
-const Education = ({ onChangePage }: PropTypes): JSX.Element => {
+const Education: React.FC<PropTypes> = ({ onChangePage }) => {
     return (
         <div className={styles.container}>
             <h1>Education</h1>

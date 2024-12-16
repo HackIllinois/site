@@ -14,7 +14,7 @@ type PropTypes = {
     [key: string]: unknown;
 };
 
-const StyledCheckbox = ({
+const StyledCheckbox: React.FC<PropTypes> = ({
     value,
     label,
     checked,
@@ -22,7 +22,7 @@ const StyledCheckbox = ({
     radio,
     style,
     ...props
-}: PropTypes): JSX.Element => (
+}) => (
     <label
         className={clsx(
             styles.checkboxLabel,

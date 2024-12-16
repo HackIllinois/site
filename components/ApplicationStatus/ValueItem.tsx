@@ -1,17 +1,13 @@
 import clsx from "clsx";
 import styles from "./ValueItem.module.scss";
-import { useEffect } from "react";
+import React from "react";
 
 type PropTypes = {
     label: string;
     isHighlighted: boolean;
 };
 
-const ValueItem = ({ label, isHighlighted }: PropTypes): JSX.Element => {
-    useEffect(() => {
-        console.log("ValueItem", label, isHighlighted);
-    }, []);
-
+const ValueItem: React.FC<PropTypes> = ({ label, isHighlighted }) => {
     return (
         <div
             className={clsx(

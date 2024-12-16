@@ -1,4 +1,4 @@
-const Checkmark = (): JSX.Element => {
+const Checkmark = () => {
     return (
         <svg
             width="32px"

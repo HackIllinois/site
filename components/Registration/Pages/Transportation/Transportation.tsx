@@ -2,6 +2,7 @@ import Checkboxes, {
     CheckboxOption
 } from "@/components/Form/Checkboxes/Checkboxes";
 import styles from "./Transportation.module.scss";
+import React from "react";
 
 const travelAcknowledgeOptions = [
     {
@@ -33,7 +34,7 @@ type PropTypes = {
     onChangePage: (newIndex: number) => void;
 };
 
-const Transportation = ({ onChangePage }: PropTypes): JSX.Element => {
+const Transportation: React.FC<PropTypes> = ({ onChangePage }) => {
     return (
         <div className={styles.container}>
             <h1>Transportation</h1>

@@ -39,15 +39,17 @@
 
 .form {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
     h1 {
         font-weight: 900;
         font-size: 36px;
         color: white;
-        // font-size: 56px;
         @media (max-width: 768px) {
             font-size: 36px;
         }
-        color: white;
     }
 
     h4 {
@@ -67,12 +69,7 @@
         @media (max-width: 768px) {
             font-size: 18px;
         }
-        color: white;
     }
-
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
 }
 
 .navigation {

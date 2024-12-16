@@ -21,7 +21,7 @@ type PropTypes = {
     [key: string]: unknown;
 };
 
-const FileUpload = ({
+const FileUpload: React.FC<PropTypes> = ({
     name,
     label,
     type,
@@ -30,7 +30,7 @@ const FileUpload = ({
     className,
     required,
     ...props
-}: PropTypes): JSX.Element => {
+}) => {
     const [field, meta, helpers] = useField(name);
     const { setValue } = helpers;
     const { value } = field;

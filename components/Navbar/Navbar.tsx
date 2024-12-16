@@ -9,6 +9,7 @@ import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { useContext, useEffect, useRef, useState } from "react";
 import { NavbarContext } from "./NavbarContext";
+import Link from "next/link";
 
 type NavbarItem = {
     title: string;
@@ -124,13 +125,13 @@ const Navbar = () => {
                     <nav className={styles.mobile}>
                         <div className={styles.mobileTop}>
                             <div className={styles.title}>
-                                <a href="/">
+                                <Link href="/">
                                     <Image
                                         alt="Logo"
                                         src={Logo}
                                         className="logo"
                                     />
-                                </a>
+                                </Link>
                             </div>
                             <div
                                 className={clsx(

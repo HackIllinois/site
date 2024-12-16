@@ -45,6 +45,10 @@
 .title {
     display: block;
     font-size: 2.5rem;
+    font-weight: bold;
+    color: #022838;
+    text-align: center;
+
     @media screen and (max-width: 1280px) {
         font-size: 2.5rem;
     }
@@ -64,9 +68,6 @@
     @media screen and (max-width: 550px) {
         font-size: 1rem;
     }
-    font-weight: bold;
-    color: #022838;
-    text-align: center;
 }
 
 .icons {
@@ -136,6 +137,9 @@
     display: block;
     font-size: 2rem;
     margin: 2.5rem 0 3rem;
+    font-weight: 600;
+    color: #022838;
+    text-align: center;
 
     @media screen and (max-width: 1280px) {
         font-size: 2rem;
@@ -164,8 +168,4 @@
         width: 80%;
         margin: 0.5rem auto;
     }
-    font-weight: 600;
-    color: #022838;
-    text-align: center;
-    // white-space: nowrap;
 }

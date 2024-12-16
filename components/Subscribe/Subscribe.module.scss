@@ -13,6 +13,7 @@
         border: 0;
         font-size: 1.5rem;
         padding: 1rem;
+        font-weight: 400;
 
         @media screen and (max-width: 1280px) {
             font-size: 1.25rem;
@@ -34,7 +35,6 @@
             padding: 0.4rem;
             width: 75%;
         }
-        font-weight: 400;
 
         &::placeholder {
             padding-left: 0.5rem;

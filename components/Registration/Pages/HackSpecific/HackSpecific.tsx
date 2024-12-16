@@ -3,6 +3,7 @@ import Checkboxes, {
 } from "@/components/Form/Checkboxes/Checkboxes";
 import styles from "./HackSpecific.module.scss";
 import TextInput from "@/components/Form/TextInput/TextInput";
+import React from "react";
 
 const generalConsiderationOptions = [
     {
@@ -109,7 +110,7 @@ type PropTypes = {
     proTrack: boolean;
 };
 
-const HackSpecific = ({ onChangePage, proTrack }: PropTypes): JSX.Element => {
+const HackSpecific: React.FC<PropTypes> = ({ onChangePage, proTrack }) => {
     return (
         <div className={styles.container}>
             <h1>Hack-Specific</h1>

@@ -32,7 +32,7 @@ type PropTypes = {
     [key: string]: unknown;
 };
 
-const Checkboxes = ({
+const Checkboxes: React.FC<PropTypes> = ({
     name,
     label,
     options = [],
@@ -42,7 +42,7 @@ const Checkboxes = ({
     threeColEnabled,
     required,
     ...props
-}: PropTypes): JSX.Element => {
+}) => {
     // The checkboxes component is a modified version of the one used in the HackIllinois 2024 website.
     const [field, meta, helpers] = useField(name);
     const { setValue } = helpers;

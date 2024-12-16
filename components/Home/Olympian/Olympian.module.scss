@@ -80,6 +80,12 @@
     text-transform: uppercase;
     border-style: solid;
     cursor: pointer;
+    width: 360px;
+    height: 90px;
+    border-radius: 32px;
+    border-width: 8px;
+    font-size: 28px;
+    font-weight: 700;
 
     &::after {
         content: "";
@@ -147,13 +153,6 @@
             top: 6px;
         }
     }
-
-    width: 360px;
-    height: 90px;
-    border-radius: 32px;
-    border-width: 8px;
-    font-size: 28px;
-    font-weight: 700;
 
     &:before {
         z-index: 1;

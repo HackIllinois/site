@@ -1,11 +1,12 @@
 import ReviewButton from "@/components/Form/ReviewButton/ReviewButton";
 import styles from "./ReviewInfo.module.scss";
+import React from "react";
 
 type PropTypes = {
     onChangePage: (newIndex: number) => void;
 };
 
-const ReviewInfo = ({ onChangePage }: PropTypes): JSX.Element => {
+const ReviewInfo: React.FC<PropTypes> = ({ onChangePage }) => {
     return (
         <div className={styles.container}>
             <h1>Review Info</h1>

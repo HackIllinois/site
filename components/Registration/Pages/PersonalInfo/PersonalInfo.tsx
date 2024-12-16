@@ -1,6 +1,7 @@
 import styles from "./PersonalInfo.module.scss";
 import TextInput from "@/components/Form/TextInput/TextInput";
 import Dropdown from "@/components/Form/DropdownBox/Dropdown";
+import React from "react";
 
 const gender = [
     "Male",
@@ -27,7 +28,7 @@ type PropTypes = {
     onChangePage: (newIndex: number) => void;
 };
 
-const PersonalInfo = ({ onChangePage }: PropTypes): JSX.Element => {
+const PersonalInfo: React.FC<PropTypes> = ({ onChangePage }) => {
     return (
         <div className={styles.container}>
             <h1>Personal Info</h1>

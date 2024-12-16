@@ -5,6 +5,9 @@
     padding: 48px 64px;
     color: white;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     @media screen and (max-width: 960px) {
         display: none;
@@ -38,10 +41,6 @@
     @media screen and (max-width: 640px) {
         padding: 24px 32px;
     }
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
 .navbar.dark {

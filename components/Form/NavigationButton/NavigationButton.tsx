@@ -16,7 +16,7 @@ const NavigationButton: React.FC<NavButtonProps> = ({
     pointRight,
     onClick,
     ...props
-}): JSX.Element => {
+}) => {
     // Function to handle the Enter key press
     const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
         if (event.key === "Enter" || event.key === "Return") {

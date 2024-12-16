@@ -1,3 +1,4 @@
+import React from "react";
 import Checkmark from "./Checkmark";
 import styles from "./ReviewButton.module.scss";
 
@@ -6,7 +7,7 @@ type PropTypes = {
     onClick: () => void;
 };
 
-const ReviewButton = ({ text, onClick }: PropTypes): JSX.Element => {
+const ReviewButton: React.FC<PropTypes> = ({ text, onClick }) => {
     return (
         <div onClick={onClick} className={styles.reviewButton}>
             <div className={styles.checkButton}>

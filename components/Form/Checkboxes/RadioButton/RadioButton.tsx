@@ -14,7 +14,7 @@ type PropTypes = {
     [key: string]: unknown;
 };
 
-const RadioButton = ({
+const RadioButton: React.FC<PropTypes> = ({
     value,
     label,
     checked,
@@ -22,7 +22,7 @@ const RadioButton = ({
     radio,
     style,
     ...props
-}: PropTypes): JSX.Element => (
+}) => (
     <label
         className={clsx(
             styles.checkboxLabel,
