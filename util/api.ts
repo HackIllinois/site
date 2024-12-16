@@ -43,16 +43,12 @@ export const isAuthenticated = (): string | null =>
     sessionStorage.getItem("token");
 
 export function authenticate(to: string): void {
-    if (process.env.NEXT_PUBLIC_REACT_APP_TOKEN) {
-        sessionStorage.setItem(
-            "token",
-            process.env.NEXT_PUBLIC_REACT_APP_TOKEN
-        );
-    } else {
-        localStorage.setItem("to", to);
-        to = `${APIv2}/auth/login/github/?device=web`;
-    }
-    window.location.replace(to);
+    localStorage.setItem("to", to);
+    const authUrl =
+        process.env.NODE_ENV == "development"
+            ? `${APIv2}/auth/login/github/?redirect=${window.location.origin}/auth/`
+            : `${APIv2}/auth/login/github/?device=web`;
+    window.location.replace(authUrl);
 }
 
 async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
@@ -87,7 +83,7 @@ async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
     }
 
     if (!response.ok) {
-        throw new APIError(responseJSON);
+        throw responseJSON;
     }
     return responseJSON;
 }
