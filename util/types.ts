@@ -23,6 +23,7 @@ export type RegistrationData = {
     hackOutreach: string[];
     hackInterest: string[];
     dietaryRestrictions: string[];
+    acknowledge: string[];
     requestedTravelReimbursement: string[];
     isProApplicant: boolean;
 };

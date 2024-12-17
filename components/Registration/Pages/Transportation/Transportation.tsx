@@ -4,29 +4,10 @@ import Checkboxes, {
 import styles from "./Transportation.module.scss";
 import React from "react";
 
-const travelAcknowledgeOptions = [
+const acknowledgeOptions = [
     {
-        label: "Yes",
-        value: "YES",
-        isRadio: true
-    },
-    {
-        label: "No",
-        value: "NO",
-        isRadio: true
-    }
-] satisfies CheckboxOption[];
-
-const travelMethodOptions = [
-    {
-        label: "Self Travel",
-        value: "SELF_TRAVEL",
-        isRadio: true
-    },
-    {
-        label: "Bus Charter",
-        value: "BUS_CHARTER",
-        isRadio: true
+        label: "",
+        value: "YES"
     }
 ] satisfies CheckboxOption[];
 
@@ -37,18 +18,11 @@ type PropTypes = {
 const Transportation: React.FC<PropTypes> = ({ onChangePage }) => {
     return (
         <div className={styles.container}>
-            <h1>Transportation</h1>
+            <h1>Code of Conduct</h1>
             <Checkboxes
-                name="travelAcknowledge"
-                label="Are you aware that you are responsible for your own
-                    transportation to the site?"
-                options={travelAcknowledgeOptions}
-                required
-            />
-            <Checkboxes
-                name="travelMethod"
-                label="How will you be getting to HackIllinois?"
-                options={travelMethodOptions}
+                name="acknowledge"
+                label="I acknowledge that I have read, understood, and agree to abide by the HackIllinois Code of Conduct."
+                options={acknowledgeOptions}
                 required
             />
         </div>
