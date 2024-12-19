@@ -58,14 +58,10 @@ const hackSpecific = yup.object({
 });
 
 const transportation = yup.object({
-    travelAcknowledge: yup
+    acknowledge: yup
         .array()
         .of(yup.string())
-        .min(1, "Please select one option"),
-    travelMethod: yup
-        .array()
-        .of(yup.string())
-        .min(1, "Please select one option")
+        .min(1, "Please acknowledge the Code of Conduct")
 });
 
 const registrationSchemas = [

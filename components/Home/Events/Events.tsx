@@ -16,14 +16,14 @@ const Events: FC = () => {
                     Urbana-Champaign&apos;s premiere collegiate hackathon.
                 </p>
                 <p>
-                    Join us in-person from February 23th to February 25th at the
+                    Join us in-person from February 28th to March 2nd at the
                     Siebel Center for Computer Science! Participants can work
                     individually or in teams to submit projects to a specific
                     track for a chance to win prizes.{" "}
                 </p>
                 <p>
                     <b>
-                        <i>Adventure awaits!</i>
+                        <i>Pursue your prophecy!</i>
                     </b>
                 </p>
             </div>

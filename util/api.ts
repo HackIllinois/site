@@ -165,7 +165,7 @@ export async function uploadFile(file: File, type: FileType): Promise<unknown> {
 export function registerUpdate(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
-    console.log("submitted", registration);
+    // console.log("submitted", registration);
     return requestv2("POST", `/registration`, registration).catch(body =>
         handleError(body)
     );
@@ -210,6 +210,7 @@ export function registrationFromAPI(
 
     return {
         ...registration,
+        acknowledge: [],
         race: registration.race.length === 1 ? registration.race[0] : "",
         gradYear: registration.gradYear === 0 ? "" : `${registration.gradYear}`,
         requestedTravelReimbursement,
