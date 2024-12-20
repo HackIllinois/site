@@ -1,26 +1,77 @@
 import React from "react";
-import clsx from "clsx";
-import "./DropdownItem.scss";
+import { useField } from "formik";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-interface DropdownItemProps {
-    option: string;
-    onClick: (option: string) => void;
-    isFocused: boolean;
+interface DropdownProps {
+    name: string;
+    label: string;
+    options: string[];
+    placeholder?: string;
+    required?: boolean;
 }
 
-const DropdownItem: React.FC<DropdownItemProps> = ({
-    option,
-    onClick,
-    isFocused
+const Dropdown: React.FC<DropdownProps> = ({
+    name,
+    label,
+    options,
+    placeholder = "Select...",
+    required = false
 }) => {
+    const [field, meta, helpers] = useField(name);
+    const { setValue } = helpers;
+    const { value } = field;
+
+    const showFeedback = meta.error && meta.touched;
+
+    // Add placeholder if not required
+    const modOptions = required ? options : [placeholder, ...options];
+
+    const handleOptionClick = (option: string) => {
+        setValue(option);
+    };
+
     return (
-        <li
-            className={clsx("dropdown-option", isFocused && "focused")}
-            onClick={() => onClick(option)}
-        >
-            {option}
-        </li>
+        <div className="mb-3">
+            {/* Label */}
+            <label htmlFor={name} className="form-label">
+                {label}
+                {required && "*"}
+            </label>
+
+            {/* Dropdown */}
+            <div className="dropdown">
+                <button
+                    className={`btn btn-outline-secondary dropdown-toggle w-100 ${
+                        showFeedback ? "is-invalid" : ""
+                    }`}
+                    type="button"
+                    id={`${name}-dropdown`}
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                >
+                    {value || placeholder}
+                </button>
+                <ul className="dropdown-menu w-100" aria-labelledby={`${name}-dropdown`}>
+                    {modOptions.map((option, index) => (
+                        <li key={index}>
+                            <button
+                                className="dropdown-item"
+                                type="button"
+                                onClick={() => handleOptionClick(option)}
+                            >
+                                {option}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            {/* Validation Feedback */}
+            {showFeedback && (
+                <div className="invalid-feedback">{meta.error}</div>
+            )}
+        </div>
     );
 };
 
-export default DropdownItem;
+export default Dropdown;

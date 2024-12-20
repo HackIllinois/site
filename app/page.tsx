@@ -7,6 +7,7 @@ import Events from "@/components/Home/Events/Events";
 import FAQJoinUs from "@/components/Home/FAQJoinUs/FAQJoinUs";
 import Sponsors from "@/components/Home/Sponsors/Sponsors";
 
+
 const Home: React.FC = () => {
     return (
         <main className={styles.main}>
