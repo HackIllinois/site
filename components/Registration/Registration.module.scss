@@ -4,17 +4,15 @@
     justify-content: flex-start;
     align-items: center;
     width: 1750px;
-    padding: 5rem 1rem;
-    padding-top: 2rem;
+    padding-bottom: 2rem;
     gap: 3rem;
     min-height: 100vh;
-    background-repeat: no-repeat;
-    background-size: 1750px;
+    // background-repeat: no-repeat;
+    // background-size: 1750px;
 
     @media (max-width: 1024px) {
-        background-size: 1256px;
         max-height: 100vh;
-        overflow-y: auto;
+        overflow-y: scroll;
     }
 
     @media (max-width: 768px) {
@@ -22,6 +20,13 @@
         gap: 2rem;
         padding-bottom: 25rem; // bottom padding is for mobile keyboard
     }
+}
+
+.background {
+    position: absolute;
+    height: fit-content;
+    width: 100vw;
+    z-index: -1;
 }
 
 .contentWrapper {
@@ -32,6 +37,7 @@
     flex-direction: column;
     gap: 3rem;
     width: 80%;
+    position: relative;
     @media (max-width: 768px) {
         margin-top: 68px;
     }

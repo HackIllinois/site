@@ -13,6 +13,7 @@ import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
 import { registerSubmit, registerUpdate, registrationToAPI } from "@/util/api";
 import { RegistrationData } from "@/util/types";
+import Image from "next/image";
 
 import PERSONAL_INFO from "@/public/registration/backgrounds/personal_info.svg";
 import EDUCATION from "@/public/registration/backgrounds/education.svg";
@@ -135,15 +136,33 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     return (
         <>
             {isLoading && <Loading />}
-            <div
-                style={{
-                    backgroundImage:
+            {/* <Image
+                    src={
                         !windowSizeHook?.width || windowSizeHook?.width > 768
-                            ? `url(${backgrounds[formIndex].src})`
-                            : `url(${backgroundsMobile[formIndex].src})`
-                }}
+                            ? backgrounds[formIndex]
+                            : backgroundsMobile[formIndex]
+                    }
+                    alt="Background"
+                    className={styles.background}
+                /> */}
+            <div
+                // style={{
+                //     backgroundImage:
+                //         !windowSizeHook?.width || windowSizeHook?.width > 768
+                //             ? `url(${backgrounds[formIndex].src})`
+                //             : `url(${backgroundsMobile[formIndex].src})`
+                // }}
                 className={styles.container}
             >
+                <Image
+                    src={
+                        !windowSizeHook?.width || windowSizeHook?.width > 768
+                            ? backgrounds[formIndex]
+                            : backgroundsMobile[formIndex]
+                    }
+                    alt="Background"
+                    className={styles.background}
+                />
                 <div className={styles.contentWrapper}>
                     <ProgressBar
                         onChangePage={handlePageChange}
