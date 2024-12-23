@@ -163,6 +163,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                     alt="Background"
                     className={styles.background}
                 />
+                {/* <div className={styles.scrollWrapper}> */}
                 <div className={styles.contentWrapper}>
                     <ProgressBar
                         onChangePage={handlePageChange}
@@ -212,6 +213,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                         )}
                     </div>
                 </div>
+                {/* </div> */}
             </div>
         </>
     );

@@ -7,13 +7,6 @@
     padding-bottom: 2rem;
     gap: 3rem;
     min-height: 100vh;
-    // background-repeat: no-repeat;
-    // background-size: 1750px;
-
-    @media (max-width: 1024px) {
-        max-height: 100vh;
-        overflow-y: scroll;
-    }
 
     @media (max-width: 768px) {
         background-size: 400px;
@@ -39,7 +32,7 @@
     width: 80%;
     position: relative;
     @media (max-width: 768px) {
-        margin-top: 68px;
+        margin-top: 100px;
     }
 }
 
@@ -83,14 +76,17 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    margin: 1rem 0;
 }
 
 .formWrapper {
     display: flex;
     width: 100%;
     gap: 3rem;
-
-    max-width: 1200px;
+    @media (max-width: 1024px) {
+        height: 100vh;
+        overflow: scroll;
+    }
 }
 
 .formContent {
@@ -100,7 +96,7 @@
 .character {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    // justify-content: flex-end;
     flex: 0.5;
     img {
         width: 100%;
