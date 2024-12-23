@@ -170,47 +170,58 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                         furthestPage={furthestPage}
                         disabled={formIndex === submittedPageIndex}
                     />
-                    <div className={styles.formWrapper}>
-                        <div className={styles.formContent}>
-                            <Formik
-                                initialValues={registration}
-                                onSubmit={onSubmit}
-                                validationSchema={getRegistrationSchema(
-                                    formIndex,
-                                    registration.isProApplicant
-                                )}
-                                enableReinitialize
-                            >
-                                <Form className={styles.form}>
-                                    {React.createElement(pages[formIndex], {
-                                        onChangePage: handlePageChange,
-                                        proTrack: registration.isProApplicant
-                                    })}
-                                    {formIndex !== submittedPageIndex && (
-                                        <div className={styles.navigation}>
-                                            <NavigationButton
-                                                text={buttonNames[formIndex][0]}
-                                                onClick={previousPage}
-                                                type="button"
-                                            />
-                                            <NavigationButton
-                                                text={buttonNames[formIndex][1]}
-                                                pointRight
-                                                type="submit"
-                                            />
-                                        </div>
+                    <div className={styles.scrollWrapper}>
+                        <div className={styles.formWrapper}>
+                            <div className={styles.formContent}>
+                                <Formik
+                                    initialValues={registration}
+                                    onSubmit={onSubmit}
+                                    validationSchema={getRegistrationSchema(
+                                        formIndex,
+                                        registration.isProApplicant
                                     )}
-                                </Form>
-                            </Formik>
-                        </div>
-                        {characters[formIndex] && (
-                            <div className={styles.character}>
-                                <img
-                                    src={characters[formIndex].src}
-                                    alt="Character"
-                                />
+                                    enableReinitialize
+                                >
+                                    <Form className={styles.form}>
+                                        {React.createElement(pages[formIndex], {
+                                            onChangePage: handlePageChange,
+                                            proTrack:
+                                                registration.isProApplicant
+                                        })}
+                                        {formIndex !== submittedPageIndex && (
+                                            <div className={styles.navigation}>
+                                                <NavigationButton
+                                                    text={
+                                                        buttonNames[
+                                                            formIndex
+                                                        ][0]
+                                                    }
+                                                    onClick={previousPage}
+                                                    type="button"
+                                                />
+                                                <NavigationButton
+                                                    text={
+                                                        buttonNames[
+                                                            formIndex
+                                                        ][1]
+                                                    }
+                                                    pointRight
+                                                    type="submit"
+                                                />
+                                            </div>
+                                        )}
+                                    </Form>
+                                </Formik>
                             </div>
-                        )}
+                            {characters[formIndex] && (
+                                <div className={styles.character}>
+                                    <img
+                                        src={characters[formIndex].src}
+                                        alt="Character"
+                                    />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
                 {/* </div> */}

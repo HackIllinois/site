@@ -79,14 +79,18 @@
     margin: 1rem 0;
 }
 
+.scrollWrapper {
+    width: 100%;
+    @media (max-width: 1180px) {
+        max-height: 100vh;
+        overflow: auto;
+    }
+}
+
 .formWrapper {
     display: flex;
     width: 100%;
     gap: 3rem;
-    @media (max-width: 1180px) {
-        height: 100vh;
-        overflow: scroll;
-    }
 }
 
 .formContent {
@@ -96,7 +100,7 @@
 .character {
     display: flex;
     flex-direction: column;
-    // justify-content: flex-end;
+    justify-content: flex-end;
     flex: 0.5;
     img {
         width: 100%;
