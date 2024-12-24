@@ -2,6 +2,7 @@ import styles from "./PersonalInfo.module.scss";
 import TextInput from "@/components/Form/TextInput/TextInput";
 import Dropdown from "@/components/Form/DropdownBox/Dropdown";
 import React from "react";
+import Checkboxes from "@/components/Form/Checkboxes/Checkboxes";
 
 const gender = [
     "Male",
@@ -47,32 +48,28 @@ const PersonalInfo: React.FC<PropTypes> = ({ onChangePage }) => {
                 placeholder="Type here..."
             />
 
-            <div className={styles.row}>
-                <div className={styles.field}>
-                    <Dropdown
-                        name="gender"
-                        label="Gender"
-                        options={gender}
-                        required
-                    />
-                </div>
-
-                <div className={styles.field}>
-                    <Dropdown
-                        name="race"
-                        label="Race/Ethnicity"
-                        options={race}
-                        required
-                    />
-                </div>
-            </div>
-
             <TextInput
                 name="emailAddress"
                 label="Email Address"
                 type="email"
                 required
                 placeholder="Type here..."
+            />
+
+            <div className={styles.field}>
+                <Dropdown
+                    name="gender"
+                    label="Gender"
+                    options={gender}
+                    required
+                />
+            </div>
+
+            <Checkboxes
+                name="race"
+                label="Race/Ethnicity"
+                options={race.map(option => ({ value: option, label: option }))}
+                required
             />
         </div>
     );

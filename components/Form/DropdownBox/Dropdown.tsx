@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
-import DropdownItem from "./DropdownItem";
-import styles from "./Dropdown.module.scss";
+import React from "react";
 import { useField } from "formik";
-import clsx from "clsx";
+import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
+
+import styles from "./Dropdown.module.scss";
 
 interface DropdownProps {
     name: string;
     label: string;
     options: string[];
+    creatable?: boolean;
     placeholder?: string;
     required?: boolean;
 }
@@ -16,229 +18,75 @@ const Dropdown: React.FC<DropdownProps> = ({
     name,
     label,
     options,
+    creatable = false,
     placeholder = "Select...",
     required = false
 }) => {
     const [field, meta, helpers] = useField(name);
-    const { setValue } = helpers;
-    const { value } = field;
+    const showFeedback = meta.error && meta.touched;
 
-    const [isOpen, setIsOpen] = useState(false);
-    const [didFocus, setDidFocus] = useState(false);
-    const [focus, setFocus] = useState(false);
-    const [filterTerm, setFilterTerm] = useState("");
-    const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-    const dropdownRef = useRef<HTMLDivElement>(null);
-    const ulRef = useRef<HTMLUListElement>(null);
+    let formattedOptions = options.map(option => ({
+        label: option,
+        value: option
+    }));
 
-    const handleFocus = () => {
-        setFocus(true);
-        setDidFocus(true);
+    const SelectComponent = creatable ? CreatableSelect : Select;
+
+    // See: https://github.com/JedWatson/react-select/issues/3067
+    // Supports multi-word search
+    const customFilterOption = (
+        option: { label: string },
+        rawInput: string
+    ) => {
+        const words = rawInput.split(" ");
+        return words.reduce(
+            (acc, cur) =>
+                acc && option.label.toLowerCase().includes(cur.toLowerCase()),
+            true
+        );
     };
-
-    const handleBlur = () => {
-        setFocus(false);
-    };
-
-    const showFeedback = meta.error && ((didFocus && !focus) || meta.touched);
-
-    const modOptions = required ? options : [placeholder, ...options];
-
-    const handleToggle = (e: React.MouseEvent) => {
-        if (focus) {
-            e.preventDefault();
-            setIsOpen(!isOpen);
-        }
-    };
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (isOpen) {
-            if (event.key === "ArrowDown") {
-                event.preventDefault();
-                let scroll = true;
-
-                if (focusedIndex == modOptions.length - 1 && ulRef.current) {
-                    ulRef.current.scrollTop = 0;
-                    scroll = false;
-                }
-
-                setFocusedIndex(prevIndex => {
-                    if (
-                        prevIndex === null ||
-                        prevIndex === modOptions.length - 1
-                    ) {
-                        return 0;
-                    }
-                    return prevIndex + 1;
-                });
-
-                if (
-                    ulRef.current &&
-                    focusedIndex != null &&
-                    focusedIndex >= 0 &&
-                    scroll
-                ) {
-                    const optionHeight =
-                        ulRef.current.clientHeight / modOptions.length;
-                    ulRef.current.scrollTop += optionHeight;
-                }
-            } else if (event.key === "ArrowUp") {
-                event.preventDefault();
-
-                let scroll = true;
-
-                if (ulRef.current && focusedIndex == 0) {
-                    ulRef.current.scrollTop =
-                        ulRef.current.clientHeight * modOptions.length;
-                    scroll = false;
-                }
-
-                setFocusedIndex(prevIndex => {
-                    if (prevIndex === null || prevIndex === 0) {
-                        return modOptions.length - 1;
-                    }
-                    return prevIndex - 1;
-                });
-
-                if (
-                    ulRef.current &&
-                    focusedIndex != null &&
-                    focusedIndex <= modOptions.length &&
-                    scroll
-                ) {
-                    const optionHeight =
-                        ulRef.current.clientHeight / modOptions.length;
-                    ulRef.current.scrollTop -= optionHeight;
-                }
-            } else if (event.key === "Enter") {
-                event.preventDefault();
-                if (focusedIndex !== null) {
-                    setValue(modOptions[focusedIndex]);
-                    setIsOpen(false);
-                    setFilterTerm("");
-                }
-            } else if (event.key === "Tab") {
-                setIsOpen(false);
-                setFocus(false);
-                setDidFocus(true);
-                setFilterTerm("");
-            }
-        }
-    };
-
-    const handleOptionClick = (option: string) => {
-        setValue(option);
-        setIsOpen(false);
-        setFilterTerm("");
-    };
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (
-                dropdownRef.current &&
-                !dropdownRef.current.contains(event.target as Node)
-            ) {
-                setIsOpen(false);
-                setFilterTerm("");
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
-
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (isOpen) {
-                if (event.key.length === 1) {
-                    setFilterTerm(prev => prev + event.key);
-                } else if (event.key === "Backspace") {
-                    setFilterTerm(prev => prev.slice(0, -1));
-                }
-            }
-        };
-
-        window.addEventListener("keydown", handleKeyDown);
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown);
-        };
-    }, [isOpen]);
-
-    const filteredOptions = modOptions.filter(option =>
-        option.toLowerCase().includes(filterTerm.toLowerCase())
-    );
 
     return (
-        <div className={styles.container}>
-            <label htmlFor={name}>
+        <div className={styles.dropdown}>
+            <label htmlFor={name} className="form-label">
                 {label}
-                {required && "*"}
+                {required && <span className="text-danger">*</span>}
             </label>
 
-            <div ref={dropdownRef} onKeyDown={handleKeyDown}>
-                <button
-                    className={clsx(
-                        styles.dropdownButton,
-                        showFeedback && styles.invalid
-                    )}
-                    onClick={handleToggle}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                >
-                    {value || placeholder}
-                    <span
-                        className={clsx(
-                            styles.dropdownIcon,
-                            isOpen && styles.open
-                        )}
-                    >
-                        {isOpen ? (
-                            <svg
-                                width="22"
-                                height="22"
-                                viewBox="0 0 22 22"
-                                fill="currentColor"
-                            >
-                                <polygon points="12,8 4,16 20,16" />
-                            </svg>
-                        ) : (
-                            <svg
-                                width="22"
-                                height="22"
-                                viewBox="0 0 22 22"
-                                fill="currentColor"
-                            >
-                                <polygon points="4,8 20,8 12,16" />
-                            </svg>
-                        )}
-                    </span>
-                </button>
-                {isOpen && (
-                    <ul
-                        ref={ulRef} // Reference for the dropdown options list
-                        className={clsx(
-                            styles.dropdownOptions,
-                            isOpen && styles.open
-                        )}
-                        onBlur={() => setIsOpen(false)}
-                    >
-                        {filteredOptions.map((option, index) => (
-                            <DropdownItem
-                                key={index}
-                                option={option}
-                                onClick={handleOptionClick}
-                                isFocused={index === focusedIndex} // Highlight focused option
-                            />
-                        ))}
-                    </ul>
-                )}
-                {!isOpen ? (
-                    <h4 className={styles.errorMessage}>
-                        {showFeedback && meta.error}
-                    </h4>
-                ) : null}
-            </div>
+            <SelectComponent
+                classNames={{
+                    control: () => styles.dropdownControl,
+                    singleValue: () => styles.dropdownSingleValue,
+                    option: () => styles.dropdownOption,
+                    placeholder: () => styles.dropdownPlaceholder
+                }}
+                className={(showFeedback && styles.invalid) || ""}
+                theme={theme => ({
+                    ...theme,
+                    colors: {
+                        ...theme.colors,
+                        primary: "#ad8e28",
+                        primary25: "#ad8e2830",
+                        primary50: "#ad8e2860"
+                    }
+                })}
+                id={name}
+                name={name}
+                options={formattedOptions}
+                value={
+                    field.value
+                        ? { value: field.value, label: field.value }
+                        : null
+                }
+                onChange={selectedOption =>
+                    helpers.setValue(selectedOption?.value)
+                }
+                onBlur={() => helpers.setTouched(true)}
+                placeholder={placeholder}
+                filterOption={customFilterOption}
+            />
+
+            {showFeedback && <h4>{meta.error}</h4>}
         </div>
     );
 };

@@ -1,4 +1,4 @@
-.container {
+.dropdown {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -6,86 +6,17 @@
     gap: 1rem;
 }
 
-.dropdownButton {
-    width: 100%;
-    padding: 10px;
+.dropdownControl {
     font-size: 20px;
-    color: #a19366;
-    background-color: #ffffff;
-    border-radius: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-
-    &:focus {
-        outline: 4px solid #ad8e28;
-    }
-
-    @media (max-width: 768px) {
-        font-size: 16px;
-    }
-}
-
-.dropdownIcon {
-    font-size: 14px;
-    height: 22px;
-    color: #757575;
-}
-
-.dropdownOptions {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    margin-top: 8px;
-    padding: 0;
-    list-style: none;
-    background-color: #ffffff;
-    border: 1px solid #d1d1d1;
-    border-radius: 2px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-height: 220px;
-    overflow-y: auto;
-    z-index: 1000;
-    font-size: 18px;
-    color: #ad8e28;
-    display: none;
-    opacity: 0;
-    height: 0;
-    transition:
-        opacity 0.3s ease,
-        height 0.3s ease;
-
-    @media (max-width: 768px) {
-        font-size: 16px;
-    }
-}
-
-.dropdownOptions.open {
-    display: block;
-    opacity: 1;
-    height: auto;
-}
-
-.dropdownOptions li {
-    padding: 15px;
-    font-family: "Montserrat", sans-serif;
-    font-size: 18px;
-    color: #ad8e28;
-    cursor: pointer;
-    @media (max-width: 768px) {
-        font-size: 16px;
-    }
-}
-
-.dropdownOptions li:hover {
-    background-color: #f0f0f0;
+    padding: 2px 2px;
 }
 
 .invalid {
     outline: 4px solid red !important;
+    border-radius: 4px;
 }
-.errorMessage {
-    margin-top: 8px;
+
+.dropdown,
+.dropdownSingleValue {
+    color: #ad8e28 !important;
 }

@@ -41,6 +41,7 @@ const Education: React.FC<PropTypes> = ({ onChangePage }) => {
                 name="university"
                 label="What university do you attend"
                 options={schoolOptions}
+                creatable
                 required
             />
 
@@ -58,16 +59,20 @@ const Education: React.FC<PropTypes> = ({ onChangePage }) => {
                 required
             />
 
-            <div className={styles.dropdownContainer}>
-                <Dropdown
-                    name="major"
-                    label="Major"
-                    options={majorOptions}
-                    required
-                />
+            <Dropdown
+                name="major"
+                label="Major"
+                options={majorOptions}
+                creatable
+                required
+            />
 
-                <Dropdown name="minor" label="Minor" options={majorOptions} />
-            </div>
+            <Dropdown
+                name="minor"
+                label="Minor"
+                options={majorOptions}
+                creatable
+            />
 
             <FileUpload
                 className={styles["resume-upload"]}

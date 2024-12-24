@@ -8,17 +8,6 @@
     }
 }
 
-.row {
-    display: flex;
-    flex-direction: row;
-    gap: 3rem;
-    align-items: flex-start;
-    @media (max-width: 768px) {
-        flex-direction: column;
-        gap: 1rem;
-    }
-}
-
 .field {
     flex: 5;
     @media (max-width: 768px) {

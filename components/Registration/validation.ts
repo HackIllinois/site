@@ -4,7 +4,7 @@ const personalInfo = yup.object({
     legalName: yup.string().required("Please enter your full legal name"),
     preferredName: yup.string().required("Please enter your preferred name"),
     gender: yup.string().required("Please select a gender"),
-    race: yup.string().required("Please select an ethnicity/race"),
+    race: yup.array(yup.string()).required("Please select an ethnicity/race"),
     emailAddress: yup
         .string()
         .required("Please enter your email address")
