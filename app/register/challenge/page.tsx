@@ -57,7 +57,8 @@ const ProChallenge: React.FC = () => {
 
         let passedChallenge;
         try {
-            passedChallenge = await getChallenge();
+            const challenge = await getChallenge();
+            passedChallenge = challenge.complete;
         } catch {
             return; // Just leave the user on the same page
         }
