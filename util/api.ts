@@ -8,7 +8,7 @@ import {
     ChallengeStatus
 } from "./types";
 
-const APIv2 = "http://localhost:3000";
+const APIv2 = "https://adonix.hackillinois.org";
 
 export class APIError extends Error {
     status: number;
