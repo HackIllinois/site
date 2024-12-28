@@ -7,7 +7,7 @@ export type RegistrationData = {
     legalName: string;
     preferredName: string;
     gender: string;
-    race: string;
+    race: string[];
     emailAddress: string;
     location: string;
     degree: string;

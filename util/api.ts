@@ -184,7 +184,7 @@ export function registrationToAPI(
 ): RegistrationType {
     return {
         ...registration,
-        race: [registration.race],
+        race: registration.race,
         requestedTravelReimbursement:
             registration.requestedTravelReimbursement[0] === "YES",
         gradYear:
@@ -210,7 +210,6 @@ export function registrationFromAPI(
 
     return {
         ...registration,
-        race: registration.race.length === 1 ? registration.race[0] : "",
         gradYear: registration.gradYear === 0 ? "" : `${registration.gradYear}`,
         requestedTravelReimbursement,
         considerForGeneral:
