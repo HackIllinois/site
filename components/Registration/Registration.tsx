@@ -136,24 +136,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     return (
         <>
             {isLoading && <Loading />}
-            {/* <Image
-                    src={
-                        !windowSizeHook?.width || windowSizeHook?.width > 768
-                            ? backgrounds[formIndex]
-                            : backgroundsMobile[formIndex]
-                    }
-                    alt="Background"
-                    className={styles.background}
-                /> */}
-            <div
-                // style={{
-                //     backgroundImage:
-                //         !windowSizeHook?.width || windowSizeHook?.width > 768
-                //             ? `url(${backgrounds[formIndex].src})`
-                //             : `url(${backgroundsMobile[formIndex].src})`
-                // }}
-                className={styles.container}
-            >
+            <div className={styles.container}>
                 <Image
                     src={
                         !windowSizeHook?.width || windowSizeHook?.width > 768
@@ -163,7 +146,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                     alt="Background"
                     className={styles.background}
                 />
-                {/* <div className={styles.scrollWrapper}> */}
                 <div className={styles.contentWrapper}>
                     <ProgressBar
                         onChangePage={handlePageChange}
@@ -224,7 +206,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                         </div>
                     </div>
                 </div>
-                {/* </div> */}
             </div>
         </>
     );
