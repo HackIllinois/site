@@ -18,23 +18,23 @@ const Registration: React.FC = () => {
     const [data, setData] = useState<RegistrationType | null>(null);
 
     useEffect(() => {
-        // if (!isAuthenticated()) {
-        //     authenticate(window.location.href);
-        //     return;
-        // }
-        // getRegistrationOrDefault()
-        //     .then(registration => {
-        //         if (registration.hasSubmitted) {
-        //             window.location.replace("/profile");
-        //         }
-        //         if ("_id" in registration) {
-        //             window.location.replace("/register/general");
-        //         }
-        //         setData(registration);
-        //     })
-        //     .finally(() => {
-        //         setIsLoading(false);
-        //     });
+        if (!isAuthenticated()) {
+            authenticate(window.location.href);
+            return;
+        }
+        getRegistrationOrDefault()
+            .then(registration => {
+                if (registration.hasSubmitted) {
+                    window.location.replace("/profile");
+                }
+                if ("_id" in registration) {
+                    window.location.replace("/register/general");
+                }
+                setData(registration);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
     }, []);
 
     return (
