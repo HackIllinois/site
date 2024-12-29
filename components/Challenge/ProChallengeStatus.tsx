@@ -45,7 +45,7 @@ const ProChallengeStatus: React.FC<ProChallengeStatusProps> = ({ success }) => {
                             text={"CONTINUE"}
                             backgroundColor={"#A3B6CE"}
                             onClick={() => {
-                                window.location.href = "/register";
+                                window.location.href = "/register/general";
                             }}
                         />
 
@@ -128,7 +128,7 @@ const ProChallengeStatus: React.FC<ProChallengeStatusProps> = ({ success }) => {
                                 text={"CONTINUE"}
                                 backgroundColor={"#B79138"}
                                 onClick={() => {
-                                    window.location.href = "/register";
+                                    window.location.href = "/register/general";
                                 }}
                                 horizontalPaddingDisabled
                             />
