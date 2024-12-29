@@ -1,34 +1,83 @@
 .screen {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100vw;
     min-height: 100vh;
-    padding: 10px;
+    gap: 30px;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.logo {
+    height: fit-content;
+    width: 55vw;
+    max-width: 1000px;
+
+    @media screen and (max-width: 640px) {
+        width: 90vw;
+    }
 }
 
 .container {
-    width: 100%;
-    max-width: 500px;
+    flex: 3;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
-    background-color: gray;
-    padding: 50px 0;
-    padding-bottom: 70px;
-    border-radius: 30px;
+    gap: 10px;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+
+    width: 100vw;
+    max-width: 1000px;
+    padding: 50px;
+
+    @media screen and (max-width: 500px) {
+        background-size: cover;
+        padding: 0;
+    }
+}
+
+.container .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    flex: 0.2;
+    @media screen and (max-width: 640px) {
+        flex: 2;
+    }
+}
+
+.container .spacer {
+    flex: 0.6;
 }
 
 .container h2 {
     position: relative;
     z-index: 4;
     text-align: center;
+    color: #34274a;
 }
 
 .container .link {
+    color: #34274a;
     position: relative;
     text-align: center;
     text-decoration: underline;
-    text-decoration-color: #004561;
+    text-decoration-color: #34274a;
+    padding-top: 14px;
+}
+
+.container .signUpAsButtons {
+    flex: 1;
+}
+
+.topSpacer {
+    flex: 3;
 }

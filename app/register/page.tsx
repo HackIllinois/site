@@ -18,31 +18,28 @@ import { RegistrationType, WithId } from "@/util/types";
 import Loading from "@/components/Loading/Loading";
 
 const Registration: React.FC = () => {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState<RegistrationType | null>(null);
     const [hasChosen, setHasChosen] = useState<boolean>(false);
 
     useEffect(() => {
-        if (!isAuthenticated()) {
-            authenticate(window.location.href);
-            return;
-        }
-
-        getRegistrationOrDefault()
-            .then(registration => {
-                if (registration.hasSubmitted) {
-                    window.location.replace("/profile");
-                }
-
-                if ("_id" in registration) {
-                    setHasChosen(true);
-                }
-
-                setData(registration);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        // if (!isAuthenticated()) {
+        //     authenticate(window.location.href);
+        //     return;
+        // }
+        // getRegistrationOrDefault()
+        //     .then(registration => {
+        //         if (registration.hasSubmitted) {
+        //             window.location.replace("/profile");
+        //         }
+        //         if ("_id" in registration) {
+        //             setHasChosen(true);
+        //         }
+        //         setData(registration);
+        //     })
+        //     .finally(() => {
+        //         setIsLoading(false);
+        //     });
     }, []);
 
     return (

@@ -7,16 +7,17 @@ import CHEST from "@/public/home/olympian/chest.svg";
 import FRONT_CLOUDS from "@/public/home/olympian/front-clouds.svg";
 import BACK_CLOUDS from "@/public/home/olympian/back-clouds.svg";
 import BACKGROUND from "@/public/home/olympian/staircase-background.svg";
+import OlympianButton from "@/components/OlympianButton/OlympianButton";
 
 const Olympian: React.FC = () => {
     return (
         <section className={styles.olympianMain}>
             <Image alt="HackOlympus Logo" src={LOGO} className={styles.logo} />
-            <div className={styles.olympianButtonWrapper}>
-                <button className={styles.olympianButton}>
-                    <a href="/register">Register Now</a>
-                </button>
-            </div>
+            <OlympianButton
+                text="Register Now"
+                link="/register"
+                bottomPadding
+            />
             <Image alt="chest" src={CHEST} className={styles.chest} />
             <Image
                 alt="cloud"
