@@ -29,14 +29,43 @@
     }
 
     &:hover::before {
-        background-color: rgba(26, 188, 156, 0.5);
-    }
-
-    &.checked::before {
-        background-color: #1abc9c;
+        opacity: 0.5;
     }
 
     .checkbox {
         display: none;
     }
+}
+
+.checkboxSvg {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    margin-left: -52px;
+    pointer-events: none;
+    fill: none;
+    @media (max-width: 768px) {
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        min-height: 24px;
+        margin-left: -48px;
+    }
+}
+
+.checkboxSvg path {
+    stroke: #ffffff;
+    stroke-width: 0;
+    fill: none;
+    transition: stroke-dashoffset 0.2s ease-in;
+}
+
+.checkboxSvg path + path {
+    transition: stroke-dashoffset 0.2s ease-out 0.2s;
+}
+
+.checkbox:checked ~ .checkboxSvg path {
+    stroke-dashoffset: 0;
+    stroke-width: 10px;
 }
