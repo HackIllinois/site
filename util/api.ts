@@ -44,10 +44,7 @@ export const isAuthenticated = (): string | null =>
 
 export function authenticate(to: string): void {
     localStorage.setItem("to", to);
-    const authUrl =
-        process.env.NODE_ENV == "development"
-            ? `${APIv2}/auth/login/github/?redirect=${window.location.origin}/auth/`
-            : `${APIv2}/auth/login/github/?device=web`;
+    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/auth/`;
     window.location.replace(authUrl);
 }
 
