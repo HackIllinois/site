@@ -81,12 +81,10 @@ const buttonNames: Array<[string, string]> = [
 
 type RegistrationFormProps = {
     registration: RegistrationData;
-    setHasChosen: (hasChosen: boolean) => void;
 };
 
 const RegistrationForm: React.FC<RegistrationFormProps> = ({
-    registration,
-    setHasChosen
+    registration
 }) => {
     const windowSizeHook = useWindowSize();
     const [formIndex, setFormIndex] = useState(0);
@@ -99,7 +97,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         }
 
         if (newIndex < 0) {
-            setHasChosen(false);
             return;
         }
 

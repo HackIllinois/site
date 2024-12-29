@@ -1,26 +1,21 @@
 "use client";
-import RegistrationForm from "@/components/Registration/Registration";
 import Head from "next/head";
 
-import styles from "./styles.module.scss";
-import { useEffect, useState } from "react";
+import Loading from "@/components/Loading/Loading";
+import TrackSelection from "@/components/Registration/TrackSelection/TrackSelection";
 import {
     authenticate,
-    getRegistration,
     getRegistrationOrDefault,
     isAuthenticated,
-    registerUpdate,
-    registrationFromAPI,
-    registrationToAPI
+    registerUpdate
 } from "@/util/api";
-import TrackSelection from "@/components/Registration/TrackSelection/TrackSelection";
-import { RegistrationType, WithId } from "@/util/types";
-import Loading from "@/components/Loading/Loading";
+import { RegistrationType } from "@/util/types";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 
 const Registration: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState<RegistrationType | null>(null);
-    const [hasChosen, setHasChosen] = useState<boolean>(false);
 
     useEffect(() => {
         // if (!isAuthenticated()) {
@@ -33,7 +28,7 @@ const Registration: React.FC = () => {
         //             window.location.replace("/profile");
         //         }
         //         if ("_id" in registration) {
-        //             setHasChosen(true);
+        //             window.location.replace("/register/general");
         //         }
         //         setData(registration);
         //     })
@@ -49,20 +44,13 @@ const Registration: React.FC = () => {
             </Head>
             <main className={styles.container}>
                 {isLoading && <Loading />}
-                {hasChosen ? (
-                    <RegistrationForm
-                        registration={registrationFromAPI(data!)}
-                        setHasChosen={setHasChosen}
-                    />
-                ) : (
-                    <TrackSelection
-                        handleGeneral={() => {
-                            data!.isProApplicant = false; // alows backing out of the pro track after completing the challenge
-                            registerUpdate(data!);
-                            setHasChosen(true);
-                        }}
-                    />
-                )}
+                <TrackSelection
+                    handleGeneral={() => {
+                        data!.isProApplicant = false; // alows backing out of the pro track after completing the challenge
+                        registerUpdate(data!);
+                        window.location.replace("/register/general");
+                    }}
+                />
             </main>
         </>
     );
