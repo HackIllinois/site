@@ -13,6 +13,7 @@ import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { Formik, Form, FormikHelpers } from "formik";
 import { registerSubmit, registerUpdate, registrationToAPI } from "@/util/api";
 import { RegistrationData } from "@/util/types";
+import Image from "next/image";
 
 import PERSONAL_INFO from "@/public/registration/backgrounds/personal_info.svg";
 import EDUCATION from "@/public/registration/backgrounds/education.svg";
@@ -135,62 +136,74 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     return (
         <>
             {isLoading && <Loading />}
-            <div
-                style={{
-                    backgroundImage:
+            <div className={styles.container}>
+                <Image
+                    src={
                         !windowSizeHook?.width || windowSizeHook?.width > 768
-                            ? `url(${backgrounds[formIndex].src})`
-                            : `url(${backgroundsMobile[formIndex].src})`
-                }}
-                className={styles.container}
-            >
+                            ? backgrounds[formIndex]
+                            : backgroundsMobile[formIndex]
+                    }
+                    alt="Background"
+                    className={styles.background}
+                />
                 <div className={styles.contentWrapper}>
                     <ProgressBar
                         onChangePage={handlePageChange}
                         furthestPage={furthestPage}
                         disabled={formIndex === submittedPageIndex}
                     />
-                    <div className={styles.formWrapper}>
-                        <div className={styles.formContent}>
-                            <Formik
-                                initialValues={registration}
-                                onSubmit={onSubmit}
-                                validationSchema={getRegistrationSchema(
-                                    formIndex,
-                                    registration.isProApplicant
-                                )}
-                                enableReinitialize
-                            >
-                                <Form className={styles.form}>
-                                    {React.createElement(pages[formIndex], {
-                                        onChangePage: handlePageChange,
-                                        proTrack: registration.isProApplicant
-                                    })}
-                                    {formIndex !== submittedPageIndex && (
-                                        <div className={styles.navigation}>
-                                            <NavigationButton
-                                                text={buttonNames[formIndex][0]}
-                                                onClick={previousPage}
-                                                type="button"
-                                            />
-                                            <NavigationButton
-                                                text={buttonNames[formIndex][1]}
-                                                pointRight
-                                                type="submit"
-                                            />
-                                        </div>
+                    <div className={styles.scrollWrapper}>
+                        <div className={styles.formWrapper}>
+                            <div className={styles.formContent}>
+                                <Formik
+                                    initialValues={registration}
+                                    onSubmit={onSubmit}
+                                    validationSchema={getRegistrationSchema(
+                                        formIndex,
+                                        registration.isProApplicant
                                     )}
-                                </Form>
-                            </Formik>
-                        </div>
-                        {characters[formIndex] && (
-                            <div className={styles.character}>
-                                <img
-                                    src={characters[formIndex].src}
-                                    alt="Character"
-                                />
+                                    enableReinitialize
+                                >
+                                    <Form className={styles.form}>
+                                        {React.createElement(pages[formIndex], {
+                                            onChangePage: handlePageChange,
+                                            proTrack:
+                                                registration.isProApplicant
+                                        })}
+                                        {formIndex !== submittedPageIndex && (
+                                            <div className={styles.navigation}>
+                                                <NavigationButton
+                                                    text={
+                                                        buttonNames[
+                                                            formIndex
+                                                        ][0]
+                                                    }
+                                                    onClick={previousPage}
+                                                    type="button"
+                                                />
+                                                <NavigationButton
+                                                    text={
+                                                        buttonNames[
+                                                            formIndex
+                                                        ][1]
+                                                    }
+                                                    pointRight
+                                                    type="submit"
+                                                />
+                                            </div>
+                                        )}
+                                    </Form>
+                                </Formik>
                             </div>
-                        )}
+                            {characters[formIndex] && (
+                                <div className={styles.character}>
+                                    <img
+                                        src={characters[formIndex].src}
+                                        alt="Character"
+                                    />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

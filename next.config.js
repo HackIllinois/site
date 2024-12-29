@@ -4,6 +4,12 @@ const nextConfig = {
         return [
             {
                 source: "/",
+                has: [
+                    {
+                        type: "host",
+                        value: "hackillinois.org"
+                    }
+                ],
                 destination: "https://hype.hackillinois.org",
                 permanent: false
             }
