@@ -37,8 +37,9 @@
     max-width: 1000px;
     padding: 50px;
 
-    @media screen and (max-width: 500px) {
-        background-size: cover;
+    @media screen and (max-width: 640px) {
+        flex: 2;
+        // background-size: cover;
         padding: 0;
     }
 }
@@ -50,7 +51,15 @@
     gap: 20px;
     flex: 0.9;
     @media screen and (max-width: 640px) {
-        flex: 2;
+        flex: 1;
+    }
+}
+
+.container .topSpacer {
+    display: none;
+    @media screen and (max-width: 640px) {
+        flex: 0.6;
+        display: flex;
     }
 }
 

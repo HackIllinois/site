@@ -28,9 +28,9 @@ const OlympianButton: React.FC<OlympianButtonProps> = ({
             )}
         >
             {link ? (
-                <button className={styles.olympianButton}>
-                    <a href={link}>{text}</a>
-                </button>
+                <a href={link}>
+                    <button className={styles.olympianButton}>{text}</button>
+                </a>
             ) : (
                 <button className={styles.olympianButton} onClick={onClick}>
                     {text}

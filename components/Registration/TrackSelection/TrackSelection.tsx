@@ -8,11 +8,7 @@ import BACKGROUND from "@/public/registration/track_selection/background.svg";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
 import Image from "next/image";
 
-type TrackSelectionProps = {
-    handleGeneral: () => void;
-};
-
-const TrackSelection: React.FC<TrackSelectionProps> = ({ handleGeneral }) => {
+const TrackSelection: React.FC = () => {
     return (
         <div
             style={{
@@ -32,6 +28,7 @@ const TrackSelection: React.FC<TrackSelectionProps> = ({ handleGeneral }) => {
                 }}
                 className={styles.container}
             >
+                <div className={styles.topSpacer}></div>
                 <div className={styles.content}>
                     <h2>Sign Up As:</h2>
                     <OlympianButton
@@ -44,10 +41,9 @@ const TrackSelection: React.FC<TrackSelectionProps> = ({ handleGeneral }) => {
                             What is this?
                         </a>
                     </p>
-
                     <OlympianButton
                         text="General Attendee"
-                        onClick={handleGeneral}
+                        link="/register/general"
                         gold
                     />
                 </div>
