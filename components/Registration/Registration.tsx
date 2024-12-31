@@ -97,6 +97,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         }
 
         if (newIndex < 0) {
+            window.location.href = "/register/";
             return;
         }
 
