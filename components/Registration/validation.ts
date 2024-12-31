@@ -61,7 +61,7 @@ const transportation = yup.object({
     travelAcknowledge: yup
         .array()
         .of(yup.string())
-        // with only yes selected
+        .min(1, "Please select one option")
         .test("acknowledge", "Please acknowledge", value => {
             return value && value.length === 1 && value[0] === "YES";
         })
