@@ -1,5 +1,5 @@
 "use client";
-import React, { ElementType, useState } from "react";
+import React, { ElementType, useEffect, useRef, useState } from "react";
 import styles from "./Registration.module.scss";
 import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
@@ -86,10 +86,12 @@ type RegistrationFormProps = {
 const RegistrationForm: React.FC<RegistrationFormProps> = ({
     registration
 }) => {
+    const formRef = useRef<HTMLFormElement | null>(null);
     const windowSizeHook = useWindowSize();
     const [formIndex, setFormIndex] = useState(0);
     const [furthestPage, setFurthestPage] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const [shouldExit, setShouldExit] = useState(false);
 
     const handlePageChange = (newIndex: number) => {
         if (newIndex >= pages.length) {
@@ -97,7 +99,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         }
 
         if (newIndex < 0) {
-            window.location.href = "/register/";
+            setShouldExit(true);
             return;
         }
 
@@ -109,11 +111,27 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         setIsLoading(false);
     };
 
-    const previousPage = () => {
+    const onSubmit = async (values: RegistrationData) => {
+        registration = {
+            ...registration,
+            ...values
+        };
+
+        await registerUpdate(registrationToAPI(registration));
+        if (shouldExit) {
+            window.location.href = "/register";
+        }
+    };
+
+    const previousPage = async () => {
+        setIsLoading(true);
+        if (formRef.current) {
+            formRef.current.requestSubmit();
+        }
         handlePageChange(formIndex - 1);
     };
 
-    const onSubmit = async (values: RegistrationData) => {
+    const nextPage = async () => {
         setIsLoading(true);
 
         if (formIndex === reviewPageIndex) {
@@ -122,12 +140,10 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             return;
         }
 
-        registration = {
-            ...registration,
-            ...values
-        };
+        if (formRef.current) {
+            formRef.current.requestSubmit();
+        }
 
-        await registerUpdate(registrationToAPI(registration));
         handlePageChange(formIndex + 1);
     };
 
@@ -154,6 +170,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                         <div className={styles.formWrapper}>
                             <div className={styles.formContent}>
                                 <Formik
+                                    ref={formRef}
                                     initialValues={registration}
                                     onSubmit={onSubmit}
                                     validationSchema={getRegistrationSchema(
@@ -177,7 +194,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                                                         ][0]
                                                     }
                                                     onClick={previousPage}
-                                                    type="button"
+                                                    type="submit"
                                                 />
                                                 <NavigationButton
                                                     text={
@@ -185,6 +202,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                                                             formIndex
                                                         ][1]
                                                     }
+                                                    onClick={nextPage}
                                                     pointRight
                                                     type="submit"
                                                 />
