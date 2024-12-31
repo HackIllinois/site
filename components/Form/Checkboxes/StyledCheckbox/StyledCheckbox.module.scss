@@ -29,11 +29,16 @@
     }
 
     &:hover::before {
-        opacity: 0.5;
+        border: 2px solid #ad8e28;
     }
 
     .checkbox {
         display: none;
+    }
+
+    &:hover .checkboxSvg path {
+        stroke-dashoffset: 0;
+        stroke-width: 10px;
     }
 }
 
@@ -55,10 +60,12 @@
 }
 
 .checkboxSvg path {
-    stroke: #ffffff;
+    stroke: #ad8e28;
     stroke-width: 0;
     fill: none;
-    transition: stroke-dashoffset 0.2s ease-in;
+    transition:
+        stroke-dashoffset 0.2s ease-in-out,
+        stroke-width 0.2s ease-in-out;
 }
 
 .checkboxSvg path + path {
