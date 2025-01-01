@@ -24,6 +24,7 @@ export type RegistrationData = {
     hackInterest: string[];
     dietaryRestrictions: string[];
     requestedTravelReimbursement: string[];
+    travelAcknowledge: string[];
     isProApplicant: boolean;
 };
 

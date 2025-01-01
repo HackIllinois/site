@@ -162,7 +162,6 @@ export async function uploadFile(file: File, type: FileType): Promise<unknown> {
 export function registerUpdate(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
-    console.log("submitted", registration);
     return requestv2("POST", `/registration`, registration).catch(body =>
         handleError(body)
     );
@@ -181,7 +180,6 @@ export function registrationToAPI(
 ): RegistrationType {
     return {
         ...registration,
-        race: registration.race,
         requestedTravelReimbursement:
             registration.requestedTravelReimbursement[0] === "YES",
         gradYear:
@@ -197,9 +195,9 @@ export function registrationToAPI(
 export function registrationFromAPI(
     registration: RegistrationType
 ): RegistrationData {
-    // If user has not submitted Hack-Specific, the travelReimbursement field should not have a selection
+    // Convert boolean requested travel reimbursement to yes/no selection
     const requestedTravelReimbursement = [];
-    if (registration.hackOutreach.length !== 0) {
+    if (registration.requestedTravelReimbursement !== undefined) {
         requestedTravelReimbursement.push(
             registration.requestedTravelReimbursement ? "YES" : "NO"
         );
@@ -214,7 +212,8 @@ export function registrationFromAPI(
                 ? undefined
                 : registration.considerForGeneral
                   ? ["YES"]
-                  : ["NO"]
+                  : ["NO"],
+        travelAcknowledge: [] // Must default to an empty array for formik
     };
 }
 

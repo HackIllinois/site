@@ -73,9 +73,9 @@ const characters = [ARTEMIS, APOLLO, null, NONE, null];
 
 const buttonNames: Array<[string, string]> = [
     ["Back", "Education"],
-    ["Personal Info", "Experience"],
+    ["Personal Info", "Hack-Specific"],
     ["Education", "Transportation"],
-    ["Experience", "Review Info"],
+    ["Hack-Specific", "Review Info"],
     ["Transportation", "Submit"]
 ];
 
@@ -90,44 +90,72 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     const [formIndex, setFormIndex] = useState(0);
     const [furthestPage, setFurthestPage] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const scrollWrapperRef = useRef<HTMLDivElement>(null);
+    const formikRef = useRef<FormikProps<RegistrationData>>(null);
 
-    const handlePageChange = (newIndex: number) => {
-        if (newIndex >= pages.length) {
-            return; // This shouldn't happen
-        }
-
-        if (newIndex < 0) {
-            window.location.href = "/register";
-            return;
-        }
-
+    const loadPage = async (newIndex: number) => {
         setFormIndex(() => newIndex);
         if (newIndex > furthestPage) {
             setFurthestPage(newIndex);
         }
         window.scroll(0, 0); // Scroll to top of page
+        scrollWrapperRef.current?.scroll(0, 0); // Scroll to top of page in inner scroll wrapper
+    };
+
+    const handlePageChange = async (newIndex: number) => {
+        if (newIndex >= pages.length) {
+            return; // This shouldn't happen
+        }
+
+        // Wait for the form to load
+        if (!formikRef.current) {
+            return;
+        }
+
+        // If the current form is invalid, we can't change pages yet
+        // Only check if the form has been modified
+        const touched = Object.values(formikRef.current.touched).includes(true);
+        if (touched) {
+            const errors = await formikRef.current.validateForm();
+            if (Object.keys(errors).length > 0) {
+                setIsLoading(false);
+                return;
+            }
+        }
+
+        // Check if back to selection page
+        if (newIndex < 0) {
+            window.location.href = "/register";
+            return;
+        }
+
+        // Update data
+        registration = {
+            ...registration,
+            ...formikRef.current.values
+        };
+        setIsLoading(true);
+        await registerUpdate(registrationToAPI(registration));
         setIsLoading(false);
+
+        // Update page
+        loadPage(newIndex);
+        formikRef.current.setTouched({}, false); // Reset fields to not be touched
     };
 
     const previousPage = () => {
         handlePageChange(formIndex - 1);
     };
 
-    const onSubmit = async (values: RegistrationData) => {
-        setIsLoading(true);
-
+    const nextPage = async (_values: RegistrationData) => {
         if (formIndex === reviewPageIndex) {
+            setIsLoading(true);
             await registerSubmit(registrationToAPI(registration));
-            handlePageChange(submittedPageIndex);
+            setIsLoading(false);
+            loadPage(submittedPageIndex); // Load page instead of handle to skip validation & updating
             return;
         }
 
-        registration = {
-            ...registration,
-            ...values
-        };
-
-        await registerUpdate(registrationToAPI(registration));
         handlePageChange(formIndex + 1);
     };
 
@@ -150,12 +178,16 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                         furthestPage={furthestPage}
                         disabled={formIndex === submittedPageIndex}
                     />
-                    <div className={styles.scrollWrapper}>
+                    <div
+                        className={styles.scrollWrapper}
+                        ref={scrollWrapperRef}
+                    >
                         <div className={styles.formWrapper}>
                             <div className={styles.formContent}>
                                 <Formik
+                                    innerRef={formikRef}
                                     initialValues={registration}
-                                    onSubmit={onSubmit}
+                                    onSubmit={nextPage}
                                     validationSchema={getRegistrationSchema(
                                         formIndex,
                                         registration.isProApplicant
