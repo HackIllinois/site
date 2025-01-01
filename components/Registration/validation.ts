@@ -50,22 +50,15 @@ const hackSpecific = yup.object({
         .min(1, "Please select at least one option"),
     dietaryRestrictions: yup
         .array()
-        .of(yup.string().required('"Other" cannot be empty')),
-    requestedTravelReimbursement: yup
-        .array()
-        .of(yup.string())
-        .min(1, "Please select one option")
+        .of(yup.string().required('"Other" cannot be empty'))
 });
 
 const transportation = yup.object({
-    travelAcknowledge: yup
+    requestedTravelReimbursement: yup
         .array()
         .of(yup.string())
         .min(1, "Please select one option"),
-    travelMethod: yup
-        .array()
-        .of(yup.string())
-        .min(1, "Please select one option")
+    travelAcknowledge: yup.array().of(yup.string()).min(1, "Please acknowledge")
 });
 
 const registrationSchemas = [

@@ -1,5 +1,5 @@
 "use client";
-import React, { ElementType, useState } from "react";
+import React, { ElementType, useEffect, useRef, useState } from "react";
 import styles from "./Registration.module.scss";
 import Transportation from "./Pages/Transportation/Transportation";
 import Education from "./Pages/Education/Education";
@@ -10,7 +10,7 @@ import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
 import ApplicationSubmitted from "./Pages/ApplicationSubmitted/ApplicationSubmitted";
 import { getRegistrationSchema } from "./validation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
-import { Formik, Form, FormikHelpers } from "formik";
+import { Formik, Form, FormikHelpers, FormikProps } from "formik";
 import { registerSubmit, registerUpdate, registrationToAPI } from "@/util/api";
 import { RegistrationData } from "@/util/types";
 import Image from "next/image";
@@ -81,12 +81,10 @@ const buttonNames: Array<[string, string]> = [
 
 type RegistrationFormProps = {
     registration: RegistrationData;
-    setHasChosen: (hasChosen: boolean) => void;
 };
 
 const RegistrationForm: React.FC<RegistrationFormProps> = ({
-    registration,
-    setHasChosen
+    registration
 }) => {
     const windowSizeHook = useWindowSize();
     const [formIndex, setFormIndex] = useState(0);
@@ -99,7 +97,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         }
 
         if (newIndex < 0) {
-            setHasChosen(false);
+            window.location.href = "/register";
             return;
         }
 

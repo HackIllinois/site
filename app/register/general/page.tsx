@@ -1,29 +1,33 @@
 "use client";
-import Head from "next/head";
 
-import TrackSelection from "@/components/Registration/TrackSelection/TrackSelection";
+import RegistrationForm from "@/components/Registration/Registration";
 import {
     authenticate,
     getRegistrationOrDefault,
-    isAuthenticated
+    isAuthenticated,
+    registrationFromAPI
 } from "@/util/api";
+import { RegistrationType } from "@/util/types";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import Loading from "@/components/Loading/Loading";
 
-const Registration: React.FC = () => {
+const GeneralRegistration: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
+    const [data, setData] = useState<RegistrationType | null>(null);
+
     useEffect(() => {
         if (!isAuthenticated()) {
             authenticate(window.location.href);
             return;
         }
-
         getRegistrationOrDefault()
             .then(registration => {
                 if (registration.hasSubmitted) {
                     window.location.replace("/profile");
                 }
+                setData(registration);
             })
             .finally(() => {
                 setIsLoading(false);
@@ -37,10 +41,14 @@ const Registration: React.FC = () => {
             </Head>
             <main className={styles.container}>
                 {isLoading && <Loading />}
-                <TrackSelection />
+                {data && (
+                    <RegistrationForm
+                        registration={registrationFromAPI(data!)}
+                    />
+                )}
             </main>
         </>
     );
 };
 
-export default Registration;
+export default GeneralRegistration;

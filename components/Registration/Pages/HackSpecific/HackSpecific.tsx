@@ -92,19 +92,6 @@ const allergiesRestrictionsOptions = [
     { label: "Other", value: "OTHER", isOther: true }
 ] satisfies CheckboxOption[];
 
-const travelReimbursementOptions = [
-    {
-        label: "Yes",
-        value: "YES",
-        isRadio: true
-    },
-    {
-        label: "No",
-        value: "NO",
-        isRadio: true
-    }
-] satisfies CheckboxOption[];
-
 type PropTypes = {
     onChangePage: (newIndex: number) => void;
     proTrack: boolean;
@@ -177,14 +164,6 @@ const HackSpecific: React.FC<PropTypes> = ({ onChangePage, proTrack }) => {
                 name="dietaryRestrictions"
                 label="What food restrictions or allergies do you have?"
                 options={allergiesRestrictionsOptions}
-            />
-
-            <Checkboxes
-                name="requestedTravelReimbursement"
-                label="Would you like to be considered for travel reimbursement?"
-                options={travelReimbursementOptions}
-                required
-                threeColEnabled
             />
         </div>
     );
