@@ -86,13 +86,10 @@ type RegistrationFormProps = {
 const RegistrationForm: React.FC<RegistrationFormProps> = ({
     registration
 }) => {
-    const formRef = useRef<FormikProps<RegistrationData> | null>(null);
-
     const windowSizeHook = useWindowSize();
     const [formIndex, setFormIndex] = useState(0);
     const [furthestPage, setFurthestPage] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
-    const [shouldExit, setShouldExit] = useState(false);
 
     const handlePageChange = (newIndex: number) => {
         if (newIndex >= pages.length) {
@@ -100,7 +97,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         }
 
         if (newIndex < 0) {
-            setShouldExit(true);
+            window.location.href = "/register";
             return;
         }
 
@@ -112,41 +109,12 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         setIsLoading(false);
     };
 
+    const previousPage = () => {
+        handlePageChange(formIndex - 1);
+    };
+
     const onSubmit = async (values: RegistrationData) => {
-        registration = {
-            ...registration,
-            ...values
-        };
-
-        await registerUpdate(registrationToAPI(registration));
-        if (shouldExit) {
-            window.location.href = "/register";
-        }
-    };
-
-    const previousPage = async () => {
         setIsLoading(true);
-        if (formRef.current) {
-            const errors = await formRef.current.validateForm();
-            if (Object.keys(errors).length === 0) {
-                handlePageChange(formIndex - 1);
-            } else {
-                setIsLoading(false); // Stop loading if validation fails
-            }
-        }
-    };
-
-    const nextPage = async () => {
-        setIsLoading(true);
-
-        if (formRef.current) {
-            const errors = await formRef.current.validateForm();
-
-            if (Object.keys(errors).length > 0) {
-                setIsLoading(false); // Stop loading if validation fails
-                return; // Prevent navigation
-            }
-        }
 
         if (formIndex === reviewPageIndex) {
             await registerSubmit(registrationToAPI(registration));
@@ -154,6 +122,12 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             return;
         }
 
+        registration = {
+            ...registration,
+            ...values
+        };
+
+        await registerUpdate(registrationToAPI(registration));
         handlePageChange(formIndex + 1);
     };
 
@@ -180,7 +154,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                         <div className={styles.formWrapper}>
                             <div className={styles.formContent}>
                                 <Formik
-                                    innerRef={formRef}
                                     initialValues={registration}
                                     onSubmit={onSubmit}
                                     validationSchema={getRegistrationSchema(
@@ -204,6 +177,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                                                         ][0]
                                                     }
                                                     onClick={previousPage}
+                                                    type="button"
                                                 />
                                                 <NavigationButton
                                                     text={
@@ -211,8 +185,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                                                             formIndex
                                                         ][1]
                                                     }
-                                                    onClick={nextPage}
                                                     pointRight
+                                                    type="submit"
                                                 />
                                             </div>
                                         )}
