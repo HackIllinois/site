@@ -20,6 +20,7 @@
         height: 32px;
         border: 2px solid #ffffff;
         border-radius: 0.25em;
+        transition: border-color 0.2s ease-in-out;
         @media (max-width: 768px) {
             min-width: 28px;
             min-height: 28px;
@@ -30,7 +31,6 @@
 
     &:hover::before {
         border: 2px solid #ad8e28;
-        transition: border-color 0.2s ease-in-out;
     }
 
     .checkbox {
