@@ -204,7 +204,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                                                         ][0]
                                                     }
                                                     onClick={previousPage}
-                                                    // type="submit"
                                                 />
                                                 <NavigationButton
                                                     text={
@@ -214,7 +213,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                                                     }
                                                     onClick={nextPage}
                                                     pointRight
-                                                    // type="submit"
                                                 />
                                             </div>
                                         )}
