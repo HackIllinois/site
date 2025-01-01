@@ -6,13 +6,8 @@ import React from "react";
 
 const travelAcknowledgeOptions = [
     {
-        label: "Yes",
+        label: "I acknowledge",
         value: "YES",
-        isRadio: true
-    },
-    {
-        label: "No",
-        value: "NO",
         isRadio: true
     }
 ] satisfies CheckboxOption[];

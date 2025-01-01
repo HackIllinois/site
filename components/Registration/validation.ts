@@ -58,13 +58,7 @@ const transportation = yup.object({
         .array()
         .of(yup.string())
         .min(1, "Please select one option"),
-    travelAcknowledge: yup
-        .array()
-        .of(yup.string())
-        .min(1, "Please select one option")
-        .test("acknowledge", "Please acknowledge", value => {
-            return value && value.length === 1 && value[0] === "YES";
-        })
+    travelAcknowledge: yup.array().of(yup.string()).min(1, "Please acknowledge")
 });
 
 const registrationSchemas = [
