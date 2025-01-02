@@ -2,6 +2,11 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+
+    a {
+        font-weight: bold;
+        text-decoration: underline;
+    }
 }
 
 .checkboxes {
