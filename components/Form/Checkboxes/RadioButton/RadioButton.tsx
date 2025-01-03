@@ -1,11 +1,11 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import clsx from "clsx";
 
 import styles from "./RadioButton.module.scss";
 
 type PropTypes = {
     value: string | number;
-    label: string | number;
+    label: string | ReactNode;
     checked: boolean;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     className?: string;

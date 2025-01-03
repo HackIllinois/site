@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useMemo } from "react";
+import React, { ChangeEvent, ReactNode, useCallback, useMemo } from "react";
 import clsx from "clsx";
 
 import styles from "./Checkboxes.module.scss";
@@ -21,7 +21,7 @@ export type CheckboxOption = {
 
 type PropTypes = {
     name: string;
-    label: string;
+    label: string | ReactNode;
     options: CheckboxOption[];
     hideErrors?: boolean;
     className?: string;

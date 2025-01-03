@@ -61,11 +61,19 @@ const transportation = yup.object({
     travelAcknowledge: yup.array().of(yup.string()).min(1, "Please acknowledge")
 });
 
+const reviewInfo = yup.object({
+    codeOfConductAcknowledge: yup
+        .array()
+        .of(yup.string())
+        .min(1, "You must accept to register")
+});
+
 const registrationSchemas = [
     personalInfo,
     education,
     hackSpecific,
-    transportation
+    transportation,
+    reviewInfo
 ];
 
 const proHackSpecific = yup.object({

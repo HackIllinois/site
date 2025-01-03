@@ -213,7 +213,8 @@ export function registrationFromAPI(
                 : registration.considerForGeneral
                   ? ["YES"]
                   : ["NO"],
-        travelAcknowledge: [] // Must default to an empty array for formik
+        travelAcknowledge: [], // Must default to an empty array for formik
+        codeOfConductAcknowledge: [] // Must default to an empty array for formik
     };
 }
 
