@@ -27,10 +27,6 @@ const AboutProTrack: React.FC = () => {
                         <em>specialized arena for experienced hackers</em> who
                         have mastered the fundamentals and are now looking to
                         test their skills in a more challenging environment.
-                        <br></br>
-                        <br></br>
-                        Admission into HackOlympians requires completing our
-                        application, which includes a coding challenge.
                     </p>
                 </div>
                 <div>
@@ -84,6 +80,28 @@ const AboutProTrack: React.FC = () => {
                             for HackIllinois General attendees, while the Best
                             HackOlympians track is reserved for HackOlympians
                             attendees.
+                        </i>
+                    </p>
+                </div>
+                <div>
+                    <h2>How do I become a HackOlympian?</h2>
+                    <br></br>
+                    <p>
+                        Admission into HackOlympians requires{" "}
+                        <a href="/register/challenge/">
+                            completing a special challenge
+                        </a>{" "}
+                        in addition to registering.
+                        <br />
+                        <br />
+                        <i>
+                            Note: You MUST{" "}
+                            <b>
+                                complete the challenge before submitting
+                                registration
+                            </b>
+                            . Once you submit, you can no longer complete the
+                            challenge.
                         </i>
                     </p>
                 </div>
