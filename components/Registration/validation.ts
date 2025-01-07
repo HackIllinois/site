@@ -62,6 +62,10 @@ const transportation = yup.object({
 });
 
 const reviewInfo = yup.object({
+    reviewedInformationAcknowledge: yup
+        .array()
+        .of(yup.string())
+        .min(1, "Please review your information"),
     codeOfConductAcknowledge: yup
         .array()
         .of(yup.string())

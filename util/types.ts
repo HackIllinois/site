@@ -27,6 +27,7 @@ export type RegistrationData = {
     travelAcknowledge: string[];
     isProApplicant: boolean;
     codeOfConductAcknowledge: string[];
+    reviewedInformationAcknowledge: string[];
 };
 
 export type RegistrationType = {

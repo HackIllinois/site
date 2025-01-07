@@ -30,6 +30,26 @@ const ReviewInfo: React.FC<PropTypes> = ({ onChangePage }) => {
                 />
             </div>
             <Checkboxes
+                name="reviewedInformationAcknowledge"
+                label={
+                    <p>
+                        Please review the above information.
+                        <br />
+                        <small>
+                            Once you submit you will not be able to change any
+                            information without contacting us.
+                        </small>
+                    </p>
+                }
+                options={[
+                    {
+                        label: "I reviewed my information to ensure it is correct",
+                        value: "YES",
+                        isRadio: true
+                    }
+                ]}
+            />
+            <Checkboxes
                 name="codeOfConductAcknowledge"
                 label={
                     <p>
