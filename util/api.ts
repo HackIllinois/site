@@ -4,7 +4,8 @@ import {
     WithId,
     RegistrationData,
     FileType,
-    RSVPType
+    RSVPType,
+    ChallengeStatus
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -59,22 +60,15 @@ async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
         },
         body: JSON.stringify(body)
     });
-    // if (response.status === 403) {
-    //     alert(
-    //         "Your session has expired. Please close this tab and log in again."
-    //     );
-    //     sessionStorage.removeItem("token");
-    //     // TODO: Call the authenticate endpoint, making the user reauthenticate
-    // }
 
     const responseJSON = await response.json();
 
     if (
-        responseJSON.error === "TokenInvalid" &&
-        !process.env.NEXT_PUBLIC_REACT_APP_TOKEN
+        responseJSON.error === "TokenInvalid" ||
+        responseJSON.error == "TokenExpired" ||
+        responseJSON.error == "NoToken"
     ) {
         sessionStorage.removeItem("token");
-        // await new Promise(resolve => setTimeout(resolve, 10));
         authenticate(window.location.href);
         return;
     }
@@ -85,21 +79,8 @@ async function requestv2(method: MethodType, endpoint: string, body?: unknown) {
     return responseJSON;
 }
 
-export async function getChallenge(): Promise<boolean> {
-    const response = await fetch("https://artemis.hackillinois.org/status", {
-        method: "GET",
-        headers: {
-            Authorization: sessionStorage.getItem("token") || "",
-            "Content-Type": "application/json"
-        }
-    });
-
-    if (!response.ok) {
-        const errorBody = await response.json();
-        handleError(errorBody);
-    }
-    const ret = await response.json().then(json => json.status);
-    return ret;
+export async function getChallenge(): Promise<ChallengeStatus> {
+    return requestv2("GET", "/registration/challenge/");
 }
 
 export function getRegistration(): Promise<WithId<RegistrationType>> {
