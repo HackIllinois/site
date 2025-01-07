@@ -46,7 +46,7 @@ const NavigationButton: React.FC<NavButtonProps> = ({
             <p
                 className={`${pointRight ? styles.right : styles.left} ${styles.mobile}`}
             >
-                {pointRight ? "Next" : "Back"}
+                {text}
             </p>
             {pointRight ? (
                 <Image
