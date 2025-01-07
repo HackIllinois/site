@@ -221,3 +221,13 @@ export function registrationFromAPI(
 export function getRSVP(): Promise<RSVPType> {
     return requestv2("GET", "/admission/rsvp").catch(body => handleError(body));
 }
+
+export function subscribe(
+    listName: string,
+    emailAddress: string
+): Promise<string> {
+    return requestv2("POST", "/newsletter/subscribe/", {
+        listName,
+        emailAddress
+    }).catch(body => handleError(body));
+}

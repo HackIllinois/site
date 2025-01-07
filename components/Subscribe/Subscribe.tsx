@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // import { subscribe } from "@/utils/api";
 // const validator = require("validator");
 import styles from "./Subscribe.module.scss";
+import { subscribe } from "@/util/api";
 
 const Subscribe = () => {
     const [email, setEmail] = useState("");
@@ -12,16 +13,9 @@ const Subscribe = () => {
     };
 
     const handleSubscription = async () => {
-        // if (!validator.isEmail(email)) {
-        //     alert("Please enter a valid email address!");
-        // } else {
-        //     console.log("sending request");
-        //     const result = subscribe("hackillinois2024_interest", email);
-        //     setEmail(""); // clear input field after submitting
-        //     console.log("request complete");
-        //     alert("Subscribed to our email list!");
-        // }
-        return;
+        await subscribe("hackillinois2025_interest", email);
+        setEmail("");
+        alert("Subscribed to our email list!");
     };
 
     const handleKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
