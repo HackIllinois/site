@@ -2,7 +2,6 @@ import ShineButton from "@/components/ShineButton/ShineButton";
 import styles from "./ProChallengeContent.module.scss";
 import { getChallenge } from "@/util/api";
 import { useState } from "react";
-import { redirect } from "next/navigation";
 import { Source_Code_Pro } from "next/font/google";
 
 const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
@@ -59,16 +58,22 @@ const ProChallengeContent: React.FC<ProChallengeContentProps> = ({
                 <div className={styles.block}>
                     <h1>HackOlympians Challenge</h1>
                     <p>
-                        Thank you for your interest in applying to HackIllinois
-                        2025 as an Olympian! As the <b>Olympians</b> are a
-                        cohort for advanced hackers, here{"'"}s a challenge to
-                        test your skills. Prepare for a task fit for the gods
-                        themselves!
+                        As the <b>Olympians</b> are a cohort for advanced
+                        hackers, here{"'"}s a challenge to test your skills.
+                        Prepare for a task fit for the gods themselves!{" "}
+                        <b>
+                            To become a Olympian, you must complete this
+                            challenge!
+                        </b>
                     </p>
                     <p>
                         Note: This challenge might seem lengthy in the
                         description, but it{"'"}s not as tedious as it sounds!
                         Have fun, and may the gods be with you!
+                    </p>
+                    <p>
+                        For more information, see the{" "}
+                        <a href="/olympians">olympians page</a>.
                     </p>
                 </div>
                 <div className={styles.block}>
@@ -301,7 +306,7 @@ const ProChallengeContent: React.FC<ProChallengeContentProps> = ({
                 <NavigationButton
                     text="Back"
                     pointRight={false}
-                    onClick={() => redirect("/register")}
+                    href="/register"
                 />
 
                 {userHasNotAttempted === false && (
