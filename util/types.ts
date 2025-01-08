@@ -27,6 +27,7 @@ export type RegistrationData = {
     travelAcknowledge: string[];
     isProApplicant: boolean;
     codeOfConductAcknowledge: string[];
+    reviewedInformationAcknowledge: string[];
 };
 
 export type RegistrationType = {
@@ -108,6 +109,11 @@ export type RSVPDecisionType = {
 };
 
 export type RegistrationRole = "attendee" | "mentor";
+
+export type ChallengeStatus = {
+    attempts: number;
+    complete: boolean;
+};
 
 export type RefreshTokenResType = {
     token: string;

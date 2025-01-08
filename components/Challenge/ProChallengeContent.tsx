@@ -2,7 +2,6 @@ import ShineButton from "@/components/ShineButton/ShineButton";
 import styles from "./ProChallengeContent.module.scss";
 import { getChallenge } from "@/util/api";
 import { useState } from "react";
-import { redirect } from "next/navigation";
 import { Source_Code_Pro } from "next/font/google";
 
 const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
@@ -13,7 +12,8 @@ import EXAMPLE_CHALLENGE_GRAPHIC from "@/public/registration/example_challenge_g
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 
 const jwtUrl = `https://adonix.hackillinois.org/auth/login/github/?device=challenge`;
-const challengeEndpoint = "https://adonix.hackillinois.org/challenge";
+const challengeEndpoint =
+    "https://adonix.hackillinois.org/registration/challenge/";
 
 interface ProChallengeContentProps {
     handleSuccess: () => void;
@@ -29,23 +29,21 @@ const ProChallengeContent: React.FC<ProChallengeContentProps> = ({
     >();
 
     const handleUserFinishedChallenge = async () => {
-        // Case 1: User successfully completed the challenge
-        // Case 2: User failed the challenge
-        // Case 3: User did not attempt
+        // Case 1: User successfully completed the challenge (complete)
+        // Case 2: User failed the challenge (!complete && attempts > 0)
+        // Case 3: User did not attempt (!complete && attempts == 0)
 
         // This only triggers when the user clicks the Finished Challenge button
 
-        try {
-            const passedChallenge = await getChallenge();
+        const { complete, attempts } = await getChallenge();
+        if (complete) {
+            handleSuccess();
             setUserHasNotAttempted(true);
-            if (passedChallenge === true) {
-                handleSuccess();
-            } else if (passedChallenge === false) {
-                handleFailure();
-            }
-        } catch {
+        } else if (attempts > 0) {
+            handleFailure();
+            setUserHasNotAttempted(true);
+        } else {
             setUserHasNotAttempted(false);
-            // Just leave the user on the page; user did not attempt
         }
     };
 
@@ -60,16 +58,22 @@ const ProChallengeContent: React.FC<ProChallengeContentProps> = ({
                 <div className={styles.block}>
                     <h1>HackOlympians Challenge</h1>
                     <p>
-                        Thank you for your interest in applying to HackIllinois
-                        2025 as an Olympian! As the <b>Olympians</b> are a
-                        cohort for advanced hackers, here{"'"}s a challenge to
-                        test your skills. Prepare for a task fit for the gods
-                        themselves!
+                        As the <b>Olympians</b> are a cohort for advanced
+                        hackers, here{"'"}s a challenge to test your skills.
+                        Prepare for a task fit for the gods themselves!{" "}
+                        <b>
+                            To become a Olympian, you must complete this
+                            challenge!
+                        </b>
                     </p>
                     <p>
                         Note: This challenge might seem lengthy in the
                         description, but it{"'"}s not as tedious as it sounds!
                         Have fun, and may the gods be with you!
+                    </p>
+                    <p>
+                        For more information, see the{" "}
+                        <a href="/olympians">olympians page</a>.
                     </p>
                 </div>
                 <div className={styles.block}>
@@ -158,7 +162,7 @@ const ProChallengeContent: React.FC<ProChallengeContentProps> = ({
                         POST {challengeEndpoint}
                         <br />
                         <br />
-                        {`{"max_divine_power": <calculated_max_divine_power>}`}
+                        {`{"solution": <calculated_max_divine_power>}`}
                     </p>
                 </div>
                 <div className={styles.block}>
@@ -268,11 +272,13 @@ const ProChallengeContent: React.FC<ProChallengeContentProps> = ({
                             integers, as gods and heroes can be either
                             benevolent or malevolent.
                         </li>
-                        <li>The graph will not contain any cycles.</li>
                         <li>
-                            Your celestial JWT token will never expire, so you
-                            can take as long as needed to complete the
-                            challenge.
+                            The graph will contain cycles, so be careful not to
+                            be trapped in a loop of eternity.
+                        </li>
+                        <li>
+                            Your celestial JWT token may expire, in which case
+                            you can generate a new one.
                         </li>
                     </ul>
                 </div>
@@ -286,7 +292,8 @@ const ProChallengeContent: React.FC<ProChallengeContentProps> = ({
                         </li>
                         <li>
                             Use any resources you need, but your work must be
-                            your own. Collaboration is not allowed.
+                            your own. This includes AI tools. Collaboration is
+                            not allowed.
                         </li>
                         <li>
                             Completing the challenge qualifies you to apply as
@@ -299,7 +306,7 @@ const ProChallengeContent: React.FC<ProChallengeContentProps> = ({
                 <NavigationButton
                     text="Back"
                     pointRight={false}
-                    onClick={() => redirect("/register")}
+                    href="/register"
                 />
 
                 {userHasNotAttempted === false && (

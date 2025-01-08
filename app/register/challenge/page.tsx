@@ -1,7 +1,6 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
 import ProChallengeContent from "../../../components/Challenge/ProChallengeContent";
-import ProChallengeIntro from "../../../components/Challenge/ProChallengeIntro";
 import ProChallengeStatus from "../../../components/Challenge/ProChallengeStatus";
 import styles from "./styles.module.scss";
 import {
@@ -17,7 +16,6 @@ import { NavbarContext } from "@/components/Navbar/NavbarContext";
 import Loading from "@/components/Loading/Loading";
 
 enum Pages {
-    Intro,
     Challenge,
     Pass,
     Fail
@@ -26,11 +24,7 @@ enum Pages {
 const ProChallenge: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
     const navbarContext = useContext(NavbarContext);
-    const [page, setPage] = useState(Pages.Intro);
-    const handleBegin = () => {
-        navbarContext?.handleSetDark();
-        setPage(Pages.Challenge);
-    };
+    const [page, setPage] = useState(Pages.Challenge);
 
     const handleSuccess = async () => {
         navbarContext?.handleSetNotDark();
@@ -57,7 +51,8 @@ const ProChallenge: React.FC = () => {
 
         let passedChallenge;
         try {
-            passedChallenge = await getChallenge();
+            const challenge = await getChallenge();
+            passedChallenge = challenge.complete;
         } catch {
             return; // Just leave the user on the same page
         }
@@ -69,15 +64,17 @@ const ProChallenge: React.FC = () => {
     };
 
     useEffect(() => {
+        if (navbarContext) {
+            // timeout required because page needs to load first
+            setTimeout(navbarContext.handleSetDark, 0);
+        }
+        setPage(Pages.Challenge);
         handleCheckIfUserCompletedChallenge().then(() => setIsLoading(false));
     }, []);
 
     return (
         <div className={styles.screen}>
             {isLoading && <Loading />}
-            {page === Pages.Intro && (
-                <ProChallengeIntro handleBegin={handleBegin} />
-            )}
             {page === Pages.Challenge && (
                 <ProChallengeContent
                     handleSuccess={handleSuccess}
