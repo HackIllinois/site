@@ -71,104 +71,90 @@ const Navbar = () => {
 
     return (
         <>
-            {pathname !== "/olympians/challenge" && (
-                <>
-                    <nav
-                        className={clsx(
-                            styles.navbar,
-                            navbarContext?.isDark && styles.dark
-                        )}
-                    >
-                        <Image
-                            alt="HackIllinois Logo"
-                            onClick={() => (window.location.pathname = "/")}
-                            style={{ cursor: "pointer" }}
-                            src={navbarContext?.isDark ? LogoDark : Logo}
-                        />
-                        <div
-                            ref={menuRef}
-                            className={styles.mobileMenu}
-                            onClick={() => setShowMobileNavbar(p => !p)}
-                        >
-                            <div className={styles.mobileMenuButton}>
-                                <span>Menu</span>
-                                {/* <Image alt="Menu" src={CloudMenu} /> */}
-                            </div>
-                            {showMobileNavbar && (
-                                <ul className={styles.mobileNavbarMenu}>
-                                    {navbarItems.map((item, index) => (
-                                        <li key={item.title}>
-                                            <a href={item.link}>{item.title}</a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
-                        <ul className={styles.navbarList}>
+            <nav
+                className={clsx(
+                    styles.navbar,
+                    navbarContext?.isDark && styles.dark
+                )}
+            >
+                <Image
+                    alt="HackIllinois Logo"
+                    onClick={() => (window.location.pathname = "/")}
+                    style={{ cursor: "pointer" }}
+                    src={navbarContext?.isDark ? LogoDark : Logo}
+                />
+                <div
+                    ref={menuRef}
+                    className={styles.mobileMenu}
+                    onClick={() => setShowMobileNavbar(p => !p)}
+                >
+                    <div className={styles.mobileMenuButton}>
+                        <span>Menu</span>
+                        {/* <Image alt="Menu" src={CloudMenu} /> */}
+                    </div>
+                    {showMobileNavbar && (
+                        <ul className={styles.mobileNavbarMenu}>
                             {navbarItems.map((item, index) => (
-                                <li key={index}>
-                                    <a
-                                        href={item.link}
-                                        className={
-                                            item.active ? styles.active : ""
-                                        }
-                                    >
-                                        {item.title}
-                                    </a>
+                                <li key={item.title}>
+                                    <a href={item.link}>{item.title}</a>
                                 </li>
                             ))}
-                            <li>
-                                <OlympianButton />
-                            </li>
                         </ul>
-                    </nav>
-                    <nav className={styles.mobile}>
-                        <div className={styles.mobileTop}>
-                            <div className={styles.title}>
-                                <Link href="/">
-                                    <Image
-                                        alt="Logo"
-                                        src={Logo}
-                                        className="logo"
-                                    />
-                                </Link>
-                            </div>
-                            <div
-                                className={clsx(
-                                    styles.hamburger,
-                                    showMobileNavbar && styles.open
-                                )}
-                                ref={menuRef}
-                                onClick={() => setShowMobileNavbar(p => !p)}
+                    )}
+                </div>
+                <ul className={styles.navbarList}>
+                    {navbarItems.map((item, index) => (
+                        <li key={index}>
+                            <a
+                                href={item.link}
+                                className={item.active ? styles.active : ""}
                             >
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </div>
-                        <div
-                            className={clsx(
-                                styles.mobileMenu,
-                                showMobileNavbar && styles.menuOpen
-                            )}
-                        >
-                            {navbarItems.map((item, index) => (
-                                <a
-                                    href={item.link}
-                                    key={index}
-                                    className={styles.link}
-                                >
-                                    {item.title}
-                                </a>
-                            ))}
-                            <OlympianButton />
-                            {/* <a href="/register" className={styles.link}>
+                                {item.title}
+                            </a>
+                        </li>
+                    ))}
+                    <li>
+                        <OlympianButton />
+                    </li>
+                </ul>
+            </nav>
+            <nav className={styles.mobile}>
+                <div className={styles.mobileTop}>
+                    <div className={styles.title}>
+                        <Link href="/">
+                            <Image alt="Logo" src={Logo} className="logo" />
+                        </Link>
+                    </div>
+                    <div
+                        className={clsx(
+                            styles.hamburger,
+                            showMobileNavbar && styles.open
+                        )}
+                        ref={menuRef}
+                        onClick={() => setShowMobileNavbar(p => !p)}
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div
+                    className={clsx(
+                        styles.mobileMenu,
+                        showMobileNavbar && styles.menuOpen
+                    )}
+                >
+                    {navbarItems.map((item, index) => (
+                        <a href={item.link} key={index} className={styles.link}>
+                            {item.title}
+                        </a>
+                    ))}
+                    <OlympianButton />
+                    {/* <a href="/register" className={styles.link}>
                         Register
                     </a> */}
-                        </div>
-                    </nav>
-                </>
-            )}
+                </div>
+            </nav>
         </>
     );
 };

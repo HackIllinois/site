@@ -43,6 +43,11 @@
     @media (max-width: 500px) {
         margin: 100px 0px;
     }
+
+    a {
+        font-weight: bold;
+        text-decoration: underline;
+    }
 }
 
 .footerButtons {

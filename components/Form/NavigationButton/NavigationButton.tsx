@@ -8,6 +8,7 @@ interface NavButtonProps {
     text: string;
     pointRight?: boolean;
     onClick?: MouseEventHandler<HTMLButtonElement>;
+    href?: string;
     [key: string]: unknown;
 }
 
@@ -15,6 +16,7 @@ const NavigationButton: React.FC<NavButtonProps> = ({
     text,
     pointRight,
     onClick,
+    href,
     ...props
 }) => {
     // Function to handle the Enter key press
@@ -24,7 +26,7 @@ const NavigationButton: React.FC<NavButtonProps> = ({
         }
     };
 
-    return (
+    const Content = (
         <button
             className={styles.button}
             onClick={onClick}
@@ -46,7 +48,7 @@ const NavigationButton: React.FC<NavButtonProps> = ({
             <p
                 className={`${pointRight ? styles.right : styles.left} ${styles.mobile}`}
             >
-                {pointRight ? "Next" : "Back"}
+                {text}
             </p>
             {pointRight ? (
                 <Image
@@ -57,6 +59,12 @@ const NavigationButton: React.FC<NavButtonProps> = ({
             ) : null}
         </button>
     );
+
+    if (href) {
+        return <a href={href}>{Content}</a>;
+    }
+
+    return Content;
 };
 
 export default NavigationButton;
