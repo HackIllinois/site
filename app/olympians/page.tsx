@@ -1,14 +1,20 @@
-import Image from "next/image";
 import styles from "./styles.module.scss";
+import PRO_TRACK_INFO from "@/public/registration/backgrounds/pro_track_info.svg";
 
 const AboutProTrack: React.FC = () => {
     return (
-        <section className={styles.proTrackPage}>
+        <section
+            style={{
+                backgroundImage: `url(${PRO_TRACK_INFO?.src})`
+            }}
+            className={styles.proTrackPage}
+        >
             <div className={styles.title}>
                 <h1>
-                    Introducing{" "}
+                    Introducing <br />
                     <b>
-                        Hack<em>Olympians!</em>
+                        Hack
+                        <span className={styles.emphasizedText}>Olympians</span>
                     </b>
                 </h1>
             </div>
@@ -24,84 +30,78 @@ const AboutProTrack: React.FC = () => {
                         <br></br>
                         <br></br>
                         It&apos;s a{" "}
-                        <em>specialized arena for experienced hackers</em> who
-                        have mastered the fundamentals and are now looking to
-                        test their skills in a more challenging environment.
+                        <span className={styles.emphasizedText}>
+                            specialized arena for experienced hackers
+                        </span>{" "}
+                        who have mastered the fundamentals and are now looking
+                        to test their skills in a more challenging environment.
+                        <br></br>
+                        <br></br>
+                        Admission into HackOlympians requires completing our
+                        application, which includes a coding challenge.
                     </p>
                 </div>
+                <div className={styles.spacer}></div>
                 <div>
                     <h2>What are the benefits of being a HackOlympian?</h2>
                     <br></br>
                     <p>
                         Attendees in this path have the exclusive opportunity to
                         compete for the{" "}
-                        <em>grand HackOlympians prize of $2,000.</em>
+                        <span className={styles.emphasizedText}>
+                            grand HackOlympians prize of $[TO BE DISCLOSED].
+                        </span>
                         <br></br>
                         <br></br>
                         Additionally, they will gain access to{" "}
-                        <em>special networking opportunities</em> with our event
-                        sponsors and the chance to present their project in a{" "}
-                        <em>thrilling Shark-Tank inspired showcase</em>, among
-                        other exciting perks – but spots are limited, so
+                        <span className={styles.emphasizedText}>
+                            special networking opportunities
+                        </span>{" "}
+                        with our event sponsors and the chance to present their
+                        project in a{" "}
+                        <span className={styles.emphasizedText}>
+                            thrilling Shark-Tank inspired showcase
+                        </span>
+                        , among other exciting perks – but spots are limited, so
                         register soon!
                     </p>
                 </div>
                 <div>
                     <h2>
                         How is HackOlympians different from standard
-                        HackIllinois attendance?
+                        Hackillinois attendance?
                     </h2>
                     <br></br>
                     <p>
-                        HackIllinois is a historically welcoming space for all
-                        skill levels, especially for beginner-level coders. We
-                        created{" "}
-                        <em>
-                            HackOlympians to be inclusive of advanced skill
-                            levels and create a more engaging environment for
-                            seasoned hackers.
-                        </em>
+                        HackIllinois is a historically welcoming space for
+                        coders of all skill levels, particularly those who are
+                        just starting out. This inclusive environment encourages
+                        beginner-level coders to engage and learn,
+                        <span className={styles.emphasizedText}>
+                            {" "}
+                            while HackOlympians caters to more advanced
+                            participants, fostering a competitive and
+                            stimulating atmosphere for seasoned hackers.
+                        </span>
                         <br></br>
                         <br></br>
                         All attendees from both paths will enjoy access to
-                        HackIllinois&apos;s vibrant array of events, workshops,
+                        Hacklllinois&apos;s vibrant array of events, workshops,
                         company Q&As, and the Company Expo. Each path will
                         maintain the spirit of inclusivity and learning to
                         ensure that all attendees, regardless of their track,
-                        experience the full magic of HackIllinois!
+                        experience the full magic of Hackillinois!
                         <br></br>
                         <br></br>
-                        Additionally, all HackIllinois attendees are eligible to
+                        Additionally, all Hackillinois attendees are eligible to
                         compete in all our sponsored tracks.*
                         <br></br>
                         <br></br>
                         <i>
-                            *The Best Beginner and General tracks are reserved
-                            for HackIllinois General attendees, while the Best
-                            HackOlympians track is reserved for HackOlympians
+                            *The Best Beginner and General prizes are reserved
+                            for Hackillinois General attendees, while the Best
+                            Olympians prize is reserved for HackOlympians
                             attendees.
-                        </i>
-                    </p>
-                </div>
-                <div>
-                    <h2>How do I become a HackOlympian?</h2>
-                    <br></br>
-                    <p>
-                        Admission into HackOlympians requires{" "}
-                        <a href="/register/challenge/">
-                            completing a special challenge
-                        </a>{" "}
-                        in addition to registering.
-                        <br />
-                        <br />
-                        <i>
-                            Note: You MUST{" "}
-                            <b>
-                                complete the challenge before submitting
-                                registration
-                            </b>
-                            . Once you submit, you can no longer complete the
-                            challenge.
                         </i>
                     </p>
                 </div>

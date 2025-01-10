@@ -5,6 +5,9 @@
     min-height: max(90vw, 100vh);
     padding: 0 48px;
     padding-top: 10rem;
+    background-size: center;
+    background-repeat: no-repeat;
+    background-position: top;
     @media (max-width: 768px) {
         padding-left: 32px;
         padding-right: 32px;
@@ -16,14 +19,39 @@
     margin-bottom: 50px;
 }
 
+.title h1 {
+    font-size: 2rem;
+}
+
+.emphasizedText {
+    color: #ffb23e;
+}
+
 .descriptions {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 50px;
     padding-bottom: 50px;
+    line-height: 1.5;
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.descriptions > div {
+    margin-bottom: 20px;
+    @media (max-width: 768px) {
+        margin-bottom: 0;
+    }
 }
 
 .descriptions a {
     font-weight: bold;
     text-decoration: underline;
+}
+
+.spacer {
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
