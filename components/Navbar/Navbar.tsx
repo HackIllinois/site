@@ -7,8 +7,7 @@ import styles from "./Navbar.module.scss";
 // import CloudMenu from "@/public/cloud-menu.svg";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-import { useContext, useRef, useState } from "react";
-import { NavbarContext } from "./NavbarContext";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 type NavbarItem = {
@@ -17,31 +16,6 @@ type NavbarItem = {
 };
 
 const NAVBAR_ITEMS: NavbarItem[] = [
-    // {
-    //     title: "Schedule",
-    //     link: "/schedule",
-    //     active: false
-    // },
-    // {
-    //     title: "Mentors",
-    //     link: "/mentors",
-    //     active: false
-    // },
-    // {
-    //     title: "Prizes",
-    //     link: "/prizes",
-    //     active: false
-    // },
-    // {
-    //     title: "Map",
-    //     link: "#",
-    //     active: false
-    // },
-    // {
-    //     title: "Travel",
-    //     link: "/travel",
-    //     active: false
-    // },
     {
         title: "Register",
         link: "/register"
@@ -52,25 +26,46 @@ const NAVBAR_ITEMS: NavbarItem[] = [
     }
 ];
 
+const DARK_PAGES = ["/register/challenge"];
+
 const Navbar = () => {
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
-    const navbarContext = useContext(NavbarContext);
+
+    const isDark = DARK_PAGES.includes(pathname);
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(event.target as Node) &&
+                buttonRef.current &&
+                !buttonRef.current.contains(event.target as Node)
+            ) {
+                setShowMobileNavbar(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    useEffect(() => {
+        setShowMobileNavbar(false);
+    }, [pathname]);
 
     return (
         <>
-            <nav
-                className={clsx(
-                    styles.navbar,
-                    navbarContext?.isDark && styles.dark
-                )}
-            >
+            <nav className={clsx(styles.navbar, isDark && styles.dark)}>
                 <Image
                     alt="HackIllinois Logo"
                     onClick={() => (window.location.pathname = "/")}
                     style={{ cursor: "pointer" }}
-                    src={navbarContext?.isDark ? LogoDark : Logo}
+                    src={isDark ? LogoDark : Logo}
                 />
                 <ul className={styles.navbarList}>
                     {NAVBAR_ITEMS.map(item => (
@@ -96,16 +91,21 @@ const Navbar = () => {
                 <div className={styles.mobileTop}>
                     <div className={styles.title}>
                         <Link href="/">
-                            <Image alt="Logo" src={Logo} className="logo" />
+                            <Image
+                                alt="Logo"
+                                src={isDark ? LogoDark : Logo}
+                                className="logo"
+                            />
                         </Link>
                     </div>
                     <div
                         className={clsx(
                             styles.hamburger,
-                            showMobileNavbar && styles.open
+                            showMobileNavbar && styles.open,
+                            isDark && styles.dark
                         )}
-                        ref={menuRef}
                         onClick={() => setShowMobileNavbar(p => !p)}
+                        ref={buttonRef}
                     >
                         <span></span>
                         <span></span>
@@ -117,6 +117,7 @@ const Navbar = () => {
                         styles.mobileMenu,
                         showMobileNavbar && styles.menuOpen
                     )}
+                    ref={menuRef}
                 >
                     {NAVBAR_ITEMS.map(item => (
                         <Link

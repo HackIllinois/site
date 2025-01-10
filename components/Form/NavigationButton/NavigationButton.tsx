@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./NavigationButton.module.scss";
 import Image from "next/image";
 import RIGHT_ARROW from "@/public/registration/right_arrow.svg";
