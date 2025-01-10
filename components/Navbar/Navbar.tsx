@@ -7,17 +7,16 @@ import styles from "./Navbar.module.scss";
 // import CloudMenu from "@/public/cloud-menu.svg";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { NavbarContext } from "./NavbarContext";
 import Link from "next/link";
 
 type NavbarItem = {
     title: string;
     link: string;
-    active: boolean;
 };
 
-const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
+const NAVBAR_ITEMS: NavbarItem[] = [
     // {
     //     title: "Schedule",
     //     link: "/schedule",
@@ -45,13 +44,11 @@ const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
     // },
     {
         title: "Register",
-        link: "/register",
-        active: false
+        link: "/register"
     },
     {
         title: "Legal",
-        link: "/legal",
-        active: false
+        link: "/legal"
     }
 ];
 
@@ -59,20 +56,7 @@ const Navbar = () => {
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
-    const [navbarItems, setNavbarItems] = useState(DEFAULT_NAVBAR_ITEMS);
     const navbarContext = useContext(NavbarContext);
-
-    useEffect(() => {
-        if (pathname !== "/" && pathname !== "/olympians") {
-            setNavbarItems(n =>
-                n.map(item =>
-                    item.link === pathname
-                        ? { ...item, active: true }
-                        : { ...item, active: false }
-                )
-            );
-        }
-    }, [pathname]);
 
     return (
         <>
@@ -88,31 +72,16 @@ const Navbar = () => {
                     style={{ cursor: "pointer" }}
                     src={navbarContext?.isDark ? LogoDark : Logo}
                 />
-                <div
-                    ref={menuRef}
-                    className={styles.mobileMenu}
-                    onClick={() => setShowMobileNavbar(p => !p)}
-                >
-                    <div className={styles.mobileMenuButton}>
-                        <span>Menu</span>
-                        {/* <Image alt="Menu" src={CloudMenu} /> */}
-                    </div>
-                    {showMobileNavbar && (
-                        <ul className={styles.mobileNavbarMenu}>
-                            {navbarItems.map((item, index) => (
-                                <li key={item.title}>
-                                    <Link href={item.link}>{item.title}</Link>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
                 <ul className={styles.navbarList}>
-                    {navbarItems.map((item, index) => (
-                        <li key={index}>
+                    {NAVBAR_ITEMS.map(item => (
+                        <li key={item.title}>
                             <Link
                                 href={item.link}
-                                className={item.active ? styles.active : ""}
+                                className={
+                                    pathname.startsWith(item.link)
+                                        ? styles.active
+                                        : ""
+                                }
                             >
                                 {item.title}
                             </Link>
@@ -149,10 +118,10 @@ const Navbar = () => {
                         showMobileNavbar && styles.menuOpen
                     )}
                 >
-                    {navbarItems.map((item, index) => (
+                    {NAVBAR_ITEMS.map(item => (
                         <Link
                             href={item.link}
-                            key={index}
+                            key={item.title}
                             className={styles.link}
                         >
                             {item.title}
