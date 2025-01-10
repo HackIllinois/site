@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./styles.module.scss";
+import Link from "next/link";
 
 const AboutProTrack: React.FC = () => {
     return (
@@ -88,9 +89,9 @@ const AboutProTrack: React.FC = () => {
                     <br></br>
                     <p>
                         Admission into HackOlympians requires{" "}
-                        <a href="/register/challenge/">
+                        <Link href="/register/challenge/">
                             completing a special challenge
-                        </a>{" "}
+                        </Link>{" "}
                         in addition to registering.
                         <br />
                         <br />

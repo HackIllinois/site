@@ -7,6 +7,7 @@ import BACKGROUND from "@/public/registration/track_selection/background.svg";
 
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
 import Image from "next/image";
+import Link from "next/link";
 
 const TrackSelection: React.FC = () => {
     return (
@@ -37,9 +38,9 @@ const TrackSelection: React.FC = () => {
                         blue
                     />
                     <p className={styles.link}>
-                        <a href="/olympians" target="_blank">
+                        <Link href="/olympians" target="_blank">
                             What is this?
-                        </a>
+                        </Link>
                     </p>
                     <OlympianButton
                         text="General Attendee"

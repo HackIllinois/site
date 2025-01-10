@@ -10,6 +10,7 @@ import PRO_TRACK_CHALLENGE_BACKGROUND from "@/public/registration/backgrounds/pr
 import EXAMPLE_CHALLENGE_GRAPHIC from "@/public/registration/example_challenge_graphic.svg";
 
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
+import Link from "next/link";
 
 const jwtUrl = `https://adonix.hackillinois.org/auth/login/github/?device=challenge`;
 const challengeEndpoint =
@@ -73,7 +74,7 @@ const ProChallengeContent: React.FC<ProChallengeContentProps> = ({
                     </p>
                     <p>
                         For more information, see the{" "}
-                        <a href="/olympians">olympians page</a>.
+                        <Link href="/olympians">olympians page</Link>.
                     </p>
                 </div>
                 <div className={styles.block}>

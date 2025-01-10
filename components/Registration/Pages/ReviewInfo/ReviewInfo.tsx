@@ -2,6 +2,7 @@ import ReviewButton from "@/components/Form/ReviewButton/ReviewButton";
 import styles from "./ReviewInfo.module.scss";
 import React from "react";
 import Checkboxes from "@/components/Form/Checkboxes/Checkboxes";
+import Link from "next/link";
 
 type PropTypes = {
     onChangePage: (newIndex: number) => void;
@@ -54,9 +55,9 @@ const ReviewInfo: React.FC<PropTypes> = ({ onChangePage }) => {
                 label={
                     <p>
                         To participate in HackIllinois, you must accept our{" "}
-                        <a href="/legal/code-of-conduct" target="_blank">
+                        <Link href="/legal/code-of-conduct" target="_blank">
                             Code of Conduct
-                        </a>
+                        </Link>
                         :
                     </p>
                 }

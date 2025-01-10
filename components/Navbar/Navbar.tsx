@@ -47,6 +47,11 @@ const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
         title: "Register",
         link: "/register",
         active: false
+    },
+    {
+        title: "Legal",
+        link: "/legal",
+        active: false
     }
 ];
 
@@ -96,7 +101,7 @@ const Navbar = () => {
                         <ul className={styles.mobileNavbarMenu}>
                             {navbarItems.map((item, index) => (
                                 <li key={item.title}>
-                                    <a href={item.link}>{item.title}</a>
+                                    <Link href={item.link}>{item.title}</Link>
                                 </li>
                             ))}
                         </ul>
@@ -105,12 +110,12 @@ const Navbar = () => {
                 <ul className={styles.navbarList}>
                     {navbarItems.map((item, index) => (
                         <li key={index}>
-                            <a
+                            <Link
                                 href={item.link}
                                 className={item.active ? styles.active : ""}
                             >
                                 {item.title}
-                            </a>
+                            </Link>
                         </li>
                     ))}
                     <li>
@@ -145,14 +150,15 @@ const Navbar = () => {
                     )}
                 >
                     {navbarItems.map((item, index) => (
-                        <a href={item.link} key={index} className={styles.link}>
+                        <Link
+                            href={item.link}
+                            key={index}
+                            className={styles.link}
+                        >
                             {item.title}
-                        </a>
+                        </Link>
                     ))}
                     <OlympianButton />
-                    {/* <a href="/register" className={styles.link}>
-                        Register
-                    </a> */}
                 </div>
             </nav>
         </>
@@ -163,7 +169,7 @@ export default Navbar;
 
 const OlympianButton = () => {
     return (
-        <a href="/olympians">
+        <Link href="/olympians">
             <button className={styles.olympianButton}>
                 <div className={styles.buttonBackground}></div>
                 <div className={styles.buttonContent}>
@@ -187,6 +193,6 @@ const OlympianButton = () => {
                     <span>Olympians</span>
                 </div>
             </button>
-        </a>
+        </Link>
     );
 };
