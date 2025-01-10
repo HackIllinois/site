@@ -5,12 +5,13 @@
     min-height: max(90vw, 100vh);
     padding: 0 48px;
     padding-top: 10rem;
-    background-size: center;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: top;
     @media (max-width: 768px) {
         padding-left: 32px;
         padding-right: 32px;
+        padding-bottom: 200px;
     }
 }
 
