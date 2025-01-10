@@ -1,11 +1,15 @@
+"use client";
+import useWindowSize from "@/hooks/use-window-size";
 import styles from "./styles.module.scss";
-import PRO_TRACK_INFO from "@/public/registration/backgrounds/pro_track_info.svg";
+import PRO_TRACK_INFO_BACKGROUND from "@/public/registration/backgrounds/pro_track_info.svg";
+import PRO_TRACK_INFO_MOBILE_BACKGROUND from "@/public/registration/mobile_backgrounds/pro_track_info.svg";
 
 const AboutProTrack: React.FC = () => {
+    const windowSizeHook = useWindowSize();
     return (
         <section
             style={{
-                backgroundImage: `url(${PRO_TRACK_INFO?.src})`
+                backgroundImage: `url(${!windowSizeHook?.width || windowSizeHook?.width > 768 ? PRO_TRACK_INFO_BACKGROUND?.src : PRO_TRACK_INFO_MOBILE_BACKGROUND?.src})`
             }}
             className={styles.proTrackPage}
         >
@@ -49,7 +53,7 @@ const AboutProTrack: React.FC = () => {
                         Attendees in this path have the exclusive opportunity to
                         compete for the{" "}
                         <span className={styles.emphasizedText}>
-                            grand HackOlympians prize of $[TO BE DISCLOSED].
+                            grand HackOlympians prize (to be released soon).
                         </span>
                         <br></br>
                         <br></br>

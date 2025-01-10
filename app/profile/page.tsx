@@ -1,20 +1,18 @@
 "use client";
 
-import {
-    authenticate,
-    getRegistration,
-    getRegistrationOrDefault,
-    getRSVP,
-    isAuthenticated
-} from "@/util/api";
-import { useEffect, useMemo, useState } from "react";
-import styles from "./styles.module.scss";
-import { RegistrationType, RSVPType } from "@/util/types";
 import ValueItem from "@/components/ApplicationStatus/ValueItem";
 import Loading from "@/components/Loading/Loading";
 import APPLICATION_STATUS_BACKGROUND from "@/public/registration/backgrounds/application_status_background.svg";
 import APPLICATION_STATUS_BOARD from "@/public/registration/backgrounds/application_status_board.svg";
-
+import {
+    authenticate,
+    getRegistrationOrDefault,
+    getRSVP,
+    isAuthenticated
+} from "@/util/api";
+import { RegistrationType, RSVPType } from "@/util/types";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 const Profile: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [currentRegistration, setCurrentRegistration] =

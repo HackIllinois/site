@@ -8,10 +8,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top;
+    padding-bottom: 200px;
     @media (max-width: 768px) {
         padding-left: 32px;
         padding-right: 32px;
-        padding-bottom: 200px;
     }
 }
 
@@ -29,18 +29,21 @@
 }
 
 .descriptions {
+    max-width: 1500px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 50px;
     padding-bottom: 50px;
     line-height: 1.5;
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+    }
+    @media (min-width: 2000px) {
         grid-template-columns: 1fr;
     }
 }
 
 .descriptions > div {
-    margin-bottom: 20px;
     @media (max-width: 768px) {
         margin-bottom: 0;
     }
@@ -53,6 +56,9 @@
 
 .spacer {
     @media (max-width: 768px) {
+        display: none;
+    }
+    @media (min-width: 2000px) {
         display: none;
     }
 }
