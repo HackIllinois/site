@@ -11,10 +11,10 @@ const Home: React.FC = () => {
     return (
         <main className={styles.main}>
             <Olympian />
-            <Events />
+            {/* <Events />
             <FAQJoinUs />
             <Sponsors />
-            <Footer />
+            <Footer /> */}
             {/* <Registration /> */}
         </main>
     );

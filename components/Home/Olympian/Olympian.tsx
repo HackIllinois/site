@@ -12,13 +12,19 @@ import OlympianButton from "@/components/OlympianButton/OlympianButton";
 const Olympian: React.FC = () => {
     return (
         <section className={styles.olympianMain}>
-            <Image alt="HackOlympus Logo" src={LOGO} className={styles.logo} />
-            <OlympianButton
-                text="Register Now"
-                link="/register"
-                bottomPadding
-            />
-            <Image alt="chest" src={CHEST} className={styles.chest} />
+            <div className={styles.main}>
+                <Image
+                    alt="HackOlympus Logo"
+                    src={LOGO}
+                    className={styles.logo}
+                />
+                <OlympianButton
+                    text="Register Now"
+                    link="/register"
+                    bottomPadding
+                />
+            </div>
+            {/* <Image alt="chest" src={CHEST} className={styles.chest} />
             <Image
                 alt="cloud"
                 src={BACK_CLOUDS}
@@ -28,7 +34,7 @@ const Olympian: React.FC = () => {
                 alt="cloud"
                 src={FRONT_CLOUDS}
                 className={styles.frontClouds}
-            />
+            /> */}
 
             <Image
                 alt="background"
