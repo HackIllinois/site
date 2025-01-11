@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Checkmark from "./Checkmark";
 import styles from "./ReviewButton.module.scss";

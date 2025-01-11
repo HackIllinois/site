@@ -2,7 +2,8 @@
     position: absolute;
     top: 0;
     z-index: 6;
-    padding: 48px 64px;
+    margin: 48px 0px;
+    padding: 0px 64px;
     color: white;
     width: 100%;
     display: flex;
@@ -102,6 +103,7 @@
 
     .title {
         transform: scale(0.7);
+        z-index: 7;
     }
 }
 
@@ -164,6 +166,12 @@
         }
     }
     // Hamburger menu code assisted by https://codepen.io/designcouch/pen/ExvwPY
+}
+
+.hamburger.dark {
+    span {
+        background: black;
+    }
 }
 
 .mobileMenu {

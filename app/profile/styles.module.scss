@@ -1,3 +1,14 @@
+.valueItem {
+    padding: 5px 8px;
+    border-radius: 5px;
+    color: #393939;
+}
+.valueItem.highlighted {
+    background-color: rgba(152, 198, 206, 0.7);
+    color: black;
+    border: 1px solid #06668c;
+}
+
 .screen {
     display: flex;
     justify-content: center;

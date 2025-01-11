@@ -1,5 +1,10 @@
-import Image from "next/image";
 import styles from "./styles.module.scss";
+import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "HackIllinois | Olympians"
+};
 
 const AboutProTrack: React.FC = () => {
     return (
@@ -88,9 +93,9 @@ const AboutProTrack: React.FC = () => {
                     <br></br>
                     <p>
                         Admission into HackOlympians requires{" "}
-                        <a href="/register/challenge/">
+                        <Link href="/register/challenge/">
                             completing a special challenge
-                        </a>{" "}
+                        </Link>{" "}
                         in addition to registering.
                         <br />
                         <br />

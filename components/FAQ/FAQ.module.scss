@@ -1,0 +1,90 @@
+.faqContainer {
+    position: absolute;
+    top: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+
+    @media screen and (max-width: 1152px) {
+        top: 165px;
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 0 10px;
+        top: 45px;
+    }
+}
+
+.faqArrow {
+    background: none;
+    border: none;
+    font-size: 36px;
+    cursor: pointer;
+
+    @media screen and (max-width: 768px) {
+        font-size: 18px;
+    }
+}
+
+.faqArrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.faqContent {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 10px;
+    flex: 1;
+
+    @media screen and (max-width: 768px) {
+        gap: 7px;
+    }
+}
+
+.faqItem {
+    h3 {
+        font-size: 34px;
+        font-weight: 500;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    a:link {
+        color: #a5c300;
+    }
+
+    a:visited {
+        color: #a5c300;
+    }
+
+    @media screen and (max-width: 1152px) {
+        h3 {
+            font-size: 14px;
+        }
+
+        p {
+            font-size: 10px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        h3 {
+            font-size: 9px;
+        }
+
+        p {
+            font-size: 7px;
+        }
+    }
+}
+
+@media (max-width: 1152px) {
+    .faqContent {
+        grid-template-columns: 1fr; /* Single column on mobile */
+    }
+}

@@ -1,3 +1,4 @@
+"use client";
 import React, { ChangeEvent, ReactNode, useCallback, useMemo } from "react";
 import clsx from "clsx";
 

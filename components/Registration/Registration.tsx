@@ -1,244 +1,219 @@
 "use client";
-import React, { ElementType, useEffect, useRef, useState } from "react";
 import styles from "./Registration.module.scss";
-import Transportation from "./Pages/Transportation/Transportation";
-import Education from "./Pages/Education/Education";
-import HackSpecific from "./Pages/HackSpecific/HackSpecific";
-import PersonalInfo from "./Pages/PersonalInfo/PersonalInfo";
-import ProgressBar from "../ProgressBar/ProgressBar";
-import ReviewInfo from "./Pages/ReviewInfo/ReviewInfo";
-import ApplicationSubmitted from "./Pages/ApplicationSubmitted/ApplicationSubmitted";
-import { getRegistrationSchema } from "./validation";
-import NavigationButton from "../Form/NavigationButton/NavigationButton";
-import { Formik, Form, FormikHelpers, FormikProps } from "formik";
-import { registerSubmit, registerUpdate, registrationToAPI } from "@/util/api";
+import React, {
+    createContext,
+    useContext,
+    useEffect,
+    useRef,
+    useState
+} from "react";
+import { Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { RegistrationData } from "@/util/types";
-import Image from "next/image";
-
-import PERSONAL_INFO from "@/public/registration/backgrounds/personal_info.svg";
-import EDUCATION from "@/public/registration/backgrounds/education.svg";
-import HACK_SPECIFIC from "@/public/registration/backgrounds/hack_specific.svg";
-import TRANSPORTATION from "@/public/registration/backgrounds/transportation.svg";
-import REVIEW_INFO from "@/public/registration/backgrounds/review_info.svg";
-import APPLICATION_SUBMITTED from "@/public/registration/backgrounds/application_submitted.svg";
-
-import PERSONAL_INFO_MOBILE from "@/public/registration/mobile_backgrounds/personal_info.svg";
-import EDUCATION_MOBILE from "@/public/registration/mobile_backgrounds/education.svg";
-import HACK_SPECIFIC_MOBILE from "@/public/registration/mobile_backgrounds/hack_specific.svg";
-import TRANSPORTATION_MOBILE from "@/public/registration/mobile_backgrounds/transportation.svg";
-import REVIEW_INFO_MOBILE from "@/public/registration/mobile_backgrounds/review_info.svg";
-import APPLICATION_SUBMITTED_MOBILE from "@/public/registration/mobile_backgrounds/application_submitted.svg";
+import { usePathname, useRouter } from "next/navigation";
+import NavigationButton from "../Form/NavigationButton/NavigationButton";
+import { registerSubmit, registerUpdate } from "@/util/api";
+import Loading from "../Loading/Loading";
+import { handleError, registrationToAPI } from "@/util/helpers";
+import ProgressBar from "./ProgressBar";
+import { getRegistrationSchema } from "./validation";
 
 import ARTEMIS from "@/public/registration/characters/artemis.svg";
 import APOLLO from "@/public/registration/characters/apollo.svg";
-import NONE from "@/public/registration/characters/none.png";
-import useWindowSize from "@/hooks/use-window-size";
-import Loading from "../Loading/Loading";
+import Image from "next/image";
 
-const pages: Array<
-    ElementType<{
-        onChangePage: (newIndex: number) => void;
-        proTrack: boolean;
-    }>
-> = [
-    PersonalInfo,
-    Education,
-    HackSpecific,
-    Transportation,
-    ReviewInfo,
-    ApplicationSubmitted
+const characters = [ARTEMIS, APOLLO];
+
+const pages = [
+    "/register/personal-info",
+    "/register/education",
+    "/register/hack-specific",
+    "/register/transportation",
+    "/register/review"
 ];
-const reviewPageIndex = 4;
-const submittedPageIndex = 5;
-
-const backgrounds = [
-    PERSONAL_INFO,
-    EDUCATION,
-    HACK_SPECIFIC,
-    TRANSPORTATION,
-    REVIEW_INFO,
-    APPLICATION_SUBMITTED
-];
-
-const backgroundsMobile = [
-    PERSONAL_INFO_MOBILE,
-    EDUCATION_MOBILE,
-    HACK_SPECIFIC_MOBILE,
-    TRANSPORTATION_MOBILE,
-    REVIEW_INFO_MOBILE,
-    APPLICATION_SUBMITTED_MOBILE
-];
-
-const characters = [ARTEMIS, APOLLO, null, NONE, null];
-
-const buttonNames: Array<[string, string]> = [
-    ["Back", "Education"],
-    ["Personal Info", "Hack-Specific"],
-    ["Education", "Transportation"],
-    ["Hack-Specific", "Review Info"],
-    ["Transportation", "Submit"]
-];
-
-type RegistrationFormProps = {
-    registration: RegistrationData;
+const pageMap = {
+    "/register/personal-info": 0,
+    "/register/education": 1,
+    "/register/hack-specific": 2,
+    "/register/transportation": 3,
+    "/register/review": 4
+};
+const buttonNames = {
+    "/register/personal-info": ["Back", "Education"],
+    "/register/education": ["Personal Info", "Hack-Specific"],
+    "/register/hack-specific": ["Education", "Transportation"],
+    "/register/transportation": ["Hack-Specific", "Review Info"],
+    "/register/review": ["Transportation", "Submit"]
 };
 
-const RegistrationForm: React.FC<RegistrationFormProps> = ({
-    registration
-}) => {
-    const windowSizeHook = useWindowSize();
-    const [formIndex, setFormIndex] = useState(0);
-    const [furthestPage, setFurthestPage] = useState(0);
-    const [isLoading, setIsLoading] = useState(false);
-    const scrollWrapperRef = useRef<HTMLDivElement>(null);
-    const formikRef = useRef<FormikProps<RegistrationData>>(null);
+type LayoutContextType = {
+    isPro: boolean;
+    previous: (index?: number) => void;
+};
 
-    const loadPage = async (newIndex: number) => {
-        setFormIndex(() => newIndex);
-        if (newIndex > furthestPage) {
-            setFurthestPage(newIndex);
+const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
+
+export const useLayoutContext = () => {
+    const context = useContext(LayoutContext);
+    if (!context) {
+        throw new Error(
+            "useLayoutContext must be used within a LayoutProvider"
+        );
+    }
+    return context;
+};
+
+const LayoutProvider: React.FC<
+    LayoutContextType & { children: React.ReactNode }
+> = ({ children, ...props }) => {
+    return (
+        <LayoutContext.Provider value={{ ...props }}>
+            {children}
+        </LayoutContext.Provider>
+    );
+};
+
+type PropTypes = {
+    registration: RegistrationData;
+    children: React.ReactNode;
+};
+
+const Registration: React.FC<PropTypes> = ({ registration, children }) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [ignoredFields, setIgnoredFields] = useState<
+        Partial<Record<keyof RegistrationData, unknown>>
+    >({});
+    const formikRef = useRef<FormikProps<RegistrationData>>(null);
+    const pathname = usePathname() as keyof typeof buttonNames;
+    const router = useRouter();
+    const pageIndex = pageMap[pathname];
+    const isPro = registration.isProApplicant;
+    const schema = getRegistrationSchema(pageIndex, isPro);
+
+    useEffect(() => {
+        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+            if (
+                Object.keys(ignoredFields).length > 0 ||
+                Object.keys(formikRef.current?.touched ?? {}).length > 0
+            ) {
+                event.preventDefault();
+                event.returnValue = "";
+            }
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, [ignoredFields, formikRef]);
+
+    const previous = (index?: number) => {
+        if (formikRef.current) {
+            for (const key of Object.keys(formikRef.current.touched) as Array<
+                keyof RegistrationData
+            >) {
+                ignoredFields[key] = registration[key];
+            }
+
+            setIgnoredFields(ignoredFields);
+
+            registration = {
+                ...registration,
+                ...formikRef.current.values
+            };
         }
-        window.scroll(0, 0); // Scroll to top of page
-        scrollWrapperRef.current?.scroll(0, 0); // Scroll to top of page in inner scroll wrapper
+        router.push(
+            pageIndex === 0 ? "/register" : pages[index ?? pageIndex - 1]
+        );
     };
 
-    const handlePageChange = async (newIndex: number) => {
-        if (newIndex >= pages.length) {
-            return; // This shouldn't happen
-        }
-
-        // Wait for the form to load
-        if (!formikRef.current) {
+    const handleSubmit = async (
+        values: RegistrationData,
+        helpers: FormikHelpers<RegistrationData>
+    ) => {
+        if (pathname === "/register/review") {
+            setIsLoading(true);
+            await registerSubmit(registrationToAPI(registration)).catch(err =>
+                handleError(err)
+            );
+            router.push("/register/confirmation");
             return;
         }
 
-        // If the current form is invalid, we can't change pages yet
-        // Only check if the form has been modified
-        const touched = Object.values(formikRef.current.touched).includes(true);
-        if (touched) {
-            const errors = await formikRef.current.validateForm();
-            if (Object.keys(errors).length > 0) {
-                setIsLoading(false);
-                return;
-            }
-        }
+        const schemaKeys = Object.keys(schema.fields);
+        const newIgnore = Object.fromEntries(
+            Object.entries(ignoredFields).filter(
+                ([key]) => !schemaKeys.includes(key)
+            )
+        );
 
-        // Check if back to selection page
-        if (newIndex < 0) {
-            window.location.href = "/register";
-            return;
-        }
-
-        // Update data
         registration = {
             ...registration,
-            ...formikRef.current.values
+            ...values
         };
+
         setIsLoading(true);
-        await registerUpdate(registrationToAPI(registration));
+        await registerUpdate(
+            registrationToAPI({ ...registration, ...newIgnore })
+        ).catch(err => handleError(err));
+        await formikRef.current?.setTouched({}, false);
+        setIgnoredFields(newIgnore);
+        router.push(pages[pageIndex + 1]);
         setIsLoading(false);
-
-        // Update page
-        loadPage(newIndex);
-        formikRef.current.setTouched({}, false); // Reset fields to not be touched
-    };
-
-    const previousPage = () => {
-        handlePageChange(formIndex - 1);
-    };
-
-    const nextPage = async (_values: RegistrationData) => {
-        if (formIndex === reviewPageIndex) {
-            setIsLoading(true);
-            await registerSubmit(registrationToAPI(registration));
-            setIsLoading(false);
-            loadPage(submittedPageIndex); // Load page instead of handle to skip validation & updating
-            return;
-        }
-
-        handlePageChange(formIndex + 1);
     };
 
     return (
         <>
             {isLoading && <Loading />}
-            <div className={styles.container}>
-                <Image
-                    src={
-                        !windowSizeHook?.width || windowSizeHook?.width > 768
-                            ? backgrounds[formIndex]
-                            : backgroundsMobile[formIndex]
-                    }
-                    alt="Background"
-                    className={styles.background}
-                />
-                <div className={styles.contentWrapper}>
-                    <ProgressBar
-                        onChangePage={handlePageChange}
-                        furthestPage={furthestPage}
-                        disabled={formIndex === submittedPageIndex}
-                    />
-                    <div
-                        className={styles.scrollWrapper}
-                        ref={scrollWrapperRef}
-                    >
-                        <div className={styles.formWrapper}>
-                            <div className={styles.formContent}>
-                                <Formik
-                                    innerRef={formikRef}
-                                    initialValues={registration}
-                                    onSubmit={nextPage}
-                                    validationSchema={getRegistrationSchema(
-                                        formIndex,
-                                        registration.isProApplicant
-                                    )}
-                                    enableReinitialize
+            <ProgressBar previous={previous} />
+            <div className={styles.scrollWrapper}>
+                <div className={styles.formWrapper}>
+                    <div className={styles.formContent}>
+                        <Formik
+                            innerRef={formikRef}
+                            initialValues={registration}
+                            onSubmit={handleSubmit}
+                            validationSchema={schema}
+                            enableReinitialize
+                        >
+                            <Form className={styles.form}>
+                                <LayoutProvider
+                                    isPro={isPro}
+                                    previous={previous}
                                 >
-                                    <Form className={styles.form}>
-                                        {React.createElement(pages[formIndex], {
-                                            onChangePage: handlePageChange,
-                                            proTrack:
-                                                registration.isProApplicant
-                                        })}
-                                        {formIndex !== submittedPageIndex && (
-                                            <div className={styles.navigation}>
-                                                <NavigationButton
-                                                    text={
-                                                        buttonNames[
-                                                            formIndex
-                                                        ][0]
-                                                    }
-                                                    onClick={previousPage}
-                                                    type="button"
-                                                />
-                                                <NavigationButton
-                                                    text={
-                                                        buttonNames[
-                                                            formIndex
-                                                        ][1]
-                                                    }
-                                                    pointRight
-                                                    type="submit"
-                                                />
-                                            </div>
-                                        )}
-                                    </Form>
-                                </Formik>
-                            </div>
-                            {characters[formIndex] && (
-                                <div className={styles.character}>
-                                    <img
-                                        src={characters[formIndex].src}
-                                        alt="Character"
+                                    {children}
+                                </LayoutProvider>
+                                <div className={styles.navigation}>
+                                    <NavigationButton
+                                        text={buttonNames[pathname][0]}
+                                        onClick={() => {
+                                            previous();
+                                        }}
+                                        type="button"
+                                    />
+                                    <NavigationButton
+                                        text={buttonNames[pathname][1]}
+                                        pointRight
+                                        type="submit"
                                     />
                                 </div>
-                            )}
-                        </div>
+                            </Form>
+                        </Formik>
                     </div>
+                    {characters[pageIndex] && (
+                        <div className={styles.character}>
+                            <Image
+                                src={characters[pageIndex].src}
+                                alt="Character"
+                                width={400}
+                                height={1000}
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
         </>
     );
 };
 
-export default RegistrationForm;
+export default Registration;
