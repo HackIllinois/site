@@ -1,3 +1,4 @@
+"use client";
 import clsx from "clsx";
 import React, { useState } from "react";
 
@@ -6,7 +7,6 @@ import React, { useState } from "react";
 
 import styles from "./FileUpload.module.scss";
 import { useField } from "formik";
-import { uploadFile } from "@/util/api";
 
 type FileType = "resume" | "photo" | "blobstore";
 
@@ -43,12 +43,14 @@ const FileUpload: React.FC<PropTypes> = ({
     const onFileUpload = (file: File) => {
         setIsUploading(true);
         setValue(file.name);
-        uploadFile(file, type)
+        const formData = new FormData();
+        formData.append("file", file);
+        fetch("/api/upload", { method: "POST", body: formData })
             .then(() => {
                 field.onChange(file.name);
             })
-            .catch(() => {
-                alert("Failed to upload file.");
+            .catch(err => {
+                alert(err);
             })
             .finally(() => {
                 setIsUploading(false);

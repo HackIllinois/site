@@ -1,5 +1,3 @@
-"use client";
-
 import styles from "./styles.module.scss";
 import ACCEPTED_BACKGROUND from "@/public/registration/backgrounds/prochallenge_accepted_background.svg";
 import ACCEPTED_CIRCLE from "@/public/registration/backgrounds/prochallenge_accepted_circle.svg";
@@ -7,39 +5,53 @@ import REJECTED_BACKGROUND from "@/public/registration/backgrounds/rejected_back
 import BLUE_CIRCLE_BACKGROUND from "@/public/registration/backgrounds/blue_circle_background.svg";
 import YELLOW_CIRCLE_BACKGROUND from "@/public/registration/backgrounds/yellow_circle_background.svg";
 import clsx from "clsx";
-import SolidButton from "@/components/SolidButton/SolidButton";
 import {
     getChallenge,
     getRegistrationOrDefault,
     registerUpdate
 } from "@/util/api";
-import { useEffect, useState } from "react";
-import Loading from "@/components/Loading/Loading";
+import Link from "next/link";
 
-const ProChallengeStatus: React.FC = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [isComplete, setIsComplete] = useState(false);
+interface SolidButtonsProps {
+    text: string;
+    backgroundColor: string;
+    horizontalPaddingDisabled?: boolean;
+    href: string;
+}
 
-    const checkComplete = async () => {
-        const challenge = await getChallenge();
-        setIsComplete(challenge.complete);
+const SolidButton: React.FC<SolidButtonsProps> = ({
+    text,
+    backgroundColor,
+    horizontalPaddingDisabled,
+    href
+}) => {
+    return (
+        <Link
+            className={clsx(
+                styles.solidButton,
+                horizontalPaddingDisabled && styles.horizontalPaddingDisabled
+            )}
+            style={{
+                backgroundColor
+            }}
+            href={href}
+        >
+            {text}
+        </Link>
+    );
+};
 
-        if (challenge.complete) {
-            const registration = await getRegistrationOrDefault();
+const ProChallengeStatus: React.FC = async () => {
+    const challenge = await getChallenge();
+    if (challenge.complete) {
+        const registration = await getRegistrationOrDefault();
+        if (!registration.isProApplicant) {
             registration.isProApplicant = true;
             await registerUpdate(registration);
         }
-    };
-
-    useEffect(() => {
-        checkComplete().then(() => setIsLoading(false));
-    }, []);
-
-    if (isLoading) {
-        return <Loading />;
     }
 
-    if (isComplete) {
+    if (challenge.complete) {
         return (
             <div
                 className={styles.background}
@@ -70,9 +82,7 @@ const ProChallengeStatus: React.FC = () => {
                         <SolidButton
                             text={"CONTINUE"}
                             backgroundColor={"#A3B6CE"}
-                            onClick={() => {
-                                window.location.href = "/register/general";
-                            }}
+                            href={"/register/personal-info"}
                         />
 
                         <p className={styles.smallNote}>
@@ -127,10 +137,7 @@ const ProChallengeStatus: React.FC = () => {
                             <SolidButton
                                 text={"TRY AGAIN"}
                                 backgroundColor={"#55A2A7"}
-                                onClick={() => {
-                                    window.location.href =
-                                        "/register/challenge";
-                                }}
+                                href={"/register/challenge"}
                                 horizontalPaddingDisabled
                             />
                         </div>
@@ -153,9 +160,7 @@ const ProChallengeStatus: React.FC = () => {
                             <SolidButton
                                 text={"CONTINUE"}
                                 backgroundColor={"#B79138"}
-                                onClick={() => {
-                                    window.location.href = "/register/general";
-                                }}
+                                href={"/register/personal-info"}
                                 horizontalPaddingDisabled
                             />
                         </div>

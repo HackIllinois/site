@@ -9,12 +9,39 @@ import Link from "next/link";
 import FOREGROUND from "@/public/registration/pro/foreground.svg";
 import EXAMPLE_CHALLENGE_GRAPHIC from "@/public/registration/example_challenge_graphic.svg";
 
-import ShineButton from "@/components/ShineButton/ShineButton";
 import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 
 const jwtUrl = `https://adonix.hackillinois.org/auth/login/github/?device=challenge`;
 const challengeEndpoint =
     "https://adonix.hackillinois.org/registration/challenge/";
+
+interface ShineButtonProps {
+    text: string;
+    link?: string;
+    target?: string;
+    onClick?: () => void;
+}
+
+const ShineButton: React.FC<ShineButtonProps> = ({
+    text,
+    link,
+    target = "_self",
+    onClick
+}) => {
+    if (link) {
+        return (
+            <a className={styles.styledButton} href={link} target={target}>
+                {text}
+            </a>
+        );
+    } else {
+        return (
+            <button className={styles.styledButton} onClick={onClick}>
+                {text}
+            </button>
+        );
+    }
+};
 
 const ProChallenge: React.FC = () => {
     return (

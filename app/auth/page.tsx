@@ -1,37 +1,23 @@
 "use client";
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
 
-const Search = () => {
+const Auth = () => {
     const search = useSearchParams();
 
     useEffect(() => {
         const token = search.get("token");
 
         // these are set in `authenticate` in util/api
-        const { to } = localStorage;
+        const { to: redirectTo } = localStorage;
 
         if (token) {
-            sessionStorage.setItem("token", token);
-            localStorage.removeItem("to");
-
-            if (to) {
-                window.location.replace(to);
-            } else {
-                window.location.replace(window.location.origin);
-            }
+            signIn("credentials", { token, redirectTo });
         }
-    });
+    }, []);
 
     return <h2>Loading</h2>;
-};
-
-const Auth = () => {
-    return (
-        <Suspense>
-            <Search />
-        </Suspense>
-    );
 };
 
 export default Auth;

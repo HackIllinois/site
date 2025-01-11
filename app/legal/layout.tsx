@@ -18,8 +18,6 @@ const items = [
 export default function LegalLayout({ children }: { children?: ReactNode }) {
     const pathname = usePathname();
 
-    console.log(pathname);
-
     return (
         <div className={styles.page}>
             <nav className={styles.navbar}>

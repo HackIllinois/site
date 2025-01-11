@@ -1,7 +1,5 @@
 "use client";
 import React, { useState } from "react";
-// import { subscribe } from "@/utils/api";
-// const validator = require("validator");
 import styles from "./Subscribe.module.scss";
 import { subscribe } from "@/util/api";
 
