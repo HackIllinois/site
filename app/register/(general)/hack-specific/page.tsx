@@ -94,11 +94,7 @@ const allergiesRestrictionsOptions = [
     { label: "Other", value: "OTHER", isOther: true }
 ] satisfies CheckboxOption[];
 
-type PropTypes = {
-    isPro: boolean;
-};
-
-const HackSpecific: React.FC<PropTypes> = () => {
+const HackSpecific: React.FC = () => {
     const { isPro } = useLayoutContext();
 
     return (

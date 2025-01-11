@@ -6,11 +6,7 @@ import Checkboxes from "@/components/Form/Checkboxes/Checkboxes";
 import Link from "next/link";
 import { useLayoutContext } from "@/components/Registration/Registration";
 
-type PropTypes = {
-    previous: (index?: number) => void;
-};
-
-const ReviewInfo: React.FC<PropTypes> = () => {
+const ReviewInfo: React.FC = () => {
     const { previous } = useLayoutContext();
 
     return (
