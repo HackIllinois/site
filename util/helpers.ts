@@ -1,4 +1,18 @@
+import { APIError } from "./error";
 import { RegistrationData, RegistrationType } from "./types";
+
+export function handleError(body: {
+    message: string;
+    status: number;
+    type: string;
+}) {
+    if (body && body.message) {
+        alert(body.message);
+    } else {
+        alert(body);
+    }
+    throw new APIError(body);
+}
 
 export function registrationToAPI(
     registration: RegistrationData

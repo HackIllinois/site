@@ -7,7 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { registerSubmit, registerUpdate } from "@/util/api";
 import Loading from "../Loading/Loading";
-import { registrationToAPI } from "@/util/helpers";
+import { handleError, registrationToAPI } from "@/util/helpers";
 import ProgressBar from "./ProgressBar";
 import { getRegistrationSchema } from "./validation";
 
@@ -94,7 +94,9 @@ const Registration: React.FC<PropTypes> = ({ registration, children }) => {
     const handleSubmit = async (values: RegistrationData) => {
         if (pathname === "/register/review") {
             setIsLoading(true);
-            await registerSubmit(registrationToAPI(registration));
+            await registerSubmit(registrationToAPI(registration)).catch(err =>
+                handleError(err)
+            );
             router.push("/register/confirmation");
             return;
         }
@@ -104,7 +106,9 @@ const Registration: React.FC<PropTypes> = ({ registration, children }) => {
             ...values
         };
         setIsLoading(true);
-        await registerUpdate(registrationToAPI(registration));
+        await registerUpdate(registrationToAPI(registration)).catch(err =>
+            handleError(err)
+        );
         router.push(pages[pageIndex + 1]);
         setIsLoading(false);
     };

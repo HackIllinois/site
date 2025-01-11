@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styles from "./Subscribe.module.scss";
 import { subscribe } from "@/util/api";
+import { handleError } from "@/util/helpers";
 
 const Subscribe = () => {
     const [email, setEmail] = useState("");
@@ -11,7 +12,9 @@ const Subscribe = () => {
     };
 
     const handleSubscription = async () => {
-        await subscribe("hackillinois2025_interest", email);
+        await subscribe("hackillinois2025_interest", email).catch(err =>
+            handleError(err)
+        );
         setEmail("");
         alert("Subscribed to our email list!");
     };

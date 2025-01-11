@@ -1,9 +1,9 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 
-const Auth = () => {
+const SignIn = () => {
     const search = useSearchParams();
 
     useEffect(() => {
@@ -18,6 +18,14 @@ const Auth = () => {
     }, []);
 
     return <h2>Loading</h2>;
+};
+
+const Auth = () => {
+    return (
+        <Suspense>
+            <SignIn />
+        </Suspense>
+    );
 };
 
 export default Auth;

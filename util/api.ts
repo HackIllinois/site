@@ -11,16 +11,6 @@ import { APIError } from "./error";
 
 const APIv2 = "https://adonix.hackillinois.org";
 
-function handleError(body: { message: string; status: number; type: string }) {
-    if (body && body.message) {
-        alert(body.message);
-    } else {
-        alert(body);
-    }
-
-    throw new APIError(body);
-}
-
 export async function requestv2(
     method: MethodType,
     endpoint: string,
@@ -47,36 +37,49 @@ export async function requestv2(
 }
 
 export async function getChallenge(): Promise<ChallengeStatus> {
-    return requestv2("GET", "/registration/challenge/");
+    const res = await requestv2("GET", "/registration/challenge/");
+    return res;
 }
 
 export async function getRegistration(): Promise<WithId<RegistrationType>> {
-    return requestv2("GET", `/registration`).catch(body => handleError(body));
+    const res = await requestv2("GET", `/registration`);
+    return res;
 }
 
+// This function cannot use try/catch to avoid compiler errors :/
 export async function getRegistrationOrDefault(): Promise<
     WithId<RegistrationType> | RegistrationType
 > {
-    return requestv2("GET", `/registration`).catch(body => {
+    const session = await auth();
+    const response = await fetch(`${APIv2}/registration`, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+            Origin: "www.hackillinois.org",
+            Authorization: session?.user?.name || ""
+        }
+    });
+
+    const body = await response.json();
+
+    if (!response.ok) {
         if (body.error !== "NotFound") {
-            handleError(body);
+            throw new APIError(body);
         }
 
         return {
             legalName: "",
             preferredName: "",
             gender: "",
-            age: 0,
             race: [],
             emailAddress: "",
-            phoneNumber: "",
             location: "",
             degree: "",
             university: "",
             gradYear: 0,
             major: "",
             minor: "",
-            resumeFileName: "",
             hackEssay1: "",
             hackEssay2: "",
             optionalEssay: "",
@@ -84,39 +87,39 @@ export async function getRegistrationOrDefault(): Promise<
             hackInterest: [],
             dietaryRestrictions: [],
             requestedTravelReimbursement: false,
-            travelAcknowledge: [],
-            travelMethod: [],
             isProApplicant: false
         };
-    });
+    }
+
+    return body;
 }
 
 export async function registerUpdate(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
-    return requestv2("POST", `/registration`, registration).catch(body =>
-        handleError(body)
-    );
+    const res = await requestv2("POST", `/registration`, registration);
+    return res;
 }
 
 export async function registerSubmit(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
-    return requestv2("POST", `/registration/submit`, registration).catch(body =>
-        handleError(body)
-    );
+    const res = await requestv2("POST", `/registration/submit`, registration);
+    return res;
 }
 
 export async function getRSVP(): Promise<RSVPType> {
-    return requestv2("GET", "/admission/rsvp").catch(body => handleError(body));
+    const res = await requestv2("GET", "/admission/rsvp");
+    return res;
 }
 
 export async function subscribe(
     listName: string,
     emailAddress: string
 ): Promise<string> {
-    return requestv2("POST", "/newsletter/subscribe/", {
+    const res = await requestv2("POST", "/newsletter/subscribe/", {
         listName,
         emailAddress
-    }).catch(body => handleError(body));
+    });
+    return res;
 }

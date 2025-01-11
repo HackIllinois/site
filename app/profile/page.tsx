@@ -2,7 +2,7 @@ import { getRegistrationOrDefault, getRSVP } from "@/util/api";
 import styles from "./styles.module.scss";
 import APPLICATION_STATUS_BACKGROUND from "@/public/registration/backgrounds/application_status_background.svg";
 import APPLICATION_STATUS_BOARD from "@/public/registration/backgrounds/application_status_board.svg";
-import React from "react";
+import React, { Suspense } from "react";
 import clsx from "clsx";
 
 type ValueItemProps = {
@@ -99,7 +99,9 @@ const ProfileWrapper: React.FC = () => {
                 }}
                 className={styles.container}
             >
-                <Profile />
+                <Suspense>
+                    <Profile />
+                </Suspense>
             </div>
         </div>
     );

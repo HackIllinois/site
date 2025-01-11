@@ -1,9 +1,9 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-const Login = () => {
+const SignIn = () => {
     const search = useSearchParams();
     const router = useRouter();
 
@@ -16,6 +16,14 @@ const Login = () => {
     }, []);
 
     return <h2>Loading</h2>;
+};
+
+const Login = () => {
+    return (
+        <Suspense>
+            <SignIn />
+        </Suspense>
+    );
 };
 
 export default Login;
