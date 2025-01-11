@@ -13,7 +13,7 @@ const Description: React.FC = () => {
                     Urbana-Champaign&apos;s premiere collegiate hackathon.
                 </p>
                 <p>
-                    Join us in-person from February 23th to February 25th at the
+                    Join us in-person from February 28th to March 2nd at the
                     Siebel Center for Computer Science!
                 </p>
                 <p>
@@ -21,7 +21,7 @@ const Description: React.FC = () => {
                     projects to a specific track for a chance to win prizes.
                 </p>
                 <p>
-                    <strong>Adventure awaits!</strong>
+                    <strong>Pursue your prophecy!</strong>
                 </p>
             </div>
             <Image

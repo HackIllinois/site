@@ -3,25 +3,36 @@
     justify-content: center;
     width: 100%;
     background: linear-gradient(180deg, #343f3f 6%, #51242b 51%);
-    margin-top: -35%;
+    margin-top: -1000px;
     padding-top: 5%;
+
+    @media screen and (max-width: 1156px) {
+        margin-top: -400px;
+    }
+
+    @media screen and (max-width: 768px) {
+        margin-top: -200px;
+    }
 }
 
 .background {
     height: fit-content;
     width: 100vw;
+    z-index: 2;
 }
 
 .footer {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 60%;
     position: absolute;
     bottom: 6%;
     padding: min(5vh, 15rem) 0;
+    z-index: 3;
 
     @media screen and (max-width: 700px) {
         row-gap: 0rem;
+        width: 80%;
     }
 
     @media screen and (max-width: 670px) {
