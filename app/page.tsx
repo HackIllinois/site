@@ -10,8 +10,9 @@ const Home: React.FC = () => {
     return (
         <main className={styles.main}>
             <Olympian />
-            {/* <Events />
             <FAQJoinUs />
+            {/* <Events />
+            
             <Sponsors />
             <Footer /> */}
         </main>

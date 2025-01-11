@@ -4,6 +4,7 @@ import Image from "next/image";
 import LOGO from "@/public/home/olympian/logo.svg";
 import BACKGROUND from "@/public/home/olympian/background.svg";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
+import Description from "../Description/Description";
 
 const Olympian: React.FC = () => {
     return (
@@ -25,6 +26,7 @@ const Olympian: React.FC = () => {
                 src={BACKGROUND}
                 className={styles.background}
             />
+            <Description />
         </section>
     );
 };
