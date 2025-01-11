@@ -4,6 +4,11 @@ import APPLICATION_STATUS_BACKGROUND from "@/public/registration/backgrounds/app
 import APPLICATION_STATUS_BOARD from "@/public/registration/backgrounds/application_status_board.svg";
 import React, { Suspense } from "react";
 import clsx from "clsx";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "HackIllinois | Profile"
+};
 
 type ValueItemProps = {
     label: string;

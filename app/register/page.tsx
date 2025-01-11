@@ -12,51 +12,46 @@ import styles from "./styles.module.scss";
 
 const Registration: React.FC = () => {
     return (
-        <>
-            <Head>
-                <title>HackIllinois | Register</title>
-            </Head>
-            <main
+        <main
+            style={{
+                backgroundImage: `url(${BACKGROUND?.src})`
+            }}
+            className={styles.screen}
+        >
+            <div className={styles.topSpacer}></div>
+            <Image
+                alt="HackOlympus Logo"
+                src={LOGO_TEXTONLY}
+                className={styles.logo}
+            />
+            <div
                 style={{
-                    backgroundImage: `url(${BACKGROUND?.src})`
+                    backgroundImage: `url(${SNOWGLOBE?.src})`
                 }}
-                className={styles.screen}
+                className={styles.container}
             >
                 <div className={styles.topSpacer}></div>
-                <Image
-                    alt="HackOlympus Logo"
-                    src={LOGO_TEXTONLY}
-                    className={styles.logo}
-                />
-                <div
-                    style={{
-                        backgroundImage: `url(${SNOWGLOBE?.src})`
-                    }}
-                    className={styles.container}
-                >
-                    <div className={styles.topSpacer}></div>
-                    <div className={styles.content}>
-                        <h2>Sign Up As:</h2>
-                        <OlympianButton
-                            text="HackOlympian"
-                            link="/register/challenge"
-                            blue
-                        />
-                        <p className={styles.link}>
-                            <Link href="/olympians" target="_blank">
-                                What is this?
-                            </Link>
-                        </p>
-                        <OlympianButton
-                            text="General Attendee"
-                            link="/register/personal-info"
-                            gold
-                        />
-                    </div>
-                    <div className={styles.spacer}></div>
+                <div className={styles.content}>
+                    <h2>Sign Up As:</h2>
+                    <OlympianButton
+                        text="HackOlympian"
+                        link="/register/challenge"
+                        blue
+                    />
+                    <p className={styles.link}>
+                        <Link href="/olympians" target="_blank">
+                            What is this?
+                        </Link>
+                    </p>
+                    <OlympianButton
+                        text="General Attendee"
+                        link="/register/personal-info"
+                        gold
+                    />
                 </div>
-            </main>
-        </>
+                <div className={styles.spacer}></div>
+            </div>
+        </main>
     );
 };
 

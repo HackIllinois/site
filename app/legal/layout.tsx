@@ -3,6 +3,11 @@
 import { ReactNode } from "react";
 import styles from "./styles.module.scss";
 import { usePathname } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "HackIllinois | Legal"
+};
 
 const items = [
     {
