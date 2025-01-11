@@ -25,9 +25,7 @@ export function registrationToAPI(
             registration.gradYear === ""
                 ? 0
                 : Number.parseInt(registration.gradYear, 10),
-        considerForGeneral: registration.considerForGeneral
-            ? registration.considerForGeneral[0] === "YES"
-            : undefined
+        considerForGeneral: registration.considerForGeneral[0] === "YES"
     };
 }
 
@@ -46,12 +44,8 @@ export function registrationFromAPI(
         ...registration,
         gradYear: registration.gradYear === 0 ? "" : `${registration.gradYear}`,
         requestedTravelReimbursement,
-        considerForGeneral:
-            registration.considerForGeneral === undefined
-                ? undefined
-                : registration.considerForGeneral
-                  ? ["YES"]
-                  : ["NO"],
+        considerForGeneral: registration.considerForGeneral ? ["YES"] : ["NO"],
+        proEssay: registration.proEssay ?? "",
         travelAcknowledge: [], // Must default to an empty array for formik
         reviewedInformationAcknowledge: [], // Must default to an empty array for formik
         codeOfConductAcknowledge: [] // Must default to an empty array for formik

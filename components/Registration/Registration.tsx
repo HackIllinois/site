@@ -1,7 +1,13 @@
 "use client";
 import styles from "./Registration.module.scss";
-import React, { createContext, useContext, useRef, useState } from "react";
-import { Form, Formik, FormikProps } from "formik";
+import React, {
+    createContext,
+    useContext,
+    useEffect,
+    useRef,
+    useState
+} from "react";
+import { Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { RegistrationData } from "@/util/types";
 import { usePathname, useRouter } from "next/navigation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
@@ -73,14 +79,44 @@ type PropTypes = {
 
 const Registration: React.FC<PropTypes> = ({ registration, children }) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [ignoredFields, setIgnoredFields] = useState<
+        Partial<Record<keyof RegistrationData, unknown>>
+    >({});
     const formikRef = useRef<FormikProps<RegistrationData>>(null);
     const pathname = usePathname() as keyof typeof buttonNames;
     const router = useRouter();
     const pageIndex = pageMap[pathname];
     const isPro = registration.isProApplicant;
+    const schema = getRegistrationSchema(pageIndex, isPro);
+
+    useEffect(() => {
+        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+            if (
+                Object.keys(ignoredFields).length > 0 ||
+                Object.keys(formikRef.current?.touched ?? {}).length > 0
+            ) {
+                event.preventDefault();
+                event.returnValue = "";
+            }
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, [ignoredFields, formikRef]);
 
     const previous = (index?: number) => {
         if (formikRef.current) {
+            for (const key of Object.keys(formikRef.current.touched) as Array<
+                keyof RegistrationData
+            >) {
+                ignoredFields[key] = registration[key];
+            }
+
+            setIgnoredFields(ignoredFields);
+
             registration = {
                 ...registration,
                 ...formikRef.current.values
@@ -91,7 +127,10 @@ const Registration: React.FC<PropTypes> = ({ registration, children }) => {
         );
     };
 
-    const handleSubmit = async (values: RegistrationData) => {
+    const handleSubmit = async (
+        values: RegistrationData,
+        helpers: FormikHelpers<RegistrationData>
+    ) => {
         if (pathname === "/register/review") {
             setIsLoading(true);
             await registerSubmit(registrationToAPI(registration)).catch(err =>
@@ -101,14 +140,24 @@ const Registration: React.FC<PropTypes> = ({ registration, children }) => {
             return;
         }
 
+        const schemaKeys = Object.keys(schema.fields);
+        const newIgnore = Object.fromEntries(
+            Object.entries(ignoredFields).filter(
+                ([key]) => !schemaKeys.includes(key)
+            )
+        );
+
         registration = {
             ...registration,
             ...values
         };
+
         setIsLoading(true);
-        await registerUpdate(registrationToAPI(registration)).catch(err =>
-            handleError(err)
-        );
+        await registerUpdate(
+            registrationToAPI({ ...registration, ...newIgnore })
+        ).catch(err => handleError(err));
+        await formikRef.current?.setTouched({}, false);
+        setIgnoredFields(newIgnore);
         router.push(pages[pageIndex + 1]);
         setIsLoading(false);
     };
@@ -124,10 +173,7 @@ const Registration: React.FC<PropTypes> = ({ registration, children }) => {
                             innerRef={formikRef}
                             initialValues={registration}
                             onSubmit={handleSubmit}
-                            validationSchema={getRegistrationSchema(
-                                pageIndex,
-                                isPro
-                            )}
+                            validationSchema={schema}
                             enableReinitialize
                         >
                             <Form className={styles.form}>

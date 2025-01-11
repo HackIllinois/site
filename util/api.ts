@@ -83,6 +83,8 @@ export async function getRegistrationOrDefault(): Promise<
             hackEssay1: "",
             hackEssay2: "",
             optionalEssay: "",
+            considerForGeneral: false,
+            proEssay: "",
             hackOutreach: [],
             hackInterest: [],
             dietaryRestrictions: [],
