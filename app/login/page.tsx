@@ -11,7 +11,7 @@ const SignIn = () => {
         const to = search.get("to") ?? "/";
 
         localStorage.setItem("to", to);
-        const authUrl = `https://adonix.hackillinois.org/auth/login/github/?redirect=${window.location.origin}/auth/`;
+        const authUrl = `https://adonix.hackillinois.org/auth/login/github/?redirect=${encodeURIComponent(window.location.origin)}/auth/`;
         router.push(authUrl);
     }, []);
 
