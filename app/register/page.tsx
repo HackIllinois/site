@@ -1,45 +1,57 @@
-"use client";
 import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 
-import TrackSelection from "@/components/Registration/TrackSelection/TrackSelection";
-import {
-    authenticate,
-    getRegistrationOrDefault,
-    isAuthenticated
-} from "@/util/api";
-import { useEffect, useState } from "react";
+import SNOWGLOBE from "@/public/registration/track_selection/snowglobe.svg";
+import LOGO_TEXTONLY from "@/public/registration/track_selection/logo_textonly.svg";
+import BACKGROUND from "@/public/registration/track_selection/background.svg";
+
+import OlympianButton from "@/components/OlympianButton/OlympianButton";
+
 import styles from "./styles.module.scss";
-import Loading from "@/components/Loading/Loading";
 
 const Registration: React.FC = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    useEffect(() => {
-        if (!isAuthenticated()) {
-            authenticate(window.location.href);
-            return;
-        }
-
-        getRegistrationOrDefault()
-            .then(registration => {
-                if (registration.hasSubmitted) {
-                    window.location.replace("/profile");
-                }
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    }, []);
-
     return (
-        <>
-            <Head>
-                <title>HackIllinois | Register</title>
-            </Head>
-            <main className={styles.container}>
-                {isLoading && <Loading />}
-                <TrackSelection />
-            </main>
-        </>
+        <main
+            style={{
+                backgroundImage: `url(${BACKGROUND?.src})`
+            }}
+            className={styles.screen}
+        >
+            <div className={styles.topSpacer}></div>
+            <Image
+                alt="HackOlympus Logo"
+                src={LOGO_TEXTONLY}
+                className={styles.logo}
+            />
+            <div
+                style={{
+                    backgroundImage: `url(${SNOWGLOBE?.src})`
+                }}
+                className={styles.container}
+            >
+                <div className={styles.topSpacer}></div>
+                <div className={styles.content}>
+                    <h2>Sign Up As:</h2>
+                    <OlympianButton
+                        text="HackOlympian"
+                        link="/register/challenge"
+                        blue
+                    />
+                    <p className={styles.link}>
+                        <Link href="/olympians" target="_blank">
+                            What is this?
+                        </Link>
+                    </p>
+                    <OlympianButton
+                        text="General Attendee"
+                        link="/register/personal-info"
+                        gold
+                    />
+                </div>
+                <div className={styles.spacer}></div>
+            </div>
+        </main>
     );
 };
 

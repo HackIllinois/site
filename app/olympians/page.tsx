@@ -1,8 +1,16 @@
+
 "use client";
 import useWindowSize from "@/hooks/use-window-size";
 import styles from "./styles.module.scss";
 import PRO_TRACK_INFO_BACKGROUND from "@/public/registration/backgrounds/pro_track_info.svg";
 import PRO_TRACK_INFO_MOBILE_BACKGROUND from "@/public/registration/mobile_backgrounds/pro_track_info.svg";
+import styles from "./styles.module.scss";
+import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "HackIllinois | Olympians"
+};
 
 const AboutProTrack: React.FC = () => {
     const windowSizeHook = useWindowSize();
@@ -106,6 +114,28 @@ const AboutProTrack: React.FC = () => {
                             for Hackillinois General attendees, while the Best
                             Olympians prize is reserved for HackOlympians
                             attendees.
+                        </i>
+                    </p>
+                </div>
+                <div>
+                    <h2>How do I become a HackOlympian?</h2>
+                    <br></br>
+                    <p>
+                        Admission into HackOlympians requires{" "}
+                        <Link href="/register/challenge/">
+                            completing a special challenge
+                        </Link>{" "}
+                        in addition to registering.
+                        <br />
+                        <br />
+                        <i>
+                            Note: You MUST{" "}
+                            <b>
+                                complete the challenge before submitting
+                                registration
+                            </b>
+                            . Once you submit, you can no longer complete the
+                            challenge.
                         </i>
                     </p>
                 </div>

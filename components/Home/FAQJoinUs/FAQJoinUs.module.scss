@@ -1,4 +1,5 @@
 .FAQJoinUsMain {
+    position: relative;
     background: linear-gradient(180deg, #9bf3fc 9%, #ffe6c0 48%, #384646 65%);
     width: 100vw;
 }
@@ -6,4 +7,67 @@
 .background {
     height: fit-content;
     width: 100vw;
+}
+
+.olympians {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    bottom: 475px;
+    right: 400px;
+    color: black;
+    gap: 4rem;
+    width: fit-content;
+
+    h1 {
+        font-size: 48px;
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @media screen and (max-width: 1152px) {
+        bottom: 165px;
+        right: 155px;
+        gap: 1rem;
+
+        h1 {
+            font-size: 32px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        bottom: 85px;
+        right: 60px;
+        gap: 1rem;
+
+        h1 {
+            font-size: 14px;
+        }
+    }
+}
+
+.faq {
+    position: absolute;
+    bottom: 100px;
+    left: 145px;
+    font-size: 87px;
+
+    @media screen and (max-width: 1152px) {
+        font-size: 54px;
+        bottom: 45px;
+        left: 45px;
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size: 18px;
+        bottom: 25px;
+        left: 30px;
+    }
 }

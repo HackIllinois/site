@@ -7,110 +7,79 @@ import styles from "./Navbar.module.scss";
 // import CloudMenu from "@/public/cloud-menu.svg";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-import { useContext, useEffect, useRef, useState } from "react";
-import { NavbarContext } from "./NavbarContext";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 type NavbarItem = {
     title: string;
     link: string;
-    active: boolean;
 };
 
-const DEFAULT_NAVBAR_ITEMS: NavbarItem[] = [
-    // {
-    //     title: "Schedule",
-    //     link: "/schedule",
-    //     active: false
-    // },
-    // {
-    //     title: "Mentors",
-    //     link: "/mentors",
-    //     active: false
-    // },
-    // {
-    //     title: "Prizes",
-    //     link: "/prizes",
-    //     active: false
-    // },
-    // {
-    //     title: "Map",
-    //     link: "#",
-    //     active: false
-    // },
-    // {
-    //     title: "Travel",
-    //     link: "/travel",
-    //     active: false
-    // },
+const NAVBAR_ITEMS: NavbarItem[] = [
     {
         title: "Register",
-        link: "/register",
-        active: false
+        link: "/register"
+    },
+    {
+        title: "Legal",
+        link: "/legal"
     }
 ];
+
+const DARK_PAGES = ["/register/challenge"];
 
 const Navbar = () => {
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
-    const [navbarItems, setNavbarItems] = useState(DEFAULT_NAVBAR_ITEMS);
-    const navbarContext = useContext(NavbarContext);
+
+    const isDark = DARK_PAGES.includes(pathname);
 
     useEffect(() => {
-        if (pathname !== "/" && pathname !== "/olympians") {
-            setNavbarItems(n =>
-                n.map(item =>
-                    item.link === pathname
-                        ? { ...item, active: true }
-                        : { ...item, active: false }
-                )
-            );
+        function handleClickOutside(event: MouseEvent) {
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(event.target as Node) &&
+                buttonRef.current &&
+                !buttonRef.current.contains(event.target as Node)
+            ) {
+                setShowMobileNavbar(false);
+            }
         }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    useEffect(() => {
+        setShowMobileNavbar(false);
     }, [pathname]);
 
     return (
         <>
-            <nav
-                className={clsx(
-                    styles.navbar,
-                    navbarContext?.isDark && styles.dark
-                )}
-            >
+            <nav className={clsx(styles.navbar, isDark && styles.dark)}>
                 <Image
                     alt="HackIllinois Logo"
                     onClick={() => (window.location.pathname = "/")}
                     style={{ cursor: "pointer" }}
-                    src={navbarContext?.isDark ? LogoDark : Logo}
+                    src={isDark ? LogoDark : Logo}
                 />
-                <div
-                    ref={menuRef}
-                    className={styles.mobileMenu}
-                    onClick={() => setShowMobileNavbar(p => !p)}
-                >
-                    <div className={styles.mobileMenuButton}>
-                        <span>Menu</span>
-                        {/* <Image alt="Menu" src={CloudMenu} /> */}
-                    </div>
-                    {showMobileNavbar && (
-                        <ul className={styles.mobileNavbarMenu}>
-                            {navbarItems.map((item, index) => (
-                                <li key={item.title}>
-                                    <a href={item.link}>{item.title}</a>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
                 <ul className={styles.navbarList}>
-                    {navbarItems.map((item, index) => (
-                        <li key={index}>
-                            <a
+                    {NAVBAR_ITEMS.map(item => (
+                        <li key={item.title}>
+                            <Link
                                 href={item.link}
-                                className={item.active ? styles.active : ""}
+                                className={
+                                    pathname.startsWith(item.link)
+                                        ? styles.active
+                                        : ""
+                                }
                             >
                                 {item.title}
-                            </a>
+                            </Link>
                         </li>
                     ))}
                     <li>
@@ -122,16 +91,21 @@ const Navbar = () => {
                 <div className={styles.mobileTop}>
                     <div className={styles.title}>
                         <Link href="/">
-                            <Image alt="Logo" src={Logo} className="logo" />
+                            <Image
+                                alt="Logo"
+                                src={isDark ? LogoDark : Logo}
+                                className="logo"
+                            />
                         </Link>
                     </div>
                     <div
                         className={clsx(
                             styles.hamburger,
-                            showMobileNavbar && styles.open
+                            showMobileNavbar && styles.open,
+                            isDark && styles.dark
                         )}
-                        ref={menuRef}
                         onClick={() => setShowMobileNavbar(p => !p)}
+                        ref={buttonRef}
                     >
                         <span></span>
                         <span></span>
@@ -143,16 +117,18 @@ const Navbar = () => {
                         styles.mobileMenu,
                         showMobileNavbar && styles.menuOpen
                     )}
+                    ref={menuRef}
                 >
-                    {navbarItems.map((item, index) => (
-                        <a href={item.link} key={index} className={styles.link}>
+                    {NAVBAR_ITEMS.map(item => (
+                        <Link
+                            href={item.link}
+                            key={item.title}
+                            className={styles.link}
+                        >
                             {item.title}
-                        </a>
+                        </Link>
                     ))}
                     <OlympianButton />
-                    {/* <a href="/register" className={styles.link}>
-                        Register
-                    </a> */}
                 </div>
             </nav>
         </>
@@ -163,7 +139,7 @@ export default Navbar;
 
 const OlympianButton = () => {
     return (
-        <a href="/olympians">
+        <Link href="/olympians">
             <button className={styles.olympianButton}>
                 <div className={styles.buttonBackground}></div>
                 <div className={styles.buttonContent}>
@@ -187,6 +163,6 @@ const OlympianButton = () => {
                     <span>Olympians</span>
                 </div>
             </button>
-        </a>
+        </Link>
     );
 };

@@ -18,8 +18,8 @@ export type RegistrationData = {
     hackEssay1: string;
     hackEssay2: string;
     optionalEssay: string;
-    proEssay?: string;
-    considerForGeneral?: string[];
+    proEssay: string;
+    considerForGeneral: string[];
     hackOutreach: string[];
     hackInterest: string[];
     dietaryRestrictions: string[];

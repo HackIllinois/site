@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import styles from "./OlympianButton.module.scss";
+import Link from "next/link";
 
 interface OlympianButtonProps {
     text: string;
@@ -28,9 +29,9 @@ const OlympianButton: React.FC<OlympianButtonProps> = ({
             )}
         >
             {link ? (
-                <a href={link}>
+                <Link href={link}>
                     <button className={styles.olympianButton}>{text}</button>
-                </a>
+                </Link>
             ) : (
                 <button className={styles.olympianButton} onClick={onClick}>
                     {text}

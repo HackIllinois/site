@@ -3,11 +3,31 @@
 .olympianMain {
     position: relative;
     width: 100%;
-    background: linear-gradient(0deg, #9af2fb 25%, #32c0e2 60%, #0e87cc 100%);
-    padding-top: 100px;
+    height: fit-content;
+    background: linear-gradient(
+        360deg,
+        #fff3b6 61.1%,
+        #ffe1d6 68.5%,
+        #32c0e2 82.05%,
+        #0e87cc 100%
+    );
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.main {
+    position: absolute;
+    top: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+
+    @media screen and (max-width: 1152px) {
+        top: 120px;
+        gap: 20px;
+    }
 }
 
 @keyframes scaleUpDown {
@@ -22,34 +42,19 @@
 
 .logo {
     height: fit-content;
-    width: 100vw;
+    width: 80vw;
     animation: scaleUpDown 5s infinite;
-}
 
-.chest {
-    height: fit-content;
-    width: 50vw;
-    margin-top: -24%;
-    margin-right: 10%;
-    z-index: 1;
-}
-
-.frontClouds {
-    margin-top: -30%;
-    z-index: 2;
-    height: fit-content;
-    width: 100vw;
-}
-
-.backClouds {
-    margin-top: -45%;
-    height: fit-content;
-    width: 100vw;
-    z-index: 0;
+    @media screen and (max-width: 768px) {
+        width: 90vw;
+    }
 }
 
 .background {
-    margin-top: -17%;
     height: fit-content;
     width: 100vw;
+
+    @media screen and (max-width: 768px) {
+        margin-top: 86px;
+    }
 }
