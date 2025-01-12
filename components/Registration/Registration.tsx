@@ -27,7 +27,8 @@ const pages = [
     "/register/personal-info",
     "/register/education",
     "/register/hack-specific",
-    "/register/transportation"
+    "/register/transportation",
+    "/register/review"
 ];
 const pageMap = {
     "/register/personal-info": 0,
