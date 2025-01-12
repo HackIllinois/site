@@ -1,13 +1,13 @@
+.container {
+    position: relative;
+}
+
 .proTrackPage {
-    background-color: #1a142b;
     color: white;
     min-width: 100vw;
     min-height: max(90vw, 100vh);
     padding: 0 48px;
     padding-top: 10rem;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: top;
     padding-bottom: 200px;
     @media (max-width: 768px) {
         padding-left: 32px;
