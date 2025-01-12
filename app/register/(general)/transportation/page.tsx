@@ -3,27 +3,10 @@ import Checkboxes, {
 } from "@/components/Form/Checkboxes/Checkboxes";
 import styles from "./styles.module.scss";
 import React from "react";
-
-const travelAcknowledgeOptions = [
-    {
-        label: "I acknowledge",
-        value: "YES",
-        isRadio: true
-    }
-] satisfies CheckboxOption[];
-
-const travelReimbursementOptions = [
-    {
-        label: "Yes",
-        value: "YES",
-        isRadio: true
-    },
-    {
-        label: "No",
-        value: "NO",
-        isRadio: true
-    }
-] satisfies CheckboxOption[];
+import {
+    travelAcknowledgeOptions,
+    travelReimbursementOptions
+} from "./options";
 
 const Transportation: React.FC = () => {
     return (

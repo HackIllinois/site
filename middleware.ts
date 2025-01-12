@@ -1,8 +1,13 @@
 import { auth } from "@/auth";
-import { getRegistrationOrDefault } from "./util/api";
+import { getChallenge, getRegistrationOrDefault } from "./util/api";
 import { RegistrationType } from "./util/types";
 
 export default auth(async req => {
+    if (process.env.HYPE_SITE) {
+        const newUrl = new URL("/", "https://hype.hackillinois.org");
+        return Response.redirect(newUrl);
+    }
+
     if (
         !req.auth &&
         (req.nextUrl.pathname.startsWith("/register") ||
@@ -26,7 +31,10 @@ export default auth(async req => {
 
     if (req.nextUrl.pathname.startsWith("/register")) {
         const registration = await getRegistrationOrDefault();
-        const path = determineRegistration(req.nextUrl.pathname, registration);
+        const path = await determineRegistration(
+            req.nextUrl.pathname,
+            registration
+        );
         if (path === req.nextUrl.pathname) {
             return;
         }
@@ -35,8 +43,7 @@ export default auth(async req => {
     }
 });
 
-// This is a hack that can be reworked when the API has seperate logical forms for each page
-function determineRegistration(
+async function determineRegistration(
     pathname: string,
     registration: RegistrationType
 ) {
@@ -44,15 +51,18 @@ function determineRegistration(
         return "/register/confirmation";
     }
 
-    if (registration.isProApplicant && pathname === "/register/challenge") {
-        return "/register/challenge/status";
+    if (pathname === "/register/challenge") {
+        const { complete } = await getChallenge();
+        if (complete) {
+            return "/register/challenge/status";
+        }
     }
 
     const generalPages = [
         "/register/education",
         "/register/hack-specific",
         "/register/transportation",
-        "/register/review-info",
+        "/register/review",
         "/register/confirmation"
     ];
 
@@ -72,10 +82,9 @@ function determineRegistration(
     ) {
         return "/register/hack-specific";
     }
-    generalPages.shift();
 
-    if (generalPages.includes(pathname)) {
-        return "/register/transportation";
+    if (pathname === "/register/confirmation") {
+        return "/register/review";
     }
 
     return pathname;

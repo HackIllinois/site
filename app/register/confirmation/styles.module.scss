@@ -33,7 +33,10 @@
 .content {
     display: flex;
     flex-direction: column; /* Stack content vertically */
+    justify-content: center;
+    align-items: center;
     text-align: left;
+    text-align: center;
 }
 
 .logo {
@@ -47,6 +50,10 @@
     color: #ffffff;
     margin-bottom: 16px;
     width: 130%;
+
+    @media screen and (max-width: 768px) {
+        font-size: 26px;
+    }
 }
 
 .message {
@@ -55,6 +62,9 @@
     color: #ffffff;
     margin-top: 15px;
     width: 80%;
+    @media screen and (max-width: 768px) {
+        font-size: 18px;
+    }
 }
 
 .follow {
