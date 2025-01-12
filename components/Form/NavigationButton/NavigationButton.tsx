@@ -5,6 +5,7 @@ import Image from "next/image";
 import RIGHT_ARROW from "@/public/registration/right_arrow.svg";
 import LEFT_ARROW from "@/public/registration/left_arrow.svg";
 import { MouseEventHandler, KeyboardEvent } from "react";
+import Link from "next/link";
 
 interface NavButtonProps {
     text: string;
@@ -63,7 +64,7 @@ const NavigationButton: React.FC<NavButtonProps> = ({
     );
 
     if (href) {
-        return <a href={href}>{Content}</a>;
+        return <Link href={href}>{Content}</Link>;
     }
 
     return Content;
