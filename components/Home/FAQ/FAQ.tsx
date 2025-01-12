@@ -1,11 +1,12 @@
 import { FC } from "react";
 
-import styles from "./Sponsors.module.scss";
-import BACKGROUND from "@/public/home/sponsors/sponsor-background.svg";
+import styles from "./FAQ.module.scss";
+import BACKGROUND from "@/public/home/faq/background.svg";
 
 import Image from "next/image";
+import FAQ from "@/components/FAQ/FAQ";
 
-const Sponsors: FC = () => {
+const FAQSection: FC = () => {
     return (
         <section className={styles.sponsorsMain}>
             <Image
@@ -13,9 +14,9 @@ const Sponsors: FC = () => {
                 src={BACKGROUND}
                 className={styles.background}
             />
-            <h1 className={styles.sponsor}>Sponsors</h1>
+            <FAQ />
         </section>
     );
 };
 
-export default Sponsors;
+export default FAQSection;

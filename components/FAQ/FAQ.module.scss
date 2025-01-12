@@ -7,10 +7,15 @@
     padding: 0 20px;
 
     @media screen and (max-width: 1152px) {
-        top: 165px;
+        top: 100px;
     }
 
     @media screen and (max-width: 768px) {
+        padding: 0 10px;
+        top: 50px;
+    }
+
+    @media screen and (max-width: 400px) {
         padding: 0 10px;
         top: 45px;
     }
@@ -34,10 +39,13 @@
 
 .faqContent {
     display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
     padding: 0 10px;
     flex: 1;
+
+    @media screen and (max-width: 1152px) {
+        gap: 1rem;
+    }
 
     @media screen and (max-width: 768px) {
         gap: 7px;
@@ -46,12 +54,13 @@
 
 .faqItem {
     h3 {
-        font-size: 34px;
+        font-size: 44px;
         font-weight: 500;
+        margin-bottom: 0.5rem;
     }
 
     p {
-        font-size: 18px;
+        font-size: 22px;
     }
 
     a:link {
@@ -64,11 +73,11 @@
 
     @media screen and (max-width: 1152px) {
         h3 {
-            font-size: 14px;
+            font-size: 28px;
         }
 
         p {
-            font-size: 10px;
+            font-size: 16px;
         }
     }
 
@@ -78,13 +87,27 @@
         }
 
         p {
+            font-size: 8px;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+        h3 {
+            font-size: 9px;
+        }
+
+        p {
             font-size: 7px;
         }
     }
-}
 
-@media (max-width: 1152px) {
-    .faqContent {
-        grid-template-columns: 1fr; /* Single column on mobile */
+    @media screen and (max-width: 370px) {
+        h3 {
+            font-size: 8px;
+        }
+
+        p {
+            font-size: 6px;
+        }
     }
 }

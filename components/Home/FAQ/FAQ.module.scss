@@ -1,0 +1,73 @@
+.sponsorsMain {
+    position: relative;
+    background-color: #384646;
+    width: 100vw;
+}
+
+.background {
+    height: fit-content;
+    width: 100vw;
+}
+
+.faq {
+    padding: 0 2rem;
+    position: absolute;
+    top: 240px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4rem;
+
+    h3 {
+        font-size: 42px;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        font-size: 20px;
+    }
+
+    a:link {
+        color: #a5c300;
+    }
+
+    a:visited {
+        color: #a5c300;
+    }
+
+    @media screen and (max-width: 1152px) {
+        h3 {
+            font-size: 14px;
+        }
+
+        p {
+            font-size: 10px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        h3 {
+            font-size: 9px;
+        }
+
+        p {
+            font-size: 7px;
+        }
+    }
+
+    @media screen and (max-width: 1152px) {
+        top: 100px;
+        padding: 0 1rem;
+        gap: 1rem;
+    }
+
+    @media screen and (max-width: 768px) {
+        top: 50px;
+        padding: 0 0.5rem;
+        gap: 0.25rem;
+    }
+}

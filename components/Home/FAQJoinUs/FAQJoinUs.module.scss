@@ -4,6 +4,135 @@
     width: 100vw;
 }
 
+.joinUs {
+    position: absolute;
+    color: #3a464f;
+    width: 35%;
+    top: 600px;
+    right: 200px;
+
+    h1 {
+        font-size: 68px;
+    }
+
+    p {
+        font-size: 26px;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+
+    @media screen and (max-width: 1152px) {
+        text-align: center;
+        width: 40%;
+        top: 200px;
+        right: 30px;
+
+        h1 {
+            font-size: 48px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        top: 100px;
+        right: 30px;
+
+        h1 {
+            font-size: 24px;
+        }
+
+        p {
+            font-size: 12px;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+    }
+
+    @media screen and (max-width: 370px) {
+        right: 28px;
+
+        h1 {
+            font-size: 24px;
+        }
+
+        p {
+            font-size: 10px;
+        }
+    }
+}
+
+.social {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+
+    @media screen and (max-width: 1152px) {
+        width: 250px;
+        height: 250px;
+    }
+
+    @media screen and (max-width: 768px) {
+        width: 100px;
+        height: 100px;
+    }
+
+    @media screen and (max-width: 400px) {
+    }
+
+    @media screen and (max-width: 370px) {
+    }
+}
+
+.x {
+    top: 900px;
+    left: 700px;
+
+    @media screen and (max-width: 1152px) {
+        top: 400px;
+        left: 300px;
+    }
+
+    @media screen and (max-width: 768px) {
+        top: 220px;
+        left: 160px;
+    }
+
+    @media screen and (max-width: 400px) {
+    }
+
+    @media screen and (max-width: 370px) {
+        top: 200px;
+        left: 130px;
+    }
+}
+
+.instagram {
+    top: 600px;
+    left: 500px;
+
+    @media screen and (max-width: 1152px) {
+        top: 220px;
+        left: 160px;
+    }
+
+    @media screen and (max-width: 768px) {
+        top: 100px;
+        left: 100px;
+    }
+
+    @media screen and (max-width: 400px) {
+    }
+
+    @media screen and (max-width: 370px) {
+    }
+}
+
 .background {
     height: fit-content;
     width: 100vw;
@@ -44,6 +173,26 @@
 
     @media screen and (max-width: 768px) {
         bottom: 85px;
+        right: 75px;
+        gap: 1rem;
+
+        h1 {
+            font-size: 14px;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+        bottom: 85px;
+        right: 65px;
+        gap: 1rem;
+
+        h1 {
+            font-size: 14px;
+        }
+    }
+
+    @media screen and (max-width: 370px) {
+        bottom: 70px;
         right: 60px;
         gap: 1rem;
 

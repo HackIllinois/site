@@ -11,89 +11,31 @@
 
 .sponsor {
     position: absolute;
-    top: 1225px;
+    top: 120px;
     left: 150px;
     font-size: 87px;
 
     @media screen and (max-width: 1152px) {
         font-size: 54px;
-        top: 570px;
+        top: 50px;
         left: 35px;
     }
 
     @media screen and (max-width: 768px) {
         font-size: 18px;
-        top: 270px;
+        top: 30px;
         left: 30px;
     }
-}
 
-.faq {
-    padding: 0 2rem;
-    position: absolute;
-    top: 200px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4rem;
-
-    @media screen and (max-width: 1152px) {
-        top: 100px;
-        padding: 0 1rem;
-        gap: 1rem;
-    }
-
-    @media screen and (max-width: 768px) {
-        top: 50px;
-        padding: 0 0.5rem;
-        gap: 0.25rem;
-    }
-}
-
-.faqInner {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    gap: 3rem;
-    height: fit-content;
-
-    h3 {
-        font-size: 34px;
-    }
-
-    p {
+    @media screen and (max-width: 400px) {
         font-size: 18px;
+        top: 30px;
+        left: 30px;
     }
 
-    a:link {
-        color: #a5c300;
-    }
-
-    a:visited {
-        color: #a5c300;
-    }
-
-    @media screen and (max-width: 1152px) {
-        gap: 1rem;
-        h3 {
-            font-size: 14px;
-        }
-
-        p {
-            font-size: 10px;
-        }
-    }
-
-    @media screen and (max-width: 768px) {
-        gap: 0.25rem;
-        h3 {
-            font-size: 6px;
-        }
-
-        p {
-            font-size: 5px;
-        }
+    @media screen and (max-width: 370px) {
+        font-size: 18px;
+        top: 25px;
+        left: 30px;
     }
 }

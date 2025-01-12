@@ -5,10 +5,49 @@ import BACKGROUND from "@/public/home/faq-joinus/faq-joinus-background.svg";
 
 import Image from "next/image";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
+import Link from "next/link";
+import clsx from "clsx";
 
 const FAQJoinUs: FC = () => {
     return (
         <section className={styles.FAQJoinUsMain}>
+            <div className={styles.joinUs}>
+                <h1>Join Us</h1>
+                <p>
+                    Follow us on{" "}
+                    <strong>
+                        Twitter (<Link href={"#"}>@HackIllinois</Link>)
+                    </strong>{" "}
+                    and{" "}
+                    <strong>
+                        Instagram (<Link href={"#"}>@HackIllinois</Link>)
+                    </strong>{" "}
+                    to be notified of our event updates! There will be regular
+                    content and posts.
+                </p>
+            </div>
+            <Link
+                href="https://x.com/hackillinois"
+                className={clsx(styles.social, styles.x)}
+            >
+                <Image
+                    src="/home/faq-joinus/x.svg"
+                    alt="x"
+                    fill
+                    style={{ objectFit: "contain" }}
+                />
+            </Link>
+            <Link
+                href="https://www.instagram.com/HackIllinois"
+                className={clsx(styles.social, styles.instagram)}
+            >
+                <Image
+                    src="/home/faq-joinus/instagram.svg"
+                    alt="instagram"
+                    fill
+                    style={{ objectFit: "contain" }}
+                />
+            </Link>
             <div className={styles.olympians}>
                 <div>
                     <h1>Introducing</h1>
