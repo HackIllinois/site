@@ -64,23 +64,11 @@ const transportation = yup.object({
     travelAcknowledge: yup.array().of(yup.string()).min(1, "Please acknowledge")
 });
 
-const reviewInfo = yup.object({
-    reviewedInformationAcknowledge: yup
-        .array()
-        .of(yup.string())
-        .min(1, "Please review your information"),
-    codeOfConductAcknowledge: yup
-        .array()
-        .of(yup.string())
-        .min(1, "You must accept to register")
-});
-
 const registrationSchemas = [
     personalInfo,
     education,
     hackSpecific,
-    transportation,
-    reviewInfo
+    transportation
 ];
 
 const proHackSpecific = yup.object({
@@ -133,3 +121,14 @@ export function getRegistrationSchema(index: number, isProApplicant: boolean) {
 
     return schema;
 }
+
+export const reviewSchema = yup.object({
+    reviewedInformationAcknowledge: yup
+        .array()
+        .of(yup.string())
+        .min(1, "Please review your information"),
+    codeOfConductAcknowledge: yup
+        .array()
+        .of(yup.string())
+        .min(1, "You must accept to register")
+});

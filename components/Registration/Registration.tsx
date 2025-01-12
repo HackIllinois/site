@@ -11,7 +11,7 @@ import { Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { RegistrationData } from "@/util/types";
 import { usePathname, useRouter } from "next/navigation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
-import { registerSubmit, registerUpdate } from "@/util/api";
+import { registerUpdate } from "@/util/api";
 import Loading from "../Loading/Loading";
 import { handleError, registrationToAPI } from "@/util/helpers";
 import ProgressBar from "./ProgressBar";
@@ -27,26 +27,24 @@ const pages = [
     "/register/personal-info",
     "/register/education",
     "/register/hack-specific",
-    "/register/transportation",
-    "/register/review"
+    "/register/transportation"
 ];
 const pageMap = {
     "/register/personal-info": 0,
     "/register/education": 1,
     "/register/hack-specific": 2,
-    "/register/transportation": 3,
-    "/register/review": 4
+    "/register/transportation": 3
 };
 const buttonNames = {
     "/register/personal-info": ["Back", "Education"],
     "/register/education": ["Personal Info", "Hack-Specific"],
     "/register/hack-specific": ["Education", "Transportation"],
-    "/register/transportation": ["Hack-Specific", "Review Info"],
-    "/register/review": ["Transportation", "Submit"]
+    "/register/transportation": ["Hack-Specific", "Review Info"]
 };
 
 type LayoutContextType = {
     isProApplicant: boolean;
+    registration: RegistrationData;
     previous: (index?: number) => void;
 };
 
@@ -87,6 +85,7 @@ const Registration: React.FC<PropTypes> = ({
     const [ignoredFields, setIgnoredFields] = useState<
         Partial<Record<keyof RegistrationData, unknown>>
     >({});
+    const [furthestPage, setFurthestPage] = useState(0);
     const formikRef = useRef<FormikProps<RegistrationData>>(null);
     const pathname = usePathname() as keyof typeof buttonNames;
     const router = useRouter();
@@ -110,6 +109,12 @@ const Registration: React.FC<PropTypes> = ({
             window.removeEventListener("beforeunload", handleBeforeUnload);
         };
     }, [ignoredFields, formikRef]);
+
+    useEffect(() => {
+        if (pageMap[pathname] > furthestPage) {
+            setFurthestPage(pageMap[pathname]);
+        }
+    }, [pathname]);
 
     const previous = (index?: number) => {
         if (formikRef.current) {
@@ -135,15 +140,6 @@ const Registration: React.FC<PropTypes> = ({
         values: RegistrationData,
         helpers: FormikHelpers<RegistrationData>
     ) => {
-        if (pathname === "/register/review") {
-            setIsLoading(true);
-            await registerSubmit(registrationToAPI(registration)).catch(err =>
-                handleError(err)
-            );
-            router.push("/register/confirmation");
-            return;
-        }
-
         const schemaKeys = Object.keys(schema.fields);
         const newIgnore = Object.fromEntries(
             Object.entries(ignoredFields).filter(
@@ -169,7 +165,7 @@ const Registration: React.FC<PropTypes> = ({
     return (
         <>
             {isLoading && <Loading />}
-            <ProgressBar previous={previous} />
+            <ProgressBar furthestPage={furthestPage} />
             <div className={styles.scrollWrapper}>
                 <div className={styles.formWrapper}>
                     <div className={styles.formContent}>
@@ -183,6 +179,7 @@ const Registration: React.FC<PropTypes> = ({
                             <Form className={styles.form}>
                                 <LayoutProvider
                                     isProApplicant={isProApplicant}
+                                    registration={registration}
                                     previous={previous}
                                 >
                                     {children}

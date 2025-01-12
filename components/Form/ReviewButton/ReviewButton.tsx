@@ -1,21 +1,21 @@
-"use client";
 import React from "react";
 import Checkmark from "./Checkmark";
 import styles from "./ReviewButton.module.scss";
+import Link from "next/link";
 
 type PropTypes = {
     text: string;
-    onClick: () => void;
+    href: string;
 };
 
-const ReviewButton: React.FC<PropTypes> = ({ text, onClick }) => {
+const ReviewButton: React.FC<PropTypes> = ({ text, href }) => {
     return (
-        <div onClick={onClick} className={styles.reviewButton}>
+        <Link href={href} className={styles.reviewButton}>
             <div className={styles.checkButton}>
                 <Checkmark />
             </div>
             <h3>{text}</h3>
-        </div>
+        </Link>
     );
 };
 

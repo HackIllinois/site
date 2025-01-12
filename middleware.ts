@@ -62,7 +62,7 @@ async function determineRegistration(
         "/register/education",
         "/register/hack-specific",
         "/register/transportation",
-        "/register/review-info",
+        "/register/review",
         "/register/confirmation"
     ];
 
@@ -82,10 +82,9 @@ async function determineRegistration(
     ) {
         return "/register/hack-specific";
     }
-    generalPages.shift();
 
-    if (generalPages.includes(pathname)) {
-        return "/register/transportation";
+    if (pathname === "/register/confirmation") {
+        return "/register/review";
     }
 
     return pathname;
