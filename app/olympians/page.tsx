@@ -103,14 +103,6 @@ const AboutProTrack: React.FC = () => {
                             <br></br>
                             Additionally, all Hackillinois attendees are
                             eligible to compete in all our sponsored tracks.*
-                            <br></br>
-                            <br></br>
-                            <i>
-                                *The Best Beginner and General prizes are
-                                reserved for Hackillinois General attendees,
-                                while the Best Olympians prize is reserved for
-                                HackOlympians attendees.
-                            </i>
                         </p>
                     </div>
                     <div>
@@ -134,6 +126,14 @@ const AboutProTrack: React.FC = () => {
                                 the challenge.
                             </i>
                         </p>
+                    </div>
+                    <div>
+                        <i>
+                            *The Best Beginner and General prizes are reserved
+                            for Hackillinois General attendees, while the Best
+                            Olympians prize is reserved for HackOlympians
+                            attendees.
+                        </i>
                     </div>
                 </div>
             </section>

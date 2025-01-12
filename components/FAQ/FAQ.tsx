@@ -43,7 +43,8 @@ const faqData = [
                 hackers who have mastered the fundamentals and are now looking
                 to test their skills in a more challenging environment.
                 Admission into HackOlympians requires completing our
-                application, which includes a coding challenge.
+                application, which includes a{" "}
+                <Link href="/register/challenge">coding challenge</Link>.
             </p>
         )
     },
