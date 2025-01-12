@@ -31,7 +31,7 @@ export async function requestv2(
     const responseJSON = await response.json();
 
     if (!response.ok) {
-        throw responseJSON;
+        throw new APIError(responseJSON);
     }
     return responseJSON;
 }
@@ -88,8 +88,7 @@ export async function getRegistrationOrDefault(): Promise<
             hackOutreach: [],
             hackInterest: [],
             dietaryRestrictions: [],
-            requestedTravelReimbursement: false,
-            isProApplicant: false
+            requestedTravelReimbursement: false
         };
     }
 

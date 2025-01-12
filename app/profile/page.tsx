@@ -1,4 +1,4 @@
-import { getRegistrationOrDefault, getRSVP } from "@/util/api";
+import { getChallenge, getRegistrationOrDefault, getRSVP } from "@/util/api";
 import styles from "./styles.module.scss";
 import APPLICATION_STATUS_BACKGROUND from "@/public/registration/backgrounds/application_status_background.svg";
 import APPLICATION_STATUS_BOARD from "@/public/registration/backgrounds/application_status_board.svg";
@@ -29,10 +29,12 @@ const ValueItem: React.FC<ValueItemProps> = ({ label, isHighlighted }) => {
 };
 
 const Profile: React.FC = async () => {
-    const [currentRegistration, currentRSVP] = await Promise.all([
-        getRegistrationOrDefault(),
-        getRSVP()
-    ]);
+    const [currentRegistration, currentRSVP, { complete: isProApplicant }] =
+        await Promise.all([
+            getRegistrationOrDefault(),
+            getRSVP(),
+            getChallenge()
+        ]);
 
     return (
         <>
@@ -45,18 +47,8 @@ const Profile: React.FC = async () => {
             <div className={styles.info}>
                 <div className={styles.col}>
                     <h3>Type</h3>
-                    <ValueItem
-                        label="Pro"
-                        isHighlighted={
-                            currentRegistration?.isProApplicant === true
-                        }
-                    />
-                    <ValueItem
-                        label="Regular"
-                        isHighlighted={
-                            currentRegistration?.isProApplicant !== true
-                        }
-                    />
+                    <ValueItem label="Pro" isHighlighted={isProApplicant} />
+                    <ValueItem label="Regular" isHighlighted={isProApplicant} />
                 </div>
                 <div className={styles.col}>
                     <h3>Status</h3>

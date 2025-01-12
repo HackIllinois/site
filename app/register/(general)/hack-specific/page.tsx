@@ -12,7 +12,7 @@ import {
 import styles from "./styles.module.scss";
 
 const HackSpecific: React.FC = () => {
-    const { isPro } = useLayoutContext();
+    const { isProApplicant } = useLayoutContext();
 
     return (
         <div className={styles.container}>
@@ -43,7 +43,7 @@ const HackSpecific: React.FC = () => {
                 placeholder="Type your response..."
             />
 
-            {isPro && (
+            {isProApplicant && (
                 <>
                     <TextInput
                         className={styles.largeTextField}
