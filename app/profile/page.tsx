@@ -48,7 +48,10 @@ const Profile: React.FC = async () => {
                 <div className={styles.col}>
                     <h3>Type</h3>
                     <ValueItem label="Pro" isHighlighted={isProApplicant} />
-                    <ValueItem label="Regular" isHighlighted={isProApplicant} />
+                    <ValueItem
+                        label="Regular"
+                        isHighlighted={!isProApplicant}
+                    />
                 </div>
                 <div className={styles.col}>
                     <h3>Status</h3>
