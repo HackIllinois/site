@@ -46,7 +46,7 @@ const buttonNames = {
 };
 
 type LayoutContextType = {
-    isPro: boolean;
+    isProApplicant: boolean;
     previous: (index?: number) => void;
 };
 
@@ -74,10 +74,15 @@ const LayoutProvider: React.FC<
 
 type PropTypes = {
     registration: RegistrationData;
+    isProApplicant: boolean;
     children: React.ReactNode;
 };
 
-const Registration: React.FC<PropTypes> = ({ registration, children }) => {
+const Registration: React.FC<PropTypes> = ({
+    registration,
+    isProApplicant,
+    children
+}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [ignoredFields, setIgnoredFields] = useState<
         Partial<Record<keyof RegistrationData, unknown>>
@@ -86,8 +91,7 @@ const Registration: React.FC<PropTypes> = ({ registration, children }) => {
     const pathname = usePathname() as keyof typeof buttonNames;
     const router = useRouter();
     const pageIndex = pageMap[pathname];
-    const isPro = registration.isProApplicant;
-    const schema = getRegistrationSchema(pageIndex, isPro);
+    const schema = getRegistrationSchema(pageIndex, isProApplicant);
 
     useEffect(() => {
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -178,7 +182,7 @@ const Registration: React.FC<PropTypes> = ({ registration, children }) => {
                         >
                             <Form className={styles.form}>
                                 <LayoutProvider
-                                    isPro={isPro}
+                                    isProApplicant={isProApplicant}
                                     previous={previous}
                                 >
                                     {children}

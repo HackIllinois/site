@@ -5,11 +5,7 @@ import REJECTED_BACKGROUND from "@/public/registration/backgrounds/rejected_back
 import BLUE_CIRCLE_BACKGROUND from "@/public/registration/backgrounds/blue_circle_background.svg";
 import YELLOW_CIRCLE_BACKGROUND from "@/public/registration/backgrounds/yellow_circle_background.svg";
 import clsx from "clsx";
-import {
-    getChallenge,
-    getRegistrationOrDefault,
-    registerUpdate
-} from "@/util/api";
+import { getChallenge } from "@/util/api";
 import Link from "next/link";
 
 interface SolidButtonsProps {
@@ -43,13 +39,6 @@ const SolidButton: React.FC<SolidButtonsProps> = ({
 
 const ProChallengeStatus: React.FC = async () => {
     const challenge = await getChallenge();
-    if (challenge.complete) {
-        const registration = await getRegistrationOrDefault();
-        if (!registration.isProApplicant) {
-            registration.isProApplicant = true;
-            await registerUpdate(registration);
-        }
-    }
 
     if (challenge.complete) {
         return (

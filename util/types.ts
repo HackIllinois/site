@@ -25,7 +25,6 @@ export type RegistrationData = {
     dietaryRestrictions: string[];
     requestedTravelReimbursement: string[];
     travelAcknowledge: string[];
-    isProApplicant: boolean;
     codeOfConductAcknowledge: string[];
     reviewedInformationAcknowledge: string[];
 };
@@ -51,7 +50,6 @@ export type RegistrationType = {
     optionalEssay: string;
     proEssay?: string;
     considerForGeneral?: boolean;
-    isProApplicant: boolean;
     hasSubmitted?: boolean;
 };
 

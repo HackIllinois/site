@@ -88,8 +88,7 @@ export async function getRegistrationOrDefault(): Promise<
             hackOutreach: [],
             hackInterest: [],
             dietaryRestrictions: [],
-            requestedTravelReimbursement: false,
-            isProApplicant: false
+            requestedTravelReimbursement: false
         };
     }
 
