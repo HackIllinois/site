@@ -3,6 +3,11 @@ import { getRegistrationOrDefault } from "./util/api";
 import { RegistrationType } from "./util/types";
 
 export default auth(async req => {
+    if (process.env.HYPE_SITE) {
+        const newUrl = new URL("/", "https://hype.hackillinois.org");
+        return Response.redirect(newUrl);
+    }
+
     if (
         !req.auth &&
         (req.nextUrl.pathname.startsWith("/register") ||
