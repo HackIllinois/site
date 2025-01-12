@@ -3,27 +3,7 @@ import TextInput from "@/components/Form/TextInput/TextInput";
 import Dropdown from "@/components/Form/DropdownBox/Dropdown";
 import React from "react";
 import Checkboxes from "@/components/Form/Checkboxes/Checkboxes";
-
-const gender = [
-    "Male",
-    "Female",
-    "Non-Binary",
-    "Other",
-    "Prefer Not To Answer"
-];
-export const race = [
-    "American Indian or Alaska Native",
-    "Arab or Middle Eastern",
-    "Black or African American",
-    "East Asian",
-    "Hispanic or Latino",
-    "Native Hawaiian or Pacific Islander",
-    "South East Asian",
-    "South Asian",
-    "White",
-    "Other",
-    "Prefer Not To Answer"
-];
+import { gender, race } from "./options";
 
 const PersonalInfo: React.FC = () => {
     return (

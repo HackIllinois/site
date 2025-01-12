@@ -4,18 +4,18 @@ import {
     locationOptions,
     majorOptions,
     schoolOptions
-} from "@/app/register/(general)/education/page";
+} from "@/app/register/(general)/education/options";
 import {
     allergiesRestrictionsOptions,
     generalConsiderationOptions,
     heardAboutOptions,
     lookingForwardToOptions
-} from "@/app/register/(general)/hack-specific/page";
-import { race } from "@/app/register/(general)/personal-info/page";
+} from "@/app/register/(general)/hack-specific/options";
+import { gender, race } from "@/app/register/(general)/personal-info/options";
 import {
     travelAcknowledgeOptions,
     travelReimbursementOptions
-} from "@/app/register/(general)/transportation/page";
+} from "@/app/register/(general)/transportation/options";
 
 export type WithId<Type> = Type & { id: string };
 
@@ -73,7 +73,8 @@ export const registrationFieldGroups: RegistrationResponseFieldInfo[][] = [
         },
         {
             key: "gender",
-            text: "Gender"
+            text: "Gender",
+            options: gender
         },
         {
             key: "race",
