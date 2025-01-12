@@ -3,12 +3,7 @@ import { getRegistrationOrDefault } from "./util/api";
 import { RegistrationType } from "./util/types";
 
 export default auth(async req => {
-    const originalHost = req.headers.get("host");
-    if (
-        req.nextUrl.host === "hackillinois.org" &&
-        originalHost === "hackillinois.org" &&
-        process.env.HYPE_SITE
-    ) {
+    if (process.env.HYPE_SITE) {
         const newUrl = new URL("/", "https://hype.hackillinois.org");
         return Response.redirect(newUrl);
     }
