@@ -4,14 +4,15 @@ import { useMemo } from "react";
 
 const RegistrationResponseGroup: React.FC<{
     fieldInfo: RegistrationResponseFieldInfo[];
-    registration?: RegistrationData;
-}> = ({ fieldInfo, registration }) => {
+    registration: RegistrationData;
+    isProApplicant: boolean;
+}> = ({ fieldInfo, registration, isProApplicant }) => {
     const displayedFields = useMemo(() => {
-        if (registration?.isProApplicant) {
+        if (isProApplicant) {
             return fieldInfo;
         }
         return fieldInfo.filter(field => !field.proOnly);
-    }, [registration?.isProApplicant]);
+    }, [isProApplicant]);
 
     return (
         <div className={styles.responses}>

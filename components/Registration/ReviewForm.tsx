@@ -16,9 +16,13 @@ import NavigationButton from "../Form/NavigationButton/NavigationButton";
 
 type ReviewFormProps = {
     registration: RegistrationData;
+    isProApplicant: boolean;
 };
 
-const ReviewForm: React.FC<ReviewFormProps> = ({ registration }) => {
+const ReviewForm: React.FC<ReviewFormProps> = ({
+    registration,
+    isProApplicant
+}) => {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
@@ -43,6 +47,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ registration }) => {
                     <RegistrationResponseGroup
                         fieldInfo={registrationFieldGroups[0]}
                         registration={registration}
+                        isProApplicant={isProApplicant}
                     />
 
                     <ReviewButton text="Education" href="/register/education" />
@@ -50,6 +55,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ registration }) => {
                     <RegistrationResponseGroup
                         fieldInfo={registrationFieldGroups[1]}
                         registration={registration}
+                        isProApplicant={isProApplicant}
                     />
 
                     <ReviewButton
@@ -60,6 +66,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ registration }) => {
                     <RegistrationResponseGroup
                         fieldInfo={registrationFieldGroups[2]}
                         registration={registration}
+                        isProApplicant={isProApplicant}
                     />
 
                     <ReviewButton
@@ -70,6 +77,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ registration }) => {
                     <RegistrationResponseGroup
                         fieldInfo={registrationFieldGroups[3]}
                         registration={registration}
+                        isProApplicant={isProApplicant}
                     />
                 </div>
                 <Formik
