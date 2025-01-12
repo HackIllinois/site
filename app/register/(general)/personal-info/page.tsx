@@ -11,7 +11,7 @@ const gender = [
     "Other",
     "Prefer Not To Answer"
 ];
-const race = [
+export const race = [
     "American Indian or Alaska Native",
     "Arab or Middle Eastern",
     "Black or African American",

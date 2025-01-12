@@ -1,0 +1,15 @@
+.responses {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.responses .response {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.responses .response .header {
+    font-weight: 600;
+    margin-bottom: 4px;
+}

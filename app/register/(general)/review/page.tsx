@@ -1,13 +1,33 @@
 "use client";
 import ReviewButton from "@/components/Form/ReviewButton/ReviewButton";
 import styles from "./styles.module.scss";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Checkboxes from "@/components/Form/Checkboxes/Checkboxes";
 import Link from "next/link";
 import { useLayoutContext } from "@/components/Registration/Registration";
+import { RegistrationData, RegistrationType } from "@/util/types";
+import { getRegistrationOrDefault } from "@/util/api";
+import { registrationFromAPI } from "@/util/helpers";
+import { registrationFieldGroups } from "@/util/types";
+import RegistrationResponseGroup from "@/components/Registration/RegistrationResponseGroup";
 
 const ReviewInfo: React.FC = () => {
     const { previous } = useLayoutContext();
+
+    const [registration, setRegistration] = useState<
+        RegistrationData | undefined
+    >();
+
+    const handleLoadRegistrationData = async () => {
+        const apiRegistration = await getRegistrationOrDefault();
+        const registration = registrationFromAPI(apiRegistration);
+
+        setRegistration(registration);
+    };
+
+    useEffect(() => {
+        handleLoadRegistrationData();
+    }, []);
 
     return (
         <div className={styles.container}>
@@ -17,14 +37,37 @@ const ReviewInfo: React.FC = () => {
                     text="Personal Information"
                     onClick={() => previous(0)}
                 />
+
+                <RegistrationResponseGroup
+                    fieldInfo={registrationFieldGroups[0]}
+                    registration={registration}
+                />
+
                 <ReviewButton text="Education" onClick={() => previous(1)} />
+
+                <RegistrationResponseGroup
+                    fieldInfo={registrationFieldGroups[1]}
+                    registration={registration}
+                />
+
                 <ReviewButton
                     text="Hack-Specific"
                     onClick={() => previous(2)}
                 />
+
+                <RegistrationResponseGroup
+                    fieldInfo={registrationFieldGroups[2]}
+                    registration={registration}
+                />
+
                 <ReviewButton
                     text="Transportation"
                     onClick={() => previous(3)}
+                />
+
+                <RegistrationResponseGroup
+                    fieldInfo={registrationFieldGroups[3]}
+                    registration={registration}
                 />
             </div>
             <Checkboxes

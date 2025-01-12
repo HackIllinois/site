@@ -8,19 +8,19 @@ import degrees from "@/modules/degrees.json";
 import Dropdown from "@/components/Form/DropdownBox/Dropdown";
 import React from "react";
 
-const graduationYearOptions: string[] = [];
+export const graduationYearOptions: string[] = [];
 for (let i = 2030; i >= 1970; i -= 1) {
     graduationYearOptions.push(String(i));
 }
 graduationYearOptions.push("N/A");
 
-const locationOptions: string[] = states.concat(countries);
+export const locationOptions: string[] = states.concat(countries);
 
-const schoolOptions: string[] = schools.concat("N/A");
+export const schoolOptions: string[] = schools.concat("N/A");
 
-const degreeOptions: string[] = degrees.concat("N/A");
+export const degreeOptions: string[] = degrees.concat("N/A");
 
-const majorOptions: string[] = majors.concat("N/A");
+export const majorOptions: string[] = majors.concat("N/A");
 
 const Education: React.FC = () => {
     return (

@@ -7,7 +7,7 @@ import TextInput from "@/components/Form/TextInput/TextInput";
 import React from "react";
 import { useLayoutContext } from "@/components/Registration/Registration";
 
-const generalConsiderationOptions = [
+export const generalConsiderationOptions = [
     {
         label: "Yes",
         value: "YES",
@@ -20,7 +20,7 @@ const generalConsiderationOptions = [
     }
 ] satisfies CheckboxOption[];
 
-const heardAboutOptions = [
+export const heardAboutOptions = [
     { label: "HackIllinois Newsletter", value: "HackIllinois Newsletter" },
     { label: "Instagram", value: "Instagram" },
     { label: "Facebook", value: "Facebook" },
@@ -36,7 +36,7 @@ const heardAboutOptions = [
     { label: "Other", value: "OTHER" }
 ] satisfies CheckboxOption[];
 
-const lookingForwardToOptions = [
+export const lookingForwardToOptions = [
     {
         label: "Attending technical workshops",
         value: "Attending technical workshops"
@@ -67,7 +67,7 @@ const lookingForwardToOptions = [
     }
 ] satisfies CheckboxOption[];
 
-const allergiesRestrictionsOptions = [
+export const allergiesRestrictionsOptions = [
     {
         label: "Lactose Intolerant",
         value: "Lactose Intolerant"

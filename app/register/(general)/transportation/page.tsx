@@ -4,7 +4,7 @@ import Checkboxes, {
 import styles from "./styles.module.scss";
 import React from "react";
 
-const travelAcknowledgeOptions = [
+export const travelAcknowledgeOptions = [
     {
         label: "I acknowledge",
         value: "YES",
@@ -12,7 +12,7 @@ const travelAcknowledgeOptions = [
     }
 ] satisfies CheckboxOption[];
 
-const travelReimbursementOptions = [
+export const travelReimbursementOptions = [
     {
         label: "Yes",
         value: "YES",
