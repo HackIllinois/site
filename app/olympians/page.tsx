@@ -1,16 +1,9 @@
-
 "use client";
 import useWindowSize from "@/hooks/use-window-size";
 import styles from "./styles.module.scss";
 import PRO_TRACK_INFO_BACKGROUND from "@/public/registration/backgrounds/pro_track_info.svg";
 import PRO_TRACK_INFO_MOBILE_BACKGROUND from "@/public/registration/mobile_backgrounds/pro_track_info.svg";
-import styles from "./styles.module.scss";
 import Link from "next/link";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-    title: "HackIllinois | Olympians"
-};
 
 const AboutProTrack: React.FC = () => {
     const windowSizeHook = useWindowSize();
