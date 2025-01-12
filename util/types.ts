@@ -55,6 +55,7 @@ export type RegistrationResponseFieldInfo = {
     options?: string[] | { value: string; label: string }[];
     proOnly?: boolean;
     customEmptyMessage?: string;
+    shownResponse?: string;
 };
 
 export const registrationFieldGroups: RegistrationResponseFieldInfo[][] = [
@@ -163,7 +164,8 @@ export const registrationFieldGroups: RegistrationResponseFieldInfo[][] = [
         {
             key: "travelAcknowledge",
             text: "Are you aware that you are responsible for your own transportation to the site?",
-            options: travelAcknowledgeOptions
+            options: travelAcknowledgeOptions,
+            shownResponse: "Yes"
         }
     ]
 ];

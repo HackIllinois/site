@@ -22,6 +22,12 @@ const RegistrationResponseGroup: React.FC<{
                 let responseProvided = false;
                 let displayedEmptyMessage =
                     field.customEmptyMessage ?? "No response";
+
+                if (field.shownResponse) {
+                    responseValue = field.shownResponse;
+                    responseProvided = true;
+                }
+
                 if (field.options) {
                     displayedEmptyMessage = "None selected";
                 }
