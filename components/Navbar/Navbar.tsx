@@ -71,6 +71,7 @@ const Navbar = () => {
                     {NAVBAR_ITEMS.map(item => (
                         <li key={item.title}>
                             <Link
+                                prefetch={false}
                                 href={item.link}
                                 className={
                                     pathname.startsWith(item.link)
@@ -90,7 +91,7 @@ const Navbar = () => {
             <nav className={styles.mobile}>
                 <div className={styles.mobileTop}>
                     <div className={styles.title}>
-                        <Link href="/">
+                        <Link prefetch={false} href="/">
                             <Image
                                 alt="Logo"
                                 src={isDark ? LogoDark : Logo}
@@ -121,6 +122,7 @@ const Navbar = () => {
                 >
                     {NAVBAR_ITEMS.map(item => (
                         <Link
+                            prefetch={false}
                             href={item.link}
                             key={item.title}
                             className={styles.link}
@@ -139,7 +141,7 @@ export default Navbar;
 
 const OlympianButton = () => {
     return (
-        <Link href="/olympians">
+        <Link prefetch={false} href="/olympians">
             <button className={styles.olympianButton}>
                 <div className={styles.buttonBackground}></div>
                 <div className={styles.buttonContent}>

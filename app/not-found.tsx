@@ -8,7 +8,7 @@ const NotFound = () => {
                 <h2 className={styles.heading}>Page not found</h2>
                 <p className={styles.text}>
                     Return to the{" "}
-                    <Link href="/" className={styles.link}>
+                    <Link prefetch={false} href="/" className={styles.link}>
                         home page
                     </Link>
                     ?
