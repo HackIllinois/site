@@ -30,7 +30,7 @@
     }
 
     &:hover::before {
-        border: 2px solid #ad8e28;
+        border: 2px solid #dfad72;
     }
 
     .checkbox {
@@ -56,7 +56,7 @@
 }
 
 .checkboxSvg path {
-    stroke: #ad8e28;
+    stroke: #dfad72;
     stroke-width: 0;
     fill: none;
     transition:

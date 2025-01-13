@@ -28,11 +28,11 @@
     }
 
     &:hover::before {
-        background-color: rgba(26, 188, 156, 0.5);
+        background-color: rgba(223, 173, 114, 0.5);
     }
 
     &.checked::before {
-        background-color: #1abc9c;
+        background-color: #dfad72;
     }
 
     &.radio::before {
@@ -52,5 +52,15 @@
         @media (max-width: 768px) {
             font-size: 16px;
         }
+    }
+}
+
+.buttonBlue {
+    &:hover::before {
+        background-color: rgba(26, 188, 156, 0.5);
+    }
+
+    &.checked::before {
+        background-color: #1abc9c;
     }
 }

@@ -109,6 +109,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                                     isRadio: true
                                 }
                             ]}
+                            blue
                         />
                         <Checkboxes
                             name="codeOfConductAcknowledge"
@@ -133,6 +134,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                                     isRadio: true
                                 }
                             ]}
+                            blue
                         />
                         <div className={styles.navigation}>
                             <NavigationButton

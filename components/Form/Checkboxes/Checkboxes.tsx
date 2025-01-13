@@ -29,6 +29,7 @@ type PropTypes = {
     style?: React.CSSProperties;
     required?: boolean;
     threeColEnabled?: boolean;
+    blue?: boolean;
 
     [key: string]: unknown;
 };
@@ -42,6 +43,7 @@ const Checkboxes: React.FC<PropTypes> = ({
     style,
     threeColEnabled,
     required,
+    blue,
     ...props
 }) => {
     // The checkboxes component is a modified version of the one used in the HackIllinois 2024 website.
@@ -176,6 +178,7 @@ const Checkboxes: React.FC<PropTypes> = ({
                                         ? { marginBottom: 10 }
                                         : {}
                                 }
+                                blue={blue}
                             />
                         ) : (
                             <StyledCheckbox
