@@ -75,7 +75,7 @@ const AboutProTrack: React.FC = () => {
                     <div>
                         <h2>
                             How is HackOlympians different from standard
-                            Hackillinois attendance?
+                            HackIllinois attendance?
                         </h2>
                         <br></br>
                         <p>
@@ -98,10 +98,10 @@ const AboutProTrack: React.FC = () => {
                             path will maintain the spirit of inclusivity and
                             learning to ensure that all attendees, regardless of
                             their track, experience the full magic of
-                            Hackillinois!
+                            HackIllinois!
                             <br></br>
                             <br></br>
-                            Additionally, all Hackillinois attendees are
+                            Additionally, all HackIllinois attendees are
                             eligible to compete in all our sponsored tracks.*
                         </p>
                     </div>
@@ -130,7 +130,7 @@ const AboutProTrack: React.FC = () => {
                     <div>
                         <i>
                             *The Best Beginner and General prizes are reserved
-                            for Hackillinois General attendees, while the Best
+                            for HackIllinois General attendees, while the Best
                             Olympians prize is reserved for HackOlympians
                             attendees.
                         </i>

@@ -66,7 +66,7 @@ const faqData = [
     {
         question: (
             <strong>
-                How is HackOlympians different from standard Hackillinois
+                How is HackOlympians different from standard HackIllinois
                 attendance?
             </strong>
         ),
@@ -84,13 +84,13 @@ const faqData = [
                     Company Expo. Each path will maintain the spirit of
                     inclusivity and learning to ensure that all attendees,
                     regardless of their track, experience the full magic of
-                    Hackillinois! Additionally, all Hackillinois attendees are
+                    HackIllinois! Additionally, all HackIllinois attendees are
                     eligible to compete in all our sponsored tracks.*
                 </p>
                 <br />
                 <p>
                     *The Best Beginner and General prizes are reserved for
-                    Hackillinois General attendees, while the Best Olympians
+                    HackIllinois General attendees, while the Best Olympians
                     prize is reserved for HackOlympians attendees.
                 </p>
             </>
