@@ -31,6 +31,7 @@ const SolidButton: React.FC<SolidButtonsProps> = ({
                 backgroundColor
             }}
             href={href}
+            prefetch={false}
         >
             {text}
         </Link>
