@@ -1,34 +1,52 @@
-"use server";
-import { auth } from "@/auth";
 import {
     MethodType,
     RegistrationType,
     WithId,
     RSVPType,
-    ChallengeStatus
+    ChallengeStatus,
+    FileType
 } from "./types";
 import { APIError } from "./error";
+import { handleError } from "./helpers";
 
 const APIv2 = "https://adonix.hackillinois.org";
+
+export const isAuthenticated = (): string | null =>
+    localStorage.getItem("token");
+
+export function authenticate(to: string): void {
+    localStorage.setItem("to", to);
+    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/auth/`;
+    window.location.replace(authUrl);
+}
 
 export async function requestv2(
     method: MethodType,
     endpoint: string,
     body?: unknown
 ) {
-    const session = await auth();
     const response = await fetch(APIv2 + endpoint, {
         method,
         mode: "cors",
         headers: {
             "Content-Type": "application/json",
             Origin: "www.hackillinois.org",
-            Authorization: session?.user?.name || ""
+            Authorization: localStorage.getItem("token") || ""
         },
         body: JSON.stringify(body)
     });
 
     const responseJSON = await response.json();
+
+    if (
+        responseJSON.error === "TokenInvalid" ||
+        responseJSON.error == "TokenExpired" ||
+        responseJSON.error == "NoToken"
+    ) {
+        sessionStorage.removeItem("token");
+        authenticate(window.location.href);
+        return;
+    }
 
     if (!response.ok) {
         throw new APIError(responseJSON);
@@ -37,35 +55,28 @@ export async function requestv2(
 }
 
 export async function getChallenge(): Promise<ChallengeStatus> {
-    const res = await requestv2("GET", "/registration/challenge/");
+    const res = await requestv2("GET", "/registration/challenge/").catch(body =>
+        handleError(body)
+    );
     return res;
 }
 
 export async function getRegistration(): Promise<WithId<RegistrationType>> {
-    const res = await requestv2("GET", `/registration`);
+    const res = await requestv2("GET", `/registration`).catch(body =>
+        handleError(body)
+    );
     return res;
 }
 
-// This function cannot use try/catch to avoid compiler errors :/
 export async function getRegistrationOrDefault(): Promise<
     WithId<RegistrationType> | RegistrationType
 > {
-    const session = await auth();
-    const response = await fetch(`${APIv2}/registration`, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-            "Content-Type": "application/json",
-            Origin: "www.hackillinois.org",
-            Authorization: session?.user?.name || ""
-        }
-    });
-
-    const body = await response.json();
-
-    if (!response.ok) {
-        if (body.error !== "NotFound") {
-            throw new APIError(body);
+    try {
+        const response = await requestv2("GET", "/registration");
+        return response;
+    } catch (error: any) {
+        if (error.error !== "NotFound") {
+            handleError(error);
         }
 
         return {
@@ -91,26 +102,32 @@ export async function getRegistrationOrDefault(): Promise<
             requestedTravelReimbursement: false
         };
     }
-
-    return body;
 }
 
 export async function registerUpdate(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
-    const res = await requestv2("POST", `/registration`, registration);
+    const res = await requestv2("POST", `/registration`, registration).catch(
+        body => handleError(body)
+    );
     return res;
 }
 
 export async function registerSubmit(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
-    const res = await requestv2("POST", `/registration/submit`, registration);
+    const res = await requestv2(
+        "POST",
+        `/registration/submit`,
+        registration
+    ).catch(body => handleError(body));
     return res;
 }
 
 export async function getRSVP(): Promise<RSVPType> {
-    const res = await requestv2("GET", "/admission/rsvp");
+    const res = await requestv2("GET", "/admission/rsvp").catch(body =>
+        handleError(body)
+    );
     return res;
 }
 
@@ -121,6 +138,26 @@ export async function subscribe(
     const res = await requestv2("POST", "/newsletter/subscribe/", {
         listName,
         emailAddress
-    });
+    }).catch(body => handleError(body));
+    return res;
+}
+
+export async function uploadFile(file: File, type: FileType): Promise<unknown> {
+    const { url, fields } = await requestv2("GET", "/s3/upload");
+    let data = new FormData();
+    for (let key in fields) {
+        data.append(key, fields[key]);
+    }
+    data.append("file", file, file.name);
+    const res = await fetch(url, { method: "POST", body: data });
+
+    if (!res.ok) {
+        const errorBody = await res.text();
+        handleError({
+            message: errorBody,
+            status: res.status,
+            type: "upload_error"
+        });
+    }
     return res;
 }

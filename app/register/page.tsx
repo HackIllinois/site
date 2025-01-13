@@ -8,11 +8,6 @@ import BACKGROUND from "@/public/registration/track_selection/background.svg";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
 
 import styles from "./styles.module.scss";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-    title: "HackIllinois | Register"
-};
 
 const Registration: React.FC = () => {
     return (
