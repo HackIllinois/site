@@ -86,7 +86,6 @@ const Registration: React.FC<PropTypes> = ({
     const [ignoredFields, setIgnoredFields] = useState<
         Partial<Record<keyof RegistrationData, unknown>>
     >({});
-    const [furthestPage, setFurthestPage] = useState(0);
     const formikRef = useRef<FormikProps<RegistrationData>>(null);
     const pathname = usePathname() as keyof typeof buttonNames;
     const router = useRouter();
@@ -110,12 +109,6 @@ const Registration: React.FC<PropTypes> = ({
             window.removeEventListener("beforeunload", handleBeforeUnload);
         };
     }, [ignoredFields, formikRef]);
-
-    useEffect(() => {
-        if (pageMap[pathname] > furthestPage) {
-            setFurthestPage(pageMap[pathname]);
-        }
-    }, [pathname]);
 
     const previous = (index?: number) => {
         if (formikRef.current) {
@@ -166,7 +159,6 @@ const Registration: React.FC<PropTypes> = ({
     return (
         <>
             {isLoading && <Loading />}
-            <ProgressBar furthestPage={furthestPage} />
             <div className={styles.scrollWrapper}>
                 <div className={styles.formWrapper}>
                     <div className={styles.formContent}>

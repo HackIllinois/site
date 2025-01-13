@@ -1,38 +1,18 @@
 import styles from "./styles.module.scss";
-import { getChallenge, getRegistrationOrDefault } from "@/util/api";
-import Registration from "@/components/Registration/Registration";
-import React, { Suspense } from "react";
+import React from "react";
 import Background from "@/components/Registration/Background";
-import { registrationFromAPI } from "@/util/helpers";
+import ProgressBar from "@/components/Registration/ProgressBar";
 
-const FormWrapper = async ({ children }: { children: React.ReactNode }) => {
-    const [apiRegistration, { complete: isProApplicant }] = await Promise.all([
-        getRegistrationOrDefault(),
-        getChallenge()
-    ]);
-    const registration = registrationFromAPI(apiRegistration);
-
-    return (
-        <Registration
-            registration={registration}
-            isProApplicant={isProApplicant}
-        >
-            {children}
-        </Registration>
-    );
-};
-
-const GeneralRegistration = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <main className={styles.container}>
             <Background />
             <div className={styles.contentWrapper}>
-                <Suspense>
-                    <FormWrapper>{children}</FormWrapper>
-                </Suspense>
+                <ProgressBar />
+                {children}
             </div>
         </main>
     );
 };
 
-export default GeneralRegistration;
+export default Layout;
