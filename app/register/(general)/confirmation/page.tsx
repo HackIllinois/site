@@ -12,8 +12,8 @@ const Confirmation: React.FC = () => {
                         <h1 className={styles.title}>Application Submitted!</h1>
                         <p className={styles.message}>
                             Thank you for signing up for HackIllinois 2025!
-                            Please check the status of your account in your
-                            email.
+                            Please check your email for your registration
+                            confirmation.
                         </p>
                         <p className={styles.follow}>
                             Be sure to follow our Instagram (
