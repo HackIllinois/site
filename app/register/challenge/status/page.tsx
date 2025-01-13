@@ -1,3 +1,4 @@
+"use client";
 import styles from "./styles.module.scss";
 import ACCEPTED_BACKGROUND from "@/public/registration/backgrounds/prochallenge_accepted_background.svg";
 import ACCEPTED_CIRCLE from "@/public/registration/backgrounds/prochallenge_accepted_circle.svg";
@@ -7,6 +8,8 @@ import YELLOW_CIRCLE_BACKGROUND from "@/public/registration/backgrounds/yellow_c
 import clsx from "clsx";
 import { getChallenge } from "@/util/api";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import Loading from "@/components/Loading/Loading";
 
 interface SolidButtonsProps {
     text: string;
@@ -38,10 +41,22 @@ const SolidButton: React.FC<SolidButtonsProps> = ({
     );
 };
 
-const ProChallengeStatus: React.FC = async () => {
-    const challenge = await getChallenge();
+const ProChallengeStatus: React.FC = () => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [isComplete, setIsComplete] = useState(false);
 
-    if (challenge.complete) {
+    useEffect(() => {
+        getChallenge().then(challenge => {
+            setIsComplete(challenge.complete);
+            setIsLoading(false);
+        });
+    }, []);
+
+    if (isLoading) {
+        return <Loading />;
+    }
+
+    if (isComplete) {
         return (
             <div
                 className={styles.background}

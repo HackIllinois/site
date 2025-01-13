@@ -7,6 +7,7 @@ import React, { useState } from "react";
 
 import styles from "./FileUpload.module.scss";
 import { useField } from "formik";
+import { uploadFile } from "@/util/api";
 
 type FileType = "resume" | "photo" | "blobstore";
 
@@ -43,14 +44,12 @@ const FileUpload: React.FC<PropTypes> = ({
     const onFileUpload = (file: File) => {
         setIsUploading(true);
         setValue(file.name);
-        const formData = new FormData();
-        formData.append("file", file);
-        fetch("/api/upload", { method: "POST", body: formData })
+        uploadFile(file, type)
             .then(() => {
                 field.onChange(file.name);
             })
-            .catch(err => {
-                alert(err);
+            .catch(() => {
+                alert("Failed to upload file.");
             })
             .finally(() => {
                 setIsUploading(false);
