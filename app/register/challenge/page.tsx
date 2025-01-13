@@ -68,7 +68,10 @@ const ProChallenge: React.FC = () => {
                     </p>
                     <p>
                         For more information, see the{" "}
-                        <Link href="/olympians">olympians page</Link>.
+                        <Link prefetch={false} href="/olympians">
+                            olympians page
+                        </Link>
+                        .
                     </p>
                 </div>
                 <div className={styles.block}>

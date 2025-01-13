@@ -23,6 +23,7 @@ const SolidButton: React.FC<SolidButtonsProps> = ({
 }) => {
     return (
         <Link
+            prefetch={false}
             className={clsx(
                 styles.solidButton,
                 horizontalPaddingDisabled && styles.horizontalPaddingDisabled

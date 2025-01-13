@@ -9,7 +9,7 @@ type PropTypes = {
 
 const ReviewButton: React.FC<PropTypes> = ({ text, href }) => {
     return (
-        <Link href={href} className={styles.reviewButton}>
+        <Link prefetch={false} href={href} className={styles.reviewButton}>
             <h3>&#x1F517; {text}</h3>
         </Link>
     );

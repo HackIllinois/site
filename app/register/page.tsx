@@ -43,7 +43,11 @@ const Registration: React.FC = () => {
                         blue
                     />
                     <p className={styles.link}>
-                        <Link href="/olympians" target="_blank">
+                        <Link
+                            prefetch={false}
+                            href="/olympians"
+                            target="_blank"
+                        >
                             What is this?
                         </Link>
                     </p>
