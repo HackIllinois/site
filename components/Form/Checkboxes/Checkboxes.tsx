@@ -189,6 +189,7 @@ const Checkboxes: React.FC<PropTypes> = ({
                                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     handleSelect(e.target.checked, option)
                                 }
+                                blue={blue}
                             />
                         )}
                     </React.Fragment>

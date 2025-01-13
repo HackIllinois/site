@@ -34,7 +34,11 @@
     gap: 2rem;
     margin: auto 0;
     padding: 0 3rem;
-    // margin-right: 3rem;
+    margin-right: 10%;
+    @media screen and (max-width: 1152px) {
+        margin-right: 5%;
+    }
+
     @media (max-width: 768px) {
         width: 600px;
         height: 600px;

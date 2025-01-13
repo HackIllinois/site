@@ -38,6 +38,16 @@
     }
 }
 
+.blue {
+    .checkboxSvg path {
+        stroke: #1abc9c;
+    }
+
+    &:hover::before {
+        border: 2px solid #1abc9c;
+    }
+}
+
 .checkboxSvg {
     width: 28px;
     height: 28px;

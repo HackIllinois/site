@@ -105,8 +105,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                             options={[
                                 {
                                     label: "I reviewed my information to ensure it is correct",
-                                    value: "YES",
-                                    isRadio: true
+                                    value: "YES"
                                 }
                             ]}
                             blue
@@ -130,8 +129,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                             options={[
                                 {
                                     label: "I accept the Code of Conduct",
-                                    value: "YES",
-                                    isRadio: true
+                                    value: "YES"
                                 }
                             ]}
                             blue

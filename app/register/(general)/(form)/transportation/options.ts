@@ -3,8 +3,7 @@ import { CheckboxOption } from "@/components/Form/Checkboxes/Checkboxes";
 export const travelAcknowledgeOptions = [
     {
         label: "I acknowledge",
-        value: "YES",
-        isRadio: true
+        value: "YES"
     }
 ] satisfies CheckboxOption[];
 

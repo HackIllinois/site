@@ -97,7 +97,7 @@ const ProChallengeStatus: React.FC = async () => {
                     <h2>
                         Unfortunately, your solution
                         <br />
-                        did not pass the challenge
+                        did not pass the challenge.
                     </h2>
                     <p>
                         Please select one of the

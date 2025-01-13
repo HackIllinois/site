@@ -165,7 +165,7 @@ export const registrationFieldGroups: RegistrationResponseFieldInfo[][] = [
         },
         {
             key: "travelAcknowledge",
-            text: "Are you aware that you are responsible for your own transportation to the site?",
+            text: "Are you aware that you are responsible for your own transportation to HackIllinois?",
             options: travelAcknowledgeOptions,
             shownResponse: "Yes"
         }

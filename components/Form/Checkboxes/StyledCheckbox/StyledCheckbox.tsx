@@ -11,6 +11,7 @@ type PropTypes = {
     className?: string;
     radio?: boolean;
     style?: React.CSSProperties;
+    blue?: boolean;
     [key: string]: unknown;
 };
 
@@ -21,6 +22,7 @@ const StyledCheckbox: React.FC<PropTypes> = ({
     className,
     radio,
     style,
+    blue,
     ...props
 }) => (
     <div className={styles.checkboxWrapper}>
@@ -28,6 +30,7 @@ const StyledCheckbox: React.FC<PropTypes> = ({
             className={clsx(
                 styles.checkboxLabel,
                 checked && styles.checked,
+                blue && styles.blue,
                 className
             )}
             style={style}

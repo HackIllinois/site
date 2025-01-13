@@ -49,28 +49,60 @@ const AboutProTrack: React.FC = () => {
                     </div>
                     <div className={styles.spacer}></div>
                     <div>
-                        <h2>What are the benefits of being a HackOlympian?</h2>
-                        <br></br>
-                        <p>
-                            Attendees in this path have the exclusive
-                            opportunity to compete for the{" "}
-                            <span className={styles.emphasizedText}>
-                                grand HackOlympians prize (to be released soon).
-                            </span>
+                        <div>
+                            <h2>
+                                What are the benefits of being a HackOlympian?
+                            </h2>
                             <br></br>
+                            <p>
+                                Attendees in this path have the exclusive
+                                opportunity to compete for the{" "}
+                                <span className={styles.emphasizedText}>
+                                    grand HackOlympians prize (to be released
+                                    soon).
+                                </span>
+                                <br></br>
+                                <br></br>
+                                Additionally, they will gain access to{" "}
+                                <span className={styles.emphasizedText}>
+                                    special networking opportunities
+                                </span>{" "}
+                                with our event sponsors and the chance to
+                                present their project in a{" "}
+                                <span className={styles.emphasizedText}>
+                                    thrilling Shark-Tank inspired showcase
+                                </span>
+                                , among other exciting perks – but spots are
+                                limited, so register soon!
+                            </p>
+                        </div>
+                        <br />
+                        <br />
+                        <div>
+                            <h2>How do I become a HackOlympian?</h2>
                             <br></br>
-                            Additionally, they will gain access to{" "}
-                            <span className={styles.emphasizedText}>
-                                special networking opportunities
-                            </span>{" "}
-                            with our event sponsors and the chance to present
-                            their project in a{" "}
-                            <span className={styles.emphasizedText}>
-                                thrilling Shark-Tank inspired showcase
-                            </span>
-                            , among other exciting perks – but spots are
-                            limited, so register soon!
-                        </p>
+                            <p>
+                                Admission into HackOlympians requires{" "}
+                                <Link
+                                    prefetch={false}
+                                    href="/register/challenge/"
+                                >
+                                    completing a special challenge
+                                </Link>{" "}
+                                in addition to registering.
+                                <br />
+                                <br />
+                                <i>
+                                    Note: You MUST{" "}
+                                    <b>
+                                        complete the challenge before submitting
+                                        registration
+                                    </b>
+                                    . Once you submit, you can no longer
+                                    complete the challenge.
+                                </i>
+                            </p>
+                        </div>
                     </div>
                     <div>
                         <h2>
@@ -105,28 +137,7 @@ const AboutProTrack: React.FC = () => {
                             eligible to compete in all our sponsored tracks.*
                         </p>
                     </div>
-                    <div>
-                        <h2>How do I become a HackOlympian?</h2>
-                        <br></br>
-                        <p>
-                            Admission into HackOlympians requires{" "}
-                            <Link prefetch={false} href="/register/challenge/">
-                                completing a special challenge
-                            </Link>{" "}
-                            in addition to registering.
-                            <br />
-                            <br />
-                            <i>
-                                Note: You MUST{" "}
-                                <b>
-                                    complete the challenge before submitting
-                                    registration
-                                </b>
-                                . Once you submit, you can no longer complete
-                                the challenge.
-                            </i>
-                        </p>
-                    </div>
+                    <div></div>
                     <div>
                         <i>
                             *The Best Beginner and General prizes are reserved

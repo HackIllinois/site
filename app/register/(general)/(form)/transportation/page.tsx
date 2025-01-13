@@ -23,7 +23,7 @@ const Transportation: React.FC = () => {
             <Checkboxes
                 name="travelAcknowledge"
                 label="Are you aware that you are responsible for your own
-                    transportation to the site?"
+                    transportation to HackIllinois?"
                 options={travelAcknowledgeOptions}
                 required
             />

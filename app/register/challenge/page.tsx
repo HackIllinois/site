@@ -162,6 +162,7 @@ const ProChallenge: React.FC = () => {
                         <br />
                         {`{"solution": <calculated_max_divine_power>}`}
                     </p>
+                    <p>(Don&apos;t forget to include your headers!)</p>
                 </div>
                 <div className={styles.block}>
                     <h3>Example</h3>
@@ -202,19 +203,19 @@ const ProChallenge: React.FC = () => {
                                         >{`[`}</p>
                                         <p
                                             className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
-                                        >{`[“Zeus”, “Apollo”],`}</p>
+                                        >{`["Zeus", "Apollo"],`}</p>
                                         <p
                                             className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
                                         >{`["Apollo", "Athena"],`}</p>
                                         <p
                                             className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
-                                        >{`[“Hades”, “Hermes”]`}</p>
+                                        >{`["Hades", "Hermes"]`}</p>
                                         <p
                                             className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
-                                        >{`[“Hermes”, "Artemis"]`}</p>
+                                        >{`["Hermes", "Artemis"]`}</p>
                                         <p
                                             className={`${styles.marginLeft} ${sourceCodePro.className} ${styles.text}`}
-                                        >{`[“Hades”, "Artemis"]`}</p>
+                                        >{`["Hades", "Artemis"]`}</p>
                                         <p
                                             className={`${styles.text} ${sourceCodePro.className}`}
                                         >{`]`}</p>
@@ -257,7 +258,13 @@ const ProChallenge: React.FC = () => {
                         height={400}
                     />
 
-                    <p>Therefore, the max_divine_power is 102.</p>
+                    <p>
+                        We have two pantheons: one consisting of Zeus, Apollo,
+                        and Athena; and the other consisting of Hades, Artemis,
+                        and Hermes. The first pantheon&apos;s sum is 102, and
+                        the second pantheon&apos;s sum is 87. Therefore, the
+                        max_divine_power is 102.
+                    </p>
                 </div>
                 <div className={styles.block}>
                     <h3>Constraints</h3>
