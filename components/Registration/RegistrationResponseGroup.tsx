@@ -58,6 +58,8 @@ const RegistrationResponseGroup: React.FC<{
                                 return option?.label ?? value;
                             })
                             .join(", ");
+                    } else {
+                        responseValue = responseValue.join(", ");
                     }
                 } else if (responseValue) {
                     responseProvided = true;
