@@ -4,18 +4,21 @@ import {
     locationOptions,
     majorOptions,
     schoolOptions
-} from "@/app/register/(general)/education/options";
+} from "@/app/register/(general)/(form)/education/options";
 import {
     allergiesRestrictionsOptions,
     generalConsiderationOptions,
     heardAboutOptions,
     lookingForwardToOptions
-} from "@/app/register/(general)/hack-specific/options";
-import { gender, race } from "@/app/register/(general)/personal-info/options";
+} from "@/app/register/(general)/(form)/hack-specific/options";
+import {
+    gender,
+    race
+} from "@/app/register/(general)/(form)/personal-info/options";
 import {
     travelAcknowledgeOptions,
     travelReimbursementOptions
-} from "@/app/register/(general)/transportation/options";
+} from "@/app/register/(general)/(form)/transportation/options";
 
 export type WithId<Type> = Type & { id: string };
 
