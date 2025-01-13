@@ -3,7 +3,7 @@ import { getChallenge, getRegistrationOrDefault } from "./util/api";
 import { RegistrationType } from "./util/types";
 
 export default auth(async req => {
-    if (process.env.HYPE_SITE && !req.nextUrl.pathname.startsWith("/assets")) {
+    if (process.env.HYPE_SITE && req.nextUrl.pathname === "/") {
         const newUrl = new URL("/", "https://hype.hackillinois.org");
         return Response.redirect(newUrl);
     }
