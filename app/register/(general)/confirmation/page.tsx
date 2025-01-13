@@ -1,11 +1,41 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
 import Image from "next/image";
+import {
+    isAuthenticated,
+    authenticate,
+    getRegistrationOrDefault
+} from "@/util/api";
+import { usePathname, useRouter } from "next/navigation";
+import Loading from "@/components/Loading/Loading";
 
 const Confirmation: React.FC = () => {
+    const [isLoading, setIsLoading] = useState(true);
+    const router = useRouter();
+    const pathname = usePathname();
+
+    useEffect(() => {
+        if (!isAuthenticated()) {
+            authenticate(pathname);
+            return;
+        }
+
+        getRegistrationOrDefault()
+            .then(registration => {
+                if (!registration.hasSubmitted) {
+                    router.push("/register");
+                }
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    }, []);
+
     return (
         <>
+            {isLoading && <Loading />}
             <div className={styles.container}>
                 <div className={styles.contentWrapper}>
                     <div className={styles.content}>
