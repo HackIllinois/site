@@ -42,7 +42,11 @@ const hackSpecific = yup.object({
         .test("word-count", "Please type at least 50 words", value => {
             return value.trim().split(/\s+/).length >= 50;
         }),
-    optionalEssay: yup.string(),
+    optionalEssay: yup
+        .string()
+        .test("word-count", "Please type at least 50 words", value => {
+            return !value || value.trim().split(/\s+/).length >= 50;
+        }),
     hackOutreach: yup
         .array()
         .of(yup.string().required('"Other" cannot be empty'))
@@ -84,7 +88,11 @@ const proHackSpecific = yup.object({
         .test("word-count", "Please type at least 50 words", value => {
             return value.trim().split(/\s+/).length >= 50;
         }),
-    optionalEssay: yup.string(),
+    optionalEssay: yup
+        .string()
+        .test("word-count", "Please type at least 50 words", value => {
+            return !value || value.trim().split(/\s+/).length >= 50;
+        }),
     hackOutreach: yup
         .array()
         .of(yup.string().required('"Other" cannot be empty'))
@@ -100,12 +108,7 @@ const proHackSpecific = yup.object({
         .array()
         .of(yup.string())
         .min(1, "Please select one option"),
-    proEssay: yup
-        .string()
-        .required("Please answer this question")
-        .test("word-count", "Please type at least 50 words", value => {
-            return value.trim().split(/\s+/).length >= 50;
-        }),
+    proEssay: yup.string().required("Please answer this question"),
     considerForGeneral: yup
         .array()
         .of(yup.string())

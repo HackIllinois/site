@@ -74,6 +74,7 @@ const HackSpecific: React.FC = () => {
                 name="hackInterest"
                 label="Which of these aspects of the hackathon would you most be interested in engaging in?"
                 options={lookingForwardToOptions}
+                required
             />
 
             <Checkboxes
