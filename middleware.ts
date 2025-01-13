@@ -31,7 +31,6 @@ export default auth(async req => {
     try {
         registration = await getRegistrationOrDefault();
     } catch (error) {
-        console.log(error);
         const newUrl = new URL(
             `/login?to=${encodeURIComponent(req.nextUrl.pathname)}`,
             req.nextUrl.origin
