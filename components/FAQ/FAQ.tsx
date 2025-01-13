@@ -117,8 +117,8 @@ const FAQ: React.FC = () => {
     });
 
     const faqsPerPage = windowWidth < 1152 ? 3 : faqData.length;
-
     const totalPages = Math.ceil(faqData.length / faqsPerPage);
+    const showArrows = totalPages > 1;
 
     const navigatePage = (direction: number) => {
         setCurrentPage(prevPage =>
@@ -133,13 +133,15 @@ const FAQ: React.FC = () => {
 
     return (
         <div className={styles.faqContainer}>
-            <button
-                className={clsx(styles.faqArrow, styles.faqArrowLeft)}
-                onClick={() => navigatePage(-1)}
-                disabled={currentPage === 0}
-            >
-                &#x25C0;
-            </button>
+            {showArrows && (
+                <button
+                    className={clsx(styles.faqArrow, styles.faqArrowLeft)}
+                    onClick={() => navigatePage(-1)}
+                    disabled={currentPage === 0}
+                >
+                    &#x25C0;
+                </button>
+            )}
             <div className={styles.faqContent}>
                 {currentFAQs.map((faq, index) => (
                     <div className={styles.faqItem} key={index}>
@@ -148,13 +150,15 @@ const FAQ: React.FC = () => {
                     </div>
                 ))}
             </div>
-            <button
-                className={clsx(styles.faqArrow, styles.faqArrowRight)}
-                onClick={() => navigatePage(1)}
-                disabled={currentPage === totalPages - 1}
-            >
-                &#x25B6;
-            </button>
+            {showArrows && (
+                <button
+                    className={clsx(styles.faqArrow, styles.faqArrowRight)}
+                    onClick={() => navigatePage(1)}
+                    disabled={currentPage === totalPages - 1}
+                >
+                    &#x25B6;
+                </button>
+            )}
         </div>
     );
 };

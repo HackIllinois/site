@@ -48,7 +48,9 @@ async function determineRegistration(
     registration: RegistrationType
 ) {
     if (registration.hasSubmitted) {
-        return "/register/confirmation";
+        return pathname === "/register/confirmation"
+            ? "/register/confirmation"
+            : "/profile";
     }
 
     if (pathname === "/register/challenge") {
