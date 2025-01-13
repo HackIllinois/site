@@ -65,7 +65,7 @@ const NavigationButton: React.FC<NavButtonProps> = ({
 
     if (href) {
         return (
-            <Link href={href} prefetch={false}>
+            <Link prefetch={false} href={href}>
                 {Content}
             </Link>
         );

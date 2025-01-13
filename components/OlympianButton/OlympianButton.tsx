@@ -29,7 +29,7 @@ const OlympianButton: React.FC<OlympianButtonProps> = ({
             )}
         >
             {link ? (
-                <Link href={link} prefetch={false}>
+                <Link prefetch={false} href={link}>
                     <button className={styles.olympianButton}>{text}</button>
                 </Link>
             ) : (

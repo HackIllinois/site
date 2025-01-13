@@ -24,6 +24,7 @@ const Error = ({
                 <p className={styles.text}>
                     If the issue persists, please contact us at{" "}
                     <Link
+                        prefetch={false}
                         href="mailto:contact@hackillinois.org"
                         className={styles.link}
                     >

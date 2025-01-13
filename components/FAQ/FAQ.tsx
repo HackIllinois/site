@@ -22,9 +22,12 @@ const faqData = [
             <p>
                 Yes! Cash prizes will be offered for winning teams in several
                 different categories, including{" "}
-                <Link href={"/olympians"}>HackOlympians</Link>. Additionally,
-                there are various mini-games and events that offer plenty of
-                opportunities to win prizes through our Point Shop!
+                <Link prefetch={false} href={"/olympians"}>
+                    HackOlympians
+                </Link>
+                . Additionally, there are various mini-games and events that
+                offer plenty of opportunities to win prizes through our Point
+                Shop!
             </p>
         )
     },
@@ -36,15 +39,20 @@ const faqData = [
         ),
         answer: (
             <p>
-                <Link href={"/olympians"}>HackOlympians</Link> is an exclusive
-                path tailored for prospective attendees to dive into a
-                competitively elevated hackathon atmosphere for an increased
-                prize value. It&apos;s a specialized arena for experienced
-                hackers who have mastered the fundamentals and are now looking
-                to test their skills in a more challenging environment.
-                Admission into HackOlympians requires completing our
-                application, which includes a{" "}
-                <Link href="/register/challenge">coding challenge</Link>.
+                <Link prefetch={false} href={"/olympians"}>
+                    HackOlympians
+                </Link>{" "}
+                is an exclusive path tailored for prospective attendees to dive
+                into a competitively elevated hackathon atmosphere for an
+                increased prize value. It&apos;s a specialized arena for
+                experienced hackers who have mastered the fundamentals and are
+                now looking to test their skills in a more challenging
+                environment. Admission into HackOlympians requires completing
+                our application, which includes a{" "}
+                <Link prefetch={false} href="/register/challenge">
+                    coding challenge
+                </Link>
+                .
             </p>
         )
     },

@@ -16,17 +16,26 @@ const FAQJoinUs: FC = () => {
                 <p>
                     Follow us on{" "}
                     <strong>
-                        Twitter (<Link href={"#"}>@HackIllinois</Link>)
+                        Twitter (
+                        <Link prefetch={false} href={"#"}>
+                            @HackIllinois
+                        </Link>
+                        )
                     </strong>{" "}
                     and{" "}
                     <strong>
-                        Instagram (<Link href={"#"}>@HackIllinois</Link>)
+                        Instagram (
+                        <Link prefetch={false} href={"#"}>
+                            @HackIllinois
+                        </Link>
+                        )
                     </strong>{" "}
                     to be notified of our event updates! There will be regular
                     content and posts.
                 </p>
             </div>
             <Link
+                prefetch={false}
                 href="https://x.com/hackillinois"
                 className={clsx(styles.social, styles.x)}
             >
@@ -38,6 +47,7 @@ const FAQJoinUs: FC = () => {
                 />
             </Link>
             <Link
+                prefetch={false}
                 href="https://www.instagram.com/HackIllinois"
                 className={clsx(styles.social, styles.instagram)}
             >

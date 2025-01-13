@@ -117,6 +117,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                                     To participate in HackIllinois, you must
                                     accept our{" "}
                                     <Link
+                                        prefetch={false}
                                         href="/legal/code-of-conduct"
                                         target="_blank"
                                     >

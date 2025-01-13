@@ -23,6 +23,7 @@ const SolidButton: React.FC<SolidButtonsProps> = ({
 }) => {
     return (
         <Link
+            prefetch={false}
             className={clsx(
                 styles.solidButton,
                 horizontalPaddingDisabled && styles.horizontalPaddingDisabled
@@ -31,7 +32,6 @@ const SolidButton: React.FC<SolidButtonsProps> = ({
                 backgroundColor
             }}
             href={href}
-            prefetch={false}
         >
             {text}
         </Link>

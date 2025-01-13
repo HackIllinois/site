@@ -110,7 +110,7 @@ const AboutProTrack: React.FC = () => {
                         <br></br>
                         <p>
                             Admission into HackOlympians requires{" "}
-                            <Link href="/register/challenge/">
+                            <Link prefetch={false} href="/register/challenge/">
                                 completing a special challenge
                             </Link>{" "}
                             in addition to registering.
