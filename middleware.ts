@@ -20,25 +20,8 @@ export default auth(async req => {
         return Response.redirect(newUrl);
     }
 
-    if (
-        !req.nextUrl.pathname.startsWith("/profile") &&
-        !req.nextUrl.pathname.startsWith("/register")
-    ) {
-        return;
-    }
-
-    let registration;
-    try {
-        registration = await getRegistrationOrDefault();
-    } catch (error) {
-        const newUrl = new URL(
-            `/login?to=${encodeURIComponent(req.nextUrl.pathname)}`,
-            req.nextUrl.origin
-        );
-        return Response.redirect(newUrl);
-    }
-
     if (req.nextUrl.pathname.startsWith("/profile")) {
+        const registration = await getRegistrationOrDefault();
         if (!registration.hasSubmitted) {
             const newUrl = new URL("/register", req.nextUrl.origin);
             return Response.redirect(newUrl);
@@ -47,6 +30,7 @@ export default auth(async req => {
     }
 
     if (req.nextUrl.pathname.startsWith("/register")) {
+        const registration = await getRegistrationOrDefault();
         const path = await determineRegistration(
             req.nextUrl.pathname,
             registration
