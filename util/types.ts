@@ -120,7 +120,7 @@ export const registrationFieldGroups: RegistrationResponseFieldInfo[][] = [
     [
         {
             key: "hackEssay1",
-            text: "(50 words) What opportunity, event, or feature of HackIllinois 2024 are you most excited to take part in and why?"
+            text: "(50 words) What opportunity, event, or feature of HackIllinois 2025 are you most excited to take part in and why?"
         },
         {
             key: "hackEssay2",

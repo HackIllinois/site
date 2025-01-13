@@ -19,7 +19,7 @@ const HackSpecific: React.FC = () => {
             <h1>Hack-Specific</h1>
             <TextInput
                 className={styles.largeTextField}
-                label="(50 words) What opportunity, event, or feature of HackIllinois 2024 are you most excited to take part in and why?"
+                label="(50 words) What opportunity, event, or feature of HackIllinois 2025 are you most excited to take part in and why?"
                 name="hackEssay1"
                 multiline
                 required
