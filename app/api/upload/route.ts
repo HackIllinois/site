@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const result = await fetch(url, { method: "POST", body: data });
 
     if (!result.ok) {
-        const errorBody = await result.json();
+        const errorBody = await result.text();
         return NextResponse.json({ error: errorBody }, { status: 500 });
     }
 
