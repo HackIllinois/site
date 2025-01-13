@@ -14,7 +14,6 @@ import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import { registerUpdate } from "@/util/api";
 import Loading from "../Loading/Loading";
 import { handleError, registrationToAPI } from "@/util/helpers";
-import ProgressBar from "./ProgressBar";
 import { getRegistrationSchema } from "./validation";
 
 import ARTEMIS from "@/public/registration/characters/artemis.svg";

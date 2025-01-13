@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import styles from "./TextInput.module.scss";
 import clsx from "clsx";
 import { Field, useField } from "formik";
@@ -22,15 +22,7 @@ const TextInput: React.FC<TextInputProps> = ({
     ...props
 }) => {
     const [field, meta] = useField(name);
-    const [didFocus, setDidFocus] = useState(false);
-
-    const handleFocus = () => setDidFocus(true);
-    const showFeedback =
-        meta.error &&
-        ((didFocus &&
-            (typeof field.value != "string" ||
-                field.value.trim().length > 2)) ||
-            meta.touched);
+    const showFeedback = meta.error && meta.touched;
 
     return (
         <div className={styles.container}>
@@ -48,7 +40,6 @@ const TextInput: React.FC<TextInputProps> = ({
                         className,
                         showFeedback && styles.invalid
                     )}
-                    onFocus={handleFocus}
                     {...props}
                 />
             ) : (
@@ -60,7 +51,6 @@ const TextInput: React.FC<TextInputProps> = ({
                         className,
                         showFeedback && styles.invalid
                     )}
-                    onFocus={handleFocus}
                     {...props}
                 />
             )}
