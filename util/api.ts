@@ -20,6 +20,9 @@ export function authenticate(to: string): void {
     window.location.replace(authUrl);
 }
 
+// If status is good, returns response. If status is bad, throws the error response.
+// Should handle errors with handleError.
+// Make sure if something like "NotFound" is expected to handle it explicitly and not pass to handleError.
 export async function requestv2(
     method: MethodType,
     endpoint: string,
@@ -49,20 +52,14 @@ export async function requestv2(
     }
 
     if (!response.ok) {
-        throw new APIError(responseJSON);
+        throw responseJSON;
     }
+
     return responseJSON;
 }
 
 export async function getChallenge(): Promise<ChallengeStatus> {
     const res = await requestv2("GET", "/registration/challenge/").catch(body =>
-        handleError(body)
-    );
-    return res;
-}
-
-export async function getRegistration(): Promise<WithId<RegistrationType>> {
-    const res = await requestv2("GET", `/registration`).catch(body =>
         handleError(body)
     );
     return res;
