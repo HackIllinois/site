@@ -99,7 +99,7 @@ const Profile: React.FC = () => {
                                 isHighlighted={isProApplicant}
                             />
                             <ValueItem
-                                label="Regular"
+                                label="General"
                                 isHighlighted={!isProApplicant}
                             />
                         </div>
