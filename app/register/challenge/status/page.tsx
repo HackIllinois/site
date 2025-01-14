@@ -10,6 +10,7 @@ import { getChallenge } from "@/util/api";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Loading from "@/components/Loading/Loading";
+import { ChallengeStatus } from "@/util/types";
 
 interface SolidButtonsProps {
     text: string;
@@ -43,11 +44,11 @@ const SolidButton: React.FC<SolidButtonsProps> = ({
 
 const ProChallengeStatus: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const [isComplete, setIsComplete] = useState(false);
+    const [challenge, setChallenge] = useState<ChallengeStatus | null>(null);
 
     useEffect(() => {
         getChallenge().then(challenge => {
-            setIsComplete(challenge.complete);
+            setChallenge(challenge);
             setIsLoading(false);
         });
     }, []);
@@ -56,7 +57,7 @@ const ProChallengeStatus: React.FC = () => {
         return <Loading />;
     }
 
-    if (isComplete) {
+    if (challenge?.complete) {
         return (
             <div
                 className={styles.background}
@@ -109,11 +110,16 @@ const ProChallengeStatus: React.FC = () => {
             >
                 <div className={clsx(styles.spacer, styles.failure)}></div>
                 <div className={styles.container}>
-                    <h2>
-                        Unfortunately, your solution
-                        <br />
-                        did not pass the challenge.
-                    </h2>
+                    {challenge?.attempts && challenge.attempts > 0 ? (
+                        <h2>
+                            Unfortunately, your solution
+                            <br />
+                            did not pass the challenge.
+                        </h2>
+                    ) : (
+                        <h2>You haven&apos;t submitted a solution yet.</h2>
+                    )}
+
                     <p>
                         Please select one of the
                         <br />
