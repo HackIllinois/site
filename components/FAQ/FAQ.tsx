@@ -124,7 +124,7 @@ const FAQ: React.FC = () => {
         };
     });
 
-    const faqsPerPage = windowWidth < 1152 ? 3 : faqData.length;
+    const faqsPerPage = windowWidth < 1350 ? 3 : faqData.length;
     const totalPages = Math.ceil(faqData.length / faqsPerPage);
     const showArrows = totalPages > 1;
 
