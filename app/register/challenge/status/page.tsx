@@ -93,7 +93,7 @@ const ProChallengeStatus: React.FC = () => {
                         <p className={styles.smallNote}>
                             Note: Applying as a HackOlympian does <br />
                             not guarantee acceptance due to limited <br />
-                            spots
+                            spots.
                         </p>
                     </div>
                 </div>
@@ -136,7 +136,7 @@ const ProChallengeStatus: React.FC = () => {
                                 <p className={styles.smallNote}>
                                     Note: Number of attempts will be taken
                                     <br /> into account when deciding
-                                    acceptances
+                                    acceptances.
                                 </p>
                             </div>
                             <SolidButton
@@ -153,14 +153,14 @@ const ProChallengeStatus: React.FC = () => {
                             }}
                         >
                             <p className={styles.optionHeader}>
-                                Register as a<br /> Regular Attendee
+                                Register as a<br /> General Attendee
                             </p>
                             <p className={styles.optionText}>
                                 If HackOlympians isn{"'"}t for you,
                                 <br />
                                 then click continue to go to
                                 <br />
-                                Regular attendee registration
+                                General attendee registration.
                             </p>
                             <SolidButton
                                 text={"CONTINUE"}
