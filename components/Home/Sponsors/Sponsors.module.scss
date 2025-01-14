@@ -1,4 +1,4 @@
-.sponsorsMain {
+.container {
     position: relative;
     background-color: #384646;
     width: 100vw;
@@ -9,33 +9,46 @@
     width: 100vw;
 }
 
-.sponsor {
+.content {
     position: absolute;
     top: 120px;
-    left: 150px;
-    font-size: 87px;
+    --horizontal-margin: 150px;
+    margin: 0 var(--horizontal-margin);
+    width: calc(100% - 2 * var(--horizontal-margin));
+    font-size: 45px;
 
     @media screen and (max-width: 1152px) {
-        font-size: 54px;
         top: 50px;
-        left: 35px;
+        --horizontal-margin: 35px;
+        font-size: 26px;
     }
 
     @media screen and (max-width: 768px) {
-        font-size: 18px;
         top: 30px;
-        left: 30px;
+        --horizontal-margin: 30px;
+        font-size: 12px;
     }
 
     @media screen and (max-width: 400px) {
-        font-size: 18px;
         top: 30px;
-        left: 30px;
+        --horizontal-margin: 30px;
+        font-size: 12px;
     }
 
     @media screen and (max-width: 370px) {
-        font-size: 18px;
         top: 25px;
-        left: 30px;
+        --horizontal-margin: 30px;
+        font-size: 12px;
     }
+}
+
+.title {
+    font-size: 2em;
+}
+
+.sponsors {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
 }

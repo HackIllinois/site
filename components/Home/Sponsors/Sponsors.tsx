@@ -7,13 +7,18 @@ import Image from "next/image";
 
 const Sponsors: FC = () => {
     return (
-        <section className={styles.sponsorsMain}>
+        <section className={styles.container}>
             <Image
                 alt="background"
                 src={BACKGROUND}
                 className={styles.background}
             />
-            <h1 className={styles.sponsor}>Sponsors</h1>
+            <div className={styles.content}>
+                <h1 className={styles.title}>Sponsors</h1>
+                <div className={styles.sponsors}>
+                    <p>To Be Announced</p>
+                </div>
+            </div>
         </section>
     );
 };
