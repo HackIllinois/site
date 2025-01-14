@@ -93,6 +93,11 @@
     top: 900px;
     left: 700px;
 
+    @media screen and (max-width: 1600px) {
+        top: 800px;
+        left: 400px;
+    }
+
     @media screen and (max-width: 1152px) {
         top: 400px;
         left: 300px;
@@ -115,6 +120,11 @@
 .instagram {
     top: 600px;
     left: 500px;
+
+    @media screen and (max-width: 1600px) {
+        top: 400px;
+        left: 200px;
+    }
 
     @media screen and (max-width: 1152px) {
         top: 220px;
