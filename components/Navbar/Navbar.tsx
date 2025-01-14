@@ -61,12 +61,13 @@ const Navbar = () => {
     return (
         <>
             <nav className={clsx(styles.navbar, isDark && styles.dark)}>
-                <Image
-                    alt="HackIllinois Logo"
-                    onClick={() => (window.location.pathname = "/")}
-                    style={{ cursor: "pointer" }}
-                    src={isDark ? LogoDark : Logo}
-                />
+                <Link href="/" prefetch={false}>
+                    <Image
+                        alt="HackIllinois Logo"
+                        style={{ cursor: "pointer" }}
+                        src={isDark ? LogoDark : Logo}
+                    />
+                </Link>
                 <ul className={styles.navbarList}>
                     {NAVBAR_ITEMS.map(item => (
                         <li key={item.title}>
