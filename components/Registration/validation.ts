@@ -1,5 +1,9 @@
 import * as yup from "yup";
 
+const maxWords = (maxWords: number) => (value: string) => {
+    return value.trim().split(/\s+/).length <= maxWords;
+};
+
 const personalInfo = yup.object({
     legalName: yup.string().required("Please enter your full legal name"),
     preferredName: yup.string().required("Please enter your preferred name"),
@@ -29,23 +33,19 @@ const education = yup.object({
         )
 });
 
-const hackSpecific = yup.object({
+const hackSpecificGeneralItems = {
     hackEssay1: yup
         .string()
         .required("Please answer this question")
-        .test("word-count", "Please type at least 50 words", value => {
-            return value.trim().split(/\s+/).length >= 50;
-        }),
+        .test("word-count", "Please type at most 50 words", maxWords(50)),
     hackEssay2: yup
         .string()
         .required("Please answer this question")
-        .test("word-count", "Please type at least 50 words", value => {
-            return value.trim().split(/\s+/).length >= 50;
-        }),
+        .test("word-count", "Please type at most 100 words", maxWords(100)),
     optionalEssay: yup
         .string()
-        .test("word-count", "Please type at least 50 words", value => {
-            return !value || value.trim().split(/\s+/).length >= 50;
+        .test("word-count", "Please type at most 50 words", value => {
+            return !value || maxWords(50)(value);
         }),
     hackOutreach: yup
         .array()
@@ -58,6 +58,21 @@ const hackSpecific = yup.object({
     dietaryRestrictions: yup
         .array()
         .of(yup.string().required('"Other" cannot be empty'))
+};
+
+const hackSpecific = yup.object(hackSpecificGeneralItems);
+
+// Pro applicants answer additional questions
+const proHackSpecific = yup.object({
+    ...hackSpecificGeneralItems,
+    proEssay: yup
+        .string()
+        .required("Please answer this question")
+        .test("word-count", "Please type at most 300 words", maxWords(300)),
+    considerForGeneral: yup
+        .array()
+        .of(yup.string())
+        .min(1, "Please select one option")
 });
 
 const transportation = yup.object({
@@ -74,46 +89,6 @@ const registrationSchemas = [
     hackSpecific,
     transportation
 ];
-
-const proHackSpecific = yup.object({
-    hackEssay1: yup
-        .string()
-        .required("Please answer this question")
-        .test("word-count", "Please type at least 50 words", value => {
-            return value.trim().split(/\s+/).length >= 50;
-        }),
-    hackEssay2: yup
-        .string()
-        .required("Please answer this question")
-        .test("word-count", "Please type at least 50 words", value => {
-            return value.trim().split(/\s+/).length >= 50;
-        }),
-    optionalEssay: yup
-        .string()
-        .test("word-count", "Please type at least 50 words", value => {
-            return !value || value.trim().split(/\s+/).length >= 50;
-        }),
-    hackOutreach: yup
-        .array()
-        .of(yup.string().required('"Other" cannot be empty'))
-        .min(1, "Please select at least one option"),
-    hackInterest: yup
-        .array()
-        .of(yup.string().required('"Other" cannot be empty'))
-        .min(1, "Please select at least one option"),
-    dietaryRestrictions: yup
-        .array()
-        .of(yup.string().required('"Other" cannot be empty')),
-    requestedTravelReimbursement: yup
-        .array()
-        .of(yup.string())
-        .min(1, "Please select one option"),
-    proEssay: yup.string().required("Please answer this question"),
-    considerForGeneral: yup
-        .array()
-        .of(yup.string())
-        .min(1, "Please select one option")
-});
 
 export function getRegistrationSchema(index: number, isProApplicant: boolean) {
     let schema = registrationSchemas[index];
