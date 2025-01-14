@@ -43,7 +43,7 @@ const Registration: React.FC = () => {
                             href="/olympians"
                             target="_blank"
                         >
-                            What is this?
+                            What is HackOlympian?
                         </Link>
                     </p>
                     <OlympianButton
