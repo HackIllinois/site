@@ -10,7 +10,7 @@ const Description: React.FC = () => {
                 <h1>The Event</h1>
                 <p>
                     HackIllinois is University of Illinois at
-                    Urbana-Champaign&apos;s premiere collegiate hackathon.
+                    Urbana-Champaign&apos;s premier collegiate hackathon.
                 </p>
                 <p>
                     Join us in-person from February 28th to March 2nd at the
