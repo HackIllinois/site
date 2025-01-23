@@ -129,17 +129,6 @@ export async function getRSVP(): Promise<RSVPType> {
     return res;
 }
 
-export async function subscribe(
-    listName: string,
-    emailAddress: string
-): Promise<string> {
-    const res = await requestv2("POST", "/newsletter/subscribe/", {
-        listName,
-        emailAddress
-    }).catch(body => handleError(body));
-    return res;
-}
-
 export async function uploadFile(file: File, type: FileType): Promise<unknown> {
     const { url, fields } = await requestv2("GET", "/s3/upload");
     let data = new FormData();

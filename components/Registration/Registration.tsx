@@ -158,52 +158,50 @@ const Registration: React.FC<PropTypes> = ({
     return (
         <>
             {isLoading && <Loading />}
-            <div className={styles.scrollWrapper}>
-                <div className={styles.formWrapper}>
-                    <div className={styles.formContent}>
-                        <Formik
-                            innerRef={formikRef}
-                            initialValues={registration}
-                            onSubmit={handleSubmit}
-                            validationSchema={schema}
-                            enableReinitialize
-                        >
-                            <Form className={styles.form}>
-                                <LayoutProvider
-                                    isProApplicant={isProApplicant}
-                                    registration={registration}
-                                    previous={previous}
-                                >
-                                    {children}
-                                </LayoutProvider>
-                                <div className={styles.navigation}>
-                                    <NavigationButton
-                                        text={buttonNames[pathname][0]}
-                                        onClick={() => {
-                                            previous();
-                                        }}
-                                        type="button"
-                                    />
-                                    <NavigationButton
-                                        text={buttonNames[pathname][1]}
-                                        pointRight
-                                        type="submit"
-                                    />
-                                </div>
-                            </Form>
-                        </Formik>
-                    </div>
-                    {characters[pageIndex] && (
-                        <div className={styles.character}>
-                            <Image
-                                src={characters[pageIndex].src}
-                                alt="Character"
-                                width={400}
-                                height={1000}
-                            />
-                        </div>
-                    )}
+            <div className={styles.formWrapper}>
+                <div className={styles.formContent}>
+                    <Formik
+                        innerRef={formikRef}
+                        initialValues={registration}
+                        onSubmit={handleSubmit}
+                        validationSchema={schema}
+                        enableReinitialize
+                    >
+                        <Form className={styles.form}>
+                            <LayoutProvider
+                                isProApplicant={isProApplicant}
+                                registration={registration}
+                                previous={previous}
+                            >
+                                {children}
+                            </LayoutProvider>
+                            <div className={styles.navigation}>
+                                <NavigationButton
+                                    text={buttonNames[pathname][0]}
+                                    onClick={() => {
+                                        previous();
+                                    }}
+                                    type="button"
+                                />
+                                <NavigationButton
+                                    text={buttonNames[pathname][1]}
+                                    pointRight
+                                    type="submit"
+                                />
+                            </div>
+                        </Form>
+                    </Formik>
                 </div>
+                {characters[pageIndex] && (
+                    <div className={styles.character}>
+                        <Image
+                            src={characters[pageIndex].src}
+                            alt="Character"
+                            width={400}
+                            height={1000}
+                        />
+                    </div>
+                )}
             </div>
         </>
     );
