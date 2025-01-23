@@ -251,6 +251,10 @@ export type RSVPDecisionType = {
 
 export type RegistrationRole = "attendee" | "mentor";
 
+export type RegistrationStatus = {
+    alive: boolean;
+};
+
 export type ChallengeStatus = {
     attempts: number;
     complete: boolean;
