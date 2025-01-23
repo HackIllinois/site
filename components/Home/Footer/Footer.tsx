@@ -1,13 +1,7 @@
 import Image from "next/image";
 import styles from "./Footer.module.scss";
 import { socials } from "@/modules/FooterData";
-import Subscribe from "@/components/Subscribe/Subscribe";
 import BACKGROUND from "@/public/footer/background.svg";
-
-interface FooterProps {
-    title?: string;
-    newsletterTitle?: string;
-}
 
 type FooterIcon = {
     id: number;
@@ -16,10 +10,7 @@ type FooterIcon = {
     url: string;
 };
 
-const Footer: React.FC<FooterProps> = ({
-    title = "Stay up to date with HackIllinois!",
-    newsletterTitle = "Sign up for our newsletter to get new updates!"
-}) => {
+const Footer: React.FC = () => {
     return (
         <div className={styles.footerContainer}>
             <Image
@@ -29,7 +20,9 @@ const Footer: React.FC<FooterProps> = ({
             />
             <div className={styles.footer}>
                 <div id="social-section">
-                    <span className={styles.title}>{title}</span>
+                    <span className={styles.title}>
+                        Stay up to date with HackIllinois!
+                    </span>
                     <div className={styles.icons}>
                         {socials.map((icon: FooterIcon) => (
                             <a href={icon.url} key={icon.id} target="_blank">
