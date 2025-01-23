@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./FAQ.module.scss";
 import Link from "next/link";
 import clsx from "clsx";
@@ -124,7 +124,15 @@ const FAQ: React.FC = () => {
         };
     });
 
-    const faqsPerPage = windowWidth < 1350 ? 3 : faqData.length;
+    const faqsPerPage = useMemo(() => {
+        if (windowWidth < 768) {
+            return 2;
+        } else if (windowWidth < 1350) {
+            return 3;
+        } else {
+            return faqData.length;
+        }
+    }, [windowWidth, faqData]);
     const totalPages = Math.ceil(faqData.length / faqsPerPage);
     const showArrows = totalPages > 1;
 
