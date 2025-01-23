@@ -155,3 +155,11 @@ export async function getRegistrationStatus(): Promise<RegistrationStatus> {
     );
     return res;
 }
+
+export async function unsubscribe(listName: string, emailAddress: string) {
+    const res = await requestv2("DELETE", "/newsletter/subscribe/", {
+        listName,
+        emailAddress
+    }).catch(body => handleError(body));
+    return res;
+}
