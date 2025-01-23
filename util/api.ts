@@ -4,7 +4,8 @@ import {
     WithId,
     RSVPType,
     ChallengeStatus,
-    FileType
+    FileType,
+    RegistrationStatus
 } from "./types";
 import { APIError } from "./error";
 import { handleError } from "./helpers";
@@ -156,5 +157,12 @@ export async function uploadFile(file: File, type: FileType): Promise<unknown> {
             type: "upload_error"
         });
     }
+    return res;
+}
+
+export async function getRegistrationStatus(): Promise<RegistrationStatus> {
+    const res = await requestv2("GET", "/registration/status").catch(body =>
+        handleError(body)
+    );
     return res;
 }
