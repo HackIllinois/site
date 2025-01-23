@@ -5,7 +5,7 @@ const NotFound = () => {
     return (
         <div className={styles.container}>
             <div className={styles.errorBox}>
-                <h2 className={styles.heading}>Page not found</h2>
+                <h2 className={styles.heading}>404 Not Found</h2>
                 <p className={styles.text}>
                     Return to the{" "}
                     <Link prefetch={false} href="/" className={styles.link}>
