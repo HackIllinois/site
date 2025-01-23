@@ -147,7 +147,7 @@ const FAQ: React.FC = () => {
                     onClick={() => navigatePage(-1)}
                     disabled={currentPage === 0}
                 >
-                    &#x25C0;
+                    &#x25c4;
                 </button>
             )}
             <div className={styles.faqContent}>
@@ -164,7 +164,7 @@ const FAQ: React.FC = () => {
                     onClick={() => navigatePage(1)}
                     disabled={currentPage === totalPages - 1}
                 >
-                    &#x25B6;
+                    &#x25ba;
                 </button>
             )}
         </div>
