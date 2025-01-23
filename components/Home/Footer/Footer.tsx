@@ -47,12 +47,6 @@ const Footer: React.FC<FooterProps> = ({
                         ))}
                     </div>
                 </div>
-                <div id="newsletter-section">
-                    <span className={styles.newsletterTitle}>
-                        {newsletterTitle}
-                    </span>
-                    <Subscribe />
-                </div>
             </div>
         </div>
     );
