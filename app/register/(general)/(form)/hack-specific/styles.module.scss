@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     gap: 3rem;
+    width: 100%;
+
     @media (max-width: 768px) {
         gap: 2rem;
     }
