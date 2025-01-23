@@ -154,7 +154,7 @@ const FAQ: React.FC = () => {
                 {currentFAQs.map((faq, index) => (
                     <div className={styles.faqItem} key={index}>
                         <h3>{faq.question}</h3>
-                        {faq.answer}
+                        <p>{faq.answer}</p>
                     </div>
                 ))}
             </div>
