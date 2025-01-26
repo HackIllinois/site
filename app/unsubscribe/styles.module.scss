@@ -1,0 +1,33 @@
+.main {
+    background-color: #1a142b;
+    color: white;
+    min-width: 100vw;
+    min-height: max(90vw, 100vh);
+    padding: 3rem;
+    padding-top: 10rem;
+    @media (max-width: 768px) {
+        padding: 1.5rem;
+        padding-top: 10rem;
+    }
+}
+
+.form {
+    margin-top: 1rem;
+    width: fit-content;
+
+    button {
+        background-color: rgb(57, 155, 241);
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        margin-top: 1rem;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    h4 {
+        color: red;
+        font-weight: 400;
+    }
+}

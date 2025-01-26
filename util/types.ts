@@ -98,7 +98,7 @@ export const registrationFieldGroups: RegistrationResponseFieldInfo[][] = [
         },
         {
             key: "degree",
-            text: "What degree are you currently persuing",
+            text: "What degree are you currently pursuing",
             options: degreeOptions
         },
         {
@@ -216,17 +216,6 @@ export type UserType = {
     name: string;
 };
 
-export enum Avatars {
-    BUNNY = "bunny",
-    SQUIRREL = "squirrel",
-    GOBLIN = "goblin",
-    CHESTER = "chester",
-    CAT = "cat",
-    MUSHROOM = "mushroom",
-    FISHERCAT = "fishercat",
-    AXOLOTL = "axolotl"
-}
-
 export type ProfileBodyType = {
     displayName: string;
     discordTag: string;
@@ -251,6 +240,10 @@ export type RSVPDecisionType = {
 
 export type RegistrationRole = "attendee" | "mentor";
 
+export type RegistrationStatus = {
+    alive: boolean;
+};
+
 export type ChallengeStatus = {
     attempts: number;
     complete: boolean;
@@ -264,6 +257,17 @@ export type FormProps = {
     formIndex: number;
     setFormIndex: React.Dispatch<React.SetStateAction<number>>;
 };
+
+export enum Avatars {
+    BUNNY = "bunny",
+    SQUIRREL = "squirrel",
+    GOBLIN = "goblin",
+    CHESTER = "chester",
+    CAT = "cat",
+    MUSHROOM = "mushroom",
+    FISHERCAT = "fishercat",
+    AXOLOTL = "axolotl"
+}
 
 export interface EventType {
     id: string;
