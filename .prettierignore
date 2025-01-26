@@ -2,6 +2,7 @@
 **/node_modules
 **/.next
 **/.husky
+**/.github
 public/*
 LICENSE
 .prettierignore
