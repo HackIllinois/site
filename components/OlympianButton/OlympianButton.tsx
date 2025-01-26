@@ -9,7 +9,7 @@ interface OlympianButtonProps {
     bottomPadding?: boolean;
     blue?: boolean;
     gold?: boolean;
-    compact?: boolean;
+    medium?: boolean;
 }
 
 const OlympianButton: React.FC<OlympianButtonProps> = ({
@@ -19,7 +19,7 @@ const OlympianButton: React.FC<OlympianButtonProps> = ({
     bottomPadding,
     blue,
     gold,
-    compact
+    medium
 }) => {
     return (
         <div
@@ -28,7 +28,7 @@ const OlympianButton: React.FC<OlympianButtonProps> = ({
                 bottomPadding && styles.bottomPadding,
                 blue && styles.blue,
                 gold && styles.gold,
-                compact && styles.compact
+                medium && styles.medium
             )}
         >
             {link ? (

@@ -176,7 +176,7 @@ const Profile: React.FC = () => {
                             <OlympianButton
                                 text="View QR Code"
                                 onClick={handleOpenQRCode}
-                                compact
+                                medium
                             />
                         </div>
                     </div>
