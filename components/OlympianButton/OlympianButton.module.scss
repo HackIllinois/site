@@ -144,6 +144,20 @@
     }
 }
 
+.olympianButtonWrapper.compact .olympianButton {
+    width: 220px;
+    height: 60px;
+    &::after {
+        width: 220px;
+        height: 60px;
+        left: -1px;
+        top: 2px;
+    }
+
+    // fixed text size
+    font-size: 20px;
+}
+
 .olympianButtonWrapper.blue .olympianButton {
     background-color: #55a2a7;
     color: white;
