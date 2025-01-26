@@ -121,6 +121,15 @@ export async function registerSubmit(
     return res;
 }
 
+export async function getRegistrationStatus(): Promise<{ alive: boolean }> {
+    const res = await requestv2("GET", "/registration/status").catch(body =>
+        handleError(body)
+    );
+    return res;
+}
+
+
+
 export async function getRSVP(): Promise<RSVPType> {
     const res = await requestv2("GET", "/admission/rsvp").catch(body =>
         handleError(body)

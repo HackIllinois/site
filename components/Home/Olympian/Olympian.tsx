@@ -1,4 +1,7 @@
+"use client";
 import styles from "./Olympian.module.scss";
+import { useEffect, useState } from "react";
+import { getRegistrationStatus } from "@/util/api";
 
 import Image from "next/image";
 import LOGO from "@/public/home/olympian/logo.svg";
@@ -7,6 +10,12 @@ import OlympianButton from "@/components/OlympianButton/OlympianButton";
 import Description from "../Description/Description";
 
 const Olympian: React.FC = () => {
+    const [registrationOpen, setRegistrationOpen] = useState(true);
+    useEffect(() => {
+        getRegistrationStatus().then(status => {
+            setRegistrationOpen(status.alive);
+        });
+    }, []);
     return (
         <section className={styles.olympianMain}>
             <div className={styles.main}>
@@ -16,8 +25,8 @@ const Olympian: React.FC = () => {
                     className={styles.logo}
                 />
                 <OlympianButton
-                    text="Register Now"
-                    link="/register"
+                    text={registrationOpen ? "Register Now" : "Profile"}
+                    link={registrationOpen ? "/register" : "/profile"}
                     bottomPadding
                 />
             </div>
