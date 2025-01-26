@@ -98,7 +98,7 @@ export const registrationFieldGroups: RegistrationResponseFieldInfo[][] = [
         },
         {
             key: "degree",
-            text: "What degree are you currently persuing",
+            text: "What degree are you currently pursuing",
             options: degreeOptions
         },
         {
