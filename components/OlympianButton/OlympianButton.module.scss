@@ -146,7 +146,7 @@
             width: 45vw;
             height: 15vw;
             border-radius: 20px;
-            border-width: 1vw;
+            left: -1vw;
         }
     }
 }
@@ -173,10 +173,12 @@
     width: 22.5vw;
     height: 6vw;
     font-size: 2vw;
+    border-radius: 2vw;
 
     &::after {
         width: 22.5vw;
         height: 6vw;
+        border-radius: 2vw;
     }
 
     @media screen and (max-width: 960px) {
@@ -201,7 +203,7 @@
             width: 45vw;
             height: 15vw;
             border-radius: 20px;
-            border-width: 1vw;
+            left: -1vw;
         }
     }
 }
