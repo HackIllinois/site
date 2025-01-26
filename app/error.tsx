@@ -4,13 +4,7 @@ import styles from "./Error.module.scss";
 import Link from "next/link";
 import clsx from "clsx";
 
-const Error = ({
-    error,
-    reset
-}: {
-    error: Error & { digest?: string };
-    reset: () => void;
-}) => {
+const Error = ({ error }: { error: Error & { digest?: string } }) => {
     const [showDetails, setShowDetails] = useState(false);
 
     const handleToggleDetails = () => {

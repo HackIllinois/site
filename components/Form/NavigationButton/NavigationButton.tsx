@@ -25,6 +25,7 @@ const NavigationButton: React.FC<NavButtonProps> = ({
     // Function to handle the Enter key press
     const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
         if (event.key === "Enter" || event.key === "Return") {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onClick?.(event as any); // Trigger the onClick function
         }
     };

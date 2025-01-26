@@ -11,12 +11,7 @@ import FOREGROUND from "@/public/registration/pro/foreground.svg";
 import EXAMPLE_CHALLENGE_GRAPHIC from "@/public/registration/example_challenge_graphic.svg";
 
 import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
-import {
-    isAuthenticated,
-    authenticate,
-    getRegistrationOrDefault,
-    getChallenge
-} from "@/util/api";
+import { isAuthenticated, authenticate, getChallenge } from "@/util/api";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import Loading from "@/components/Loading/Loading";

@@ -20,7 +20,6 @@ const StyledCheckbox: React.FC<PropTypes> = ({
     label,
     checked,
     className,
-    radio,
     style,
     blue,
     ...props
