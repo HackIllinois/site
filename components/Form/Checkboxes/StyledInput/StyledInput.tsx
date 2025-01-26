@@ -11,10 +11,8 @@ type StyledInputProps = {
 };
 
 const StyledInput: React.FC<StyledInputProps> = ({
-    name,
     className,
     multiline,
-    required,
     ...props
 }) => {
     return multiline ? (

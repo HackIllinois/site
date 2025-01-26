@@ -1,6 +1,4 @@
-import Checkboxes, {
-    CheckboxOption
-} from "@/components/Form/Checkboxes/Checkboxes";
+import Checkboxes from "@/components/Form/Checkboxes/Checkboxes";
 import styles from "./styles.module.scss";
 import React from "react";
 import {

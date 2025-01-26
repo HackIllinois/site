@@ -38,7 +38,6 @@ const Checkboxes: React.FC<PropTypes> = ({
     name,
     label,
     options = [],
-    hideErrors,
     className,
     style,
     threeColEnabled,
@@ -57,6 +56,7 @@ const Checkboxes: React.FC<PropTypes> = ({
     const isValueOther = (value: string) =>
         options.every(option => option.value !== value);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const selectedValues: any[] = useMemo(() => {
         return value || [];
     }, [field]);
@@ -86,6 +86,7 @@ const Checkboxes: React.FC<PropTypes> = ({
         checked: boolean,
         { value, isRadio, isOther }: CheckboxOption
     ) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let newSelectedValues: any[] = [];
 
         // if checked === true and the option isn't already selected, select it
