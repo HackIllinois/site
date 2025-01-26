@@ -163,3 +163,10 @@ export async function unsubscribe(listName: string, emailAddress: string) {
     }).catch(body => handleError(body));
     return res;
 }
+
+export async function getQRCode(): Promise<string> {
+    const res = await requestv2("GET", "/user/qr").catch(body =>
+        handleError(body)
+    );
+    return res.qrInfo;
+}

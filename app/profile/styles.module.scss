@@ -66,10 +66,22 @@
 .container .info {
     width: 100%;
     display: flex;
-    @media (max-width: 768px) {
-        flex-direction: column;
-        gap: 40px;
-    }
+    // @media (max-width: 768px) {
+    //     flex-direction: column;
+    //     gap: 40px;
+    // }
+}
+
+.container .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    // @media (max-width: 768px) {
+    //     width: fit-content;
+    //     flex-direction: row;
+    //     gap: 10px;
+    // }
 }
 
 .container .info .col {
@@ -83,4 +95,68 @@
 .col h3 {
     text-decoration: underline;
     padding-bottom: 5px;
+}
+
+.qrModalContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.qrModalContent svg {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+}
+
+.qrModalContent h2 {
+    color: black;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.closeButton {
+    color: #34274a;
+    position: relative;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #34274a;
+    padding-top: 14px;
+    font-size: 30px;
+}
+
+.closeButton:hover {
+    color: #34274a;
+    text-decoration: underline;
+    text-decoration-color: #34274a;
+    cursor: pointer;
+}
+
+.link {
+    color: #34274a;
+    position: relative;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #34274a;
+    padding-top: 14px;
+}
+
+.link:hover {
+    color: #34274a;
+    text-decoration: underline;
+    text-decoration-color: #34274a;
+    cursor: pointer;
+}
+
+.qrCodeCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    @media (max-width: 768px) {
+        gap: 5px;
+    }
 }
