@@ -1,9 +1,9 @@
 "use client";
 import { avatars } from "@/modules/avatars";
+import clsx from "clsx";
 import { useField } from "formik";
 import Image from "next/image";
 import styles from "./AvatarSelector.module.scss";
-import clsx from "clsx";
 
 export type AvatarSelectorProps = {
     name: string;
