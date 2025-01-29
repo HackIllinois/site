@@ -1,12 +1,12 @@
 "use client";
-import React, { ChangeEvent, ReactNode, useCallback, useMemo } from "react";
 import clsx from "clsx";
+import React, { ChangeEvent, ReactNode, useCallback, useMemo } from "react";
 
-import styles from "./Checkboxes.module.scss";
-import StyledCheckbox from "./StyledCheckbox/StyledCheckbox";
-import RadioButton from "./RadioButton/RadioButton";
-import StyledInput from "./StyledInput/StyledInput";
 import { useField } from "formik";
+import styles from "./Checkboxes.module.scss";
+import RadioButton from "./RadioButton/RadioButton";
+import StyledCheckbox from "./StyledCheckbox/StyledCheckbox";
+import StyledInput from "./StyledInput/StyledInput";
 
 export type CheckboxOption = {
     label: string | number;

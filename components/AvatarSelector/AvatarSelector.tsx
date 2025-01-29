@@ -20,6 +20,8 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({
     const { setValue } = helpers;
     const { value } = field;
 
+    const showFeedback = meta.error && meta.touched;
+
     return (
         <div className={styles.container}>
             <label htmlFor={name}>
@@ -50,6 +52,8 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({
                     </div>
                 ))}
             </div>
+
+            <h4>{showFeedback && meta.error}</h4>
         </div>
     );
 };
