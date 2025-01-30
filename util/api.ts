@@ -134,6 +134,20 @@ export async function getRSVP(): Promise<RSVPType> {
     return res;
 }
 
+export async function RSVPDecideAccept() {
+    const res = await requestv2("PUT", "/admission/rsvp/accept").catch(body =>
+        handleError(body)
+    );
+    return res;
+}
+
+export async function RSVPDecideDecline() {
+    const res = await requestv2("PUT", "/admission/rsvp/decline").catch(body =>
+        handleError(body)
+    );
+    return res;
+}
+
 export async function uploadFile(file: File): Promise<unknown> {
     const { url, fields } = await requestv2("GET", "/s3/upload");
     const data = new FormData();
