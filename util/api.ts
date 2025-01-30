@@ -3,11 +3,8 @@ import {
     RegistrationType,
     WithId,
     RSVPType,
-    ChallengeStatus,
-    FileType,
-    RegistrationStatus
+    ChallengeStatus
 } from "./types";
-import { APIError } from "./error";
 import { handleError } from "./helpers";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -72,6 +69,7 @@ export async function getRegistrationOrDefault(): Promise<
     try {
         const response = await requestv2("GET", "/registration");
         return response;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (error.error !== "NotFound") {
             handleError(error);
@@ -122,6 +120,13 @@ export async function registerSubmit(
     return res;
 }
 
+export async function getRegistrationStatus(): Promise<{ alive: boolean }> {
+    const res = await requestv2("GET", "/registration/status").catch(body =>
+        handleError(body)
+    );
+    return res;
+}
+
 export async function getRSVP(): Promise<RSVPType> {
     const res = await requestv2("GET", "/admission/rsvp").catch(body =>
         handleError(body)
@@ -129,10 +134,10 @@ export async function getRSVP(): Promise<RSVPType> {
     return res;
 }
 
-export async function uploadFile(file: File, type: FileType): Promise<unknown> {
+export async function uploadFile(file: File): Promise<unknown> {
     const { url, fields } = await requestv2("GET", "/s3/upload");
-    let data = new FormData();
-    for (let key in fields) {
+    const data = new FormData();
+    for (const key in fields) {
         data.append(key, fields[key]);
     }
     data.append("file", file, file.name);
@@ -146,13 +151,6 @@ export async function uploadFile(file: File, type: FileType): Promise<unknown> {
             type: "upload_error"
         });
     }
-    return res;
-}
-
-export async function getRegistrationStatus(): Promise<RegistrationStatus> {
-    const res = await requestv2("GET", "/registration/status").catch(body =>
-        handleError(body)
-    );
     return res;
 }
 
