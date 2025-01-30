@@ -24,9 +24,11 @@
     justify-content: center;
     flex-direction: column;
     gap: 3rem;
-    width: 80%;
+    width: 100%;
+    padding: 0 3rem;
     position: relative;
     @media (max-width: 768px) {
+        padding: 0 1.5rem;
         margin-top: 100px;
     }
 }

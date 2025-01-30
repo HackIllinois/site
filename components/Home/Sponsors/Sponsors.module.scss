@@ -11,35 +11,9 @@
 
 .content {
     position: absolute;
-    top: 120px;
-    --horizontal-margin: 150px;
-    margin: 0 var(--horizontal-margin);
-    width: calc(100% - 2 * var(--horizontal-margin));
-    font-size: 45px;
-
-    @media screen and (max-width: 1152px) {
-        top: 50px;
-        --horizontal-margin: 35px;
-        font-size: 26px;
-    }
-
-    @media screen and (max-width: 768px) {
-        top: 30px;
-        --horizontal-margin: 30px;
-        font-size: 12px;
-    }
-
-    @media screen and (max-width: 400px) {
-        top: 30px;
-        --horizontal-margin: 30px;
-        font-size: 12px;
-    }
-
-    @media screen and (max-width: 370px) {
-        top: 25px;
-        --horizontal-margin: 30px;
-        font-size: 12px;
-    }
+    top: 7vw;
+    left: 8vw;
+    font-size: 3vw;
 }
 
 .title {
@@ -47,8 +21,11 @@
 }
 
 .sponsors {
+    position: absolute;
+    top: 21vw;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 2rem;
+    font-size: 3vw;
 }

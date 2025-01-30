@@ -43,6 +43,7 @@ const RegistrationResponseGroup: React.FC<{
                         responseProvided = true;
                     }
                     const fieldOptionsHaveLabels = field.options.every(
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         (option: any) => option.label
                     );
                     if (fieldOptionsHaveLabels) {
