@@ -170,6 +170,30 @@ const Profile: React.FC = () => {
                                     isHighlighted={RSVP?.status === "REJECTED"}
                                 />
                             </div>
+                            {RSVP?.status === "ACCEPTED" && (
+                                <div className={styles.col}>
+                                    <h3>Response</h3>
+                                    <ValueItem
+                                        label="Decision Pending"
+                                        isHighlighted={
+                                            !RSVP?.status ||
+                                            RSVP?.response === "PENDING"
+                                        }
+                                    />
+                                    <ValueItem
+                                        label="Accepted"
+                                        isHighlighted={
+                                            RSVP?.response === "ACCEPTED"
+                                        }
+                                    />
+                                    <ValueItem
+                                        label="Declined"
+                                        isHighlighted={
+                                            RSVP?.response === "DECLINED"
+                                        }
+                                    />
+                                </div>
+                            )}
                         </div>
 
                         <div className={clsx(styles.col, styles.qrCodeCol)}>
