@@ -21,6 +21,10 @@ import { QRCodeSVG } from "qrcode.react";
 import Modal from "react-modal";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
 import useWindowSize from "@/hooks/use-window-size";
+import UserRejected from "@/components/RSVPContent/UserRejected";
+import UserGeneralAcceptedToGeneral from "@/components/RSVPContent/UserGeneralAcceptedToGeneral";
+import UserProAcceptedToGeneral from "@/components/RSVPContent/UserProAcceptedToGeneral";
+import UserProAcceptedToPro from "@/components/RSVPContent/UserProAcceptedToPro";
 
 type ValueItemProps = {
     label: string;
@@ -43,7 +47,6 @@ const ValueItem: React.FC<ValueItemProps> = ({ label, isHighlighted }) => {
 const Profile: React.FC = () => {
     const pathname = usePathname();
     const router = useRouter();
-    const windowSizeHook = useWindowSize();
 
     const [registration, setRegistration] = useState<RegistrationData | null>(
         null
@@ -54,11 +57,16 @@ const Profile: React.FC = () => {
 
     const [qrCodeURL, setQRCodeURL] = useState<string | null>(null);
     const [qrCodeOpen, setQRCodeOpen] = useState(false);
+    const [detailsOpen, setDetailsOpen] = useState(false);
 
     const handleOpenQRCode = async () => {
         const qrCode = await getQRCode();
         setQRCodeURL(qrCode);
         setQRCodeOpen(true);
+    };
+
+    const handleSetDetailsOpen = () => {
+        setDetailsOpen(true);
     };
 
     const handleCloseQRCode = () => {
@@ -92,29 +100,20 @@ const Profile: React.FC = () => {
             <Head>
                 <title>HackIllinois | Profile</title>
             </Head>
-            <Modal
-                className={styles.qrModal}
-                style={{
-                    overlay: { zIndex: 1000 },
-                    content: {
-                        inset:
-                            windowSizeHook?.width && windowSizeHook?.width < 768
-                                ? "10px"
-                                : "40px"
-                    }
-                }}
-                isOpen={qrCodeOpen}
-                onRequestClose={handleCloseQRCode}
-                ariaHideApp={false}
-            >
-                <div className={styles.qrModalContent}>
-                    <h2>Your QR Code</h2>
-                    {qrCodeURL && <QRCodeSVG value={qrCodeURL} />}
-                    <button className={styles.link} onClick={handleCloseQRCode}>
-                        Close
-                    </button>
-                </div>
-            </Modal>
+            <QRModal
+                qrCodeOpen={qrCodeOpen}
+                qrCodeURL={qrCodeURL}
+                handleCloseQRCode={handleCloseQRCode}
+            />
+            {RSVP && (
+                <DetailsModal
+                    isProApplicant={isProApplicant}
+                    rsvp={RSVP}
+                    detailsOpen={detailsOpen}
+                    handleCloseDetails={() => setDetailsOpen(false)}
+                />
+            )}
+
             {isLoading && <Loading />}
             <div
                 style={{
@@ -195,18 +194,119 @@ const Profile: React.FC = () => {
                                 </div>
                             )}
                         </div>
-
                         <div className={clsx(styles.col, styles.qrCodeCol)}>
-                            <OlympianButton
-                                text="View QR Code"
-                                onClick={handleOpenQRCode}
-                                medium
-                            />
+                            {RSVP &&
+                                (RSVP.status === "ACCEPTED" &&
+                                RSVP.response === "ACCEPTED" ? (
+                                    <OlympianButton
+                                        text="View QR Code"
+                                        onClick={handleOpenQRCode}
+                                        medium
+                                    />
+                                ) : ["ACCEPTED", "REJECTED"].includes(
+                                      RSVP.status
+                                  ) ? (
+                                    <OlympianButton
+                                        text="Details"
+                                        onClick={handleSetDetailsOpen}
+                                        medium
+                                    />
+                                ) : (
+                                    <></>
+                                ))}
                         </div>
                     </div>
                 </div>
             </div>
         </>
+    );
+};
+
+const QRModal: React.FC<{
+    qrCodeOpen: boolean;
+    handleCloseQRCode: () => void;
+    qrCodeURL: string | null;
+}> = ({ qrCodeOpen, handleCloseQRCode, qrCodeURL }) => {
+    const windowSizeHook = useWindowSize();
+
+    return (
+        <Modal
+            className={styles.modal}
+            style={{
+                overlay: { zIndex: 1000 },
+                content: {
+                    inset:
+                        windowSizeHook?.width && windowSizeHook?.width < 768
+                            ? "10px"
+                            : "40px"
+                }
+            }}
+            isOpen={qrCodeOpen}
+            onRequestClose={handleCloseQRCode}
+            ariaHideApp={false}
+        >
+            <div className={styles.modalContent}>
+                <h2>Your QR Code</h2>
+                {qrCodeURL && <QRCodeSVG value={qrCodeURL} />}
+                <button className={styles.link} onClick={handleCloseQRCode}>
+                    Close
+                </button>
+            </div>
+        </Modal>
+    );
+};
+
+const DetailsModal: React.FC<{
+    isProApplicant: boolean;
+    rsvp: RSVPType;
+    detailsOpen: boolean;
+    handleCloseDetails: () => void;
+}> = ({ isProApplicant, rsvp, detailsOpen, handleCloseDetails }) => {
+    const pages = {
+        user_rejected: UserRejected,
+        user_pro_accepted_to_pro: UserProAcceptedToPro,
+        user_pro_accepted_to_general: UserProAcceptedToGeneral,
+        user_general_accepted_to_general: UserGeneralAcceptedToGeneral
+    };
+
+    const [displayedPage, setDisplayedPage] = useState<
+        keyof typeof pages | undefined
+    >(undefined);
+
+    const handleLoadDisplayedPage = () => {
+        if (rsvp.response === "DECLINED") {
+            setDisplayedPage("user_rejected");
+            return;
+        }
+        if (isProApplicant) {
+            if (rsvp.admittedPro) {
+                setDisplayedPage("user_pro_accepted_to_pro");
+            } else {
+                setDisplayedPage("user_pro_accepted_to_general");
+            }
+        } else {
+            setDisplayedPage("user_general_accepted_to_general");
+        }
+    };
+
+    useEffect(() => {
+        handleLoadDisplayedPage();
+    }, [rsvp?.response, rsvp?.status, rsvp?.admittedPro]);
+
+    return (
+        <Modal
+            className={styles.modal}
+            style={{
+                overlay: { zIndex: 1000 }
+            }}
+            isOpen={detailsOpen}
+            onRequestClose={handleCloseDetails}
+            ariaHideApp={false}
+        >
+            <div className={styles.modalContent}>
+                {displayedPage && React.createElement(pages[displayedPage])}
+            </div>
+        </Modal>
     );
 };
 

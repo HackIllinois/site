@@ -97,7 +97,7 @@
     padding-bottom: 5px;
 }
 
-.qrModalContent {
+.modalContent {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -106,13 +106,17 @@
     height: 100%;
 }
 
-.qrModalContent svg {
+.modalContent p {
+    color: black;
+}
+
+.modalContent svg {
     width: 100%;
     max-width: 400px;
     height: auto;
 }
 
-.qrModalContent h2 {
+.modalContent h2 {
     color: black;
     margin-bottom: 10px;
     font-size: 30px;
