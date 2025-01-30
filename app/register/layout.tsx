@@ -11,44 +11,42 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-    const [isLoading, setIsLoading] = useState(true)
-    const router = useRouter()
-    const pathname = usePathname()
-    const [isAlive, setIsAlive] = useState(true)
-
-
+    const [isLoading, setIsLoading] = useState(true);
+    const router = useRouter();
+    const pathname = usePathname();
+    const [isAlive, setIsAlive] = useState(true);
 
     useEffect(() => {
         if (!isAuthenticated()) {
-            authenticate(pathname)
-            return
+            authenticate(pathname);
+            return;
         }
 
         getRegistrationOrDefault()
             .then(registration => {
                 if (registration.hasSubmitted) {
-                    router.push("/profile")
+                    router.push("/profile");
                 } else if (!isAlive) {
-                    router.push("/closed")
+                    router.push("/closed");
                 }
             })
             .finally(() => {
-                setIsLoading(false)
-            })
-    }, [])
+                setIsLoading(false);
+            });
+    }, []);
 
     useEffect(() => {
         const fetchRegistrationStatus = async () => {
-          try {
-            const response = await getRegistrationStatus()
-            setIsAlive(response.alive)
-          } catch (err) {
-            console.error(err)
-          }
-        }
-     
-        fetchRegistrationStatus()
-      }, [])
+            try {
+                const response = await getRegistrationStatus();
+                setIsAlive(response.alive);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchRegistrationStatus();
+    }, []);
 
     return (
         <>
