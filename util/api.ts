@@ -3,7 +3,9 @@ import {
     RegistrationType,
     WithId,
     RSVPType,
-    ChallengeStatus
+    ChallengeStatus,
+    ProfileBodyType,
+    ProfileType
 } from "./types";
 import { handleError } from "./helpers";
 
@@ -181,4 +183,8 @@ export async function getQRCode(): Promise<string> {
         handleError(body)
     );
     return res.qrInfo;
+}
+
+export function setProfile(body: ProfileBodyType): Promise<ProfileType> {
+    return requestv2("POST", "/profile", body);
 }
