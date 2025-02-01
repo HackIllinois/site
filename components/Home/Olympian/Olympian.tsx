@@ -18,10 +18,6 @@ const Olympian: React.FC = () => {
                 return { text: "Register Now", link: "/register" };
             case "admission":
                 return { text: "Profile", link: "/profile" };
-            case "event":
-                return { text: "", link: "#" };
-            case "postevent":
-                return { text: "", link: "#" };
             case "loading":
                 return { text: "Loading", link: "#" };
         }
