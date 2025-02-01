@@ -2,12 +2,7 @@
 import { createContext } from "react";
 
 export type GlobalContextType = {
-    eventStatus:
-        | "registration"
-        | "admission"
-        | "event"
-        | "postevent"
-        | "loading";
+    eventStatus: "registration" | "admission" | "loading";
 };
 
 const GlobalContext = createContext<GlobalContextType>({
