@@ -113,9 +113,9 @@ const ProChallenge: React.FC = () => {
                         </p>
                         <p>
                             To begin, you must retrieve your{" "}
-                            <b>celestial JWT token</b> to prove your worth. Use
-                            the same GitHub account you used to register for
-                            HackIllinois to claim your token!
+                            <b>celestial JWT token</b> to prove your worth. Make
+                            sure you use the same GitHub account as you did
+                            earlier!
                         </p>
                         <ShineButton
                             text="Fetch JWT"

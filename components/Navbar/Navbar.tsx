@@ -7,34 +7,44 @@ import styles from "./Navbar.module.scss";
 // import CloudMenu from "@/public/cloud-menu.svg";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import GlobalContext from "@/app/context";
 
 type NavbarItem = {
     title: string;
     link: string;
 };
 
-const NAVBAR_ITEMS: NavbarItem[] = [
-    {
-        title: "Register",
-        link: "/register"
-    },
-    {
-        title: "Legal",
-        link: "/legal"
-    }
-];
-
 const DARK_PAGES = ["/register/challenge"];
 
 const Navbar = () => {
+    const { eventStatus } = useContext(GlobalContext);
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
 
     const isDark = DARK_PAGES.includes(pathname);
+
+    const getDynamicNavItems = () => {
+        switch (eventStatus) {
+            case "registration":
+                return [{ title: "Register", link: "/register" }];
+            case "admission":
+                return [{ title: "Profile", link: "/profile" }];
+            default:
+                return [];
+        }
+    };
+
+    const navbarItems: NavbarItem[] = [
+        ...getDynamicNavItems(),
+        {
+            title: "Legal",
+            link: "/legal"
+        }
+    ];
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -69,7 +79,7 @@ const Navbar = () => {
                     />
                 </Link>
                 <ul className={styles.navbarList}>
-                    {NAVBAR_ITEMS.map(item => (
+                    {navbarItems.map(item => (
                         <li key={item.title}>
                             <Link
                                 prefetch={false}
@@ -121,7 +131,7 @@ const Navbar = () => {
                     )}
                     ref={menuRef}
                 >
-                    {NAVBAR_ITEMS.map(item => (
+                    {navbarItems.map(item => (
                         <Link
                             prefetch={false}
                             href={item.link}
