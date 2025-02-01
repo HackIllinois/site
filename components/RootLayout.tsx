@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 import { getRegistrationStatus } from "@/util/api";
 import GlobalContext, { GlobalContextType } from "@/app/context";
-import Loading from "./Loading/Loading";
 
 export default function RootLayout({
     children
@@ -35,12 +34,9 @@ export default function RootLayout({
     }, []);
 
     return (
-        <>
-            {isLoading && <Loading />}
-            <GlobalContext.Provider value={getValue()}>
-                <Navbar />
-                {children}
-            </GlobalContext.Provider>
-        </>
+        <GlobalContext.Provider value={getValue()}>
+            <Navbar />
+            {children}
+        </GlobalContext.Provider>
     );
 }
