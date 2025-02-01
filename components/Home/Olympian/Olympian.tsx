@@ -1,21 +1,32 @@
 "use client";
 import styles from "./Olympian.module.scss";
-import { useEffect, useState } from "react";
-import { getRegistrationStatus } from "@/util/api";
+import { useContext } from "react";
 
 import Image from "next/image";
 import LOGO from "@/public/home/olympian/logo.svg";
 import BACKGROUND from "@/public/home/olympian/background.svg";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
 import Description from "../Description/Description";
+import GlobalContext from "@/app/context";
 
 const Olympian: React.FC = () => {
-    const [registrationOpen, setRegistrationOpen] = useState(true);
-    useEffect(() => {
-        getRegistrationStatus().then(status => {
-            setRegistrationOpen(status.alive);
-        });
-    }, []);
+    const { eventStatus } = useContext(GlobalContext);
+
+    const getButtonData = () => {
+        switch (eventStatus) {
+            case "registration":
+                return { text: "Register Now", link: "/register" };
+            case "admission":
+                return { text: "Profile", link: "/profile" };
+            case "event":
+                return { text: "", link: "#" };
+            case "postevent":
+                return { text: "", link: "#" };
+            case "loading":
+                return { text: "Loading", link: "#" };
+        }
+    };
+
     return (
         <section className={styles.olympianMain}>
             <div className={styles.main}>
@@ -24,11 +35,7 @@ const Olympian: React.FC = () => {
                     src={LOGO}
                     className={styles.logo}
                 />
-                <OlympianButton
-                    text={registrationOpen ? "Register Now" : "Profile"}
-                    link={registrationOpen ? "/register" : "/profile"}
-                    bottomPadding
-                />
+                <OlympianButton {...getButtonData()} bottomPadding />
             </div>
             <Image
                 alt="background"
