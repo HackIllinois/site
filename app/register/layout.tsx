@@ -21,18 +21,23 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             return;
         }
 
-        if (eventStatus === "registration") {
-            setIsLoading(false);
-            return;
-        }
-
         if (!isAuthenticated()) {
             authenticate(pathname);
             return;
         }
 
         getRegistrationOrDefault().then(registration => {
-            router.push(registration.hasSubmitted ? "/profile" : "/closed");
+            if (registration.hasSubmitted) {
+                router.push("/profile");
+                return;
+            }
+
+            if (eventStatus !== "registration") {
+                router.push("/closed");
+                return;
+            }
+
+            setIsLoading(false);
         });
     }, [eventStatus, router, pathname]);
 

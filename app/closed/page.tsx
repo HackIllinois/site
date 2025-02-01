@@ -30,11 +30,6 @@ const Closed: React.FC = () => {
             return;
         }
 
-        if (eventStatus === "registration") {
-            router.push("/register");
-            return;
-        }
-
         if (!isAuthenticated()) {
             authenticate(pathname);
             return;
@@ -43,6 +38,11 @@ const Closed: React.FC = () => {
         getRegistrationOrDefault().then(registration => {
             if (registration.hasSubmitted) {
                 router.push("/profile");
+                return;
+            }
+
+            if (eventStatus === "registration") {
+                router.push("/register");
                 return;
             }
 
