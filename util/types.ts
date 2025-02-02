@@ -219,7 +219,7 @@ export type UserType = {
 export type ProfileBodyType = {
     displayName: string;
     discordTag: string;
-    avatarId: Avatars;
+    avatarId: string;
 };
 
 export type ProfileType = {

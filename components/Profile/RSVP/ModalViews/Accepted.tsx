@@ -1,26 +1,53 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
+import { RSVPDecideAccept, RSVPDecideDecline } from "@/util/api";
 
-type Accepted = {
-    children: React.ReactNode;
+type AcceptedType = "PRO" | "PRO_TO_GENERAL" | "GENERAL";
+
+type AcceptedProps = {
+    acceptedType: AcceptedType;
+    reimburse: number;
+};
+
+export default function Accepted({ acceptedType, reimburse }: AcceptedProps) {
+    const handleConfirm = async () => {
+        await RSVPDecideAccept();
+    };
+
+    const handleDecline = async () => {
+        await RSVPDecideDecline();
+    };
+
+    return (
+        <ChooseRSVP
+            acceptedType={acceptedType}
+            reimburse={reimburse}
+            handleConfirm={handleConfirm}
+            handleDecline={handleDecline}
+        />
+    );
+}
+
+type ChooseRSVPProps = {
+    acceptedType: AcceptedType;
     reimburse: number;
     handleConfirm: () => void;
     handleDecline: () => void;
 };
 
-export default function Accepted({
-    children,
+export function ChooseRSVP({
     reimburse,
+    acceptedType,
     handleConfirm,
     handleDecline
-}: Accepted) {
+}: ChooseRSVPProps) {
     return (
         <div className={styles.container}>
             <div className={styles.textBlock}>
-                {children}
+                <AcceptedVerbage acceptedType={acceptedType} />
                 <p>
-                    If you would like to attend HackIllinois 2024, click Confirm
+                    If you would like to attend HackIllinois 2025, click Confirm
                     to finish the RSVP process. If you won&apos;t be attending
                     please click Decline. This cannot be reversed.
                 </p>
@@ -47,24 +74,42 @@ export default function Accepted({
                     blue
                 />
             </div>
-            {/* <div className={styles.mobileButtonGroup}>
-                <button onClick={handleConfirm}>
-                    <Image
-                        alt="confirm button"
-                        src={MobileConfirmButton}
-                        width={309}
-                        height={54}
-                    />
-                </button>
-                <button onClick={handleDecline}>
-                    <Image
-                        alt="decline button"
-                        src={MobileDeclineButton}
-                        width={309}
-                        height={54}
-                    />
-                </button>
-            </div> */}
         </div>
     );
+}
+
+type AcceptedVerbageProps = {
+    acceptedType: AcceptedType;
+};
+
+function AcceptedVerbage({ acceptedType }: AcceptedVerbageProps) {
+    switch (acceptedType) {
+        case "GENERAL":
+            return (
+                <>
+                    <b>Congratulations! You&apos;ve been accepted as a</b>
+                    <b> </b>
+                    <b className={styles.shiny}>General Attendee</b>
+                </>
+            );
+        case "PRO_TO_GENERAL":
+            return (
+                <>
+                    <b>
+                        Unfortunately, we couldn&apos;t offer you a spot as a
+                        HackKnight, but you&apos;ve been accepted as a
+                    </b>
+                    <b> </b>
+                    <b className={styles.shiny}>General Attendee</b>
+                </>
+            );
+        case "PRO":
+            return (
+                <>
+                    <b>Congratulations! You&apos;ve been accepted as a</b>
+                    <b> </b>
+                    <b className={styles.shiny}>HackOlympian</b>
+                </>
+            );
+    }
 }

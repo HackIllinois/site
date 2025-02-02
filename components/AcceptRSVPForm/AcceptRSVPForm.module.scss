@@ -1,0 +1,51 @@
+.container {
+    width: 100%;
+    height: fit-content;
+    padding: 5rem;
+}
+
+.form {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.formButton {
+    border-radius: 8px;
+    border: 2px solid #766947;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(
+        to right,
+        #ffffff 0%,
+        #fff4d4 22%,
+        #f0e2bc 53%,
+        #e1d1a2 100%
+    );
+    padding-left: 30px;
+    padding-right: 30px;
+    text-transform: uppercase;
+    font-size: 24px;
+    height: auto;
+    cursor: pointer;
+    font-weight: bold;
+    color: #9a8a5f;
+
+    // Make sure focus state works
+    &:focus {
+        outline: 4px solid #ad8e28;
+    }
+
+    @media (max-width: 768px) {
+        padding: 5px 10px;
+        font-size: 20px;
+    }
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}

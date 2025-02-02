@@ -1,30 +1,31 @@
 "use client";
-import Loading from "@/components/Loading/Loading";
-import OlympianButton from "@/components/OlympianButton/OlympianButton";
-import Accepted from "@/components/Profile/RSVP/ModalViews/Accepted";
-import Rejected from "@/components/Profile/RSVP/ModalViews/Rejected";
-import useWindowSize from "@/hooks/use-window-size";
-import APPLICATION_STATUS_BACKGROUND from "@/public/registration/backgrounds/application_status_background.svg";
-import APPLICATION_STATUS_BOARD from "@/public/registration/backgrounds/application_status_board.svg";
 import {
     authenticate,
     getChallenge,
     getQRCode,
     getRegistrationOrDefault,
     getRSVP,
-    isAuthenticated,
-    RSVPDecideAccept,
-    RSVPDecideDecline
+    isAuthenticated
 } from "@/util/api";
-import { registrationFromAPI } from "@/util/helpers";
-import { RegistrationData, RSVPType } from "@/util/types";
+import styles from "./styles.module.scss";
+import APPLICATION_STATUS_BACKGROUND from "@/public/registration/backgrounds/application_status_background.svg";
+import APPLICATION_STATUS_BOARD from "@/public/registration/backgrounds/application_status_board.svg";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import Head from "next/head";
+import { RegistrationData, RSVPType } from "@/util/types";
+import { registrationFromAPI } from "@/util/helpers";
+import Loading from "@/components/Loading/Loading";
 import { usePathname, useRouter } from "next/navigation";
 import { QRCodeSVG } from "qrcode.react";
-import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import styles from "./styles.module.scss";
+import OlympianButton from "@/components/OlympianButton/OlympianButton";
+import useWindowSize from "@/hooks/use-window-size";
+import {
+    Rejected,
+    Waitlisted
+} from "@/components/Profile/RSVP/ModalViews/Rejected";
+import Accepted from "@/components/Profile/RSVP/ModalViews/Accepted";
 
 type ValueItemProps = {
     label: string;
@@ -47,6 +48,7 @@ const ValueItem: React.FC<ValueItemProps> = ({ label, isHighlighted }) => {
 const Profile: React.FC = () => {
     const pathname = usePathname();
     const router = useRouter();
+    const windowSizeHook = useWindowSize();
 
     const [registration, setRegistration] = useState<RegistrationData | null>(
         null
@@ -56,24 +58,31 @@ const Profile: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const [qrCodeURL, setQRCodeURL] = useState<string | null>(null);
-    const [qrCodeOpen, setQRCodeOpen] = useState(false);
-    const [detailsOpen, setDetailsOpen] = useState(false);
 
-    const handleOpenQRCode = async () => {
-        const qrCode = await getQRCode();
-        setQRCodeURL(qrCode);
-        setQRCodeOpen(true);
-    };
+    const [modalOpen, setModalOpen] = useState(false);
 
-    const handleSetDetailsOpen = () => {
-        setDetailsOpen(true);
-    };
+    const getButtonText = () => {
+        if (RSVP?.status === "REJECTED" || RSVP?.status === "WAITLISTED") {
+            return "Details";
+        }
 
-    const handleCloseQRCode = () => {
-        setQRCodeOpen(false);
+        if (RSVP?.response === "ACCEPTED") {
+            return "View QR Code";
+        }
+
+        return "Congrats! Click here to RSVP";
     };
 
     useEffect(() => {
+        // setRSVP({
+        //     admittedPro: false,
+        //     reimbursementValue: 0.01,
+        //     response: "PENDING",
+        //     status: "ACCEPTED",
+        //     userId: "0"
+        // });
+        // setIsLoading(false);
+
         if (!isAuthenticated()) {
             authenticate(pathname);
             return;
@@ -86,35 +95,60 @@ const Profile: React.FC = () => {
 
             setRegistration(registrationFromAPI(registration));
             Promise.all([getChallenge(), getRSVP()]).then(
-                ([challenge, RSVP]) => {
+                async ([challenge, RSVP]) => {
                     setIsProApplicant(challenge.complete);
                     setRSVP(RSVP);
+                    if (
+                        RSVP.status === "ACCEPTED" &&
+                        RSVP.response === "ACCEPTED"
+                    ) {
+                        const qrCodeUrl = await getQRCode();
+                        setQRCodeURL(qrCodeUrl);
+                    }
                     setIsLoading(false);
                 }
             );
         });
-    }, []);
+    }, [pathname, router]);
 
     return (
         <>
+            {isLoading && <Loading />}
             <Head>
                 <title>HackIllinois | Profile</title>
             </Head>
-            <QRModal
-                qrCodeOpen={qrCodeOpen}
-                qrCodeURL={qrCodeURL}
-                handleCloseQRCode={handleCloseQRCode}
-            />
-            {RSVP && (
-                <DetailsModal
-                    isProApplicant={isProApplicant}
-                    rsvp={RSVP}
-                    detailsOpen={detailsOpen}
-                    handleCloseDetails={() => setDetailsOpen(false)}
-                />
+            {RSVP && RSVP.status !== "TBD" && RSVP.response !== "DECLINED" && (
+                <Modal
+                    className={styles.modal}
+                    style={{
+                        overlay: { zIndex: 1000 },
+                        content: {
+                            inset:
+                                windowSizeHook?.width &&
+                                windowSizeHook?.width < 768
+                                    ? "10px"
+                                    : "40px"
+                        }
+                    }}
+                    isOpen={modalOpen}
+                    onRequestClose={() => {
+                        setModalOpen(false);
+                    }}
+                    ariaHideApp={false}
+                >
+                    <div className={styles.modalContent}>
+                        {/* TODO: close button */}
+                        <ModalContent
+                            status={RSVP.status}
+                            response={RSVP.response}
+                            isPro={RSVP.admittedPro}
+                            isProApplicant={isProApplicant}
+                            qrUrl={qrCodeURL}
+                            reimburse={RSVP.reimbursementValue}
+                        />
+                    </div>
+                </Modal>
             )}
-
-            {isLoading && <Loading />}
             <div
                 style={{
                     backgroundImage: `url(${APPLICATION_STATUS_BACKGROUND?.src})`
@@ -128,10 +162,14 @@ const Profile: React.FC = () => {
                     className={styles.container}
                 >
                     <h2>
-                        {registration?.preferredName
-                            ? `${registration?.preferredName.trim()}'s `
-                            : " "}
-                        Application Status
+                        {registration
+                            ? `${
+                                  registration?.preferredName
+                                      ? `${registration?.preferredName.trim()}'s `
+                                      : " "
+                              }
+                        Application Status`
+                            : "Loading..."}
                     </h2>
                     <div className={styles.content}>
                         <div className={styles.info}>
@@ -196,31 +234,15 @@ const Profile: React.FC = () => {
                         </div>
                         <div className={clsx(styles.col, styles.qrCodeCol)}>
                             {RSVP &&
-                                (RSVP.status === "ACCEPTED" &&
-                                RSVP.response === "ACCEPTED" ? (
+                                RSVP.status !== "TBD" &&
+                                RSVP.response !== "DECLINED" && (
                                     <OlympianButton
-                                        text="View QR Code"
-                                        onClick={handleOpenQRCode}
+                                        text={getButtonText()}
+                                        onClick={() => setModalOpen(true)}
                                         medium
                                     />
-                                ) : ["ACCEPTED", "REJECTED"].includes(
-                                      RSVP.status
-                                  ) ? (
-                                    <OlympianButton
-                                        text="Details"
-                                        onClick={handleSetDetailsOpen}
-                                        medium
-                                    />
-                                ) : (
-                                    <></>
-                                ))}
+                                )}
                         </div>
-
-                        <OlympianButton
-                            text="Details"
-                            onClick={handleSetDetailsOpen}
-                            medium
-                        />
                     </div>
                 </div>
             </div>
@@ -228,97 +250,57 @@ const Profile: React.FC = () => {
     );
 };
 
-const QRModal: React.FC<{
-    qrCodeOpen: boolean;
-    handleCloseQRCode: () => void;
-    qrCodeURL: string | null;
-}> = ({ qrCodeOpen, handleCloseQRCode, qrCodeURL }) => {
-    const windowSizeHook = useWindowSize();
-
+const QR: React.FC<{ qrUrl: string | null }> = ({ qrUrl }) => {
     return (
-        <Modal
-            className={styles.modal}
-            style={{
-                overlay: { zIndex: 1000 },
-                content: {
-                    inset:
-                        windowSizeHook?.width && windowSizeHook?.width < 768
-                            ? "10px"
-                            : "40px"
-                }
-            }}
-            isOpen={qrCodeOpen}
-            onRequestClose={handleCloseQRCode}
-            ariaHideApp={false}
-        >
-            <div className={styles.modalContent}>
-                <h2>Your QR Code</h2>
-                {qrCodeURL && <QRCodeSVG value={qrCodeURL} />}
-                <button className={styles.link} onClick={handleCloseQRCode}>
-                    Close
-                </button>
-            </div>
-        </Modal>
+        <>
+            <h2>Your QR Code</h2>
+            {qrUrl && <QRCodeSVG value={qrUrl} />}
+        </>
     );
 };
 
-const DetailsModal: React.FC<{
+type ModalContentProps = {
+    status: "ACCEPTED" | "REJECTED" | "WAITLISTED";
+    response: "ACCEPTED" | "PENDING";
+    isPro: boolean;
     isProApplicant: boolean;
-    rsvp: RSVPType;
-    detailsOpen: boolean;
-    handleCloseDetails: () => void;
-}> = ({ rsvp, detailsOpen, handleCloseDetails }) => {
-    const [displayedPage, setDisplayedPage] = useState<
-        "rejected" | "accepted" | undefined
-    >();
+    qrUrl: string | null;
+    reimburse: number;
+};
 
-    const handleLoadDisplayedPage = () => {
-        if (rsvp.status === "REJECTED") {
-            setDisplayedPage("rejected");
-            return;
-        } else {
-            setDisplayedPage("accepted");
-        }
-    };
+const ModalContent: React.FC<ModalContentProps> = ({
+    status,
+    response,
+    isPro,
+    isProApplicant,
+    qrUrl,
+    reimburse
+}) => {
+    switch (status) {
+        case "ACCEPTED":
+            if (response === "ACCEPTED") {
+                return <QR qrUrl={qrUrl} />;
+            }
 
-    useEffect(() => {
-        handleLoadDisplayedPage();
-    }, [rsvp?.response, rsvp?.status, rsvp?.admittedPro]);
+            if (isPro) {
+                return <Accepted acceptedType={"PRO"} reimburse={reimburse} />;
+            }
 
-    const handleConfirm = async () => {
-        await RSVPDecideAccept();
-    };
-
-    const handleDecline = async () => {
-        await RSVPDecideDecline();
-    };
-
-    return (
-        <Modal
-            className={styles.modal}
-            style={{
-                overlay: { zIndex: 1000 }
-            }}
-            isOpen={detailsOpen}
-            onRequestClose={handleCloseDetails}
-            ariaHideApp={false}
-        >
-            <div className={styles.modalContent}>
-                {displayedPage === "accepted" && (
+            if (isProApplicant) {
+                return (
                     <Accepted
-                        reimburse={0}
-                        handleConfirm={handleConfirm}
-                        handleDecline={handleDecline}
-                    >
-                        <b>Congrats, stuff is happening</b>
-                    </Accepted>
-                )}
-                {displayedPage === "rejected" && (
-                    <Rejected handleCancel={handleCloseDetails} />
-                )}
-            </div>
-        </Modal>
-    );
+                        acceptedType={"PRO_TO_GENERAL"}
+                        reimburse={reimburse}
+                    />
+                );
+            }
+
+            return <Accepted acceptedType={"GENERAL"} reimburse={reimburse} />;
+        case "REJECTED":
+            return <Rejected />;
+        case "WAITLISTED":
+            return <Waitlisted />;
+    }
 };
 
 export default Profile;

@@ -3,7 +3,9 @@ import {
     RegistrationType,
     WithId,
     RSVPType,
-    ChallengeStatus
+    ChallengeStatus,
+    ProfileBodyType,
+    ProfileType
 } from "./types";
 import { handleError } from "./helpers";
 
@@ -57,8 +59,8 @@ export async function requestv2(
 }
 
 export async function getChallenge(): Promise<ChallengeStatus> {
-    const res = await requestv2("GET", "/registration/challenge/").catch(body =>
-        handleError(body)
+    const res = await requestv2("GET", "/registration/challenge/").catch(
+        handleError
     );
     return res;
 }
@@ -104,7 +106,7 @@ export async function registerUpdate(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
     const res = await requestv2("POST", `/registration`, registration).catch(
-        body => handleError(body)
+        handleError
     );
     return res;
 }
@@ -116,34 +118,32 @@ export async function registerSubmit(
         "POST",
         `/registration/submit`,
         registration
-    ).catch(body => handleError(body));
+    ).catch(handleError);
     return res;
 }
 
 export async function getRegistrationStatus(): Promise<{ alive: boolean }> {
-    const res = await requestv2("GET", "/registration/status").catch(body =>
-        handleError(body)
+    const res = await requestv2("GET", "/registration/status").catch(
+        handleError
     );
     return res;
 }
 
 export async function getRSVP(): Promise<RSVPType> {
-    const res = await requestv2("GET", "/admission/rsvp").catch(body =>
-        handleError(body)
-    );
+    const res = await requestv2("GET", "/admission/rsvp").catch(handleError);
     return res;
 }
 
 export async function RSVPDecideAccept() {
-    const res = await requestv2("PUT", "/admission/rsvp/accept").catch(body =>
-        handleError(body)
+    const res = await requestv2("PUT", "/admission/rsvp/accept").catch(
+        handleError
     );
     return res;
 }
 
 export async function RSVPDecideDecline() {
-    const res = await requestv2("PUT", "/admission/rsvp/decline").catch(body =>
-        handleError(body)
+    const res = await requestv2("PUT", "/admission/rsvp/decline").catch(
+        handleError
     );
     return res;
 }
@@ -172,13 +172,15 @@ export async function unsubscribe(listName: string, emailAddress: string) {
     const res = await requestv2("DELETE", "/newsletter/subscribe/", {
         listName,
         emailAddress
-    }).catch(body => handleError(body));
+    }).catch(handleError);
     return res;
 }
 
 export async function getQRCode(): Promise<string> {
-    const res = await requestv2("GET", "/user/qr").catch(body =>
-        handleError(body)
-    );
+    const res = await requestv2("GET", "/user/qr").catch(handleError);
     return res.qrInfo;
+}
+
+export function setProfile(body: ProfileBodyType): Promise<ProfileType> {
+    return requestv2("POST", "/profile", body).catch(handleError);
 }

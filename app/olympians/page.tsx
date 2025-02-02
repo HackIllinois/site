@@ -3,18 +3,12 @@
 import styles from "./styles.module.scss";
 import Link from "next/link";
 import Background from "@/components/Olympians/Background";
-import { useEffect, useState } from "react";
-import { getRegistrationStatus } from "@/util/api";
+import { useContext } from "react";
 import Head from "next/head";
+import GlobalContext from "../context";
 
 const AboutProTrack: React.FC = () => {
-    const [registrationOpen, setRegistrationOpen] = useState(false);
-
-    useEffect(() => {
-        getRegistrationStatus().then(status => {
-            setRegistrationOpen(status.alive);
-        });
-    }, []);
+    const { eventStatus } = useContext(GlobalContext);
 
     return (
         <>
@@ -97,7 +91,7 @@ const AboutProTrack: React.FC = () => {
                                 <br></br>
                                 <p>
                                     Admission into HackOlympians requires{" "}
-                                    {registrationOpen ? (
+                                    {eventStatus === "registration" ? (
                                         <Link
                                             prefetch={false}
                                             href="/register/challenge/"

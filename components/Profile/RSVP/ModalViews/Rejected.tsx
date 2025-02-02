@@ -1,10 +1,6 @@
 import styles from "./styles.module.scss";
 
-type RejectedProps = {
-    handleCancel: () => void;
-};
-
-export default function Rejected({}: RejectedProps) {
+export function Rejected() {
     return (
         <div className={styles.container}>
             <p>
@@ -22,8 +18,29 @@ export default function Rejected({}: RejectedProps) {
                     if you have any questions!
                 </b>
             </p>
+        </div>
+    );
+}
 
-            {/* <OkButton onClick={handleCancel} /> */}
+// TODO: update this wording
+export function Waitlisted() {
+    return (
+        <div className={styles.container}>
+            <p>
+                <b>
+                    Unfortunately, we have deferred your application at this
+                    time
+                </b>
+            </p>
+            <p>
+                <b>
+                    Email us at{" "}
+                    <a href="mailto:contact@hackillinois.org">
+                        contact@hackillinois.org
+                    </a>{" "}
+                    if you have any questions!
+                </b>
+            </p>
         </div>
     );
 }
