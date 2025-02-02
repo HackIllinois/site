@@ -1,4 +1,11 @@
 "use client";
+import Loading from "@/components/Loading/Loading";
+import OlympianButton from "@/components/OlympianButton/OlympianButton";
+import Accepted from "@/components/Profile/RSVP/ModalViews/Accepted";
+import Rejected from "@/components/Profile/RSVP/ModalViews/Rejected";
+import useWindowSize from "@/hooks/use-window-size";
+import APPLICATION_STATUS_BACKGROUND from "@/public/registration/backgrounds/application_status_background.svg";
+import APPLICATION_STATUS_BOARD from "@/public/registration/backgrounds/application_status_board.svg";
 import {
     authenticate,
     getChallenge,
@@ -7,24 +14,15 @@ import {
     getRSVP,
     isAuthenticated
 } from "@/util/api";
-import styles from "./styles.module.scss";
-import APPLICATION_STATUS_BACKGROUND from "@/public/registration/backgrounds/application_status_background.svg";
-import APPLICATION_STATUS_BOARD from "@/public/registration/backgrounds/application_status_board.svg";
-import React, { useEffect, useState } from "react";
+import { registrationFromAPI } from "@/util/helpers";
+import { RegistrationData, RSVPType } from "@/util/types";
 import clsx from "clsx";
 import Head from "next/head";
-import { RegistrationData, RSVPType } from "@/util/types";
-import { registrationFromAPI } from "@/util/helpers";
-import Loading from "@/components/Loading/Loading";
 import { usePathname, useRouter } from "next/navigation";
 import { QRCodeSVG } from "qrcode.react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import OlympianButton from "@/components/OlympianButton/OlympianButton";
-import useWindowSize from "@/hooks/use-window-size";
-import UserRejected from "@/components/RSVPContent/UserRejected";
-import UserGeneralAcceptedToGeneral from "@/components/RSVPContent/UserGeneralAcceptedToGeneral";
-import UserProAcceptedToGeneral from "@/components/RSVPContent/UserProAcceptedToGeneral";
-import UserProAcceptedToPro from "@/components/RSVPContent/UserProAcceptedToPro";
+import styles from "./styles.module.scss";
 
 type ValueItemProps = {
     label: string;
@@ -215,6 +213,12 @@ const Profile: React.FC = () => {
                                     <></>
                                 ))}
                         </div>
+
+                        <OlympianButton
+                            text="Details"
+                            onClick={handleSetDetailsOpen}
+                            medium
+                        />
                     </div>
                 </div>
             </div>
@@ -261,31 +265,17 @@ const DetailsModal: React.FC<{
     rsvp: RSVPType;
     detailsOpen: boolean;
     handleCloseDetails: () => void;
-}> = ({ isProApplicant, rsvp, detailsOpen, handleCloseDetails }) => {
-    const pages = {
-        user_rejected: UserRejected,
-        user_pro_accepted_to_pro: UserProAcceptedToPro,
-        user_pro_accepted_to_general: UserProAcceptedToGeneral,
-        user_general_accepted_to_general: UserGeneralAcceptedToGeneral
-    };
-
+}> = ({ rsvp, detailsOpen, handleCloseDetails }) => {
     const [displayedPage, setDisplayedPage] = useState<
-        keyof typeof pages | undefined
-    >(undefined);
+        "rejected" | "accepted" | undefined
+    >();
 
     const handleLoadDisplayedPage = () => {
-        if (rsvp.response === "DECLINED") {
-            setDisplayedPage("user_rejected");
+        if (rsvp.status === "REJECTED") {
+            setDisplayedPage("rejected");
             return;
-        }
-        if (isProApplicant) {
-            if (rsvp.admittedPro) {
-                setDisplayedPage("user_pro_accepted_to_pro");
-            } else {
-                setDisplayedPage("user_pro_accepted_to_general");
-            }
         } else {
-            setDisplayedPage("user_general_accepted_to_general");
+            setDisplayedPage("accepted");
         }
     };
 
@@ -304,7 +294,18 @@ const DetailsModal: React.FC<{
             ariaHideApp={false}
         >
             <div className={styles.modalContent}>
-                {displayedPage && React.createElement(pages[displayedPage])}
+                {displayedPage === "accepted" && (
+                    <Accepted
+                        reimburse={0}
+                        handleConfirm={() => {}}
+                        handleDecline={() => {}}
+                    >
+                        <b>Congrats, stuff is happening</b>
+                    </Accepted>
+                )}
+                {displayedPage === "rejected" && (
+                    <Rejected handleCancel={() => {}} />
+                )}
             </div>
         </Modal>
     );

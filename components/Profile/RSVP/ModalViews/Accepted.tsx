@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 type Accepted = {
     children: React.ReactNode;
     reimburse: number;
-    handleConfirm: () => void;
+    handleCzonfirm: () => void;
     handleDecline: () => void;
 };
 
