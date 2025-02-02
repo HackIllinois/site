@@ -12,7 +12,9 @@ import {
     getQRCode,
     getRegistrationOrDefault,
     getRSVP,
-    isAuthenticated
+    isAuthenticated,
+    RSVPDecideAccept,
+    RSVPDecideDecline
 } from "@/util/api";
 import { registrationFromAPI } from "@/util/helpers";
 import { RegistrationData, RSVPType } from "@/util/types";
@@ -283,6 +285,14 @@ const DetailsModal: React.FC<{
         handleLoadDisplayedPage();
     }, [rsvp?.response, rsvp?.status, rsvp?.admittedPro]);
 
+    const handleConfirm = async () => {
+        await RSVPDecideAccept();
+    };
+
+    const handleDecline = async () => {
+        await RSVPDecideDecline();
+    };
+
     return (
         <Modal
             className={styles.modal}
@@ -297,14 +307,14 @@ const DetailsModal: React.FC<{
                 {displayedPage === "accepted" && (
                     <Accepted
                         reimburse={0}
-                        handleConfirm={() => {}}
-                        handleDecline={() => {}}
+                        handleConfirm={handleConfirm}
+                        handleDecline={handleDecline}
                     >
                         <b>Congrats, stuff is happening</b>
                     </Accepted>
                 )}
                 {displayedPage === "rejected" && (
-                    <Rejected handleCancel={() => {}} />
+                    <Rejected handleCancel={handleCloseDetails} />
                 )}
             </div>
         </Modal>

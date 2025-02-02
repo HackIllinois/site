@@ -1,14 +1,20 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import OlympianButton from "@/components/OlympianButton/OlympianButton";
 
 type Accepted = {
     children: React.ReactNode;
     reimburse: number;
-    handleCzonfirm: () => void;
+    handleConfirm: () => void;
     handleDecline: () => void;
 };
 
-export default function Accepted({ children, reimburse }: Accepted) {
+export default function Accepted({
+    children,
+    reimburse,
+    handleConfirm,
+    handleDecline
+}: Accepted) {
     return (
         <div className={styles.container}>
             <div className={styles.textBlock}>
@@ -28,8 +34,18 @@ export default function Accepted({ children, reimburse }: Accepted) {
                 )}
             </div>
             <div className={styles.buttonGroup}>
-                {/* <ConfirmButton onClick={handleConfirm} />
-                <DeclineButton onClick={handleDecline} /> */}
+                <OlympianButton
+                    text="Confirm"
+                    onClick={handleConfirm}
+                    medium
+                    gold
+                />
+                <OlympianButton
+                    text="Decline"
+                    onClick={handleDecline}
+                    medium
+                    blue
+                />
             </div>
             {/* <div className={styles.mobileButtonGroup}>
                 <button onClick={handleConfirm}>
