@@ -1,6 +1,6 @@
 import AcceptRSVPForm from "@/components/AcceptRSVPForm/AcceptRSVPForm";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
-import { RSVPDecideDecline } from "@/util/api";
+import { RSVPDecideAccept, RSVPDecideDecline } from "@/util/api";
 import { useState } from "react";
 import styles from "./styles.module.scss";
 
@@ -19,8 +19,8 @@ export default function Accepted({
 }: AcceptedProps) {
     const [accepted, setAccepted] = useState(false);
     const handleConfirm = async () => {
-        // TODO: Add a loading state and disable the buttons while loadingc
-        // await RSVPDecideAccept();
+        // TODO: Add a loading state and disable the buttons while loading
+        await RSVPDecideAccept();
         setAccepted(true);
     };
 
