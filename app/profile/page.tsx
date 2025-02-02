@@ -26,6 +26,7 @@ import {
     Waitlisted
 } from "@/components/Profile/RSVP/ModalViews/Rejected";
 import Accepted from "@/components/Profile/RSVP/ModalViews/Accepted";
+import CloseButton from "@/components/CloseButton/CloseButton";
 
 type ValueItemProps = {
     label: string;
@@ -136,6 +137,7 @@ const Profile: React.FC = () => {
                     }}
                     ariaHideApp={false}
                 >
+                    <CloseButton handleClose={() => setModalOpen(false)} />
                     <div className={styles.modalContent}>
                         {/* TODO: close button */}
                         <ModalContent
