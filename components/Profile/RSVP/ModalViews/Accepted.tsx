@@ -1,23 +1,38 @@
-import React from "react";
-import styles from "./styles.module.scss";
+import AcceptRSVPForm from "@/components/AcceptRSVPForm/AcceptRSVPForm";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
-import { RSVPDecideAccept, RSVPDecideDecline } from "@/util/api";
+import { RSVPDecideDecline } from "@/util/api";
+import { useState } from "react";
+import styles from "./styles.module.scss";
 
 type AcceptedType = "PRO" | "PRO_TO_GENERAL" | "GENERAL";
 
 type AcceptedProps = {
     acceptedType: AcceptedType;
     reimburse: number;
+    onRequestClose: () => void;
 };
 
-export default function Accepted({ acceptedType, reimburse }: AcceptedProps) {
+export default function Accepted({
+    acceptedType,
+    reimburse,
+    onRequestClose
+}: AcceptedProps) {
+    const [accepted, setAccepted] = useState(false);
     const handleConfirm = async () => {
-        await RSVPDecideAccept();
+        // TODO: Add a loading state and disable the buttons while loadingc
+        // await RSVPDecideAccept();
+        setAccepted(true);
     };
 
     const handleDecline = async () => {
+        // TODO: Add a loading state and disable the buttons while loading
         await RSVPDecideDecline();
+        window.location.reload();
     };
+
+    if (accepted) {
+        return <AcceptRSVPForm closeModal={onRequestClose} />;
+    }
 
     return (
         <ChooseRSVP

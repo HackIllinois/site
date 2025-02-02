@@ -111,6 +111,18 @@ const Profile: React.FC = () => {
         });
     }, [pathname, router]);
 
+    useEffect(() => {
+        // Ensure that the background content does not scroll
+        // when the modal is displayed
+        if (modalOpen) {
+            document.body.style.overflow = "hidden";
+            document.documentElement.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+            document.documentElement.style.overflow = "unset";
+        }
+    }, [modalOpen]);
+
     return (
         <>
             {isLoading && <Loading />}
@@ -145,6 +157,7 @@ const Profile: React.FC = () => {
                             isProApplicant={isProApplicant}
                             qrUrl={qrCodeURL}
                             reimburse={RSVP.reimbursementValue}
+                            onRequestClose={() => setModalOpen(false)}
                         />
                     </div>
                 </Modal>
@@ -266,6 +279,7 @@ type ModalContentProps = {
     isProApplicant: boolean;
     qrUrl: string | null;
     reimburse: number;
+    onRequestClose: () => void;
 };
 
 const ModalContent: React.FC<ModalContentProps> = ({
@@ -274,7 +288,8 @@ const ModalContent: React.FC<ModalContentProps> = ({
     isPro,
     isProApplicant,
     qrUrl,
-    reimburse
+    reimburse,
+    onRequestClose
 }) => {
     switch (status) {
         case "ACCEPTED":
@@ -283,7 +298,13 @@ const ModalContent: React.FC<ModalContentProps> = ({
             }
 
             if (isPro) {
-                return <Accepted acceptedType={"PRO"} reimburse={reimburse} />;
+                return (
+                    <Accepted
+                        acceptedType={"PRO"}
+                        reimburse={reimburse}
+                        onRequestClose={onRequestClose}
+                    />
+                );
             }
 
             if (isProApplicant) {
@@ -291,11 +312,18 @@ const ModalContent: React.FC<ModalContentProps> = ({
                     <Accepted
                         acceptedType={"PRO_TO_GENERAL"}
                         reimburse={reimburse}
+                        onRequestClose={onRequestClose}
                     />
                 );
             }
 
-            return <Accepted acceptedType={"GENERAL"} reimburse={reimburse} />;
+            return (
+                <Accepted
+                    acceptedType={"GENERAL"}
+                    reimburse={reimburse}
+                    onRequestClose={onRequestClose}
+                />
+            );
         case "REJECTED":
             return <Rejected />;
         case "WAITLISTED":
