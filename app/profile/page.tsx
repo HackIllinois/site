@@ -139,7 +139,6 @@ const Profile: React.FC = () => {
                 >
                     <CloseButton handleClose={() => setModalOpen(false)} />
                     <div className={styles.modalContent}>
-                        {/* TODO: close button */}
                         <ModalContent
                             status={RSVP.status}
                             response={RSVP.response}
