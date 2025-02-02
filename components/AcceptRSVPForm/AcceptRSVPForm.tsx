@@ -24,6 +24,8 @@ type AcceptRSVPFormProps = {
 };
 
 const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
+    const router = useRouter(); // Move useRouter() here
+
     const handleSubmit = async ({
         displayName,
         discordTag,
@@ -40,14 +42,9 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
             avatarId: avatarId
         });
         console.log(response);
-        const router = useRouter();
 
-        const refresh = () => {
-          router.replace(router.asPath);
-        };
-
-        refresh()
-        //closeModal();
+        // Refresh the page after updating the profile
+        router.replace(router.asPath);  
     };
 
     return (
@@ -125,4 +122,5 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
         </div>
     );
 };
+
 export default AcceptRSVPForm;
