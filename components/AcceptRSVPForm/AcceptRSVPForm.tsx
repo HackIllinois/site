@@ -9,7 +9,7 @@ import TextInput from "@/components/Form/TextInput/TextInput";
 import AvatarSelector from "../AvatarSelector/AvatarSelector";
 import { setProfile } from "@/util/api";
 import Link from "next/link";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 const schema = yup.object({
     displayName: yup.string().required("Please enter a display name"),
@@ -24,7 +24,7 @@ type AcceptRSVPFormProps = {
 };
 
 const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
-    const router = useRouter(); // Move useRouter() here
+    const router = useRouter();
 
     const handleSubmit = async ({
         displayName,
@@ -43,8 +43,7 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
         });
         console.log(response);
 
-        // Refresh the page after updating the profile
-        router.replace(router.asPath);  
+        router.replace(router.asPath);
     };
 
     return (
@@ -84,14 +83,14 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
                         required
                         label={
                             <p>
-                                To participate in HackIllinois, you must
-                                accept our{" "}
+                                To participate in HackIllinois, you must accept
+                                our{" "}
                                 <Link
                                     prefetch={false}
                                     href="/legal/code-of-conduct"
                                     target="_blank"
                                 >
-                                   Code of Conduct
+                                    Code of Conduct
                                 </Link>
                                 :
                             </p>
@@ -100,7 +99,7 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
                             {
                                 label: "I accept the Code of Conduct",
                                 value: "YES"
-                             }
+                            }
                         ]}
                         blue
                     />
