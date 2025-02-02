@@ -87,9 +87,12 @@ function AcceptedVerbage({ acceptedType }: AcceptedVerbageProps) {
         case "GENERAL":
             return (
                 <>
-                    <b>Congratulations! You&apos;ve been accepted as a</b>
+                    <b className={styles.congratulationsText}>
+                        Congratulations! You&apos;ve been accepted as a
+                    </b>
                     <b> </b>
                     <b className={styles.shiny}>General Attendee</b>
+                    <b> </b>
                 </>
             );
         case "PRO_TO_GENERAL":
@@ -106,7 +109,9 @@ function AcceptedVerbage({ acceptedType }: AcceptedVerbageProps) {
         case "PRO":
             return (
                 <>
-                    <b>Congratulations! You&apos;ve been accepted as a</b>
+                    <b className={styles.congratulationsText}>
+                        Congratulations! You&apos;ve been accepted as a
+                    </b>
                     <b> </b>
                     <b className={styles.shiny}>HackOlympian</b>
                 </>

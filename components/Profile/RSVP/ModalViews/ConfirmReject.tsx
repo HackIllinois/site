@@ -1,31 +1,34 @@
 import styles from "./styles.module.scss";
+import OlympianButton from "@/components/OlympianButton/OlympianButton";
 
 type ConfirmRejectProps = {
     handleGoBack: () => void;
     handleAPIDecline: () => void;
 };
 
-export default function ConfirmReject({ handleGoBack }: ConfirmRejectProps) {
+export default function ConfirmReject({
+    handleGoBack,
+    handleAPIDecline
+}: ConfirmRejectProps) {
     return (
         <div className={styles.container}>
-            <b>Are you sure you want to decline?</b>
+            <b className={styles.confirmRejectText}>
+                Are you sure you want to decline?
+            </b>
+
             <div className={styles.buttonGroup}>
-                <button
+                <OlympianButton
+                    text="Go Back"
                     onClick={handleGoBack}
-                    className={styles.unhoveredButton}
-                >
-                    GO BACK
-                </button>
-                {/* <DeclineButton onClick={handleDecline} /> */}
-            </div>
-            <div className={styles.mobileButtonGroup}>
-                <button
-                    onClick={handleGoBack}
-                    className={styles.unhoveredButton}
-                >
-                    GO BACK
-                </button>
-                {/* <DeclineButton onClick={handleDecline} /> */}
+                    medium
+                    gold
+                />
+                <OlympianButton
+                    text="Decline"
+                    onClick={handleAPIDecline}
+                    medium
+                    blue
+                />
             </div>
         </div>
     );
