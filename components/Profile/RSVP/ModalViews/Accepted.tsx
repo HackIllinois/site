@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import OlympianButton from "@/components/OlympianButton/OlympianButton";
+import { RSVPDecideAccept, RSVPDecideDecline } from "@/util/api";
 
 type AcceptedType = "PRO" | "PRO_TO_GENERAL" | "GENERAL";
 
@@ -9,12 +11,20 @@ type AcceptedProps = {
 };
 
 export default function Accepted({ acceptedType, reimburse }: AcceptedProps) {
+    const handleConfirm = async () => {
+        await RSVPDecideAccept();
+    };
+
+    const handleDecline = async () => {
+        await RSVPDecideDecline();
+    };
+
     return (
         <ChooseRSVP
             acceptedType={acceptedType}
             reimburse={reimburse}
-            handleConfirm={() => {}}
-            handleDecline={() => {}}
+            handleConfirm={handleConfirm}
+            handleDecline={handleDecline}
         />
     );
 }
@@ -26,7 +36,12 @@ type ChooseRSVPProps = {
     handleDecline: () => void;
 };
 
-export function ChooseRSVP({ reimburse, acceptedType }: ChooseRSVPProps) {
+export function ChooseRSVP({
+    reimburse,
+    acceptedType,
+    handleConfirm,
+    handleDecline
+}: ChooseRSVPProps) {
     return (
         <div className={styles.container}>
             <div className={styles.textBlock}>
@@ -46,8 +61,18 @@ export function ChooseRSVP({ reimburse, acceptedType }: ChooseRSVPProps) {
                 )}
             </div>
             <div className={styles.buttonGroup}>
-                {/* <ConfirmButton onClick={handleConfirm} />
-                <DeclineButton onClick={handleDecline} /> */}
+                <OlympianButton
+                    text="Confirm"
+                    onClick={handleConfirm}
+                    medium
+                    gold
+                />
+                <OlympianButton
+                    text="Decline"
+                    onClick={handleDecline}
+                    medium
+                    blue
+                />
             </div>
         </div>
     );
