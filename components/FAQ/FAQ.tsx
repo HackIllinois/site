@@ -41,6 +41,30 @@ const FAQ: React.FC = () => {
         {
             question: (
                 <strong>
+                    What is the difference between a path and a track?
+                </strong>
+            ),
+            answer: (
+                <p>
+                    Paths distinguish your level of expertise whereas tracks
+                    specify the type of project you are creating. Our paths are
+                    General and{" "}
+                    <Link prefetch={false} href={"/olympians"}>
+                        HackOlympian
+                    </Link>
+                    {""}; General encompasses beginner and intermediate hackers
+                    competing for a smaller cash prize, while HackOlympians are
+                    experienced hackers looking for a chance to compete in a
+                    more competitive arena with a larger cash prize. Tracks are
+                    designed by our sponsors to provide a specialized topic to
+                    center your project around. Each participant must choose
+                    both a path and track when submitting their project.
+                </p>
+            )
+        },
+        {
+            question: (
+                <strong>
                     What is <i>HackOlympians</i>?
                 </strong>
             ),
@@ -78,7 +102,10 @@ const FAQ: React.FC = () => {
                     will gain access to special networking opportunities with
                     our event sponsors and the chance to present their project
                     in a thrilling Shark-Tank inspired showcase, among other
-                    exciting perks - but spots are limited, so register soon!
+                    exciting perks
+                    {eventStatus === "registration"
+                        ? " - but spots are limited, so register soon!"
+                        : "!"}
                 </p>
             )
         },
@@ -133,12 +160,12 @@ const FAQ: React.FC = () => {
     });
 
     const faqsPerPage = useMemo(() => {
-        if (windowWidth < 432) {
+        if (windowWidth <= 432) {
+            return 1;
+        } else if (windowWidth <= 1350) {
             return 2;
-        } else if (windowWidth < 1350) {
-            return 3;
         } else {
-            return faqData.length;
+            return 5;
         }
     }, [windowWidth, faqData]);
     const totalPages = Math.ceil(faqData.length / faqsPerPage);

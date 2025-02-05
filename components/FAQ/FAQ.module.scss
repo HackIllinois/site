@@ -3,33 +3,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    top: 170px;
-    padding: 4rem 150px;
-
-    @media screen and (max-width: 1152px) {
-        top: 100px;
-        padding: 24px;
-    }
+    top: 12vw;
+    padding: 0 3vw;
+    height: 60vw;
 
     @media screen and (max-width: 768px) {
-        top: 70px;
-        padding: 24px;
-    }
-
-    @media screen and (max-width: 500px) {
-        padding: 12px;
-        top: 40px;
+        height: 90vw;
     }
 }
 
 .faqArrow {
     background: none;
     border: none;
-    font-size: 36px;
+    font-size: 48px;
     cursor: pointer;
 
-    @media screen and (max-width: 768px) {
-        font-size: 18px;
+    @media screen and (max-width: 1152px) {
+        font-size: 24px;
     }
 }
 
@@ -47,21 +37,17 @@
     @media screen and (max-width: 1152px) {
         gap: 1rem;
     }
-
-    @media screen and (max-width: 768px) {
-        gap: 7px;
-    }
 }
 
 .faqItem {
     h3 {
-        font-size: 42px;
+        font-size: 2.5vw;
         font-weight: 500;
         margin-bottom: 0.5rem;
     }
 
     p {
-        font-size: 21px;
+        font-size: 1.25vw;
     }
 
     a {
@@ -76,33 +62,23 @@
         color: #a5c300;
     }
 
-    @media screen and (max-width: 1650px) {
+    @media screen and (max-width: 1350px) {
         h3 {
-            font-size: 36px;
+            font-size: 3vw;
         }
 
         p {
-            font-size: 18px;
+            font-size: 2.5vw;
         }
     }
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 432px) {
         h3 {
-            font-size: 20px;
+            font-size: 4vw;
         }
 
         p {
-            font-size: 14px;
-        }
-    }
-
-    @media screen and (max-width: 600px) {
-        h3 {
-            font-size: 16px;
-        }
-
-        p {
-            font-size: 10px;
+            font-size: 2.9vw;
         }
     }
 }
