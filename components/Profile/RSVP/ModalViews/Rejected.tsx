@@ -13,7 +13,7 @@ export function Rejected() {
                 <b>
                     Email us at{" "}
                     <a href="mailto:contact@hackillinois.org">
-                        contact@hackillinois.org
+                        <u>contact@hackillinois.org</u>
                     </a>{" "}
                     if you have any questions!
                 </b>
@@ -36,7 +36,7 @@ export function Waitlisted() {
                 <b>
                     Email us at{" "}
                     <a href="mailto:contact@hackillinois.org">
-                        contact@hackillinois.org
+                        <u>contact@hackillinois.org</u>
                     </a>{" "}
                     if you have any questions!
                 </b>
