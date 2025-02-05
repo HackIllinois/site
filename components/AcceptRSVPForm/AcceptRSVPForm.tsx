@@ -4,9 +4,12 @@ import React from "react";
 import styles from "./AcceptRSVPForm.module.scss";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
+import Checkboxes from "@/components/Form/Checkboxes/Checkboxes";
 import TextInput from "@/components/Form/TextInput/TextInput";
 import AvatarSelector from "../AvatarSelector/AvatarSelector";
 import { setProfile } from "@/util/api";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const schema = yup.object({
     displayName: yup.string().required("Please enter a display name"),
@@ -21,6 +24,8 @@ type AcceptRSVPFormProps = {
 };
 
 const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
+    const router = useRouter();
+
     const handleSubmit = async ({
         displayName,
         discordTag,
@@ -37,7 +42,8 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
             avatarId: avatarId
         });
         console.log(response);
-        closeModal();
+
+        router.replace(router.asPath);
     };
 
     return (
@@ -46,7 +52,8 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
                 initialValues={{
                     displayName: "",
                     discordTag: "",
-                    avatarId: ""
+                    avatarId: "",
+                    codeOfConductAcknowledge: "NO"
                 }}
                 onSubmit={handleSubmit}
                 validationSchema={schema}
@@ -71,6 +78,32 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
                         required
                     />
 
+                    <Checkboxes
+                        name="codeOfConductAcknowledge"
+                        required
+                        label={
+                            <p>
+                                To participate in HackIllinois, you must accept
+                                our{" "}
+                                <Link
+                                    prefetch={false}
+                                    href="/legal/code-of-conduct"
+                                    target="_blank"
+                                >
+                                    Code of Conduct
+                                </Link>
+                                :
+                            </p>
+                        }
+                        options={[
+                            {
+                                label: "I accept the Code of Conduct",
+                                value: "YES"
+                            }
+                        ]}
+                        blue
+                    />
+
                     <div className={styles.buttons}>
                         <button
                             type="button"
@@ -88,4 +121,5 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
         </div>
     );
 };
+
 export default AcceptRSVPForm;
