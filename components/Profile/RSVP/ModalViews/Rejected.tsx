@@ -3,17 +3,17 @@ import styles from "./styles.module.scss";
 export function Rejected() {
     return (
         <div className={styles.container}>
-            <p>
+            <p className={styles.unfortunatelyText}>
                 <b>
                     Unfortunately, we were unable to offer you a spot at
                     HackIllinois
                 </b>
             </p>
-            <p>
+            <p className={styles.unfortunatelyText}>
                 <b>
                     Email us at{" "}
                     <a href="mailto:contact@hackillinois.org">
-                        contact@hackillinois.org
+                        <u>contact@hackillinois.org</u>
                     </a>{" "}
                     if you have any questions!
                 </b>
@@ -26,17 +26,17 @@ export function Rejected() {
 export function Waitlisted() {
     return (
         <div className={styles.container}>
-            <p>
+            <p className={styles.unfortunatelyText}>
                 <b>
                     Unfortunately, we have deferred your application at this
                     time
                 </b>
             </p>
-            <p>
+            <p className={styles.unfortunatelyText}>
                 <b>
                     Email us at{" "}
                     <a href="mailto:contact@hackillinois.org">
-                        contact@hackillinois.org
+                        <u>contact@hackillinois.org</u>
                     </a>{" "}
                     if you have any questions!
                 </b>

@@ -139,7 +139,8 @@ const Profile: React.FC = () => {
                                 windowSizeHook?.width &&
                                 windowSizeHook?.width < 768
                                     ? "10px"
-                                    : "40px"
+                                    : "40px",
+                            padding: 0
                         }
                     }}
                     isOpen={modalOpen}
