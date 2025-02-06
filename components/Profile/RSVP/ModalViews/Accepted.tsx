@@ -4,6 +4,7 @@ import { useState } from "react";
 import styles from "./styles.module.scss";
 import ConfirmReject from "./ConfirmReject";
 import { RSVPDecideDecline } from "@/util/api";
+import Loading from "@/components/Loading/Loading";
 
 type AcceptedType = "PRO" | "PRO_TO_GENERAL" | "GENERAL";
 
@@ -20,13 +21,12 @@ export default function Accepted({
 }: AcceptedProps) {
     const [accepted, setAccepted] = useState(false);
     const [declined, setDeclined] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const handleConfirm = async () => {
-        // TODO: Add a loading state and disable the buttons while loading
         setAccepted(true);
     };
 
     const handleDecline = async () => {
-        // TODO: Add a loading state and disable the buttons while loading
         setDeclined(true);
     };
 
@@ -39,7 +39,9 @@ export default function Accepted({
             <ConfirmReject
                 handleGoBack={() => setDeclined(false)}
                 handleAPIDecline={async () => {
+                    setIsLoading(true);
                     await RSVPDecideDecline();
+                    setIsLoading(false);
                     onRequestClose();
                     window.location.reload();
                 }}
@@ -47,6 +49,9 @@ export default function Accepted({
         );
     }
 
+    if (isLoading) {
+        return <Loading />;
+    }
     return (
         <ChooseRSVP
             acceptedType={acceptedType}
@@ -90,7 +95,7 @@ export function ChooseRSVP({
             </div>
             <div className={styles.buttonGroup}>
                 <OlympianButton
-                    text="Confirm"
+                    text="Accept"
                     onClick={handleConfirm}
                     medium
                     gold
