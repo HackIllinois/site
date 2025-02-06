@@ -135,6 +135,7 @@ const Profile: React.FC = () => {
                     style={{
                         overlay: { zIndex: 1000 },
                         content: {
+                            borderRadius: "2rem",
                             inset:
                                 windowSizeHook?.width &&
                                 windowSizeHook?.width < 768
