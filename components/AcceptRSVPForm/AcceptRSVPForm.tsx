@@ -7,6 +7,7 @@ import * as yup from "yup";
 import TextInput from "@/components/Form/TextInput/TextInput";
 import AvatarSelector from "../AvatarSelector/AvatarSelector";
 import { setProfile } from "@/util/api";
+import { RSVPDecideAccept } from "@/util/api";
 
 const schema = yup.object({
     displayName: yup.string().required("Please enter a display name"),
@@ -36,6 +37,8 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
             discordTag: discordTag,
             avatarId: avatarId
         });
+
+        await RSVPDecideAccept();
         console.log(response);
         closeModal();
     };
