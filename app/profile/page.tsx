@@ -70,19 +70,10 @@ const Profile: React.FC = () => {
             return "View QR Code";
         }
 
-        return "Congrats! Click here to RSVP";
+        return "RSVP";
     };
 
     useEffect(() => {
-        // setRSVP({
-        //     admittedPro: false,
-        //     reimbursementValue: 0.01,
-        //     response: "PENDING",
-        //     status: "ACCEPTED",
-        //     userId: "0"
-        // });
-        // setIsLoading(false);
-
         if (!isAuthenticated()) {
             authenticate(pathname);
             return;
