@@ -259,14 +259,12 @@ export type FormProps = {
 };
 
 export enum Avatars {
-    BUNNY = "bunny",
-    SQUIRREL = "squirrel",
-    GOBLIN = "goblin",
-    CHESTER = "chester",
-    CAT = "cat",
-    MUSHROOM = "mushroom",
-    FISHERCAT = "fishercat",
-    AXOLOTL = "axolotl"
+    ARTEMIS = "artemis",
+    ZEUS = "zeus",
+    APHRODITE = "aphrodite",
+    POSEIDON = "poseidon",
+    APOLLO = "apollo",
+    ATHENA = "athena"
 }
 
 export interface EventType {
