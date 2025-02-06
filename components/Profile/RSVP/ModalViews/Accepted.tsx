@@ -1,8 +1,10 @@
 import AcceptRSVPForm from "@/components/AcceptRSVPForm/AcceptRSVPForm";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
-import { RSVPDecideAccept, RSVPDecideDecline } from "@/util/api";
 import { useState } from "react";
 import styles from "./styles.module.scss";
+import ConfirmReject from "./ConfirmReject";
+import { RSVPDecideDecline } from "@/util/api";
+import Loading from "@/components/Loading/Loading";
 
 type AcceptedType = "PRO" | "PRO_TO_GENERAL" | "GENERAL";
 
@@ -18,22 +20,38 @@ export default function Accepted({
     onRequestClose
 }: AcceptedProps) {
     const [accepted, setAccepted] = useState(false);
+    const [declined, setDeclined] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const handleConfirm = async () => {
-        // TODO: Add a loading state and disable the buttons while loading
-        await RSVPDecideAccept();
         setAccepted(true);
     };
 
     const handleDecline = async () => {
-        // TODO: Add a loading state and disable the buttons while loading
-        await RSVPDecideDecline();
-        window.location.reload();
+        setDeclined(true);
     };
 
     if (accepted) {
         return <AcceptRSVPForm closeModal={onRequestClose} />;
     }
 
+    if (declined) {
+        return (
+            <ConfirmReject
+                handleGoBack={() => setDeclined(false)}
+                handleAPIDecline={async () => {
+                    setIsLoading(true);
+                    await RSVPDecideDecline();
+                    setIsLoading(false);
+                    onRequestClose();
+                    window.location.reload();
+                }}
+            />
+        );
+    }
+
+    if (isLoading) {
+        return <Loading />;
+    }
     return (
         <ChooseRSVP
             acceptedType={acceptedType}
@@ -77,7 +95,7 @@ export function ChooseRSVP({
             </div>
             <div className={styles.buttonGroup}>
                 <OlympianButton
-                    text="Confirm"
+                    text="Accept"
                     onClick={handleConfirm}
                     medium
                     gold
