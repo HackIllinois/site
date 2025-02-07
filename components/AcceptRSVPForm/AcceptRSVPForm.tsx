@@ -13,10 +13,12 @@ import { useRouter } from "next/router";
 
 const schema = yup.object({
     displayName: yup.string().required("Please enter a display name"),
-
     discordTag: yup.string().required("Please enter your discord tag"),
-
-    avatarId: yup.string().required("Please choose an avatar")
+    avatarId: yup.string().required("Please choose an avatar"),
+    codeOfConductAcknowledge: yup
+        .string()
+        .oneOf(["YES"], "You must accept the Code of Conduct")
+        .required("You must accept the Code of Conduct")
 });
 
 type AcceptRSVPFormProps = {
@@ -53,7 +55,7 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
                     displayName: "",
                     discordTag: "",
                     avatarId: "",
-                    codeOfConductAcknowledge: "NO"
+                    codeOfConductAcknowledge: ""
                 }}
                 onSubmit={handleSubmit}
                 validationSchema={schema}
