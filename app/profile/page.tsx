@@ -133,7 +133,9 @@ const Profile: React.FC = () => {
                                 windowSizeHook?.width < 768
                                     ? "10px"
                                     : "40px",
-                            padding: 0
+                            padding: 0,
+                            background:
+                                "linear-gradient(0deg, #98c8d3 0%, #5ea6b7 41%, #0a3147 100%)"
                         }
                     }}
                     isOpen={modalOpen}
@@ -246,7 +248,7 @@ const Profile: React.FC = () => {
                                     <OlympianButton
                                         text={getButtonText()}
                                         onClick={() => setModalOpen(true)}
-                                        medium
+                                        small
                                     />
                                 )}
                         </div>
@@ -261,7 +263,7 @@ const QR: React.FC<{ qrUrl: string | null }> = ({ qrUrl }) => {
     return (
         <>
             <h2>Your QR Code</h2>
-            {qrUrl && <QRCodeSVG value={qrUrl} />}
+            {qrUrl && <QRCodeSVG value={qrUrl} className={styles.qr} />}
         </>
     );
 };

@@ -207,3 +207,42 @@
         }
     }
 }
+
+.olympianButtonWrapper.small .olympianButton {
+    width: 14vw;
+    height: 4vw;
+    font-size: 1.5vw;
+    border-radius: 2vw;
+
+    &::after {
+        width: 14vw;
+        height: 4vw;
+        border-radius: 2vw;
+    }
+
+    @media screen and (max-width: 960px) {
+        width: 30vw;
+        height: 10vw;
+        font-size: 3vw;
+
+        &::after {
+            width: 30vw;
+            height: 10vw;
+        }
+    }
+
+    @media screen and (max-width: 468px) {
+        width: 45vw;
+        height: 15vw;
+        font-size: 4vw;
+        border-radius: 20px;
+        border-width: 1vw;
+
+        &::after {
+            width: 45vw;
+            height: 15vw;
+            border-radius: 20px;
+            left: -1vw;
+        }
+    }
+}
