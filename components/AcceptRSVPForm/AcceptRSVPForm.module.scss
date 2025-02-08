@@ -9,13 +9,22 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    h2 {
+    h2,
+    p {
         color: white;
     }
 }
 
 .form h2 {
     color: white;
+}
+
+.form label {
+    font-size: 1.5rem;
+}
+
+.form h4 {
+    color: red;
 }
 
 .formButton {
