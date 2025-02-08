@@ -1,24 +1,57 @@
-import React from "react";
-import styles from "./styles.module.scss";
+import AcceptRSVPForm from "@/components/AcceptRSVPForm/AcceptRSVPForm";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
-import { RSVPDecideAccept, RSVPDecideDecline } from "@/util/api";
+import { useState } from "react";
+import styles from "./styles.module.scss";
+import ConfirmReject from "./ConfirmReject";
+import { RSVPDecideDecline } from "@/util/api";
+import Loading from "@/components/Loading/Loading";
 
 type AcceptedType = "PRO" | "PRO_TO_GENERAL" | "GENERAL";
 
 type AcceptedProps = {
     acceptedType: AcceptedType;
     reimburse: number;
+    onRequestClose: () => void;
 };
 
-export default function Accepted({ acceptedType, reimburse }: AcceptedProps) {
+export default function Accepted({
+    acceptedType,
+    reimburse,
+    onRequestClose
+}: AcceptedProps) {
+    const [accepted, setAccepted] = useState(false);
+    const [declined, setDeclined] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const handleConfirm = async () => {
-        await RSVPDecideAccept();
+        setAccepted(true);
     };
 
     const handleDecline = async () => {
-        await RSVPDecideDecline();
+        setDeclined(true);
     };
 
+    if (accepted) {
+        return <AcceptRSVPForm closeModal={onRequestClose} />;
+    }
+
+    if (declined) {
+        return (
+            <ConfirmReject
+                handleGoBack={() => setDeclined(false)}
+                handleAPIDecline={async () => {
+                    setIsLoading(true);
+                    await RSVPDecideDecline();
+                    setIsLoading(false);
+                    onRequestClose();
+                    window.location.reload();
+                }}
+            />
+        );
+    }
+
+    if (isLoading) {
+        return <Loading />;
+    }
     return (
         <ChooseRSVP
             acceptedType={acceptedType}
@@ -62,7 +95,7 @@ export function ChooseRSVP({
             </div>
             <div className={styles.buttonGroup}>
                 <OlympianButton
-                    text="Confirm"
+                    text="Accept"
                     onClick={handleConfirm}
                     medium
                     gold
@@ -87,28 +120,35 @@ function AcceptedVerbage({ acceptedType }: AcceptedVerbageProps) {
         case "GENERAL":
             return (
                 <>
-                    <b>Congratulations! You&apos;ve been accepted as a</b>
+                    <b className={styles.acceptedText}>
+                        Congratulations! You&apos;ve been accepted as a
+                    </b>
                     <b> </b>
                     <b className={styles.shiny}>General Attendee</b>
+                    <b> </b>
                 </>
             );
         case "PRO_TO_GENERAL":
             return (
                 <>
-                    <b>
+                    <b className={styles.acceptedText}>
                         Unfortunately, we couldn&apos;t offer you a spot as a
                         HackKnight, but you&apos;ve been accepted as a
                     </b>
                     <b> </b>
                     <b className={styles.shiny}>General Attendee</b>
+                    <b> </b>
                 </>
             );
         case "PRO":
             return (
                 <>
-                    <b>Congratulations! You&apos;ve been accepted as a</b>
+                    <b className={styles.acceptedText}>
+                        Congratulations! You&apos;ve been accepted as a
+                    </b>
                     <b> </b>
                     <b className={styles.shiny}>HackOlympian</b>
+                    <b> </b>
                 </>
             );
     }

@@ -26,6 +26,7 @@ import {
     Waitlisted
 } from "@/components/Profile/RSVP/ModalViews/Rejected";
 import Accepted from "@/components/Profile/RSVP/ModalViews/Accepted";
+import CloseButton from "@/components/CloseButton/CloseButton";
 
 type ValueItemProps = {
     label: string;
@@ -70,19 +71,10 @@ const Profile: React.FC = () => {
             return "View QR Code";
         }
 
-        return "Congrats! Click here to RSVP";
+        return "RSVP";
     };
 
     useEffect(() => {
-        // setRSVP({
-        //     admittedPro: false,
-        //     reimbursementValue: 0.01,
-        //     response: "PENDING",
-        //     status: "ACCEPTED",
-        //     userId: "0"
-        // });
-        // setIsLoading(false);
-
         if (!isAuthenticated()) {
             authenticate(pathname);
             return;
@@ -111,6 +103,18 @@ const Profile: React.FC = () => {
         });
     }, [pathname, router]);
 
+    useEffect(() => {
+        // Ensure that the background content does not scroll
+        // when the modal is displayed
+        if (modalOpen) {
+            document.body.style.overflow = "hidden";
+            document.documentElement.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+            document.documentElement.style.overflow = "unset";
+        }
+    }, [modalOpen]);
+
     return (
         <>
             {isLoading && <Loading />}
@@ -123,11 +127,13 @@ const Profile: React.FC = () => {
                     style={{
                         overlay: { zIndex: 1000 },
                         content: {
+                            borderRadius: "2rem",
                             inset:
                                 windowSizeHook?.width &&
                                 windowSizeHook?.width < 768
                                     ? "10px"
-                                    : "40px"
+                                    : "40px",
+                            padding: 0
                         }
                     }}
                     isOpen={modalOpen}
@@ -136,8 +142,8 @@ const Profile: React.FC = () => {
                     }}
                     ariaHideApp={false}
                 >
+                    <CloseButton handleClose={() => setModalOpen(false)} />
                     <div className={styles.modalContent}>
-                        {/* TODO: close button */}
                         <ModalContent
                             status={RSVP.status}
                             response={RSVP.response}
@@ -145,6 +151,7 @@ const Profile: React.FC = () => {
                             isProApplicant={isProApplicant}
                             qrUrl={qrCodeURL}
                             reimburse={RSVP.reimbursementValue}
+                            onRequestClose={() => setModalOpen(false)}
                         />
                     </div>
                 </Modal>
@@ -266,6 +273,7 @@ type ModalContentProps = {
     isProApplicant: boolean;
     qrUrl: string | null;
     reimburse: number;
+    onRequestClose: () => void;
 };
 
 const ModalContent: React.FC<ModalContentProps> = ({
@@ -274,7 +282,8 @@ const ModalContent: React.FC<ModalContentProps> = ({
     isPro,
     isProApplicant,
     qrUrl,
-    reimburse
+    reimburse,
+    onRequestClose
 }) => {
     switch (status) {
         case "ACCEPTED":
@@ -283,7 +292,13 @@ const ModalContent: React.FC<ModalContentProps> = ({
             }
 
             if (isPro) {
-                return <Accepted acceptedType={"PRO"} reimburse={reimburse} />;
+                return (
+                    <Accepted
+                        acceptedType={"PRO"}
+                        reimburse={reimburse}
+                        onRequestClose={onRequestClose}
+                    />
+                );
             }
 
             if (isProApplicant) {
@@ -291,11 +306,18 @@ const ModalContent: React.FC<ModalContentProps> = ({
                     <Accepted
                         acceptedType={"PRO_TO_GENERAL"}
                         reimburse={reimburse}
+                        onRequestClose={onRequestClose}
                     />
                 );
             }
 
-            return <Accepted acceptedType={"GENERAL"} reimburse={reimburse} />;
+            return (
+                <Accepted
+                    acceptedType={"GENERAL"}
+                    reimburse={reimburse}
+                    onRequestClose={onRequestClose}
+                />
+            );
         case "REJECTED":
             return <Rejected />;
         case "WAITLISTED":

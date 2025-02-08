@@ -1,12 +1,89 @@
 .buttonGroup {
-    width: 100%;
+    width: 70%;
     display: flex;
     margin-top: 15px;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     gap: 5px;
+    margin: auto;
+
+    @media (max-width: 468px) {
+        flex-direction: column;
+        gap: 15px;
+    }
 }
 
 .container {
-    color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 4vw;
+    padding: 20px;
+}
+
+.textBlock {
+    display: flex;
+    flex-direction: column;
+    color: white;
+
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    font-size: 1.5vw;
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
+
+.textBlock p {
+    color: white;
+    text-align: center;
+
+    @media (max-width: 768px) {
+        font-size: 3vw;
+    }
+}
+
+.shiny {
+    font-size: 3vw;
+    text-shadow: 0px 4px 20px #ffb23e;
+
+    @media (max-width: 768px) {
+        font-size: 6vw;
+    }
+}
+
+.acceptedText {
+    font-weight: bold;
+    font-size: 2.5vw;
+
+    @media (max-width: 768px) {
+        font-size: 5vw;
+    }
+}
+
+.unfortunatelyText {
+    font-size: 4vw;
+    text-align: center;
+
+    @media (max-width: 768px) {
+        font-size: 6vw;
+    }
+}
+
+.unfortunatelyText b {
+    color: white;
+}
+
+.confirmRejectText {
+    font-size: 4vw;
+    text-align: center;
+
+    @media (max-width: 768px) {
+        font-size: 6vw;
+    }
 }

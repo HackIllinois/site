@@ -103,18 +103,21 @@
     gap: 10px;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    width: 100%;
+    min-height: 100%;
+    padding: 2rem;
+    background: linear-gradient(0deg, #98c8d3 0%, #5ea6b7 41%, #0a3147 100%);
 }
 
 .modalContent p {
     color: black;
 }
 
-.modalContent svg {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-}
+// .modalContent svg {
+//     width: 100%;
+//     max-width: 400px;
+//     height: auto;
+// }
 
 .modalContent h2 {
     color: black;

@@ -3,17 +3,17 @@ import styles from "./styles.module.scss";
 export function Rejected() {
     return (
         <div className={styles.container}>
-            <p>
+            <p className={styles.unfortunatelyText}>
                 <b>
                     Unfortunately, we were unable to offer you a spot at
-                    HackIllinois
+                    HackIllinois.
                 </b>
             </p>
-            <p>
+            <p className={styles.unfortunatelyText}>
                 <b>
                     Email us at{" "}
                     <a href="mailto:contact@hackillinois.org">
-                        contact@hackillinois.org
+                        <u>contact@hackillinois.org</u>
                     </a>{" "}
                     if you have any questions!
                 </b>
@@ -22,21 +22,23 @@ export function Rejected() {
     );
 }
 
-// TODO: update this wording
 export function Waitlisted() {
     return (
         <div className={styles.container}>
-            <p>
+            <p className={styles.unfortunatelyText}>
                 <b>
-                    Unfortunately, we have deferred your application at this
-                    time
+                    Your application has been waitlisted at this time. If you
+                    are still interested in participating in HackIllinois 2025,
+                    please visit our Help Desk at 4:30pm on Friday, Feb 28rd for
+                    reconsideration opportunities depending on current
+                    capacities.
                 </b>
             </p>
-            <p>
+            <p className={styles.unfortunatelyText}>
                 <b>
                     Email us at{" "}
                     <a href="mailto:contact@hackillinois.org">
-                        contact@hackillinois.org
+                        <u>contact@hackillinois.org</u>
                     </a>{" "}
                     if you have any questions!
                 </b>

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import styles from "./AcceptRSVPForm.module.scss";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
@@ -9,7 +9,8 @@ import TextInput from "@/components/Form/TextInput/TextInput";
 import AvatarSelector from "../AvatarSelector/AvatarSelector";
 import { setProfile } from "@/util/api";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { RSVPDecideAccept } from "@/util/api";
+import Loading from "@/components/Loading/Loading";
 
 const schema = yup.object({
     displayName: yup.string().required("Please enter a display name"),
@@ -26,8 +27,7 @@ type AcceptRSVPFormProps = {
 };
 
 const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
-    const router = useRouter();
-
+    const [isLoading, setIsLoading] = useState(false);
     const handleSubmit = async ({
         displayName,
         discordTag,
@@ -38,15 +38,22 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
         avatarId: string;
     }) => {
         console.log(displayName, discordTag, avatarId);
-        const response = await setProfile({
-            displayName: displayName,
-            discordTag: discordTag,
-            avatarId: avatarId
-        });
-        console.log(response);
+        setIsLoading(true);
 
-        router.replace(router.asPath);
+        await Promise.all([
+            setProfile({ displayName, discordTag, avatarId }),
+            RSVPDecideAccept()
+        ]).catch(e => {
+            console.error(e);
+            setIsLoading(false);
+        });
+
+        window.location.reload();
     };
+
+    if (isLoading) {
+        return <Loading />;
+    }
 
     return (
         <div className={styles.container}>
@@ -82,7 +89,6 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
 
                     <Checkboxes
                         name="codeOfConductAcknowledge"
-                        required
                         label={
                             <p>
                                 To participate in HackIllinois, you must accept
@@ -103,7 +109,6 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
                                 value: "YES"
                             }
                         ]}
-                        blue
                     />
 
                     <div className={styles.buttons}>
