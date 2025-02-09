@@ -17,8 +17,9 @@ const schema = yup.object({
     discordTag: yup.string().required("Please enter your discord tag"),
     avatarId: yup.string().required("Please choose an avatar"),
     codeOfConductAcknowledge: yup
-        .string()
-        .oneOf(["YES"], "You must accept the Code of Conduct")
+        .array()
+        .of(yup.string())
+        .min(1, "You must accept the Code of Conduct")
         .required("You must accept the Code of Conduct")
 });
 
