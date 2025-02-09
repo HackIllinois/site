@@ -41,13 +41,8 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
         console.log(displayName, discordTag, avatarId);
         setIsLoading(true);
 
-        await Promise.all([
-            setProfile({ displayName, discordTag, avatarId }),
-            RSVPDecideAccept()
-        ]).catch(e => {
-            console.error(e);
-            setIsLoading(false);
-        });
+        await RSVPDecideAccept();
+        await setProfile({ displayName, discordTag, avatarId });
 
         window.location.reload();
     };
