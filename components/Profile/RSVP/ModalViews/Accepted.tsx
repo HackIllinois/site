@@ -80,16 +80,17 @@ export function ChooseRSVP({
             <div className={styles.textBlock}>
                 <AcceptedVerbage acceptedType={acceptedType} />
                 <p>
-                    If you would like to attend HackIllinois 2025, click Confirm
-                    to finish the RSVP process. If you won&apos;t be attending
-                    please click Decline. This cannot be reversed.
+                    If you would like to attend HackIllinois 2025, click{" "}
+                    <code>Confirm</code> to finish the RSVP process. If you
+                    won&apos;t be attending please click <code>Decline</code> .{" "}
+                    <b>This cannot be reversed</b>.
                 </p>
                 {reimburse > 0 && (
                     <p>
                         Additionally, you have been approved for a travel
-                        reimbursement of ${reimburse.toFixed(2)}. Receiving this
-                        reimbursement is contingent on you coming to
-                        HackIllinois in-person and submitting a project.
+                        reimbursement of ${reimburse.toLocaleString("en-US")}.
+                        Receiving this reimbursement is contingent on you coming
+                        to HackIllinois in-person and submitting a project.
                     </p>
                 )}
             </div>

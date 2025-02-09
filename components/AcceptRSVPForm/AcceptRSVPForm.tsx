@@ -54,6 +54,7 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
 
     return (
         <div className={styles.container}>
+            <h1>We are so excited to have you at HackIllinois this year!</h1>
             <Formik
                 initialValues={{
                     displayName: "",
@@ -66,7 +67,6 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
             >
                 <Form className={styles.form}>
                     <h2>
-                        We are so excited to have you at HackIllinois this year!
                         Please complete the following information to confirm
                         your attendance:
                     </h2>
@@ -87,7 +87,7 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
                     <Checkboxes
                         name="codeOfConductAcknowledge"
                         label={
-                            <p>
+                            <label>
                                 To participate in HackIllinois, you must accept
                                 our{" "}
                                 <Link
@@ -98,7 +98,7 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
                                     Code of Conduct
                                 </Link>
                                 :
-                            </p>
+                            </label>
                         }
                         options={[
                             {

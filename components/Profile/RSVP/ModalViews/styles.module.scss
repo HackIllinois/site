@@ -17,6 +17,7 @@
     color: white;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 4vw;
     padding: 20px;
 }
@@ -67,7 +68,7 @@
 }
 
 .unfortunatelyText {
-    font-size: 4vw;
+    font-size: 2vw;
     text-align: center;
 
     @media (max-width: 768px) {

@@ -285,7 +285,7 @@ const Profile: React.FC = () => {
 const QR: React.FC<{ qrUrl: string | null }> = ({ qrUrl }) => {
     return (
         <>
-            <h2>Your QR Code</h2>
+            <h1>Your QR Code</h1>
             {qrUrl && <QRCodeSVG value={qrUrl} className={styles.qr} />}
         </>
     );
