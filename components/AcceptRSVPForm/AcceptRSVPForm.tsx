@@ -7,7 +7,7 @@ import * as yup from "yup";
 import Checkboxes from "@/components/Form/Checkboxes/Checkboxes";
 import TextInput from "@/components/Form/TextInput/TextInput";
 import AvatarSelector from "../AvatarSelector/AvatarSelector";
-import { setProfile } from "@/util/api";
+import { refreshToken, setProfile } from "@/util/api";
 import Link from "next/link";
 import { RSVPDecideAccept } from "@/util/api";
 import Loading from "@/components/Loading/Loading";
@@ -42,6 +42,7 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
         setIsLoading(true);
 
         await RSVPDecideAccept();
+        await refreshToken();
         await setProfile({ displayName, discordTag, avatarId });
 
         window.location.reload();

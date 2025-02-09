@@ -146,6 +146,13 @@ export async function RSVPDecideAccept() {
     return res;
 }
 
+export async function refreshToken() {
+    const res = await requestv2("GET", "/auth/token/refresh/").catch(
+        handleError
+    );
+    localStorage.setItem("token", res.token);
+}
+
 export async function RSVPDecideDecline() {
     const res = await requestv2("PUT", "/admission/rsvp/decline").catch(
         handleError
