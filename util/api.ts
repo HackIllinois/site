@@ -20,6 +20,11 @@ export function authenticate(to: string): void {
     window.location.replace(authUrl);
 }
 
+export function logOut() {
+    localStorage.removeItem("token");
+    window.location.replace("/");
+}
+
 // If status is good, returns response. If status is bad, throws the error response.
 // Should handle errors with handleError.
 // Make sure if something like "NotFound" is expected to handle it explicitly and not pass to handleError.
