@@ -3,9 +3,7 @@
     justify-content: center;
     align-items: center;
     padding: 5px;
-    margin-left: -5px; // To align the button with the other content
-}
-
-.button:hover {
+    margin-left: 15px; // To align the button with the other content
+    margin-top: 15px;
     cursor: pointer;
 }
