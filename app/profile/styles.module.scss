@@ -166,3 +166,17 @@
         gap: 5px;
     }
 }
+
+.signOut {
+    position: absolute;
+    aspect-ratio: 1;
+    padding: 1rem;
+    background-color: rgba(110, 144, 163, 0.8);
+    border-radius: 1rem;
+    bottom: 30px;
+    right: 30px;
+}
+
+.signOutButton {
+    cursor: pointer;
+}
