@@ -1,0 +1,21 @@
+.roundedButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 5px;
+    height: 30px;
+    border-radius: 15px;
+    transition: background-color 0.3s;
+}
+
+.roundedButton p {
+    color: black;
+    font-weight: bold;
+}
+
+.roundedButton:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+}
+
+.roundedButton.isSelected {
+    background-color: rgba(255, 255, 255, 0.8);
+}
