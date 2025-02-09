@@ -5,7 +5,8 @@ import {
     RSVPType,
     ChallengeStatus,
     ProfileBodyType,
-    ProfileType
+    ProfileType,
+    EventType
 } from "./types";
 import { handleError } from "./helpers";
 
@@ -137,6 +138,11 @@ export async function getRegistrationStatus(): Promise<{ alive: boolean }> {
 export async function getRSVP(): Promise<RSVPType> {
     const res = await requestv2("GET", "/admission/rsvp").catch(handleError);
     return res;
+}
+
+export async function getEvents(): Promise<EventType[]> {
+    const res = await requestv2("GET", "/event").catch(handleError);
+    return res.events as EventType[];
 }
 
 export async function RSVPDecideAccept() {
