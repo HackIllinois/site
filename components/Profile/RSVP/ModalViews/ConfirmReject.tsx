@@ -1,5 +1,6 @@
 import styles from "./styles.module.scss";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
+import Image from "next/image";
 
 type ConfirmRejectProps = {
     handleGoBack: () => void;
@@ -12,9 +13,18 @@ export default function ConfirmReject({
 }: ConfirmRejectProps) {
     return (
         <div className={styles.container}>
-            <b className={styles.confirmRejectText}>
-                Are you sure you want to decline?
-            </b>
+            <div className={styles.content}>
+                <b className={styles.confirmRejectText}>
+                    Are you sure you want to decline?
+                </b>
+                <Image
+                    src="/profile/characters/hades.svg"
+                    alt="hades"
+                    className={styles.character}
+                    width={300}
+                    height={500}
+                />
+            </div>
 
             <div className={styles.buttonGroup}>
                 <OlympianButton
