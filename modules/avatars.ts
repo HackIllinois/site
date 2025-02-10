@@ -4,6 +4,8 @@ import AphroditeAvatar from "@/public/profile/avatars/aphrodite.svg";
 import PoseidonAvatar from "@/public/profile/avatars/poseidon.svg";
 import ApolloAvatar from "@/public/profile/avatars/apollo.svg";
 import AthenaAvatar from "@/public/profile/avatars/athena.svg";
+import MedusaAvatar from "@/public/profile/avatars/medusa.svg";
+import HadesAvatar from "@/public/profile/avatars/hades.svg";
 
 import { Avatars } from "@/util/types";
 
@@ -13,5 +15,7 @@ export const avatars = [
     { name: Avatars.APHRODITE, icon: AphroditeAvatar },
     { name: Avatars.POSEIDON, icon: PoseidonAvatar },
     { name: Avatars.APOLLO, icon: ApolloAvatar },
-    { name: Avatars.ATHENA, icon: AthenaAvatar }
+    { name: Avatars.ATHENA, icon: AthenaAvatar },
+    { name: Avatars.MEDUSA, icon: MedusaAvatar },
+    { name: Avatars.HADES, icon: HadesAvatar }
 ];

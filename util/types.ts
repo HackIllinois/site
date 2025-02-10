@@ -264,7 +264,9 @@ export enum Avatars {
     APHRODITE = "aphrodite",
     POSEIDON = "poseidon",
     APOLLO = "apollo",
-    ATHENA = "athena"
+    ATHENA = "athena",
+    MEDUSA = "medusa",
+    HADES = "hades"
 }
 
 export interface EventType {
