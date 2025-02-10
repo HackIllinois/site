@@ -73,3 +73,14 @@
     display: flex;
     justify-content: space-between;
 }
+
+.content {
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+}
+.character {
+    @media screen and (max-width: 1152px) {
+        display: none;
+    }
+}
