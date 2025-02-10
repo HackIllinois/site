@@ -31,10 +31,6 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({
             <div className={styles.avatarSelector}>
                 {avatars.map(avatar => (
                     <div
-                        style={{
-                            backgroundColor:
-                                avatar.backgroundColor ?? "transparent"
-                        }}
                         className={clsx(
                             styles.avatarIcon,
                             avatar.name === value && styles.selected
