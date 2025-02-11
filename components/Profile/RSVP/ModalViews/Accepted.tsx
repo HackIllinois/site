@@ -87,13 +87,18 @@ export function ChooseRSVP({
                         won&apos;t be attending please click{" "}
                         <code>Decline</code> . <b>This cannot be reversed</b>.
                     </p>
-                    {reimburse > 0 && (
+                    {reimburse > 0 ? (
                         <p>
                             Additionally, you have been approved for a travel
                             reimbursement of $
                             {reimburse.toLocaleString("en-US")}. Receiving this
                             reimbursement is contingent on you coming to
                             HackIllinois in-person and submitting a project.
+                        </p>
+                    ) : (
+                        <p>
+                            Unfortunately, we are unable to offer any travel
+                            reimbursement for you.
                         </p>
                     )}
                 </div>
