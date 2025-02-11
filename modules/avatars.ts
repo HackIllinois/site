@@ -1,29 +1,21 @@
-import BunnyAvatar from "@/public/profile/avatars/bunny.svg";
-import ChipmunkAvatar from "@/public/profile/avatars/chipmunk.svg";
-import YodaAvatar from "@/public/profile/avatars/yoda.svg";
-import CatAvatar from "@/public/profile/avatars/cat.svg";
-import MushroomAvatar from "@/public/profile/avatars/mushroom.svg";
-import FisherAvatar from "@/public/profile/avatars/fisher.svg";
-import GarfieldAvatar from "@/public/profile/avatars/garfield.svg";
-import FishAvatar from "@/public/profile/avatars/fish.svg";
+import ArtemisAvatar from "@/public/profile/avatars/artemis.svg";
+import ZeusAvatar from "@/public/profile/avatars/zeus.svg";
+import AphroditeAvatar from "@/public/profile/avatars/aphrodite.svg";
+import PoseidonAvatar from "@/public/profile/avatars/poseidon.svg";
+import ApolloAvatar from "@/public/profile/avatars/apollo.svg";
+import AthenaAvatar from "@/public/profile/avatars/athena.svg";
+import MedusaAvatar from "@/public/profile/avatars/medusa.svg";
+import HadesAvatar from "@/public/profile/avatars/hades.svg";
 
 import { Avatars } from "@/util/types";
 
 export const avatars = [
-    { name: Avatars.BUNNY, icon: BunnyAvatar, backgroundColor: "#f0f0f0" },
-    {
-        name: Avatars.SQUIRREL,
-        icon: ChipmunkAvatar,
-        backgroundColor: "#f0f0f0"
-    },
-    { name: Avatars.GOBLIN, icon: YodaAvatar, backgroundColor: "#f0f0f0" },
-    { name: Avatars.CAT, icon: CatAvatar, backgroundColor: "#f0f0f0" },
-    {
-        name: Avatars.MUSHROOM,
-        icon: MushroomAvatar,
-        backgroundColor: "#f0f0f0"
-    },
-    { name: Avatars.FISHERCAT, icon: FisherAvatar, backgroundColor: "#f0f0f0" },
-    { name: Avatars.CHESTER, icon: GarfieldAvatar, backgroundColor: "#f0f0f0" },
-    { name: Avatars.AXOLOTL, icon: FishAvatar, backgroundColor: "#f0f0f0" }
+    { name: Avatars.ARTEMIS, icon: ArtemisAvatar },
+    { name: Avatars.ZEUS, icon: ZeusAvatar },
+    { name: Avatars.APHRODITE, icon: AphroditeAvatar },
+    { name: Avatars.POSEIDON, icon: PoseidonAvatar },
+    { name: Avatars.APOLLO, icon: ApolloAvatar },
+    { name: Avatars.ATHENA, icon: AthenaAvatar },
+    { name: Avatars.MEDUSA, icon: MedusaAvatar },
+    { name: Avatars.HADES, icon: HadesAvatar }
 ];

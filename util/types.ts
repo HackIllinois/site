@@ -219,7 +219,7 @@ export type UserType = {
 export type ProfileBodyType = {
     displayName: string;
     discordTag: string;
-    avatarId: Avatars;
+    avatarId: string;
 };
 
 export type ProfileType = {
@@ -259,14 +259,14 @@ export type FormProps = {
 };
 
 export enum Avatars {
-    BUNNY = "bunny",
-    SQUIRREL = "squirrel",
-    GOBLIN = "goblin",
-    CHESTER = "chester",
-    CAT = "cat",
-    MUSHROOM = "mushroom",
-    FISHERCAT = "fishercat",
-    AXOLOTL = "axolotl"
+    ARTEMIS = "artemis",
+    ZEUS = "zeus",
+    APHRODITE = "aphrodite",
+    POSEIDON = "poseidon",
+    APOLLO = "apollo",
+    ATHENA = "athena",
+    MEDUSA = "medusa",
+    HADES = "hades"
 }
 
 export interface EventType {

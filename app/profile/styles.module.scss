@@ -97,25 +97,52 @@
     padding-bottom: 5px;
 }
 
-.qrModalContent {
+.modalContent {
     display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    width: calc(100% - 4rem);
+    min-height: calc(100% - (4rem + 5vw));
+    padding: calc(2rem + 5vw) 2rem 2rem 2rem;
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        min-height: calc(100% - (4rem + 30vw));
+        padding: calc(2rem + 30vw) 1rem 2rem 1rem;
+    }
+
+    width: 100%;
 }
 
-.qrModalContent svg {
+.modalContent p {
+    color: black;
+}
+
+.qr {
     width: 100%;
     max-width: 400px;
     height: auto;
 }
 
-.qrModalContent h2 {
-    color: black;
+.modalContent h1 {
+    color: white;
+    font-size: 3vw;
+
+    @media screen and (max-width: 768px) {
+        font-size: 6vw;
+    }
+}
+
+.modalContent p {
+    color: white;
     margin-bottom: 10px;
-    font-size: 30px;
+    font-size: 2vw;
+
+    @media screen and (max-width: 768px) {
+        font-size: 6vw;
+    }
 }
 
 .closeButton {
@@ -159,4 +186,18 @@
     @media (max-width: 768px) {
         gap: 5px;
     }
+}
+
+.signOut {
+    position: absolute;
+    aspect-ratio: 1;
+    padding: 1rem;
+    background-color: rgba(110, 144, 163, 0.8);
+    border-radius: 1rem;
+    bottom: 30px;
+    right: 30px;
+}
+
+.signOutButton {
+    cursor: pointer;
 }
