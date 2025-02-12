@@ -83,6 +83,8 @@ const Profile: React.FC = () => {
             return;
         }
 
+        let interval: NodeJS.Timeout;
+
         getRegistrationOrDefault().then(registration => {
             if (!registration.hasSubmitted) {
                 router.push("/register");
@@ -100,11 +102,21 @@ const Profile: React.FC = () => {
                     ) {
                         const qrCodeUrl = await getQRCode();
                         setQRCodeURL(qrCodeUrl);
+                        interval = setInterval(async () => {
+                            const qrCodeUrl = await getQRCode();
+                            setQRCodeURL(qrCodeUrl);
+                        }, 15000);
                     }
                     setIsLoading(false);
                 }
             );
         });
+
+        return () => {
+            if (interval) {
+                clearInterval(interval);
+            }
+        };
     }, [pathname, router]);
 
     useEffect(() => {
