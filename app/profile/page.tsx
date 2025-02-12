@@ -84,6 +84,7 @@ const Profile: React.FC = () => {
         getRegistrationOrDefault().then(registration => {
             if (!registration.hasSubmitted) {
                 router.push("/register");
+                return;
             }
 
             setRegistration(registrationFromAPI(registration));
