@@ -1,5 +1,5 @@
 "use client";
-import styles from "./Olympian.module.scss";
+import styles from "./Hero.module.scss";
 import { useContext } from "react";
 
 import Image from "next/image";

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "./AcceptRSVPForm.module.scss";
+import styles from "./AcceptForm.module.scss";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
 import Checkboxes from "@/components/Form/Checkboxes/Checkboxes";
