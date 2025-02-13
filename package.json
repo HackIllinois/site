@@ -1,7 +1,7 @@
 {
     "name": "hackillinois-site",
     "private": true,
-    "packageManager": "pnpm@10.3.0",
+    "packageManager": "pnpm@8.15.9",
     "workspaces": {
         "packages": [
             "apps/*"
@@ -15,7 +15,7 @@
         "check": "pnpm -r run check",
         "format": "npx prettier . --write",
         "lint-staged": "lint-staged",
-        "prepare": "husky install"
+        "prepare": "husky"
     },
     "devDependencies": {
         "eslint": "^8.57.1",
