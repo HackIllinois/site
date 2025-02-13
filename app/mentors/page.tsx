@@ -1,4 +1,4 @@
-import MentorCloud from "@/components/Mentors/MentorCloud/MentorCloud";
+import MentorCard from "@/components/Mentors/MentorCard/MentorCard";
 import { mentors } from "@/modules/MentorsData";
 import styles from "./styles.module.scss";
 import BACKGROUND from "@/public/mentors/mentors-background.svg";
@@ -34,7 +34,7 @@ const Mentors = () => {
                     {mentors
                         .sort((a, b) => a.id - b.id)
                         .map((mentor: mentorProps) => (
-                            <MentorCloud
+                            <MentorCard
                                 key={mentor.id}
                                 id={mentor.id}
                                 name={mentor.name}
