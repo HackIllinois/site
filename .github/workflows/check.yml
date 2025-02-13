@@ -32,3 +32,4 @@ jobs:
             - run: pnpm install
             - run: pnpm -r check
             - run: pnpm -r lint
+            - run: pnpm run lint-format

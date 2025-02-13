@@ -11,6 +11,7 @@
         "dev": "pnpm -r run dev",
         "build": "pnpm -r run build",
         "start": "pnpm -r run start",
+        "lint-format": "npx prettier . --check",
         "lint": "pnpm -r run lint",
         "check": "pnpm -r run check",
         "format": "npx prettier . --write",
