@@ -8,6 +8,8 @@ import TEST_IMAGE from "@/public/mentors/mentor-images/abdu.jpg";
 import Modal from "react-modal";
 import { useState } from "react";
 import SCROLL from "@/public/mentors/mentor-scroll.svg";
+import MOBILE_SCROLL from "@/public/mentors/mobile-scroll.svg";
+import useWindowSize from "@/hooks/use-window-size";
 
 type mentorProps = {
     id: number;
@@ -18,6 +20,7 @@ type mentorProps = {
 
 const MentorCard: React.FC<mentorProps> = ({ id, name, image, desc }) => {
     const [modalOpen, setModalOpen] = useState(false);
+    const windowSizeHook = useWindowSize();
 
     const handleClick = () => {
         setModalOpen(true);
@@ -45,12 +48,17 @@ const MentorCard: React.FC<mentorProps> = ({ id, name, image, desc }) => {
                     ariaHideApp={false}
                 >
                     <Image
-                        src={SCROLL}
+                        src={
+                            windowSizeHook?.width && windowSizeHook?.width < 480
+                                ? MOBILE_SCROLL
+                                : SCROLL
+                        }
                         alt="scroll"
                         className={styles.scroll}
                     />
                     <div className={styles.modalContainer}>
                         <div className={styles.modalContent}>
+                            {/* they are all abdu bc i did not want to copy over all the picture files */}
                             <Image
                                 src={TEST_IMAGE}
                                 alt="image"
