@@ -124,6 +124,15 @@ const Schedule = () => {
         return Array.from(days);
     }, [events]);
 
+    const availableDayToDate = useMemo(() => {
+        const dayToDate: { [key: string]: string } = {};
+        for (const event of events) {
+            const date = moment(event.startTime * 1000).format("MMMM D");
+            dayToDate[event.day] = date;
+        }
+        return dayToDate;
+    }, [availableDays]);
+
     const displayedEvents = useMemo(() => {
         return events.filter(event => event.day === selectedDay);
     }, [selectedDay]);
@@ -169,7 +178,9 @@ const Schedule = () => {
                 className={styles.screen}
             >
                 <div className={styles.dateSelector}>
-                    <h1>February 28</h1>
+                    <h1>
+                        {selectedDay ? availableDayToDate[selectedDay] : ""}
+                    </h1>
                     <div className={styles.availableDays}>
                         {availableDays.map(day => (
                             <RoundedButton
