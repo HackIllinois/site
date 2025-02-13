@@ -15,6 +15,9 @@ import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
 import moment from "moment";
 import styles from "./styles.module.scss";
+import clsx from "clsx";
+import useWindowSize from "@/hooks/use-window-size";
+import Image from "next/image";
 
 type ScheduleItemProps = {
     event: EventType;
@@ -44,49 +47,65 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
     }, [event.isPro, event.eventType, event.isAsync]);
 
     const locations = event.locations
-        .map(lcoation => lcoation.description)
+        .map(location => location.description)
         .join(", ");
 
     const COLORS = ["#DE8E45", "#C5673F", "#84BCB9"];
 
-    return (
-        <div className={styles.scheduleItem}>
-            <h3>{event.name}</h3>
-            <Tags tags={tags} colors={COLORS} />
+    const happeningNow = useMemo(() => {
+        // const now = moment().unix();
+        // console.log(now, event.startTime, event.endTime);
+        // return event.startTime <= now && event.endTime >= now;
+        return true;
+    }, [event.startTime, event.endTime]);
 
-            <div className={styles.textRow}>
-                <div
-                    style={{
-                        backgroundImage: `url(${HOURGLASS?.src})`
-                    }}
-                    className={styles.icon}
-                ></div>
-                <p>
-                    {timeToHourMinute(event.startTime)} -{" "}
-                    {timeToHourMinute(event.endTime)}
-                </p>
-            </div>
-            {event.sponsor && (
+    return (
+        <div>
+            {happeningNow && (
+                <p className={styles.happeningNowDiv}>HAPPENING NOW</p>
+            )}
+            <div
+                className={clsx(
+                    styles.scheduleItem,
+                    happeningNow && styles.happeningNow
+                )}
+            >
+                <h3>{event.name}</h3>
+                <Tags tags={tags} colors={COLORS} />
                 <div className={styles.textRow}>
                     <div
                         style={{
-                            backgroundImage: `url(${PENNANT?.src})`
+                            backgroundImage: `url(${HOURGLASS?.src})`
                         }}
                         className={styles.icon}
                     ></div>
-                    <p>{event.sponsor}</p>
+                    <p>
+                        {timeToHourMinute(event.startTime)} -{" "}
+                        {timeToHourMinute(event.endTime)}
+                    </p>
                 </div>
-            )}
-            <div className={styles.textRow}>
-                <div
-                    style={{
-                        backgroundImage: `url(${GREEK_BUILDING?.src})`
-                    }}
-                    className={styles.icon}
-                ></div>
-                <p>{locations}</p>
+                {event.sponsor && (
+                    <div className={styles.textRow}>
+                        <div
+                            style={{
+                                backgroundImage: `url(${PENNANT?.src})`
+                            }}
+                            className={styles.icon}
+                        ></div>
+                        <p>{event.sponsor}</p>
+                    </div>
+                )}
+                <div className={styles.textRow}>
+                    <div
+                        style={{
+                            backgroundImage: `url(${GREEK_BUILDING?.src})`
+                        }}
+                        className={styles.icon}
+                    ></div>
+                    <p>{locations}</p>
+                </div>
+                <p>{event.description}</p>
             </div>
-            <p>{event.description}</p>
         </div>
     );
 };
@@ -135,6 +154,8 @@ const Schedule = () => {
         }
     }, [availableDays]);
 
+    const windowSizeHook = useWindowSize();
+
     return (
         <>
             <Head>
@@ -147,24 +168,39 @@ const Schedule = () => {
                 }}
                 className={styles.screen}
             >
-                <div className={styles.leftContent}>
+                <div className={styles.dateSelector}>
                     <h1>February 28</h1>
-                    {availableDays.map(day => (
-                        <RoundedButton
-                            key={day}
-                            text={day}
-                            isSelected={day === selectedDay}
-                            onClick={() => setSelectedDay(day)}
+                    <div className={styles.availableDays}>
+                        {availableDays.map(day => (
+                            <RoundedButton
+                                key={day}
+                                text={day}
+                                isSelected={day === selectedDay}
+                                onClick={() => setSelectedDay(day)}
+                            />
+                        ))}
+                    </div>
+
+                    <div className={styles.cerberus}>
+                        <Image
+                            src="/schedule/characters/cerberus.svg"
+                            fill
+                            alt="cerberus"
+                            style={{ objectFit: "contain" }}
                         />
-                    ))}
+                    </div>
                 </div>
 
-                <div className={styles.rightContent}>
+                <div className={styles.eventContent}>
                     {loading && <p>Loading...</p>}
 
                     <div
                         style={{
-                            backgroundImage: `url(${STONE_TABLET?.src})`
+                            backgroundImage:
+                                windowSizeHook?.width &&
+                                windowSizeHook?.width > 768
+                                    ? `url(${STONE_TABLET?.src})`
+                                    : ""
                         }}
                         className={styles.stoneTablet}
                     >
