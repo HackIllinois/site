@@ -6,6 +6,10 @@
     background-repeat: no-repeat;
     background-position: center;
     background-color: white;
+    justify-content: space-between;
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
 }
 
 .stoneTablet {
@@ -14,34 +18,58 @@
     gap: 10px;
 
     flex: 1;
-    object-fit: fill;
-    background-size: 100% 100%;
+    object-fit: cover;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: top;
-    padding: 10% 24%;
+    height: 100%;
+    border-radius: 10%;
 }
 
 .stoneTablet .events {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 60vh;
     overflow-y: scroll;
+    padding: 50px 100px;
+    height: 80vh;
+    @media (max-width: 768px) {
+        padding: 20px 30px;
+        gap: 20px;
+        height: unset;
+    }
 }
 
-.leftContent {
+.dateSelector {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     flex: 1;
     padding: 10px 40px;
-    padding-top: 120px;
+    padding-top: 150px;
+    max-width: 400px;
+    .availableDays {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        @media (max-width: 768px) {
+            flex-direction: row;
+            display: flex;
+            align-items: center;
+        }
+    }
 }
 
-.rightContent {
+.eventContent {
     flex: 2;
     padding: 10px;
     padding-top: 120px;
+    height: 100%;
+    max-width: 800px;
+    @media (max-width: 768px) {
+        padding-top: 0;
+        padding-bottom: 20px;
+    }
 }
 
 .scheduleItem {
@@ -49,6 +77,10 @@
     border-radius: 10px;
     color: black;
     padding: 15px;
+}
+
+.scheduleItem.happeningNow {
+    border-top-left-radius: 0;
 }
 
 .scheduleItem h3 {
@@ -70,4 +102,24 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.happeningNowDiv {
+    background-color: #ffb23e;
+    width: fit-content;
+    padding: 5px 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.cerberus {
+    position: fixed;
+    width: 30vw;
+    height: 50vh;
+    bottom: 0;
+    left: 10;
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
 }
