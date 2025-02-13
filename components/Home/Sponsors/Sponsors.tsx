@@ -16,9 +16,6 @@ const Sponsors: FC = () => {
             <div className={styles.content}>
                 <h1 className={styles.title}>Sponsors</h1>
             </div>
-            <div className={styles.sponsors}>
-                <p>To Be Announced</p>
-            </div>
         </section>
     );
 };
