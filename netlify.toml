@@ -4,5 +4,16 @@
 [build.main]
   base = "apps/main"
   publish = "apps/main/.next"
-  command = "corepack enable && pnpm install && pnpm build"
+  command = "pnpm install && pnpm build"
+  publish = ".next"
+  environment = { NEXT_PUBLIC_REACT_APP_URL = 'https://hackillinois.org' }
+
+[functions]
+  directory = "functions"
+
+[[headers]]
+  # Define which paths this specific [[headers]] block will cover.
+  for = "/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "*"
 
