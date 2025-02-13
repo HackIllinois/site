@@ -4,5 +4,5 @@
 [build.main]
   base = "apps/main"
   publish = "apps/main/.next"
-  command = "pnpm install && pnpm build"
+  command = "corepack enable && pnpm install && pnpm build"
 
