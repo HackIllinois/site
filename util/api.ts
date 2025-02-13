@@ -139,6 +139,11 @@ export async function getRSVP(): Promise<RSVPType> {
     return res;
 }
 
+export async function getProfile(): Promise<ProfileType> {
+    const res = await requestv2("GET", "/profile").catch(handleError);
+    return res;
+}
+
 export async function RSVPDecideAccept() {
     const res = await requestv2("PUT", "/admission/rsvp/accept").catch(
         handleError

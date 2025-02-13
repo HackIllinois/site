@@ -2,6 +2,7 @@
 import {
     authenticate,
     getChallenge,
+    getProfile,
     getQRCode,
     getRegistrationOrDefault,
     getRSVP,
@@ -14,7 +15,7 @@ import APPLICATION_STATUS_BOARD from "@/public/registration/backgrounds/applicat
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import Head from "next/head";
-import { RegistrationData, RSVPType } from "@/util/types";
+import { ProfileType, RegistrationData, RSVPType } from "@/util/types";
 import { registrationFromAPI } from "@/util/helpers";
 import Loading from "@/components/Loading/Loading";
 import { usePathname, useRouter } from "next/navigation";
@@ -59,11 +60,15 @@ const Profile: React.FC = () => {
     );
     const [RSVP, setRSVP] = useState<RSVPType | null>(null);
     const [isProApplicant, setIsProApplicant] = useState(false);
+    const [profile, setProfile] = useState<ProfileType | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     const [qrCodeURL, setQRCodeURL] = useState<string | null>(null);
 
     const [modalOpen, setModalOpen] = useState(false);
+
+    // Extracts the avatarId from the adonix metadata url
+    const avatarId = profile?.avatarUrl.split("/").at(-1)?.slice(undefined, -4);
 
     const getButtonText = () => {
         if (RSVP?.status === "REJECTED" || RSVP?.status === "WAITLISTED") {
@@ -100,7 +105,11 @@ const Profile: React.FC = () => {
                         RSVP.status === "ACCEPTED" &&
                         RSVP.response === "ACCEPTED"
                     ) {
-                        const qrCodeUrl = await getQRCode();
+                        const [qrCodeUrl, profile] = await Promise.all([
+                            getQRCode(),
+                            getProfile()
+                        ]);
+                        setProfile(profile);
                         setQRCodeURL(qrCodeUrl);
                         interval = setInterval(async () => {
                             const qrCodeUrl = await getQRCode();
@@ -185,6 +194,15 @@ const Profile: React.FC = () => {
                         <Image alt="Logout" src={LOGOUT} />
                     </div>
                 </button>
+                {profile && (
+                    <Image
+                        src={profile.avatarUrl}
+                        alt={avatarId!}
+                        className={styles.profileImageMobile}
+                        width={125}
+                        height={125}
+                    />
+                )}
                 <div
                     style={{
                         backgroundImage: `url(${APPLICATION_STATUS_BOARD?.src})`
@@ -207,11 +225,19 @@ const Profile: React.FC = () => {
                                 <h3>Type</h3>
                                 <ValueItem
                                     label="Pro"
-                                    isHighlighted={isProApplicant}
+                                    isHighlighted={
+                                        RSVP && RSVP.status !== "TBD"
+                                            ? RSVP!.admittedPro
+                                            : isProApplicant
+                                    }
                                 />
                                 <ValueItem
                                     label="General"
-                                    isHighlighted={!isProApplicant}
+                                    isHighlighted={
+                                        RSVP && RSVP.status !== "TBD"
+                                            ? !RSVP!.admittedPro
+                                            : !isProApplicant
+                                    }
                                 />
                             </div>
                             <div className={styles.col}>
@@ -275,6 +301,15 @@ const Profile: React.FC = () => {
                         </div>
                     </div>
                 </div>
+                {avatarId && (
+                    <Image
+                        src={`/profile/characters/${avatarId}.svg`}
+                        alt={avatarId}
+                        className={styles.profileImage}
+                        width={400}
+                        height={600}
+                    />
+                )}
             </div>
         </>
     );
