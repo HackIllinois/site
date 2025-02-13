@@ -11,7 +11,6 @@
         "start": "pnpm -r run start",
         "lint": "pnpm -r run lint",
         "check": "pnpm -r run check",
-        "install": "pnpm install",
         "lint-staged": "lint-staged",
         "prepare": "husky install"
     },
