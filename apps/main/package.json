@@ -1,0 +1,34 @@
+{
+    "name": "site-2025",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint && npx prettier . --check",
+        "format": "npx prettier . --write",
+        "check": "tsc --noEmit"
+    },
+    "dependencies": {
+        "clsx": "^2.1.1",
+        "formik": "^2.4.6",
+        "next": "^15.1.6",
+        "qrcode.react": "^4.2.0",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-icons": "^5.4.0",
+        "react-modal": "^3.16.3",
+        "react-select": "^5.9.0",
+        "yup": "^1.6.0"
+    },
+    "devDependencies": {
+        "@types/node": "^18.7.16",
+        "@types/qrcode.react": "^3.0.0",
+        "@types/react": "^19.0.1",
+        "@types/react-dom": "^19.0.2",
+        "@types/react-modal": "^3.16.3",
+        "sass": "^1.80.4",
+        "sass-loader": "^16.0.2"
+    }
+}
