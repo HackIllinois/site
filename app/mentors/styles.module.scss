@@ -8,26 +8,28 @@
 .backgroundContainer {
     position: fixed;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     filter: brightness(0.85);
 }
 
 .background {
     width: 100vw;
+    min-height: 100vh;
     position: absolute;
-    bottom: -10vw;
+    bottom: -20vw;
     @media screen and (max-width: 800px) {
-        bottom: -20vw;
-    }
-    @media screen and (max-width: 498px) {
         bottom: -35vw;
+    }
+    @media screen and (max-width: 500px) {
+        bottom: -60vw;
     }
 }
 
 .backgroundCloudsTop {
     position: absolute;
-    top: 15vh;
+    top: -20vh;
     width: 100vw;
+    min-height: 100vh;
 }
 
 .content {
@@ -48,10 +50,9 @@
 .body {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     z-index: 1;
-    gap: 2rem;
     padding: 4rem;
     width: 100%;
 }
