@@ -7,7 +7,6 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint && npx prettier . --check",
-        "format": "npx prettier . --write",
         "check": "tsc --noEmit"
     },
     "dependencies": {

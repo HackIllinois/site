@@ -3,7 +3,9 @@
     "private": true,
     "packageManager": "pnpm@10.3.0",
     "workspaces": {
-        "packages": ["apps/*"]
+        "packages": [
+            "apps/*"
+        ]
     },
     "scripts": {
         "dev": "pnpm -r run dev",
@@ -11,6 +13,7 @@
         "start": "pnpm -r run start",
         "lint": "pnpm -r run lint",
         "check": "pnpm -r run check",
+        "format": "npx prettier . --write",
         "lint-staged": "lint-staged",
         "prepare": "husky install"
     },
@@ -24,21 +27,21 @@
         "typescript": "~5.5.4"
     },
     "lint-staged": {
-  "*.ts": [
-    "eslint --fix",
-    "prettier --write"
-  ],
-  "*.tsx": [
-    "eslint --fix",
-    "prettier --write"
-  ],
-  "*.js": [
-    "eslint --fix",
-    "prettier --write"
-  ],
-  "*.jsx": [
-    "eslint --fix",
-    "prettier --write"
-  ]
-}
+        "*.ts": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.tsx": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.js": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.jsx": [
+            "eslint --fix",
+            "prettier --write"
+        ]
+    }
 }
