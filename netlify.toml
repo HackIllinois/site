@@ -1,0 +1,8 @@
+[build]
+  base = "/"
+
+[build.main]
+  base = "apps/main"
+  publish = "apps/main/.next"
+  command = "pnpm install && pnpm build"
+
