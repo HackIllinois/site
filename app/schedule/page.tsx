@@ -53,10 +53,10 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
     const COLORS = ["#DE8E45", "#C5673F", "#84BCB9"];
 
     const happeningNow = useMemo(() => {
-        // const now = moment().unix();
-        // console.log(now, event.startTime, event.endTime);
-        // return event.startTime <= now && event.endTime >= now;
-        return true;
+        const now = moment().unix();
+        console.log(now, event.startTime, event.endTime);
+        return event.startTime <= now && event.endTime >= now;
+        // return true;
     }, [event.startTime, event.endTime]);
 
     return (
