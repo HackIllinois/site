@@ -31,6 +31,11 @@ function timeToHourMinute(time: number) {
 const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
     const tags = useMemo(() => {
         const newTags: string[] = [];
+
+        if (event.points) {
+            newTags.push(`${event.points} pts`);
+        }
+
         if (event.isPro) {
             newTags.push("PRO");
         }
@@ -50,7 +55,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
         .map(location => location.description)
         .join(", ");
 
-    const COLORS = ["#DE8E45", "#C5673F", "#84BCB9"];
+    const COLORS = ["#84BCB9", "#DE8E45", "#C5673F"];
 
     const happeningNow = useMemo(() => {
         //
@@ -105,7 +110,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                     ></div>
                     <p>{locations}</p>
                 </div>
-                <p>{event.description}</p>
+                <p className={styles.description}>{event.description}</p>
             </div>
         </div>
     );
@@ -125,15 +130,6 @@ const Schedule = () => {
         return Array.from(days);
     }, [events]);
 
-    const availableDayToDate = useMemo(() => {
-        const dayToDate: { [key: string]: string } = {};
-        for (const event of events) {
-            const date = moment(event.startTime * 1000).format("MMMM D");
-            dayToDate[event.day] = date;
-        }
-        return dayToDate;
-    }, [availableDays]);
-
     const displayedEvents = useMemo(() => {
         return events.filter(event => event.day === selectedDay);
     }, [selectedDay]);
@@ -145,7 +141,9 @@ const Schedule = () => {
                 newEvents.map(event => {
                     return {
                         ...event,
-                        day: moment(event.startTime * 1000).format("dddd")
+                        day: moment(event.startTime * 1000).format(
+                            "dddd, MMMM D"
+                        )
                     };
                 })
             );
@@ -178,51 +176,50 @@ const Schedule = () => {
                 }}
                 className={styles.screen}
             >
-                <div className={styles.dateSelector}>
-                    <h1>
-                        {selectedDay ? availableDayToDate[selectedDay] : ""}
-                    </h1>
-                    <div className={styles.availableDays}>
-                        {availableDays.map(day => (
-                            <RoundedButton
-                                key={day}
-                                text={day}
-                                isSelected={day === selectedDay}
-                                onClick={() => setSelectedDay(day)}
-                            />
-                        ))}
-                    </div>
-
-                    <div className={styles.cerberus}>
-                        <Image
-                            src="/schedule/characters/cerberus.svg"
-                            fill
-                            alt="cerberus"
-                            style={{ objectFit: "contain" }}
-                        />
-                    </div>
-                </div>
-
-                <div className={styles.eventContent}>
-                    {loading && <p>Loading...</p>}
-
-                    <div
-                        style={{
-                            backgroundImage:
-                                windowSizeHook?.width &&
-                                windowSizeHook?.width > 768
-                                    ? `url(${STONE_TABLET?.src})`
-                                    : ""
-                        }}
-                        className={styles.stoneTablet}
-                    >
-                        <div className={styles.events}>
-                            {displayedEvents.map((event, index) => (
-                                <ScheduleItem
-                                    key={`event-${index}`}
-                                    event={event}
+                <div>
+                    <div className={styles.dateSelector}>
+                        <div className={styles.availableDays}>
+                            {availableDays.map(day => (
+                                <RoundedButton
+                                    key={day}
+                                    text={day}
+                                    isSelected={day === selectedDay}
+                                    onClick={() => setSelectedDay(day)}
                                 />
                             ))}
+                        </div>
+
+                        <div className={styles.cerberus}>
+                            <Image
+                                src="/schedule/characters/cerberus.svg"
+                                fill
+                                alt="cerberus"
+                                style={{ objectFit: "contain" }}
+                            />
+                        </div>
+                    </div>
+
+                    <div className={styles.eventContent}>
+                        {loading && <p>Loading...</p>}
+
+                        <div
+                            style={{
+                                backgroundImage:
+                                    windowSizeHook?.width &&
+                                    windowSizeHook?.width > 768
+                                        ? `url(${STONE_TABLET?.src})`
+                                        : ""
+                            }}
+                            className={styles.stoneTablet}
+                        >
+                            <div className={styles.events}>
+                                {displayedEvents.map((event, index) => (
+                                    <ScheduleItem
+                                        key={`event-${index}`}
+                                        event={event}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>

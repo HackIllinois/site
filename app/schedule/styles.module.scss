@@ -12,6 +12,20 @@
     }
 }
 
+.screen > div {
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+    max-width: 2400px;
+    padding: 30px;
+    margin: 0 auto;
+    justify-content: space-between;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        padding: 0;
+    }
+}
+
 .stoneTablet {
     display: flex;
     flex-direction: column;
@@ -33,6 +47,10 @@
     overflow-y: scroll;
     padding: 50px 100px;
     height: 80vh;
+    @media (max-width: 1152px) {
+        padding: 50px 40px;
+    }
+
     @media (max-width: 768px) {
         padding: 20px 20px;
         gap: 20px;
@@ -47,11 +65,12 @@
     flex: 1;
     padding: 10px 40px;
     padding-top: 150px;
-    max-width: 400px;
     .availableDays {
+        width: fit-content;
         display: flex;
         flex-direction: column;
         gap: 10px;
+        z-index: 999;
         @media (max-width: 768px) {
             flex-direction: row;
             display: flex;
@@ -63,6 +82,7 @@
         padding: 10px 20px;
         padding-top: 120px;
         max-width: 100%;
+        overflow-x: auto;
     }
 }
 
@@ -71,7 +91,6 @@
     padding: 10px;
     padding-top: 120px;
     height: 100%;
-    max-width: 800px;
     @media (max-width: 768px) {
         padding-top: 0;
         padding-bottom: 20px;
@@ -92,6 +111,11 @@
 
 .scheduleItem h3 {
     color: #6d291a;
+    font-size: 28px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
 }
 
 .textRow {
@@ -102,9 +126,23 @@
     margin-bottom: 7px;
 }
 
+.textRow p {
+    font-size: 18px;
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+}
+
+.description {
+    font-size: 18px;
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+}
+
 .icon {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     object-fit: contain;
     background-size: contain;
     background-repeat: no-repeat;

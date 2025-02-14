@@ -7,6 +7,12 @@
 
 .tag {
     border-radius: 5px;
-    padding: 5px;
+    padding: 7px;
     font-weight: 600;
+    font-size: 18px;
+    color: white;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
 }
