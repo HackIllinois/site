@@ -20,7 +20,7 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
                 isSelected && styles.isSelected
             )}
         >
-            <p>{text.toUpperCase()}</p>
+            <p>{text}</p>
         </button>
     );
 };
