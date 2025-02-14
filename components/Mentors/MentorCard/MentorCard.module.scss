@@ -1,0 +1,112 @@
+.container {
+    position: relative;
+    text-align: center;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 7rem;
+    cursor: pointer;
+}
+
+.image {
+    width: 225px;
+    height: 225px;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -15%);
+}
+
+.frontCloud {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -15%);
+}
+
+.scroll {
+    position: absolute;
+    top: -10%;
+    left: -5%;
+    pointer-events: none;
+    width: 90vw;
+    height: 100vh;
+}
+
+.modalContainer {
+    height: 100%;
+    width: 100%;
+}
+
+.modalContent {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    gap: 2rem;
+    padding: 10vw;
+}
+
+.modalImage {
+    z-index: 1;
+    border-radius: 96px;
+    width: 20vw;
+    height: 20vw;
+}
+
+.modalText {
+    color: black;
+    text-align: center;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modalText h1 {
+    font-size: 2.5vw;
+
+    @media screen and (max-width: 700px) {
+        font-size: 3.5vw;
+    }
+}
+
+.modalText p {
+    font-size: 1.2vw;
+
+    @media screen and (max-width: 700px) {
+        font-size: 1.5vw;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .modalContent {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 5rem 1rem;
+        width: 80%;
+        margin: auto;
+        justify-content: center;
+    }
+
+    .modalImage {
+        width: 30vw;
+        height: 30vw;
+        border-radius: 40px;
+    }
+
+    .modalText {
+        gap: 0.5rem;
+    }
+
+    .modalText h1 {
+        font-size: 4.5vw;
+    }
+
+    .modalText p {
+        font-size: 2.5vw;
+    }
+}
