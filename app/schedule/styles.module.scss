@@ -66,12 +66,12 @@
     padding: 10px 40px;
     padding-top: 150px;
     .availableDays {
-        width: fit-content;
         display: flex;
         flex-direction: column;
         gap: 10px;
         z-index: 999;
         @media (max-width: 768px) {
+            width: fit-content;
             flex-direction: row;
             display: flex;
             align-items: center;
