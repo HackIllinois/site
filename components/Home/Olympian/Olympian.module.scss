@@ -110,6 +110,15 @@
     z-index: 4;
 }
 
+.leaf {
+    position: absolute;
+    height: fit-content;
+    width: 5.5vw;
+    top: 115vw;
+    left: 33vw;
+    z-index: 5;
+}
+
 @media screen and (max-width: 768px) {
     .main {
         top: 80vw;
@@ -124,7 +133,8 @@
     }
 
     .character,
-    .secondLayerBackground {
+    .secondLayerBackground,
+    .leaf {
         margin-top: 13vw;
     }
 }

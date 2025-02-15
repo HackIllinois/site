@@ -1,6 +1,6 @@
 "use client";
 import styles from "./Olympian.module.scss";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import clsx from "clsx";
 
 import Image from "next/image";
@@ -10,6 +10,7 @@ import SECOND_LAYER_BACKGROUND from "@/public/home/olympian/second-layer-backgro
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
 import Description from "../Description/Description";
 import GlobalContext from "@/app/context";
+import LEAF from "@/public/home/olympian/leaf.svg";
 
 import APHRODITE from "@/public/home/olympian/aphrodite.svg";
 import ARTEMIS from "@/public/home/olympian/artemis.svg";
@@ -22,6 +23,15 @@ import ZEUS from "@/public/home/olympian/zeus.svg";
 
 const Olympian: React.FC = () => {
     const { eventStatus } = useContext(GlobalContext);
+
+    const [clickCount, setClickCount] = useState(0);
+    const handleClick = () => {
+        setClickCount(clickCount + 1);
+        if (clickCount + 1 === 3) {
+            window.location.href =
+                "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; // Replace with your external link
+        }
+    };
 
     const getButtonData = () => {
         switch (eventStatus) {
@@ -95,6 +105,12 @@ const Olympian: React.FC = () => {
                 alt="second layer background"
                 src={SECOND_LAYER_BACKGROUND}
                 className={styles.secondLayerBackground}
+            />
+            <Image
+                alt="leaf"
+                src={LEAF}
+                className={styles.leaf}
+                onClick={handleClick}
             />
             <Description />
         </section>
