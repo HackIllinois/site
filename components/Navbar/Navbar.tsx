@@ -48,7 +48,6 @@ const Navbar = () => {
             title: "Legal",
             link: "/legal"
         }
-       
     ];
 
     useEffect(() => {
