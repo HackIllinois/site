@@ -1,0 +1,89 @@
+.container {
+    text-align: center;
+    padding-top: 50px;
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .scrollableGrid {
+    max-height: calc(100vh - 50px);
+    overflow-y: auto;
+    width: 100%;
+  }
+  
+  .prizesGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 10px;
+    margin-top: 100px;
+    margin-left: 400px;
+    justify-items: center;
+  }
+  
+  .medalContainer {
+    position: relative;
+    width: 360px;
+    height: 360px;
+    display: inline-block;
+  }
+  
+  .medalIcon {
+    width: 100%;
+    height: auto;
+  }
+  
+  .medalOverlay1,
+  .medalOverlay2 {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: rgb(133, 62, 24);
+    pointer-events: none;
+  }
+  
+  .medalOverlay1 {
+    top: 22%;
+  }
+  
+  .medalOverlay2 {
+    top: 60%;
+  }
+  
+  .prizeInfo h2 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .prizeInfo p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .container {
+      padding-top: 30px;
+    }
+    
+    .title {
+      font-size: 1.5rem;
+    }
+    
+    .prizesGrid {
+      grid-template-columns: 1fr;
+      margin: 50px auto 0 auto; 
+    }
+    
+    .medalContainer {
+      width: 90%;
+      max-width: 360px;
+      height: auto; 
+    }
+  }
+  
