@@ -4,6 +4,7 @@ import styles from "./styles.module.scss";
 import Background from "@/public/prizes/backgrounds/prize_background.svg"; 
 import medal from "@/public/prizes/items/medal.svg"; 
 import Head from "next/head";
+import Image from 'next/image';
 
 const prizesList = [
     { title: "First Place", amount: "$5000" },
@@ -41,7 +42,14 @@ const Prizes: React.FC = () => {
                     <div className={styles.prizesGrid}>
                     {prizesList.map((prize, index) => (
                     <div key={index} className={styles.medalContainer}>
-                        <img src={medal.src} alt="Medal" className={styles.medalIcon} />
+                        <Image
+                            src={medal.src} 
+                            alt="Medal"
+                            width={300}  
+                            height={300} 
+                            className={styles.medalIcon}
+                        />
+
                         <div className={styles.medalOverlay1}>
                             <h1>{prize.title}</h1>
                         </div>
