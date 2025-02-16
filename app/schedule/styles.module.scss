@@ -1,0 +1,170 @@
+.screen {
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+    justify-content: space-between;
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+}
+
+.screen > div {
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+    max-width: 2400px;
+    padding: 30px;
+    margin: 0 auto;
+    justify-content: space-between;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        padding: 0;
+    }
+}
+
+.stoneTablet {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    flex: 1;
+    object-fit: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    height: 100%;
+    border-radius: 10%;
+}
+
+.stoneTablet .events {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: scroll;
+    padding: 50px 100px;
+    height: 80vh;
+    @media (max-width: 1152px) {
+        padding: 50px 40px;
+    }
+
+    @media (max-width: 768px) {
+        padding: 20px 20px;
+        gap: 20px;
+        height: unset;
+    }
+}
+
+.dateSelector {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+    padding: 10px 40px;
+    padding-top: 150px;
+    .availableDays {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 999;
+        @media (max-width: 768px) {
+            width: fit-content;
+            flex-direction: row;
+            display: flex;
+            align-items: center;
+        }
+    }
+    @media (max-width: 768px) {
+        flex: unset;
+        padding: 10px 20px;
+        padding-top: 120px;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+}
+
+.eventContent {
+    flex: 2;
+    padding: 10px;
+    padding-top: 120px;
+    height: 100%;
+    @media (max-width: 768px) {
+        padding-top: 0;
+        padding-bottom: 20px;
+        padding: 0;
+    }
+}
+
+.scheduleItem {
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+    padding: 15px;
+}
+
+.scheduleItem.happeningNow {
+    border-top-left-radius: 0;
+}
+
+.scheduleItem h3 {
+    color: #6d291a;
+    font-size: 28px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+}
+
+.textRow {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.textRow p {
+    font-size: 18px;
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+}
+
+.description {
+    font-size: 18px;
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.happeningNowDiv {
+    background-color: #ffb23e;
+    width: fit-content;
+    padding: 5px 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.cerberus {
+    position: fixed;
+    width: 30vw;
+    height: 50vh;
+    bottom: 0;
+    left: 10;
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+}

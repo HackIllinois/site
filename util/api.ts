@@ -5,7 +5,8 @@ import {
     RSVPType,
     ChallengeStatus,
     ProfileBodyType,
-    ProfileType
+    ProfileType,
+    EventType
 } from "./types";
 import { handleError } from "./helpers";
 
@@ -139,6 +140,10 @@ export async function getRSVP(): Promise<RSVPType> {
     return res;
 }
 
+export async function getEvents(): Promise<EventType[]> {
+    const res = await requestv2("GET", "/event").catch(handleError);
+    return res.events as EventType[];
+}
 export async function getProfile(): Promise<ProfileType> {
     const res = await requestv2("GET", "/profile").catch(handleError);
     return res;
