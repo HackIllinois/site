@@ -31,6 +31,7 @@ import Accepted from "@/components/Profile/RSVP/ModalViews/Accepted";
 import CloseButton from "@/components/CloseButton/CloseButton";
 import Image from "next/image";
 import LOGOUT from "@/public/registration/logout.svg";
+import AvatarSelectorForm from "@/components/AvatarSelectorForm/AvatarSelectorForm";
 
 type ValueItemProps = {
     label: string;
@@ -66,6 +67,12 @@ const Profile: React.FC = () => {
     const [qrCodeURL, setQRCodeURL] = useState<string | null>(null);
 
     const [modalOpen, setModalOpen] = useState(false);
+    const [avatarSelector, setAvatarSelector] = useState(false);
+
+    const openAvatarSelector = () => {
+        setModalOpen(true);
+        setAvatarSelector(true);
+    };
 
     // Extracts the avatarId from the adonix metadata url
     const avatarId = profile?.avatarUrl.split("/").at(-1)?.slice(undefined, -4);
@@ -178,6 +185,8 @@ const Profile: React.FC = () => {
                             isProApplicant={isProApplicant}
                             qrUrl={qrCodeURL}
                             reimburse={RSVP.reimbursementValue}
+                            avatarSelector={avatarSelector}
+                            avatarId={avatarId}
                             onRequestClose={() => setModalOpen(false)}
                         />
                     </div>
@@ -194,15 +203,19 @@ const Profile: React.FC = () => {
                         <Image alt="Logout" src={LOGOUT} />
                     </div>
                 </button>
-                {profile && (
-                    <Image
-                        src={profile.avatarUrl}
-                        alt={avatarId!}
-                        className={styles.profileImageMobile}
-                        width={125}
-                        height={125}
-                    />
-                )}
+                <button
+                    onClick={openAvatarSelector}
+                    className={styles.profileImageMobile}
+                >
+                    {profile && (
+                        <Image
+                            src={profile.avatarUrl}
+                            alt={avatarId!}
+                            width={125}
+                            height={125}
+                        />
+                    )}
+                </button>
                 <div
                     style={{
                         backgroundImage: `url(${APPLICATION_STATUS_BOARD?.src})`
@@ -301,15 +314,19 @@ const Profile: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                {avatarId && (
-                    <Image
-                        src={`/profile/characters/${avatarId}.svg`}
-                        alt={avatarId}
-                        className={styles.profileImage}
-                        width={400}
-                        height={600}
-                    />
-                )}
+                <button
+                    onClick={openAvatarSelector}
+                    className={styles.profileImage}
+                >
+                    {avatarId && (
+                        <Image
+                            src={`/profile/characters/${avatarId}.svg`}
+                            alt={avatarId}
+                            width={400}
+                            height={600}
+                        />
+                    )}
+                </button>
             </div>
         </>
     );
@@ -330,6 +347,8 @@ type ModalContentProps = {
     isPro: boolean;
     isProApplicant: boolean;
     qrUrl: string | null;
+    avatarSelector: boolean;
+    avatarId: string | undefined;
     reimburse: number;
     onRequestClose: () => void;
 };
@@ -340,12 +359,23 @@ const ModalContent: React.FC<ModalContentProps> = ({
     isPro,
     isProApplicant,
     qrUrl,
+    avatarSelector,
+    avatarId,
     reimburse,
     onRequestClose
 }) => {
     switch (status) {
         case "ACCEPTED":
             if (response === "ACCEPTED") {
+                if (avatarSelector) {
+                    return (
+                        <AvatarSelectorForm
+                            avatarId={avatarId ?? ""}
+                            closeModal={onRequestClose}
+                        />
+                    );
+                }
+
                 return <QR qrUrl={qrUrl} />;
             }
 
