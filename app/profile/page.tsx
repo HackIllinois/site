@@ -2,6 +2,7 @@
 import {
     authenticate,
     getChallenge,
+    getProfile,
     getQRCode,
     getRegistrationOrDefault,
     getRSVP,
@@ -14,7 +15,7 @@ import APPLICATION_STATUS_BOARD from "@/public/registration/backgrounds/applicat
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import Head from "next/head";
-import { RegistrationData, RSVPType } from "@/util/types";
+import { ProfileType, RegistrationData, RSVPType } from "@/util/types";
 import { registrationFromAPI } from "@/util/helpers";
 import Loading from "@/components/Loading/Loading";
 import { usePathname, useRouter } from "next/navigation";
@@ -28,6 +29,8 @@ import {
 } from "@/components/Profile/RSVP/ModalViews/Rejected";
 import Accepted from "@/components/Profile/RSVP/ModalViews/Accepted";
 import CloseButton from "@/components/CloseButton/CloseButton";
+import Image from "next/image";
+import LOGOUT from "@/public/registration/logout.svg";
 
 type ValueItemProps = {
     label: string;
@@ -57,11 +60,15 @@ const Profile: React.FC = () => {
     );
     const [RSVP, setRSVP] = useState<RSVPType | null>(null);
     const [isProApplicant, setIsProApplicant] = useState(false);
+    const [profile, setProfile] = useState<ProfileType | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     const [qrCodeURL, setQRCodeURL] = useState<string | null>(null);
 
     const [modalOpen, setModalOpen] = useState(false);
+
+    // Extracts the avatarId from the adonix metadata url
+    const avatarId = profile?.avatarUrl.split("/").at(-1)?.slice(undefined, -4);
 
     const getButtonText = () => {
         if (RSVP?.status === "REJECTED" || RSVP?.status === "WAITLISTED") {
@@ -81,9 +88,12 @@ const Profile: React.FC = () => {
             return;
         }
 
+        let interval: NodeJS.Timeout;
+
         getRegistrationOrDefault().then(registration => {
             if (!registration.hasSubmitted) {
                 router.push("/register");
+                return;
             }
 
             setRegistration(registrationFromAPI(registration));
@@ -95,13 +105,27 @@ const Profile: React.FC = () => {
                         RSVP.status === "ACCEPTED" &&
                         RSVP.response === "ACCEPTED"
                     ) {
-                        const qrCodeUrl = await getQRCode();
+                        const [qrCodeUrl, profile] = await Promise.all([
+                            getQRCode(),
+                            getProfile()
+                        ]);
+                        setProfile(profile);
                         setQRCodeURL(qrCodeUrl);
+                        interval = setInterval(async () => {
+                            const qrCodeUrl = await getQRCode();
+                            setQRCodeURL(qrCodeUrl);
+                        }, 15000);
                     }
                     setIsLoading(false);
                 }
             );
         });
+
+        return () => {
+            if (interval) {
+                clearInterval(interval);
+            }
+        };
     }, [pathname, router]);
 
     useEffect(() => {
@@ -167,26 +191,18 @@ const Profile: React.FC = () => {
             >
                 <button className={styles.signOutButton} onClick={logOut}>
                     <div className={styles.signOut}>
-                        <svg
-                            fill="#ffffff"
-                            height="75px"
-                            width="75px"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 384.971 384.971"
-                        >
-                            <path
-                                d="M180.455,360.91H24.061V24.061h156.394c6.641,0,12.03-5.39,12.03-12.03s-5.39-12.03-12.03-12.03H12.03
-                                C5.39,0.001,0,5.39,0,12.031V372.94c0,6.641,5.39,12.03,12.03,12.03h168.424c6.641,0,12.03-5.39,12.03-12.03
-                                C192.485,366.299,187.095,360.91,180.455,360.91z"
-                            />
-                            <path
-                                d="M381.481,184.088l-83.009-84.2c-4.704-4.752-12.319-4.74-17.011,0c-4.704,4.74-4.704,12.439,0,17.179l62.558,63.46H96.279
-                                c-6.641,0-12.03,5.438-12.03,12.151c0,6.713,5.39,12.151,12.03,12.151h247.74l-62.558,63.46c-4.704,4.752-4.704,12.439,0,17.179
-                                c4.704,4.752,12.319,4.752,17.011,0l82.997-84.2C386.113,196.588,386.161,188.756,381.481,184.088z"
-                            />
-                        </svg>
+                        <Image alt="Logout" src={LOGOUT} />
                     </div>
                 </button>
+                {profile && (
+                    <Image
+                        src={profile.avatarUrl}
+                        alt={avatarId!}
+                        className={styles.profileImageMobile}
+                        width={125}
+                        height={125}
+                    />
+                )}
                 <div
                     style={{
                         backgroundImage: `url(${APPLICATION_STATUS_BOARD?.src})`
@@ -209,11 +225,19 @@ const Profile: React.FC = () => {
                                 <h3>Type</h3>
                                 <ValueItem
                                     label="Pro"
-                                    isHighlighted={isProApplicant}
+                                    isHighlighted={
+                                        RSVP && RSVP.status !== "TBD"
+                                            ? RSVP!.admittedPro
+                                            : isProApplicant
+                                    }
                                 />
                                 <ValueItem
                                     label="General"
-                                    isHighlighted={!isProApplicant}
+                                    isHighlighted={
+                                        RSVP && RSVP.status !== "TBD"
+                                            ? !RSVP!.admittedPro
+                                            : !isProApplicant
+                                    }
                                 />
                             </div>
                             <div className={styles.col}>
@@ -277,6 +301,15 @@ const Profile: React.FC = () => {
                         </div>
                     </div>
                 </div>
+                {avatarId && (
+                    <Image
+                        src={`/profile/characters/${avatarId}.svg`}
+                        alt={avatarId}
+                        className={styles.profileImage}
+                        width={400}
+                        height={600}
+                    />
+                )}
             </div>
         </>
     );
@@ -285,7 +318,7 @@ const Profile: React.FC = () => {
 const QR: React.FC<{ qrUrl: string | null }> = ({ qrUrl }) => {
     return (
         <>
-            <h2>Your QR Code</h2>
+            <h1>Your QR Code</h1>
             {qrUrl && <QRCodeSVG value={qrUrl} className={styles.qr} />}
         </>
     );

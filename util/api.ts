@@ -143,6 +143,10 @@ export async function getRSVP(): Promise<RSVPType> {
 export async function getEvents(): Promise<EventType[]> {
     const res = await requestv2("GET", "/event").catch(handleError);
     return res.events as EventType[];
+
+export async function getProfile(): Promise<ProfileType> {
+    const res = await requestv2("GET", "/profile").catch(handleError);
+    return res;
 }
 
 export async function RSVPDecideAccept() {
@@ -150,6 +154,13 @@ export async function RSVPDecideAccept() {
         handleError
     );
     return res;
+}
+
+export async function refreshToken() {
+    const res = await requestv2("GET", "/auth/token/refresh/").catch(
+        handleError
+    );
+    localStorage.setItem("token", res.token);
 }
 
 export async function RSVPDecideDecline() {

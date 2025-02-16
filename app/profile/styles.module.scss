@@ -103,9 +103,17 @@
     gap: 10px;
     align-items: center;
     justify-content: center;
+    width: calc(100% - 4rem);
+    min-height: calc(100% - (4rem + 5vw));
+    padding: calc(2rem + 5vw) 2rem 2rem 2rem;
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        min-height: calc(100% - (4rem + 30vw));
+        padding: calc(2rem + 30vw) 1rem 2rem 1rem;
+    }
+
     width: 100%;
-    min-height: 100%;
-    padding: 2rem;
 }
 
 .modalContent p {
@@ -114,14 +122,27 @@
 
 .qr {
     width: 100%;
-    max-width: 600px;
+    max-width: 400px;
     height: auto;
 }
 
-.modalContent h2 {
+.modalContent h1 {
+    color: white;
+    font-size: 3vw;
+
+    @media screen and (max-width: 768px) {
+        font-size: 6vw;
+    }
+}
+
+.modalContent p {
     color: white;
     margin-bottom: 10px;
-    font-size: 30px;
+    font-size: 2vw;
+
+    @media screen and (max-width: 768px) {
+        font-size: 6vw;
+    }
 }
 
 .closeButton {
@@ -179,4 +200,21 @@
 
 .signOutButton {
     cursor: pointer;
+}
+
+.profileImage {
+    @media screen and (max-width: 1152px) {
+        display: none;
+    }
+}
+
+.profileImageMobile {
+    position: absolute;
+    display: none;
+    bottom: 30px;
+    left: 30px;
+
+    @media screen and (max-width: 1152px) {
+        display: block;
+    }
 }

@@ -14,10 +14,12 @@ import GlobalContext from "../context";
 import {
     isAuthenticated,
     authenticate,
-    getRegistrationOrDefault
+    getRegistrationOrDefault,
+    logOut
 } from "@/util/api";
 import { usePathname, useRouter } from "next/navigation";
 import Loading from "@/components/Loading/Loading";
+import LOGOUT from "@/public/registration/logout.svg";
 
 const Closed: React.FC = () => {
     const { eventStatus } = useContext(GlobalContext);
@@ -71,6 +73,11 @@ const Closed: React.FC = () => {
                     }}
                     className={styles.container}
                 >
+                    <button className={styles.signOutButton} onClick={logOut}>
+                        <div className={styles.signOut}>
+                            <Image alt="Logout" src={LOGOUT} />
+                        </div>
+                    </button>
                     <div className={styles.topSpacer}></div>
                     <div className={styles.content}>
                         <h2>

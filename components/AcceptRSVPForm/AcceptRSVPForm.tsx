@@ -7,10 +7,11 @@ import * as yup from "yup";
 import Checkboxes from "@/components/Form/Checkboxes/Checkboxes";
 import TextInput from "@/components/Form/TextInput/TextInput";
 import AvatarSelector from "../AvatarSelector/AvatarSelector";
-import { setProfile } from "@/util/api";
+import { refreshToken, setProfile } from "@/util/api";
 import Link from "next/link";
 import { RSVPDecideAccept } from "@/util/api";
 import Loading from "@/components/Loading/Loading";
+import Image from "next/image";
 
 const schema = yup.object({
     displayName: yup.string().required("Please enter a display name"),
@@ -41,13 +42,9 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
         console.log(displayName, discordTag, avatarId);
         setIsLoading(true);
 
-        await Promise.all([
-            setProfile({ displayName, discordTag, avatarId }),
-            RSVPDecideAccept()
-        ]).catch(e => {
-            console.error(e);
-            setIsLoading(false);
-        });
+        await RSVPDecideAccept();
+        await refreshToken();
+        await setProfile({ displayName, discordTag, avatarId });
 
         window.location.reload();
     };
@@ -58,74 +55,87 @@ const AcceptRSVPForm: React.FC<AcceptRSVPFormProps> = ({ closeModal }) => {
 
     return (
         <div className={styles.container}>
-            <Formik
-                initialValues={{
-                    displayName: "",
-                    discordTag: "",
-                    avatarId: "",
-                    codeOfConductAcknowledge: ""
-                }}
-                onSubmit={handleSubmit}
-                validationSchema={schema}
-            >
-                <Form className={styles.form}>
-                    <h2>
-                        We are so excited to have you at HackIllinois this year!
-                        Please complete the following information to confirm
-                        your attendance:
-                    </h2>
-                    <TextInput
-                        name="displayName"
-                        label="Display Name"
-                        required
-                    />
+            <h1>We are so excited to have you at HackIllinois this year!</h1>
+            <div className={styles.content}>
+                <Formik
+                    initialValues={{
+                        displayName: "",
+                        discordTag: "",
+                        avatarId: "",
+                        codeOfConductAcknowledge: ""
+                    }}
+                    onSubmit={handleSubmit}
+                    validationSchema={schema}
+                >
+                    <Form className={styles.form}>
+                        <h2>
+                            Please complete the following information to confirm
+                            your attendance:
+                        </h2>
+                        <TextInput
+                            name="displayName"
+                            label="Display Name"
+                            required
+                        />
 
-                    <TextInput name="discordTag" label="Discord Tag" required />
+                        <TextInput
+                            name="discordTag"
+                            label="Discord Tag"
+                            required
+                        />
 
-                    <AvatarSelector
-                        name="avatarId"
-                        label="Select an avatar"
-                        required
-                    />
+                        <AvatarSelector
+                            name="avatarId"
+                            label="Select an avatar"
+                            required
+                        />
 
-                    <Checkboxes
-                        name="codeOfConductAcknowledge"
-                        label={
-                            <p>
-                                To participate in HackIllinois, you must accept
-                                our{" "}
-                                <Link
-                                    prefetch={false}
-                                    href="/legal/code-of-conduct"
-                                    target="_blank"
-                                >
-                                    Code of Conduct
-                                </Link>
-                                :
-                            </p>
-                        }
-                        options={[
-                            {
-                                label: "I accept the Code of Conduct",
-                                value: "YES"
+                        <Checkboxes
+                            name="codeOfConductAcknowledge"
+                            label={
+                                <label>
+                                    To participate in HackIllinois, you must
+                                    accept our{" "}
+                                    <Link
+                                        prefetch={false}
+                                        href="/legal/code-of-conduct"
+                                        target="_blank"
+                                    >
+                                        Code of Conduct
+                                    </Link>
+                                    :
+                                </label>
                             }
-                        ]}
-                    />
+                            options={[
+                                {
+                                    label: "I accept the Code of Conduct",
+                                    value: "YES"
+                                }
+                            ]}
+                        />
 
-                    <div className={styles.buttons}>
-                        <button
-                            type="button"
-                            className={styles.formButton}
-                            onClick={closeModal}
-                        >
-                            Cancel
-                        </button>
-                        <button type="submit" className={styles.formButton}>
-                            Submit
-                        </button>
-                    </div>
-                </Form>
-            </Formik>
+                        <div className={styles.buttons}>
+                            <button
+                                type="button"
+                                className={styles.formButton}
+                                onClick={closeModal}
+                            >
+                                Cancel
+                            </button>
+                            <button type="submit" className={styles.formButton}>
+                                Submit
+                            </button>
+                        </div>
+                    </Form>
+                </Formik>
+                <Image
+                    src="/profile/characters/zeus.svg"
+                    alt="zeus"
+                    className={styles.character}
+                    width={500}
+                    height={600}
+                />
+            </div>
         </div>
     );
 };

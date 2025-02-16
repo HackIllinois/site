@@ -17,8 +17,28 @@
     color: white;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 4vw;
     padding: 20px;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.character {
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
 }
 
 .textBlock {
@@ -29,10 +49,9 @@
     align-items: center;
     gap: 20px;
     padding: 20px;
-    width: 70%;
+    width: 80%;
     margin: auto;
     text-align: center;
-    font-size: 1.5vw;
 
     @media (max-width: 768px) {
         width: 100%;
@@ -42,10 +61,6 @@
 .textBlock p {
     color: white;
     text-align: center;
-
-    @media (max-width: 768px) {
-        font-size: 3vw;
-    }
 }
 
 .shiny {
@@ -67,7 +82,7 @@
 }
 
 .unfortunatelyText {
-    font-size: 4vw;
+    font-size: 2vw;
     text-align: center;
 
     @media (max-width: 768px) {
@@ -82,6 +97,7 @@
 .confirmRejectText {
     font-size: 4vw;
     text-align: center;
+    height: fit-content;
 
     @media (max-width: 768px) {
         font-size: 6vw;

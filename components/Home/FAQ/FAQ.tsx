@@ -16,7 +16,7 @@ const FAQSection: FC = () => {
             <Image
                 alt="background"
                 src={
-                    windowSizeHook?.width && windowSizeHook.width > 768
+                    windowSizeHook?.width && windowSizeHook.width >= 768
                         ? BACKGROUND_DESKTOP
                         : BACKGROUND_MOBILE
                 }

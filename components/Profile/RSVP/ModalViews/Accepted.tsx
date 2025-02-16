@@ -5,6 +5,7 @@ import styles from "./styles.module.scss";
 import ConfirmReject from "./ConfirmReject";
 import { RSVPDecideDecline } from "@/util/api";
 import Loading from "@/components/Loading/Loading";
+import Image from "next/image";
 
 type AcceptedType = "PRO" | "PRO_TO_GENERAL" | "GENERAL";
 
@@ -77,21 +78,37 @@ export function ChooseRSVP({
 }: ChooseRSVPProps) {
     return (
         <div className={styles.container}>
-            <div className={styles.textBlock}>
-                <AcceptedVerbage acceptedType={acceptedType} />
-                <p>
-                    If you would like to attend HackIllinois 2025, click Confirm
-                    to finish the RSVP process. If you won&apos;t be attending
-                    please click Decline. This cannot be reversed.
-                </p>
-                {reimburse > 0 && (
+            <div className={styles.content}>
+                <div className={styles.textBlock}>
+                    <AcceptedVerbage acceptedType={acceptedType} />
                     <p>
-                        Additionally, you have been approved for a travel
-                        reimbursement of ${reimburse.toFixed(2)}. Receiving this
-                        reimbursement is contingent on you coming to
-                        HackIllinois in-person and submitting a project.
+                        If you would like to attend HackIllinois 2025, click{" "}
+                        <code>Confirm</code> to finish the RSVP process. If you
+                        won&apos;t be attending please click{" "}
+                        <code>Decline</code> . <b>This cannot be reversed</b>.
                     </p>
-                )}
+                    {reimburse > 0 ? (
+                        <p>
+                            Additionally, you have been approved for a travel
+                            reimbursement of $
+                            {reimburse.toLocaleString("en-US")}. Receiving this
+                            reimbursement is contingent on you coming to
+                            HackIllinois in-person and submitting a project.
+                        </p>
+                    ) : (
+                        <p>
+                            Unfortunately, we are unable to offer any travel
+                            reimbursement for you.
+                        </p>
+                    )}
+                </div>
+                <Image
+                    src="/profile/characters/apollo.svg"
+                    alt="apollo"
+                    className={styles.character}
+                    width={300}
+                    height={600}
+                />
             </div>
             <div className={styles.buttonGroup}>
                 <OlympianButton
@@ -120,9 +137,9 @@ function AcceptedVerbage({ acceptedType }: AcceptedVerbageProps) {
         case "GENERAL":
             return (
                 <>
-                    <b className={styles.acceptedText}>
+                    <h1 className={styles.acceptedText}>
                         Congratulations! You&apos;ve been accepted as a
-                    </b>
+                    </h1>
                     <b> </b>
                     <b className={styles.shiny}>General Attendee</b>
                     <b> </b>
@@ -131,10 +148,10 @@ function AcceptedVerbage({ acceptedType }: AcceptedVerbageProps) {
         case "PRO_TO_GENERAL":
             return (
                 <>
-                    <b className={styles.acceptedText}>
+                    <h1 className={styles.acceptedText}>
                         Unfortunately, we couldn&apos;t offer you a spot as a
                         HackKnight, but you&apos;ve been accepted as a
-                    </b>
+                    </h1>
                     <b> </b>
                     <b className={styles.shiny}>General Attendee</b>
                     <b> </b>
@@ -143,9 +160,9 @@ function AcceptedVerbage({ acceptedType }: AcceptedVerbageProps) {
         case "PRO":
             return (
                 <>
-                    <b className={styles.acceptedText}>
+                    <h1 className={styles.acceptedText}>
                         Congratulations! You&apos;ve been accepted as a
-                    </b>
+                    </h1>
                     <b> </b>
                     <b className={styles.shiny}>HackOlympian</b>
                     <b> </b>
