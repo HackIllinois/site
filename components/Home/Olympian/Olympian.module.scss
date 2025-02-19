@@ -4,13 +4,7 @@
     position: relative;
     width: 100%;
     height: fit-content;
-    background: linear-gradient(
-        360deg,
-        #fff3b6 61.1%,
-        #ffe1d6 68.5%,
-        #32c0e2 82.05%,
-        #0e87cc 100%
-    );
+    background: linear-gradient(360deg, #9af2fb 25%, #32c0e2 60%, #0e87cc 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,16 +12,12 @@
 
 .main {
     position: absolute;
-    top: 200px;
+    top: 39vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 80px;
-
-    @media screen and (max-width: 1152px) {
-        top: 120px;
-        gap: 20px;
-    }
+    gap: 10px;
+    z-index: 5;
 }
 
 @keyframes scaleUpDown {
@@ -44,17 +34,109 @@
     height: fit-content;
     width: 80vw;
     animation: scaleUpDown 5s infinite;
-
-    @media screen and (max-width: 768px) {
-        width: 90vw;
-    }
 }
 
 .background {
     height: fit-content;
     width: 100vw;
+    margin-top: 3vw;
+    margin-right: 5vw;
+}
 
-    @media screen and (max-width: 768px) {
-        margin-top: 86px;
+.apollo {
+    left: 15vw;
+    top: 17vw;
+    z-index: 2;
+    width: 15vw;
+}
+
+.athena {
+    left: 14vw;
+    top: 6vw;
+    z-index: 1;
+    width: 21vw;
+}
+
+.aphrodite {
+    top: 6vw;
+    left: 68vw;
+    width: 15.75vw;
+}
+
+.artemis {
+    top: 19vw;
+    left: 60vw;
+    z-index: 3;
+    width: 24vw;
+}
+
+.hades {
+    left: 22vw;
+    top: 10vw;
+    z-index: 2;
+    width: 19.5vw;
+}
+
+.persephone {
+    left: 24vw;
+    top: 12vw;
+    z-index: 1;
+    width: 37vw;
+}
+.poseidon {
+    top: 12vw;
+    left: 43vw;
+    z-index: 2;
+    width: 32.25vw;
+}
+
+.zeus {
+    left: 50vw;
+    top: 15vw;
+    transform: translate(-50%);
+    z-index: 3;
+    width: 33.75vw;
+}
+
+.character {
+    position: absolute;
+    height: auto;
+}
+
+.secondLayerBackground {
+    position: absolute;
+    height: fit-content;
+    width: 120vw;
+    top: 28vw;
+    margin-right: 11vw;
+    z-index: 4;
+}
+
+.leaf {
+    position: absolute;
+    height: fit-content;
+    width: 5vw;
+    top: 72vw;
+    left: 46vw;
+    z-index: 5;
+}
+
+@media screen and (max-width: 768px) {
+    .main {
+        top: 62vw;
+    }
+
+    .background {
+        margin-top: 25vw;
+    }
+
+    .logo {
+        width: 90vw;
+    }
+
+    .character,
+    .secondLayerBackground,
+    .leaf {
+        margin-top: 23vw;
     }
 }
