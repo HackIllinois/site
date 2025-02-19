@@ -201,3 +201,9 @@ export async function getQRCode(): Promise<string> {
 export function setProfile(body: ProfileBodyType): Promise<ProfileType> {
     return requestv2("POST", "/profile", body).catch(handleError);
 }
+
+export function updateProfile(
+    body: Partial<ProfileBodyType>
+): Promise<ProfileType> {
+    return requestv2("PUT", "/profile", body).catch(handleError);
+}
