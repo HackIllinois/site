@@ -211,8 +211,8 @@ const Profile: React.FC = () => {
                         <Image
                             src={profile.avatarUrl}
                             alt={avatarId!}
-                            width={125}
-                            height={125}
+                            width={110}
+                            height={110}
                         />
                     )}
                 </button>
