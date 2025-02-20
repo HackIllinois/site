@@ -1,6 +1,6 @@
 "use client";
 import styles from "./Olympian.module.scss";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import clsx from "clsx";
 
 import Image from "next/image";
@@ -44,6 +44,40 @@ const Olympian: React.FC = () => {
         }
     };
 
+    useEffect(() => {
+        const apollo = document.querySelector(`.${styles.apollo}`);
+        const aphrodite = document.querySelector(`.${styles.aphrodite}`);
+        const athena = document.querySelector(`.${styles.athena}`);
+        const hades = document.querySelector(`.${styles.hades}`);
+        const persephone = document.querySelector(`.${styles.persephone}`);
+        const poseidon = document.querySelector(`.${styles.poseidon}`);
+        const zeus = document.querySelector(`.${styles.zeus}`);
+        const artemis = document.querySelector(`.${styles.artemis}`);
+
+        setTimeout(() => {
+            apollo?.classList.remove(styles.shiftDown);
+            aphrodite?.classList.remove(styles.shiftDown);
+        }, 1000);
+
+        setTimeout(() => {
+            athena?.classList.remove(styles.shiftDown);
+            artemis?.classList.remove(styles.shiftDown);
+        }, 2000);
+
+        setTimeout(() => {
+            hades?.classList.remove(styles.shiftDown);
+            poseidon?.classList.remove(styles.shiftDown);
+        }, 3000);
+
+        setTimeout(() => {
+            persephone?.classList.remove(styles.shiftDown);
+        }, 3500);
+
+        setTimeout(() => {
+            zeus?.classList.remove(styles.shiftDown);
+        }, 4000);
+    }, []);
+
     return (
         <section className={styles.olympianMain}>
             <div className={styles.main}>
@@ -58,42 +92,74 @@ const Olympian: React.FC = () => {
                 <Image
                     alt="Apollo"
                     src={APOLLO}
-                    className={clsx(styles.apollo, styles.character)}
+                    className={clsx(
+                        styles.apollo,
+                        styles.character,
+                        styles.shiftDown
+                    )}
                 />
                 <Image
                     alt="Athena"
                     src={ATHENA}
-                    className={clsx(styles.athena, styles.character)}
+                    className={clsx(
+                        styles.athena,
+                        styles.character,
+                        styles.shiftDown
+                    )}
                 />
                 <Image
                     alt="Hades"
                     src={HADES}
-                    className={clsx(styles.hades, styles.character)}
+                    className={clsx(
+                        styles.hades,
+                        styles.character,
+                        styles.shiftDown
+                    )}
                 />
                 <Image
                     alt="Persephone"
                     src={PERSEPHONE}
-                    className={clsx(styles.persephone, styles.character)}
+                    className={clsx(
+                        styles.persephone,
+                        styles.character,
+                        styles.shiftDown
+                    )}
                 />
                 <Image
                     alt="Zeus"
                     src={ZEUS}
-                    className={clsx(styles.zeus, styles.character)}
+                    className={clsx(
+                        styles.zeus,
+                        styles.character,
+                        styles.shiftDown
+                    )}
                 />
                 <Image
                     alt="Poseidon"
                     src={POSEIDON}
-                    className={clsx(styles.poseidon, styles.character)}
+                    className={clsx(
+                        styles.poseidon,
+                        styles.character,
+                        styles.shiftDown
+                    )}
                 />
                 <Image
                     alt="Artemis"
                     src={ARTEMIS}
-                    className={clsx(styles.artemis, styles.character)}
+                    className={clsx(
+                        styles.artemis,
+                        styles.character,
+                        styles.shiftDown
+                    )}
                 />
                 <Image
                     alt="Aphrodite"
                     src={APHRODITE}
-                    className={clsx(styles.aphrodite, styles.character)}
+                    className={clsx(
+                        styles.aphrodite,
+                        styles.character,
+                        styles.shiftDown
+                    )}
                 />
             </div>
             <Image
