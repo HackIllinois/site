@@ -1,16 +1,9 @@
-import MentorCard from "@/components/Mentors/MentorCard/MentorCard";
 import { mentors } from "@/modules/MentorsData";
 import styles from "./styles.module.scss";
 import BACKGROUND from "@/public/mentors/mentors-background.svg";
 import BACKGROUND_CLOUDS from "@/public/mentors/background-clouds.svg";
 import Image from "next/image";
-
-type mentorProps = {
-    id: number;
-    name: string;
-    image: string;
-    desc: string;
-};
+import GridLayout from "@/components/GridLayout/GridLayout";
 
 const Mentors = () => {
     return (
@@ -27,23 +20,7 @@ const Mentors = () => {
                     className={styles.backgroundCloudsTop}
                 />
             </div>
-
-            <div className={styles.content}>
-                <h1>Mentors</h1>
-                <div className={styles.body}>
-                    {mentors
-                        .sort((a, b) => a.id - b.id)
-                        .map((mentor: mentorProps) => (
-                            <MentorCard
-                                key={mentor.id}
-                                id={mentor.id}
-                                name={mentor.name}
-                                image={mentor.image}
-                                desc={mentor.desc}
-                            />
-                        ))}
-                </div>
-            </div>
+            <GridLayout data={mentors} header="Mentors" />
         </div>
     );
 };

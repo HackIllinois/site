@@ -4,7 +4,6 @@ import styles from "./MentorCard.module.scss";
 import BACK_CLOUD from "@/public/mentors/mentor-back-cloud.svg";
 import FRONT_CLOUD from "@/public/mentors/mentor-front-cloud.svg";
 import Image from "next/image";
-import TEST_IMAGE from "@/public/mentors/mentor-images/abdu.jpg";
 import Modal from "react-modal";
 import { useState } from "react";
 import SCROLL from "@/public/mentors/mentor-scroll.svg";
@@ -24,7 +23,6 @@ const MentorCard: React.FC<mentorProps> = ({ id, name, image, desc }) => {
 
     const handleClick = () => {
         setModalOpen(true);
-        console.log(image);
     };
 
     return (
@@ -58,9 +56,8 @@ const MentorCard: React.FC<mentorProps> = ({ id, name, image, desc }) => {
                     />
                     <div className={styles.modalContainer}>
                         <div className={styles.modalContent}>
-                            {/* they are all abdu bc i did not want to copy over all the picture files */}
-                            <Image
-                                src={TEST_IMAGE}
+                            <img
+                                src={image}
                                 alt="image"
                                 className={styles.modalImage}
                             />
@@ -79,11 +76,7 @@ const MentorCard: React.FC<mentorProps> = ({ id, name, image, desc }) => {
                     className={styles.backCloud}
                 />
                 <div>
-                    <Image
-                        src={TEST_IMAGE}
-                        alt="image"
-                        className={styles.image}
-                    />
+                    <img src={image} alt="image" className={styles.image} />
                 </div>
                 <Image
                     src={FRONT_CLOUD}
