@@ -23,7 +23,7 @@ const SponsorItem: React.FC<SponsorItemProps> = ({
     height
 }) => {
     return (
-        <Link href={link}>
+        <Link href={link} target="blank" rel="noopener noreferrer">
             <div
                 className={clsx(
                     className,
