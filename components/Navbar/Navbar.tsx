@@ -45,6 +45,10 @@ const Navbar = () => {
             link: "/prizes"
         },
         {
+            title: "Travel",
+            link: "/travel"
+        },
+        {
             title: "Legal",
             link: "/legal"
         }
