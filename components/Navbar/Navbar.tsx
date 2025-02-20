@@ -41,10 +41,6 @@ const Navbar = () => {
     const navbarItems: NavbarItem[] = [
         ...getDynamicNavItems(),
         {
-            title: "Prizes",
-            link: "/prizes"
-        },
-        {
             title: "Travel",
             link: "/travel"
         },
