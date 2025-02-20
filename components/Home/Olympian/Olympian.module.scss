@@ -91,9 +91,8 @@
 }
 
 .zeus {
-    left: 50vw;
+    left: 33.125vw;
     top: 15vw;
-    transform: translate(-50%);
     z-index: 3;
     width: 33.75vw;
 }
@@ -101,6 +100,11 @@
 .character {
     position: absolute;
     height: auto;
+    transition: all 2s ease-in-out;
+}
+
+.shiftDown {
+    transform: translateY(500px);
 }
 
 .secondLayerBackground {
