@@ -103,7 +103,7 @@
     gap: 10px;
     align-items: center;
     justify-content: center;
-    width: calc(100% - 4rem);
+    width: 100%;
     min-height: calc(100% - (4rem + 5vw));
     padding: calc(2rem + 5vw) 2rem 2rem 2rem;
 
@@ -112,8 +112,6 @@
         min-height: calc(100% - (4rem + 30vw));
         padding: calc(2rem + 30vw) 1rem 2rem 1rem;
     }
-
-    width: 100%;
 }
 
 .modalContent p {
