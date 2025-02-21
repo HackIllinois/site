@@ -79,14 +79,14 @@
     height: 100%;
     color: black;
     padding: 1rem;
-    overflow: auto; /* optional: scroll if content overflows */
-    padding: 270px 270px;
+
+    padding: 240px 270px;
     p {
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
 
     ul {
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
     ul > li {
         margin-left: 30px;
@@ -97,6 +97,7 @@
     }
     font-size: 1.2rem;
     @media (max-width: 1200px) {
+        overflow: auto; /* optional: scroll if content overflows */
         padding: 23vw 24vw;
     }
     @media (max-width: 768px) {
@@ -110,7 +111,9 @@
 
 .overlayContent {
     height: 100%;
-    overflow-y: auto;
+    @media (max-width: 1200px) {
+        overflow: auto; /* optional: scroll if content overflows */
+    }
 }
 
 .travelDetails {
