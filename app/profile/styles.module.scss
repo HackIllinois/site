@@ -203,6 +203,8 @@
 }
 
 .profileImage {
+    cursor: pointer;
+
     @media screen and (max-width: 1152px) {
         display: none;
     }
@@ -211,8 +213,9 @@
 .profileImageMobile {
     position: absolute;
     display: none;
-    bottom: 30px;
+    bottom: 25px;
     left: 30px;
+    cursor: pointer;
 
     @media screen and (max-width: 1152px) {
         display: block;

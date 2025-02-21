@@ -26,6 +26,18 @@
     @media screen and (max-width: 1152px) {
         text-align: center;
     }
+
+    @media screen and (max-width: 480px) {
+        width: 50%;
+        right: 1vw;
+        h1 {
+            font-size: 5vw;
+        }
+
+        p {
+            font-size: 3vw;
+        }
+    }
 }
 
 .social {

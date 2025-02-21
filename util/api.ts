@@ -5,7 +5,8 @@ import {
     RSVPType,
     ChallengeStatus,
     ProfileBodyType,
-    ProfileType
+    ProfileType,
+    EventType
 } from "./types";
 import { handleError } from "./helpers";
 
@@ -144,6 +145,11 @@ export async function getProfile(): Promise<ProfileType> {
     return res;
 }
 
+export async function getEvents(): Promise<EventType[]> {
+    const res = await requestv2("GET", "/event").catch(handleError);
+    return res.events as EventType[];
+}
+
 export async function RSVPDecideAccept() {
     const res = await requestv2("PUT", "/admission/rsvp/accept").catch(
         handleError
@@ -200,4 +206,10 @@ export async function getQRCode(): Promise<string> {
 
 export function setProfile(body: ProfileBodyType): Promise<ProfileType> {
     return requestv2("POST", "/profile", body).catch(handleError);
+}
+
+export function updateProfile(
+    body: Partial<ProfileBodyType>
+): Promise<ProfileType> {
+    return requestv2("PUT", "/profile", body).catch(handleError);
 }
