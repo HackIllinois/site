@@ -8,11 +8,13 @@
 .medalIcon {
     width: 100%;
     height: auto;
+    object-fit: contain;
 }
 
 .prizeIcon {
     height: 25%;
     z-index: 999;
+    width: 50%;
 }
 
 .medalOverlay1 {

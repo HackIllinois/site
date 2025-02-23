@@ -26,31 +26,31 @@ const prizesList = [
         title: "Best Financial Hack", // capital 1
         subheader: "(Track)",
         amount: "$1000",
-        imageSrc: HACK_LOGO.src
+        imageSrc: "/home/sponsors/capital_one.png"
     },
     {
         title: "Autonomous Vehicles", // john deere
         subheader: "(Track)",
         amount: "Raspberry Pi 4B and Vehicle Kit for each member",
-        imageSrc: HACK_LOGO.src
+        imageSrc: "/home/sponsors/john_deere.svg"
     },
     {
         title: "Best Developer Tool", // warp
         subheader: "(Track)",
         amount: "Keychron mechanical keyboard for each member",
-        imageSrc: HACK_LOGO.src
+        imageSrc: "/home/sponsors/warp.svg"
     },
     {
         title: "AI-Powered Agriculture Ops Planning", // agco
         subheader: "(Track)",
         amount: "$1000",
-        imageSrc: HACK_LOGO.src
+        imageSrc: "/home/sponsors/agco.svg"
     },
     {
         title: "Best Solana Blockchain Hack", // solana
         subheader: "(Track)",
         amount: "TBA",
-        imageSrc: HACK_LOGO.src
+        imageSrc: "/home/sponsors/solana.svg"
     }
 ];
 
