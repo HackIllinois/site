@@ -14,43 +14,50 @@ const prizesList = [
         title: "Olympians",
         subheader: "(Path)",
         amount: "$1000",
-        imageSrc: HACK_LOGO.src
+        imageSrc: HACK_LOGO.src,
+        code: "hack"
     },
     {
         title: "General",
         subheader: "(Path)",
         amount: "$1750",
-        imageSrc: HACK_LOGO.src
+        imageSrc: HACK_LOGO.src,
+        code: "hack"
     },
     {
         title: "Best Financial Hack", // capital 1
         subheader: "(Track)",
         amount: "$1000",
-        imageSrc: "/home/sponsors/capital_one.png"
+        imageSrc: "/home/sponsors/capital_one.png",
+        code: "c1"
     },
     {
         title: "Autonomous Vehicles", // john deere
         subheader: "(Track)",
         amount: "Raspberry Pi 4B and Vehicle Kit for each member",
-        imageSrc: "/home/sponsors/john_deere.svg"
+        imageSrc: "/home/sponsors/john_deere.svg",
+        code: "john"
     },
     {
         title: "Best Developer Tool", // warp
         subheader: "(Track)",
         amount: "Keychron mechanical keyboard for each member",
-        imageSrc: "/home/sponsors/warp.svg"
+        imageSrc: "/home/sponsors/warp.svg",
+        code: "warp"
     },
     {
         title: "AI-Powered Agriculture Ops Planning", // agco
         subheader: "(Track)",
         amount: "$1000",
-        imageSrc: "/home/sponsors/agco.svg"
+        imageSrc: "/home/sponsors/agco.svg",
+        code: "agco"
     },
     {
         title: "Best Solana Blockchain Hack", // solana
         subheader: "(Track)",
         amount: "TBA",
-        imageSrc: "/home/sponsors/solana.svg"
+        imageSrc: "/home/sponsors/solana.svg",
+        code: "solana"
     }
 ];
 
@@ -98,6 +105,7 @@ const Prizes: React.FC = () => {
                                 subheader={prize.subheader}
                                 imageSrc={prize.imageSrc}
                                 prize={prize.amount}
+                                code={prize.code}
                             />
                             // <div key={index} className={styles.medalContainer}>
                             //     <Image
