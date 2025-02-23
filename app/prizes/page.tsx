@@ -11,27 +11,45 @@ import Image from "next/image";
 
 const prizesList = [
     {
-        title: "First Place",
-        subheader: "(General)",
-        amount: 5000,
+        title: "Olympians",
+        subheader: "(Path)",
+        amount: "$1000",
         imageSrc: HACK_LOGO.src
     },
     {
-        title: "Second Place",
-        subheader: "(General)",
-        amount: 3000,
+        title: "General",
+        subheader: "(Path)",
+        amount: "$1750",
         imageSrc: HACK_LOGO.src
     },
     {
-        title: "Third Place",
-        subheader: "(General)",
-        amount: 1500,
+        title: "Best Financial Hack", // capital 1
+        subheader: "(Track)",
+        amount: "$1000",
         imageSrc: HACK_LOGO.src
     },
     {
-        title: "Fourth Place",
-        subheader: "(General)",
-        amount: 500,
+        title: "Autonomous Vehicles", // john deere
+        subheader: "(Track)",
+        amount: "Raspberry Pi 4B and Vehicle Kit for each member",
+        imageSrc: HACK_LOGO.src
+    },
+    {
+        title: "Best Developer Tool", // warp
+        subheader: "(Track)",
+        amount: "Keychron mechanical keyboard for each member",
+        imageSrc: HACK_LOGO.src
+    },
+    {
+        title: "AI-Powered Agriculture Ops Planning", // agco
+        subheader: "(Track)",
+        amount: "$1000",
+        imageSrc: HACK_LOGO.src
+    },
+    {
+        title: "Best Solana Blockchain Hack", // solana
+        subheader: "(Track)",
+        amount: "TBA",
         imageSrc: HACK_LOGO.src
     }
 ];
@@ -79,7 +97,7 @@ const Prizes: React.FC = () => {
                                 header={prize.title}
                                 subheader={prize.subheader}
                                 imageSrc={prize.imageSrc}
-                                amount={prize.amount}
+                                prize={prize.amount}
                             />
                             // <div key={index} className={styles.medalContainer}>
                             //     <Image

@@ -5,14 +5,14 @@ interface PrizeProps {
     header: string;
     subheader: string;
     imageSrc: string;
-    amount: number;
+    prize: string;
 }
 
 const Prize: React.FC<PrizeProps> = ({
     header,
     subheader,
     imageSrc,
-    amount
+    prize
 }) => {
     return (
         <div className={styles.medalContainer}>
@@ -34,7 +34,7 @@ const Prize: React.FC<PrizeProps> = ({
                     height={300}
                     className={styles.prizeIcon}
                 />
-                <h2>{`$${amount}`}</h2>
+                <h2>{prize}</h2>
             </div>
         </div>
     );
