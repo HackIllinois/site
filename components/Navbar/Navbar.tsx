@@ -39,7 +39,6 @@ const Navbar = () => {
     };
 
     const navbarItems: NavbarItem[] = [
-        ...getDynamicNavItems(),
         {
             title: "Schedule",
             link: "/schedule"
@@ -55,7 +54,8 @@ const Navbar = () => {
         {
             title: "Legal",
             link: "/legal"
-        }
+        },
+        ...getDynamicNavItems()
     ];
 
     useEffect(() => {
