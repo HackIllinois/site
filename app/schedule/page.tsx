@@ -131,7 +131,14 @@ const Schedule = () => {
     }, [events]);
 
     const displayedEvents = useMemo(() => {
-        return events.filter(event => event.day === selectedDay);
+        return events
+            .filter(event => event.day === selectedDay)
+            .sort((a, b) => {
+                if (a.startTime == b.startTime) {
+                    return a.endTime - b.endTime;
+                }
+                return a.startTime - b.startTime;
+            });
     }, [selectedDay]);
 
     const handleLoadEvents = async () => {

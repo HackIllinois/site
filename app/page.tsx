@@ -11,8 +11,12 @@ const Home: React.FC = () => {
         <main className={styles.main}>
             <Olympian />
             <FAQJoinUs />
-            <FAQSection />
-            <Sponsors />
+            <section id="faq">
+                <FAQSection />
+            </section>
+            <section id="sponsors">
+                <Sponsors />
+            </section>
             <Footer />
         </main>
     );
