@@ -172,7 +172,7 @@ export async function RSVPDecideDecline() {
 }
 
 export async function uploadFile(file: File): Promise<unknown> {
-    const { url, fields } = await requestv2("GET", "/s3/upload");
+    const { url, fields } = await requestv2("GET", "/resume/upload");
     const data = new FormData();
     for (const key in fields) {
         data.append(key, fields[key]);
