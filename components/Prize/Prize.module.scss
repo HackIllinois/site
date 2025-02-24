@@ -1,8 +1,12 @@
 .medalContainer {
     position: relative;
-    width: 360px;
+    width: 460px;
     height: fit-content;
     display: inline-block;
+
+    @media screen and (max-width: 1152px) {
+        width: 50vw;
+    }
 }
 
 .medalIcon {
@@ -85,83 +89,9 @@
     width: 50%;
 }
 
-@media screen and (max-width: 1152px) {
-    .medalContainer {
-        width: 280px;
-    }
-
-    .medalOverlay1 {
-        gap: 3px;
-        padding-top: 25px;
-    }
-
-    .medalOverlay1 p {
-        font-size: 1rem;
-    }
-
-    .c1Name {
-        font-size: 0.9rem;
-    }
-
-    .johnName {
-        font-size: 0.9rem;
-    }
-
-    .johnPrize {
-        font-size: 0.8rem;
-    }
-
-    .warpName {
-        font-size: 0.9rem;
-        margin-top: 0.5rem;
-    }
-
-    .warpPrize {
-        font-size: 0.8rem;
-    }
-
-    .warpIcon {
-        height: 12%;
-    }
-
-    .agcoName {
-        font-size: 0.9rem;
-    }
-
-    .agcoIcon {
-        height: 20%;
-    }
-
-    .solanaName {
-        font-size: 1rem;
-    }
-
-    .solanaIcon {
-        height: 10%;
-    }
-
-    .solanaPrize {
-        font-size: 1.2rem;
-    }
-}
-
 @media screen and (max-width: 768px) {
-    .container {
-        padding-top: 30px;
-    }
-
-    .medalOverlay1 {
-        gap: 10px;
-    }
-
-    .medalOverlay1 p {
-        font-size: 1rem;
-    }
-
     .medalContainer {
-        width: 90%;
-        max-width: 340px;
-        height: auto;
+        width: 98vw;
     }
 
     .c1Name {
@@ -178,8 +108,7 @@
     }
 
     .warpName {
-        font-size: 1.2rem;
-        margin-top: 1rem;
+        font-size: 1.1rem;
         width: 50%;
     }
 
@@ -188,7 +117,7 @@
     }
 
     .agcoName {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 
     .solanaName {

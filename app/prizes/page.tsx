@@ -55,7 +55,7 @@ const prizesList = [
     {
         title: "Best Solana Blockchain Hack", // solana
         subheader: "(Track)",
-        amount: "TBA",
+        amount: "$2000",
         imageSrc: "/home/sponsors/solana.svg",
         code: "solana"
     }
