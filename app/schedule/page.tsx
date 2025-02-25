@@ -13,18 +13,19 @@ import { getEvents } from "@/util/api";
 import { EventType } from "@/util/types";
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
-import moment from "moment";
+import moment from "moment-timezone";
 import styles from "./styles.module.scss";
 import clsx from "clsx";
 import useWindowSize from "@/hooks/use-window-size";
 import Image from "next/image";
+import { EVENT_TIMEZONE } from "@/util/config";
 
 type ScheduleItemProps = {
     event: EventType;
 };
 
 function timeToHourMinute(time: number) {
-    const date = moment(time * 1000);
+    const date = moment(time * 1000).tz(EVENT_TIMEZONE);
     return date.format("h:mm A");
 }
 
@@ -148,9 +149,9 @@ const Schedule = () => {
                 newEvents.map(event => {
                     return {
                         ...event,
-                        day: moment(event.startTime * 1000).format(
-                            "dddd, MMMM D"
-                        )
+                        day: moment(event.startTime * 1000)
+                            .tz(EVENT_TIMEZONE)
+                            .format("dddd, MMMM D")
                     };
                 })
             );
