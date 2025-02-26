@@ -13,21 +13,21 @@ const prizesList = [
     {
         title: "Olympians",
         subheader: "(Path)",
-        amount: "$1000",
+        amount: "$2,000",
         imageSrc: HACK_LOGO.src,
         code: "hack"
     },
     {
         title: "General",
         subheader: "(Path)",
-        amount: "$1750",
+        amount: "$1,750",
         imageSrc: HACK_LOGO.src,
         code: "hack"
     },
     {
         title: "Best Financial Hack", // capital 1
         subheader: "(Track)",
-        amount: "$1000",
+        amount: "$1,000",
         imageSrc: "/home/sponsors/capital_one.png",
         code: "c1"
     },
@@ -48,14 +48,14 @@ const prizesList = [
     {
         title: "AI-Powered Agriculture Ops Planning", // agco
         subheader: "(Track)",
-        amount: "$1000",
+        amount: "$1,000",
         imageSrc: "/home/sponsors/agco.svg",
         code: "agco"
     },
     {
         title: "Most innovative use of Solana", // solana
         subheader: "(Track)",
-        amount: "$2000",
+        amount: "$2,000",
         imageSrc: "/home/sponsors/solana.svg",
         code: "solana"
     }
