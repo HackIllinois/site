@@ -53,7 +53,7 @@ const prizesList = [
         code: "agco"
     },
     {
-        title: "Best Solana Blockchain Hack", // solana
+        title: "Most innovative use of Solana", // solana
         subheader: "(Track)",
         amount: "$2000",
         imageSrc: "/home/sponsors/solana.svg",
