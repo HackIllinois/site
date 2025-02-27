@@ -57,25 +57,25 @@ const Olympian: React.FC = () => {
         setTimeout(() => {
             apollo?.classList.remove(styles.shiftDown);
             aphrodite?.classList.remove(styles.shiftDown);
-        }, 1000);
+        }, 0);
 
         setTimeout(() => {
             athena?.classList.remove(styles.shiftDown);
             artemis?.classList.remove(styles.shiftDown);
-        }, 2000);
+        }, 1000);
 
         setTimeout(() => {
             hades?.classList.remove(styles.shiftDown);
             poseidon?.classList.remove(styles.shiftDown);
-        }, 3000);
+        }, 2000);
 
         setTimeout(() => {
             persephone?.classList.remove(styles.shiftDown);
-        }, 3500);
+        }, 2500);
 
         setTimeout(() => {
             zeus?.classList.remove(styles.shiftDown);
-        }, 4000);
+        }, 3000);
     }, []);
 
     return (
