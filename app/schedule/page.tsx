@@ -12,7 +12,7 @@ import GREEK_BUILDING from "@/public/schedule/icons/greek-building.svg";
 import { getEvents } from "@/util/api";
 import { EventType } from "@/util/types";
 import Head from "next/head";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import moment from "moment-timezone";
 import styles from "./styles.module.scss";
 import clsx from "clsx";
@@ -29,24 +29,29 @@ function timeToHourMinute(time: number) {
     return date.format("h:mm A");
 }
 
+export type tag = {
+    name: string;
+    color: string;
+};
+
 const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
     const tags = useMemo(() => {
-        const newTags: string[] = [];
-
-        if (event.points) {
-            newTags.push(`${event.points} pts`);
-        }
+        const newTags: tag[] = [];
 
         if (event.isPro) {
-            newTags.push("PRO");
+            newTags.push({ name: "PRO", color: "#DE8E45" });
         }
 
         if (event.eventType) {
-            newTags.push(event.eventType);
+            newTags.push({ name: event.eventType, color: "#C5673F" });
         }
 
-        if (event.isAsync) {
-            newTags.push("ASYNC");
+        // if (event.isAsync) {
+        //     newTags.push("ASYNC");
+        // }
+
+        if (event.points) {
+            newTags.push({ name: `${event.points} pts`, color: "#84BCB9" });
         }
 
         return newTags;
@@ -56,7 +61,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
         .map(location => location.description)
         .join(", ");
 
-    const COLORS = ["#84BCB9", "#DE8E45", "#C5673F"];
+    // const COLORS = ["#84BCB9", "#DE8E45", "#C5673F"];
 
     const happeningNow = useMemo(() => {
         //
@@ -78,7 +83,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                 )}
             >
                 <h3>{event.name}</h3>
-                <Tags tags={tags} colors={COLORS} />
+                <Tags tags={tags} />
                 <div className={styles.textRow}>
                     <div
                         style={{
@@ -125,6 +130,14 @@ const Schedule = () => {
     const [events, setEvents] = useState<EventsWithDay[]>([]);
     const [selectedDay, setSelectedDay] = useState<string | undefined>();
     const [loading, setLoading] = useState(false);
+    const eventRef = useRef<HTMLDivElement>(null);
+
+    const handleSelectDay = (day: string) => {
+        setSelectedDay(day);
+        if (eventRef.current) {
+            eventRef.current.scrollTop = 0;
+        }
+    };
 
     const availableDays = useMemo(() => {
         const days = new Set(events.map(event => event.day));
@@ -192,7 +205,7 @@ const Schedule = () => {
                                     key={day}
                                     text={day}
                                     isSelected={day === selectedDay}
-                                    onClick={() => setSelectedDay(day)}
+                                    onClick={() => handleSelectDay(day)}
                                 />
                             ))}
                         </div>
@@ -220,7 +233,7 @@ const Schedule = () => {
                             }}
                             className={styles.stoneTablet}
                         >
-                            <div className={styles.events}>
+                            <div ref={eventRef} className={styles.events}>
                                 {displayedEvents.map((event, index) => (
                                     <ScheduleItem
                                         key={`event-${index}`}

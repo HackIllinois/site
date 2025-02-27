@@ -1,20 +1,20 @@
+import { tag } from "@/app/schedule/page";
 import styles from "./Tags.module.scss";
 
 type TagsProps = {
-    tags: string[];
-    colors: string[];
+    tags: tag[];
 };
 
-const Tags: React.FC<TagsProps> = ({ tags, colors }) => {
+const Tags: React.FC<TagsProps> = ({ tags }) => {
     return (
         <div className={styles.tags}>
             {tags.map((tag, index) => (
                 <div
                     key={index}
                     className={styles.tag}
-                    style={{ backgroundColor: colors[index % colors.length] }}
+                    style={{ backgroundColor: tag.color }}
                 >
-                    <p>{tag}</p>
+                    <p>{tag.name}</p>
                 </div>
             ))}
         </div>
