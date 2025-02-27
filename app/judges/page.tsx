@@ -1,5 +1,4 @@
-// replace with judges data eventually
-import { mentors } from "@/modules/MentorsData";
+import { judges } from "@/modules/JudgesData";
 import styles from "./styles.module.scss";
 import BACKGROUND from "@/public/mentors/mentors-background.svg";
 import BACKGROUND_CLOUDS from "@/public/mentors/background-clouds.svg";
@@ -21,7 +20,7 @@ const Judges = () => {
                     className={styles.backgroundCloudsTop}
                 />
             </div>
-            <GridLayout data={mentors} header="Judges" />
+            <GridLayout data={judges} header="Judges" />
         </div>
     );
 };

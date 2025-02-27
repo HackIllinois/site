@@ -2,7 +2,6 @@ import MentorCard from "../Mentors/MentorCard/MentorCard";
 import styles from "./GridLayout.module.scss";
 
 type mentorProps = {
-    id: number;
     name: string;
     image: string;
     desc: string;
@@ -18,17 +17,15 @@ const GridLayout: React.FC<GridLayoutProps> = ({ data, header }) => {
         <div className={styles.content}>
             <h1>{header}</h1>
             <div className={styles.body}>
-                {data
-                    .sort((a, b) => a.id - b.id)
-                    .map((mentor: mentorProps) => (
-                        <MentorCard
-                            key={mentor.id}
-                            id={mentor.id}
-                            name={mentor.name}
-                            image={mentor.image}
-                            desc={mentor.desc}
-                        />
-                    ))}
+                {data.map((mentor: mentorProps, id) => (
+                    <MentorCard
+                        key={id}
+                        id={id}
+                        name={mentor.name}
+                        image={mentor.image}
+                        desc={mentor.desc}
+                    />
+                ))}
             </div>
         </div>
     );
