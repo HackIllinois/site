@@ -52,6 +52,14 @@ const Navbar = () => {
             link: "/travel"
         },
         {
+            title: "Mentors",
+            link: "/mentors"
+        },
+        {
+            title: "Judges",
+            link: "/judges"
+        },
+        {
             title: "Legal",
             link: "/legal"
         },
