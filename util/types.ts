@@ -223,12 +223,17 @@ export type ProfileBodyType = {
 };
 
 export type ProfileType = {
-    userID: string;
+    userId: string;
     displayName: string;
     discordTag: string;
     avatarUrl: string;
     points: number;
     coins: number;
+};
+
+export type AuthRoles = {
+    id: string;
+    roles: string[];
 };
 
 export type RSVPDecisionType = {

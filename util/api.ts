@@ -6,7 +6,8 @@ import {
     ChallengeStatus,
     ProfileBodyType,
     ProfileType,
-    EventType
+    EventType,
+    AuthRoles
 } from "./types";
 import { handleError } from "./helpers";
 
@@ -212,4 +213,8 @@ export function updateProfile(
     body: Partial<ProfileBodyType>
 ): Promise<ProfileType> {
     return requestv2("PUT", "/profile", body).catch(handleError);
+}
+
+export function getAuthRoles(): Promise<AuthRoles> {
+    return requestv2("GET", "/auth/roles").catch(handleError);
 }
