@@ -96,7 +96,7 @@ export const judges = [
     },
     {
         name: "Eshwar Chandrasekharan",
-        desc: "I currently work as a Senior Machine Learning Engineer at Meta, where I have spent the last four years specializing in ranking and recommendations. Prior to this, I worked as a Research Assistant at the University of Minnesota, leveraging Machine Learning for bioinformatics. Additionally, I have experience in software development at Dell (2 years) and hardware development at SanDisk (1+ years), giving me a well-rounded technical foundation.\nAs a judge, I am excited to provide meaningful feedback to participants, helping them refine their ideas and technical implementations.",
+        desc: "I’m an Assistant Professor of Computer Science at the University of Illinois Urbana-Champaign. I lead the SCUBA Lab @ Illinois, and our research is related to facilitating healthy online interactions, combatting online antisocial behavior, and developing new AI-backed sociotechnical systems to promote trust and safety on the Internet.",
         image: "/mentors/judge-images/eshwar_chandrasekharan.jpg"
     },
     {

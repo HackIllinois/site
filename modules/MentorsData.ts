@@ -148,5 +148,15 @@ export const mentors = [
         name: "Saransh Bhardwaj",
         desc: "Hello, My name is Saransh, I am working on a few AI projects in Healthcare and GIS fields. Bringing new tech and features to millions of users.",
         image: "/mentors/mentor-images/saransh_bhardwaj.jpeg"
+    },
+    {
+        name: "Nick Trueb",
+        desc: "I have lived in Chicago for 3 years, and in my free time, I like to read and visit coffee shops/new neighborhoods of the city.",
+        image: "/mentors/judge-images/nick_trueb.jpeg"
+    },
+    {
+        name: "Beulah Lee",
+        desc: "I am an Application Engineer at Discover Financial Services, focusing on frontend user interface development. I graduated from UIUC with a B.S. in Computer Engineering and a minor in Statistics.",
+        image: "/mentors/judge-images/beulah_lee.jpeg"
     }
 ];
