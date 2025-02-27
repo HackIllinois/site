@@ -34,7 +34,7 @@ const prizesList = [
     {
         title: "Autonomous Vehicles", // john deere
         subheader: "(Track)",
-        amount: "Raspberry Pi 4B and Vehicle Kit for each member",
+        amount: "One Raspberry Pi 4B and one Vehicle Kit per member",
         imageSrc: "/home/sponsors/john_deere.svg",
         code: "john"
     },
