@@ -27,7 +27,7 @@ const prizesList = [
     {
         title: "Best Financial Hack", // capital 1
         subheader: "(Track)",
-        amount: "$1,000",
+        amount: "Up to $1,000",
         imageSrc: "/home/sponsors/capital_one.png",
         code: "c1"
     },
