@@ -231,6 +231,11 @@ export type ProfileType = {
     coins: number;
 };
 
+export type AuthRoles = {
+    id: string;
+    roles: string[];
+};
+
 export type RSVPDecisionType = {
     userId: string;
     user: string;

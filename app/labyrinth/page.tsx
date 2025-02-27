@@ -1,7 +1,7 @@
 "use client";
 
 import Loading from "@/components/Loading/Loading";
-import { authenticate, getProfile, isAuthenticated } from "@/util/api";
+import { authenticate, getAuthRoles, isAuthenticated } from "@/util/api";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import stringHash from "string-hash";
@@ -15,8 +15,8 @@ const Labyrinth: React.FC = () => {
             return;
         }
 
-        getProfile().then(profile => {
-            const hashedUserId = stringHash(profile.userId);
+        getAuthRoles().then(roles => {
+            const hashedUserId = stringHash(roles.id);
             switch (hashedUserId % 3) {
                 case 0:
                     window.location.href = "/labyrinth/heaven.pdf";
