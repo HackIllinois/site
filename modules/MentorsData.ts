@@ -112,7 +112,7 @@ export const mentors = [
     {
         name: "Saloni Shah",
         desc: "Saloni Shah has a background in computer engineer and has over 25 years of experience in software engineering and product management with a technical and management skill set. Saloni is a software engineering manager at Discover Financial Services within payments services and manages a team of developers for the Discover File Transfer Platform.\n \nShe is currently the Chair of the Community and Engagement pillar of the Women in Technology and an active member of SWE, and PayTech Women organizations. In 2022, Saloni has received a prestigious Moxie Award which recognizes top 100 women across United States in technology for their contributions in the workplace, community, and industry.  Saloni drives to empower her team to a new facet of team enablement to deliver the best outcome.\nSaloni is also an active member of the JSMC (Jain Society of Metropolitan Chicago) non-profit organization where she has taught religious classes for over 20 years to young students.  Saloni loves to travel with her family and enjoys volunteering for the community.",
-        image: "/mentors/mentor-images/saloni_shah.jpeg"
+        image: "/mentors/mentor-images/saloni_shah.jpg"
     },
     {
         name: "Yash Sangle",
