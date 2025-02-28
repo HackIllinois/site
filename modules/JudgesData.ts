@@ -118,5 +118,10 @@ export const judges = [
         name: "Daniel Odicho",
         desc: "Serial Hackathon Winner. Passionate about the education space and building novel ideas. Strong focus on creativity and impact. Ask me about Hackathon advice!",
         image: "/mentors/judge-images/daniel_odicho.jpg"
+    },
+    {
+        name: "Dhravya Shah",
+        desc: "Learner, builder and serial shipper. Doing things with AI at Cloudflare.",
+        image: "/mentors/mentor-images/dhravya_shah.jpg"
     }
 ];
