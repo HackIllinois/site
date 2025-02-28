@@ -2,7 +2,6 @@
     position: relative;
     width: 460px;
     height: fit-content;
-    display: inline-block;
 
     @media screen and (max-width: 1152px) {
         width: 50vw;
@@ -17,7 +16,7 @@
 
 .prizeIcon {
     height: 25%;
-    z-index: 999;
+    z-index: 99;
     width: 50%;
 }
 

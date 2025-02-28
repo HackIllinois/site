@@ -34,7 +34,7 @@ const prizesList = [
     {
         title: "Autonomous Vehicles", // john deere
         subheader: "(Track)",
-        amount: "One Raspberry Pi 4B and one Vehicle Kit per member",
+        amount: "Winning Team Gets 1 Raspberry Pi 4B and 4 New Vehicle Kits; All Teams Keep Their Vehicle Kit",
         imageSrc: "/home/sponsors/john_deere.svg",
         code: "john"
     },
@@ -53,7 +53,7 @@ const prizesList = [
         code: "agco"
     },
     {
-        title: "Most innovative use of Solana", // solana
+        title: "Most Innovative Use of Solana", // solana
         subheader: "(Track)",
         amount: "$2,000",
         imageSrc: "/home/sponsors/solana.svg",

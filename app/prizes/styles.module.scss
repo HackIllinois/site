@@ -37,19 +37,11 @@
 }
 
 .prizesGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     row-gap: 10px;
-    justify-items: center;
-
-    :last-child {
-        grid-column: span 2;
-        justify-self: center;
-    }
-
-    @media screen and (max-width: 1152px) {
-        grid-template-columns: repeat(1, 1fr);
-    }
+    justify-content: center;
+    align-items: center;
 }
 
 .prizeInfo h2 {
@@ -70,11 +62,11 @@
 }
 
 @media screen and (max-width: 1152px) {
-    // .prizesGrid {
-    //     grid-template-columns: 2fr;
-    //     margin: 50px auto 0 auto;
-    //     margin-top: 0;
-    // }
+    .prizesGrid {
+        grid-template-columns: 1fr;
+        margin: 50px auto 0 auto;
+        margin-top: 0;
+    }
     .character {
         margin-left: -100px;
         overflow: hidden;
