@@ -158,5 +158,25 @@ export const mentors = [
         name: "Beulah Lee",
         desc: "I am an Application Engineer at Discover Financial Services, focusing on frontend user interface development. I graduated from UIUC with a B.S. in Computer Engineering and a minor in Statistics.",
         image: "/mentors/judge-images/beulah_lee.jpeg"
+    },
+    {
+        name: "Dhravya Shah",
+        desc: "Learner, builder and serial shipper. Doing things with AI at Cloudflare.",
+        image: "/mentors/mentor-images/dhravya_shah.jpg"
+    },
+    {
+        name: "Kanishka Alpeshbhai Patel",
+        desc: "Hi, I'm Kanishka, a UIUC alumnus and Digital Business Analyst at Cat Digital. I transform data into insights for Aftermarket Connectivity Analytics. Outside work, I explore tech trends and cheer on the Illini. Excited to be part of HackIllinois, where innovation meets creativity!",
+        image: "/mentors/mentor-images/kanishka_patel.jpg"
+    },
+    {
+        name: "Hong Yi Chen",
+        desc: "Hey! I’m Hong Yi, a Growth Product Manager at Warp, where we’re building the intelligent terminal for modern developers and teams. Previously, I led teams at Hack the North and have attended 25+ hackathons. Waterloo CS & Business alum. Passionate about devtools, AI, and building products that drive impact. ",
+        image: "/mentors/mentor-images/hong_yi_chen.jpeg"
+    },
+    {
+        name: "Seetaram Rao",
+        desc: "Seetaram Rayarao, Senior Tech Lead for the LLM Suite at JP Morgan Chase, specializes in Generative AI, cloud platforms, and microservices. With 17+ years of experience, he architects scalable AI-driven solutions. An IEEE Senior Member and ACM member, he holds certifications in AWS, CKAD, Terraform, and Java and has expertise in Python, LLMs, and RAG.",
+        image: "/mentors/mentor-images/seetaram_rao.jpeg"
     }
 ];

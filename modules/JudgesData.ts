@@ -99,9 +99,24 @@ export const judges = [
         desc: "I’m an Assistant Professor of Computer Science at the University of Illinois Urbana-Champaign. I lead the SCUBA Lab @ Illinois, and our research is related to facilitating healthy online interactions, combatting online antisocial behavior, and developing new AI-backed sociotechnical systems to promote trust and safety on the Internet.",
         image: "/mentors/judge-images/eshwar_chandrasekharan.jpg"
     },
+    // {
+    //     name: "Manish Kumar Keshri",
+    //     desc: "I currently work as a Senior Machine Learning Engineer at Meta, where I have spent the last four years specializing in ranking and recommendations. Prior to this, I worked as a Research Assistant at the University of Minnesota, leveraging Machine Learning for bioinformatics. Additionally, I have experience in software development at Dell (2 years) and hardware development at SanDisk (1+ years), giving me a well-rounded technical foundation.\nAs a judge, I am excited to provide meaningful feedback to participants, helping them refine their ideas and technical implementations.",
+    //     image: "/mentors/judge-images/manish_kumar_keshri.jpeg"
+    // },
     {
-        name: "Manish Kumar Keshri",
-        desc: "I currently work as a Senior Machine Learning Engineer at Meta, where I have spent the last four years specializing in ranking and recommendations. Prior to this, I worked as a Research Assistant at the University of Minnesota, leveraging Machine Learning for bioinformatics. Additionally, I have experience in software development at Dell (2 years) and hardware development at SanDisk (1+ years), giving me a well-rounded technical foundation.\nAs a judge, I am excited to provide meaningful feedback to participants, helping them refine their ideas and technical implementations.",
-        image: "/mentors/judge-images/manish_kumar_keshri.jpeg"
+        name: "Hong Yi Chen",
+        desc: "Hey! I’m Hong Yi, a Growth Product Manager at Warp, where we’re building the intelligent terminal for modern developers and teams. Previously, I led teams at Hack the North and have attended 25+ hackathons. Waterloo CS & Business alum. Passionate about devtools, AI, and building products that drive impact. ",
+        image: "/mentors/mentor-images/hong_yi_chen.jpeg"
+    },
+    {
+        name: "Karandeep Singh",
+        desc: "I am Karandeep and I work at AGCO leading a team of interns working on AI initiatives across the organization. I am passionate about applying tech solutions to develop farmer-first solutions.",
+        image: "/mentors/mentor-images/karandeep_singh.jpg"
+    },
+    {
+        name: "Daniel Odicho",
+        desc: "Serial Hackathon Winner. Passionate about the education space and building novel ideas. Strong focus on creativity and impact. Ask me about Hackathon advice!",
+        image: "/mentors/judge-images/daniel_odicho.jpg"
     }
 ];
