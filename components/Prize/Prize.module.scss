@@ -15,7 +15,7 @@
 }
 
 .prizeIcon {
-    height: 25%;
+    height: 20%;
     z-index: 99;
     width: 50%;
 }
@@ -88,6 +88,10 @@
     width: 50%;
 }
 
+.solanaPrize {
+    font-size: 1.1rem;
+}
+
 @media screen and (max-width: 768px) {
     .medalContainer {
         width: 98vw;
@@ -124,6 +128,6 @@
     }
 
     .solanaPrize {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
 }

@@ -55,7 +55,7 @@ const prizesList = [
     {
         title: "Most Innovative Use of Solana", // solana
         subheader: "(Track)",
-        amount: "$2,000",
+        amount: "First place: $2,000 Second place: $1,000",
         imageSrc: "/home/sponsors/solana.svg",
         code: "solana"
     }
