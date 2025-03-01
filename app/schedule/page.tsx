@@ -179,7 +179,14 @@ const Schedule = () => {
 
     useEffect(() => {
         if (availableDays.length > 0 && !selectedDay) {
-            setSelectedDay(availableDays[0]);
+            const currentDay = moment(new Date())
+                .tz(EVENT_TIMEZONE)
+                .format("dddd, MMMM D");
+            setSelectedDay(
+                availableDays.includes(currentDay)
+                    ? currentDay
+                    : availableDays[0]
+            );
         }
     }, [availableDays]);
 
