@@ -55,7 +55,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
         }
 
         return newTags;
-    }, [event.isPro, event.eventType, event.isAsync]);
+    }, [event]);
 
     const locations = event.locations
         .map(location => location.description)
