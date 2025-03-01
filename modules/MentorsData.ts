@@ -178,5 +178,20 @@ export const mentors = [
         name: "Seetaram Rao",
         desc: "Seetaram Rayarao, Senior Tech Lead for the LLM Suite at JP Morgan Chase, specializes in Generative AI, cloud platforms, and microservices. With 17+ years of experience, he architects scalable AI-driven solutions. An IEEE Senior Member and ACM member, he holds certifications in AWS, CKAD, Terraform, and Java and has expertise in Python, LLMs, and RAG.",
         image: "/mentors/mentor-images/seetaram_rao.jpeg"
+    },
+    {
+        name: "Surya Rao Rayarao",
+        desc: "Surya Rayarao is a Lead Software Engineer at SS&C Technologies with expertise in AI, Data Science, and Cloud Technologies. Passionate about mentoring, he enjoys helping students bridge the gap between theory and real-world applications. Surya is currently pursuing his MS in Data Science at UT Austin and actively contributes to AI research and innovation.",
+        image: "/mentors/mentor-images/surya_rao.jpg"
+    },
+    {
+        name: "Satwik Reddy Jambula",
+        desc: "I am a Senior Application Developer with over a decade of experience in Oracle, enterprise IT solutions, and cloud computing. Currently at Uber Technologies, I design and implement Oracle ERP systems, optimizing business processes and enhancing cloud infrastructure. My expertise includes Oracle, Web Development, cybersecurity, and data analytics, allowing me to build scalable, high-performance solutions. Beyond my professional role, I am passionate about mentorship and industry contributions. My passion lies in digital transformation, enterprise automation, and fostering the next generation of IT professionals, ensuring technology continues to evolve for a smarter future.",
+        image: "/mentors/mentor-images/satwik_reddy_jambula.jpg"
+    },
+    {
+        name: "Latha Ramamoorthy",
+        desc: "Latha Ramamoorthy is a Technical Product Manager at JPMorgan Chase with 20 years of experience in technology and innovation. Passionate about mentoring, Latha enjoys guiding developers and entrepreneurs. With expertise in product strategy and emerging technologies, she is excited to support HackIllinois participants in building impactful solutions.",
+        image: "/mentors/mentor-images/latha_mohanraj.jpeg"
     }
 ];
