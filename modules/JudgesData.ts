@@ -123,5 +123,30 @@ export const judges = [
         name: "Dhravya Shah",
         desc: "Learner, builder and serial shipper. Doing things with AI at Cloudflare.",
         image: "/mentors/mentor-images/dhravya_shah.jpg"
+    },
+    {
+        name: "Gino Corrales",
+        desc: "I studied System Engineering back at home in Peru, later I went to ISU for Computer Science and I will be graduating from my master’s in management at the University of Illinois this coming May. I work at Caterpillar since 2013. I started as a Developer work for the Cyber division. Currently, I lead the Identity Access Management support team. Very happy to be around HackIL again! ",
+        image: "/mentors/mentor-images/gino_corrales.jpg"
+    },
+    {
+        name: "Josh Carrington",
+        desc: "I am an IT professional with over a decade of experience. I’m currently working as a system admin supporting Cat Digital’s eCommerce application. I’m experienced with Linux, AWS, Docker, and Kubernetes. Reach out on Discord! I look forward to seeing the projects you all develop!",
+        image: "/mentors/mentor-images/joshua_carrington.jpeg"
+    },
+    {
+        name: "Kuan Lu",
+        desc: "Kuan Lu is an AI/ML software engineer at Google, specializing in multimodal AI, generative AI, and large language models. With over seven years of experience in AI and software development, Kuan Lu has worked at Microsoft, Amazon, and Cornell University, built AI systems for millions of users, and won an AWS hackathon.",
+        image: "/mentors/judge-images/kuan_lu.jpeg"
+    },
+    {
+        name: "Bhanu Reddy",
+        desc: "Passionate software engineer working on Emerging Technologies.",
+        image: "/mentors/mentor-images/bhanu_reddy.jpg"
+    },
+    {
+        name: "Kanishka Patel",
+        desc: "Currently a digital business analyst at Caterpillar and a proud UIUC alum, this is my first time mentoring and judging at a hackathon. I’m thrilled to be here, learning from all of you and supporting students in achieving their goals in any way I can.",
+        image: "/mentors/mentor-images/kanishka_patel.jpg"
     }
 ];
