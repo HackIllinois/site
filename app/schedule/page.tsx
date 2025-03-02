@@ -92,8 +92,9 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                         className={styles.icon}
                     ></div>
                     <p>
-                        {timeToHourMinute(event.startTime)} -{" "}
-                        {timeToHourMinute(event.endTime)}
+                        {event.startTime === event.endTime
+                            ? timeToHourMinute(event.startTime)
+                            : `${timeToHourMinute(event.startTime)} - ${timeToHourMinute(event.endTime)}`}
                     </p>
                 </div>
                 {event.sponsor && (
@@ -107,15 +108,17 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                         <p>{event.sponsor}</p>
                     </div>
                 )}
-                <div className={styles.textRow}>
-                    <div
-                        style={{
-                            backgroundImage: `url(${GREEK_BUILDING?.src})`
-                        }}
-                        className={styles.icon}
-                    ></div>
-                    <p>{locations}</p>
-                </div>
+                {locations.length > 0 && (
+                    <div className={styles.textRow}>
+                        <div
+                            style={{
+                                backgroundImage: `url(${GREEK_BUILDING?.src})`
+                            }}
+                            className={styles.icon}
+                        ></div>
+                        <p>{locations}</p>
+                    </div>
+                )}
                 <p className={styles.description}>{event.description}</p>
             </div>
         </div>
