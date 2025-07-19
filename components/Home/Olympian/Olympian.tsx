@@ -1,6 +1,7 @@
 "use client";
 import styles from "./Olympian.module.scss";
-import { useContext, useState, useEffect } from "react";
+// import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import clsx from "clsx";
 
 import Image from "next/image";
@@ -9,7 +10,7 @@ import BACKGROUND from "@/public/home/olympian/background.svg";
 import SECOND_LAYER_BACKGROUND from "@/public/home/olympian/second-layer-background.svg";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
 import Description from "../Description/Description";
-import GlobalContext from "@/app/context";
+// import GlobalContext from "@/app/context";
 import LEAF from "@/public/home/olympian/leaf.svg";
 
 import APHRODITE from "@/public/home/olympian/aphrodite.svg";
@@ -22,7 +23,7 @@ import POSEIDON from "@/public/home/olympian/poseidon.svg";
 import ZEUS from "@/public/home/olympian/zeus.svg";
 
 const Olympian: React.FC = () => {
-    const { eventStatus } = useContext(GlobalContext);
+    // const { eventStatus } = useContext(GlobalContext);
 
     const [clickCount, setClickCount] = useState(0);
     const handleClick = () => {
@@ -33,16 +34,16 @@ const Olympian: React.FC = () => {
         }
     };
 
-    const getButtonData = () => {
-        switch (eventStatus) {
-            case "registration":
-                return { text: "Register Now", link: "/register" };
-            case "admission":
-                return { text: "Profile", link: "/profile" };
-            case "loading":
-                return { text: "Loading", link: "#" };
-        }
-    };
+    // const getButtonData = () => {
+    //     switch (eventStatus) {
+    //         case "registration":
+    //             return { text: "Register Now", link: "/register" };
+    //         case "admission":
+    //             return { text: "Profile", link: "/profile" };
+    //         case "loading":
+    //             return { text: "Loading", link: "#" };
+    //     }
+    // };
 
     useEffect(() => {
         const apollo = document.querySelector(`.${styles.apollo}`);
@@ -86,7 +87,11 @@ const Olympian: React.FC = () => {
                     src={LOGO}
                     className={styles.logo}
                 />
-                <OlympianButton {...getButtonData()} bottomPadding />
+                <OlympianButton
+                    text="About HackIllinois"
+                    link="https://info.hackillinois.org"
+                    bottomPadding
+                />
             </div>
             <div className={styles.characters}>
                 <Image
