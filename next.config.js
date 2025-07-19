@@ -11,10 +11,15 @@ const nextConfig = {
     },
     async redirects() {
         return [
+            // {
+            //     source: "/legal",
+            //     destination: "/legal/code-of-conduct",
+            //     permanent: true
+            // },
             {
-                source: "/legal",
-                destination: "/legal/code-of-conduct",
-                permanent: true
+                source: "/",
+                destination: "https://info.hackillinois.org",
+                permanent: false
             }
         ];
     }
