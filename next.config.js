@@ -18,7 +18,7 @@ const nextConfig = {
             // },
             {
                 source: "/",
-                destination: "https://info.hackillinois.org",
+                destination: "https://hype.hackillinois.org",
                 permanent: false
             }
         ];
