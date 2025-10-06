@@ -12,16 +12,16 @@ const ReviewInfo: React.FC = () => {
         null
     );
     const [isProApplicant, setIsProApplicant] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        Promise.all([getRegistrationOrDefault(), getChallenge()]).then(
-            ([registration, challenge]) => {
-                setRegistration(registrationFromAPI(registration));
-                setIsProApplicant(challenge.complete);
-                setIsLoading(false);
-            }
-        );
+        // Promise.all([getRegistrationOrDefault(), getChallenge()]).then(
+        //     ([registration, challenge]) => {
+        //         setRegistration(registrationFromAPI(registration));
+        //         setIsProApplicant(challenge.complete);
+        //         setIsLoading(false);
+        //     }
+        // );
     }, []);
 
     if (isLoading) {

@@ -69,7 +69,7 @@ export async function getRegistrationOrDefault(): Promise<
     WithId<RegistrationType> | RegistrationType
 > {
     try {
-        const response = await requestv2("GET", "/registration");
+        // const response = await requestv2("GET", "/registration");
         return response;
     } catch (error: any) {
         if (error.error !== "NotFound") {

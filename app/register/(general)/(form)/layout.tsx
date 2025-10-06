@@ -11,16 +11,42 @@ const GeneralRegistration = ({ children }: { children: React.ReactNode }) => {
         null
     );
     const [isProApplicant, setIsProApplicant] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        Promise.all([getRegistrationOrDefault(), getChallenge()]).then(
-            ([registration, challenge]) => {
-                setRegistration(registrationFromAPI(registration));
-                setIsProApplicant(challenge.complete);
-                setIsLoading(false);
-            }
-        );
+        setRegistration({
+            legalName: "",
+            preferredName: "",
+            gender: "",
+            race: [],
+            emailAddress: "",
+            location: "",
+            degree: "",
+            university: "",
+            gradYear: "",
+            major: "",
+            minor: "",
+            hackEssay1: "",
+            hackEssay2: "",
+            optionalEssay: "",
+            proEssay: "",
+            considerForGeneral: [],
+            hackOutreach: [],
+            hackInterest: [],
+            dietaryRestrictions: [],
+            requestedTravelReimbursement: [],
+            travelAcknowledge: [],
+            codeOfConductAcknowledge: [],
+            reviewedInformationAcknowledge: []
+        });
+
+        // Promise.all([getRegistrationOrDefault(), getChallenge()]).then(
+        //     ([registration, challenge]) => {
+        //         setRegistration(registrationFromAPI(registration));
+        //         setIsProApplicant(challenge.complete);
+        //         setIsLoading(false);
+        //     }
+        // );
     }, []);
 
     if (isLoading) {

@@ -54,25 +54,24 @@ const ShineButton: React.FC<ShineButtonProps> = ({
 };
 
 const ProChallenge: React.FC = () => {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
 
     useEffect(() => {
-        if (!isAuthenticated()) {
-            authenticate(pathname);
-            return;
-        }
-
-        getChallenge()
-            .then(challenge => {
-                if (challenge.complete) {
-                    router.push("/register/challenge/status");
-                }
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        // if (!isAuthenticated()) {
+        //     authenticate(pathname);
+        //     return;
+        // }
+        // getChallenge()
+        //     .then(challenge => {
+        //         if (challenge.complete) {
+        //             router.push("/register/challenge/status");
+        //         }
+        //     })
+        //     .finally(() => {
+        //         setIsLoading(false);
+        //     });
     }, []);
 
     return (

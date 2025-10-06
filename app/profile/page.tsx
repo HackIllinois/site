@@ -43,28 +43,26 @@ const Profile: React.FC = () => {
     );
     const [RSVP, setRSVP] = useState<RSVPType | null>(null);
     const [isProApplicant, setIsProApplicant] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        if (!isAuthenticated()) {
-            authenticate(pathname);
-            return;
-        }
-
-        getRegistrationOrDefault().then(registration => {
-            if (!registration.hasSubmitted) {
-                router.push("/register");
-            }
-
-            setRegistration(registrationFromAPI(registration));
-            Promise.all([getChallenge(), getRSVP()]).then(
-                ([challenge, RSVP]) => {
-                    setIsProApplicant(challenge.complete);
-                    setRSVP(RSVP);
-                    setIsLoading(false);
-                }
-            );
-        });
+        // if (!isAuthenticated()) {
+        //     authenticate(pathname);
+        //     return;
+        // }
+        // getRegistrationOrDefault().then(registration => {
+        //     if (!registration.hasSubmitted) {
+        //         router.push("/register");
+        //     }
+        //     setRegistration(registrationFromAPI(registration));
+        //     Promise.all([getChallenge(), getRSVP()]).then(
+        //         ([challenge, RSVP]) => {
+        //             setIsProApplicant(challenge.complete);
+        //             setRSVP(RSVP);
+        //             setIsLoading(false);
+        //         }
+        //     );
+        // });
     }, []);
 
     return (

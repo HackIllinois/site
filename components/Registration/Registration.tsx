@@ -146,9 +146,9 @@ const Registration: React.FC<PropTypes> = ({
         };
 
         setIsLoading(true);
-        await registerUpdate(
-            registrationToAPI({ ...registration, ...newIgnore })
-        ).catch(err => handleError(err));
+        // await registerUpdate(
+        //     registrationToAPI({ ...registration, ...newIgnore })
+        // ).catch(err => handleError(err));
         await formikRef.current?.setTouched({}, false);
         setIgnoredFields(newIgnore);
         router.push(pages[pageIndex + 1]);

@@ -10,26 +10,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
-
-    useEffect(() => {
-        if (!isAuthenticated()) {
-            authenticate(pathname);
-            return;
-        }
-
-        getRegistrationOrDefault()
-            .then(registration => {
-                if (registration.hasSubmitted) {
-                    router.push("/profile");
-                }
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    }, []);
 
     return (
         <>

@@ -28,9 +28,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
     const handleSubmit = async () => {
         setIsLoading(true);
-        await registerSubmit(registrationToAPI(registration)).catch(err =>
-            handleError(err)
-        );
+        // await registerSubmit(registrationToAPI(registration)).catch(err =>
+        //     handleError(err)
+        // );
         router.push("/register/confirmation");
     };
 

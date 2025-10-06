@@ -43,14 +43,14 @@ const SolidButton: React.FC<SolidButtonsProps> = ({
 };
 
 const ProChallengeStatus: React.FC = () => {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [challenge, setChallenge] = useState<ChallengeStatus | null>(null);
 
     useEffect(() => {
-        getChallenge().then(challenge => {
-            setChallenge(challenge);
-            setIsLoading(false);
-        });
+        // getChallenge().then(challenge => {
+        //     setChallenge(challenge);
+        //     setIsLoading(false);
+        // });
     }, []);
 
     if (isLoading) {

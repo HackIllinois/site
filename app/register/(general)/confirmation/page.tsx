@@ -12,25 +12,25 @@ import { usePathname, useRouter } from "next/navigation";
 import Loading from "@/components/Loading/Loading";
 
 const Confirmation: React.FC = () => {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
 
     useEffect(() => {
-        if (!isAuthenticated()) {
-            authenticate(pathname);
-            return;
-        }
-
-        getRegistrationOrDefault()
-            .then(registration => {
-                if (!registration.hasSubmitted) {
-                    router.push("/register");
-                }
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        // if (!isAuthenticated()) {
+        //     authenticate(pathname);
+        //     return;
+        // }
+        // router.push("/register");
+        // getRegistrationOrDefault()
+        //     .then(registration => {
+        //         if (!registration.hasSubmitted) {
+        //             router.push("/register");
+        //         }
+        //     })
+        //     .finally(() => {
+        //         setIsLoading(false);
+        //     });
     }, []);
 
     return (
