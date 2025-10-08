@@ -14,7 +14,10 @@ type PropTypes = {
     blue?: boolean;
     [key: string]: unknown;
 };
-
+/**
+ * This component is deprecated and will be removed in a future release.
+ * Please use MUI instead.
+ */
 const StyledCheckbox: React.FC<PropTypes> = ({
     value,
     label,

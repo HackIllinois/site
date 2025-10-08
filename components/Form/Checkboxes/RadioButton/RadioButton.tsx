@@ -15,6 +15,10 @@ type PropTypes = {
     [key: string]: unknown;
 };
 
+/**
+ * This component is deprecated and will be removed in a future release.
+ * Please use MUI instead.
+ */
 const RadioButton: React.FC<PropTypes> = ({
     value,
     label,

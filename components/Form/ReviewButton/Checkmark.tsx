@@ -1,3 +1,7 @@
+/**
+ * This component is deprecated and will be removed in a future release.
+ * Please use MUI instead.
+ */
 const Checkmark = () => {
     return (
         <svg

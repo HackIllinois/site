@@ -15,6 +15,10 @@ interface DropdownProps {
     required?: boolean;
 }
 
+/**
+ * This component is deprecated and will be removed in a future release.
+ * Please use MUI instead.
+ */
 const Dropdown: React.FC<DropdownProps> = ({
     name,
     label,

@@ -22,6 +22,10 @@ type PropTypes = {
     [key: string]: unknown;
 };
 
+/**
+ * This component is deprecated and will be removed in a future release.
+ * Please use MUI instead.
+ */
 const FileUpload: React.FC<PropTypes> = ({
     name,
     label,
