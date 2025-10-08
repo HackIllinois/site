@@ -13,7 +13,7 @@ import styles from "./styles.module.scss";
 
 const HackSpecific: React.FC = () => {
     const { isProApplicant } = useLayoutContext();
-
+    //
     return (
         <div className={styles.container}>
             <h1>Hack-Specific</h1>
