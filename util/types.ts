@@ -265,25 +265,6 @@ export type FormProps = {
     setFormIndex: React.Dispatch<React.SetStateAction<number>>;
 };
 
-// FormData type for multi-page form demo
-export type FormData = {
-    // Personal Info
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    dateOfBirth: string;
-    gender: string;
-
-    // Education
-    university: string;
-    degree: string;
-    major: string;
-    graduationYear: string;
-    gpa: string;
-    expectedGraduation: string;
-};
-
 export interface EventType {
     id: string;
     name: string;

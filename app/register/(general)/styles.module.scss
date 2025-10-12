@@ -1,0 +1,32 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+    padding-bottom: 2rem;
+    gap: 3rem;
+    min-height: 100vh;
+    height: fit-content;
+
+    @media (max-width: 768px) {
+        background-size: 400px;
+        gap: 2rem;
+        padding-bottom: 25rem; // bottom padding is for mobile keyboard
+    }
+}
+
+.contentWrapper {
+    margin-top: 126px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3rem;
+    width: 80%;
+    position: relative;
+    @media (max-width: 768px) {
+        margin-top: 100px;
+    }
+}

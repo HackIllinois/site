@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    h1 {
+        font-weight: 900;
+        font-size: 36px;
+        color: white;
+        @media (max-width: 768px) {
+            font-size: 36px;
+        }
+    }
+
+    h4 {
+        font-weight: 400;
+        font-size: 20px;
+        color: red;
+        @media (max-width: 768px) {
+            font-size: 16px;
+        }
+    }
+
+    h3,
+    label {
+        font-weight: 600;
+        font-size: 20px;
+        color: white;
+        @media (max-width: 768px) {
+            font-size: 18px;
+        }
+    }
+}
