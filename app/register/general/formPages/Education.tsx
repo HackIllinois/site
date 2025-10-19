@@ -1,21 +1,26 @@
-import { FormData } from "@/util/types";
-import {
-    Box,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-    Typography
-} from "@mui/material";
+import StyledTextField from "@/components/StyledTextfield/StyledTextfield";
+import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
+import { RegistrationData } from "@/util/types";
+import { Box, Typography } from "@mui/material";
 import { FormikProps } from "formik";
+import schools from "@/modules/schools.json";
+import majors from "@/modules/majors.json";
+
+const DEGREE_OPTIONS = [
+    "High School",
+    "Associate",
+    "Bachelor's",
+    "Master's",
+    "PhD",
+    "Bootcamp/Other"
+];
 
 interface EducationProps {
-    formik: FormikProps<FormData>;
+    formik: FormikProps<RegistrationData>;
 }
 
 const Education = ({ formik }: EducationProps) => {
-    const { values, errors, touched, handleChange } = formik;
+    const { values, errors, touched, handleChange, setFieldValue } = formik;
 
     return (
         <Box
@@ -24,102 +29,72 @@ const Education = ({ formik }: EducationProps) => {
                 flexDirection: "column",
                 gap: 3,
                 maxWidth: 500,
-                mx: "auto"
+                mx: "auto",
+                pt: 5
             }}
         >
             <Typography
                 variant="h4"
                 component="h1"
-                sx={{ textAlign: "center", mb: 2, fw: "bold", pt: 5 }}
+                fontFamily="Montserrat"
+                color="white"
+                sx={{ textAlign: "center", mb: 2, fontWeight: "bold" }}
             >
-                Education Information
+                Education
             </Typography>
 
-            <TextField
+            {/* Degree (select) */}
+            <StyledDropdown
+                name="degree"
+                label="Degree"
+                options={DEGREE_OPTIONS.map(d => ({ label: d, value: d }))}
+                value={values.degree}
+                onChange={value => setFieldValue("degree", value)}
+                error={touched.degree && Boolean(errors.degree)}
+                helperText={touched.degree && errors.degree}
+            />
+
+            <StyledDropdown
                 name="university"
-                label="University/College"
+                label="University"
+                options={schools.map(school => ({
+                    label: school,
+                    value: school
+                }))}
                 value={values.university}
-                onChange={handleChange}
+                onChange={value => setFieldValue("university", value)}
                 error={touched.university && Boolean(errors.university)}
                 helperText={touched.university && errors.university}
-                fullWidth
             />
 
-            <FormControl
-                fullWidth
-                error={touched.degree && Boolean(errors.degree)}
-            >
-                <InputLabel>Degree Level</InputLabel>
-                <Select
-                    name="degree"
-                    value={values.degree}
-                    onChange={handleChange}
-                    label="Degree Level"
-                >
-                    <MenuItem value="associate">Associates Degree</MenuItem>
-                    <MenuItem value="bachelor">Bachelors Degree</MenuItem>
-                    <MenuItem value="master">Masters Degree</MenuItem>
-                    <MenuItem value="phd">PhD</MenuItem>
-                    <MenuItem value="other">Other</MenuItem>
-                </Select>
-                {touched.degree && errors.degree && (
-                    <Typography
-                        variant="caption"
-                        color="error"
-                        sx={{ mt: 1, ml: 2 }}
-                    >
-                        {errors.degree}
-                    </Typography>
-                )}
-            </FormControl>
-
-            <TextField
+            <StyledDropdown
                 name="major"
-                label="Major/Field of Study"
+                label="Major"
+                options={majors.map(major => ({ label: major, value: major }))}
                 value={values.major}
-                onChange={handleChange}
+                onChange={value => setFieldValue("major", value)}
                 error={touched.major && Boolean(errors.major)}
                 helperText={touched.major && errors.major}
-                fullWidth
             />
 
-            <TextField
-                name="graduationYear"
-                label="Graduation Year"
-                type="number"
-                value={values.graduationYear}
-                onChange={handleChange}
-                error={touched.graduationYear && Boolean(errors.graduationYear)}
-                helperText={touched.graduationYear && errors.graduationYear}
-                fullWidth
+            <StyledDropdown
+                name="minor"
+                label="Minor (optional)"
+                options={majors.map(major => ({ label: major, value: major }))}
+                value={values.minor}
+                onChange={value => setFieldValue("minor", value)}
+                error={touched.minor && Boolean(errors.minor)}
+                helperText={touched.minor && errors.minor}
             />
 
-            <TextField
-                name="gpa"
-                label="GPA (Optional)"
-                type="number"
-                value={values.gpa}
+            <StyledTextField
+                name="gradYear"
+                label="Graduation Year (YYYY)"
+                value={values.gradYear}
                 onChange={handleChange}
-                error={touched.gpa && Boolean(errors.gpa)}
-                helperText={touched.gpa && errors.gpa}
-                fullWidth
-            />
-
-            <TextField
-                name="expectedGraduation"
-                label="Expected Graduation Date"
-                type="date"
-                value={values.expectedGraduation}
-                onChange={handleChange}
-                error={
-                    touched.expectedGraduation &&
-                    Boolean(errors.expectedGraduation)
-                }
-                helperText={
-                    touched.expectedGraduation && errors.expectedGraduation
-                }
-                InputLabelProps={{ shrink: true }}
-                fullWidth
+                error={touched.gradYear && Boolean(errors.gradYear)}
+                helperText={touched.gradYear && errors.gradYear}
+                required
             />
         </Box>
     );

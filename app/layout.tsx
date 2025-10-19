@@ -2,6 +2,7 @@ import "./globals.scss";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Navbar from "@/components/Navbar/Navbar";
+import { createTheme } from "@mui/material";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 

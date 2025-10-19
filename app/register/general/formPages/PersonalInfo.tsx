@@ -1,21 +1,15 @@
-import {
-    Box,
-    Typography,
-    TextField,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem
-} from "@mui/material";
+import StyledTextField from "@/components/StyledTextfield/StyledTextfield";
+import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
+import { RegistrationData } from "@/util/types";
+import { Box, Typography } from "@mui/material";
 import { FormikProps } from "formik";
-import { FormData } from "@/util/types";
 
 interface PersonalInfoProps {
-    formik: FormikProps<FormData>;
+    formik: FormikProps<RegistrationData>;
 }
 
 const PersonalInfo = ({ formik }: PersonalInfoProps) => {
-    const { values, errors, touched, handleChange } = formik;
+    const { values, errors, touched, handleChange, setFieldValue } = formik;
 
     return (
         <Box
@@ -31,93 +25,106 @@ const PersonalInfo = ({ formik }: PersonalInfoProps) => {
             <Typography
                 variant="h4"
                 component="h1"
+                fontFamily={"Montserrat"}
+                color="white"
                 sx={{ textAlign: "center", mb: 2, fontWeight: "bold" }}
             >
                 Personal Information
             </Typography>
 
-            <TextField
-                name="firstName"
-                label="First Name"
-                value={values.firstName}
+            {/* Legal Name */}
+            <StyledTextField
+                name="legalName"
+                label="Legal Name"
+                value={values.legalName}
                 onChange={handleChange}
-                error={touched.firstName && Boolean(errors.firstName)}
-                helperText={touched.firstName && errors.firstName}
-                fullWidth
+                error={touched.legalName && Boolean(errors.legalName)}
+                helperText={touched.legalName && errors.legalName}
+                required
             />
 
-            <TextField
-                name="lastName"
-                label="Last Name"
-                value={values.lastName}
+            {/* Preferred Name (optional) */}
+            <StyledTextField
+                name="preferredName"
+                label="Preferred Name"
+                value={values.preferredName}
                 onChange={handleChange}
-                error={touched.lastName && Boolean(errors.lastName)}
-                helperText={touched.lastName && errors.lastName}
-                fullWidth
+                error={touched.preferredName && Boolean(errors.preferredName)}
+                helperText={touched.preferredName && errors.preferredName}
             />
 
-            <TextField
-                name="email"
+            {/* Email Address */}
+            <StyledTextField
+                name="emailAddress"
                 label="Email Address"
                 type="email"
-                value={values.email}
+                value={values.emailAddress}
                 onChange={handleChange}
-                error={touched.email && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
-                fullWidth
+                error={touched.emailAddress && Boolean(errors.emailAddress)}
+                helperText={touched.emailAddress && errors.emailAddress}
+                required
             />
 
-            <TextField
-                name="phone"
-                label="Phone Number"
-                value={values.phone}
+            {/* City / Location */}
+            <StyledTextField
+                name="location"
+                label="City / Location"
+                value={values.location}
                 onChange={handleChange}
-                error={touched.phone && Boolean(errors.phone)}
-                helperText={touched.phone && errors.phone}
-                fullWidth
+                error={touched.location && Boolean(errors.location)}
+                helperText={touched.location && errors.location}
+                required
             />
 
-            <TextField
-                name="dateOfBirth"
-                label="Date of Birth"
-                type="date"
-                value={values.dateOfBirth}
-                onChange={handleChange}
-                error={touched.dateOfBirth && Boolean(errors.dateOfBirth)}
-                helperText={touched.dateOfBirth && errors.dateOfBirth}
-                InputLabelProps={{ shrink: true }}
-                fullWidth
-            />
-
-            <FormControl
-                fullWidth
+            {/* Gender */}
+            <StyledDropdown
+                name="gender"
+                label="Gender"
+                options={[
+                    { label: "Male", value: "Male" },
+                    { label: "Female", value: "Female" },
+                    { label: "Non-binary", value: "Non-binary" },
+                    { label: "Prefer not to say", value: "Prefer not to say" },
+                    { label: "Other", value: "Other" }
+                ]}
+                value={values.gender}
+                onChange={value => setFieldValue("gender", value)}
                 error={touched.gender && Boolean(errors.gender)}
-            >
-                <InputLabel>Gender</InputLabel>
-                <Select
-                    name="gender"
-                    value={values.gender}
-                    onChange={handleChange}
-                    label="Gender"
-                >
-                    <MenuItem value="male">Male</MenuItem>
-                    <MenuItem value="female">Female</MenuItem>
-                    <MenuItem value="non-binary">Non-binary</MenuItem>
-                    <MenuItem value="prefer-not-to-say">
-                        Prefer not to say
-                    </MenuItem>
-                    <MenuItem value="other">Other</MenuItem>
-                </Select>
-                {touched.gender && errors.gender && (
-                    <Typography
-                        variant="caption"
-                        color="error"
-                        sx={{ mt: 1, ml: 2 }}
-                    >
-                        {errors.gender}
-                    </Typography>
-                )}
-            </FormControl>
+                helperText={touched.gender && errors.gender}
+            />
+
+            {/* Race (multi-select) */}
+            <StyledDropdown
+                name="race"
+                label="Race / Ethnicity"
+                multiple
+                options={[
+                    {
+                        label: "American Indian or Alaska Native",
+                        value: "American Indian or Alaska Native"
+                    },
+                    { label: "Asian", value: "Asian" },
+                    {
+                        label: "Black or African American",
+                        value: "Black or African American"
+                    },
+                    {
+                        label: "Hispanic or Latino",
+                        value: "Hispanic or Latino"
+                    },
+                    {
+                        label: "Native Hawaiian or Other Pacific Islander",
+                        value: "Native Hawaiian or Other Pacific Islander"
+                    },
+                    { label: "White", value: "White" },
+                    { label: "Other", value: "Other" },
+                    { label: "Prefer not to say", value: "Prefer not to say" }
+                ]}
+                value={values.race}
+                onChange={value => setFieldValue("race", value)}
+                error={touched.race && Boolean(errors.race)}
+                helperText={touched.race && String(errors.race || "")}
+            />
         </Box>
     );
 };
