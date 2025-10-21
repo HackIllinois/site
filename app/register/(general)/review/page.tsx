@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import styles from "./styles.module.scss";
 import ReviewForm from "@/components/Registration/ReviewForm";
 import { getChallenge, getRegistrationOrDefault } from "@/util/api";
 import { registrationFromAPI } from "@/util/helpers";
 import { RegistrationData } from "@/util/types";
 import Loading from "@/components/Loading/Loading";
+import { Typography } from "@mui/material";
 
 const ReviewInfo: React.FC = () => {
     const [registration, setRegistration] = useState<RegistrationData | null>(
@@ -29,8 +29,8 @@ const ReviewInfo: React.FC = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <h1>Review Info</h1>
+        <div>
+            <Typography variant="h1">REVIEW INFORMATION</Typography>
             <ReviewForm
                 registration={registration!}
                 isProApplicant={isProApplicant}
