@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import "./globals.scss";

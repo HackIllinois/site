@@ -2,6 +2,11 @@
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
+    palette: {
+        primary: {
+            main: "#ffffff"
+        }
+    },
     typography: {
         fontFamily: "Montserrat, Roboto, Tsukimi Rounded, sans-serif",
         h1: {

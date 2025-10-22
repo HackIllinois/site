@@ -3,6 +3,7 @@ import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
 import { RegistrationData } from "@/util/types";
 import { Box, Typography } from "@mui/material";
 import { FormikProps } from "formik";
+import TextInput from "@/components/TextInputMUI";
 
 interface PersonalInfoProps {
     formik: FormikProps<RegistrationData>;
@@ -33,13 +34,13 @@ const PersonalInfo = ({ formik }: PersonalInfoProps) => {
             </Typography>
 
             {/* Legal Name */}
-            <StyledTextField
+            <TextInput
                 name="legalName"
                 label="Legal Name"
                 value={values.legalName}
                 onChange={handleChange}
-                error={touched.legalName && Boolean(errors.legalName)}
-                helperText={touched.legalName && errors.legalName}
+                error={!!touched.legalName && Boolean(errors.legalName)}
+                helperText={!!touched.legalName ? errors.legalName : ""}
                 required
             />
 
