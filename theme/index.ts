@@ -1,0 +1,22 @@
+"use client";
+import { createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+    typography: {
+        fontFamily: "Montserrat, Roboto, Tsukimi Rounded, sans-serif",
+        h1: {
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: 700
+        },
+        h2: {
+            fontFamily: "Tsukimi Rounded, sans-serif",
+            fontWeight: 600
+        },
+        body1: {
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: 400
+        }
+    }
+});
+
+export default theme;
