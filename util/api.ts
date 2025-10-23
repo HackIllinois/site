@@ -16,12 +16,14 @@ export const isAuthenticated = async (): Promise<boolean> => {
 };
 
 export async function getAuthToken(): Promise<string | null> {
-    const response = await fetch(APIv2 + "/auth/token");
+    const response = await fetch(APIv2 + "/auth/token", {
+        credentials: "include"
+    });
     if (response.ok) {
         const data = await response.json();
         console.log("Data", data);
         // localStorage.setItem("token", data.token);
-        return data.token;
+        return data.jwt;
     }
     return null;
 }
@@ -43,6 +45,7 @@ export async function requestv2(
     const response = await fetch(APIv2 + endpoint, {
         method,
         mode: "cors",
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
             Origin: "www.hackillinois.org",
