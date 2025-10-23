@@ -1,3 +1,4 @@
+import SelectInput from "@/components/SelectInputMUI";
 import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
 import { RegistrationData } from "@/util/types";
 import {
@@ -7,7 +8,9 @@ import {
     FormGroup,
     FormControlLabel,
     FormControl,
-    FormHelperText
+    FormHelperText,
+    Container,
+    Grid
 } from "@mui/material";
 import { FormikProps } from "formik";
 
@@ -48,109 +51,119 @@ const Transportation = ({ formik }: TransportationProps) => {
     };
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 3,
-                maxWidth: 700,
-                mx: "auto",
-                pt: 5
-            }}
-        >
+        <Container>
             <Typography
-                variant="h4"
+                variant="h2"
                 component="h1"
-                fontFamily="Montserrat"
-                color="white"
-                sx={{ textAlign: "center", mb: 2, fontWeight: "bold" }}
-            >
-                Transportation
-            </Typography>
-
-            {/* Dietary (multi-select) */}
-            <StyledDropdown
-                name="dietaryRestrictions"
-                label="Dietary Restrictions"
-                multiple
-                options={DIETARY_OPTIONS.map(opt => ({
-                    label: opt,
-                    value: opt
-                }))}
-                value={values.dietaryRestrictions}
-                onChange={value => setFieldValue("dietaryRestrictions", value)}
-                error={
-                    touched.dietaryRestrictions &&
-                    Boolean(errors.dietaryRestrictions)
-                }
-                helperText={
-                    touched.dietaryRestrictions &&
-                    String(errors.dietaryRestrictions || "")
-                }
-            />
-
-            {/* Travel reimbursement (multi-select) */}
-            <StyledDropdown
-                name="requestedTravelReimbursement"
-                label="Requested Travel Reimbursement"
-                multiple
-                options={TRAVEL_REIMBURSE_OPTIONS.map(opt => ({
-                    label: opt,
-                    value: opt
-                }))}
-                value={values.requestedTravelReimbursement}
-                onChange={value =>
-                    setFieldValue("requestedTravelReimbursement", value)
-                }
-                error={
-                    touched.requestedTravelReimbursement &&
-                    Boolean(errors.requestedTravelReimbursement)
-                }
-                helperText={
-                    touched.requestedTravelReimbursement &&
-                    String(errors.requestedTravelReimbursement || "")
-                }
-            />
-
-            {/* Travel Acknowledge (checkbox -> array<string>) */}
-            <FormControl
-                error={
-                    touched.travelAcknowledge &&
-                    Boolean(errors.travelAcknowledge)
-                }
                 sx={{
-                    "& .MuiFormControlLabel-label": {
-                        color: "white",
-                        fontFamily: "Montserrat"
-                    }
+                    mt: 8,
+                    mb: 4
                 }}
             >
-                <FormGroup>
-                    {TRAVEL_ACK.map(text => (
-                        <FormControlLabel
-                            key={text}
-                            control={
-                                <Checkbox
-                                    checked={(
-                                        values.travelAcknowledge || []
-                                    ).includes(text)}
-                                    onChange={() =>
-                                        toggleInArray("travelAcknowledge", text)
-                                    }
-                                    sx={{ color: "white" }}
-                                />
+                TRANSPORTATION
+            </Typography>
+
+            <Grid container columnSpacing={2} rowSpacing={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    {/* Dietary (multi-select) */}
+                    <SelectInput
+                        name="dietaryRestrictions"
+                        label="Dietary Restrictions"
+                        multiple
+                        options={DIETARY_OPTIONS.map(opt => ({
+                            label: opt,
+                            value: opt
+                        }))}
+                        value={values.dietaryRestrictions}
+                        onChange={value =>
+                            setFieldValue("dietaryRestrictions", value)
+                        }
+                        error={
+                            !!touched.dietaryRestrictions &&
+                            Boolean(errors.dietaryRestrictions)
+                        }
+                        helperText={
+                            !!touched.dietaryRestrictions
+                                ? String(errors.dietaryRestrictions || "")
+                                : ""
+                        }
+                    />
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                    {/* Travel reimbursement (multi-select) */}
+                    <SelectInput
+                        name="requestedTravelReimbursement"
+                        label="Requested Travel Reimbursement"
+                        multiple
+                        options={TRAVEL_REIMBURSE_OPTIONS.map(opt => ({
+                            label: opt,
+                            value: opt
+                        }))}
+                        value={values.requestedTravelReimbursement}
+                        onChange={value =>
+                            setFieldValue("requestedTravelReimbursement", value)
+                        }
+                        error={
+                            !!touched.requestedTravelReimbursement &&
+                            Boolean(errors.requestedTravelReimbursement)
+                        }
+                        helperText={
+                            !!touched.requestedTravelReimbursement
+                                ? String(
+                                      errors.requestedTravelReimbursement || ""
+                                  )
+                                : ""
+                        }
+                    />
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 12 }}>
+                    {/* Travel Acknowledge (checkbox -> array<string>) */}
+                    <FormControl
+                        error={
+                            touched.travelAcknowledge &&
+                            Boolean(errors.travelAcknowledge)
+                        }
+                        sx={{
+                            "& .MuiFormControlLabel-label": {
+                                color: "white",
+                                fontFamily: "Montserrat"
                             }
-                            label={text}
-                        />
-                    ))}
-                </FormGroup>
-                {touched.travelAcknowledge && errors.travelAcknowledge && (
-                    <FormHelperText error>
-                        {String(errors.travelAcknowledge)}
-                    </FormHelperText>
-                )}
-            </FormControl>
-        </Box>
+                        }}
+                    >
+                        <FormGroup>
+                            {TRAVEL_ACK.map(text => (
+                                <FormControlLabel
+                                    key={text}
+                                    control={
+                                        <Checkbox
+                                            checked={(
+                                                values.travelAcknowledge || []
+                                            ).includes(text)}
+                                            onChange={() =>
+                                                toggleInArray(
+                                                    "travelAcknowledge",
+                                                    text
+                                                )
+                                            }
+                                            sx={{ color: "white" }}
+                                        />
+                                    }
+                                    label={text}
+                                />
+                            ))}
+                        </FormGroup>
+                        {touched.travelAcknowledge &&
+                            errors.travelAcknowledge && (
+                                <FormHelperText error>
+                                    {String(errors.travelAcknowledge)}
+                                </FormHelperText>
+                            )}
+                    </FormControl>
+                </Grid>
+            </Grid>
+        </Container>
     );
 };
 

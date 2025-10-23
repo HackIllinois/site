@@ -96,7 +96,12 @@ const SelectInput: React.FC<SelectInputProps> = ({
                                 <Chip
                                     key={val}
                                     label={val}
-                                    sx={{ color: "white", bgcolor: "#2c2540" }}
+                                    sx={{
+                                        color: "white",
+                                        bgcolor: "#2c2540",
+                                        height: "24px",
+                                        lineHeight: 1
+                                    }}
                                 />
                             ))}
                         </Box>
@@ -118,9 +123,6 @@ const SelectInput: React.FC<SelectInputProps> = ({
                     "&.Mui-focused": {
                         backgroundColor: "#f0f0f0",
                         boxShadow: "0 0 4px 2px #ffffff40"
-                    },
-                    "&:not(.Mui-focused)": {
-                        boxShadow: "none"
                     }
                 }}
             >
