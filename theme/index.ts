@@ -15,7 +15,9 @@ const theme = createTheme({
         },
         h2: {
             fontFamily: "Tsukimi Rounded, sans-serif",
-            fontWeight: 600
+            fontWeight: 600,
+            fontSize: "3rem",
+            color: "#ffffff"
         },
         body1: {
             fontFamily: "Montserrat, sans-serif",

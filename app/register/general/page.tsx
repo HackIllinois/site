@@ -11,12 +11,13 @@ import Experience from "./formPages/Experience";
 import Transportation from "./formPages/Transportation";
 import Review from "./formPages/Review";
 import Confirmation from "./formPages/Confirmation";
+import Image from "next/image";
 
 const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
 
     const steps = [
-        "Personal Information",
+        "Personal Info",
         "Education",
         "Experience",
         "Transportation",
@@ -210,90 +211,143 @@ const GeneralRegistration = () => {
 
     return (
         <main className={"screen"}>
-            <div className={styles.topSpacer}></div>
+            <Box
+                sx={{
+                    minHeight: "100vh", // full viewport height
+                    height: "100%",
+                    width: "100%",
+                    backgroundImage:
+                        'url("/registration/backgrounds/personal_info.svg")',
+                    backgroundSize: "cover", // fill the screen
+                    backgroundRepeat: "no-repeat", // prevent tiling
+                    backgroundPosition: "center" // center the image
+                }}
+            >
+                <div className={styles.topSpacer}></div>
 
-            <Paper sx={{ backgroundColor: "rgba(255, 255, 255,0)" }}>
-                <Stepper activeStep={currentStep} sx={{ pt: 20, px: 20 }}>
-                    {steps.map(label => (
-                        <Step key={label}>
-                            <StepLabel
-                                sx={{
-                                    "& .MuiStepLabel-label": {
-                                        color: "white", // default text color
-                                        fontFamily: "Montserrat",
-                                        "&.Mui-active": { color: "white" }, // active step stays white
-                                        "&.Mui-completed": { color: "white" } // completed step stays white
-                                    }
-                                }}
-                            >
-                                {label}
-                            </StepLabel>
-                        </Step>
-                    ))}
-                </Stepper>
-
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchemas[currentStep]}
-                    onSubmit={handleSubmit}
+                <Paper
+                    elevation={0}
+                    sx={{
+                        backgroundColor: "rgba(255, 255, 255,0)",
+                        height: "100%"
+                    }}
                 >
-                    {formik => (
-                        <Form>
-                            <Box sx={{ mb: 4, fontFamily: "Montserrat" }}>
-                                {renderStepContent(currentStep, formik)}
-                            </Box>
-
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    mt: 4,
-                                    px: 20
-                                }}
-                            >
-                                <Button
-                                    variant="outlined"
-                                    onClick={handleBack}
-                                    disabled={currentStep === 0}
+                    <Stepper
+                        alternativeLabel
+                        activeStep={currentStep}
+                        sx={{
+                            pt: 20,
+                            px: 20,
+                            "& .MuiStepConnector-line": {
+                                width: "60%", // default is 100%
+                                margin: "0 auto" // keeps it centered between icons
+                            }
+                        }}
+                    >
+                        {steps.map(label => (
+                            <Step key={label}>
+                                <StepLabel
                                     sx={{
-                                        color: "white",
-                                        borderColor: "white",
-                                        fontFamily: "Montserrat",
-                                        "&:hover": {
-                                            borderColor: "#b39ddb",
-                                            backgroundColor:
-                                                "rgba(255, 255, 255, 0.08)"
-                                        },
-                                        "&.Mui-disabled": {
-                                            borderColor:
-                                                "rgba(255,255,255,0.3)",
-                                            color: "rgba(255,255,255,0.3)"
+                                        "& .MuiStepLabel-label": {
+                                            color: "white", // default text color
+                                            fontFamily: "Tsukimi Rounded",
+                                            "&.Mui-active": { color: "white" }, // active step stays white
+                                            "&.Mui-completed": {
+                                                color: "white"
+                                            } // completed step stays white
                                         }
                                     }}
-                                >
-                                    Back
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    onClick={() =>
-                                        handleNext(
-                                            formik.values,
-                                            formik.setTouched
+                                    slots={{
+                                        stepIcon: props => (
+                                            <div
+                                                style={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    width: 32, // matches MUI's default StepIcon size
+                                                    height: 32,
+                                                    margin: "0 auto"
+                                                }}
+                                            >
+                                                <Image
+                                                    src="/registration/progress_bar/transportation.svg"
+                                                    alt="Transportation"
+                                                    width={120}
+                                                    height={120}
+                                                />
+                                            </div>
                                         )
-                                    }
-                                    sx={{
-                                        fontFamily: "Montserrat"
                                     }}
                                 >
-                                    {currentStep === steps.length - 1
-                                        ? "Submit"
-                                        : "Next"}
-                                </Button>
-                            </Box>
-                        </Form>
-                    )}
-                </Formik>
-            </Paper>
+                                    {label}
+                                </StepLabel>
+                            </Step>
+                        ))}
+                    </Stepper>
+
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchemas[currentStep]}
+                        onSubmit={handleSubmit}
+                    >
+                        {formik => (
+                            <Form>
+                                <Box sx={{ mb: 4, fontFamily: "Montserrat" }}>
+                                    {renderStepContent(currentStep, formik)}
+                                </Box>
+
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        mt: 4,
+                                        px: 20
+                                    }}
+                                >
+                                    <Button
+                                        variant="outlined"
+                                        onClick={handleBack}
+                                        disabled={currentStep === 0}
+                                        sx={{
+                                            color: "white",
+                                            borderColor: "white",
+                                            fontFamily: "Montserrat",
+                                            "&:hover": {
+                                                borderColor: "#b39ddb",
+                                                backgroundColor:
+                                                    "rgba(255, 255, 255, 0.08)"
+                                            },
+                                            "&.Mui-disabled": {
+                                                borderColor:
+                                                    "rgba(255,255,255,0.3)",
+                                                color: "rgba(255,255,255,0.3)"
+                                            }
+                                        }}
+                                    >
+                                        Back
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        onClick={() =>
+                                            handleNext(
+                                                formik.values,
+                                                formik.setTouched
+                                            )
+                                        }
+                                        sx={{
+                                            fontFamily: "Montserrat"
+                                        }}
+                                    >
+                                        {currentStep === steps.length - 1
+                                            ? "Submit"
+                                            : "Next"}
+                                    </Button>
+                                </Box>
+                            </Form>
+                        )}
+                    </Formik>
+                </Paper>
+            </Box>
         </main>
     );
 };

@@ -1,9 +1,10 @@
 import StyledTextField from "@/components/StyledTextfield/StyledTextfield";
 import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
 import { RegistrationData } from "@/util/types";
-import { Box, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import TextInput from "@/components/TextInputMUI";
+import SelectInput from "@/components/SelectInputMUI";
 
 interface PersonalInfoProps {
     formik: FormikProps<RegistrationData>;
@@ -13,120 +14,140 @@ const PersonalInfo = ({ formik }: PersonalInfoProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 3,
-                maxWidth: 500,
-                mx: "auto",
-                pt: 5
-            }}
-        >
+        <Container>
             <Typography
-                variant="h4"
+                variant="h2"
                 component="h1"
-                fontFamily={"Montserrat"}
-                color="white"
-                sx={{ textAlign: "center", mb: 2, fontWeight: "bold" }}
+                sx={{
+                    mt: 8,
+                    mb: 4
+                }}
             >
-                Personal Information
+                PERSONAL INFO
             </Typography>
-
-            {/* Legal Name */}
-            <TextInput
-                name="legalName"
-                label="Legal Name"
-                value={values.legalName}
-                onChange={handleChange}
-                error={!!touched.legalName && Boolean(errors.legalName)}
-                helperText={!!touched.legalName ? errors.legalName : ""}
-                required
-            />
-
-            {/* Preferred Name (optional) */}
-            <StyledTextField
-                name="preferredName"
-                label="Preferred Name"
-                value={values.preferredName}
-                onChange={handleChange}
-                error={touched.preferredName && Boolean(errors.preferredName)}
-                helperText={touched.preferredName && errors.preferredName}
-            />
-
-            {/* Email Address */}
-            <StyledTextField
-                name="emailAddress"
-                label="Email Address"
-                type="email"
-                value={values.emailAddress}
-                onChange={handleChange}
-                error={touched.emailAddress && Boolean(errors.emailAddress)}
-                helperText={touched.emailAddress && errors.emailAddress}
-                required
-            />
-
-            {/* City / Location */}
-            <StyledTextField
-                name="location"
-                label="City / Location"
-                value={values.location}
-                onChange={handleChange}
-                error={touched.location && Boolean(errors.location)}
-                helperText={touched.location && errors.location}
-                required
-            />
-
-            {/* Gender */}
-            <StyledDropdown
-                name="gender"
-                label="Gender"
-                options={[
-                    { label: "Male", value: "Male" },
-                    { label: "Female", value: "Female" },
-                    { label: "Non-binary", value: "Non-binary" },
-                    { label: "Prefer not to say", value: "Prefer not to say" },
-                    { label: "Other", value: "Other" }
-                ]}
-                value={values.gender}
-                onChange={value => setFieldValue("gender", value)}
-                error={touched.gender && Boolean(errors.gender)}
-                helperText={touched.gender && errors.gender}
-            />
-
-            {/* Race (multi-select) */}
-            <StyledDropdown
-                name="race"
-                label="Race / Ethnicity"
-                multiple
-                options={[
-                    {
-                        label: "American Indian or Alaska Native",
-                        value: "American Indian or Alaska Native"
-                    },
-                    { label: "Asian", value: "Asian" },
-                    {
-                        label: "Black or African American",
-                        value: "Black or African American"
-                    },
-                    {
-                        label: "Hispanic or Latino",
-                        value: "Hispanic or Latino"
-                    },
-                    {
-                        label: "Native Hawaiian or Other Pacific Islander",
-                        value: "Native Hawaiian or Other Pacific Islander"
-                    },
-                    { label: "White", value: "White" },
-                    { label: "Other", value: "Other" },
-                    { label: "Prefer not to say", value: "Prefer not to say" }
-                ]}
-                value={values.race}
-                onChange={value => setFieldValue("race", value)}
-                error={touched.race && Boolean(errors.race)}
-                helperText={touched.race && String(errors.race || "")}
-            />
-        </Box>
+            <Grid container columnSpacing={2} rowSpacing={6}>
+                <Grid size={{ xs: 6, md: 6 }}>
+                    {/* Legal Name */}
+                    <TextInput
+                        name="legalName"
+                        label="Legal Name"
+                        required
+                        value={values.legalName}
+                        onChange={handleChange}
+                        error={!!touched.legalName && Boolean(errors.legalName)}
+                        helperText={!!touched.legalName ? errors.legalName : ""}
+                    />
+                </Grid>
+                <Grid size={{ xs: 6, md: 3 }}>
+                    {/* Preferred Name (optional) */}
+                    <TextInput
+                        name="preferredName"
+                        label="Preferred Name"
+                        value={values.preferredName}
+                        onChange={handleChange}
+                        error={
+                            !!touched.preferredName &&
+                            Boolean(errors.preferredName)
+                        }
+                        helperText={
+                            !!touched.preferredName ? errors.preferredName : ""
+                        }
+                    />
+                </Grid>
+                <Grid size={{ xs: 6, md: 3 }}>
+                    {/* Gender */}
+                    <SelectInput
+                        name="gender"
+                        label="Gender"
+                        required
+                        options={[
+                            { label: "Male", value: "Male" },
+                            { label: "Female", value: "Female" },
+                            { label: "Non-binary", value: "Non-binary" },
+                            {
+                                label: "Prefer not to say",
+                                value: "Prefer not to say"
+                            },
+                            { label: "Other", value: "Other" }
+                        ]}
+                        value={values.gender}
+                        onChange={value => setFieldValue("gender", value)}
+                        error={!!touched.gender && Boolean(errors.gender)}
+                        helperText={!!touched.gender ? errors.gender : ""}
+                    />
+                </Grid>
+                <Grid size={{ xs: 6, md: 4 }}>
+                    {/* Race (multi-select) */}
+                    <SelectInput
+                        name="race"
+                        label="Race / Ethnicity"
+                        required
+                        multiple
+                        options={[
+                            {
+                                label: "American Indian or Alaska Native",
+                                value: "American Indian or Alaska Native"
+                            },
+                            { label: "Asian", value: "Asian" },
+                            {
+                                label: "Black or African American",
+                                value: "Black or African American"
+                            },
+                            {
+                                label: "Hispanic or Latino",
+                                value: "Hispanic or Latino"
+                            },
+                            {
+                                label: "Native Hawaiian or Other Pacific Islander",
+                                value: "Native Hawaiian or Other Pacific Islander"
+                            },
+                            { label: "White", value: "White" },
+                            { label: "Other", value: "Other" },
+                            {
+                                label: "Prefer not to say",
+                                value: "Prefer not to say"
+                            }
+                        ]}
+                        value={values.race}
+                        onChange={value => setFieldValue("race", value)}
+                        error={!!touched.race && Boolean(errors.race)}
+                        helperText={
+                            !!touched.race ? String(errors.race || "") : ""
+                        }
+                    />
+                </Grid>
+                <Grid size={{ xs: 6, md: 5 }}>
+                    {/* Email Address */}
+                    <TextInput
+                        name="emailAddress"
+                        label="Email Address"
+                        required
+                        type="email"
+                        value={values.emailAddress}
+                        onChange={handleChange}
+                        error={
+                            !!touched.emailAddress &&
+                            Boolean(errors.emailAddress)
+                        }
+                        helperText={
+                            !!touched.emailAddress ? errors.emailAddress : ""
+                        }
+                    />
+                </Grid>
+                <Grid size={{ xs: 6, md: 3 }}>
+                    {/* City / Location */}
+                    <TextInput
+                        name="location"
+                        label="City / Location"
+                        required
+                        value={values.location}
+                        onChange={handleChange}
+                        error={!!touched.location && Boolean(errors.location)}
+                        helperText={!!touched.location ? errors.location : ""}
+                    />
+                </Grid>
+            </Grid>
+        </Container>
     );
 };
 

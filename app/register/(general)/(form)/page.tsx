@@ -213,7 +213,12 @@ const GeneralRegistration = () => {
             <div className={styles.topSpacer}></div>
 
             <Paper sx={{ backgroundColor: "rgba(255, 255, 255,0)" }}>
-                <Stepper activeStep={currentStep} sx={{ pt: 20, px: 20 }}>
+                <Stepper
+                    alternativeLabel
+                    orientation="horizontal"
+                    activeStep={currentStep}
+                    //sx={{ pt: 20, px: 20 }}
+                >
                     {steps.map(label => (
                         <Step key={label}>
                             <StepLabel

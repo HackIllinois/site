@@ -1,4 +1,5 @@
 // import { RegistrationData } from "@/util/types";
+import { FormHelperText } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import InputBase from "@mui/material/InputBase";
@@ -24,7 +25,7 @@ const TextInput: React.FC<TextInputProps> = ({
     label,
     multiline = false,
     required = false,
-    placeholder = "Type here...",
+    placeholder = "Type here",
     value,
     onChange,
     error,
@@ -32,7 +33,7 @@ const TextInput: React.FC<TextInputProps> = ({
     ...props
 }) => {
     return (
-        <FormControl fullWidth>
+        <FormControl fullWidth error={error}>
             <FormLabel
                 sx={{
                     color: "#ffffff",
@@ -40,13 +41,12 @@ const TextInput: React.FC<TextInputProps> = ({
                     fontWeight: 400
                 }}
             >
-                {label + (required && "*")}
+                {label + (required ? "*" : "")}
             </FormLabel>
             <InputBase
                 name={name}
                 value={value}
                 onChange={onChange}
-                error={error}
                 multiline={multiline}
                 placeholder={placeholder}
                 {...props}
@@ -55,7 +55,7 @@ const TextInput: React.FC<TextInputProps> = ({
                     borderRadius: "9999px",
                     px: 3,
                     py: 0.5,
-                    color: "black",
+                    color: "#2c2540",
                     "&::placeholder": { opacity: 0.6 },
                     "&.Mui-focused": {
                         // Mui props needed because of the MUI component structure... the focus is on the input _inside_ this div
@@ -64,10 +64,8 @@ const TextInput: React.FC<TextInputProps> = ({
                     }
                 }}
             />
-            {error && (
-                <Typography color="error" variant="caption" sx={{ mt: 0.5 }}>
-                    {helperText}
-                </Typography>
+            {helperText && (
+                <FormHelperText sx={{ mt: 0.5 }}>{helperText}</FormHelperText>
             )}
         </FormControl>
     );
