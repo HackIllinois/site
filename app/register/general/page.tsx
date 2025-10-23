@@ -2,7 +2,7 @@
 import { RegistrationData } from "@/util/types";
 import { Box, Button, Paper, Step, StepLabel, Stepper } from "@mui/material";
 import { Form, Formik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import Education from "./formPages/Education";
 import PersonalInfo from "./formPages/PersonalInfo";
@@ -11,6 +11,8 @@ import Experience from "./formPages/Experience";
 import Transportation from "./formPages/Transportation";
 import Review from "./formPages/Review";
 import Confirmation from "./formPages/Confirmation";
+import { authenticate, getAuthToken, isAuthenticated } from "@/util/api";
+import { usePathname } from "next/navigation";
 
 const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
@@ -207,6 +209,21 @@ const GeneralRegistration = () => {
                 return <div>Unknown step</div>;
         }
     };
+
+    const handleAuthenticate = async () => {
+        const authToken = await getAuthToken();
+        console.log("authToken", authToken);
+
+        // const authenticated = await isAuthenticated();
+        // console.log('Authenticated', authenticated);
+        if (!authToken) {
+            authenticate();
+        }
+    };
+
+    useEffect(() => {
+        handleAuthenticate();
+    }, []);
 
     return (
         <main className={"screen"}>
