@@ -1,10 +1,9 @@
 import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
-import { RegistrationData } from "@/util/types";
+import { RegistrationType } from "@/util/types";
 import {
     Box,
     Typography,
     Checkbox,
-    FormGroup,
     FormControlLabel,
     FormControl,
     FormHelperText
@@ -34,14 +33,14 @@ const TRAVEL_ACK = [
 ];
 
 interface TransportationProps {
-    formik: FormikProps<RegistrationData>;
+    formik: FormikProps<RegistrationType>;
 }
 
 const Transportation = ({ formik }: TransportationProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
 
-    // helper to toggle a value inside an array field
-    const toggleInArray = (field: keyof RegistrationData, val: string) => {
+    // helper to toggle a value inside an array field (for dietary)
+    const toggleInArray = (field: keyof RegistrationType, val: string) => {
         const arr = new Set<string>((values[field] as string[]) || []);
         arr.has(val) ? arr.delete(val) : arr.add(val);
         setFieldValue(field, Array.from(arr));
@@ -89,66 +88,26 @@ const Transportation = ({ formik }: TransportationProps) => {
                 }
             />
 
-            {/* Travel reimbursement (multi-select) */}
-            <StyledDropdown
-                name="requestedTravelReimbursement"
-                label="Requested Travel Reimbursement"
-                multiple
-                options={TRAVEL_REIMBURSE_OPTIONS.map(opt => ({
-                    label: opt,
-                    value: opt
-                }))}
-                value={values.requestedTravelReimbursement}
-                onChange={value =>
-                    setFieldValue("requestedTravelReimbursement", value)
-                }
-                error={
-                    touched.requestedTravelReimbursement &&
-                    Boolean(errors.requestedTravelReimbursement)
-                }
-                helperText={
-                    touched.requestedTravelReimbursement &&
-                    String(errors.requestedTravelReimbursement || "")
-                }
-            />
-
-            {/* Travel Acknowledge (checkbox -> array<string>) */}
-            <FormControl
-                error={
-                    touched.travelAcknowledge &&
-                    Boolean(errors.travelAcknowledge)
-                }
-                sx={{
-                    "& .MuiFormControlLabel-label": {
-                        color: "white",
-                        fontFamily: "Montserrat"
-                    }
-                }}
-            >
-                <FormGroup>
-                    {TRAVEL_ACK.map(text => (
-                        <FormControlLabel
-                            key={text}
-                            control={
-                                <Checkbox
-                                    checked={(
-                                        values.travelAcknowledge || []
-                                    ).includes(text)}
-                                    onChange={() =>
-                                        toggleInArray("travelAcknowledge", text)
-                                    }
-                                    sx={{ color: "white" }}
-                                />
+            {/* Travel reimbursement (now boolean) */}
+            <FormControl sx={{ ml: 0 }}>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={Boolean(
+                                values.requestedTravelReimbursement
+                            )}
+                            onChange={e =>
+                                setFieldValue(
+                                    "requestedTravelReimbursement",
+                                    e.target.checked
+                                )
                             }
-                            label={text}
+                            sx={{ color: "white" }}
                         />
-                    ))}
-                </FormGroup>
-                {touched.travelAcknowledge && errors.travelAcknowledge && (
-                    <FormHelperText error>
-                        {String(errors.travelAcknowledge)}
-                    </FormHelperText>
-                )}
+                    }
+                    label="I would like to be considered for travel reimbursement"
+                    sx={{ color: "white", fontFamily: "Montserrat" }}
+                />
             </FormControl>
         </Box>
     );

@@ -62,7 +62,7 @@ export async function requestv2(
         responseJSON.error == "NoToken"
     ) {
         sessionStorage.removeItem("token");
-        authenticate(window.location.href);
+        authenticate();
         return;
     }
 

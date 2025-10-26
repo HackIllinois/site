@@ -1,6 +1,6 @@
 import StyledTextField from "@/components/StyledTextfield/StyledTextfield";
 import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
-import { RegistrationData } from "@/util/types";
+import { RegistrationType } from "@/util/types";
 import { Box, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import schools from "@/modules/schools.json";
@@ -16,7 +16,7 @@ const DEGREE_OPTIONS = [
 ];
 
 interface EducationProps {
-    formik: FormikProps<RegistrationData>;
+    formik: FormikProps<RegistrationType>;
 }
 
 const Education = ({ formik }: EducationProps) => {
@@ -90,8 +90,10 @@ const Education = ({ formik }: EducationProps) => {
             <StyledTextField
                 name="gradYear"
                 label="Graduation Year (YYYY)"
-                value={values.gradYear}
-                onChange={handleChange}
+                value={String(values.gradYear || "")}
+                onChange={e =>
+                    setFieldValue("gradYear", Number((e as any).target.value))
+                }
                 error={touched.gradYear && Boolean(errors.gradYear)}
                 helperText={touched.gradYear && errors.gradYear}
                 required

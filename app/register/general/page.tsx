@@ -1,21 +1,41 @@
 "use client";
-import { RegistrationData } from "@/util/types";
-import { Box, Button, Paper, Step, StepLabel, Stepper } from "@mui/material";
+import { authenticate, getAuthToken, registerUpdate } from "@/util/api";
+import { RegistrationType } from "@/util/types";
+import {
+    Alert,
+    Box,
+    Button,
+    Paper,
+    Snackbar,
+    Step,
+    StepLabel,
+    Stepper
+} from "@mui/material";
 import { Form, Formik } from "formik";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import * as Yup from "yup";
-import Education from "./formPages/Education";
-import PersonalInfo from "./formPages/PersonalInfo";
-import styles from "./styles.module.scss";
-import Experience from "./formPages/Experience";
-import Transportation from "./formPages/Transportation";
-import Review from "./formPages/Review";
 import Confirmation from "./formPages/Confirmation";
-import { authenticate, getAuthToken, isAuthenticated } from "@/util/api";
-import { usePathname } from "next/navigation";
+import Education from "./formPages/Education";
+import Experience from "./formPages/Experience";
+import PersonalInfo from "./formPages/PersonalInfo";
+import Review from "./formPages/Review";
+import Transportation from "./formPages/Transportation";
+import styles from "./styles.module.scss";
 
 const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
+
+    // ref to access formik values from outside the render (for autosave)
+    const formikRef = useRef<any>(null);
+    const isSavingRef = useRef(false);
+
+    // snackbar state for save notifications
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState("");
+    const [snackbarSeverity, setSnackbarSeverity] = useState<
+        "info" | "success" | "warning" | "error"
+    >("info");
 
     const steps = [
         "Personal Information",
@@ -26,7 +46,17 @@ const GeneralRegistration = () => {
         "Confirmation"
     ];
 
-    const initialValues: RegistrationData = {
+    // slugify helper to create browser-friendly, lowercased step names
+    const slugify = (s: string) =>
+        s
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, "");
+
+    const stepSlugs = steps.map(s => slugify(s));
+
+    const initialValues: RegistrationType = {
         // Personal Info
         legalName: "",
         preferredName: "",
@@ -38,7 +68,7 @@ const GeneralRegistration = () => {
         // Education
         degree: "",
         university: "",
-        gradYear: "",
+        gradYear: 2025,
         major: "",
         minor: "",
 
@@ -49,16 +79,11 @@ const GeneralRegistration = () => {
         proEssay: "",
 
         // Preferences / Considerations
-        considerForGeneral: [],
+        considerForGeneral: undefined,
         hackOutreach: [],
         hackInterest: [],
         dietaryRestrictions: [],
-        requestedTravelReimbursement: [],
-
-        // Acknowledgements
-        travelAcknowledge: [],
-        codeOfConductAcknowledge: [],
-        reviewedInformationAcknowledge: []
+        requestedTravelReimbursement: false
     };
 
     const currentYear = new Date().getFullYear();
@@ -155,12 +180,41 @@ const GeneralRegistration = () => {
         })
     ];
 
-    const handleNext = async (values: RegistrationData, setTouched: any) => {
+    // performSave: placeholder location to call the autosave API
+    const performSave = async (values: RegistrationType) => {
+        if (!values) return;
+        if (isSavingRef.current) return; // don't overlap saves
+        isSavingRef.current = true;
+        try {
+            // TODO: Replace the following simulated save with a real API call.
+            // Example:
+            // await api.saveDraft(values);
+            // await registerUpdate(values);
+
+            // simulate a small delay
+            await new Promise(res => setTimeout(res, 250));
+
+            setSnackbarMessage("Autosaved");
+            setSnackbarSeverity("success");
+            setSnackbarOpen(true);
+        } catch (err) {
+            setSnackbarMessage("Autosave failed");
+            setSnackbarSeverity("warning");
+            setSnackbarOpen(true);
+        } finally {
+            isSavingRef.current = false;
+        }
+    };
+
+    const handleNext = async (values: RegistrationType, setTouched: any) => {
         console.log("Values", values, "Current Step", currentStep);
         const currentSchema = validationSchemas[currentStep];
 
         try {
             await currentSchema.validate(values, { abortEarly: false });
+
+            // perform a save (draft) before moving forward or submitting
+            await performSave(values);
 
             // If on the final step, submit the form
             if (currentStep === steps.length - 1) {
@@ -186,7 +240,7 @@ const GeneralRegistration = () => {
         setCurrentStep(prev => prev - 1);
     };
 
-    const handleSubmit = (values: RegistrationData) => {
+    const handleSubmit = (values: RegistrationType) => {
         console.log("Form submitted with values:", values);
         alert("Form submitted successfully! Check console for data.");
     };
@@ -212,10 +266,6 @@ const GeneralRegistration = () => {
 
     const handleAuthenticate = async () => {
         const authToken = await getAuthToken();
-        console.log("authToken", authToken);
-
-        // const authenticated = await isAuthenticated();
-        // console.log('Authenticated', authenticated);
         if (!authToken) {
             authenticate();
         }
@@ -224,6 +274,58 @@ const GeneralRegistration = () => {
     useEffect(() => {
         handleAuthenticate();
     }, []);
+
+    // autosave interval - runs every 10 seconds and saves the current form values (if available)
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const current = formikRef.current;
+            if (current && current.values) {
+                // fire-and-forget
+                performSave(current.values as RegistrationType);
+            }
+        }, 10000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    // --- sync current step with URL query param (?step=N) ---
+    const pathname = usePathname();
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    // read initial step from query param when the search params change
+    useEffect(() => {
+        try {
+            const stepParam = searchParams?.get("step");
+            if (!stepParam) return;
+            const normalized = slugify(stepParam);
+            const idx = stepSlugs.indexOf(normalized);
+            if (idx !== -1) {
+                setCurrentStep(idx);
+            }
+        } catch (err) {
+            // ignore malformed params
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchParams]);
+
+    // update the URL when the step changes (replace, don't push)
+    useEffect(() => {
+        try {
+            const params = new URLSearchParams(
+                searchParams ? Array.from(searchParams.entries()) : []
+            );
+            const slug = stepSlugs[currentStep] ?? String(currentStep);
+            params.set("step", slug);
+            const q = params.toString();
+            const url = q ? `${pathname}?${q}` : pathname;
+            // replace without scrolling
+            router.replace(url, { scroll: false });
+        } catch (err) {
+            // ignore
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentStep]);
 
     return (
         <main className={"screen"}>
@@ -253,6 +355,7 @@ const GeneralRegistration = () => {
                     initialValues={initialValues}
                     validationSchema={validationSchemas[currentStep]}
                     onSubmit={handleSubmit}
+                    innerRef={formikRef}
                 >
                     {formik => (
                         <Form>
@@ -310,6 +413,22 @@ const GeneralRegistration = () => {
                         </Form>
                     )}
                 </Formik>
+
+                {/* Snackbar for autosave notifications */}
+                <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={3000}
+                    onClose={() => setSnackbarOpen(false)}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                >
+                    <Alert
+                        onClose={() => setSnackbarOpen(false)}
+                        severity={snackbarSeverity}
+                        sx={{ width: "100%" }}
+                    >
+                        {snackbarMessage}
+                    </Alert>
+                </Snackbar>
             </Paper>
         </main>
     );

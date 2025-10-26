@@ -1,11 +1,11 @@
 import StyledTextField from "@/components/StyledTextfield/StyledTextfield";
 import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
-import { RegistrationData } from "@/util/types";
+import { RegistrationType } from "@/util/types";
 import { Box, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 
 interface PersonalInfoProps {
-    formik: FormikProps<RegistrationData>;
+    formik: FormikProps<RegistrationType>;
 }
 
 const PersonalInfo = ({ formik }: PersonalInfoProps) => {

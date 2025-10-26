@@ -1,9 +1,9 @@
-import { RegistrationData } from "@/util/types";
+import { RegistrationType } from "@/util/types";
 import { Box, Typography, Divider, Chip } from "@mui/material";
 import { FormikProps } from "formik";
 
 interface ReviewProps {
-    formik: FormikProps<RegistrationData>;
+    formik: FormikProps<RegistrationType>;
 }
 
 const Line = () => <Divider sx={{ my: 2, borderColor: "#3d3558" }} />;
@@ -101,7 +101,13 @@ const Review = ({ formik }: ReviewProps) => {
             </Typography>
             <Row
                 label="Consider For"
-                value={<ChipList items={values.considerForGeneral} />}
+                value={
+                    values.considerForGeneral === undefined
+                        ? "—"
+                        : values.considerForGeneral
+                          ? "Yes"
+                          : "No"
+                }
             />
             <Row
                 label="Heard About Us"
@@ -125,7 +131,13 @@ const Review = ({ formik }: ReviewProps) => {
             />
             <Row
                 label="Travel Reimbursement"
-                value={<ChipList items={values.requestedTravelReimbursement} />}
+                value={
+                    values.requestedTravelReimbursement === undefined
+                        ? "—"
+                        : values.requestedTravelReimbursement
+                          ? "Yes"
+                          : "No"
+                }
             />
         </Box>
     );

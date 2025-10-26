@@ -1,7 +1,7 @@
 import StyledTextField from "@/components/StyledTextfield/StyledTextfield";
 import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
-import { RegistrationData } from "@/util/types";
-import { Box, Typography } from "@mui/material";
+import { RegistrationType } from "@/util/types";
+import { Box, Typography, FormControlLabel, Checkbox } from "@mui/material";
 import { FormikProps } from "formik";
 
 const CONSIDER_OPTIONS = ["General Admission", "Mentor", "Volunteer"];
@@ -28,7 +28,7 @@ const INTEREST_OPTIONS = [
 ];
 
 interface ExperienceProps {
-    formik: FormikProps<RegistrationData>;
+    formik: FormikProps<RegistrationType>;
 }
 
 const Experience = ({ formik }: ExperienceProps) => {
@@ -107,25 +107,22 @@ const Experience = ({ formik }: ExperienceProps) => {
                 sx={{ "& .MuiInputBase-root": { borderRadius: "18px" } }}
             />
 
-            {/* Multi-selects */}
-            <StyledDropdown
-                name="considerForGeneral"
-                label="Consider me for"
-                multiple
-                options={CONSIDER_OPTIONS.map(opt => ({
-                    label: opt,
-                    value: opt
-                }))}
-                value={values.considerForGeneral}
-                onChange={value => setFieldValue("considerForGeneral", value)}
-                error={
-                    touched.considerForGeneral &&
-                    Boolean(errors.considerForGeneral)
+            {/* Consider for general hack (now a boolean) */}
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        checked={Boolean(values.considerForGeneral)}
+                        onChange={e =>
+                            setFieldValue(
+                                "considerForGeneral",
+                                e.target.checked
+                            )
+                        }
+                        sx={{ color: "white" }}
+                    />
                 }
-                helperText={
-                    touched.considerForGeneral &&
-                    String(errors.considerForGeneral || "")
-                }
+                label="Consider me for the General Hack"
+                sx={{ color: "white", fontFamily: "Montserrat" }}
             />
 
             <StyledDropdown
