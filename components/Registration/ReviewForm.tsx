@@ -280,9 +280,10 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                             </Box>
 
                             <Stack
-                                direction="row"
+                                direction={{ xs: "column", md: "row" }}
                                 justifyContent="space-between"
                                 alignItems="center"
+                                gap={{ xs: "24px", md: "0px" }}
                                 mt={4}
                             >
                                 <NavigationButton
