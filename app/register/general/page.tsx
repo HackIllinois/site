@@ -189,7 +189,7 @@ const GeneralRegistration = () => {
             // TODO: Replace the following simulated save with a real API call.
             // Example:
             // await api.saveDraft(values);
-            // await registerUpdate(values);
+            await registerUpdate(values);
 
             // simulate a small delay
             await new Promise(res => setTimeout(res, 250));
@@ -294,20 +294,20 @@ const GeneralRegistration = () => {
     const searchParams = useSearchParams();
 
     // read initial step from query param when the search params change
-    useEffect(() => {
-        try {
-            const stepParam = searchParams?.get("step");
-            if (!stepParam) return;
-            const normalized = slugify(stepParam);
-            const idx = stepSlugs.indexOf(normalized);
-            if (idx !== -1) {
-                setCurrentStep(idx);
-            }
-        } catch (err) {
-            // ignore malformed params
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchParams]);
+    // useEffect(() => {
+    //     try {
+    //         const stepParam = searchParams?.get("step");
+    //         if (!stepParam) return;
+    //         const normalized = slugify(stepParam);
+    //         const idx = stepSlugs.indexOf(normalized);
+    //         if (idx !== -1) {
+    //             setCurrentStep(idx);
+    //         }
+    //     } catch (err) {
+    //         // ignore malformed params
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [searchParams]);
 
     // update the URL when the step changes (replace, don't push)
     useEffect(() => {
