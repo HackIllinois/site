@@ -137,9 +137,7 @@ const GeneralRegistration = () => {
             proEssay: Yup.string()
                 .min(50, "Please write at least 50 characters")
                 .required("Professional/experience essay is required"),
-            considerForGeneral: Yup.array()
-                .of(Yup.string())
-                .min(1, "Select at least one"),
+            considerForGeneral: Yup.boolean(),
             hackOutreach: Yup.array()
                 .of(Yup.string())
                 .min(1, "Tell us how you heard about us"),
@@ -151,7 +149,7 @@ const GeneralRegistration = () => {
         // 3. Transportation (travel + dietary)
         Yup.object({
             dietaryRestrictions: Yup.array().of(Yup.string()),
-            requestedTravelReimbursement: Yup.array().of(Yup.string()),
+            requestedTravelReimbursement: Yup.boolean(),
             travelAcknowledge: Yup.array()
                 .of(Yup.string())
                 .min(1, "You must acknowledge the travel policy")
@@ -189,7 +187,7 @@ const GeneralRegistration = () => {
             // TODO: Replace the following simulated save with a real API call.
             // Example:
             // await api.saveDraft(values);
-            await registerUpdate(values);
+            // await registerUpdate(values);
 
             // simulate a small delay
             await new Promise(res => setTimeout(res, 250));
@@ -224,6 +222,7 @@ const GeneralRegistration = () => {
                 setCurrentStep(prev => prev + 1);
             }
         } catch (error) {
+            console.error(error);
             if (error instanceof Yup.ValidationError) {
                 const touchedFields: any = {};
                 error.inner.forEach(err => {
@@ -292,40 +291,6 @@ const GeneralRegistration = () => {
     const pathname = usePathname();
     const router = useRouter();
     const searchParams = useSearchParams();
-
-    // read initial step from query param when the search params change
-    // useEffect(() => {
-    //     try {
-    //         const stepParam = searchParams?.get("step");
-    //         if (!stepParam) return;
-    //         const normalized = slugify(stepParam);
-    //         const idx = stepSlugs.indexOf(normalized);
-    //         if (idx !== -1) {
-    //             setCurrentStep(idx);
-    //         }
-    //     } catch (err) {
-    //         // ignore malformed params
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [searchParams]);
-
-    // update the URL when the step changes (replace, don't push)
-    useEffect(() => {
-        try {
-            const params = new URLSearchParams(
-                searchParams ? Array.from(searchParams.entries()) : []
-            );
-            const slug = stepSlugs[currentStep] ?? String(currentStep);
-            params.set("step", slug);
-            const q = params.toString();
-            const url = q ? `${pathname}?${q}` : pathname;
-            // replace without scrolling
-            router.replace(url, { scroll: false });
-        } catch (err) {
-            // ignore
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentStep]);
 
     return (
         <main className={"screen"}>
