@@ -6,6 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import {
     Box,
     Accordion,
+    AccordionDetails,
     AccordionSummary,
     Stack,
     Typography,
@@ -20,13 +21,17 @@ export const ReviewContainer = styled(Stack)(({ theme }) => ({
     margin: "0 auto",
     marginTop: "25px",
     alignItems: "stretch",
-    gap: "25px"
+    gap: "25px",
+    [theme.breakpoints.down("sm")]: {
+        gap: "18px"
+    }
 }));
 
-export const StyledAccordion = styled(Accordion)(() => ({
+export const StyledAccordion = styled(Accordion)(({ theme }) => ({
     width: "100%",
     backgroundColor: "#f6f6f67A",
     borderRadius: 12,
+    border: "1px solid white",
     overflow: "hidden",
     "&:first-of-type": {
         borderTopLeftRadius: 12,
@@ -39,6 +44,17 @@ export const StyledAccordion = styled(Accordion)(() => ({
     "&.Mui-expanded": {
         borderRadius: 12,
         overflow: "hidden"
+    },
+    [theme.breakpoints.down("sm")]: {
+        borderRadius: 6,
+        "&:first-of-type": {
+            borderTopLeftRadius: 6,
+            borderTopRightRadius: 6
+        },
+        "&:last-of-type": {
+            borderBottomLeftRadius: 6,
+            borderBottomRightRadius: 6
+        }
     }
 }));
 
@@ -75,8 +91,10 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
                         fontFamily: `Montserrat, sans-serif`,
                         fontSize: "30px",
                         fontWeight: 600,
+                        paddingLeft: "18px",
                         [theme.breakpoints.down("sm")]: {
-                            fontSize: "15px"
+                            fontSize: "15px",
+                            paddingLeft: "13px"
                         }
                     })}
                 >
@@ -108,17 +126,25 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
     );
 };
 
+export const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
+    padding: "4px 18px 18px 18px",
+    [theme.breakpoints.down("sm")]: {
+        padding: "0px 10px 10px 10px"
+    }
+}));
+
 export const ReviewInfoAccordionBox = styled(Box)(({ theme }) => ({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "flex-start",
-    gap: "23px",
+    gap: "25px",
     alignItems: "center",
-    padding: "10px",
+    padding: "0px 18px 18px 18px",
     [theme.breakpoints.down("sm")]: {
         flexDirection: "column",
-        alignItems: "stretch"
+        alignItems: "stretch",
+        gap: "11px"
     }
 }));
 
@@ -136,9 +162,9 @@ const StyledUserInfoBox = styled(Box)(() => ({
     borderRadius: "5px",
     padding: "10px",
     gap: "5px",
-    minWidth: "124px",
-    maxWidth: "100%",
-    flex: "0 0 auto"
+    flex: "1 1 auto",
+    minWidth: 0,
+    maxWidth: "100%"
 }));
 
 export const UserInfoBox: React.FC<UserInfoProps> = ({
@@ -164,8 +190,11 @@ export const UserInfoBox: React.FC<UserInfoProps> = ({
                 sx={theme => ({
                     fontWeight: 400,
                     fontSize: "15px",
-                    color: "text.secondary",
                     fontFamily: "'Montserrat', sans-serif",
+                    color: "text.secondary",
+                    wordWrap: "break-word",
+                    overflowWrap: "anywhere",
+                    whiteSpace: "normal",
                     [theme.breakpoints.down("sm")]: {
                         fontSize: "10px"
                     }

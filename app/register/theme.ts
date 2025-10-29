@@ -15,25 +15,22 @@ const RegistrationTheme = createTheme({
             fontFamily: `${tsukimi.style.fontFamily}, sans-serif`,
             fontSize: "40px",
             fontWeight: 700,
+            textAlign: "left",
             "@media (min-width:0px)": {
                 // xsm and up
-                fontSize: "30px",
-                textAlign: "center"
+                fontSize: "20px"
             },
             "@media (min-width:900px)": {
                 // md and up
-                fontSize: "40px",
-                textAlign: "left"
+                fontSize: "40px"
             },
             "@media (min-width:1200px)": {
                 // lg and up
-                fontSize: "40px",
-                textAlign: "left"
+                fontSize: "40px"
             },
             "@media (min-width:1536px)": {
                 // xl and up
-                fontSize: "40px",
-                textAlign: "left"
+                fontSize: "40px"
             }
         },
         h3: {
