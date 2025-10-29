@@ -61,7 +61,6 @@ const Confirmation: React.FC = () => {
                     position: "absolute",
                     justifyContent: "center",
                     top: "80px",
-                    transform: { md: "rotate(5.93deg)" },
                     width: { xs: "374px", md: "748px" },
                     height: { xs: "305px", md: "610px" },
                     zIndex: 0, // behind the text
