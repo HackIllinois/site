@@ -10,13 +10,26 @@ const Background = () => {
     const windowSizeHook = useWindowSize();
 
     return (
-        <Box>
+        <Box
+            sx={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100vw",
+                height: "100vh",
+                overflow: "hidden"
+            }}
+        >
             <Image
-                src={`/registration/${!windowSizeHook?.width || windowSizeHook?.width > 768 ? "backgrounds" : "mobile_backgrounds"}/${pathname.split("/").at(-1)}.svg`}
+                src={`/registration/${
+                    !windowSizeHook?.width || windowSizeHook?.width > 768
+                        ? "backgrounds"
+                        : "mobile_backgrounds"
+                }/${pathname.split("/").at(-1)}.svg`}
                 alt="Background"
-                className={styles.background}
                 style={{ objectFit: "cover" }}
                 fill
+                priority
             />
         </Box>
     );
