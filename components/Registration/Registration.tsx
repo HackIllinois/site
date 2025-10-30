@@ -15,12 +15,7 @@ import { registerUpdate } from "@/util/api";
 import Loading from "../Loading/Loading";
 import { handleError, registrationToAPI } from "@/util/helpers";
 import { getRegistrationSchema } from "./validation";
-
-import ARTEMIS from "@/public/registration/characters/artemis.svg";
-import APOLLO from "@/public/registration/characters/apollo.svg";
 import Image from "next/image";
-
-const characters = [ARTEMIS, APOLLO];
 
 const pages = [
     "/register/personal-info",
@@ -193,16 +188,6 @@ const Registration: React.FC<PropTypes> = ({
                             </Form>
                         </Formik>
                     </div>
-                    {characters[pageIndex] && (
-                        <div className={styles.character}>
-                            <Image
-                                src={characters[pageIndex].src}
-                                alt="Character"
-                                width={400}
-                                height={1000}
-                            />
-                        </div>
-                    )}
                 </div>
             </div>
         </>
