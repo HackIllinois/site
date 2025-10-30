@@ -13,7 +13,7 @@ import Confirmation from "./formPages/Confirmation";
 import Image from "next/image";
 
 const GeneralRegistration = () => {
-    const [currentStep, setCurrentStep] = useState(0);
+    const [currentStep, setCurrentStep] = useState(2);
 
     const steps = [
         { id: "personal_info", name: "Personal Information", color: "#3A2541" },
