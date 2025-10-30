@@ -6,7 +6,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import {
     Box,
     Accordion,
+    AccordionDetails,
     AccordionSummary,
+    Stack,
     Typography,
     Checkbox,
     FormControlLabel
@@ -14,22 +16,23 @@ import {
 import { useRouter } from "next/navigation";
 import { useFormikContext } from "formik";
 
-export const ReviewContainer = styled(Box)(({ theme }) => ({
+export const ReviewContainer = styled(Stack)(({ theme }) => ({
     width: "85vw",
     margin: "0 auto",
-    marginTop: theme.spacing(4),
+    marginTop: "25px",
+    alignItems: "stretch",
+    gap: "25px",
     [theme.breakpoints.down("sm")]: {
-        width: "100%",
-        padding: theme.spacing(2)
+        gap: "18px"
     }
 }));
 
-export const StyledAccordion = styled(Accordion)(() => ({
+export const StyledAccordion = styled(Accordion)(({ theme }) => ({
     width: "100%",
     backgroundColor: "#f6f6f67A",
     borderRadius: 12,
+    border: "1px solid white",
     overflow: "hidden",
-    margin: "25px 0",
     "&:first-of-type": {
         borderTopLeftRadius: 12,
         borderTopRightRadius: 12
@@ -40,8 +43,18 @@ export const StyledAccordion = styled(Accordion)(() => ({
     },
     "&.Mui-expanded": {
         borderRadius: 12,
-        overflow: "hidden",
-        margin: "25px 0"
+        overflow: "hidden"
+    },
+    [theme.breakpoints.down("sm")]: {
+        borderRadius: 6,
+        "&:first-of-type": {
+            borderTopLeftRadius: 6,
+            borderTopRightRadius: 6
+        },
+        "&:last-of-type": {
+            borderBottomLeftRadius: 6,
+            borderBottomRightRadius: 6
+        }
     }
 }));
 
@@ -73,12 +86,17 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
         >
             <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
                 <Typography
-                    sx={{
+                    sx={theme => ({
                         color: "#fff",
                         fontFamily: `Montserrat, sans-serif`,
                         fontSize: "30px",
-                        fontWeight: 600
-                    }}
+                        fontWeight: 600,
+                        paddingLeft: "18px",
+                        [theme.breakpoints.down("sm")]: {
+                            fontSize: "15px",
+                            paddingLeft: "13px"
+                        }
+                    })}
                 >
                     {title}
                 </Typography>
@@ -108,17 +126,25 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
     );
 };
 
+export const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
+    padding: "4px 18px 18px 18px",
+    [theme.breakpoints.down("sm")]: {
+        padding: "0px 10px 10px 10px"
+    }
+}));
+
 export const ReviewInfoAccordionBox = styled(Box)(({ theme }) => ({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "flex-start",
-    gap: "23px",
+    gap: "25px",
     alignItems: "center",
-    padding: "10px",
+    padding: "0px 18px 18px 18px",
     [theme.breakpoints.down("sm")]: {
         flexDirection: "column",
-        alignItems: "stretch"
+        alignItems: "stretch",
+        gap: "11px"
     }
 }));
 
@@ -136,9 +162,9 @@ const StyledUserInfoBox = styled(Box)(() => ({
     borderRadius: "5px",
     padding: "10px",
     gap: "5px",
-    minWidth: "124px",
-    maxWidth: "100%",
-    flex: "0 0 auto"
+    flex: "1 1 auto",
+    minWidth: 0,
+    maxWidth: "100%"
 }));
 
 export const UserInfoBox: React.FC<UserInfoProps> = ({
@@ -148,22 +174,31 @@ export const UserInfoBox: React.FC<UserInfoProps> = ({
     return (
         <StyledUserInfoBox>
             <Typography
-                sx={{
+                sx={theme => ({
                     fontWeight: 700,
-                    fontSize: 15,
+                    fontSize: "15px",
                     color: "text.primary",
-                    fontFamily: "'Montserrat', sans-serif"
-                }}
+                    fontFamily: "'Montserrat', sans-serif",
+                    [theme.breakpoints.down("sm")]: {
+                        fontSize: "10px"
+                    }
+                })}
             >
                 {label}
             </Typography>
             <Typography
-                sx={{
+                sx={theme => ({
                     fontWeight: 400,
-                    fontSize: 14,
+                    fontSize: "15px",
+                    fontFamily: "'Montserrat', sans-serif",
                     color: "text.secondary",
-                    fontFamily: "'Montserrat', sans-serif"
-                }}
+                    wordWrap: "break-word",
+                    overflowWrap: "anywhere",
+                    whiteSpace: "normal",
+                    [theme.breakpoints.down("sm")]: {
+                        fontSize: "10px"
+                    }
+                })}
             >
                 {userResponse}
             </Typography>

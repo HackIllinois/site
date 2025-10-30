@@ -22,12 +22,25 @@ const NavigationButton: React.FC<NavButtonProps> = ({
     ...props
 }) => {
     const Content = (
-        <Box sx={{ position: "relative", width: 299, height: "auto" }}>
+        <Box
+            sx={{
+                position: "relative",
+                width: "100%",
+                height: { sm: "39px", md: "60px" },
+                "&:hover": {
+                    opacity: 0.9
+                }
+            }}
+        >
             <CardMedia
                 component="img"
                 image={img}
                 alt={pointRight ? "right arrow" : "left arrow"}
-                sx={{ width: 299, height: "auto", display: "block" }}
+                sx={{
+                    width: "100%",
+                    height: "100%",
+                    display: "block"
+                }}
             />
             <Typography
                 sx={{
@@ -40,7 +53,8 @@ const NavigationButton: React.FC<NavButtonProps> = ({
                     padding: 1,
                     fontFamily: "'Tsukimi Rounded', sans-serif",
                     fontWeight: 700,
-                    fontSize: "22px"
+                    fontSize: { xs: "14px", md: "22px" },
+                    whiteSpace: "nowrap"
                 }}
             >
                 {text}

@@ -5,7 +5,8 @@ import { getChallenge, getRegistrationOrDefault } from "@/util/api";
 import { registrationFromAPI } from "@/util/helpers";
 import { RegistrationData } from "@/util/types";
 import Loading from "@/components/Loading/Loading";
-import { Typography } from "@mui/material";
+import { Box, Typography, ThemeProvider } from "@mui/material";
+import RegistrationTheme from "../../theme";
 
 const ReviewInfo: React.FC = () => {
     const [registration, setRegistration] = useState<RegistrationData | null>(
@@ -29,13 +30,15 @@ const ReviewInfo: React.FC = () => {
     }
 
     return (
-        <div>
-            <Typography variant="h1">REVIEW INFORMATION</Typography>
-            <ReviewForm
-                registration={registration!}
-                isProApplicant={isProApplicant}
-            />
-        </div>
+        <Box>
+            <ThemeProvider theme={RegistrationTheme}>
+                <Typography variant="h1">REVIEW INFORMATION</Typography>
+                <ReviewForm
+                    registration={registration!}
+                    isProApplicant={isProApplicant}
+                />
+            </ThemeProvider>
+        </Box>
     );
 };
 
