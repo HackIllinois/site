@@ -6,7 +6,6 @@ import { useState } from "react";
 import * as Yup from "yup";
 import Education from "./formPages/Education";
 import PersonalInfo from "./formPages/PersonalInfo";
-import styles from "./styles.module.scss";
 import Experience from "./formPages/Experience";
 import Transportation from "./formPages/Transportation";
 import Review from "./formPages/Review";
@@ -17,12 +16,12 @@ const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
 
     const steps = [
-        "Personal Info",
-        "Education",
-        "Experience",
-        "Transportation",
-        "Review",
-        "Confirmation"
+        { id: "personal_info", name: "Personal Information", color: "#3A2541" },
+        { id: "education", name: "Education", color: "#01023B" },
+        { id: "experience", name: "Experience", color: "#01313B" },
+        { id: "transportation", name: "Transportation", color: "#87304E" },
+        { id: "review", name: "Review", color: "#983300" },
+        { id: "confirmation", name: "Confirmation", color: "#480021" }
     ];
 
     const initialValues: RegistrationData = {
@@ -216,15 +215,15 @@ const GeneralRegistration = () => {
                     minHeight: "100vh", // full viewport height
                     height: "100%",
                     width: "100%",
-                    backgroundImage:
-                        'url("/registration/backgrounds/personal_info.svg")',
+                    backgroundImage: {
+                        xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}.svg")`,
+                        md: `url("/registration/backgrounds/${steps[currentStep].id}.svg")`
+                    },
                     backgroundSize: "cover", // fill the screen
                     backgroundRepeat: "no-repeat", // prevent tiling
                     backgroundPosition: "center" // center the image
                 }}
             >
-                <div className={styles.topSpacer}></div>
-
                 <Paper
                     elevation={0}
                     sx={{
@@ -239,13 +238,13 @@ const GeneralRegistration = () => {
                             pt: 20,
                             px: 20,
                             "& .MuiStepConnector-line": {
-                                width: "60%", // default is 100%
-                                margin: "0 auto" // keeps it centered between icons
+                                width: "60%",
+                                margin: "0 auto" // centered between icons
                             }
                         }}
                     >
                         {steps.map(label => (
-                            <Step key={label}>
+                            <Step key={label.id}>
                                 <StepLabel
                                     sx={{
                                         "& .MuiStepLabel-label": {
@@ -270,16 +269,16 @@ const GeneralRegistration = () => {
                                                 }}
                                             >
                                                 <Image
-                                                    src="/registration/progress_bar/transportation.svg"
+                                                    src={`/registration/progress_bar/${label.id}.svg`}
                                                     alt="Transportation"
-                                                    width={120}
-                                                    height={120}
+                                                    width={80}
+                                                    height={80}
                                                 />
                                             </div>
                                         )
                                     }}
                                 >
-                                    {label}
+                                    {label.name}
                                 </StepLabel>
                             </Step>
                         ))}
@@ -305,17 +304,18 @@ const GeneralRegistration = () => {
                                     }}
                                 >
                                     <Button
-                                        variant="outlined"
                                         onClick={handleBack}
                                         disabled={currentStep === 0}
                                         sx={{
                                             color: "white",
-                                            borderColor: "white",
-                                            fontFamily: "Montserrat",
+                                            border: `1px solid ${steps[currentStep].color}`,
+                                            backgroundColor: `${steps[currentStep].color}`,
+                                            fontFamily: "Tsukimi Rounded",
                                             "&:hover": {
-                                                borderColor: "#b39ddb",
-                                                backgroundColor:
-                                                    "rgba(255, 255, 255, 0.08)"
+                                                borderColor: "white"
+                                                // color: `${steps[currentStep].color}`,
+                                                // backgroundColor:
+                                                //     "rgba(255, 255, 255, 0.08)"
                                             },
                                             "&.Mui-disabled": {
                                                 borderColor:
@@ -335,7 +335,21 @@ const GeneralRegistration = () => {
                                             )
                                         }
                                         sx={{
-                                            fontFamily: "Montserrat"
+                                            color: "white",
+                                            border: `1px solid ${steps[currentStep].color}`,
+                                            backgroundColor: `${steps[currentStep].color}`,
+                                            fontFamily: "Tsukimi Rounded",
+                                            "&:hover": {
+                                                borderColor: "white"
+                                                //color: `${steps[currentStep].color}`,
+                                                // backgroundColor:
+                                                //     "rgba(255, 255, 255, 0.08)"
+                                            },
+                                            "&.Mui-disabled": {
+                                                borderColor:
+                                                    "rgba(255,255,255,0.3)",
+                                                color: "rgba(255,255,255,0.3)"
+                                            }
                                         }}
                                     >
                                         {currentStep === steps.length - 1

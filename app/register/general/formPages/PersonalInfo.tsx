@@ -25,8 +25,8 @@ const PersonalInfo = ({ formik }: PersonalInfoProps) => {
             >
                 PERSONAL INFO
             </Typography>
-            <Grid container columnSpacing={2} rowSpacing={6}>
-                <Grid size={{ xs: 6, md: 6 }}>
+            <Grid container columnSpacing={2} rowSpacing={{ xs: 3, md: 6 }}>
+                <Grid size={{ xs: 12, md: 12, lg: 6 }}>
                     {/* Legal Name */}
                     <TextInput
                         name="legalName"
@@ -38,7 +38,7 @@ const PersonalInfo = ({ formik }: PersonalInfoProps) => {
                         helperText={!!touched.legalName ? errors.legalName : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 6, md: 3 }}>
+                <Grid size={{ xs: 12, md: 6, lg: 3 }}>
                     {/* Preferred Name (optional) */}
                     <TextInput
                         name="preferredName"
@@ -54,7 +54,7 @@ const PersonalInfo = ({ formik }: PersonalInfoProps) => {
                         }
                     />
                 </Grid>
-                <Grid size={{ xs: 6, md: 3 }}>
+                <Grid size={{ xs: 12, md: 6, lg: 3 }}>
                     {/* Gender */}
                     <SelectInput
                         name="gender"
@@ -76,7 +76,7 @@ const PersonalInfo = ({ formik }: PersonalInfoProps) => {
                         helperText={!!touched.gender ? errors.gender : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 6, md: 4 }}>
+                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                     {/* Race (multi-select) */}
                     <SelectInput
                         name="race"
@@ -116,7 +116,7 @@ const PersonalInfo = ({ formik }: PersonalInfoProps) => {
                         }
                     />
                 </Grid>
-                <Grid size={{ xs: 6, md: 5 }}>
+                <Grid size={{ xs: 12, md: 6, lg: 5 }}>
                     {/* Email Address */}
                     <TextInput
                         name="emailAddress"
@@ -134,7 +134,7 @@ const PersonalInfo = ({ formik }: PersonalInfoProps) => {
                         }
                     />
                 </Grid>
-                <Grid size={{ xs: 6, md: 3 }}>
+                <Grid size={{ xs: 12, md: 12, lg: 3 }}>
                     {/* City / Location */}
                     <TextInput
                         name="location"

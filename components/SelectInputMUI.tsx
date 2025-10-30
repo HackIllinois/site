@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import FormHelperText from "@mui/material/FormHelperText";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
+import Popper from "@mui/material/Popper";
 
 interface Option {
     label: string;
@@ -111,11 +112,22 @@ const SelectInput: React.FC<SelectInputProps> = ({
                 sx={{
                     backgroundColor: "#d9d9d9",
                     borderRadius: "9999px",
-                    px: 3,
+                    px: multiple ? 0 : 3,
                     py: 0.5,
                     color: "#2c2540",
                     "& .MuiSelect-select": {
-                        py: 0.5
+                        px: multiple ? 2 : 0,
+                        py: 0.5,
+                        maskImage: multiple
+                            ? "linear-gradient(90deg, transparent 4%, black 5%, black 86%, transparent 90%)"
+                            : "",
+                        overflow: "scroll",
+                        scrollbarWidth: "none",
+                        msOverflowStyle: "none",
+                        // hide scrollbar in WebKit browsers (Chrome/Safari)
+                        "&::-webkit-scrollbar": {
+                            display: "none"
+                        }
                     },
                     "& .MuiOutlinedInput-notchedOutline": {
                         border: "none"

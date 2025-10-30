@@ -52,9 +52,9 @@ const TextInput: React.FC<TextInputProps> = ({
                 {...props}
                 sx={{
                     backgroundColor: "#d9d9d9",
-                    borderRadius: "9999px",
-                    px: 3,
-                    py: 0.5,
+                    borderRadius: 6,
+                    px: multiline ? 2.5 : 3,
+                    py: multiline ? 2 : 0.5,
                     color: "#2c2540",
                     "&::placeholder": { opacity: 0.6 },
                     "&.Mui-focused": {
