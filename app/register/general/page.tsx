@@ -243,8 +243,8 @@ const GeneralRegistration = () => {
                             }
                         }}
                     >
-                        {steps.map(label => (
-                            <Step key={label.id}>
+                        {steps.map(step => (
+                            <Step key={step.id}>
                                 <StepLabel
                                     sx={{
                                         "& .MuiStepLabel-label": {
@@ -269,7 +269,7 @@ const GeneralRegistration = () => {
                                                 }}
                                             >
                                                 <Image
-                                                    src={`/registration/progress_bar/${label.id}.svg`}
+                                                    src={`/registration/progress_bar/${step.id}.svg`}
                                                     alt="Transportation"
                                                     width={80}
                                                     height={80}
@@ -278,7 +278,7 @@ const GeneralRegistration = () => {
                                         )
                                     }}
                                 >
-                                    {label.name}
+                                    {step.name}
                                 </StepLabel>
                             </Step>
                         ))}
