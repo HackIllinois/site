@@ -26,6 +26,7 @@ interface CheckboxGroupInputProps {
     error: boolean;
     helperText?: string;
     // extra props
+    accentColor?: string;
     [key: string]: unknown;
 }
 
@@ -37,7 +38,8 @@ const CheckboxGroupMUI: React.FC<CheckboxGroupInputProps> = ({
     value,
     onChange,
     error,
-    helperText = ""
+    helperText = "",
+    accentColor = "#2c2540"
 }) => {
     // handle toggle manually so it works with Formik array fields
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,65 +59,76 @@ const CheckboxGroupMUI: React.FC<CheckboxGroupInputProps> = ({
         <FormControl
             component="fieldset"
             error={error}
-            sx={{
-                color: "#ffffff",
-                "& .MuiFormGroup-root": {
-                    display: "grid",
-
-                    gap: 0.5
-                }
-            }}
+            sx={{ width: "100%", height: "100%" }}
         >
             <FormLabel
                 sx={{
                     color: "#ffffff",
                     mb: 1,
-                    fontWeight: 400
+                    fontWeight: 500
                 }}
             >
                 {label + (required ? "*" : "")}
             </FormLabel>
-            <FormGroup>
+            <FormGroup
+                sx={{
+                    width: "100%",
+                    height: "100%",
+                    color: "#ffffff",
+                    display: "grid",
+                    gridTemplateColumns:
+                        "repeat(auto-fill, minmax(220px, 1fr))",
+                    gap: 4,
+                    p: 2,
+                    alignItems: "center"
+                }}
+            >
                 {options.map(opt => (
                     <FormControlLabel
                         key={opt.value}
+                        sx={{
+                            width: "fit-content",
+                            height: "fit-content"
+                        }}
                         control={
                             <Checkbox
                                 checked={value.includes(opt.value)}
                                 onChange={handleChange}
                                 value={opt.value}
                                 sx={{
-                                    padding: 0,
-                                    width: 28,
-                                    height: 28,
-                                    borderRadius: 8, // <-- roundness
-                                    color: "#ffffff90", // unchecked icon color
-                                    "&.Mui-checked": {
-                                        color: "#ffffff", // checked icon color
-                                        backgroundColor: "#ffffff" // fill color (if using icon replacement)
-                                    },
+                                    width: 48,
+                                    height: 48,
+                                    padding: 0, // override default
+                                    borderRadius: 3,
+                                    backgroundColor: "#f0f0f0",
+
                                     "& .MuiSvgIcon-root": {
-                                        width: 28,
-                                        height: 28,
-                                        borderRadius: 8,
-                                        backgroundColor: "#ffffff20", // subtle background for unselected
-                                        transition:
-                                            "background-color 0.2s ease, transform 0.2s ease"
+                                        width: "90%",
+                                        height: "90%",
+                                        backgroundColor: "transparent",
+                                        color: "transparent", // unchecked icon color
+                                        borderRadius: 1.5
+                                    },
+                                    "&.Mui-checked": {
+                                        color: accentColor // this affects the animation
                                     },
                                     "&.Mui-checked .MuiSvgIcon-root": {
-                                        backgroundColor: "#ffffff",
-                                        color: "#2c2540", // checkmark color
-                                        transform: "scale(0.95)"
+                                        color: accentColor // checkmark color
                                     },
-                                    "&:hover .MuiSvgIcon-root": {
-                                        backgroundColor: "#ffffff40" // hover effect
+                                    "&:hover": {
+                                        backgroundColor: "#ffffff", // lighter on hover
+                                        boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
                                     }
                                 }}
                             />
                         }
                         label={
                             <Typography
-                                sx={{ color: "#ffffff", fontSize: "0.95rem" }}
+                                sx={{
+                                    color: "#ffffff",
+                                    fontSize: "0.95rem",
+                                    pl: 2
+                                }}
                             >
                                 {opt.label}
                             </Typography>

@@ -32,9 +32,10 @@ const INTEREST_OPTIONS = [
 
 interface ExperienceProps {
     formik: FormikProps<RegistrationData>;
+    accentColor?: string;
 }
 
-const Experience = ({ formik }: ExperienceProps) => {
+const Experience = ({ formik, accentColor }: ExperienceProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
 
     return (
@@ -55,7 +56,7 @@ const Experience = ({ formik }: ExperienceProps) => {
                     {/* Essays */}
                     <TextInput
                         name="hackEssay1"
-                        label="Why do you want to attend?"
+                        label="In a couple of sentences, please explain why you are interested in participating in HackIllinois 2024."
                         value={values.hackEssay1}
                         onChange={handleChange}
                         error={
@@ -66,10 +67,56 @@ const Experience = ({ formik }: ExperienceProps) => {
                         }
                         multiline
                         minRows={4}
-                        sx={{
-                            "& .MuiInputBase-root": { borderRadius: "18px" }
-                        }}
                         required
+                        accentColor={accentColor}
+                    />
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 12 }}>
+                    <CheckboxGroupMUI
+                        name="hackOutreach"
+                        label="How did you hear about us?"
+                        options={OUTREACH_OPTIONS.map(opt => ({
+                            label: opt,
+                            value: opt
+                        }))}
+                        value={values.hackOutreach}
+                        onChange={value => setFieldValue("hackOutreach", value)}
+                        error={
+                            !!touched.hackOutreach &&
+                            Boolean(errors.hackOutreach)
+                        }
+                        helperText={
+                            !!touched.hackOutreach
+                                ? String(errors.hackOutreach || "")
+                                : ""
+                        }
+                        required
+                        accentColor={accentColor}
+                    />
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 12 }}>
+                    <SelectInput
+                        name="hackInterest"
+                        label="What are you interested in?"
+                        multiple
+                        options={INTEREST_OPTIONS.map(opt => ({
+                            label: opt,
+                            value: opt
+                        }))}
+                        value={values.hackInterest}
+                        onChange={value => setFieldValue("hackInterest", value)}
+                        error={
+                            !!touched.hackInterest &&
+                            Boolean(errors.hackInterest)
+                        }
+                        helperText={
+                            !!touched.hackInterest
+                                ? String(errors.hackInterest || "")
+                                : ""
+                        }
+                        accentColor={accentColor}
                     />
                 </Grid>
 
@@ -91,6 +138,7 @@ const Experience = ({ formik }: ExperienceProps) => {
                             "& .MuiInputBase-root": { borderRadius: "18px" }
                         }}
                         required
+                        accentColor={accentColor}
                     />
                 </Grid>
 
@@ -108,6 +156,7 @@ const Experience = ({ formik }: ExperienceProps) => {
                             "& .MuiInputBase-root": { borderRadius: "18px" }
                         }}
                         required
+                        accentColor={accentColor}
                     />
                 </Grid>
 
@@ -129,6 +178,7 @@ const Experience = ({ formik }: ExperienceProps) => {
                         sx={{
                             "& .MuiInputBase-root": { borderRadius: "18px" }
                         }}
+                        accentColor={accentColor}
                     />
                 </Grid>
 
@@ -155,52 +205,7 @@ const Experience = ({ formik }: ExperienceProps) => {
                                 ? String(errors.considerForGeneral || "")
                                 : ""
                         }
-                    />
-                </Grid>
-
-                <Grid size={{ xs: 12, md: 4 }}>
-                    <CheckboxGroupMUI
-                        name="hackOutreach"
-                        label="How did you hear about us?"
-                        required
-                        options={OUTREACH_OPTIONS.map(opt => ({
-                            label: opt,
-                            value: opt
-                        }))}
-                        value={values.hackOutreach}
-                        onChange={value => setFieldValue("hackOutreach", value)}
-                        error={
-                            !!touched.hackOutreach &&
-                            Boolean(errors.hackOutreach)
-                        }
-                        helperText={
-                            !!touched.hackOutreach
-                                ? String(errors.hackOutreach || "")
-                                : ""
-                        }
-                    />
-                </Grid>
-
-                <Grid size={{ xs: 12, md: 4 }}>
-                    <SelectInput
-                        name="hackInterest"
-                        label="What are you interested in?"
-                        multiple
-                        options={INTEREST_OPTIONS.map(opt => ({
-                            label: opt,
-                            value: opt
-                        }))}
-                        value={values.hackInterest}
-                        onChange={value => setFieldValue("hackInterest", value)}
-                        error={
-                            !!touched.hackInterest &&
-                            Boolean(errors.hackInterest)
-                        }
-                        helperText={
-                            !!touched.hackInterest
-                                ? String(errors.hackInterest || "")
-                                : ""
-                        }
+                        accentColor={accentColor}
                     />
                 </Grid>
             </Grid>

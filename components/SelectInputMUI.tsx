@@ -19,6 +19,7 @@ interface SelectInputProps {
     required?: boolean;
     placeholder?: string;
     options: Option[];
+    // formik controls
     value: string | string[];
     /** Called with the normalized value:
      *  - single: string
@@ -27,6 +28,8 @@ interface SelectInputProps {
     onChange: (value: string | string[]) => void;
     error?: boolean;
     helperText?: string;
+    // extra props
+    accentColor?: string;
     [key: string]: unknown;
 }
 
@@ -41,6 +44,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
     onChange,
     error,
     helperText = "",
+    accentColor = "2c2540",
     ...props
 }) => {
     const handleChange = (e: SelectChangeEvent<typeof value>) => {
@@ -98,7 +102,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
                                     label={val}
                                     sx={{
                                         color: "white",
-                                        bgcolor: "#2c2540",
+                                        bgcolor: accentColor,
                                         height: "24px",
                                         lineHeight: 1
                                     }}
@@ -109,8 +113,8 @@ const SelectInput: React.FC<SelectInputProps> = ({
                 }}
                 {...props}
                 sx={{
-                    backgroundColor: "#d9d9d9",
-                    borderRadius: "9999px",
+                    backgroundColor: "#f0f0f0",
+                    borderRadius: 6,
                     px: multiple ? 0 : 3,
                     py: 0.5,
                     color: "#2c2540",
@@ -132,7 +136,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
                         border: "none"
                     },
                     "&.Mui-focused": {
-                        backgroundColor: "#f0f0f0",
+                        backgroundColor: "#ffffff",
                         boxShadow: "0 0 4px 2px #ffffff40"
                     }
                 }}

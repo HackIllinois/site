@@ -17,6 +17,7 @@ interface TextInputProps {
     error: boolean;
     helperText?: string;
     // extra props
+    accentColor?: string;
     [key: string]: unknown;
 }
 
@@ -30,6 +31,7 @@ const TextInput: React.FC<TextInputProps> = ({
     onChange,
     error,
     helperText = "",
+    accentColor = "2c2540",
     ...props
 }) => {
     return (
@@ -51,15 +53,15 @@ const TextInput: React.FC<TextInputProps> = ({
                 placeholder={placeholder}
                 {...props}
                 sx={{
-                    backgroundColor: "#d9d9d9",
+                    backgroundColor: "#f0f0f0",
                     borderRadius: 6,
                     px: multiline ? 2.5 : 3,
                     py: multiline ? 2 : 0.5,
-                    color: "#2c2540",
+                    color: accentColor,
                     "&::placeholder": { opacity: 0.6 },
                     "&.Mui-focused": {
                         // Mui props needed because of the MUI component structure... the focus is on the input _inside_ this div
-                        backgroundColor: "#f0f0f0", // lighter on focus
+                        backgroundColor: "#ffffff", // lighter on focus
                         boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
                     }
                 }}

@@ -25,15 +25,25 @@ theme = createTheme(theme, {
             },
             color: "#ffffff"
         },
+        h3: {
+            // input labels!
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: 400,
+            fontSize: "1.5rem",
+            [theme.breakpoints.down("sm")]: {
+                fontSize: "1rem"
+            }
+        },
         body1: {
-            // body font (placeholders, labels)
+            // body font (placeholders, inputs) -- default
             fontFamily: "Montserrat, sans-serif",
             fontWeight: 400
         },
         body2: {
-            // smaller description/notes
+            // use for smaller descriptions/notes
             fontFamily: "Montserrat, sans-serif",
-            fontWeight: 200
+            fontWeight: 200,
+            fontSize: "0.6rem"
         }
     }
 });

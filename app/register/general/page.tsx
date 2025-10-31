@@ -192,17 +192,47 @@ const GeneralRegistration = () => {
     const renderStepContent = (step: number, formik: any) => {
         switch (step) {
             case 0:
-                return <PersonalInfo formik={formik} />;
+                return (
+                    <PersonalInfo
+                        formik={formik}
+                        accentColor={steps[currentStep].color}
+                    />
+                );
             case 1:
-                return <Education formik={formik} />;
+                return (
+                    <Education
+                        formik={formik}
+                        accentColor={steps[currentStep].color}
+                    />
+                );
             case 2:
-                return <Experience formik={formik} />;
+                return (
+                    <Experience
+                        formik={formik}
+                        accentColor={steps[currentStep].color}
+                    />
+                );
             case 3:
-                return <Transportation formik={formik} />;
+                return (
+                    <Transportation
+                        formik={formik}
+                        accentColor={steps[currentStep].color}
+                    />
+                );
             case 4:
-                return <Review formik={formik} />;
+                return (
+                    <Review
+                        formik={formik}
+                        accentColor={steps[currentStep].color}
+                    />
+                );
             case 5:
-                return <Confirmation formik={formik} />;
+                return (
+                    <Confirmation
+                        formik={formik}
+                        accentColor={steps[currentStep].color}
+                    />
+                );
             default:
                 return <div>Unknown step</div>;
         }
@@ -305,11 +335,12 @@ const GeneralRegistration = () => {
                                 >
                                     <Button
                                         onClick={handleBack}
-                                        disabled={currentStep === 0}
+                                        hidden={currentStep === 0}
                                         sx={{
                                             color: "white",
                                             border: `1px solid ${steps[currentStep].color}`,
-                                            backgroundColor: `${steps[currentStep].color}`,
+                                            backgroundColor:
+                                                steps[currentStep].color,
                                             fontFamily: "Tsukimi Rounded",
                                             "&:hover": {
                                                 borderColor: "white"
@@ -324,7 +355,7 @@ const GeneralRegistration = () => {
                                             }
                                         }}
                                     >
-                                        Back
+                                        {steps[currentStep - 1].name}
                                     </Button>
                                     <Button
                                         variant="contained"
@@ -337,7 +368,8 @@ const GeneralRegistration = () => {
                                         sx={{
                                             color: "white",
                                             border: `1px solid ${steps[currentStep].color}`,
-                                            backgroundColor: `${steps[currentStep].color}`,
+                                            backgroundColor:
+                                                steps[currentStep].color,
                                             fontFamily: "Tsukimi Rounded",
                                             "&:hover": {
                                                 borderColor: "white"
@@ -354,7 +386,7 @@ const GeneralRegistration = () => {
                                     >
                                         {currentStep === steps.length - 1
                                             ? "Submit"
-                                            : "Next"}
+                                            : steps[currentStep + 1].name}
                                     </Button>
                                 </Box>
                             </Form>
