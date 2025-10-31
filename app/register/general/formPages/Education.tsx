@@ -19,9 +19,10 @@ const DEGREE_OPTIONS = [
 
 interface EducationProps {
     formik: FormikProps<RegistrationData>;
+    accentColor?: string;
 }
 
-const Education = ({ formik }: EducationProps) => {
+const Education = ({ formik, accentColor }: EducationProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
 
     return (

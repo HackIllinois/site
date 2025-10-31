@@ -8,9 +8,10 @@ import SelectInput from "@/components/SelectInputMUI";
 
 interface PersonalInfoProps {
     formik: FormikProps<RegistrationData>;
+    accentColor?: string;
 }
 
-const PersonalInfo = ({ formik }: PersonalInfoProps) => {
+const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
 
     return (

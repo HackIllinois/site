@@ -17,9 +17,10 @@ const REVIEW_ACKS = ["I have reviewed my information and it is accurate"];
 
 interface ConfirmationProps {
     formik: FormikProps<RegistrationData>;
+    accentColor?: string;
 }
 
-const Confirmation = ({ formik }: ConfirmationProps) => {
+const Confirmation = ({ formik, accentColor }: ConfirmationProps) => {
     const { values, errors, touched, setFieldValue } = formik;
 
     const toggleInArray = (field: keyof RegistrationData, val: string) => {

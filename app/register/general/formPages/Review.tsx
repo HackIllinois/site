@@ -4,6 +4,7 @@ import { FormikProps } from "formik";
 
 interface ReviewProps {
     formik: FormikProps<RegistrationData>;
+    accentColor?: string;
 }
 
 const Line = () => <Divider sx={{ my: 2, borderColor: "#3d3558" }} />;
@@ -51,7 +52,7 @@ const ChipList = ({ items }: { items: string[] }) => (
     </Box>
 );
 
-const Review = ({ formik }: ReviewProps) => {
+const Review = ({ formik, accentColor }: ReviewProps) => {
     const { values } = formik;
 
     return (

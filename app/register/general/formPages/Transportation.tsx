@@ -38,9 +38,10 @@ const TRAVEL_ACK = [
 
 interface TransportationProps {
     formik: FormikProps<RegistrationData>;
+    accentColor?: string;
 }
 
-const Transportation = ({ formik }: TransportationProps) => {
+const Transportation = ({ formik, accentColor }: TransportationProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
 
     // helper to toggle a value inside an array field
