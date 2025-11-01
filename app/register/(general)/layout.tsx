@@ -39,12 +39,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 width: "100vw",
                 minHeight: "100vh",
                 height: "fit-content",
-                pb: "2rem",
+                pb:
+                    pathname === "/register/confirmation"
+                        ? "2rem"
+                        : { xs: "25rem", md: "2rem" }, // bottom padding is for mobile keyboard
                 gap: "3rem",
                 [theme.breakpoints.down("md")]: {
                     backgroundSize: "400px",
-                    gap: "2rem",
-                    pb: "25rem" // bottom padding is for mobile keyboard
+                    gap: "2rem"
                 }
             }}
         >
