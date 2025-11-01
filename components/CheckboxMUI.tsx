@@ -1,69 +1,115 @@
 // import { RegistrationData } from "@/util/types";
-import { FormHelperText } from "@mui/material";
+import {
+    Checkbox,
+    FormControlLabel,
+    FormGroup,
+    FormHelperText
+} from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import InputBase from "@mui/material/InputBase";
 import Typography from "@mui/material/Typography";
 
-interface CheckboxProps {
+interface CheckboxSelectInputProps {
     name: string;
     label: string;
-    multiline?: boolean;
+    optionLabel: string;
     required?: boolean;
-    placeholder?: string;
     // formik controls
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    value: boolean;
+    onChange: (value: boolean) => void;
     error: boolean;
     helperText?: string;
     // extra props
+    accentColor?: string;
     [key: string]: unknown;
 }
 
-const TextInput: React.FC<CheckboxProps> = ({
+const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
     name,
     label,
-    multiline = false,
+    optionLabel = "Yes",
     required = false,
-    placeholder = "Type here",
-    value,
+    value = false,
     onChange,
     error,
     helperText = "",
-    ...props
+    accentColor = "#2c2540"
 }) => {
+    // handle toggle manually so it works with Formik (onChange tries to pass event.target.checked)
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event);
+        console.log(event.target.value);
+        console.log(event.target.checked);
+        onChange(event.target.checked);
+    };
+
     return (
-        <FormControl fullWidth error={error}>
+        <FormControl
+            component="fieldset"
+            error={error}
+            sx={{ width: "100%", height: "100%" }}
+        >
             <FormLabel
                 sx={{
                     color: "#ffffff",
                     mb: 1,
-                    fontWeight: 400
+                    fontWeight: 500
                 }}
             >
                 {label + (required ? "*" : "")}
             </FormLabel>
-            <InputBase
-                name={name}
-                value={value}
-                onChange={onChange}
-                multiline={multiline}
-                placeholder={placeholder}
-                {...props}
+
+            <FormControlLabel
                 sx={{
-                    backgroundColor: "#d9d9d9",
-                    borderRadius: 6,
-                    px: multiline ? 2.5 : 3,
-                    py: multiline ? 2 : 0.5,
-                    color: "#2c2540",
-                    "&::placeholder": { opacity: 0.6 },
-                    "&.Mui-focused": {
-                        // Mui props needed because of the MUI component structure... the focus is on the input _inside_ this div
-                        backgroundColor: "#f0f0f0", // lighter on focus
-                        boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
-                    }
+                    width: "fit-content",
+                    height: "fit-content",
+                    padding: 2
                 }}
+                control={
+                    <Checkbox
+                        checked={value}
+                        onChange={handleChange}
+                        value={value}
+                        sx={{
+                            width: 48,
+                            height: 48,
+                            padding: "3px", // override default
+                            borderRadius: 3,
+                            backgroundColor: "#f0f0f0",
+
+                            "& .MuiSvgIcon-root": {
+                                width: "100%",
+                                height: "100%",
+                                backgroundColor: "transparent",
+                                color: "transparent", // unchecked icon color
+                                borderRadius: 1.5
+                            },
+                            "&.Mui-checked": {
+                                color: accentColor // this affects the animation
+                            },
+                            "&.Mui-checked .MuiSvgIcon-root": {
+                                color: accentColor // checkmark color
+                            },
+                            "&:hover": {
+                                backgroundColor: "#ffffff", // lighter on hover
+                                boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
+                            }
+                        }}
+                    />
+                }
+                label={
+                    <Typography
+                        variant="h3"
+                        sx={{
+                            color: "#ffffff",
+                            pl: 2
+                        }}
+                    >
+                        {optionLabel}
+                    </Typography>
+                }
             />
+
             {helperText && (
                 <FormHelperText sx={{ mt: 0.5 }}>{helperText}</FormHelperText>
             )}
@@ -71,4 +117,4 @@ const TextInput: React.FC<CheckboxProps> = ({
     );
 };
 
-export default TextInput;
+export default CheckboxSelect;

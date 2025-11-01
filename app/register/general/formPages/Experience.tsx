@@ -5,7 +5,7 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import SelectInput from "@/components/SelectInputMUI";
 import TextInput from "@/components/TextInputMUI";
-import CheckboxGroup from "@/components/Form/CheckboxGroupMUI";
+import CheckboxGroup from "@/components/CheckboxGroupMUI";
 
 const CONSIDER_OPTIONS = ["General Admission", "Mentor", "Volunteer"];
 const OUTREACH_OPTIONS = [

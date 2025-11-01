@@ -1,10 +1,11 @@
+import CheckboxSelect from "@/components/CheckboxMUI";
+import RadioSelectGroup from "@/components/RadioGroupMUI";
 import SelectInput from "@/components/SelectInputMUI";
 import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
 import { RegistrationData } from "@/util/types";
 import {
     Box,
     Typography,
-    Checkbox,
     FormGroup,
     FormControlLabel,
     FormControl,
@@ -25,16 +26,9 @@ const DIETARY_OPTIONS = [
     "Dairy-free",
     "Other"
 ];
-const TRAVEL_REIMBURSE_OPTIONS = [
-    "Not requesting",
-    "Bus",
-    "Train",
-    "Flight",
-    "Gas"
-];
-const TRAVEL_ACK = [
-    "I understand travel reimbursements are limited and not guaranteed"
-];
+const TRAVEL_REIMBURSE_OPTIONS = ["Yes", "No"];
+const TRAVEL_ACK =
+    "I understand travel reimbursements are limited and not guaranteed";
 
 interface TransportationProps {
     formik: FormikProps<RegistrationData>;
@@ -65,7 +59,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
             </Typography>
 
             <Grid container columnSpacing={2} rowSpacing={6}>
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 12 }}>
                     {/* Dietary (multi-select) */}
                     <SelectInput
                         name="dietaryRestrictions"
@@ -88,15 +82,16 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                                 ? String(errors.dietaryRestrictions || "")
                                 : ""
                         }
+                        accentColor={accentColor}
                     />
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 12 }}>
                     {/* Travel reimbursement (multi-select) */}
-                    <SelectInput
+                    <RadioSelectGroup
                         name="requestedTravelReimbursement"
                         label="Requested Travel Reimbursement"
-                        multiple
+                        row
                         options={TRAVEL_REIMBURSE_OPTIONS.map(opt => ({
                             label: opt,
                             value: opt
@@ -116,52 +111,31 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                                   )
                                 : ""
                         }
+                        accentColor={accentColor}
                     />
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 12 }}>
-                    {/* Travel Acknowledge (checkbox -> array<string>) */}
-                    <FormControl
+                    <CheckboxSelect
+                        name="travelAcknowledge"
+                        label="Travel Acknowledgement"
+                        row
+                        optionLabel={TRAVEL_ACK}
+                        value={values.travelAcknowledge}
+                        onChange={value =>
+                            setFieldValue("travelAcknowledge", value)
+                        }
                         error={
-                            touched.travelAcknowledge &&
+                            !!touched.travelAcknowledge &&
                             Boolean(errors.travelAcknowledge)
                         }
-                        sx={{
-                            "& .MuiFormControlLabel-label": {
-                                color: "white",
-                                fontFamily: "Montserrat"
-                            }
-                        }}
-                    >
-                        <FormGroup>
-                            {TRAVEL_ACK.map(text => (
-                                <FormControlLabel
-                                    key={text}
-                                    control={
-                                        <Checkbox
-                                            checked={(
-                                                values.travelAcknowledge || []
-                                            ).includes(text)}
-                                            onChange={() =>
-                                                toggleInArray(
-                                                    "travelAcknowledge",
-                                                    text
-                                                )
-                                            }
-                                            sx={{ color: "white" }}
-                                        />
-                                    }
-                                    label={text}
-                                />
-                            ))}
-                        </FormGroup>
-                        {touched.travelAcknowledge &&
-                            errors.travelAcknowledge && (
-                                <FormHelperText error>
-                                    {String(errors.travelAcknowledge)}
-                                </FormHelperText>
-                            )}
-                    </FormControl>
+                        helperText={
+                            !!touched.travelAcknowledge
+                                ? String(errors.travelAcknowledge || "")
+                                : ""
+                        }
+                        accentColor={accentColor}
+                    />
                 </Grid>
             </Grid>
         </Container>

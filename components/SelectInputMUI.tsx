@@ -80,7 +80,8 @@ const SelectInput: React.FC<SelectInputProps> = ({
                 renderValue={selected => {
                     if (selected.length === 0) {
                         return (
-                            <Typography sx={{ opacity: 0.6 }}>
+                            // placeholder goes here (simulated placeholder)
+                            <Typography sx={{ color: "gray", opacity: 0.8 }}>
                                 {placeholder}
                             </Typography>
                         );
@@ -112,12 +113,13 @@ const SelectInput: React.FC<SelectInputProps> = ({
                     );
                 }}
                 {...props}
-                sx={{
+                sx={theme => ({
                     backgroundColor: "#f0f0f0",
                     borderRadius: 6,
                     px: multiple ? 0 : 3,
                     py: 0.5,
-                    color: "#2c2540",
+                    color: accentColor,
+                    border: "2px solid #f0f0f0",
                     "& .MuiSelect-select": {
                         px: multiple ? 2 : 0,
                         py: 0.5,
@@ -138,8 +140,11 @@ const SelectInput: React.FC<SelectInputProps> = ({
                     "&.Mui-focused": {
                         backgroundColor: "#ffffff",
                         boxShadow: "0 0 4px 2px #ffffff40"
+                    },
+                    "&.Mui-error": {
+                        borderColor: theme.palette.error.main
                     }
-                }}
+                })}
             >
                 {options.map((option, index) => (
                     <MenuItem

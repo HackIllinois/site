@@ -51,10 +51,10 @@ const GeneralRegistration = () => {
         hackOutreach: [],
         hackInterest: [],
         dietaryRestrictions: [],
-        requestedTravelReimbursement: [],
+        requestedTravelReimbursement: "",
 
         // Acknowledgements
-        travelAcknowledge: [],
+        travelAcknowledge: false,
         codeOfConductAcknowledge: [],
         reviewedInformationAcknowledge: []
     };
@@ -124,16 +124,14 @@ const GeneralRegistration = () => {
         // 3. Transportation (travel + dietary)
         Yup.object({
             dietaryRestrictions: Yup.array().of(Yup.string()),
-            requestedTravelReimbursement: Yup.array().of(Yup.string()),
-            travelAcknowledge: Yup.array()
-                .of(Yup.string())
-                .min(1, "You must acknowledge the travel policy")
+            requestedTravelReimbursement: Yup.string(),
+            travelAcknowledge: Yup.bool()
+                .oneOf([true], "You must acknowledge the travel policy")
                 // Example conditional: require acknowledgement if reimbursement requested
                 .when("requestedTravelReimbursement", {
-                    is: (arr: string[]) => Array.isArray(arr) && arr.length > 0,
+                    is: (val: string) => !!val && val.length > 0,
                     then: schema =>
-                        schema.min(
-                            1,
+                        schema.required(
                             "Acknowledge required when requesting travel aid"
                         )
                 })

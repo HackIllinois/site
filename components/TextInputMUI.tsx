@@ -52,17 +52,31 @@ const TextInput: React.FC<TextInputProps> = ({
                 multiline={multiline}
                 placeholder={placeholder}
                 {...props}
-                sx={{
+                sx={theme => ({
                     backgroundColor: "#f0f0f0",
                     borderRadius: 6,
                     px: multiline ? 2.5 : 3,
                     py: multiline ? 2 : 0.5,
                     color: accentColor,
-                    "&::placeholder": { opacity: 0.6 },
+                    border: "2px solid #f0f0f0",
                     "&.Mui-focused": {
                         // Mui props needed because of the MUI component structure... the focus is on the input _inside_ this div
                         backgroundColor: "#ffffff", // lighter on focus
                         boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
+                    },
+                    "&.Mui-error": {
+                        borderColor: theme.palette.error.main
+                    }
+                })}
+                slotProps={{
+                    // for some reason you can't access the placeholder from general sx, hit the input slot directly
+                    input: {
+                        sx: {
+                            "::placeholder": {
+                                color: "gray",
+                                opacity: 0.8
+                            }
+                        }
                     }
                 }}
             />

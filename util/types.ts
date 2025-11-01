@@ -45,8 +45,8 @@ export type RegistrationData = {
     hackOutreach: string[];
     hackInterest: string[];
     dietaryRestrictions: string[];
-    requestedTravelReimbursement: string[];
-    travelAcknowledge: string[];
+    requestedTravelReimbursement: string;
+    travelAcknowledge: boolean;
     codeOfConductAcknowledge: string[];
     reviewedInformationAcknowledge: string[];
 };

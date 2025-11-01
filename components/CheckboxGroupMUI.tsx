@@ -7,10 +7,9 @@ import {
 } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import InputBase from "@mui/material/InputBase";
 import Typography from "@mui/material/Typography";
 
-interface CheckboxOption {
+interface Option {
     label: string;
     value: string;
 }
@@ -18,7 +17,7 @@ interface CheckboxOption {
 interface CheckboxGroupInputProps {
     name: string;
     label: string;
-    options: CheckboxOption[];
+    options: Option[];
     required?: boolean;
     // formik controls
     value: string[];
@@ -30,7 +29,7 @@ interface CheckboxGroupInputProps {
     [key: string]: unknown;
 }
 
-const CheckboxGroupMUI: React.FC<CheckboxGroupInputProps> = ({
+const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
     name,
     label,
     options,
@@ -78,7 +77,8 @@ const CheckboxGroupMUI: React.FC<CheckboxGroupInputProps> = ({
                     display: "grid",
                     gridTemplateColumns:
                         "repeat(auto-fill, minmax(220px, 1fr))",
-                    gap: 4,
+                    rowGap: 4,
+                    columnGap: 0,
                     p: 2,
                     alignItems: "center"
                 }}
@@ -98,13 +98,13 @@ const CheckboxGroupMUI: React.FC<CheckboxGroupInputProps> = ({
                                 sx={{
                                     width: 48,
                                     height: 48,
-                                    padding: 0, // override default
+                                    padding: "3px", // override default
                                     borderRadius: 3,
                                     backgroundColor: "#f0f0f0",
 
                                     "& .MuiSvgIcon-root": {
-                                        width: "90%",
-                                        height: "90%",
+                                        width: "100%",
+                                        height: "100%",
                                         backgroundColor: "transparent",
                                         color: "transparent", // unchecked icon color
                                         borderRadius: 1.5
@@ -144,4 +144,4 @@ const CheckboxGroupMUI: React.FC<CheckboxGroupInputProps> = ({
     );
 };
 
-export default CheckboxGroupMUI;
+export default CheckboxGroup;
