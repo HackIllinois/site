@@ -7,7 +7,10 @@ const theme = createTheme({
             fontFamily: `Montserrat, sans-serif`,
             fontSize: "22px",
             color: "#fff",
-            fontWeight: 400
+            fontWeight: 400,
+            "@media (max-width:560px)": {
+                fontSize: "14px"
+            }
         }
     }
 });

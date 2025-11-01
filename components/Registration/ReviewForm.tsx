@@ -12,6 +12,7 @@ import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import {
     ReviewContainer,
     StyledAccordion,
+    StyledAccordionDetails,
     AccordionHeader,
     ReviewInfoAccordionBox,
     UserInfoBox,
@@ -69,7 +70,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                             editRoute="/register/personal-info"
                             isExpanded={expanded === "personal"}
                         />
-                        <AccordionDetails>
+                        <StyledAccordionDetails>
                             <ReviewInfoAccordionBox>
                                 {/* TODO: get labels from registrationFieldGroups */}
                                 {/* TODO: use updated fields of "registration" */}
@@ -80,12 +81,17 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                                     }
                                 />
                                 <UserInfoBox
+                                    label="Preferred Name"
+                                    userResponse={
+                                        registration?.legalName || "N/A"
+                                    }
+                                />
+                                <UserInfoBox
                                     label="Gender"
                                     userResponse={registration?.gender || "N/A"}
                                 />
-                                <UserInfoBox label="Age" userResponse={"20"} />
                                 <UserInfoBox
-                                    label="Race/Ethnicity"
+                                    label="Race"
                                     userResponse={
                                         registration?.race.join(", ") || "N/A"
                                     }
@@ -97,11 +103,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                                     }
                                 />
                                 <UserInfoBox
-                                    label="Phone #"
-                                    userResponse="111-222-3333"
+                                    label="Location"
+                                    userResponse="N/A"
                                 />
                             </ReviewInfoAccordionBox>
-                        </AccordionDetails>
+                        </StyledAccordionDetails>
                     </StyledAccordion>
 
                     <StyledAccordion
@@ -231,58 +237,62 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                         validationSchema={reviewSchema}
                     >
                         <Form>
-                            <Box mt={4}>
-                                <Typography variant="body1">
-                                    Please review the above information.
-                                </Typography>
-                                <Typography variant="body1">
-                                    Once you submit you will not be able to
-                                    change any information without contacting
-                                    us.
-                                </Typography>
-                                <FormikCheckbox
-                                    name="reviewedInformationAcknowledge"
-                                    label={
-                                        <Box>
-                                            <Typography variant="body1">
-                                                I reviewed my information to
-                                                ensure it is correct.
-                                            </Typography>
-                                        </Box>
-                                    }
-                                />
-                            </Box>
+                            <Box p={2} borderRadius={4} bgcolor="#f6f6f67A">
+                                <Box>
+                                    <Typography variant="body1" sx={{ mt: 0 }}>
+                                        Please review the above information.
+                                    </Typography>
+                                    <Typography variant="body1">
+                                        Once you submit you will not be able to
+                                        change any information without
+                                        contacting us.
+                                    </Typography>
+                                    <FormikCheckbox
+                                        name="reviewedInformationAcknowledge"
+                                        label={
+                                            <Box>
+                                                <Typography variant="body1">
+                                                    I reviewed my information to
+                                                    ensure it is correct.
+                                                </Typography>
+                                            </Box>
+                                        }
+                                    />
+                                </Box>
 
-                            <Box mt={2}>
-                                <Typography variant="body1">
-                                    To participate in HackIllinois, you must
-                                    accept our{" "}
-                                    <MuiLink
-                                        href="/legal/code-of-conduct"
-                                        target="_blank"
-                                        underline="hover"
-                                    >
-                                        Code of Conduct
-                                    </MuiLink>
-                                    .
-                                </Typography>
+                                <Box mt={3}>
+                                    <Typography variant="body1">
+                                        To participate in HackIllinois, you must
+                                        accept our{" "}
+                                        <MuiLink
+                                            href="/legal/code-of-conduct"
+                                            target="_blank"
+                                            underline="hover"
+                                        >
+                                            Code of Conduct
+                                        </MuiLink>
+                                        .
+                                    </Typography>
 
-                                <FormikCheckbox
-                                    name="codeOfConductAcknowledge"
-                                    label={
-                                        <Box>
-                                            <Typography variant="body1">
-                                                I accept the Code of Conduct.
-                                            </Typography>
-                                        </Box>
-                                    }
-                                />
+                                    <FormikCheckbox
+                                        name="codeOfConductAcknowledge"
+                                        label={
+                                            <Box>
+                                                <Typography variant="body1">
+                                                    I accept the Code of
+                                                    Conduct.
+                                                </Typography>
+                                            </Box>
+                                        }
+                                    />
+                                </Box>
                             </Box>
 
                             <Stack
-                                direction="row"
+                                direction={{ xs: "column", sm: "row" }}
                                 justifyContent="space-between"
                                 alignItems="center"
+                                gap={{ xs: "24px", md: "0px" }}
                                 mt={4}
                             >
                                 <NavigationButton
