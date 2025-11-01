@@ -1,10 +1,11 @@
 "use client";
 import { RegistrationData } from "@/util/types";
+import { initialValues, validationSchemas } from "@/util/validation";
 import { Box, Button, Paper, Step, StepLabel, Stepper } from "@mui/material";
 import { Form, Formik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
-import Education from "./formPages/Education";
+import BackgroundInfo from "./formPages/BackgroundInfo";
 import PersonalInfo from "./formPages/PersonalInfo";
 import Experience from "./formPages/Experience";
 import Transportation from "./formPages/Transportation";
@@ -13,142 +14,27 @@ import Confirmation from "./formPages/Confirmation";
 import Image from "next/image";
 
 const GeneralRegistration = () => {
-    const [currentStep, setCurrentStep] = useState(3); // todo() change back to 0
+    const [currentStep, setCurrentStep] = useState(0);
 
     const steps = [
         { id: "personal_info", name: "Personal Information", color: "#3A2541" },
-        { id: "education", name: "Education", color: "#01023B" },
-        { id: "experience", name: "Experience", color: "#01313B" },
-        { id: "transportation", name: "Transportation", color: "#87304E" },
-        { id: "review", name: "Review", color: "#983300" },
+        {
+            id: "background_info",
+            name: "Background Information",
+            color: "#01023B"
+        },
+        {
+            id: "app_questions",
+            name: "Application Questions",
+            color: "#01313B"
+        },
+        {
+            id: "attending_hack",
+            name: "Attending HackIllinois",
+            color: "#87304E"
+        },
+        { id: "review", name: "Review & Submit", color: "#983300" },
         { id: "confirmation", name: "Confirmation", color: "#480021" }
-    ];
-
-    const initialValues: RegistrationData = {
-        // Personal Info
-        legalName: "",
-        preferredName: "",
-        gender: "",
-        race: [], // multiple races can be selected
-        emailAddress: "",
-        location: "",
-
-        // Education
-        degree: "",
-        university: "",
-        gradYear: "",
-        major: "",
-        minor: "",
-
-        // Essays
-        hackEssay1: "",
-        hackEssay2: "",
-        optionalEssay: "",
-        proEssay: "",
-
-        // Preferences / Considerations
-        considerForGeneral: [],
-        hackOutreach: [],
-        hackInterest: [],
-        dietaryRestrictions: [],
-        requestedTravelReimbursement: "",
-
-        // Acknowledgements
-        travelAcknowledge: false,
-        codeOfConductAcknowledge: [],
-        reviewedInformationAcknowledge: []
-    };
-
-    const currentYear = new Date().getFullYear();
-
-    const validationSchemas = [
-        // 0. Personal Information
-        Yup.object({
-            legalName: Yup.string()
-                .min(2, "Legal name must be at least 2 characters")
-                .required("Legal name is required"),
-            preferredName: Yup.string().nullable(),
-            gender: Yup.string().required("Gender is required"),
-            race: Yup.array()
-                .of(Yup.string())
-                .min(1, "Select at least one option"),
-            emailAddress: Yup.string()
-                .email("Invalid email address")
-                .required("Email is required"),
-            location: Yup.string().required("City/Location is required")
-        }),
-
-        // 1. Education
-        Yup.object({
-            degree: Yup.string().required("Degree is required"),
-            university: Yup.string().required("University is required"),
-            gradYear: Yup.string()
-                .matches(/^\d{4}$/, "Use a 4-digit year")
-                .test(
-                    "reasonable-year",
-                    `Year should be between 2000 and ${currentYear + 6}`,
-                    v => {
-                        if (!v) return false;
-                        const n = Number(v);
-                        return n >= 2000 && n <= currentYear + 6;
-                    }
-                )
-                .required("Graduation year is required"),
-            major: Yup.string().required("Major is required"),
-            minor: Yup.string().nullable()
-        }),
-
-        // 2. Experience (essays, interests, outreach)
-        Yup.object({
-            hackEssay1: Yup.string()
-                .min(50, "Please write at least 50 characters")
-                .required("This essay is required"),
-            hackEssay2: Yup.string()
-                .min(50, "Please write at least 50 characters")
-                .required("This essay is required"),
-            optionalEssay: Yup.string().nullable(),
-            proEssay: Yup.string()
-                .min(50, "Please write at least 50 characters")
-                .required("Professional/experience essay is required"),
-            considerForGeneral: Yup.array()
-                .of(Yup.string())
-                .min(1, "Select at least one"),
-            hackOutreach: Yup.array()
-                .of(Yup.string())
-                .min(1, "Tell us how you heard about us"),
-            hackInterest: Yup.array()
-                .of(Yup.string())
-                .min(1, "Pick at least one interest")
-        }),
-
-        // 3. Transportation (travel + dietary)
-        Yup.object({
-            dietaryRestrictions: Yup.array().of(Yup.string()),
-            requestedTravelReimbursement: Yup.string(),
-            travelAcknowledge: Yup.bool()
-                .oneOf([true], "You must acknowledge the travel policy")
-                // Example conditional: require acknowledgement if reimbursement requested
-                .when("requestedTravelReimbursement", {
-                    is: (val: string) => !!val && val.length > 0,
-                    then: schema =>
-                        schema.required(
-                            "Acknowledge required when requesting travel aid"
-                        )
-                })
-        }),
-
-        // 4. Review (usually no new inputs; keep empty object)
-        Yup.object({}),
-
-        // 5. Confirmation (final acknowledgements)
-        Yup.object({
-            codeOfConductAcknowledge: Yup.array()
-                .of(Yup.string())
-                .min(1, "You must accept the Code of Conduct"),
-            reviewedInformationAcknowledge: Yup.array()
-                .of(Yup.string())
-                .min(1, "Please confirm you reviewed your information")
-        })
     ];
 
     const handleNext = async (values: RegistrationData, setTouched: any) => {
@@ -198,7 +84,7 @@ const GeneralRegistration = () => {
                 );
             case 1:
                 return (
-                    <Education
+                    <BackgroundInfo
                         formik={formik}
                         accentColor={steps[currentStep].color}
                     />

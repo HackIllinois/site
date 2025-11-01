@@ -26,29 +26,37 @@ export type MethodType = "GET" | "POST" | "PUT" | "DELETE";
 export type FileType = "resume" | "photo" | "blobstore";
 
 export type RegistrationData = {
-    legalName: string;
+    // 0. Personal Information
+    firstName: string;
+    lastName: string;
     preferredName: string;
+    age: string;
+    emailAddress: string;
+    // 1. Background Information
     gender: string;
     race: string[];
-    emailAddress: string;
-    location: string;
-    degree: string;
-    university: string;
+    country: string;
+    state: string;
+    school: string;
+    studyLevel: string;
     gradYear: string;
     major: string;
-    minor: string;
+    underrepresented: string;
+    // 2. Application Questions
     hackEssay1: string;
     hackEssay2: string;
     optionalEssay: string;
+    considerForPro: boolean;
     proEssay: string;
-    considerForGeneral: string[];
+    // 3. Attending HackIllinois
     hackOutreach: string[];
     hackInterest: string[];
-    dietaryRestrictions: string[];
-    requestedTravelReimbursement: string;
+    requestedTravelReimbursement: boolean;
     travelAcknowledge: boolean;
-    codeOfConductAcknowledge: string[];
-    reviewedInformationAcknowledge: string[];
+    // 4. Review (final acknowledgements)
+    reviewedAcknowledge: boolean;
+    proChallengeAcknowledge: boolean;
+    codeOfConductAcknowledge: boolean;
 };
 
 export type RegistrationResponseFieldInfo = {

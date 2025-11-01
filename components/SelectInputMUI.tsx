@@ -78,9 +78,9 @@ const SelectInput: React.FC<SelectInputProps> = ({
                 multiple={multiple}
                 displayEmpty
                 renderValue={selected => {
-                    if (selected.length === 0) {
+                    if (!selected || selected.length === 0) {
                         return (
-                            // placeholder goes here (simulated placeholder)
+                            // placeholder styling goes here (simulated placeholder)
                             <Typography sx={{ color: "gray", opacity: 0.8 }}>
                                 {placeholder}
                             </Typography>
@@ -123,9 +123,8 @@ const SelectInput: React.FC<SelectInputProps> = ({
                     "& .MuiSelect-select": {
                         px: multiple ? 2 : 0,
                         py: 0.5,
-                        maskImage: multiple
-                            ? "linear-gradient(90deg, transparent 4%, black 5%, black 86%, transparent 90%)"
-                            : "",
+                        maskImage:
+                            "linear-gradient(90deg, transparent 2%, black 5%, black 86%, transparent 90%)",
                         overflow: "scroll",
                         scrollbarWidth: "none",
                         msOverflowStyle: "none",

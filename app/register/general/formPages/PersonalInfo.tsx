@@ -5,6 +5,7 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import TextInput from "@/components/TextInputMUI";
 import SelectInput from "@/components/SelectInputMUI";
+import { ageOptions } from "@/util/options";
 
 interface PersonalInfoProps {
     formik: FormikProps<RegistrationData>;
@@ -27,23 +28,52 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                 PERSONAL INFO
             </Typography>
             <Grid container columnSpacing={2} rowSpacing={{ xs: 3, md: 6 }}>
-                <Grid size={{ xs: 12, md: 12, lg: 6 }}>
-                    {/* Legal Name */}
+                <Grid size={{ xs: 12, md: 5, lg: 5 }}>
                     <TextInput
-                        name="legalName"
-                        label="Legal Name"
+                        name="firstName"
+                        label="First Name"
+                        accentColor={accentColor}
                         required
-                        value={values.legalName}
+                        value={values.firstName}
                         onChange={handleChange}
-                        error={!!touched.legalName && Boolean(errors.legalName)}
-                        helperText={!!touched.legalName ? errors.legalName : ""}
+                        error={!!touched.firstName && Boolean(errors.firstName)}
+                        helperText={!!touched.firstName ? errors.firstName : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, md: 6, lg: 3 }}>
-                    {/* Preferred Name (optional) */}
+                <Grid size={{ xs: 12, md: 5, lg: 5 }}>
+                    <TextInput
+                        name="lastName"
+                        label="Last Name"
+                        accentColor={accentColor}
+                        required
+                        value={values.lastName}
+                        onChange={handleChange}
+                        error={!!touched.lastName && Boolean(errors.lastName)}
+                        helperText={!!touched.lastName ? errors.lastName : ""}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, md: 2, lg: 2 }}>
+                    <SelectInput
+                        name="age"
+                        label="Age"
+                        // subLabel="You must be at least 18 years old to attend HackIllinois"
+                        accentColor={accentColor}
+                        required
+                        options={ageOptions.map(option => ({
+                            label: option,
+                            value: option
+                        }))}
+                        value={values.age}
+                        onChange={value => setFieldValue("age", value)}
+                        error={!!touched.age && Boolean(errors.age)}
+                        helperText={!!touched.age ? errors.age : ""}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, md: 5, lg: 6 }}>
                     <TextInput
                         name="preferredName"
                         label="Preferred Name"
+                        accentColor={accentColor}
                         value={values.preferredName}
                         onChange={handleChange}
                         error={
@@ -55,73 +85,13 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         }
                     />
                 </Grid>
-                <Grid size={{ xs: 12, md: 6, lg: 3 }}>
-                    {/* Gender */}
-                    <SelectInput
-                        name="gender"
-                        label="Gender"
-                        required
-                        options={[
-                            { label: "Male", value: "Male" },
-                            { label: "Female", value: "Female" },
-                            { label: "Non-binary", value: "Non-binary" },
-                            {
-                                label: "Prefer not to say",
-                                value: "Prefer not to say"
-                            },
-                            { label: "Other", value: "Other" }
-                        ]}
-                        value={values.gender}
-                        onChange={value => setFieldValue("gender", value)}
-                        error={!!touched.gender && Boolean(errors.gender)}
-                        helperText={!!touched.gender ? errors.gender : ""}
-                    />
-                </Grid>
-                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-                    {/* Race (multi-select) */}
-                    <SelectInput
-                        name="race"
-                        label="Race / Ethnicity"
-                        required
-                        multiple
-                        options={[
-                            {
-                                label: "American Indian or Alaska Native",
-                                value: "American Indian or Alaska Native"
-                            },
-                            { label: "Asian", value: "Asian" },
-                            {
-                                label: "Black or African American",
-                                value: "Black or African American"
-                            },
-                            {
-                                label: "Hispanic or Latino",
-                                value: "Hispanic or Latino"
-                            },
-                            {
-                                label: "Native Hawaiian or Other Pacific Islander",
-                                value: "Native Hawaiian or Other Pacific Islander"
-                            },
-                            { label: "White", value: "White" },
-                            { label: "Other", value: "Other" },
-                            {
-                                label: "Prefer not to say",
-                                value: "Prefer not to say"
-                            }
-                        ]}
-                        value={values.race}
-                        onChange={value => setFieldValue("race", value)}
-                        error={!!touched.race && Boolean(errors.race)}
-                        helperText={
-                            !!touched.race ? String(errors.race || "") : ""
-                        }
-                    />
-                </Grid>
-                <Grid size={{ xs: 12, md: 6, lg: 5 }}>
+
+                <Grid size={{ xs: 12, md: 7, lg: 6 }}>
                     {/* Email Address */}
                     <TextInput
                         name="emailAddress"
                         label="Email Address"
+                        accentColor={accentColor}
                         required
                         type="email"
                         value={values.emailAddress}
@@ -133,18 +103,6 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={
                             !!touched.emailAddress ? errors.emailAddress : ""
                         }
-                    />
-                </Grid>
-                <Grid size={{ xs: 12, md: 12, lg: 3 }}>
-                    {/* City / Location */}
-                    <TextInput
-                        name="location"
-                        label="City / Location"
-                        required
-                        value={values.location}
-                        onChange={handleChange}
-                        error={!!touched.location && Boolean(errors.location)}
-                        helperText={!!touched.location ? errors.location : ""}
                     />
                 </Grid>
             </Grid>
