@@ -2,7 +2,13 @@
 import { RegistrationData } from "@/util/types";
 import { Box, Button, Paper, Step, StepLabel, Stepper } from "@mui/material";
 import { Form, Formik } from "formik";
-import { useState } from "react";
+import {
+    useState,
+    useRef,
+    useCallback,
+    useLayoutEffect,
+    useEffect
+} from "react";
 import * as Yup from "yup";
 import Education from "./formPages/Education";
 import PersonalInfo from "./formPages/PersonalInfo";
@@ -11,9 +17,39 @@ import Transportation from "./formPages/Transportation";
 import Review from "./formPages/Review";
 import Confirmation from "./formPages/Confirmation";
 import Image from "next/image";
+import RocketOverlay from "./rocket";
 
 const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
+    const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const [planetCenters, setPlanetCenters] = useState<
+        { x: number; y: number }[]
+    >([]);
+
+    const measurePlanets = useCallback(() => {
+        const centers = planetRefs.current.map(el => {
+            if (!el) return { x: 0, y: 0 };
+            const rect = el.getBoundingClientRect();
+            return {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2
+            };
+        });
+        setPlanetCenters(centers);
+    }, []);
+
+    useLayoutEffect(() => {
+        measurePlanets();
+
+        const onResize = () => {
+            measurePlanets();
+        };
+
+        window.addEventListener("resize", onResize);
+        return () => {
+            window.removeEventListener("resize", onResize);
+        };
+    }, [measurePlanets]);
 
     const steps = [
         { id: "personal_info", name: "Personal Information", color: "#3A2541" },
@@ -231,23 +267,39 @@ const GeneralRegistration = () => {
                         height: "100%"
                     }}
                 >
+                    <RocketOverlay
+                        activeStep={currentStep}
+                        planetCenters={planetCenters}
+                    />
                     <Stepper
                         alternativeLabel
                         activeStep={currentStep}
                         sx={{
-                            pt: 20,
-                            px: 20,
-                            "& .MuiStepConnector-line": {
-                                width: "60%",
-                                margin: "0 auto" // centered between icons
+                            pt: { xs: 20, lg: 22 },
+                            px: { xs: 1, md: 10 },
+                            width: "100%",
+                            "& .MuiStepLabel-root": {
+                                zIndex: 1,
+                                position: "relative"
                             }
                         }}
                     >
-                        {steps.map(step => (
+                        {steps.map((step, i) => (
                             <Step key={step.id}>
                                 <StepLabel
                                     sx={{
                                         "& .MuiStepLabel-label": {
+                                            pt: {
+                                                xs: 0.5,
+                                                sm: 2.5,
+                                                md: 3,
+                                                lg: 3.5
+                                            },
+                                            fontSize: {
+                                                xs: "8.5px",
+                                                sm: "12px",
+                                                md: "14px"
+                                            },
                                             color: "white", // default text color
                                             fontFamily: "Tsukimi Rounded",
                                             "&.Mui-active": { color: "white" }, // active step stays white
@@ -258,8 +310,13 @@ const GeneralRegistration = () => {
                                     }}
                                     slots={{
                                         stepIcon: props => (
-                                            <div
-                                                style={{
+                                            <Box
+                                                ref={(
+                                                    el: HTMLDivElement | null
+                                                ) => {
+                                                    planetRefs.current[i] = el;
+                                                }}
+                                                sx={{
                                                     display: "flex",
                                                     alignItems: "center",
                                                     justifyContent: "center",
@@ -273,8 +330,12 @@ const GeneralRegistration = () => {
                                                     alt="Transportation"
                                                     width={80}
                                                     height={80}
+                                                    style={{
+                                                        width: "clamp(40px, 10vw,100px)",
+                                                        height: "auto"
+                                                    }}
                                                 />
-                                            </div>
+                                            </Box>
                                         )
                                     }}
                                 >
