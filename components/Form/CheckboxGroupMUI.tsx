@@ -124,9 +124,9 @@ const CheckboxGroupMUI: React.FC<CheckboxGroupInputProps> = ({
                         }
                         label={
                             <Typography
+                                variant="h3"
                                 sx={{
                                     color: "#ffffff",
-                                    fontSize: "0.95rem",
                                     pl: 2
                                 }}
                             >

@@ -1,5 +1,5 @@
 "use client";
-import { createTheme } from "@mui/material/styles";
+import { createTheme, Theme } from "@mui/material/styles";
 
 let theme = createTheme();
 theme = createTheme(theme, {
@@ -26,11 +26,11 @@ theme = createTheme(theme, {
             color: "#ffffff"
         },
         h3: {
-            // input labels!
+            // labels for inputs, etc
             fontFamily: "Montserrat, sans-serif",
             fontWeight: 400,
-            fontSize: "1.5rem",
-            [theme.breakpoints.down("sm")]: {
+            fontSize: "1.2rem",
+            [theme.breakpoints.down("md")]: {
                 fontSize: "1rem"
             }
         },
@@ -42,8 +42,35 @@ theme = createTheme(theme, {
         body2: {
             // use for smaller descriptions/notes
             fontFamily: "Montserrat, sans-serif",
-            fontWeight: 200,
-            fontSize: "0.6rem"
+            fontWeight: 500,
+            fontSize: "1rem"
+        }
+    },
+    components: {
+        MuiFormLabel: {
+            styleOverrides: {
+                root: () => ({
+                    // input labels!
+                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 400,
+                    fontSize: "1.4rem",
+                    [theme.breakpoints.down("md")]: {
+                        fontSize: "1rem"
+                    },
+                    // prevent color changing on error
+                    "&.Mui-error": {
+                        color: "#ffffff"
+                    }
+                })
+            }
+        },
+        MuiFormHelperText: {
+            styleOverrides: {
+                root: ({ theme }: { theme: Theme }) => ({
+                    // use body2 (small notes) for helper text
+                    ...theme.typography.body2
+                })
+            }
         }
     }
 });

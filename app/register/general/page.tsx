@@ -13,7 +13,7 @@ import Confirmation from "./formPages/Confirmation";
 import Image from "next/image";
 
 const GeneralRegistration = () => {
-    const [currentStep, setCurrentStep] = useState(2);
+    const [currentStep, setCurrentStep] = useState(3); // todo() change back to 0
 
     const steps = [
         { id: "personal_info", name: "Personal Information", color: "#3A2541" },
@@ -328,16 +328,25 @@ const GeneralRegistration = () => {
                                 <Box
                                     sx={{
                                         display: "flex",
-                                        justifyContent: "space-between",
-                                        mt: 4,
-                                        px: 20
+                                        position: "static",
+                                        width: "100%",
+                                        height: "fit-content",
+                                        bottom: 0,
+                                        mt: 6,
+                                        mb: 8,
+                                        // mx: 2,
+                                        px: 10,
+                                        justifyContent: "space-between"
                                     }}
                                 >
                                     <Button
                                         onClick={handleBack}
-                                        hidden={currentStep === 0}
+                                        disabled={currentStep === 0} // noninteractable
+                                        aria-hidden={currentStep === 0} // hidden (accesibility)
                                         sx={{
+                                            visibility: `${currentStep === 0 ? "hidden" : "visible"}`, // hidden
                                             color: "white",
+                                            fontSize: "1.4rem",
                                             border: `1px solid ${steps[currentStep].color}`,
                                             backgroundColor:
                                                 steps[currentStep].color,
@@ -355,7 +364,8 @@ const GeneralRegistration = () => {
                                             }
                                         }}
                                     >
-                                        {steps[currentStep - 1].name}
+                                        {currentStep !== 0 &&
+                                            steps[currentStep - 1].name}
                                     </Button>
                                     <Button
                                         variant="contained"
@@ -367,6 +377,7 @@ const GeneralRegistration = () => {
                                         }
                                         sx={{
                                             color: "white",
+                                            fontSize: "1.4rem",
                                             border: `1px solid ${steps[currentStep].color}`,
                                             backgroundColor:
                                                 steps[currentStep].color,

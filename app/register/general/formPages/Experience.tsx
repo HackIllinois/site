@@ -5,7 +5,7 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import SelectInput from "@/components/SelectInputMUI";
 import TextInput from "@/components/TextInputMUI";
-import CheckboxGroupMUI from "@/components/Form/CheckboxGroupMUI";
+import CheckboxGroup from "@/components/Form/CheckboxGroupMUI";
 
 const CONSIDER_OPTIONS = ["General Admission", "Mentor", "Volunteer"];
 const OUTREACH_OPTIONS = [
@@ -73,7 +73,7 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 12 }}>
-                    <CheckboxGroupMUI
+                    <CheckboxGroup
                         name="hackOutreach"
                         label="How did you hear about us?"
                         options={OUTREACH_OPTIONS.map(opt => ({
@@ -97,10 +97,9 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 12 }}>
-                    <SelectInput
+                    <CheckboxGroup
                         name="hackInterest"
                         label="What are you interested in?"
-                        multiple
                         options={INTEREST_OPTIONS.map(opt => ({
                             label: opt,
                             value: opt
