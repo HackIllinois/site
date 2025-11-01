@@ -22,7 +22,7 @@ interface CheckboxGroupInputProps {
     required?: boolean;
     // formik controls
     value: string[];
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (value: string[]) => void;
     error: boolean;
     helperText?: string;
     // extra props
@@ -50,15 +50,7 @@ const CheckboxGroupMUI: React.FC<CheckboxGroupInputProps> = ({
             newValue = value.filter(v => v !== checkboxValue);
         }
 
-        // simulate Formik’s change event
-        const syntheticEvent = {
-            target: {
-                name,
-                value: newValue
-            }
-        } as unknown as React.ChangeEvent<HTMLInputElement>;
-
-        onChange(syntheticEvent);
+        onChange(newValue);
     };
 
     return (
@@ -68,8 +60,8 @@ const CheckboxGroupMUI: React.FC<CheckboxGroupInputProps> = ({
             sx={{
                 color: "#ffffff",
                 "& .MuiFormGroup-root": {
-                    display: "flex",
-                    flexDirection: "column",
+                    display: "grid",
+
                     gap: 0.5
                 }
             }}
