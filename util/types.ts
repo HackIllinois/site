@@ -193,6 +193,8 @@ export type RegistrationType = {
     optionalEssay: string;
     proEssay?: string;
     considerForGeneral?: boolean;
+    reviewedInformationAcknowledge: string[];
+    codeOfConductAcknowledge: string[];
     hasSubmitted?: boolean;
 };
 

@@ -135,7 +135,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                             blue
                         />
                         <div className={styles.navigation}>
-                            <NavigationButton
+                            {/* <NavigationButton
                                 text={"Transportation"}
                                 href="/register/transportation"
                                 type="button"
@@ -144,7 +144,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                                 text={"Submit"}
                                 pointRight
                                 type="submit"
-                            />
+                            /> */}
                         </div>
                     </Form>
                 </Formik>

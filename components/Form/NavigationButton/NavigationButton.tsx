@@ -1,70 +1,78 @@
 "use client";
 
-import styles from "./NavigationButton.module.scss";
-import Image from "next/image";
-import RIGHT_ARROW from "@/public/registration/right_arrow.svg";
-import LEFT_ARROW from "@/public/registration/left_arrow.svg";
-import { MouseEventHandler, KeyboardEvent } from "react";
+import { Box, Button, CardMedia, Typography } from "@mui/material";
 import Link from "next/link";
+import { MouseEventHandler } from "react";
 
 interface NavButtonProps {
     text: string;
+    img: string;
     pointRight?: boolean;
     onClick?: MouseEventHandler<HTMLButtonElement>;
     href?: string;
+    disabled?: boolean;
     [key: string]: unknown;
 }
 
-/**
- * This component is deprecated and will be removed in a future release.
- * Please use MUI instead.
- */
 const NavigationButton: React.FC<NavButtonProps> = ({
     text,
+    img,
     pointRight,
     onClick,
     href,
+    disabled,
     ...props
 }) => {
-    // Function to handle the Enter key press
-    const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-        if (event.key === "Enter" || event.key === "Return") {
-            onClick?.(event as any); // Trigger the onClick function
-        }
-    };
-
     const Content = (
-        <button
-            className={styles.button}
-            onClick={onClick}
-            onKeyDown={handleKeyDown} // Add onKeyDown event listener
-            {...props}
+        <Box
+            // sx={{
+            //     position: "relative",
+            //     width: "100%",
+            //     height: { sm: "39px", md: "60px" },
+            //     "&:hover": {
+            //         opacity: 0.9
+            //     }
+            // }}
+            sx={{
+                position: "relative",
+                display: "inline-block",
+                // width: "100%",
+                height: { sm: "39px", md: "60px" },
+                cursor: disabled ? "not-allowed" : "pointer",
+                opacity: disabled ? 0.5 : 1,
+                "&:hover": {
+                    opacity: disabled ? 0.5 : 0.9
+                }
+            }}
         >
-            {!pointRight ? (
-                <Image
-                    alt="left arrow"
-                    src={LEFT_ARROW}
-                    className={styles.arrow}
-                />
-            ) : null}
-            <p
-                className={`${pointRight ? styles.right : styles.left} ${styles.desktop}`}
+            <CardMedia
+                component="img"
+                image={img}
+                alt={pointRight ? "right arrow" : "left arrow"}
+                sx={{
+                    width: "100%",
+                    height: "100%",
+                    display: "block"
+                }}
+            />
+            <Typography
+                sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    color: "white",
+                    textAlign: "center",
+                    padding: 1,
+                    fontFamily: "'Tsukimi Rounded', sans-serif",
+                    fontWeight: 700,
+                    fontSize: { xs: "14px", md: "22px" },
+                    whiteSpace: "nowrap"
+                }}
             >
                 {text}
-            </p>
-            <p
-                className={`${pointRight ? styles.right : styles.left} ${styles.mobile}`}
-            >
-                {text}
-            </p>
-            {pointRight ? (
-                <Image
-                    alt="right arrow"
-                    src={RIGHT_ARROW}
-                    className={styles.arrow}
-                />
-            ) : null}
-        </button>
+            </Typography>
+        </Box>
     );
 
     if (href) {
@@ -75,7 +83,22 @@ const NavigationButton: React.FC<NavButtonProps> = ({
         );
     }
 
-    return Content;
+    return (
+        <button
+            onClick={onClick}
+            disabled={disabled}
+            style={{
+                border: "none",
+                padding: 0,
+                background: "none",
+                display: "inline-block",
+                cursor: disabled ? "not-allowed" : "pointer"
+            }}
+            {...props}
+        >
+            {Content}
+        </button>
+    );
 };
 
 export default NavigationButton;
