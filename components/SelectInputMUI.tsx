@@ -81,7 +81,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
                 displayEmpty
                 MenuProps={{
                     sx: {
-                        maxHeight: "min(600px, 30vh)" // Example: limits height to 600px
+                        maxHeight: "min(600px, 50vh)" // Example: limits height to 600px
                     }
                 }}
                 renderValue={selected => {
