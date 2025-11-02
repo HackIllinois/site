@@ -7,6 +7,7 @@ import {
     Button,
     Paper,
     Snackbar,
+    Stack,
     Step,
     StepLabel,
     Stepper
@@ -22,6 +23,8 @@ import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
 import Transportation from "./formPages/Transportation";
 import styles from "./styles.module.scss";
+import Background from "@/components/Registration/Background";
+import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 
 const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
@@ -38,12 +41,28 @@ const GeneralRegistration = () => {
     >("info");
 
     const steps = [
-        "Personal Information",
+        "Personal Info",
         "Education",
         "Experience",
         "Transportation",
         "Review",
         "Confirmation"
+    ];
+
+    const leftArrowImages = [
+        "", // step 0 has no left arrow
+        "/registration/arrows/left_education.svg",
+        "/registration/arrows/left_specific.svg",
+        "/registration/arrows/left_transportation.svg",
+        "/registration/arrows/left_review.svg"
+    ];
+
+    const rightArrowImages = [
+        "/registration/arrows/right_personal.svg",
+        "/registration/arrows/right_education.svg",
+        "/registration/arrows/right_specific.svg",
+        "/registration/arrows/right_transportation.svg",
+        "/registration/arrows/right_review.svg"
     ];
 
     // slugify helper to create browser-friendly, lowercased step names
@@ -83,7 +102,11 @@ const GeneralRegistration = () => {
         hackOutreach: [],
         hackInterest: [],
         dietaryRestrictions: [],
-        requestedTravelReimbursement: false
+        requestedTravelReimbursement: false,
+
+        // Acknowledgements
+        reviewedInformationAcknowledge: [],
+        codeOfConductAcknowledge: []
     };
 
     const currentYear = new Date().getFullYear();
@@ -255,7 +278,12 @@ const GeneralRegistration = () => {
             case 3:
                 return <Transportation formik={formik} />;
             case 4:
-                return <Review formik={formik} />;
+                return (
+                    <Review
+                        formik={formik}
+                        onEditStep={(step: number) => setCurrentStep(step)}
+                    />
+                );
             case 5:
                 return <Confirmation formik={formik} />;
             default:
@@ -294,6 +322,8 @@ const GeneralRegistration = () => {
 
     return (
         <main className={"screen"}>
+            <Background step={currentStep} />
+
             <div className={styles.topSpacer}></div>
 
             <Paper sx={{ backgroundColor: "rgba(255, 255, 255,0)" }}>
@@ -328,53 +358,52 @@ const GeneralRegistration = () => {
                                 {renderStepContent(currentStep, formik)}
                             </Box>
 
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    mt: 4,
-                                    px: 20
-                                }}
+                            <Stack
+                                direction={{ xs: "column", sm: "row" }}
+                                justifyContent={
+                                    currentStep === 0
+                                        ? "flex-end"
+                                        : "space-between"
+                                } // Personal info page has one arrow
+                                alignItems="center"
+                                gap={{ xs: "24px", md: "0px" }}
+                                m={4}
                             >
-                                <Button
-                                    variant="outlined"
-                                    onClick={handleBack}
-                                    disabled={currentStep === 0}
-                                    sx={{
-                                        color: "white",
-                                        borderColor: "white",
-                                        fontFamily: "Montserrat",
-                                        "&:hover": {
-                                            borderColor: "#b39ddb",
-                                            backgroundColor:
-                                                "rgba(255, 255, 255, 0.08)"
-                                        },
-                                        "&.Mui-disabled": {
-                                            borderColor:
-                                                "rgba(255,255,255,0.3)",
-                                            color: "rgba(255,255,255,0.3)"
+                                {/* Left arrow */}
+                                {currentStep > 0 &&
+                                    currentStep < steps.length - 1 && (
+                                        <NavigationButton
+                                            text={steps[
+                                                currentStep - 1
+                                            ].toUpperCase()}
+                                            img={leftArrowImages[currentStep]}
+                                            onClick={handleBack}
+                                            disabled={currentStep === 0}
+                                            type="button"
+                                        />
+                                    )}
+
+                                {/* Right arrow */}
+                                {currentStep < steps.length - 1 && (
+                                    <NavigationButton
+                                        text={
+                                            currentStep === steps.length - 2
+                                                ? "SUBMIT"
+                                                : steps[
+                                                      currentStep + 1
+                                                  ].toUpperCase()
                                         }
-                                    }}
-                                >
-                                    Back
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    onClick={() =>
-                                        handleNext(
-                                            formik.values,
-                                            formik.setTouched
-                                        )
-                                    }
-                                    sx={{
-                                        fontFamily: "Montserrat"
-                                    }}
-                                >
-                                    {currentStep === steps.length - 1
-                                        ? "Submit"
-                                        : "Next"}
-                                </Button>
-                            </Box>
+                                        img={rightArrowImages[currentStep]}
+                                        onClick={() =>
+                                            handleNext(
+                                                formik.values,
+                                                formik.setTouched
+                                            )
+                                        }
+                                        type="button"
+                                    />
+                                )}
+                            </Stack>
                         </Form>
                     )}
                 </Formik>

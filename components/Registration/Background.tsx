@@ -1,13 +1,31 @@
 "use client";
-import styles from "./Background.module.scss";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import useWindowSize from "@/hooks/use-window-size";
 import { Box } from "@mui/material";
 
-const Background = () => {
-    const pathname = usePathname();
+interface BackgroundProps {
+    step: number;
+}
+
+const Background = ({ step }: BackgroundProps) => {
     const windowSizeHook = useWindowSize();
+
+    const backgrounds = [
+        "personal-info",
+        "education",
+        "hack-specific",
+        "transportation",
+        "review",
+        "confirmation"
+    ];
+
+    const folder =
+        !windowSizeHook?.width || windowSizeHook?.width > 768
+            ? "backgrounds"
+            : "mobile_backgrounds";
+
+    const imgSrc = `/registration/${folder}/${backgrounds[step]}.svg`;
 
     return (
         <Box
@@ -17,15 +35,12 @@ const Background = () => {
                 left: 0,
                 width: "100vw",
                 height: "100vh",
-                overflow: "hidden"
+                overflow: "hidden",
+                zIndex: -1
             }}
         >
             <Image
-                src={`/registration/${
-                    !windowSizeHook?.width || windowSizeHook?.width > 768
-                        ? "backgrounds"
-                        : "mobile_backgrounds"
-                }/${pathname.split("/").at(-1)}.svg`}
+                src={imgSrc}
                 alt="Background"
                 style={{ objectFit: "cover" }}
                 fill
