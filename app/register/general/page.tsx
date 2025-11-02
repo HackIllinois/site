@@ -1,10 +1,7 @@
 "use client";
+import theme from "@/theme";
 import { RegistrationData } from "@/util/types";
-import {
-    initialValues,
-    initialValuesPopulated,
-    validationSchemas
-} from "@/util/validation";
+import { initialValuesPopulated, validationSchemas } from "@/util/validation";
 import {
     Box,
     Button,
@@ -15,32 +12,28 @@ import {
     useMediaQuery
 } from "@mui/material";
 import { Form, Formik } from "formik";
-import {
-    useState,
-    useRef,
-    useCallback,
-    useLayoutEffect,
-    useEffect
-} from "react";
+import Image from "next/image";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import * as Yup from "yup";
-import BackgroundInfo from "./formPages/BackgroundInfo";
-import PersonalInfo from "./formPages/PersonalInfo";
 import AppQuestions from "./formPages/AppQuestions";
 import AttendingHack from "./formPages/AttendingHack";
-import Review from "./formPages/Review";
+import BackgroundInfo from "./formPages/BackgroundInfo";
 import Confirmation from "./formPages/Confirmation";
-import Image from "next/image";
-import theme from "@/theme";
+import PersonalInfo from "./formPages/PersonalInfo";
+import Review from "./formPages/Review";
 
+import { useParams } from "next/navigation";
 import RocketOverlay from "./rocket";
 
 const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
-    const smallMode = useMediaQuery(theme.breakpoints.down("sm"));
-    const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
     const [planetCenters, setPlanetCenters] = useState<
         { x: number; y: number }[]
     >([]);
+
+    const smallMode = useMediaQuery(theme.breakpoints.down("sm"));
+    const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const params = useParams();
 
     const measurePlanets = useCallback(() => {
         const centers = planetRefs.current.map(el => {
@@ -89,7 +82,6 @@ const GeneralRegistration = () => {
     ];
 
     const handleNext = async (values: RegistrationData, setTouched: any) => {
-        console.log("Values", values, "Current Step", currentStep);
         const currentSchema = validationSchemas[currentStep];
 
         try {
@@ -126,7 +118,6 @@ const GeneralRegistration = () => {
     };
 
     const handleSubmit = (values: RegistrationData) => {
-        console.log("Form submitted with values:", values);
         alert("Form submitted successfully! Check console for data.");
     };
 

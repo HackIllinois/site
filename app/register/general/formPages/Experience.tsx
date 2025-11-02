@@ -1,10 +1,9 @@
-import StyledTextField from "@/components/StyledTextfield/StyledTextfield";
 import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
+import StyledTextField from "@/components/StyledTextfield/StyledTextfield";
 import { RegistrationType } from "@/util/types";
-import { Box, Typography, FormControlLabel, Checkbox } from "@mui/material";
+import { Box, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 
-const CONSIDER_OPTIONS = ["General Admission", "Mentor", "Volunteer"];
 const OUTREACH_OPTIONS = [
     "Friend",
     "Class/Professor",
@@ -105,24 +104,6 @@ const Experience = ({ formik }: ExperienceProps) => {
                 multiline
                 minRows={3}
                 sx={{ "& .MuiInputBase-root": { borderRadius: "18px" } }}
-            />
-
-            {/* Consider for general hack (now a boolean) */}
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        checked={Boolean(values.considerForGeneral)}
-                        onChange={e =>
-                            setFieldValue(
-                                "considerForGeneral",
-                                e.target.checked
-                            )
-                        }
-                        sx={{ color: "white" }}
-                    />
-                }
-                label="Consider me for the General Hack"
-                sx={{ color: "white", fontFamily: "Montserrat" }}
             />
 
             <StyledDropdown

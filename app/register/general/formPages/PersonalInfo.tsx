@@ -56,7 +56,6 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                     <SelectInput
                         name="age"
                         label="Age"
-                        // subLabel="You must be at least 18 years old to attend HackIllinois"
                         accentColor={accentColor}
                         required
                         options={ageOptions.map(option => ({

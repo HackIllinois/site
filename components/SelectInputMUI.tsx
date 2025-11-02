@@ -2,10 +2,12 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import CheckIcon from "@mui/icons-material/Check";
 import Typography from "@mui/material/Typography";
 import FormHelperText from "@mui/material/FormHelperText";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 interface Option {
     label: string;
@@ -77,6 +79,11 @@ const SelectInput: React.FC<SelectInputProps> = ({
                 onChange={handleChange}
                 multiple={multiple}
                 displayEmpty
+                MenuProps={{
+                    sx: {
+                        maxHeight: "min(600px, 30vh)" // Example: limits height to 600px
+                    }
+                }}
                 renderValue={selected => {
                     if (!selected || selected.length === 0) {
                         return (
@@ -87,13 +94,18 @@ const SelectInput: React.FC<SelectInputProps> = ({
                         );
                     }
                     if (!multiple) return selected as string;
+
                     const arr = selected as string[];
+                    const handleChipDelete = (valToRemove: string) => {
+                        const newArr = arr.filter(v => v !== valToRemove);
+                        onChange(newArr);
+                    };
+
                     return (
                         <Box
                             sx={{
                                 display: "flex",
                                 flexDirection: "row",
-                                //flexWrap: "wrap",
                                 gap: 0.5
                             }}
                         >
@@ -101,9 +113,16 @@ const SelectInput: React.FC<SelectInputProps> = ({
                                 <Chip
                                     key={val}
                                     label={val}
+                                    clickable
+                                    deleteIcon={
+                                        <CancelIcon
+                                            onMouseDown={event =>
+                                                event.stopPropagation()
+                                            }
+                                        />
+                                    }
+                                    onDelete={() => handleChipDelete(val)}
                                     sx={{
-                                        color: "white",
-                                        bgcolor: accentColor,
                                         height: "24px",
                                         lineHeight: 1
                                     }}
@@ -124,7 +143,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
                         px: multiple ? 2 : 0,
                         py: 0.5,
                         maskImage: multiple
-                            ? "linear-gradient(90deg, transparent 10px, black 30px, black calc(100% - 100px), transparent calc(100% - 40px))"
+                            ? "linear-gradient(90deg, transparent 10px, black 20px, black calc(100% - 100px), transparent calc(100% - 20px))"
                             : "",
                         overflow: "scroll",
                         scrollbarWidth: "none",
@@ -146,14 +165,36 @@ const SelectInput: React.FC<SelectInputProps> = ({
                     }
                 })}
             >
-                {options.map((option, index) => (
-                    <MenuItem
-                        key={`menu-${option.value}-${index}`}
-                        value={option.value}
-                    >
-                        {option.label}
-                    </MenuItem>
-                ))}
+                {options.map((option, index) => {
+                    const isSelected = multiple
+                        ? Array.isArray(value) && value.includes(option.value)
+                        : value === option.value;
+
+                    return (
+                        <MenuItem
+                            key={`menu-${option.value}-${index}`}
+                            value={option.value}
+                            selected={isSelected}
+                            sx={theme => ({
+                                ...(isSelected && {
+                                    backgroundColor: "#70D6FF",
+                                    color: "#fff"
+                                }),
+                                "&.Mui-selected": {
+                                    backgroundColor: "#70D6FF"
+                                },
+                                "&.Mui-selected:hover": {
+                                    backgroundColor: "#70D6FF"
+                                },
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center"
+                            })}
+                        >
+                            <span>{option.label}</span>
+                        </MenuItem>
+                    );
+                })}
             </Select>
 
             {helperText && (

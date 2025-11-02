@@ -6,6 +6,7 @@ import TextInput from "@/components/TextInputMUI";
 import {
     countryOptions,
     genderOptions,
+    graduationYearOptions,
     majorOptions,
     raceOptions,
     schoolOptions,
@@ -73,13 +74,17 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                     />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 4, md: 3 }}>
-                    <TextInput
+                    <SelectInput
                         name="gradYear"
                         label="Graduation Year"
+                        accentColor={accentColor}
                         required
-                        placeholder="(YYYY)"
+                        options={graduationYearOptions.map(option => ({
+                            label: option,
+                            value: option
+                        }))}
                         value={values.gradYear}
-                        onChange={handleChange}
+                        onChange={value => setFieldValue("gradYear", value)}
                         error={!!touched.gradYear && Boolean(errors.gradYear)}
                         helperText={!!touched.gradYear ? errors.gradYear : ""}
                     />
