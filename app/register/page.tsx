@@ -8,6 +8,7 @@ import BACKGROUND from "@/public/registration/track_selection/background.svg";
 import OlympianButton from "@/components/OlympianButton/OlympianButton";
 
 import styles from "./styles.module.scss";
+import { Box } from "@mui/material";
 
 const Registration: React.FC = () => {
     return (
@@ -32,23 +33,33 @@ const Registration: React.FC = () => {
                 <div className={styles.topSpacer}></div>
                 <div className={styles.content}>
                     <h2>Sign Up As:</h2>
-                    <OlympianButton
-                        text="HackOlympian"
-                        link="/register/challenge"
-                        blue
-                    />
-                    <p className={styles.link}>
-                        <Link
-                            prefetch={false}
-                            href="/olympians"
-                            target="_blank"
-                        >
-                            What is HackOlympian?
-                        </Link>
-                    </p>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 2,
+                            opacity: 0.5,
+                            pointerEvents: "none"
+                        }}
+                    >
+                        <OlympianButton
+                            text="HackOlympian"
+                            link="/register/challenge"
+                            blue
+                        />
+                        <p className={styles.link}>
+                            <Link
+                                prefetch={false}
+                                href="/olympians"
+                                target="_blank"
+                            >
+                                What is HackOlympian?
+                            </Link>
+                        </p>
+                    </Box>
                     <OlympianButton
                         text="General Attendee"
-                        link="/register/personal-info"
+                        link="/register/general"
                         gold
                     />
                 </div>

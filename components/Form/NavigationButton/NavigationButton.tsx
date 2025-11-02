@@ -10,6 +10,7 @@ interface NavButtonProps {
     pointRight?: boolean;
     onClick?: MouseEventHandler<HTMLButtonElement>;
     href?: string;
+    disabled?: boolean;
     [key: string]: unknown;
 }
 
@@ -19,14 +20,16 @@ const NavigationButton: React.FC<NavButtonProps> = ({
     pointRight,
     onClick,
     href,
+    disabled,
     ...props
 }) => {
     const Content = (
         <Box
             sx={{
                 position: "relative",
-                width: "100%",
+                display: "inline-block",
                 height: { sm: "39px", md: "60px" },
+                cursor: "pointer",
                 "&:hover": {
                     opacity: 0.9
                 }
@@ -70,7 +73,22 @@ const NavigationButton: React.FC<NavButtonProps> = ({
         );
     }
 
-    return Content;
+    return (
+        <button
+            onClick={onClick}
+            disabled={disabled}
+            style={{
+                border: "none",
+                padding: 0,
+                background: "none",
+                display: "inline-block",
+                cursor: disabled ? "not-allowed" : "pointer"
+            }}
+            {...props}
+        >
+            {Content}
+        </button>
+    );
 };
 
 export default NavigationButton;

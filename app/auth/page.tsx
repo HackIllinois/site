@@ -11,16 +11,16 @@ const SignIn = () => {
         // these are set in `authenticate` in util/api
         const { to } = localStorage;
 
-        if (token) {
-            localStorage.setItem("token", token);
-            localStorage.removeItem("to");
+        // if (token) {
+        //     localStorage.setItem("token", token);
+        //     localStorage.removeItem("to");
 
-            if (to) {
-                window.location.replace(to);
-            } else {
-                window.location.replace(window.location.origin);
-            }
-        }
+        //     if (to) {
+        //         window.location.replace(to);
+        //     } else {
+        //         window.location.replace(window.location.origin);
+        //     }
+        // }
     }, []);
 
     return <h2>Loading</h2>;
