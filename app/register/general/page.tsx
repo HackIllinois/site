@@ -285,7 +285,7 @@ const GeneralRegistration = () => {
                     />
                 );
             case 5:
-                return <Confirmation formik={formik} />;
+                return <Confirmation />;
             default:
                 return <div>Unknown step</div>;
         }
