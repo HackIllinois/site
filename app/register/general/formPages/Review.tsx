@@ -1,159 +1,311 @@
-import CheckboxGroup from "@/components/CheckboxGroupMUI";
-import CheckboxSelect from "@/components/CheckboxSelectMUI";
-import { RegistrationData } from "@/util/types";
-import { Box, Typography, Divider, Chip, Grid } from "@mui/material";
+import React, { useState } from "react";
+import { RegistrationType } from "@/util/types";
+import {
+    AccordionDetails,
+    Box,
+    Link as MuiLink,
+    Typography
+} from "@mui/material";
 import { FormikProps } from "formik";
+import {
+    ReviewContainer,
+    StyledAccordion,
+    StyledAccordionDetails,
+    AccordionHeader,
+    ReviewInfoAccordionBox,
+    UserInfoBox
+} from "../components/Review";
+import { Checkbox, FormControlLabel, ThemeProvider } from "@mui/material";
+import theme from "../theme";
 
 interface ReviewProps {
-    formik: FormikProps<RegistrationData>;
-    accentColor?: string;
+    formik: FormikProps<RegistrationType>;
+    onEditStep: (step: number) => void;
 }
 
-const Line = () => <Divider sx={{ my: 2, borderColor: "#3d3558" }} />;
+const Review = ({ formik, onEditStep }: ReviewProps) => {
+    const { values } = formik;
+    const [expanded, setExpanded] = useState<string | false>("personal");
 
-const Row = ({ label, value }: { label: string; value: React.ReactNode }) => (
-    <Box
-        sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            gap: 2,
-            flexWrap: "wrap"
-        }}
-    >
-        <Typography
-            sx={{ color: "rgba(255,255,255,0.8)", fontFamily: "Montserrat" }}
-        >
-            {label}
-        </Typography>
-        <Box
-            sx={{
-                color: "white",
-                fontFamily: "Montserrat",
-                textAlign: "right"
-            }}
-        >
-            {value}
-        </Box>
-    </Box>
-);
-
-const ChipList = ({ items }: { items: string[] }) => (
-    <Box
-        sx={{
-            display: "flex",
-            gap: 1,
-            flexWrap: "wrap",
-            justifyContent: "flex-end"
-        }}
-    >
-        {items.length === 0 ? (
-            <Typography sx={{ color: "white" }}>—</Typography>
-        ) : (
-            items.map(i => <Chip key={i} label={i} sx={{ color: "white" }} />)
-        )}
-    </Box>
-);
-
-const Review = ({ formik, accentColor }: ReviewProps) => {
-    const { values, errors, touched, handleChange, setFieldValue } = formik;
+    const handleExpand =
+        (panel: string) =>
+        (_event: React.SyntheticEvent, isExpanded: boolean) => {
+            setExpanded(isExpanded ? panel : false);
+        };
 
     return (
-        <Box sx={{ maxWidth: 1000, mx: "auto", pt: 5 }}>
-            <Typography
-                variant="h2"
-                component="h1"
-                sx={{
-                    mt: 8,
-                    mb: 4
-                }}
-            >
-                REVIEW & SUBMIT
-            </Typography>
-            <Typography
-                variant="h4"
-                component="h2"
-                fontFamily="Montserrat"
-                color="white"
-                sx={{ textAlign: "center", mb: 3, fontWeight: "bold" }}
-            >
-                Review your information
-            </Typography>
+        <>
+            <ThemeProvider theme={theme}>
+                <ReviewContainer>
+                    <Typography variant="h1">REVIEW INFORMATION</Typography>
 
-            {/* DISPLAY INFORMATION TO REVIEW HERE */}
-            {/*  */}
-            {/*  */}
-
-            <Grid container columnSpacing={2} rowSpacing={6}>
-                <Grid size={{ xs: 12, md: 12 }}>
-                    <CheckboxSelect
-                        name="reviewedAcknowledge"
-                        label="Please review the above information. Once you submit you will not be able to make changes."
-                        accentColor={accentColor}
-                        row
-                        optionLabel="I reviewed my information to ensure it is correct."
-                        value={values.reviewedAcknowledge}
-                        onChange={value =>
-                            setFieldValue("reviewedAcknowledge", value)
-                        }
-                        error={
-                            !!touched.reviewedAcknowledge &&
-                            Boolean(errors.reviewedAcknowledge)
-                        }
-                        helperText={
-                            !!touched.reviewedAcknowledge
-                                ? errors.reviewedAcknowledge
-                                : ""
-                        }
-                    />
-                </Grid>
-                {values.considerForPro && (
-                    <Grid size={{ xs: 12, md: 12 }}>
-                        <CheckboxSelect
-                            name="proChallengeAcknowledge"
-                            label="I understand that in order to be considered for pro track, I must complete the challenge I receive after submitting this form by <cutoff date before we start reviewing admissions>"
-                            accentColor={accentColor}
-                            row
-                            optionLabel="I understand"
-                            value={values.proChallengeAcknowledge}
-                            onChange={value =>
-                                setFieldValue("proChallengeAcknowledge", value)
-                            }
-                            error={
-                                !!touched.proChallengeAcknowledge &&
-                                Boolean(errors.proChallengeAcknowledge)
-                            }
-                            helperText={
-                                !!touched.proChallengeAcknowledge
-                                    ? errors.proChallengeAcknowledge
-                                    : ""
-                            }
+                    {/* Personal Details accordion */}
+                    <StyledAccordion
+                        defaultExpanded
+                        expanded={expanded === "personal"}
+                        onChange={handleExpand("personal")}
+                    >
+                        <AccordionHeader
+                            title="Personal Details"
+                            isExpanded={expanded === "personal"}
+                            onEdit={() => onEditStep(0)}
                         />
-                    </Grid>
-                )}
-                <Grid size={{ xs: 12, md: 12 }}>
-                    <CheckboxSelect
-                        name="codeOfConductAcknowledge"
-                        label="I have read and agree to the HackIllinois Code of Conduct (https://2025.hackillinois.org/legal/code-of-conduct)"
-                        accentColor={accentColor}
-                        row
-                        optionLabel="I accept the Code of Conduct"
-                        value={values.codeOfConductAcknowledge}
-                        onChange={value =>
-                            setFieldValue("codeOfConductAcknowledge", value)
-                        }
-                        error={
-                            !!touched.codeOfConductAcknowledge &&
-                            Boolean(errors.codeOfConductAcknowledge)
-                        }
-                        helperText={
-                            !!touched.codeOfConductAcknowledge
-                                ? errors.codeOfConductAcknowledge
-                                : ""
-                        }
-                    />
-                </Grid>
-            </Grid>
-        </Box>
+                        <StyledAccordionDetails>
+                            <ReviewInfoAccordionBox>
+                                <UserInfoBox
+                                    label="First Name"
+                                    userResponse={"TODO"}
+                                />
+                                <UserInfoBox
+                                    label="Last Name"
+                                    userResponse={"TODO"}
+                                />
+                                <UserInfoBox
+                                    label="Preferred Name"
+                                    userResponse={values.preferredName || "N/A"}
+                                />
+                                <UserInfoBox
+                                    label="Age"
+                                    userResponse={"TODO"}
+                                />
+                                <UserInfoBox
+                                    label="Email"
+                                    userResponse={values.emailAddress || "N/A"}
+                                />
+                            </ReviewInfoAccordionBox>
+                        </StyledAccordionDetails>
+                    </StyledAccordion>
+
+                    {/* Background Information accordion */}
+                    <StyledAccordion
+                        defaultExpanded
+                        expanded={expanded === "background"}
+                        onChange={handleExpand("background")}
+                    >
+                        <AccordionHeader
+                            title="Background Information"
+                            isExpanded={expanded === "background"}
+                            onEdit={() => onEditStep(1)}
+                        />
+                        <AccordionDetails>
+                            <ReviewInfoAccordionBox>
+                                <UserInfoBox
+                                    label="Gender"
+                                    userResponse={values.gender || "N/A"}
+                                />
+                                <UserInfoBox
+                                    label="Race/Ethnicity"
+                                    userResponse={
+                                        values.race.join(", ") || "N/A"
+                                    }
+                                />
+                                <UserInfoBox
+                                    label="Country of Residence"
+                                    userResponse={"TODO"}
+                                />
+                                {/* {values.country === "(US label)" && (
+                                    <UserInfoBox
+                                        label="(State/Territory of Residence)"
+                                        userResponse={"TODO"}
+                                    />
+                                )} */}
+                                <UserInfoBox
+                                    label="School"
+                                    userResponse={values.university || "N/A"}
+                                />
+                                <UserInfoBox
+                                    label="Level of Study"
+                                    userResponse={values.degree || "N/A"}
+                                />
+                                <UserInfoBox
+                                    label="Graduation Year"
+                                    userResponse={
+                                        values.gradYear.toString() || "N/A"
+                                    }
+                                />
+                                <UserInfoBox
+                                    label="Major/Field of Study"
+                                    userResponse={values.major || "N/A"}
+                                />
+                                <UserInfoBox
+                                    label="Do you identify as part of an underrepresented group in the technology industry?"
+                                    userResponse={"TODO"}
+                                />
+                            </ReviewInfoAccordionBox>
+                        </AccordionDetails>
+                    </StyledAccordion>
+
+                    {/* Hack-Specific accordion */}
+                    <StyledAccordion
+                        defaultExpanded
+                        expanded={expanded === "specific"}
+                        onChange={handleExpand("specific")}
+                    >
+                        <AccordionHeader
+                            title="Application Questions"
+                            isExpanded={expanded === "specific"}
+                            onEdit={() => onEditStep(2)}
+                        />
+                        <AccordionDetails>
+                            <ReviewInfoAccordionBox>
+                                <UserInfoBox
+                                    label="What opportunity, event, or feature of HackIllinois 2026 are you most excited to take part in, and why?"
+                                    userResponse={values.hackEssay1 || "N/A"}
+                                />
+                                <UserInfoBox
+                                    label="Describe a challenge you have faced in the field of CS, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
+                                    userResponse={values.hackEssay2 || "N/A"}
+                                />
+                                <UserInfoBox
+                                    label="Optional: If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
+                                    userResponse={values.optionalEssay || "N/A"}
+                                />
+                                <UserInfoBox
+                                    label="Would you like to be considered for (pro track)?"
+                                    // TODO: rename to considerForPro
+                                    userResponse={
+                                        values.considerForGeneral === undefined
+                                            ? "N/A"
+                                            : values.considerForGeneral
+                                              ? "Yes"
+                                              : "No"
+                                    }
+                                />
+                                {/* {values.considerForPro && (
+                                    <UserInfoBox
+                                        label="(Pro question)"
+                                        userResponse={values.proEssay || "N/A"}
+                                    />
+                                )} */}
+                            </ReviewInfoAccordionBox>
+                        </AccordionDetails>
+                    </StyledAccordion>
+
+                    {/* Attendance accordion */}
+                    <StyledAccordion
+                        defaultExpanded
+                        expanded={expanded === "attendance"}
+                        onChange={handleExpand("attendance")}
+                    >
+                        <AccordionHeader
+                            title="Attending HackIllinois"
+                            isExpanded={expanded === "attendance"}
+                            onEdit={() => onEditStep(3)}
+                        />
+                        <AccordionDetails>
+                            <ReviewInfoAccordionBox>
+                                <UserInfoBox
+                                    label="How did you hear about HackIllinois?"
+                                    userResponse={
+                                        values.hackOutreach.join(", ") || "N/A"
+                                    }
+                                />
+                                <UserInfoBox
+                                    label="Which of these are you most interested in participating in during the hackathon?"
+                                    userResponse={
+                                        values.hackInterest.join(", ") || "N/A"
+                                    }
+                                />
+                                <UserInfoBox
+                                    label="Would you like to be considered for travel reimbursement?"
+                                    userResponse={
+                                        values.requestedTravelReimbursement ===
+                                        undefined
+                                            ? "N/A"
+                                            : values.requestedTravelReimbursement
+                                              ? "Yes"
+                                              : "No"
+                                    }
+                                />
+                                <UserInfoBox
+                                    label="If you attend HackIllinois, you are responsible for your own transportation and accommodations."
+                                    userResponse={"TODO"}
+                                />
+                            </ReviewInfoAccordionBox>
+                        </AccordionDetails>
+                    </StyledAccordion>
+
+                    {/* Acknowledgements */}
+                    <Box>
+                        <Box
+                            mt={2}
+                            p={2}
+                            borderRadius={4}
+                            border="1px solid white"
+                            bgcolor="#f6f6f67A"
+                        >
+                            <Box>
+                                <Typography variant="body1" sx={{ mt: 0 }}>
+                                    Please review the above information.
+                                </Typography>
+                                <Typography variant="body1">
+                                    Once you submit you will not be able to
+                                    change any information without contacting
+                                    us.
+                                </Typography>
+
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={
+                                                formik.values
+                                                    .reviewedInformationAcknowledge
+                                                    .length > 0
+                                            }
+                                            onChange={e =>
+                                                formik.setFieldValue(
+                                                    "reviewedInformationAcknowledge",
+                                                    e.target.checked
+                                                        ? ["yes"]
+                                                        : []
+                                                )
+                                            }
+                                        />
+                                    }
+                                    label="I reviewed my information to ensure it is correct."
+                                />
+                            </Box>
+
+                            <Box mt={3}>
+                                <Typography variant="body1">
+                                    To participate in HackIllinois, you must
+                                    accept our{" "}
+                                    <MuiLink
+                                        href="/legal/code-of-conduct"
+                                        target="_blank"
+                                        underline="hover"
+                                    >
+                                        Code of Conduct
+                                    </MuiLink>
+                                    .
+                                </Typography>
+
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={
+                                                formik.values
+                                                    .codeOfConductAcknowledge
+                                                    .length > 0
+                                            }
+                                            onChange={e =>
+                                                formik.setFieldValue(
+                                                    "codeOfConductAcknowledge",
+                                                    e.target.checked
+                                                        ? ["yes"]
+                                                        : []
+                                                )
+                                            }
+                                        />
+                                    }
+                                    label="I accept the Code of Conduct."
+                                />
+                            </Box>
+                        </Box>
+                    </Box>
+                </ReviewContainer>
+            </ThemeProvider>
+        </>
     );
 };
 

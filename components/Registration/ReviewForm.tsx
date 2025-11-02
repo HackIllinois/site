@@ -246,73 +246,56 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                                         Once you submit you will not be able to
                                         change any information without
                                         contacting us.
-                                    </Typography>
-                                    <FormikCheckbox
-                                        name="reviewedInformationAcknowledge"
-                                        label={
-                                            <Box>
-                                                <Typography variant="body1">
-                                                    I reviewed my information to
-                                                    ensure it is correct.
-                                                </Typography>
-                                            </Box>
-                                        }
-                                    />
-                                </Box>
-
-                                <Box mt={3}>
-                                    <Typography variant="body1">
-                                        To participate in HackIllinois, you must
-                                        accept our{" "}
-                                        <MuiLink
-                                            href="/legal/code-of-conduct"
-                                            target="_blank"
-                                            underline="hover"
-                                        >
-                                            Code of Conduct
-                                        </MuiLink>
-                                        .
-                                    </Typography>
-
-                                    <FormikCheckbox
-                                        name="codeOfConductAcknowledge"
-                                        label={
-                                            <Box>
-                                                <Typography variant="body1">
-                                                    I accept the Code of
-                                                    Conduct.
-                                                </Typography>
-                                            </Box>
-                                        }
-                                    />
-                                </Box>
-                            </Box>
-
-                            <Stack
-                                direction={{ xs: "column", sm: "row" }}
-                                justifyContent="space-between"
-                                alignItems="center"
-                                gap={{ xs: "24px", md: "0px" }}
-                                mt={4}
-                            >
-                                <NavigationButton
-                                    text={"TRANSPORATION"}
-                                    img="/registration/left_arrow_review.svg"
-                                    href="/register/transportation"
-                                    type="button"
-                                />
-                                <NavigationButton
-                                    text={"SUBMIT"}
-                                    img="/registration/right_arrow_review.svg"
-                                    href="/register/confirmation"
-                                    pointRight
-                                    type="submit"
-                                />
-                            </Stack>
-                        </Form>
-                    </Formik>
-                </ReviewContainer>
-            </ThemeProvider>
+                                    </small>
+                                </p>
+                            }
+                            options={[
+                                {
+                                    label: "I reviewed my information to ensure it is correct",
+                                    value: "YES"
+                                }
+                            ]}
+                            blue
+                        />
+                        <Checkboxes
+                            name="codeOfConductAcknowledge"
+                            label={
+                                <p>
+                                    To participate in HackIllinois, you must
+                                    accept our{" "}
+                                    <Link
+                                        prefetch={false}
+                                        href="/legal/code-of-conduct"
+                                        target="_blank"
+                                    >
+                                        Code of Conduct
+                                    </Link>
+                                    :
+                                </p>
+                            }
+                            options={[
+                                {
+                                    label: "I accept the Code of Conduct",
+                                    value: "YES"
+                                }
+                            ]}
+                            blue
+                        />
+                        <div className={styles.navigation}>
+                            {/* <NavigationButton
+                                text={"Transportation"}
+                                href="/register/transportation"
+                                type="button"
+                            />
+                            <NavigationButton
+                                text={"Submit"}
+                                pointRight
+                                type="submit"
+                            /> */}
+                        </div>
+                    </Form>
+                </Formik>
+            </div>
         </>
     );
 };

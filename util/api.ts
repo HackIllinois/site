@@ -11,12 +11,26 @@ import { handleError } from "./helpers";
 
 const APIv2 = "https://adonix.hackillinois.org";
 
-export const isAuthenticated = (): string | null =>
-    localStorage.getItem("token");
+export const isAuthenticated = async (): Promise<boolean> => {
+    return (await getAuthToken()) !== null;
+};
 
-export function authenticate(to: string): void {
-    localStorage.setItem("to", to);
-    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/auth/`;
+export async function getAuthToken(): Promise<string | null> {
+    const response = await fetch(APIv2 + "/auth/token", {
+        credentials: "include"
+    });
+    if (response.ok) {
+        const data = await response.json();
+        console.log("Data", data);
+        // localStorage.setItem("token", data.token);
+        return data.jwt;
+    }
+    return null;
+}
+
+export function authenticate(): void {
+    // localStorage.setItem("to", to);
+    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/register/general`;
     window.location.replace(authUrl);
 }
 
@@ -31,6 +45,7 @@ export async function requestv2(
     const response = await fetch(APIv2 + endpoint, {
         method,
         mode: "cors",
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
             Origin: "www.hackillinois.org",
@@ -47,7 +62,7 @@ export async function requestv2(
         responseJSON.error == "NoToken"
     ) {
         sessionStorage.removeItem("token");
-        authenticate(window.location.href);
+        authenticate();
         return;
     }
 
@@ -69,7 +84,7 @@ export async function getRegistrationOrDefault(): Promise<
     WithId<RegistrationType> | RegistrationType
 > {
     try {
-        // const response = await requestv2("GET", "/registration");
+        const response = await requestv2("GET", "/registration");
         return response;
     } catch (error: any) {
         if (error.error !== "NotFound") {
