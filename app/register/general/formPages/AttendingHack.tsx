@@ -35,11 +35,11 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                     mb: 4
                 }}
             >
-                TRANSPORTATION
+                ATTENDING HACKILLINOIS
             </Typography>
 
             <Grid container columnSpacing={2} rowSpacing={6}>
-                <Grid size={{ xs: 12, md: 12 }}>
+                <Grid size={12}>
                     <CheckboxGroup
                         name="hackOutreach"
                         label="How did you hear about HackIllinois?"
@@ -62,7 +62,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         }
                     />
                 </Grid>
-                <Grid size={{ xs: 12, md: 12 }}>
+                <Grid size={12}>
                     <CheckboxGroup
                         name="hackInterest"
                         label="Which of these are you most interested in participating in during the hackathon?"
@@ -86,7 +86,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                     />
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 12 }}>
+                <Grid size={12}>
                     <RadioSelectGroup
                         name="requestedTravelReimbursement"
                         label="Would you like to be considered for travel reimbursement?"
@@ -112,7 +112,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                     />
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 12 }}>
+                <Grid size={12}>
                     <CheckboxSelect
                         name="travelAcknowledge"
                         label="If you attend HackIllinois, you are responsible for your own transportation and accommodations."

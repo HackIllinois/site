@@ -22,11 +22,11 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                     mb: 4
                 }}
             >
-                EXPERIENCE
+                APPLICATION QUESTIONS
             </Typography>
 
             <Grid container columnSpacing={2} rowSpacing={6}>
-                <Grid size={{ xs: 12, md: 12 }}>
+                <Grid size={12}>
                     <TextInput
                         name="hackEssay1"
                         label="What opportunity, event, or feature of HackIllinois 2026 are you most excited to take part in and why?"
@@ -45,7 +45,7 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                         }
                     />
                 </Grid>
-                <Grid size={{ xs: 12, md: 12 }}>
+                <Grid size={12}>
                     <TextInput
                         name="hackEssay2"
                         label="Describe a challenge you have faced in the field of CS, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
@@ -64,7 +64,7 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                         }
                     />
                 </Grid>
-                <Grid size={{ xs: 12, md: 12 }}>
+                <Grid size={12}>
                     <TextInput
                         name="optionalEssay"
                         label="If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
@@ -84,7 +84,7 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                         }
                     />
                 </Grid>
-                <Grid size={{ xs: 12, md: 12 }}>
+                <Grid size={12}>
                     <CheckboxSelect
                         name="considerForPro"
                         label="Would you like to be considered for pro track?"
@@ -106,7 +106,7 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                     />
                 </Grid>
                 {values.considerForPro && (
-                    <Grid size={{ xs: 12, md: 12 }}>
+                    <Grid size={12}>
                         <TextInput
                             name="proEssay"
                             label="<PRO ESSAY PROMPT>"

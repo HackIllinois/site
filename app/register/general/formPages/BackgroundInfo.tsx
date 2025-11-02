@@ -37,7 +37,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
             </Typography>
 
             <Grid container columnSpacing={2} rowSpacing={6}>
-                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 4 }}>
                     <SelectInput
                         name="studyLevel"
                         label="Level of Study"
@@ -56,7 +56,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         }
                     />{" "}
                 </Grid>
-                <Grid size={{ xs: 12, md: 6, lg: 5 }}>
+                <Grid size={{ xs: 12, sm: 8, md: 5 }}>
                     <SelectInput
                         name="school"
                         label="School"
@@ -72,7 +72,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         helperText={!!touched.school ? errors.school : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, md: 6, lg: 3 }}>
+                <Grid size={{ xs: 12, sm: 4, md: 3 }}>
                     <TextInput
                         name="gradYear"
                         label="Graduation Year"
@@ -87,9 +87,9 @@ const Education = ({ formik, accentColor }: EducationProps) => {
 
                 <Grid
                     size={{
-                        xs: 6,
-                        md: 6,
-                        lg: values.country === "United States" ? 5 : 6
+                        xs: 12,
+                        sm: 12,
+                        md: values.country === "United States" ? 5 : 6
                     }}
                 >
                     <SelectInput
@@ -110,8 +110,8 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                 <Grid
                     size={{
                         xs: 12,
-                        md: 6,
-                        lg: values.country === "United States" ? 3 : 6
+                        sm: values.country === "United States" ? 6 : 12,
+                        md: values.country === "United States" ? 4 : 6
                     }}
                 >
                     <SelectInput
@@ -134,7 +134,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                     />
                 </Grid>
                 {values.country === "United States" && (
-                    <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+                    <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                         <SelectInput
                             name="state"
                             label="State/Territory"
@@ -151,7 +151,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         />
                     </Grid>
                 )}
-                <Grid size={{ xs: 12, md: 6, lg: 8 }}>
+                <Grid size={{ xs: 12, sm: 7, md: 8 }}>
                     <SelectInput
                         name="race"
                         label="Race/Ethnicity"
@@ -168,7 +168,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         helperText={!!touched.race ? String(errors.race) : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+                <Grid size={{ xs: 12, sm: 5, md: 4 }}>
                     <SelectInput
                         name="gender"
                         label="Gender"
@@ -185,7 +185,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                     />
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 12, lg: 12 }}>
+                <Grid size={12}>
                     <RadioSelectGroup
                         name="underrepresented"
                         label="Do you identify as part of an underrepresented group in the technology industry?"

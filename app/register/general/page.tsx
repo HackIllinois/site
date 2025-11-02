@@ -1,7 +1,15 @@
 "use client";
 import { RegistrationData } from "@/util/types";
 import { initialValues, validationSchemas } from "@/util/validation";
-import { Box, Button, Paper, Step, StepLabel, Stepper } from "@mui/material";
+import {
+    Box,
+    Button,
+    Paper,
+    Step,
+    StepLabel,
+    Stepper,
+    useMediaQuery
+} from "@mui/material";
 import { Form, Formik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
@@ -12,9 +20,11 @@ import AttendingHack from "./formPages/AttendingHack";
 import Review from "./formPages/Review";
 import Confirmation from "./formPages/Confirmation";
 import Image from "next/image";
+import theme from "@/theme";
 
 const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
+    const smallMode = useMediaQuery(theme.breakpoints.down("sm"));
 
     const steps = [
         { id: "personal_info", name: "Personal Information", color: "#3A2541" },
@@ -219,13 +229,12 @@ const GeneralRegistration = () => {
                                     sx={{
                                         display: "flex",
                                         position: "static",
-                                        width: "100%",
+                                        width: "90%",
                                         height: "fit-content",
                                         bottom: 0,
                                         mt: 6,
                                         mb: 8,
-                                        // mx: 2,
-                                        px: 10,
+                                        mx: "auto",
                                         justifyContent: "space-between"
                                     }}
                                 >
@@ -236,7 +245,10 @@ const GeneralRegistration = () => {
                                         sx={{
                                             visibility: `${currentStep === 0 ? "hidden" : "visible"}`, // hidden
                                             color: "white",
-                                            fontSize: "1.4rem",
+                                            fontSize: {
+                                                xs: "1rem",
+                                                md: "1.4rem"
+                                            },
                                             border: `1px solid ${steps[currentStep].color}`,
                                             backgroundColor:
                                                 steps[currentStep].color,
@@ -254,8 +266,10 @@ const GeneralRegistration = () => {
                                             }
                                         }}
                                     >
-                                        {currentStep !== 0 &&
-                                            steps[currentStep - 1].name}
+                                        {smallMode
+                                            ? "<"
+                                            : currentStep !== 0 &&
+                                              steps[currentStep - 1].name}
                                     </Button>
                                     <Button
                                         variant="contained"
@@ -267,7 +281,10 @@ const GeneralRegistration = () => {
                                         }
                                         sx={{
                                             color: "white",
-                                            fontSize: "1.4rem",
+                                            fontSize: {
+                                                xs: "1rem",
+                                                md: "1.4rem"
+                                            },
                                             border: `1px solid ${steps[currentStep].color}`,
                                             backgroundColor:
                                                 steps[currentStep].color,
@@ -285,9 +302,11 @@ const GeneralRegistration = () => {
                                             }
                                         }}
                                     >
-                                        {currentStep === steps.length - 1
-                                            ? "Submit"
-                                            : steps[currentStep + 1].name}
+                                        {smallMode
+                                            ? ">"
+                                            : currentStep === steps.length - 1
+                                              ? "Submit"
+                                              : steps[currentStep + 1].name}
                                     </Button>
                                 </Box>
                             </Form>

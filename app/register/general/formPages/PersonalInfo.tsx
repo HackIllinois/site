@@ -28,7 +28,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                 PERSONAL INFO
             </Typography>
             <Grid container columnSpacing={2} rowSpacing={{ xs: 3, md: 6 }}>
-                <Grid size={{ xs: 12, md: 5, lg: 5 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 5 }}>
                     <TextInput
                         name="firstName"
                         label="First Name"
@@ -40,7 +40,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={!!touched.firstName ? errors.firstName : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, md: 5, lg: 5 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 5 }}>
                     <TextInput
                         name="lastName"
                         label="Last Name"
@@ -52,7 +52,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={!!touched.lastName ? errors.lastName : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, md: 2, lg: 2 }}>
+                <Grid size={{ xs: 12, sm: 3, md: 2 }}>
                     <SelectInput
                         name="age"
                         label="Age"
@@ -69,7 +69,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={!!touched.age ? errors.age : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, md: 5, lg: 6 }}>
+                <Grid size={{ xs: 12, sm: 9, md: 6 }}>
                     <TextInput
                         name="preferredName"
                         label="Preferred Name"
@@ -86,8 +86,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                     />
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 7, lg: 6 }}>
-                    {/* Email Address */}
+                <Grid size={{ xs: 12, sm: 12, md: 6 }}>
                     <TextInput
                         name="emailAddress"
                         label="Email Address"
