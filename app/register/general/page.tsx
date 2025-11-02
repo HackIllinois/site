@@ -1,6 +1,10 @@
 "use client";
 import { RegistrationData } from "@/util/types";
-import { initialValues, validationSchemas } from "@/util/validation";
+import {
+    initialValues,
+    initialValuesPopulated,
+    validationSchemas
+} from "@/util/validation";
 import {
     Box,
     Button,
@@ -157,19 +161,9 @@ const GeneralRegistration = () => {
                     />
                 );
             case 4:
-                return (
-                    <Review
-                        formik={formik}
-                        accentColor={steps[currentStep].color}
-                    />
-                );
+                return <Review formik={formik} onEditStep={setCurrentStep} />;
             case 5:
-                return (
-                    <Confirmation
-                        formik={formik}
-                        accentColor={steps[currentStep].color}
-                    />
-                );
+                return <Confirmation formik={formik} />;
             default:
                 return <div>Unknown step</div>;
         }
@@ -182,6 +176,7 @@ const GeneralRegistration = () => {
                     minHeight: "100vh", // full viewport height
                     height: "100%",
                     width: "100%",
+                    pb: "50px",
                     backgroundImage: {
                         xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}.svg")`,
                         md: `url("/registration/backgrounds/${steps[currentStep].id}.svg")`
@@ -277,7 +272,7 @@ const GeneralRegistration = () => {
                     </Stepper>
 
                     <Formik
-                        initialValues={initialValues}
+                        initialValues={initialValuesPopulated}
                         validationSchema={validationSchemas[currentStep]}
                         onSubmit={handleSubmit}
                     >
@@ -317,9 +312,6 @@ const GeneralRegistration = () => {
                                             fontFamily: "Tsukimi Rounded",
                                             "&:hover": {
                                                 borderColor: "white"
-                                                // color: `${steps[currentStep].color}`,
-                                                // backgroundColor:
-                                                //     "rgba(255, 255, 255, 0.08)"
                                             },
                                             "&.Mui-disabled": {
                                                 borderColor:
@@ -353,9 +345,6 @@ const GeneralRegistration = () => {
                                             fontFamily: "Tsukimi Rounded",
                                             "&:hover": {
                                                 borderColor: "white"
-                                                //color: `${steps[currentStep].color}`,
-                                                // backgroundColor:
-                                                //     "rgba(255, 255, 255, 0.08)"
                                             },
                                             "&.Mui-disabled": {
                                                 borderColor:

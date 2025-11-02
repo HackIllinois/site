@@ -39,6 +39,46 @@ export const initialValues: RegistrationData = {
     codeOfConductAcknowledge: false
 };
 
+export const initialValuesPopulated: RegistrationData = {
+    // 0. Personal Info
+    firstName: "Miguel",
+    lastName: "Aenlle",
+    preferredName: "",
+    age: "19",
+    emailAddress: "maenlle2@illinois.edu",
+
+    // 1. Background Info
+    gender: "Male",
+    race: ["Filipino"], // multiple races can be selected
+    country: "United States",
+    state: "Illinois",
+    school: "University of Illinois (Urbana-Champaign)",
+    studyLevel: "Bachelor's",
+    gradYear: "2027",
+    major: "Computer Science",
+    underrepresented: "",
+
+    // 2. Application Questions
+    hackEssay1:
+        "HackIllinois is great HackIllinois is great HackIllinois is great HackIllinois is great HackIllinois is great HackIllinois is great HackIllinois is great HackIllinois is great HackIllinois is great ",
+    hackEssay2:
+        "HackIllinois is great HackIllinois is great HackIllinois is great HackIllinois is great HackIllinois is great HackIllinois is great HackIllinois is great HackIllinois is great HackIllinois is great ",
+    optionalEssay: "",
+    considerForPro: false,
+    proEssay: "",
+
+    // 3. Attending HackIllinois
+    hackOutreach: [],
+    hackInterest: ["Discord"],
+    requestedTravelReimbursement: "",
+    travelAcknowledge: false,
+
+    // 4. Review (final acknowledgements)
+    reviewedAcknowledge: false,
+    proChallengeAcknowledge: false,
+    codeOfConductAcknowledge: false
+};
+
 const currentYear = new Date().getFullYear();
 
 export const validationSchemas = [
