@@ -3,6 +3,7 @@ import { RegistrationType } from "@/util/types";
 import {
     AccordionDetails,
     Box,
+    FormHelperText,
     Link as MuiLink,
     Typography
 } from "@mui/material";
@@ -24,7 +25,7 @@ interface ReviewProps {
 }
 
 const Review = ({ formik, onEditStep }: ReviewProps) => {
-    const { values } = formik;
+    const { values, errors, touched, handleChange } = formik;
     const [expanded, setExpanded] = useState<string | false>("personal");
 
     const handleExpand =
@@ -54,11 +55,11 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             <ReviewInfoAccordionBox>
                                 <UserInfoBox
                                     label="First Name"
-                                    userResponse={"TODO"}
+                                    userResponse={values.firstName}
                                 />
                                 <UserInfoBox
                                     label="Last Name"
-                                    userResponse={"TODO"}
+                                    userResponse={values.lastName}
                                 />
                                 <UserInfoBox
                                     label="Preferred Name"
@@ -66,7 +67,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 />
                                 <UserInfoBox
                                     label="Age"
-                                    userResponse={"TODO"}
+                                    userResponse={values.age}
                                 />
                                 <UserInfoBox
                                     label="Email"
@@ -101,21 +102,15 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 />
                                 <UserInfoBox
                                     label="Country of Residence"
-                                    userResponse={"TODO"}
+                                    userResponse={values.country}
                                 />
-                                {/* {values.country === "(US label)" && (
-                                    <UserInfoBox
-                                        label="(State/Territory of Residence)"
-                                        userResponse={"TODO"}
-                                    />
-                                )} */}
                                 <UserInfoBox
                                     label="School"
-                                    userResponse={values.university || "N/A"}
+                                    userResponse={values.school || "N/A"}
                                 />
                                 <UserInfoBox
                                     label="Level of Study"
-                                    userResponse={values.degree || "N/A"}
+                                    userResponse={values.studyLevel || "N/A"}
                                 />
                                 <UserInfoBox
                                     label="Graduation Year"
@@ -129,7 +124,9 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 />
                                 <UserInfoBox
                                     label="Do you identify as part of an underrepresented group in the technology industry?"
-                                    userResponse={"TODO"}
+                                    userResponse={
+                                        values.underrepresented ? "Yes" : "No"
+                                    }
                                 />
                             </ReviewInfoAccordionBox>
                         </AccordionDetails>
@@ -162,21 +159,14 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 />
                                 <UserInfoBox
                                     label="Would you like to be considered for (pro track)?"
-                                    // TODO: rename to considerForPro
                                     userResponse={
-                                        values.considerForGeneral === undefined
+                                        values.considerForPro === undefined
                                             ? "N/A"
-                                            : values.considerForGeneral
+                                            : values.considerForPro
                                               ? "Yes"
                                               : "No"
                                     }
                                 />
-                                {/* {values.considerForPro && (
-                                    <UserInfoBox
-                                        label="(Pro question)"
-                                        userResponse={values.proEssay || "N/A"}
-                                    />
-                                )} */}
                             </ReviewInfoAccordionBox>
                         </AccordionDetails>
                     </StyledAccordion>
@@ -219,7 +209,11 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 />
                                 <UserInfoBox
                                     label="If you attend HackIllinois, you are responsible for your own transportation and accommodations."
-                                    userResponse={"TODO"}
+                                    userResponse={
+                                        values.travelAcknowledge
+                                            ? "Acknowledged"
+                                            : "N.A"
+                                    }
                                 />
                             </ReviewInfoAccordionBox>
                         </AccordionDetails>
@@ -247,23 +241,26 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 <FormControlLabel
                                     control={
                                         <Checkbox
-                                            checked={
-                                                formik.values
-                                                    .reviewedInformationAcknowledge
-                                                    .length > 0
-                                            }
-                                            onChange={e =>
-                                                formik.setFieldValue(
-                                                    "reviewedInformationAcknowledge",
-                                                    e.target.checked
-                                                        ? ["yes"]
-                                                        : []
-                                                )
-                                            }
+                                            name={"reviewedAcknowledge"}
+                                            checked={values.reviewedAcknowledge}
+                                            onChange={handleChange}
                                         />
                                     }
                                     label="I reviewed my information to ensure it is correct."
                                 />
+                                {touched.reviewedAcknowledge &&
+                                errors.reviewedAcknowledge ? (
+                                    <FormHelperText
+                                        error
+                                        sx={{
+                                            fontFamily: "Montserrat"
+                                        }}
+                                    >
+                                        {errors.reviewedAcknowledge as string}
+                                    </FormHelperText>
+                                ) : (
+                                    <></>
+                                )}
                             </Box>
 
                             <Box mt={3}>
@@ -283,23 +280,30 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 <FormControlLabel
                                     control={
                                         <Checkbox
+                                            name={"codeOfConductAcknowledge"}
                                             checked={
-                                                formik.values
-                                                    .codeOfConductAcknowledge
-                                                    .length > 0
+                                                values.codeOfConductAcknowledge
                                             }
-                                            onChange={e =>
-                                                formik.setFieldValue(
-                                                    "codeOfConductAcknowledge",
-                                                    e.target.checked
-                                                        ? ["yes"]
-                                                        : []
-                                                )
-                                            }
+                                            onChange={handleChange}
                                         />
                                     }
                                     label="I accept the Code of Conduct."
                                 />
+                                {touched.codeOfConductAcknowledge &&
+                                errors.codeOfConductAcknowledge ? (
+                                    <FormHelperText
+                                        error
+                                        sx={{
+                                            fontFamily: "Montserrat"
+                                        }}
+                                    >
+                                        {
+                                            errors.codeOfConductAcknowledge as string
+                                        }
+                                    </FormHelperText>
+                                ) : (
+                                    <></>
+                                )}
                             </Box>
                         </Box>
                     </Box>
