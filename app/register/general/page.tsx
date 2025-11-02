@@ -291,16 +291,7 @@ const GeneralRegistration = () => {
         }
     };
 
-    const handleAuthenticate = async () => {
-        const authToken = await getAuthToken();
-        if (!authToken) {
-            authenticate();
-        }
-    };
-
-    useEffect(() => {
-        handleAuthenticate();
-    }, []);
+    useEffect(() => {}, []);
 
     // autosave interval - runs every 10 seconds and saves the current form values (if available)
     useEffect(() => {
