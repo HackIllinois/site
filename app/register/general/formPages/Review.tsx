@@ -3,13 +3,10 @@ import { RegistrationType } from "@/util/types";
 import {
     AccordionDetails,
     Box,
-    Chip,
-    Divider,
     Link as MuiLink,
-    Stack,
     Typography
 } from "@mui/material";
-import { Form, FormikProps } from "formik";
+import { FormikProps } from "formik";
 import {
     ReviewContainer,
     StyledAccordion,
@@ -19,7 +16,6 @@ import {
     UserInfoBox
 } from "../components/Review";
 import { Checkbox, FormControlLabel, ThemeProvider } from "@mui/material";
-import NavigationButton from "../../../../components/Form/NavigationButton/NavigationButton";
 import theme from "../theme";
 
 interface ReviewProps {

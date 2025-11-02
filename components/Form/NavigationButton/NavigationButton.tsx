@@ -25,23 +25,13 @@ const NavigationButton: React.FC<NavButtonProps> = ({
 }) => {
     const Content = (
         <Box
-            // sx={{
-            //     position: "relative",
-            //     width: "100%",
-            //     height: { sm: "39px", md: "60px" },
-            //     "&:hover": {
-            //         opacity: 0.9
-            //     }
-            // }}
             sx={{
                 position: "relative",
                 display: "inline-block",
-                // width: "100%",
                 height: { sm: "39px", md: "60px" },
-                cursor: disabled ? "not-allowed" : "pointer",
-                opacity: disabled ? 0.5 : 1,
+                cursor: "pointer",
                 "&:hover": {
-                    opacity: disabled ? 0.5 : 0.9
+                    opacity: 0.9
                 }
             }}
         >
