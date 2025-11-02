@@ -123,8 +123,9 @@ const SelectInput: React.FC<SelectInputProps> = ({
                     "& .MuiSelect-select": {
                         px: multiple ? 2 : 0,
                         py: 0.5,
-                        maskImage:
-                            "linear-gradient(90deg, transparent 2%, black 5%, black 86%, transparent 90%)",
+                        maskImage: multiple
+                            ? "linear-gradient(90deg, transparent 10px, black 30px, black calc(100% - 100px), transparent calc(100% - 40px))"
+                            : "",
                         overflow: "scroll",
                         scrollbarWidth: "none",
                         msOverflowStyle: "none",
