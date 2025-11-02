@@ -1,12 +1,11 @@
-// "use client";
-
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import "./globals.scss";
 import type { Metadata } from "next";
+import { Montserrat } from "next/font/google";
 import Navbar from "@/components/Navbar/Navbar";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "../theme";
-import { montserrat, tsukimi } from "../theme/fonts";
+import { ThemeProvider } from "@mui/material";
+import theme from "./theme";
+
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
     title: "HackIllinois",
@@ -21,16 +20,11 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body
-                className={`${montserrat.variable} ${tsukimi.variable} 
-                            ${montserrat.className}`} // compatibility
-            >
-                <AppRouterCacheProvider>
-                    <ThemeProvider theme={theme}>
-                        <Navbar />
-                        {children}
-                    </ThemeProvider>
-                </AppRouterCacheProvider>
+            <body className={montserrat.className}>
+                <ThemeProvider theme={theme}>
+                    <Navbar />
+                    {children}
+                </ThemeProvider>
             </body>
         </html>
     );
