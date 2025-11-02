@@ -1,131 +1,111 @@
 import StyledTextField from "@/components/StyledTextfield/StyledTextfield";
 import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
-import { RegistrationType } from "@/util/types";
-import { Box, Typography } from "@mui/material";
+import { RegistrationData } from "@/util/types";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";
+import TextInput from "@/components/TextInputMUI";
+import SelectInput from "@/components/SelectInputMUI";
+import { ageOptions } from "@/util/options";
 
 interface PersonalInfoProps {
-    formik: FormikProps<RegistrationType>;
+    formik: FormikProps<RegistrationData>;
+    accentColor?: string;
 }
 
-const PersonalInfo = ({ formik }: PersonalInfoProps) => {
+const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 3,
-                maxWidth: 500,
-                mx: "auto",
-                pt: 5
-            }}
-        >
+        <Container>
             <Typography
-                variant="h4"
+                variant="h2"
                 component="h1"
-                fontFamily={"Montserrat"}
-                color="white"
-                sx={{ textAlign: "center", mb: 2, fontWeight: "bold" }}
+                sx={{
+                    mt: 8,
+                    mb: 4
+                }}
             >
-                Personal Information
+                PERSONAL INFO
             </Typography>
+            <Grid container columnSpacing={2} rowSpacing={{ xs: 3, md: 6 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 5 }}>
+                    <TextInput
+                        name="firstName"
+                        label="First Name"
+                        accentColor={accentColor}
+                        required
+                        value={values.firstName}
+                        onChange={handleChange}
+                        error={!!touched.firstName && Boolean(errors.firstName)}
+                        helperText={!!touched.firstName ? errors.firstName : ""}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, sm: 12, md: 5 }}>
+                    <TextInput
+                        name="lastName"
+                        label="Last Name"
+                        accentColor={accentColor}
+                        required
+                        value={values.lastName}
+                        onChange={handleChange}
+                        error={!!touched.lastName && Boolean(errors.lastName)}
+                        helperText={!!touched.lastName ? errors.lastName : ""}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, sm: 3, md: 2 }}>
+                    <SelectInput
+                        name="age"
+                        label="Age"
+                        // subLabel="You must be at least 18 years old to attend HackIllinois"
+                        accentColor={accentColor}
+                        required
+                        options={ageOptions.map(option => ({
+                            label: option,
+                            value: option
+                        }))}
+                        value={values.age}
+                        onChange={value => setFieldValue("age", value)}
+                        error={!!touched.age && Boolean(errors.age)}
+                        helperText={!!touched.age ? errors.age : ""}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, sm: 9, md: 6 }}>
+                    <TextInput
+                        name="preferredName"
+                        label="Preferred Name"
+                        accentColor={accentColor}
+                        value={values.preferredName}
+                        onChange={handleChange}
+                        error={
+                            !!touched.preferredName &&
+                            Boolean(errors.preferredName)
+                        }
+                        helperText={
+                            !!touched.preferredName ? errors.preferredName : ""
+                        }
+                    />
+                </Grid>
 
-            {/* Legal Name */}
-            <StyledTextField
-                name="legalName"
-                label="Legal Name"
-                value={values.legalName}
-                onChange={handleChange}
-                error={touched.legalName && Boolean(errors.legalName)}
-                helperText={touched.legalName && errors.legalName}
-                required
-            />
-
-            {/* Preferred Name (optional) */}
-            <StyledTextField
-                name="preferredName"
-                label="Preferred Name"
-                value={values.preferredName}
-                onChange={handleChange}
-                error={touched.preferredName && Boolean(errors.preferredName)}
-                helperText={touched.preferredName && errors.preferredName}
-            />
-
-            {/* Email Address */}
-            <StyledTextField
-                name="emailAddress"
-                label="Email Address"
-                type="email"
-                value={values.emailAddress}
-                onChange={handleChange}
-                error={touched.emailAddress && Boolean(errors.emailAddress)}
-                helperText={touched.emailAddress && errors.emailAddress}
-                required
-            />
-
-            {/* City / Location */}
-            <StyledTextField
-                name="location"
-                label="City / Location"
-                value={values.location}
-                onChange={handleChange}
-                error={touched.location && Boolean(errors.location)}
-                helperText={touched.location && errors.location}
-                required
-            />
-
-            {/* Gender */}
-            <StyledDropdown
-                name="gender"
-                label="Gender"
-                options={[
-                    { label: "Male", value: "Male" },
-                    { label: "Female", value: "Female" },
-                    { label: "Non-binary", value: "Non-binary" },
-                    { label: "Prefer not to say", value: "Prefer not to say" },
-                    { label: "Other", value: "Other" }
-                ]}
-                value={values.gender}
-                onChange={value => setFieldValue("gender", value)}
-                error={touched.gender && Boolean(errors.gender)}
-                helperText={touched.gender && errors.gender}
-            />
-
-            {/* Race (multi-select) */}
-            <StyledDropdown
-                name="race"
-                label="Race / Ethnicity"
-                multiple
-                options={[
-                    {
-                        label: "American Indian or Alaska Native",
-                        value: "American Indian or Alaska Native"
-                    },
-                    { label: "Asian", value: "Asian" },
-                    {
-                        label: "Black or African American",
-                        value: "Black or African American"
-                    },
-                    {
-                        label: "Hispanic or Latino",
-                        value: "Hispanic or Latino"
-                    },
-                    {
-                        label: "Native Hawaiian or Other Pacific Islander",
-                        value: "Native Hawaiian or Other Pacific Islander"
-                    },
-                    { label: "White", value: "White" },
-                    { label: "Other", value: "Other" },
-                    { label: "Prefer not to say", value: "Prefer not to say" }
-                ]}
-                value={values.race}
-                onChange={value => setFieldValue("race", value)}
-                error={touched.race && Boolean(errors.race)}
-                helperText={touched.race && String(errors.race || "")}
-            />
-        </Box>
+                <Grid size={{ xs: 12, sm: 12, md: 6 }}>
+                    <TextInput
+                        name="emailAddress"
+                        label="Email Address"
+                        accentColor={accentColor}
+                        required
+                        type="email"
+                        value={values.emailAddress}
+                        onChange={handleChange}
+                        error={
+                            !!touched.emailAddress &&
+                            Boolean(errors.emailAddress)
+                        }
+                        helperText={
+                            !!touched.emailAddress ? errors.emailAddress : ""
+                        }
+                    />
+                </Grid>
+            </Grid>
+        </Container>
     );
 };
 
