@@ -2,12 +2,12 @@
 import { createTheme } from "@mui/material/styles";
 import { Tsukimi_Rounded } from "next/font/google";
 
-const tsukimi = Tsukimi_Rounded({
-    weight: ["700"],
-    subsets: ["latin"]
+export const tsukimi = Tsukimi_Rounded({
+    subsets: ["latin"],
+    weight: ["500", "600", "700"]
 });
 
-const registrationTheme = createTheme({
+export const registrationTheme = createTheme({
     typography: {
         h1: {
             // registration page titles
@@ -51,4 +51,3 @@ const registrationTheme = createTheme({
         }
     }
 });
-export default registrationTheme;

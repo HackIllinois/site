@@ -1,40 +1,122 @@
-import { RegistrationType } from "@/util/types";
+"use client";
+import React from "react";
 import { Box, Typography } from "@mui/material";
-import { FormikProps } from "formik";
+import Image from "next/image";
+import { Montserrat, Tsukimi_Rounded } from "next/font/google";
 
-interface ConfirmationProps {
-    formik: FormikProps<RegistrationType>;
-}
+const montserrat = Montserrat({
+    subsets: ["latin"],
+    weight: ["400", "600", "700"]
+});
 
-const Confirmation = ({ formik }: ConfirmationProps) => {
-    // The confirmation step no longer requires explicit acknowledgement fields.
-    // Final validation and submission are handled in the parent form.
+const tsukimi = Tsukimi_Rounded({
+    subsets: ["latin"],
+    weight: ["500", "600", "700"]
+});
+
+const Confirmation: React.FC = () => {
     return (
         <Box
             sx={{
-                maxWidth: 800,
-                mx: "auto",
-                pt: 5,
+                position: "relative",
                 display: "flex",
                 flexDirection: "column",
-                gap: 4
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                height: "auto",
+                overflow: "visible",
+                mt: { xs: "60px", md: "40px" }
             }}
         >
-            <Typography
-                variant="h4"
-                component="h1"
-                fontFamily="Montserrat"
-                color="white"
-                sx={{ textAlign: "center", mb: 2, fontWeight: "bold" }}
+            {/* content */}
+            <Box
+                sx={{
+                    position: "relative",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                    maxWidth: "800px"
+                }}
             >
-                Confirmation
-            </Typography>
+                <Image
+                    src="/registration/26.svg"
+                    alt="The number 26 in background."
+                    fill
+                    style={{
+                        objectFit: "contain",
+                        objectPosition: "top center",
+                        zIndex: -1
+                    }}
+                />
 
-            <Typography sx={{ color: "white", fontFamily: "Montserrat" }}>
-                Please review your information on the previous page. When you
-                click Submit your responses will be saved. There are no
-                additional acknowledgement fields on this form.
-            </Typography>
+                <Typography
+                    sx={{
+                        fontFamily: `${tsukimi.style.fontFamily}, sans-serif`,
+                        fontWeight: 700,
+                        fontSize: { xs: "40px", sm: "60px", md: "80px" },
+                        color: "white",
+                        lineHeight: 1,
+                        mb: 0.5
+                    }}
+                >
+                    APPLICATION
+                </Typography>
+
+                <Typography
+                    sx={{
+                        fontFamily: `${tsukimi.style.fontFamily}, sans-serif`,
+                        fontWeight: 800,
+                        fontSize: { xs: "60px", sm: "100px", md: "120px" },
+                        color: "white",
+                        lineHeight: 1,
+                        mb: 3,
+                        width: "100%"
+                    }}
+                >
+                    FINISHED
+                </Typography>
+
+                <Typography
+                    sx={{
+                        fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
+                        fontWeight: 600,
+                        fontSize: { xs: "11px", sm: "22px" },
+                        color: "white"
+                    }}
+                >
+                    Thank you for signing up for HackIllinois 2026!
+                </Typography>
+
+                <Typography
+                    sx={{
+                        fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
+                        fontWeight: 600,
+                        fontSize: { xs: "11px", sm: "22px" },
+                        color: "white",
+                        mb: "17px"
+                    }}
+                >
+                    Please check the status of your account in your email.
+                </Typography>
+
+                <Box
+                    sx={{
+                        position: "relative",
+                        width: { xs: "136px", sm: "189px" },
+                        height: { xs: "42px", sm: "59px" }
+                    }}
+                >
+                    <Image
+                        src="/registration/logo.svg"
+                        alt="White HackIllinois logo"
+                        fill
+                        style={{ objectFit: "contain" }}
+                    />
+                </Box>
+            </Box>
         </Box>
     );
 };

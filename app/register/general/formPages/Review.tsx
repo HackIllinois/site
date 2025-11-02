@@ -17,7 +17,7 @@ import {
     UserInfoBox
 } from "../components/Review";
 import { Checkbox, FormControlLabel, ThemeProvider } from "@mui/material";
-import theme from "../theme";
+import { registrationTheme } from "../theme";
 
 interface ReviewProps {
     formik: FormikProps<RegistrationType>;
@@ -36,7 +36,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
 
     return (
         <>
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={registrationTheme}>
                 <ReviewContainer>
                     <Typography variant="h1">REVIEW INFORMATION</Typography>
 
