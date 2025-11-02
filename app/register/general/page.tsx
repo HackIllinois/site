@@ -7,8 +7,8 @@ import { useState } from "react";
 import * as Yup from "yup";
 import BackgroundInfo from "./formPages/BackgroundInfo";
 import PersonalInfo from "./formPages/PersonalInfo";
-import Experience from "./formPages/Experience";
-import Transportation from "./formPages/Transportation";
+import AppQuestions from "./formPages/AppQuestions";
+import AttendingHack from "./formPages/AttendingHack";
 import Review from "./formPages/Review";
 import Confirmation from "./formPages/Confirmation";
 import Image from "next/image";
@@ -44,6 +44,8 @@ const GeneralRegistration = () => {
         try {
             await currentSchema.validate(values, { abortEarly: false });
 
+            console.log("Validation for currentSchema passed");
+
             // If on the final step, submit the form
             if (currentStep === steps.length - 1) {
                 handleSubmit(values);
@@ -52,6 +54,10 @@ const GeneralRegistration = () => {
                 setCurrentStep(prev => prev + 1);
             }
         } catch (error) {
+            console.log(
+                "Validation for currentSchema failed with error",
+                error
+            );
             if (error instanceof Yup.ValidationError) {
                 const touchedFields: any = {};
                 error.inner.forEach(err => {
@@ -91,14 +97,14 @@ const GeneralRegistration = () => {
                 );
             case 2:
                 return (
-                    <Experience
+                    <AppQuestions
                         formik={formik}
                         accentColor={steps[currentStep].color}
                     />
                 );
             case 3:
                 return (
-                    <Transportation
+                    <AttendingHack
                         formik={formik}
                         accentColor={steps[currentStep].color}
                     />

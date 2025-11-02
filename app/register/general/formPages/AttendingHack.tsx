@@ -1,34 +1,14 @@
-import CheckboxSelect from "@/components/CheckboxMUI";
-import RadioSelectGroup from "@/components/RadioGroupMUI";
-import SelectInput from "@/components/SelectInputMUI";
-import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
-import { RegistrationData } from "@/util/types";
+import CheckboxGroup from "@/components/CheckboxGroupMUI";
+import CheckboxSelect from "@/components/CheckboxSelectMUI";
+import RadioSelectGroup from "@/components/RadioSelectGroupMUI";
 import {
-    Box,
-    Typography,
-    FormGroup,
-    FormControlLabel,
-    FormControl,
-    FormHelperText,
-    Container,
-    Grid
-} from "@mui/material";
+    hackInterestOptions,
+    hackOutreachOptions,
+    travelReimbursementOptions
+} from "@/util/options";
+import { RegistrationData } from "@/util/types";
+import { Box, Typography, Container, Grid } from "@mui/material";
 import { FormikProps } from "formik";
-
-const DIETARY_OPTIONS = [
-    "None",
-    "Vegetarian",
-    "Vegan",
-    "Halal",
-    "Kosher",
-    "Gluten-free",
-    "Nut Allergy",
-    "Dairy-free",
-    "Other"
-];
-const TRAVEL_REIMBURSE_OPTIONS = ["Yes", "No"];
-const TRAVEL_ACK =
-    "I understand travel reimbursements are limited and not guaranteed";
 
 interface TransportationProps {
     formik: FormikProps<RegistrationData>;
@@ -60,41 +40,61 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
 
             <Grid container columnSpacing={2} rowSpacing={6}>
                 <Grid size={{ xs: 12, md: 12 }}>
-                    {/* Dietary (multi-select) */}
-                    <SelectInput
-                        name="dietaryRestrictions"
-                        label="Dietary Restrictions"
-                        multiple
-                        options={DIETARY_OPTIONS.map(opt => ({
-                            label: opt,
-                            value: opt
+                    <CheckboxGroup
+                        name="hackOutreach"
+                        label="How did you hear about HackIllinois?"
+                        accentColor={accentColor}
+                        required
+                        options={hackOutreachOptions.map(option => ({
+                            label: option,
+                            value: option
                         }))}
-                        value={values.dietaryRestrictions}
-                        onChange={value =>
-                            setFieldValue("dietaryRestrictions", value)
-                        }
+                        value={values.hackOutreach}
+                        onChange={value => setFieldValue("hackOutreach", value)}
                         error={
-                            !!touched.dietaryRestrictions &&
-                            Boolean(errors.dietaryRestrictions)
+                            !!touched.hackOutreach &&
+                            Boolean(errors.hackOutreach)
                         }
                         helperText={
-                            !!touched.dietaryRestrictions
-                                ? String(errors.dietaryRestrictions || "")
+                            !!touched.hackOutreach
+                                ? String(errors.hackOutreach || "")
                                 : ""
                         }
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, md: 12 }}>
+                    <CheckboxGroup
+                        name="hackInterest"
+                        label="Which of these are you most interested in participating in during the hackathon?"
                         accentColor={accentColor}
+                        required
+                        options={hackInterestOptions.map(option => ({
+                            label: option,
+                            value: option
+                        }))}
+                        value={values.hackInterest}
+                        onChange={value => setFieldValue("hackInterest", value)}
+                        error={
+                            !!touched.hackInterest &&
+                            Boolean(errors.hackInterest)
+                        }
+                        helperText={
+                            !!touched.hackInterest
+                                ? String(errors.hackInterest || "")
+                                : ""
+                        }
                     />
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 12 }}>
-                    {/* Travel reimbursement (multi-select) */}
                     <RadioSelectGroup
                         name="requestedTravelReimbursement"
-                        label="Requested Travel Reimbursement"
+                        label="Would you like to be considered for travel reimbursement?"
+                        accentColor={accentColor}
                         row
-                        options={TRAVEL_REIMBURSE_OPTIONS.map(opt => ({
-                            label: opt,
-                            value: opt
+                        options={travelReimbursementOptions.map(option => ({
+                            label: option,
+                            value: option
                         }))}
                         value={values.requestedTravelReimbursement}
                         onChange={value =>
@@ -106,21 +106,19 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         }
                         helperText={
                             !!touched.requestedTravelReimbursement
-                                ? String(
-                                      errors.requestedTravelReimbursement || ""
-                                  )
+                                ? errors.requestedTravelReimbursement
                                 : ""
                         }
-                        accentColor={accentColor}
                     />
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 12 }}>
                     <CheckboxSelect
                         name="travelAcknowledge"
-                        label="Travel Acknowledgement"
+                        label="If you attend HackIllinois, you are responsible for your own transportation and accommodations."
+                        accentColor={accentColor}
                         row
-                        optionLabel={TRAVEL_ACK}
+                        optionLabel="I understand"
                         value={values.travelAcknowledge}
                         onChange={value =>
                             setFieldValue("travelAcknowledge", value)
@@ -131,10 +129,9 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         }
                         helperText={
                             !!touched.travelAcknowledge
-                                ? String(errors.travelAcknowledge || "")
+                                ? errors.travelAcknowledge
                                 : ""
                         }
-                        accentColor={accentColor}
                     />
                 </Grid>
             </Grid>

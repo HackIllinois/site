@@ -76,7 +76,7 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
                     color: "#ffffff",
                     display: "grid",
                     gridTemplateColumns:
-                        "repeat(auto-fill, minmax(220px, 1fr))",
+                        "repeat(auto-fill, minmax(275px, 1fr))",
                     rowGap: 4,
                     columnGap: 0,
                     p: 2,
@@ -96,11 +96,13 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
                                 onChange={handleChange}
                                 value={opt.value}
                                 sx={{
-                                    width: 48,
-                                    height: 48,
+                                    width: "48px",
+                                    height: "48px",
                                     padding: "3px", // override default
                                     borderRadius: 3,
                                     backgroundColor: "#f0f0f0",
+                                    display: "flex",
+                                    flexShrink: 0,
 
                                     "& .MuiSvgIcon-root": {
                                         width: "100%",

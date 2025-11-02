@@ -24,13 +24,13 @@ export const initialValues: RegistrationData = {
     hackEssay1: "",
     hackEssay2: "",
     optionalEssay: "",
-    considerForPro: false, // todo() do these need to be undefined?
+    considerForPro: false,
     proEssay: "",
 
     // 3. Attending HackIllinois
     hackOutreach: [],
     hackInterest: [],
-    requestedTravelReimbursement: false,
+    requestedTravelReimbursement: "",
     travelAcknowledge: false,
 
     // 4. Review (final acknowledgements)
@@ -58,7 +58,10 @@ export const validationSchemas = [
         gender: Yup.string().required("Gender is required"),
         race: Yup.array().of(Yup.string()).min(1, "Select at least one option"),
         country: Yup.string().required("Country is required"),
-        state: Yup.string().required("State/territory is required"),
+        state: Yup.string().when("country", {
+            is: (val: string) => !!val && val === "United States",
+            then: schema => schema.required("State/Territory is required")
+        }),
         school: Yup.string().required("School is required"),
         studyLevel: Yup.string().required("Level of study is required"),
         gradYear: Yup.string().required("Graduation year is required"),
@@ -95,7 +98,7 @@ export const validationSchemas = [
         hackInterest: Yup.array()
             .of(Yup.string())
             .min(1, "Pick at least one interest"),
-        requestedTravelReimbursement: Yup.boolean().required(
+        requestedTravelReimbursement: Yup.string().required(
             "You must select an option"
         ),
         travelAcknowledge: Yup.boolean()
@@ -105,17 +108,19 @@ export const validationSchemas = [
 
     // 4. Review (final acknowledgements)
     Yup.object({
-        reviewedAcknowledge: Yup.boolean().required(
-            "Please confirm you have reviewed your information"
-        ),
+        reviewedAcknowledge: Yup.boolean()
+            .required("Please confirm you have reviewed your information")
+            .oneOf([true], "Please confirm you have reviewed your information"),
         proChallengeAcknowledge: Yup.boolean().when("considerForPro", {
             is: (val: boolean) => !!val,
             then: schema =>
-                schema.required("You must acknowledge the pro-track policy")
+                schema
+                    .required("You must acknowledge the pro-track policy")
+                    .oneOf([true], "You must acknowledge the pro-track policy")
         }),
-        codeOfConductAcknowledge: Yup.boolean().required(
-            "You must accept the Code of Conduct"
-        )
+        codeOfConductAcknowledge: Yup.boolean()
+            .required("You must accept the Code of Conduct")
+            .oneOf([true], "You must accept the Code of Conduct")
     }),
 
     // 5. Confirmation (no new inputs, keep for indexing purposes)

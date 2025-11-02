@@ -51,7 +51,7 @@ export type RegistrationData = {
     // 3. Attending HackIllinois
     hackOutreach: string[];
     hackInterest: string[];
-    requestedTravelReimbursement: boolean;
+    requestedTravelReimbursement: string;
     travelAcknowledge: boolean;
     // 4. Review (final acknowledgements)
     reviewedAcknowledge: boolean;
