@@ -106,6 +106,7 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
                         sx={{
                             display: "inline-flex",
                             alignItems: "center",
+                            padding: "2px",
                             cursor: "pointer",
                             color: "white",
                             "&:hover": {
@@ -115,7 +116,7 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
                             transition: "transform 0.2s, color 0.2s"
                         }}
                     >
-                        <EditIcon fontSize="small" />
+                        <EditIcon fontSize="medium" />
                     </Box>
                 )}
             </Box>
