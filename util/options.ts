@@ -2,7 +2,6 @@ import majors from "@/modules/majors.json";
 import schools from "@/modules/schools.json";
 import states from "@/modules/states.json";
 import countries from "@/modules/countries.json";
-import degrees from "@/modules/degrees.json";
 
 export const ageOptions: string[] = [];
 for (let i = 18; i < 75; i += 1) {
@@ -60,18 +59,21 @@ export const studyLevelOptions: string[] = [
 ];
 
 export const graduationYearOptions: string[] = [];
-graduationYearOptions.push("N/A");
-for (let i = 2030; i >= 1970; i -= 1) {
+graduationYearOptions.push("Before Spring 2026");
+graduationYearOptions.push("Spring 2026");
+for (let i = 2027; i <= 2030; i += 1) {
     graduationYearOptions.push("Fall " + String(i));
     graduationYearOptions.push("Winter " + String(i));
     graduationYearOptions.push("Spring " + String(i));
 }
+graduationYearOptions.push("After Spring 2030");
 
-export const majorOptions: string[] = majors.concat(
-    "Undecided/Undeclared",
-    "My school does not offer majors or primary areas of study",
-    "Prefer not to answer"
-);
+export const majorOptions: string[] = majors;
+// .concat(
+//     "Undecided/Undeclared",
+//     "My school does not offer majors or primary areas of study",
+//     "Prefer not to answer"
+// );
 
 export const underrepresentedOptions: string[] = ["Yes", "No", "Unsure"];
 

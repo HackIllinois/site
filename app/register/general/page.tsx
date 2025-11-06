@@ -259,15 +259,13 @@ const GeneralRegistration = () => {
                                             </Box>
                                         )
                                     }}
-                                >
-                                    {step.name}
-                                </StepLabel>
+                                />
                             </Step>
                         ))}
                     </Stepper>
 
                     <Formik
-                        initialValues={initialValues}
+                        initialValues={initialValuesPopulated}
                         validationSchema={validationSchemas[currentStep]}
                         onSubmit={handleSubmit}
                     >
@@ -292,10 +290,22 @@ const GeneralRegistration = () => {
                                 >
                                     <Button
                                         onClick={handleBack}
-                                        disabled={currentStep === 0} // noninteractable
-                                        aria-hidden={currentStep === 0} // hidden (accesibility)
+                                        // disable this on the confirmation page as well (steps.length - 1)
+                                        disabled={
+                                            currentStep === 0 ||
+                                            currentStep === steps.length - 1
+                                        } // noninteractable
+                                        aria-hidden={
+                                            currentStep === 0 ||
+                                            currentStep === steps.length - 1
+                                        } // hidden (accesibility)
                                         sx={{
-                                            visibility: `${currentStep === 0 ? "hidden" : "visible"}`, // hidden
+                                            visibility: `${
+                                                currentStep === 0 ||
+                                                currentStep === steps.length - 1
+                                                    ? "hidden"
+                                                    : "visible"
+                                            }`, // hidden
                                             color: "white",
                                             fontSize: {
                                                 xs: "1rem",
@@ -318,6 +328,7 @@ const GeneralRegistration = () => {
                                         {smallMode
                                             ? "<"
                                             : currentStep !== 0 &&
+                                              // ^ don't index at -1 lol
                                               steps[currentStep - 1].name}
                                     </Button>
                                     <Button
@@ -328,7 +339,19 @@ const GeneralRegistration = () => {
                                                 formik.setTouched
                                             )
                                         }
+                                        // disable this on the confirmation page (steps.length - 1)
+                                        disabled={
+                                            currentStep === steps.length - 1
+                                        } // noninteractable
+                                        aria-hidden={
+                                            currentStep === steps.length - 1
+                                        } // hidden (accesibility)
                                         sx={{
+                                            visibility: `${
+                                                currentStep === steps.length - 1
+                                                    ? "hidden"
+                                                    : "visible"
+                                            }`, // hidden
                                             color: "white",
                                             fontSize: {
                                                 xs: "1rem",
@@ -350,9 +373,12 @@ const GeneralRegistration = () => {
                                     >
                                         {smallMode
                                             ? ">"
-                                            : currentStep === steps.length - 1
-                                              ? "Submit"
-                                              : steps[currentStep + 1].name}
+                                            : currentStep === steps.length - 2
+                                              ? "Submit" // should appear on review page (not confirmation)
+                                              : currentStep !==
+                                                    steps.length - 1 &&
+                                                // ^ don't index at length lol
+                                                steps[currentStep + 1].name}
                                     </Button>
                                 </Box>
                             </Form>

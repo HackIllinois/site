@@ -48,14 +48,14 @@ export const initialValuesPopulated: RegistrationData = {
     emailAddress: "maenlle2@illinois.edu",
 
     // 1. Background Info
-    gender: "Male",
+    gender: "Man",
     race: ["Filipino"], // multiple races can be selected
     country: "United States",
     state: "Illinois",
-    school: "University of Illinois (Urbana-Champaign)",
-    studyLevel: "Bachelor's",
-    gradYear: "2027",
-    major: "Computer Science",
+    school: "University of Illinois at Chicago",
+    studyLevel: "Post Doctorate",
+    gradYear: "Fall 2027",
+    major: "Mathematics or statistics",
     underrepresented: "",
 
     // 2. Application Questions
@@ -69,7 +69,7 @@ export const initialValuesPopulated: RegistrationData = {
 
     // 3. Attending HackIllinois
     hackOutreach: [],
-    hackInterest: ["Discord"],
+    hackInterest: [],
     requestedTravelReimbursement: "",
     travelAcknowledge: false,
 
@@ -113,11 +113,30 @@ export const validationSchemas = [
     Yup.object({
         hackEssay1: Yup.string()
             .min(50, "Please write at least 50 characters")
-            .required("This essay is required"),
+            .required("This essay is required")
+            .test(
+                "max-50-words",
+                "Response cannot be over 50 words",
+                response => response.split(/[\s,—]+/).length <= 50
+            ),
         hackEssay2: Yup.string()
             .min(50, "Please write at least 50 characters")
-            .required("This essay is required"),
-        optionalEssay: Yup.string().nullable(),
+            .required("This essay is required")
+            .test(
+                "max-50-words",
+                "Response cannot be over 50 words",
+                response => response.split(/[\s,—]+/).length <= 50
+            ),
+        optionalEssay: Yup.string()
+            .nullable()
+            .test(
+                "max-50-words",
+                "Response cannot be over 100 words",
+                response => {
+                    if (!response || response.trim()) return true;
+                    !!response && response.split(/[\s,—]+/).length <= 100;
+                }
+            ),
         considerForPro: Yup.boolean(),
         proEssay: Yup.string().when("considerForPro", {
             is: (val: boolean) => !!val,
@@ -126,6 +145,11 @@ export const validationSchemas = [
                     .min(50, "Please write at least 50 characters")
                     .required(
                         "You must fill out this essay to be considered for pro track"
+                    )
+                    .test(
+                        "max-50-words",
+                        "Response cannot be over 50 words",
+                        response => response.split(/[\s,—]+/).length <= 50
                     )
         })
     }),
