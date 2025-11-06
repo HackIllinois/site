@@ -33,30 +33,20 @@ const Registration: React.FC = () => {
                 <div className={styles.topSpacer}></div>
                 <div className={styles.content}>
                     <h2>Sign Up As:</h2>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 2,
-                            opacity: 0.5,
-                            pointerEvents: "none"
-                        }}
-                    >
-                        <OlympianButton
-                            text="HackOlympian"
-                            link="/register/challenge"
-                            blue
-                        />
-                        <p className={styles.link}>
-                            <Link
-                                prefetch={false}
-                                href="/olympians"
-                                target="_blank"
-                            >
-                                What is HackOlympian?
-                            </Link>
-                        </p>
-                    </Box>
+                    <OlympianButton
+                        text="HackVoyagers"
+                        link="/register/challenge"
+                        blue
+                    />
+                    <p className={styles.link}>
+                        <Link
+                            prefetch={false}
+                            href="/olympians"
+                            target="_blank"
+                        >
+                            What is HackVoyagers?
+                        </Link>
+                    </p>
                     <OlympianButton
                         text="General Attendee"
                         link="/register/general"
