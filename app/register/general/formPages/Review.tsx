@@ -232,7 +232,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 <Typography variant="body1" sx={{ mt: 0 }}>
                                     Please review the above information.
                                 </Typography>
-                                <Typography variant="body1">
+                                <Typography variant="body1" sx={{ mt: "4px" }}>
                                     Once you submit you will not be able to
                                     change any information without contacting
                                     us.
@@ -253,7 +253,20 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                     <FormHelperText
                                         error
                                         sx={{
-                                            fontFamily: "Montserrat"
+                                            fontFamily: "Montserrat",
+                                            fontSize: "13px",
+                                            fontWeight: 500,
+                                            "&.Mui-error": {
+                                                color: "white"
+                                            },
+                                            border: "1px solid rgba(255, 0, 0, 0.5)",
+                                            borderRadius: "6px",
+                                            backgroundColor:
+                                                "rgba(255, 0, 0, 0.5)",
+                                            width: "fit-content",
+                                            padding: "4px",
+                                            boxShadow:
+                                                "0 0 8px rgba(255, 0, 0, 0.3)"
                                         }}
                                     >
                                         {errors.reviewedAcknowledge as string}
@@ -271,6 +284,12 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                         href="/legal/code-of-conduct"
                                         target="_blank"
                                         underline="hover"
+                                        color="navy"
+                                        sx={{
+                                            backgroundColor: "white",
+                                            padding: "2px 5px",
+                                            borderRadius: "5px"
+                                        }}
                                     >
                                         Code of Conduct
                                     </MuiLink>
@@ -294,7 +313,20 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                     <FormHelperText
                                         error
                                         sx={{
-                                            fontFamily: "Montserrat"
+                                            fontFamily: "Montserrat",
+                                            fontSize: "13px",
+                                            fontWeight: 500,
+                                            "&.Mui-error": {
+                                                color: "white"
+                                            },
+                                            border: "1px solid rgba(255, 0, 0, 0.5)",
+                                            borderRadius: "6px",
+                                            backgroundColor:
+                                                "rgba(255, 0, 0, 0.5)",
+                                            width: "fit-content",
+                                            padding: "4px",
+                                            boxShadow:
+                                                "0 0 8px rgba(255, 0, 0, 0.3)"
                                         }}
                                     >
                                         {
