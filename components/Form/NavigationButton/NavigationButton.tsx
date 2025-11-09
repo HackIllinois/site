@@ -55,7 +55,7 @@ const NavigationButton: React.FC<NavButtonProps> = ({
                     textAlign: "center",
                     fontFamily: "'Tsukimi Rounded', sans-serif",
                     fontWeight: 700,
-                    fontSize: { xs: "14px", md: "22px" }
+                    fontSize: { xs: "14px", md: "20px" }
                 }}
             >
                 {text}
