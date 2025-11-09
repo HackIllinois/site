@@ -13,11 +13,19 @@ import {
     Step,
     StepLabel,
     Stepper,
-    useMediaQuery
+    useMediaQuery,
+    Snackbar,
+    Alert
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import Image from "next/image";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import {
+    useCallback,
+    useLayoutEffect,
+    useRef,
+    useState,
+    useEffect
+} from "react";
 import * as Yup from "yup";
 import AppQuestions from "./formPages/AppQuestions";
 import AttendingHack from "./formPages/AttendingHack";
@@ -34,6 +42,11 @@ const GeneralRegistration = () => {
     const [planetCenters, setPlanetCenters] = useState<
         { x: number; y: number }[]
     >([]);
+    const [savedData, setSavedData] = useState<RegistrationData>(
+        initialValues as RegistrationData
+    );
+    const [showAutoSaveDialog, setShowAutoSaveDialog] = useState(false);
+    const autoSaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const smallMode = useMediaQuery(theme.breakpoints.down("sm"));
     const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -64,6 +77,29 @@ const GeneralRegistration = () => {
         };
     }, [measurePlanets]);
 
+    useEffect(() => {
+        if (autoSaveTimeoutRef.current) {
+            clearTimeout(autoSaveTimeoutRef.current);
+        }
+
+        autoSaveTimeoutRef.current = setTimeout(() => {
+            console.log(
+                `[${new Date().toLocaleTimeString()}] Autosaved Data:`,
+                savedData
+            );
+            setShowAutoSaveDialog(true);
+            setTimeout(() => {
+                setShowAutoSaveDialog(false);
+            }, 3000);
+        }, 3000);
+
+        return () => {
+            if (autoSaveTimeoutRef.current) {
+                clearTimeout(autoSaveTimeoutRef.current);
+            }
+        };
+    }, [savedData]);
+
     const steps = [
         { id: "personal_info", name: "Personal Information", color: "#3A2541" },
         {
@@ -85,6 +121,10 @@ const GeneralRegistration = () => {
         { id: "confirmation", name: "Confirmation", color: "#480021" }
     ];
 
+    const logSavedData = (data: RegistrationData) => {
+        console.log(`[${new Date().toLocaleTimeString()}] Saved Data:`, data);
+    };
+
     const handleNext = async (values: RegistrationData, setTouched: any) => {
         const currentSchema = validationSchemas[currentStep];
 
@@ -92,6 +132,7 @@ const GeneralRegistration = () => {
             await currentSchema.validate(values, { abortEarly: false });
 
             console.log("Validation for currentSchema passed");
+            logSavedData(values);
 
             // If on the final step, submit the form
             if (currentStep === steps.length - 1) {
@@ -118,6 +159,7 @@ const GeneralRegistration = () => {
     };
 
     const handleBack = () => {
+        logSavedData(savedData);
         setCurrentStep(prev => prev - 1);
     };
 
@@ -272,7 +314,13 @@ const GeneralRegistration = () => {
                         onSubmit={handleSubmit}
                     >
                         {formik => (
-                            <Form>
+                            <Form
+                                onChange={() =>
+                                    setSavedData(
+                                        formik.values as RegistrationData
+                                    )
+                                }
+                            >
                                 <Box sx={{ mb: 4, fontFamily: "Montserrat" }}>
                                     {renderStepContent(currentStep, formik)}
                                 </Box>
@@ -360,6 +408,21 @@ const GeneralRegistration = () => {
                     </Formik>
                 </Paper>
             </Box>
+
+            <Snackbar
+                open={showAutoSaveDialog}
+                autoHideDuration={3000}
+                onClose={() => setShowAutoSaveDialog(false)}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            >
+                <Alert
+                    onClose={() => setShowAutoSaveDialog(false)}
+                    severity="success"
+                    sx={{ width: "100%" }}
+                >
+                    Changes saved.
+                </Alert>
+            </Snackbar>
         </main>
     );
 };
