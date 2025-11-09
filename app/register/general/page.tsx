@@ -91,22 +91,6 @@ const GeneralRegistration = () => {
         { id: "confirmation", name: "Confirmation", color: "#480021" }
     ];
 
-    const leftArrowImages = [
-        "", // step 0 has no left arrow
-        "/registration/arrows/left_background.svg",
-        "/registration/arrows/left_hack.svg",
-        "/registration/arrows/left_transportation.svg",
-        "/registration/arrows/left_review.svg"
-    ];
-
-    const rightArrowImages = [
-        "/registration/arrows/right_personal.svg",
-        "/registration/arrows/right_background.svg",
-        "/registration/arrows/right_hack.svg",
-        "/registration/arrows/right_transportation.svg",
-        "/registration/arrows/right_review.svg"
-    ];
-
     const handleNext = async (values: RegistrationData, setTouched: any) => {
         const currentSchema = validationSchemas[currentStep];
 
@@ -317,9 +301,7 @@ const GeneralRegistration = () => {
                                                 text={steps[
                                                     currentStep - 1
                                                 ].name.toUpperCase()}
-                                                img={
-                                                    leftArrowImages[currentStep]
-                                                }
+                                                color={steps[currentStep].color}
                                                 onClick={handleBack}
                                                 disabled={currentStep === 0}
                                                 type="button"
@@ -336,7 +318,8 @@ const GeneralRegistration = () => {
                                                           currentStep + 1
                                                       ].name.toUpperCase()
                                             }
-                                            img={rightArrowImages[currentStep]}
+                                            color={steps[currentStep].color}
+                                            pointRight={true}
                                             onClick={() =>
                                                 handleNext(
                                                     formik.values,
