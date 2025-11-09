@@ -63,10 +63,13 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
 
             <FormControlLabel
                 sx={{
-                    // width: "fit-content",
-                    // height: "fit-content",
-                    width: "100%",
-                    padding: 2
+                    padding: 2,
+                    display: "flex",
+                    "& .MuiCheckbox-root": {
+                        width: { xs: 36, sm: 48 },
+                        height: { xs: 36, sm: 48 },
+                        flexShrink: 0 // prevents checkbox from shrinking or stretching
+                    }
                 }}
                 control={
                     <Checkbox
