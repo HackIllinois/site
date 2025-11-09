@@ -32,7 +32,7 @@ const NavigationButton: React.FC<NavButtonProps> = ({
                 justifyContent: "center",
                 pl: pointRight ? { xs: 3, md: 4 } : { xs: 4, md: 6 },
                 pr: pointRight ? { xs: 4, md: 6 } : { xs: 3, md: 4 },
-                height: { sm: "39px", md: "60px" },
+                height: { xs: "50px", md: "60px" },
                 minWidth: 160,
                 cursor: "pointer",
                 backgroundColor: color,
