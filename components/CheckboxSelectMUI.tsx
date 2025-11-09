@@ -11,8 +11,9 @@ import Typography from "@mui/material/Typography";
 
 interface CheckboxSelectInputProps {
     name: string;
-    label: string;
+    label?: string;
     optionLabel: string;
+    optionLabelSx?: object;
     required?: boolean;
     // formik controls
     value: boolean;
@@ -28,6 +29,7 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
     name,
     label,
     optionLabel = "Yes",
+    optionLabelSx,
     required = false,
     value = false,
     onChange,
@@ -56,13 +58,14 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                     fontWeight: 500
                 }}
             >
-                {label + (required ? "*" : "")}
+                {label ? label + (required ? "*" : "") : null}
             </FormLabel>
 
             <FormControlLabel
                 sx={{
-                    width: "fit-content",
-                    height: "fit-content",
+                    // width: "fit-content",
+                    // height: "fit-content",
+                    width: "100%",
                     padding: 2
                 }}
                 control={
@@ -102,7 +105,8 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                         variant="h3"
                         sx={{
                             color: "#ffffff",
-                            pl: 2
+                            pl: 2,
+                            ...optionLabelSx
                         }}
                     >
                         {optionLabel}
