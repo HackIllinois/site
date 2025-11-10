@@ -308,9 +308,9 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             <Box mt={3}>
                                 <Typography variant="body1">
                                     To participate in HackIllinois, you must
-                                    accept our{" "}
+                                    accept the
                                     <MuiLink
-                                        href="/legal/code-of-conduct"
+                                        href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md"
                                         target="_blank"
                                         color="#ADED4A"
                                         sx={{
@@ -329,7 +329,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                             }
                                         }}
                                     >
-                                        Code of Conduct
+                                        MLH Code of Conduct
                                         <LaunchIcon
                                             sx={{
                                                 fontSize: {
