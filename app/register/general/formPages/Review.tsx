@@ -312,23 +312,24 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                     <MuiLink
                                         href="/legal/code-of-conduct"
                                         target="_blank"
-                                        underline="always"
-                                        color="#08065C"
+                                        color="#ADED4A"
                                         sx={{
                                             display: "inline-flex",
                                             alignItems: "center",
                                             padding: "2px 5px",
                                             borderRadius: "5px",
-                                            textDecorationColor: "#08065C",
+                                            color: "#ADED4A",
+                                            fontWeight: "500",
+                                            textDecoration: "underline",
+                                            textDecorationColor: "#ADED4A",
+                                            textDecorationThickness: "2px",
                                             "&:hover": {
                                                 color: "#fff",
                                                 textDecorationColor: "#fff"
                                             }
                                         }}
                                     >
-                                        <Box component="span">
-                                            Code of Conduct
-                                        </Box>
+                                        Code of Conduct
                                         <LaunchIcon
                                             sx={{
                                                 fontSize: {
