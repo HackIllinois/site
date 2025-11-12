@@ -292,7 +292,10 @@ const GeneralRegistration = () => {
                                     } // Personal info page has one arrow
                                     alignItems="center"
                                     gap={{ xs: "24px", md: "0px" }}
-                                    m={4}
+                                    mt={10}
+                                    mb={2}
+                                    mr={4}
+                                    ml={4}
                                 >
                                     {/* Left arrow */}
                                     {currentStep > 0 &&
