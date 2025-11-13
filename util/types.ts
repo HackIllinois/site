@@ -256,6 +256,12 @@ export type ChallengeStatus = {
     complete: boolean;
 };
 
+export enum ChallengeResultEnum {
+    Success = 0,
+    Failure = 1,
+    Invalid = 2
+}
+
 export type RefreshTokenResType = {
     token: string;
 };
