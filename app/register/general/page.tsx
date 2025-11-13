@@ -18,7 +18,13 @@ import {
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import Image from "next/image";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import {
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState
+} from "react";
 import * as Yup from "yup";
 import AppQuestions from "./formPages/AppQuestions";
 import AttendingHack from "./formPages/AttendingHack";
@@ -33,6 +39,7 @@ import RocketOverlay from "./rocket";
 
 const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
+    const [maxStep, setMaxStep] = useState(0);
     const [planetCenters, setPlanetCenters] = useState<
         { x: number; y: number }[]
     >([]);
@@ -97,8 +104,6 @@ const GeneralRegistration = () => {
         try {
             await currentSchema.validate(values, { abortEarly: false });
 
-            console.log("Validation for currentSchema passed");
-
             // If on the final step, submit the form
             if (currentStep === steps.length - 1) {
                 handleSubmit(values);
@@ -125,6 +130,28 @@ const GeneralRegistration = () => {
 
     const handleBack = () => {
         setCurrentStep(prev => prev - 1);
+    };
+
+    const handleGoToOpenStep = async (
+        values: RegistrationData,
+        step: number
+    ) => {
+        if (step > maxStep) {
+            return;
+        }
+
+        if (step > currentStep) {
+            // Validate only if moving forward
+            const currentSchema = validationSchemas[currentStep];
+            try {
+                await currentSchema.validate(values, { abortEarly: false });
+            } catch (error) {
+                console.error(error);
+                return;
+            }
+        }
+
+        setCurrentStep(step);
     };
 
     const handleSubmit = (values: RegistrationData) => {
@@ -170,6 +197,10 @@ const GeneralRegistration = () => {
         }
     };
 
+    useEffect(() => {
+        setMaxStep(Math.max(maxStep, currentStep));
+    }, [currentStep, maxStep]);
+
     return (
         <main className={"screen"}>
             <Box
@@ -187,97 +218,124 @@ const GeneralRegistration = () => {
                     backgroundPosition: "center" // center the image
                 }}
             >
-                <Paper
-                    elevation={0}
-                    sx={{
-                        backgroundColor: "rgba(255, 255, 255,0)",
-                        height: "100%"
-                    }}
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchemas[currentStep]}
+                    onSubmit={handleSubmit}
                 >
-                    <RocketOverlay
-                        activeStep={currentStep}
-                        planetCenters={planetCenters}
-                    />
-                    <Stepper
-                        alternativeLabel
-                        activeStep={currentStep}
-                        sx={{
-                            pt: { xs: 20, lg: 22 },
-                            px: { xs: 1, md: 10 },
-                            width: "100%",
-                            "& .MuiStepLabel-root": {
-                                zIndex: 1,
-                                position: "relative"
-                            }
-                        }}
-                    >
-                        {steps.map((step, i) => (
-                            <Step key={step.id}>
-                                <StepLabel
-                                    sx={{
-                                        "& .MuiStepLabel-label": {
-                                            pt: {
-                                                xs: 0.5,
-                                                sm: 2.5,
-                                                md: 3,
-                                                lg: 3.5
-                                            },
-                                            fontSize: {
-                                                xs: "8.5px",
-                                                sm: "12px",
-                                                md: "14px"
-                                            },
-                                            color: "white", // default text color
-                                            fontFamily: "Tsukimi Rounded",
-                                            "&.Mui-active": { color: "white" }, // active step stays white
-                                            "&.Mui-completed": {
-                                                color: "white"
-                                            } // completed step stays white
-                                        }
-                                    }}
-                                    slots={{
-                                        stepIcon: props => (
-                                            <Box
-                                                ref={(
-                                                    el: HTMLDivElement | null
-                                                ) => {
-                                                    planetRefs.current[i] = el;
-                                                }}
-                                                sx={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    width: 32, // matches MUI's default StepIcon size
-                                                    height: 32,
-                                                    margin: "0 auto"
-                                                }}
-                                            >
-                                                <Image
-                                                    src={`/registration/progress_bar/${step.id}.svg`}
-                                                    alt="Transportation"
-                                                    width={80}
-                                                    height={80}
-                                                    style={{
-                                                        width: "clamp(40px, 10vw,100px)",
-                                                        height: "auto"
-                                                    }}
-                                                />
-                                            </Box>
-                                        )
-                                    }}
-                                >
-                                    {step.name}
-                                </StepLabel>
-                            </Step>
-                        ))}
-                    </Stepper>
-
-                    <Formik
-                        initialValues={initialValues}
-                        validationSchema={validationSchemas[currentStep]}
-                        onSubmit={handleSubmit}
-                    >
-                        {formik => (
+                    {formik => (
+                        <Paper
+                            elevation={0}
+                            sx={{
+                                backgroundColor: "rgba(255, 255, 255,0)",
+                                height: "100%"
+                            }}
+                        >
+                            <RocketOverlay
+                                activeStep={currentStep}
+                                planetCenters={planetCenters}
+                            />
+                            <Stepper
+                                alternativeLabel
+                                activeStep={currentStep}
+                                sx={{
+                                    pt: { xs: 20, lg: 22 },
+                                    px: { xs: 1, md: 10 },
+                                    width: "100%",
+                                    "& .MuiStepLabel-root": {
+                                        zIndex: 1,
+                                        position: "relative"
+                                    }
+                                }}
+                            >
+                                {steps.map((step, i) => (
+                                    <Step key={step.id}>
+                                        <StepLabel
+                                            sx={{
+                                                "& .MuiStepLabel-label": {
+                                                    pt: {
+                                                        xs: 0.5,
+                                                        sm: 2.5,
+                                                        md: 3,
+                                                        lg: 3.5
+                                                    },
+                                                    fontSize: {
+                                                        xs: "8.5px",
+                                                        sm: "12px",
+                                                        md: "14px"
+                                                    },
+                                                    color: "white", // default text color
+                                                    fontFamily:
+                                                        "Tsukimi Rounded",
+                                                    "&.Mui-active": {
+                                                        color: "white"
+                                                    }, // active step stays white
+                                                    "&.Mui-completed": {
+                                                        color: "white"
+                                                    } // completed step stays white
+                                                },
+                                                filter:
+                                                    i <= maxStep
+                                                        ? "brightness(95%)"
+                                                        : "brightness(50%)",
+                                                "&:hover": {
+                                                    filter:
+                                                        i <= maxStep
+                                                            ? "brightness(100%)"
+                                                            : "brightness(40%)"
+                                                },
+                                                cursor:
+                                                    i <= maxStep
+                                                        ? "pointer"
+                                                        : "default",
+                                                transition: "all 0.3s ease"
+                                            }}
+                                            onClick={() =>
+                                                handleGoToOpenStep(
+                                                    formik.values,
+                                                    i
+                                                )
+                                            }
+                                            slots={{
+                                                stepIcon: props => (
+                                                    <Box
+                                                        ref={(
+                                                            el: HTMLDivElement | null
+                                                        ) => {
+                                                            planetRefs.current[
+                                                                i
+                                                            ] = el;
+                                                        }}
+                                                        sx={{
+                                                            display: "flex",
+                                                            alignItems:
+                                                                "center",
+                                                            justifyContent:
+                                                                "center",
+                                                            width: 32, // matches MUI's default StepIcon size
+                                                            height: 32,
+                                                            margin: "0 auto"
+                                                        }}
+                                                    >
+                                                        <Image
+                                                            src={`/registration/progress_bar/${step.id}.svg`}
+                                                            alt={step.name}
+                                                            width={80}
+                                                            height={80}
+                                                            style={{
+                                                                width: "clamp(40px, 10vw,100px)",
+                                                                height: "auto"
+                                                            }}
+                                                        />
+                                                    </Box>
+                                                )
+                                            }}
+                                        >
+                                            {step.name}
+                                        </StepLabel>
+                                    </Step>
+                                ))}
+                            </Stepper>
                             <Form>
                                 <Box sx={{ mb: 4, fontFamily: "Montserrat" }}>
                                     {renderStepContent(currentStep, formik)}
@@ -331,9 +389,9 @@ const GeneralRegistration = () => {
                                     )}
                                 </Stack>
                             </Form>
-                        )}
-                    </Formik>
-                </Paper>
+                        </Paper>
+                    )}
+                </Formik>
             </Box>
         </main>
     );
