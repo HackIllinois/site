@@ -38,7 +38,7 @@ const ProChallenge: React.FC = () => {
                 <Typography
                     fontFamily={"Montserrat"}
                     sx={{
-                        mb: "53px",
+                        mb: "40px",
                         fontWeight: 800,
                         fontSize: { xs: "28px", sm: "32px" }
                     }}
@@ -66,7 +66,7 @@ const ProChallenge: React.FC = () => {
                     fontFamily={"Montserrat"}
                     fontSize={28}
                     sx={{
-                        mb: 4,
+                        mb: "40px",
                         fontSize: { xs: "20px", sm: "24px" }
                     }}
                 >
@@ -80,7 +80,7 @@ const ProChallenge: React.FC = () => {
                         backgroundColor: "#D9D9D9",
                         color: "black",
                         fontWeight: 800,
-                        fontSize: { xs: "20px", sm: "24px" },
+                        fontSize: { xs: "18px", sm: "20px" },
                         textTransform: "none",
                         px: { xs: 6, sm: 8 },
                         py: 1,
