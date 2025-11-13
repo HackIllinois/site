@@ -85,7 +85,7 @@ const ProChallenge: React.FC = () => {
             <h1
                 style={{
                     color: "black",
-                    fontSize: "clamp(28px, 6vw, 48px)",
+                    fontSize: "clamp(28px, 6vw, 56px)",
                     margin: 0
                 }}
             >
@@ -133,7 +133,7 @@ const ProChallenge: React.FC = () => {
                         sm: "15vh",
                         md: "25vh"
                     },
-                    padding: "2%",
+                    padding: "20px",
                     overflow: "hidden",
                     boxSizing: "border-box",
                     display: "flex",
@@ -156,7 +156,7 @@ const ProChallenge: React.FC = () => {
                         flex: 1,
                         display: "grid",
                         gridTemplateColumns: "1fr 2fr 0.7fr",
-                        gap: "2%",
+                        gap: "20px",
                         width: "100%",
                         minHeight: 0
                     }}
@@ -169,7 +169,7 @@ const ProChallenge: React.FC = () => {
                             alignItems: "flex-end",
                             justifyContent: "center",
                             color: "white",
-                            padding: "1.2%",
+                            padding: "5px",
                             fontSize: "clamp(8px, 1.6vw, 22px)",
                             letterSpacing: "0.06em"
                         }}
@@ -182,7 +182,7 @@ const ProChallenge: React.FC = () => {
                         style={{
                             display: "grid",
                             gridTemplateRows: "1fr 1fr 1fr",
-                            gap: "2%",
+                            gap: "20px",
                             width: "100%",
                             height: "100%",
                             minHeight: 0
