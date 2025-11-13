@@ -1,11 +1,12 @@
 "use client";
+import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 import theme from "@/theme";
 import { RegistrationData } from "@/util/types";
 import { initialValues, validationSchemas } from "@/util/validation";
 import {
     Box,
-    Button,
     Paper,
+    Stack,
     Step,
     StepLabel,
     Stepper,
@@ -61,7 +62,11 @@ const GeneralRegistration = () => {
     }, [measurePlanets]);
 
     const steps = [
-        { id: "personal_info", name: "Personal Information", color: "#3A2541" },
+        {
+            id: "personal_info",
+            name: "Personal Information",
+            color: "#3A2541"
+        },
         {
             id: "background_info",
             name: "Background Information",
@@ -271,112 +276,56 @@ const GeneralRegistration = () => {
                                     {renderStepContent(currentStep, formik)}
                                 </Box>
 
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        position: "static",
-                                        width: "90%",
-                                        height: "fit-content",
-                                        bottom: 0,
-                                        mt: 6,
-                                        mb: 8,
-                                        mx: "auto",
-                                        justifyContent: "space-between"
-                                    }}
+                                <Stack
+                                    direction={{ xs: "column", sm: "row" }}
+                                    justifyContent={
+                                        currentStep === 0
+                                            ? "flex-end"
+                                            : "space-between"
+                                    } // Personal info page has one arrow
+                                    alignItems="center"
+                                    gap={{ xs: "24px", md: "0px" }}
+                                    mt={10}
+                                    mb={2}
+                                    mr={4}
+                                    ml={4}
                                 >
-                                    <Button
-                                        onClick={handleBack}
-                                        // disable this on the confirmation page as well (steps.length - 1)
-                                        disabled={
-                                            currentStep === 0 ||
-                                            currentStep === steps.length - 1
-                                        } // noninteractable
-                                        aria-hidden={
-                                            currentStep === 0 ||
-                                            currentStep === steps.length - 1
-                                        } // hidden (accesibility)
-                                        sx={{
-                                            visibility: `${
-                                                currentStep === 0 ||
-                                                currentStep === steps.length - 1
-                                                    ? "hidden"
-                                                    : "visible"
-                                            }`, // hidden
-                                            color: "white",
-                                            fontSize: {
-                                                xs: "1rem",
-                                                md: "1.4rem"
-                                            },
-                                            border: `1px solid ${steps[currentStep].color}`,
-                                            backgroundColor:
-                                                steps[currentStep].color,
-                                            fontFamily: "Tsukimi Rounded",
-                                            "&:hover": {
-                                                borderColor: "white"
-                                            },
-                                            "&.Mui-disabled": {
-                                                borderColor:
-                                                    "rgba(255,255,255,0.3)",
-                                                color: "rgba(255,255,255,0.3)"
+                                    {/* Left arrow */}
+                                    {currentStep > 0 &&
+                                        currentStep < steps.length - 1 && (
+                                            <NavigationButton
+                                                text={steps[
+                                                    currentStep - 1
+                                                ].name.toUpperCase()}
+                                                color={steps[currentStep].color}
+                                                onClick={handleBack}
+                                                disabled={currentStep === 0}
+                                                type="button"
+                                            />
+                                        )}
+
+                                    {/* Right arrow */}
+                                    {currentStep < steps.length - 1 && (
+                                        <NavigationButton
+                                            text={
+                                                currentStep === steps.length - 2
+                                                    ? "SUBMIT"
+                                                    : steps[
+                                                          currentStep + 1
+                                                      ].name.toUpperCase()
                                             }
-                                        }}
-                                    >
-                                        {smallMode
-                                            ? "<"
-                                            : currentStep !== 0 &&
-                                              // ^ don't index at -1 lol
-                                              steps[currentStep - 1].name}
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        onClick={() =>
-                                            handleNext(
-                                                formik.values,
-                                                formik.setTouched
-                                            )
-                                        }
-                                        // disable this on the confirmation page (steps.length - 1)
-                                        disabled={
-                                            currentStep === steps.length - 1
-                                        } // noninteractable
-                                        aria-hidden={
-                                            currentStep === steps.length - 1
-                                        } // hidden (accesibility)
-                                        sx={{
-                                            visibility: `${
-                                                currentStep === steps.length - 1
-                                                    ? "hidden"
-                                                    : "visible"
-                                            }`, // hidden
-                                            color: "white",
-                                            fontSize: {
-                                                xs: "1rem",
-                                                md: "1.4rem"
-                                            },
-                                            border: `1px solid ${steps[currentStep].color}`,
-                                            backgroundColor:
-                                                steps[currentStep].color,
-                                            fontFamily: "Tsukimi Rounded",
-                                            "&:hover": {
-                                                borderColor: "white"
-                                            },
-                                            "&.Mui-disabled": {
-                                                borderColor:
-                                                    "rgba(255,255,255,0.3)",
-                                                color: "rgba(255,255,255,0.3)"
+                                            color={steps[currentStep].color}
+                                            pointRight={true}
+                                            onClick={() =>
+                                                handleNext(
+                                                    formik.values,
+                                                    formik.setTouched
+                                                )
                                             }
-                                        }}
-                                    >
-                                        {smallMode
-                                            ? ">"
-                                            : currentStep === steps.length - 2
-                                              ? "Submit" // should appear on review page (not confirmation)
-                                              : currentStep !==
-                                                    steps.length - 1 &&
-                                                // ^ don't index at length lol
-                                                steps[currentStep + 1].name}
-                                    </Button>
-                                </Box>
+                                            type="button"
+                                        />
+                                    )}
+                                </Stack>
                             </Form>
                         )}
                     </Formik>

@@ -1,19 +1,15 @@
 // import { RegistrationData } from "@/util/types";
-import {
-    Checkbox,
-    FormControlLabel,
-    FormGroup,
-    FormHelperText
-} from "@mui/material";
+import { Checkbox, FormControlLabel, FormHelperText } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Typography from "@mui/material/Typography";
 
 interface CheckboxSelectInputProps {
     name: string;
-    label: string;
+    label?: string;
     sublabel?: string;
     optionLabel: string;
+    optionLabelSx?: object;
     required?: boolean;
     // formik controls
     value: boolean;
@@ -30,6 +26,7 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
     label,
     sublabel,
     optionLabel = "Yes",
+    optionLabelSx,
     required = false,
     value = false,
     onChange,
@@ -58,7 +55,7 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                     fontWeight: 500
                 }}
             >
-                {label + (required ? "*" : "")}
+                {label ? label + (required ? "*" : "") : null}
                 <Typography
                     component="p"
                     variant="body2"
@@ -70,9 +67,13 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
 
             <FormControlLabel
                 sx={{
-                    width: "fit-content",
-                    height: "fit-content",
-                    padding: 2
+                    padding: 2,
+                    display: "flex",
+                    "& .MuiCheckbox-root": {
+                        width: { xs: 36, sm: 48 },
+                        height: { xs: 36, sm: 48 },
+                        flexShrink: 0 // prevents checkbox from shrinking or stretching
+                    }
                 }}
                 control={
                     <Checkbox
@@ -111,7 +112,8 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                         variant="h3"
                         sx={{
                             color: "#ffffff",
-                            pl: 2
+                            pl: 2,
+                            ...optionLabelSx
                         }}
                     >
                         {optionLabel}
