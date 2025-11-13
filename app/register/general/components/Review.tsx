@@ -90,7 +90,7 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
                         fontWeight: 600,
                         paddingLeft: "18px",
                         [theme.breakpoints.down("sm")]: {
-                            fontSize: "15px",
+                            fontSize: "20px",
                             paddingLeft: "13px"
                         }
                     })}
@@ -106,6 +106,7 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
                         sx={{
                             display: "inline-flex",
                             alignItems: "center",
+                            padding: "2px",
                             cursor: "pointer",
                             color: "white",
                             "&:hover": {
@@ -115,7 +116,7 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
                             transition: "transform 0.2s, color 0.2s"
                         }}
                     >
-                        <EditIcon fontSize="small" />
+                        <EditIcon fontSize="medium" />
                     </Box>
                 )}
             </Box>
@@ -137,7 +138,7 @@ export const ReviewInfoAccordionBox = styled(Box)(({ theme }) => ({
     justifyContent: "flex-start",
     gap: "25px",
     alignItems: "center",
-    padding: "0px 18px 18px 18px",
+    padding: "0px 13px 13px 13px",
     [theme.breakpoints.down("sm")]: {
         flexDirection: "column",
         alignItems: "stretch",
@@ -177,7 +178,7 @@ export const UserInfoBox: React.FC<UserInfoProps> = ({
                     color: "text.primary",
                     fontFamily: "'Montserrat', sans-serif",
                     [theme.breakpoints.down("sm")]: {
-                        fontSize: "10px"
+                        fontSize: "13px"
                     }
                 })}
             >
@@ -193,7 +194,7 @@ export const UserInfoBox: React.FC<UserInfoProps> = ({
                     overflowWrap: "anywhere",
                     whiteSpace: "normal",
                     [theme.breakpoints.down("sm")]: {
-                        fontSize: "10px"
+                        fontSize: "13px"
                     }
                 })}
             >

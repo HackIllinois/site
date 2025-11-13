@@ -18,7 +18,7 @@ export const registrationTheme = createTheme({
             textAlign: "left",
             "@media (min-width:0px)": {
                 // xsm and up
-                fontSize: "20px"
+                fontSize: "25px"
             },
             "@media (min-width:900px)": {
                 // md and up
@@ -46,7 +46,7 @@ export const registrationTheme = createTheme({
             color: "#fff",
             fontWeight: 400,
             "@media (max-width:560px)": {
-                fontSize: "14px"
+                fontSize: "18px"
             }
         }
     }

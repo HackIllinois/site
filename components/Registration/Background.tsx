@@ -12,9 +12,9 @@ const Background = ({ step }: BackgroundProps) => {
     const windowSizeHook = useWindowSize();
 
     const backgrounds = [
-        "personal-info",
-        "education",
-        "hack-specific",
+        "personal_info",
+        "background_info",
+        "attending_hack",
         "transportation",
         "review",
         "confirmation"
@@ -23,7 +23,7 @@ const Background = ({ step }: BackgroundProps) => {
     const folder =
         !windowSizeHook?.width || windowSizeHook?.width > 768
             ? "backgrounds"
-            : "mobile_backgrounds";
+            : "backgrounds/mobile";
 
     const imgSrc = `/registration/${folder}/${backgrounds[step]}.svg`;
 
@@ -36,7 +36,7 @@ const Background = ({ step }: BackgroundProps) => {
                 width: "100vw",
                 height: "100vh",
                 overflow: "hidden",
-                zIndex: -1
+                zIndex: -100
             }}
         >
             <Image
