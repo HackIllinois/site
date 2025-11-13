@@ -39,6 +39,7 @@ export const initialValues: RegistrationData = {
     codeOfConductAcknowledge: false
 };
 
+// TODO: Remove this once testing is complete.
 export const initialValuesPopulated: RegistrationData = {
     // 0. Personal Info
     firstName: "Miguel",
