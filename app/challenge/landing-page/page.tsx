@@ -1,8 +1,6 @@
 "use client";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Source_Code_Pro } from "next/font/google";
-
-const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
 
 const ProChallenge: React.FC = () => {
     const Lollipop = ({
