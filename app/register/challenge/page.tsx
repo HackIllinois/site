@@ -28,32 +28,47 @@ const ProChallenge: React.FC = () => {
             >
                 <Typography
                     fontFamily={"Montserrat"}
-                    fontSize={28}
-                    sx={{ fontWeight: 600 }}
+                    sx={{
+                        fontWeight: 600,
+                        fontSize: { xs: "20px", sm: "24px" }
+                    }}
                 >
                     Ready to be a
                 </Typography>
                 <Typography
                     fontFamily={"Montserrat"}
-                    fontSize={40}
                     sx={{
                         mb: "53px",
-                        fontWeight: 800
+                        fontWeight: 800,
+                        fontSize: { xs: "28px", sm: "32px" }
                     }}
                 >
                     HackVoyager?
                 </Typography>
 
-                <Typography fontFamily={"Montserrat"} fontSize={28}>
+                <Typography
+                    fontFamily={"Montserrat"}
+                    sx={{
+                        fontSize: { xs: "20px", sm: "24px" }
+                    }}
+                >
                     Complete the following
                 </Typography>
-                <Typography fontFamily={"Montserrat"} fontSize={28}>
+                <Typography
+                    fontFamily={"Montserrat"}
+                    sx={{
+                        fontSize: { xs: "20px", sm: "24px" }
+                    }}
+                >
                     coding challenge to find
                 </Typography>
                 <Typography
                     fontFamily={"Montserrat"}
                     fontSize={28}
-                    sx={{ mb: 4 }}
+                    sx={{
+                        mb: 4,
+                        fontSize: { xs: "20px", sm: "24px" }
+                    }}
                 >
                     out!
                 </Typography>
@@ -65,9 +80,9 @@ const ProChallenge: React.FC = () => {
                         backgroundColor: "#D9D9D9",
                         color: "black",
                         fontWeight: 800,
-                        fontSize: "27px",
+                        fontSize: { xs: "20px", sm: "24px" },
                         textTransform: "none",
-                        px: 10,
+                        px: { xs: 6, sm: 8 },
                         py: 1,
                         borderRadius: "30px",
                         "&:hover": {
