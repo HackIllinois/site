@@ -10,6 +10,7 @@ import {
     Box,
     Button,
     Paper,
+    Stack,
     Step,
     StepLabel,
     Stepper,
@@ -32,6 +33,7 @@ import BackgroundInfo from "./formPages/BackgroundInfo";
 import Confirmation from "./formPages/Confirmation";
 import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
+import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 
 import { useParams } from "next/navigation";
 import RocketOverlay from "./rocket";
@@ -108,7 +110,11 @@ const GeneralRegistration = () => {
     }, [measurePlanets]);
 
     const steps = [
-        { id: "personal_info", name: "Personal Information", color: "#3A2541" },
+        {
+            id: "personal_info",
+            name: "Personal Information",
+            color: "#3A2541"
+        },
         {
             id: "background_info",
             name: "Background Information",
@@ -336,86 +342,53 @@ const GeneralRegistration = () => {
                                     {renderStepContent(currentStep, formik)}
                                 </Box>
 
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        position: "static",
-                                        width: "90%",
-                                        height: "fit-content",
-                                        bottom: 0,
-                                        mt: 6,
-                                        mb: 8,
-                                        mx: "auto",
-                                        justifyContent: "space-between"
-                                    }}
+                                <Stack
+                                    direction={{ xs: "column", sm: "row" }}
+                                    justifyContent={
+                                        currentStep === 0
+                                            ? "flex-end"
+                                            : "space-between"
+                                    } // Personal info page has one arrow
+                                    alignItems="center"
+                                    gap={{ xs: "24px", md: "0px" }}
+                                    m={4}
                                 >
-                                    <Button
-                                        onClick={() => {
-                                            handleBack();
-                                        }}
-                                        disabled={currentStep === 0} // noninteractable
-                                        aria-hidden={currentStep === 0} // hidden (accesibility)
-                                        sx={{
-                                            visibility: `${currentStep === 0 ? "hidden" : "visible"}`, // hidden
-                                            color: "white",
-                                            fontSize: {
-                                                xs: "1rem",
-                                                md: "1.4rem"
-                                            },
-                                            border: `1px solid ${steps[currentStep].color}`,
-                                            backgroundColor:
-                                                steps[currentStep].color,
-                                            fontFamily: "Tsukimi Rounded",
-                                            "&:hover": {
-                                                borderColor: "white"
-                                            },
-                                            "&.Mui-disabled": {
-                                                borderColor:
-                                                    "rgba(255,255,255,0.3)",
-                                                color: "rgba(255,255,255,0.3)"
+                                    {/* Left arrow */}
+                                    {currentStep > 0 &&
+                                        currentStep < steps.length - 1 && (
+                                            <NavigationButton
+                                                text={steps[
+                                                    currentStep - 1
+                                                ].name.toUpperCase()}
+                                                color={steps[currentStep].color}
+                                                onClick={handleBack}
+                                                disabled={currentStep === 0}
+                                                type="button"
+                                            />
+                                        )}
+
+                                    {/* Right arrow */}
+                                    {currentStep < steps.length - 1 && (
+                                        <NavigationButton
+                                            text={
+                                                currentStep === steps.length - 2
+                                                    ? "SUBMIT"
+                                                    : steps[
+                                                          currentStep + 1
+                                                      ].name.toUpperCase()
                                             }
-                                        }}
-                                    >
-                                        {smallMode
-                                            ? "<"
-                                            : currentStep !== 0 &&
-                                              steps[currentStep - 1].name}
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        onClick={() => {
-                                            handleNext(
-                                                formik.values,
-                                                formik.setTouched
-                                            );
-                                        }}
-                                        sx={{
-                                            color: "white",
-                                            fontSize: {
-                                                xs: "1rem",
-                                                md: "1.4rem"
-                                            },
-                                            border: `1px solid ${steps[currentStep].color}`,
-                                            backgroundColor:
-                                                steps[currentStep].color,
-                                            fontFamily: "Tsukimi Rounded",
-                                            "&:hover": {
-                                                borderColor: "white"
-                                            },
-                                            "&.Mui-disabled": {
-                                                borderColor:
-                                                    "rgba(255,255,255,0.3)",
-                                                color: "rgba(255,255,255,0.3)"
+                                            color={steps[currentStep].color}
+                                            pointRight={true}
+                                            onClick={() =>
+                                                handleNext(
+                                                    formik.values,
+                                                    formik.setTouched
+                                                )
                                             }
-                                        }}
-                                    >
-                                        {smallMode
-                                            ? ">"
-                                            : currentStep === steps.length - 1
-                                              ? "Submit"
-                                              : steps[currentStep + 1].name}
-                                    </Button>
-                                </Box>
+                                            type="button"
+                                        />
+                                    )}
+                                </Stack>
                             </Form>
                         )}
                     </Formik>
