@@ -1,62 +1,32 @@
-import {
-    degreeOptions,
-    graduationYearOptions,
-    locationOptions,
-    majorOptions,
-    schoolOptions
-} from "@/app/register/(general)/(form)/education/options";
-import {
-    allergiesRestrictionsOptions,
-    generalConsiderationOptions,
-    heardAboutOptions,
-    lookingForwardToOptions
-} from "@/app/register/(general)/(form)/hack-specific/options";
-import {
-    gender,
-    race
-} from "@/app/register/(general)/(form)/personal-info/options";
-import {
-    travelAcknowledgeOptions,
-    travelReimbursementOptions
-} from "@/app/register/(general)/(form)/transportation/options";
-
 export type WithId<Type> = Type & { id: string };
 
 export type MethodType = "GET" | "POST" | "PUT" | "DELETE";
 export type FileType = "resume" | "photo" | "blobstore";
 
 export type RegistrationData = {
-    // 0. Personal Information
-    firstName: string;
-    lastName: string;
+    legalName: string;
     preferredName: string;
-    age: string;
-    emailAddress: string;
-    // 1. Background Information
     gender: string;
     race: string[];
-    country: string;
-    state: string;
-    school: string;
-    studyLevel: string;
+    emailAddress: string;
+    location: string;
+    degree: string;
+    university: string;
     gradYear: string;
     major: string;
-    underrepresented: string;
-    // 2. Application Questions
+    minor: string;
     hackEssay1: string;
     hackEssay2: string;
     optionalEssay: string;
-    considerForPro: boolean;
     proEssay: string;
-    // 3. Attending HackIllinois
+    considerForGeneral: string[];
     hackOutreach: string[];
     hackInterest: string[];
-    requestedTravelReimbursement: string;
-    travelAcknowledge: boolean;
-    // 4. Review (final acknowledgements)
-    reviewedAcknowledge: boolean;
-    proChallengeAcknowledge: boolean;
-    codeOfConductAcknowledge: boolean;
+    dietaryRestrictions: string[];
+    requestedTravelReimbursement: string[];
+    travelAcknowledge: string[];
+    codeOfConductAcknowledge: string[];
+    reviewedInformationAcknowledge: string[];
 };
 
 export type RegistrationResponseFieldInfo = {
@@ -163,9 +133,9 @@ export type ChallengeStatus = {
 };
 
 export enum ChallengeResultEnum {
-    Success,
-    Failure,
-    Invalid
+    Success = 0,
+    Failure = 1,
+    Invalid = 2
 }
 
 export type RefreshTokenResType = {
