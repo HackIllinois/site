@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 interface CheckboxSelectInputProps {
     name: string;
     label: string;
+    sublabel?: string;
     optionLabel: string;
     required?: boolean;
     // formik controls
@@ -27,6 +28,7 @@ interface CheckboxSelectInputProps {
 const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
     name,
     label,
+    sublabel,
     optionLabel = "Yes",
     required = false,
     value = false,
@@ -57,6 +59,13 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                 }}
             >
                 {label + (required ? "*" : "")}
+                <Typography
+                    component="p"
+                    variant="body2"
+                    sx={{ opacity: "0.8", fontStyle: "oblique" }}
+                >
+                    {sublabel}
+                </Typography>
             </FormLabel>
 
             <FormControlLabel

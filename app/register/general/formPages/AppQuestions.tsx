@@ -88,6 +88,7 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                     <CheckboxSelect
                         name="considerForPro"
                         label="Would you like to be considered for pro track?"
+                        sublabel="You'll have to complete a short coding challenge."
                         optionLabel="Yes"
                         accentColor={accentColor}
                         value={values.considerForPro}
