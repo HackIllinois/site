@@ -1,14 +1,10 @@
 "use client";
+import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 import theme from "@/theme";
 import { RegistrationData } from "@/util/types";
-import {
-    initialValues,
-    initialValuesPopulated,
-    validationSchemas
-} from "@/util/validation";
+import { initialValues, validationSchemas } from "@/util/validation";
 import {
     Box,
-    Button,
     Paper,
     Stack,
     Step,
@@ -26,7 +22,6 @@ import BackgroundInfo from "./formPages/BackgroundInfo";
 import Confirmation from "./formPages/Confirmation";
 import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
-import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 
 import { useParams } from "next/navigation";
 import RocketOverlay from "./rocket";
@@ -265,9 +260,7 @@ const GeneralRegistration = () => {
                                             </Box>
                                         )
                                     }}
-                                >
-                                    {step.name}
-                                </StepLabel>
+                                />
                             </Step>
                         ))}
                     </Stepper>

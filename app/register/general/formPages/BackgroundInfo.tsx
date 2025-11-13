@@ -138,7 +138,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         helperText={!!touched.country ? errors.country : ""}
                     />
                 </Grid>
-                {values.country === "United States" && (
+                {values.country === "United States" ? (
                     <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                         <SelectInput
                             name="state"
@@ -155,6 +155,8 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                             helperText={!!touched.state ? errors.state : ""}
                         />
                     </Grid>
+                ) : (
+                    <></>
                 )}
                 <Grid size={{ xs: 12, sm: 7, md: 8 }}>
                     <SelectInput
@@ -169,8 +171,12 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         }))}
                         value={values.race}
                         onChange={value => setFieldValue("race", value)}
-                        error={!!touched.race && Boolean(errors.race)}
-                        helperText={!!touched.race ? String(errors.race) : ""}
+                        error={!!touched.race ? Boolean(errors.race) : false}
+                        helperText={
+                            !!touched.race && errors.race
+                                ? String(errors.race)
+                                : ""
+                        }
                     />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 5, md: 4 }}>
