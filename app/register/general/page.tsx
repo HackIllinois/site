@@ -13,11 +13,18 @@ import {
     Step,
     StepLabel,
     Stepper,
+    Typography,
     useMediaQuery
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import Image from "next/image";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import {
+    useCallback,
+    useLayoutEffect,
+    useRef,
+    useState,
+    useEffect
+} from "react";
 import * as Yup from "yup";
 import AppQuestions from "./formPages/AppQuestions";
 import AttendingHack from "./formPages/AttendingHack";
@@ -29,6 +36,22 @@ import Review from "./formPages/Review";
 import { useParams } from "next/navigation";
 import RocketOverlay from "./rocket";
 
+const page_slugs = [
+    "personal-information",
+    "background-information",
+    "application-questions",
+    "attending-hackillinois",
+    "review-and-submit",
+    "confirmation"
+] as const;
+
+const slugToIndex = (slug?: string) => {
+    const i = page_slugs.indexOf((slug as any) ?? "");
+    return i >= 0 ? i : 0;
+};
+const indexToSlug = (i: number) =>
+    page_slugs[Math.max(0, Math.min(i, page_slugs.length - 1))];
+
 const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [planetCenters, setPlanetCenters] = useState<
@@ -38,6 +61,26 @@ const GeneralRegistration = () => {
     const smallMode = useMediaQuery(theme.breakpoints.down("sm"));
     const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
     const params = useParams();
+
+    useEffect(() => {
+        const slug = indexToSlug(currentStep);
+        if (window.location.hash === `#${slug}`) return;
+        window.location.hash = slug;
+    }, [currentStep]);
+
+    useEffect(() => {
+        const readHash = () => {
+            const slug = window.location.hash.replace(/^#/, "");
+            if (!slug) return;
+            const idx = slugToIndex(slug);
+            if (idx !== currentStep) setCurrentStep(idx);
+        };
+
+        readHash();
+
+        window.addEventListener("hashchange", readHash);
+        return () => window.removeEventListener("hashchange", readHash);
+    }, [currentStep]);
 
     const measurePlanets = useCallback(() => {
         const centers = planetRefs.current.map(el => {
@@ -99,6 +142,7 @@ const GeneralRegistration = () => {
             } else {
                 // Otherwise, just move to the next step
                 setCurrentStep(prev => prev + 1);
+                window.scrollTo(0, 0);
             }
         } catch (error) {
             console.log(
@@ -119,6 +163,7 @@ const GeneralRegistration = () => {
 
     const handleBack = () => {
         setCurrentStep(prev => prev - 1);
+        window.scrollTo(0, 0);
     };
 
     const handleSubmit = (values: RegistrationData) => {
@@ -260,7 +305,21 @@ const GeneralRegistration = () => {
                                         )
                                     }}
                                 >
-                                    {step.name}
+                                    <Typography
+                                        sx={{
+                                            display: {
+                                                xs: "none",
+                                                md: "inline"
+                                            },
+                                            fontSize: {
+                                                sm: "12px",
+                                                md: "14px"
+                                            }
+                                        }}
+                                    >
+                                        {step.name}
+                                    </Typography>
+                                    {/* {step.name} */}
                                 </StepLabel>
                             </Step>
                         ))}
@@ -291,7 +350,9 @@ const GeneralRegistration = () => {
                                     }}
                                 >
                                     <Button
-                                        onClick={handleBack}
+                                        onClick={() => {
+                                            handleBack();
+                                        }}
                                         disabled={currentStep === 0} // noninteractable
                                         aria-hidden={currentStep === 0} // hidden (accesibility)
                                         sx={{
@@ -322,12 +383,12 @@ const GeneralRegistration = () => {
                                     </Button>
                                     <Button
                                         variant="contained"
-                                        onClick={() =>
+                                        onClick={() => {
                                             handleNext(
                                                 formik.values,
                                                 formik.setTouched
-                                            )
-                                        }
+                                            );
+                                        }}
                                         sx={{
                                             color: "white",
                                             fontSize: {
