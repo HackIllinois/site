@@ -4,13 +4,13 @@ import { Box, Button, Paper, Step, StepLabel, Stepper } from "@mui/material";
 import { Form, Formik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
-import Education from "./education/page";
-import PersonalInfo from "./dev/page";
-import styles from "./styles.module.scss";
-import Experience from "./hack-specific/page";
-import Transportation from "./transportation/page";
-import Review from "../review/page";
 import Confirmation from "../confirmation/page";
+import Review from "../review/page";
+import PersonalInfo from "./dev/page";
+import Education from "./education/page";
+import Experience from "./hack-specific/page";
+import styles from "./styles.module.scss";
+import Transportation from "./transportation/page";
 
 const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
@@ -51,11 +51,8 @@ const GeneralRegistration = () => {
         hackOutreach: [],
         hackInterest: [],
         dietaryRestrictions: [],
-        requestedTravelReimbursement: [],
 
         // Acknowledgements
-        travelAcknowledge: [],
-        codeOfConductAcknowledge: [],
         reviewedInformationAcknowledge: []
     };
 
@@ -101,15 +98,45 @@ const GeneralRegistration = () => {
         // 2. Experience (essays, interests, outreach)
         Yup.object({
             hackEssay1: Yup.string()
-                .min(50, "Please write at least 50 characters")
-                .required("This essay is required"),
+                .required("This essay is required")
+                .test("word-count", "Please write at least 50 words", value => {
+                    if (!value) return false;
+                    const wordCount = value
+                        .trim()
+                        .split(/\s+/)
+                        .filter(word => word.length > 0).length;
+                    return wordCount >= 50;
+                }),
             hackEssay2: Yup.string()
-                .min(50, "Please write at least 50 characters")
-                .required("This essay is required"),
-            optionalEssay: Yup.string().nullable(),
+                .required("This essay is required")
+                .test("word-count", "Please write at least 50 words", value => {
+                    if (!value) return false;
+                    const wordCount = value
+                        .trim()
+                        .split(/\s+/)
+                        .filter(word => word.length > 0).length;
+                    return wordCount >= 50;
+                }),
+            optionalEssay: Yup.string()
+                .nullable()
+                .test(
+                    "max-100-words",
+                    "Response cannot be over 100 words",
+                    response => {
+                        if (!response || response.trim() === "") return true;
+                        return response.split(/[\s,—]+/).length <= 100;
+                    }
+                ),
             proEssay: Yup.string()
-                .min(50, "Please write at least 50 characters")
-                .required("Professional/experience essay is required"),
+                .required("Professional/experience essay is required")
+                .test("word-count", "Please write at least 50 words", value => {
+                    if (!value) return false;
+                    const wordCount = value
+                        .trim()
+                        .split(/\s+/)
+                        .filter(word => word.length > 0).length;
+                    return wordCount >= 50;
+                }),
             considerForGeneral: Yup.array()
                 .of(Yup.string())
                 .min(1, "Select at least one"),

@@ -113,7 +113,6 @@ export const validationSchemas = [
     // 2. Application Questions
     Yup.object({
         hackEssay1: Yup.string()
-            .min(50, "Please write at least 50 characters")
             .required("This essay is required")
             .test(
                 "max-50-words",
@@ -121,7 +120,6 @@ export const validationSchemas = [
                 response => response.split(/[\s,—]+/).length <= 50
             ),
         hackEssay2: Yup.string()
-            .min(50, "Please write at least 50 characters")
             .required("This essay is required")
             .test(
                 "max-50-words",

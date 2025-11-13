@@ -1,7 +1,11 @@
 "use client";
 import theme from "@/theme";
 import { RegistrationData } from "@/util/types";
-import { initialValues, validationSchemas } from "@/util/validation";
+import {
+    initialValues,
+    initialValuesPopulated,
+    validationSchemas
+} from "@/util/validation";
 import {
     Box,
     Button,
@@ -261,7 +265,7 @@ const GeneralRegistration = () => {
                     </Stepper>
 
                     <Formik
-                        initialValues={initialValues}
+                        initialValues={initialValuesPopulated}
                         validationSchema={validationSchemas[currentStep]}
                         onSubmit={handleSubmit}
                     >
