@@ -22,7 +22,13 @@ export default function ChallengeResult() {
                 alignItems: "center"
             }}
         >
-            <Typography variant="h1" component="h1">
+            <Typography
+                variant="h1"
+                component="h1"
+                sx={{
+                    fontSize: "3rem"
+                }}
+            >
                 Congratulations, you passed!
             </Typography>
             <Container
@@ -33,7 +39,7 @@ export default function ChallengeResult() {
                     alignItems: "center",
                     justifyContent: "center",
                     textAlign: "center",
-                    gap: 4,
+                    gap: 3,
                     mt: 6
                 }}
             >
@@ -65,7 +71,7 @@ export default function ChallengeResult() {
                     To finish registering, click continue to complete the rest
                     of the application
                 </Typography>
-                <Button variant="contained" sx={{ color: "black" }}>
+                <Button variant="contained" sx={{ color: "black", mt: 3 }}>
                     Continue
                 </Button>
             </Container>

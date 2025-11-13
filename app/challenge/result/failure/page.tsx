@@ -54,10 +54,10 @@ export default function ChallengeResult() {
                     Please select one of the following options:
                 </Typography>
                 <Button variant="contained" sx={{ color: "black" }}>
-                    Continue
+                    Try again
                 </Button>
                 <Button variant="contained" sx={{ color: "black" }}>
-                    Continue
+                    Back to registration
                 </Button>
             </Container>
         </Box>
