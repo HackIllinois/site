@@ -48,7 +48,7 @@ const Confirmation: React.FC = () => {
                     style={{
                         objectFit: "contain",
                         objectPosition: "top center",
-                        zIndex: -1
+                        zIndex: 0
                     }}
                 />
 
@@ -59,7 +59,8 @@ const Confirmation: React.FC = () => {
                         fontSize: { xs: "40px", sm: "60px", md: "80px" },
                         color: "white",
                         lineHeight: 1,
-                        mb: 0.5
+                        mb: 0.5,
+                        zIndex: 1
                     }}
                 >
                     APPLICATION
@@ -73,7 +74,8 @@ const Confirmation: React.FC = () => {
                         color: "white",
                         lineHeight: 1,
                         mb: 3,
-                        width: "100%"
+                        width: "100%",
+                        zIndex: 1
                     }}
                 >
                     FINISHED
@@ -84,7 +86,8 @@ const Confirmation: React.FC = () => {
                         fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
                         fontWeight: 600,
                         fontSize: { xs: "11px", sm: "22px" },
-                        color: "white"
+                        color: "white",
+                        zIndex: 1
                     }}
                 >
                     Thank you for signing up for HackIllinois 2026!
@@ -96,26 +99,12 @@ const Confirmation: React.FC = () => {
                         fontWeight: 600,
                         fontSize: { xs: "11px", sm: "22px" },
                         color: "white",
-                        mb: "17px"
+                        mb: "17px",
+                        zIndex: 1
                     }}
                 >
                     Please check the status of your account in your email.
                 </Typography>
-
-                <Box
-                    sx={{
-                        position: "relative",
-                        width: { xs: "136px", sm: "189px" },
-                        height: { xs: "42px", sm: "59px" }
-                    }}
-                >
-                    <Image
-                        src="/registration/logo.svg"
-                        alt="White HackIllinois logo"
-                        fill
-                        style={{ objectFit: "contain" }}
-                    />
-                </Box>
             </Box>
         </Box>
     );

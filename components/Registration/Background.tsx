@@ -36,7 +36,7 @@ const Background = ({ step }: BackgroundProps) => {
                 width: "100vw",
                 height: "100vh",
                 overflow: "hidden",
-                zIndex: -1
+                zIndex: -100
             }}
         >
             <Image
