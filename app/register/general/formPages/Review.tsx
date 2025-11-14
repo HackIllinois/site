@@ -20,6 +20,7 @@ import {
     UserInfoBox
 } from "../components/Review";
 import { registrationTheme } from "../theme";
+import { useEffect } from "react";
 
 interface ReviewProps {
     formik: FormikProps<RegistrationType>;
@@ -35,6 +36,19 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
         (_event: React.SyntheticEvent, isExpanded: boolean) => {
             setExpanded(isExpanded ? panel : false);
         };
+
+    useEffect(() => {
+        if (!formik.dirty || formik.isSubmitting) return;
+
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            e.preventDefault();
+            (e as any).returnValue = "";
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () =>
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+    }, [formik.dirty, formik.isSubmitting]);
 
     return (
         <>
