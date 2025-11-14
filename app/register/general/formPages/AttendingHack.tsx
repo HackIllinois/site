@@ -106,6 +106,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         label="Would you like to be considered for travel reimbursement?"
                         accentColor={accentColor}
                         row
+                        required
                         options={travelReimbursementOptions.map(option => ({
                             label: option,
                             value: option
@@ -132,6 +133,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         label="If you attend HackIllinois, you are responsible for your own transportation and accommodations."
                         accentColor={accentColor}
                         row
+                        required
                         optionLabel="I understand"
                         value={values.travelAcknowledge}
                         onChange={value =>

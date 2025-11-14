@@ -1,14 +1,10 @@
 "use client";
+import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 import theme from "@/theme";
 import { RegistrationData } from "@/util/types";
-import {
-    initialValues,
-    initialValuesPopulated,
-    validationSchemas
-} from "@/util/validation";
+import { initialValues, validationSchemas } from "@/util/validation";
 import {
     Box,
-    Button,
     Paper,
     Stack,
     Step,
@@ -33,7 +29,6 @@ import BackgroundInfo from "./formPages/BackgroundInfo";
 import Confirmation from "./formPages/Confirmation";
 import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
-import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 
 import { useParams } from "next/navigation";
 import RocketOverlay from "./rocket";
@@ -310,23 +305,7 @@ const GeneralRegistration = () => {
                                             </Box>
                                         )
                                     }}
-                                >
-                                    <Typography
-                                        sx={{
-                                            display: {
-                                                xs: "none",
-                                                md: "inline"
-                                            },
-                                            fontSize: {
-                                                sm: "12px",
-                                                md: "14px"
-                                            }
-                                        }}
-                                    >
-                                        {step.name}
-                                    </Typography>
-                                    {/* {step.name} */}
-                                </StepLabel>
+                                />
                             </Step>
                         ))}
                     </Stepper>
@@ -351,7 +330,10 @@ const GeneralRegistration = () => {
                                     } // Personal info page has one arrow
                                     alignItems="center"
                                     gap={{ xs: "24px", md: "0px" }}
-                                    m={4}
+                                    mt={10}
+                                    mb={2}
+                                    mr={4}
+                                    ml={4}
                                 >
                                     {/* Left arrow */}
                                     {currentStep > 0 &&
