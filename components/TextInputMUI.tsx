@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 interface TextInputProps {
     name: string;
     label: string;
+    sublabel?: string;
     multiline?: boolean;
     required?: boolean;
     placeholder?: string;
@@ -24,6 +25,7 @@ interface TextInputProps {
 const TextInput: React.FC<TextInputProps> = ({
     name,
     label,
+    sublabel,
     multiline = false,
     required = false,
     placeholder = "Type here",
@@ -44,6 +46,13 @@ const TextInput: React.FC<TextInputProps> = ({
                 }}
             >
                 {label + (required ? "*" : "")}
+                <Typography
+                    component="span"
+                    variant="body2"
+                    sx={{ ml: 1, opacity: "0.8", fontStyle: "oblique" }}
+                >
+                    {sublabel}
+                </Typography>
             </FormLabel>
             <InputBase
                 name={name}

@@ -3,7 +3,7 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import TextInput from "@/components/TextInputMUI";
 import CheckboxSelect from "@/components/CheckboxSelectMUI";
-
+import { useEffect } from "react";
 interface ExperienceProps {
     formik: FormikProps<RegistrationData>;
     accentColor?: string;
@@ -11,6 +11,19 @@ interface ExperienceProps {
 
 const Experience = ({ formik, accentColor }: ExperienceProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
+
+    useEffect(() => {
+        if (!formik.dirty || formik.isSubmitting) return;
+
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            e.preventDefault();
+            (e as any).returnValue = "";
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () =>
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+    }, [formik.dirty, formik.isSubmitting]);
 
     return (
         <Container>
@@ -30,7 +43,7 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                     <TextInput
                         name="hackEssay1"
                         label="What opportunity, event, or feature of HackIllinois 2026 are you most excited to take part in and why?"
-                        // subLabel="max. 50 words"
+                        sublabel="max. 50 words"
                         accentColor={accentColor}
                         multiline
                         required
@@ -49,7 +62,7 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                     <TextInput
                         name="hackEssay2"
                         label="Describe a challenge you have faced in the field of CS, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
-                        // subLabel="max. 50 words"
+                        sublabel="max. 50 words"
                         accentColor={accentColor}
                         multiline
                         required
@@ -68,10 +81,10 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                     <TextInput
                         name="optionalEssay"
                         label="If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
-                        // subLabel="optional, max. 100 words"
+                        sublabel="optional, max. 100 words"
                         accentColor={accentColor}
                         multiline
-                        required
+                        // not required
                         minRows={4}
                         value={values.optionalEssay}
                         onChange={handleChange}
@@ -88,6 +101,7 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                     <CheckboxSelect
                         name="considerForPro"
                         label="Would you like to be considered for pro track?"
+                        sublabel="You'll have to complete a short coding challenge."
                         optionLabel="Yes"
                         accentColor={accentColor}
                         value={values.considerForPro}
@@ -110,6 +124,7 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                         <TextInput
                             name="proEssay"
                             label="<PRO ESSAY PROMPT>"
+                            sublabel="max. 50 words"
                             accentColor={accentColor}
                             multiline
                             required

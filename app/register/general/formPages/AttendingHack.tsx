@@ -9,6 +9,7 @@ import {
 import { RegistrationData } from "@/util/types";
 import { Box, Typography, Container, Grid } from "@mui/material";
 import { FormikProps } from "formik";
+import { useEffect } from "react";
 
 interface TransportationProps {
     formik: FormikProps<RegistrationData>;
@@ -24,6 +25,19 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
         arr.has(val) ? arr.delete(val) : arr.add(val);
         setFieldValue(field, Array.from(arr));
     };
+
+    useEffect(() => {
+        if (!formik.dirty || formik.isSubmitting) return;
+
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            e.preventDefault();
+            (e as any).returnValue = "";
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () =>
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+    }, [formik.dirty, formik.isSubmitting]);
 
     return (
         <Container>
@@ -92,6 +106,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         label="Would you like to be considered for travel reimbursement?"
                         accentColor={accentColor}
                         row
+                        required
                         options={travelReimbursementOptions.map(option => ({
                             label: option,
                             value: option
@@ -118,6 +133,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         label="If you attend HackIllinois, you are responsible for your own transportation and accommodations."
                         accentColor={accentColor}
                         row
+                        required
                         optionLabel="I understand"
                         value={values.travelAcknowledge}
                         onChange={value =>

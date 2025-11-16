@@ -2,13 +2,12 @@ import majors from "@/modules/majors.json";
 import schools from "@/modules/schools.json";
 import states from "@/modules/states.json";
 import countries from "@/modules/countries.json";
-import degrees from "@/modules/degrees.json";
 
 export const ageOptions: string[] = [];
-for (let i = 18; i < 75; i += 1) {
+for (let i = 18; i < 30; i += 1) {
     ageOptions.push(String(i));
 }
-ageOptions.push("75+");
+ageOptions.push("30+");
 
 export const genderOptions: string[] = [
     "Man",
@@ -46,32 +45,28 @@ export const stateOptions: string[] = states.concat("N/A");
 export const schoolOptions: string[] = schools.concat("N/A");
 
 export const studyLevelOptions: string[] = [
-    "Less than Secondary/High School",
-    "Secondary/High School",
     "Undergraduate University (2 year - community college or similar)",
     "Undergraduate University (3+ year)",
     "Graduate University (Masters, Professional, Doctoral, etc)",
-    "Code School/Bootcamp",
-    "Other Vocational/Trade Program or Apprenticeship",
-    "Post Doctorate",
     "Other",
-    "I'm not currently a student",
     "Prefer not to answer"
 ];
 
 export const graduationYearOptions: string[] = [];
-graduationYearOptions.push("N/A");
-for (let i = 2030; i >= 1970; i -= 1) {
+graduationYearOptions.push("Spring 2026");
+for (let i = 2027; i <= 2030; i += 1) {
     graduationYearOptions.push("Fall " + String(i));
     graduationYearOptions.push("Winter " + String(i));
     graduationYearOptions.push("Spring " + String(i));
 }
+graduationYearOptions.push("After Spring 2030");
 
-export const majorOptions: string[] = majors.concat(
-    "Undecided/Undeclared",
-    "My school does not offer majors or primary areas of study",
-    "Prefer not to answer"
-);
+export const majorOptions: string[] = majors;
+// .concat(
+//     "Undecided/Undeclared",
+//     "My school does not offer majors or primary areas of study",
+//     "Prefer not to answer"
+// );
 
 export const underrepresentedOptions: string[] = ["Yes", "No", "Unsure"];
 

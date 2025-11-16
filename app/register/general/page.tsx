@@ -1,23 +1,27 @@
 "use client";
+import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 import theme from "@/theme";
 import { RegistrationData } from "@/util/types";
-import {
-    initialValues,
-    initialValuesPopulated,
-    validationSchemas
-} from "@/util/validation";
+import { initialValues, validationSchemas } from "@/util/validation";
 import {
     Box,
-    Button,
     Paper,
+    Stack,
     Step,
     StepLabel,
     Stepper,
+    Typography,
     useMediaQuery
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import Image from "next/image";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import {
+    useCallback,
+    useLayoutEffect,
+    useRef,
+    useState,
+    useEffect
+} from "react";
 import * as Yup from "yup";
 import AppQuestions from "./formPages/AppQuestions";
 import AttendingHack from "./formPages/AttendingHack";
@@ -29,6 +33,22 @@ import Review from "./formPages/Review";
 import { useParams } from "next/navigation";
 import RocketOverlay from "./rocket";
 
+const page_slugs = [
+    "personal-information",
+    "background-information",
+    "application-questions",
+    "attending-hackillinois",
+    "review-and-submit",
+    "confirmation"
+] as const;
+
+const slugToIndex = (slug?: string) => {
+    const i = page_slugs.indexOf((slug as any) ?? "");
+    return i >= 0 ? i : 0;
+};
+const indexToSlug = (i: number) =>
+    page_slugs[Math.max(0, Math.min(i, page_slugs.length - 1))];
+
 const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [planetCenters, setPlanetCenters] = useState<
@@ -38,6 +58,26 @@ const GeneralRegistration = () => {
     const smallMode = useMediaQuery(theme.breakpoints.down("sm"));
     const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
     const params = useParams();
+
+    useEffect(() => {
+        const slug = indexToSlug(currentStep);
+        if (window.location.hash === `#${slug}`) return;
+        window.location.hash = slug;
+    }, [currentStep]);
+
+    useEffect(() => {
+        const readHash = () => {
+            const slug = window.location.hash.replace(/^#/, "");
+            if (!slug) return;
+            const idx = slugToIndex(slug);
+            if (idx !== currentStep) setCurrentStep(idx);
+        };
+
+        readHash();
+
+        window.addEventListener("hashchange", readHash);
+        return () => window.removeEventListener("hashchange", readHash);
+    }, [currentStep]);
 
     const measurePlanets = useCallback(() => {
         const centers = planetRefs.current.map(el => {
@@ -65,7 +105,11 @@ const GeneralRegistration = () => {
     }, [measurePlanets]);
 
     const steps = [
-        { id: "personal_info", name: "Personal Information", color: "#3A2541" },
+        {
+            id: "personal_info",
+            name: "Personal Information",
+            color: "#3A2541"
+        },
         {
             id: "background_info",
             name: "Background Information",
@@ -99,6 +143,7 @@ const GeneralRegistration = () => {
             } else {
                 // Otherwise, just move to the next step
                 setCurrentStep(prev => prev + 1);
+                window.scrollTo(0, 0);
             }
         } catch (error) {
             console.log(
@@ -119,6 +164,7 @@ const GeneralRegistration = () => {
 
     const handleBack = () => {
         setCurrentStep(prev => prev - 1);
+        window.scrollTo(0, 0);
     };
 
     const handleSubmit = (values: RegistrationData) => {
@@ -260,9 +306,7 @@ const GeneralRegistration = () => {
                                             </Box>
                                         )
                                     }}
-                                >
-                                    {step.name}
-                                </StepLabel>
+                                />
                             </Step>
                         ))}
                     </Stepper>
@@ -278,84 +322,56 @@ const GeneralRegistration = () => {
                                     {renderStepContent(currentStep, formik)}
                                 </Box>
 
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        position: "static",
-                                        width: "90%",
-                                        height: "fit-content",
-                                        bottom: 0,
-                                        mt: 6,
-                                        mb: 8,
-                                        mx: "auto",
-                                        justifyContent: "space-between"
-                                    }}
+                                <Stack
+                                    direction={{ xs: "column", sm: "row" }}
+                                    justifyContent={
+                                        currentStep === 0
+                                            ? "flex-end"
+                                            : "space-between"
+                                    } // Personal info page has one arrow
+                                    alignItems="center"
+                                    gap={{ xs: "24px", md: "0px" }}
+                                    mt={10}
+                                    mb={2}
+                                    mr={4}
+                                    ml={4}
                                 >
-                                    <Button
-                                        onClick={handleBack}
-                                        disabled={currentStep === 0} // noninteractable
-                                        aria-hidden={currentStep === 0} // hidden (accesibility)
-                                        sx={{
-                                            visibility: `${currentStep === 0 ? "hidden" : "visible"}`, // hidden
-                                            color: "white",
-                                            fontSize: {
-                                                xs: "1rem",
-                                                md: "1.4rem"
-                                            },
-                                            border: `1px solid ${steps[currentStep].color}`,
-                                            backgroundColor:
-                                                steps[currentStep].color,
-                                            fontFamily: "Tsukimi Rounded",
-                                            "&:hover": {
-                                                borderColor: "white"
-                                            },
-                                            "&.Mui-disabled": {
-                                                borderColor:
-                                                    "rgba(255,255,255,0.3)",
-                                                color: "rgba(255,255,255,0.3)"
+                                    {/* Left arrow */}
+                                    {currentStep > 0 &&
+                                        currentStep < steps.length - 1 && (
+                                            <NavigationButton
+                                                text={steps[
+                                                    currentStep - 1
+                                                ].name.toUpperCase()}
+                                                color={steps[currentStep].color}
+                                                onClick={handleBack}
+                                                disabled={currentStep === 0}
+                                                type="button"
+                                            />
+                                        )}
+
+                                    {/* Right arrow */}
+                                    {currentStep < steps.length - 1 && (
+                                        <NavigationButton
+                                            text={
+                                                currentStep === steps.length - 2
+                                                    ? "SUBMIT"
+                                                    : steps[
+                                                          currentStep + 1
+                                                      ].name.toUpperCase()
                                             }
-                                        }}
-                                    >
-                                        {smallMode
-                                            ? "<"
-                                            : currentStep !== 0 &&
-                                              steps[currentStep - 1].name}
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        onClick={() =>
-                                            handleNext(
-                                                formik.values,
-                                                formik.setTouched
-                                            )
-                                        }
-                                        sx={{
-                                            color: "white",
-                                            fontSize: {
-                                                xs: "1rem",
-                                                md: "1.4rem"
-                                            },
-                                            border: `1px solid ${steps[currentStep].color}`,
-                                            backgroundColor:
-                                                steps[currentStep].color,
-                                            fontFamily: "Tsukimi Rounded",
-                                            "&:hover": {
-                                                borderColor: "white"
-                                            },
-                                            "&.Mui-disabled": {
-                                                borderColor:
-                                                    "rgba(255,255,255,0.3)",
-                                                color: "rgba(255,255,255,0.3)"
+                                            color={steps[currentStep].color}
+                                            pointRight={true}
+                                            onClick={() =>
+                                                handleNext(
+                                                    formik.values,
+                                                    formik.setTouched
+                                                )
                                             }
-                                        }}
-                                    >
-                                        {smallMode
-                                            ? ">"
-                                            : currentStep === steps.length - 1
-                                              ? "Submit"
-                                              : steps[currentStep + 1].name}
-                                    </Button>
-                                </Box>
+                                            type="button"
+                                        />
+                                    )}
+                                </Stack>
                             </Form>
                         )}
                     </Formik>

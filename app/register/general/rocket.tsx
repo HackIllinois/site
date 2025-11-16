@@ -25,7 +25,7 @@ const RocketOverlay: React.FC<RocketOverlayProps> = ({
 
             const planet = Math.min(Math.max(w * 0.1, 40), 100);
 
-            const orbit = Math.min(Math.max(planet * 1.2, 62), 110); // 62-110 px
+            const orbit = Math.min(Math.max(planet, 52), 110); // 52-110 px
             const rocket = Math.min(Math.max(planet * 0.4, 5), 30); // 5-30 px
 
             setOrbitSize(orbit);
@@ -36,6 +36,8 @@ const RocketOverlay: React.FC<RocketOverlayProps> = ({
         window.addEventListener("resize", compute);
         return () => window.removeEventListener("resize", compute);
     }, []);
+
+    const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
     useEffect(() => {
         stepRef.current = activeStep;
@@ -49,12 +51,28 @@ const RocketOverlay: React.FC<RocketOverlayProps> = ({
             await move.start({
                 x: target.x,
                 y: target.y,
-                transition: { duration: 0.75, ease: "easeInOut" }
+                transition: { duration: 1, ease: "easeInOut" }
             });
         };
 
         fly();
-    }, [activeStep, planetCenters, move]);
+    }, [planetCenters, move]);
+
+    useEffect(() => {
+        const target = planetCenters[activeStep];
+        if (!target) return;
+
+        const fly = async () => {
+            await sleep(200);
+            await move.start({
+                x: target.x,
+                y: target.y,
+                transition: { duration: 1, ease: "easeInOut" }
+            });
+        };
+
+        fly();
+    }, [activeStep]);
 
     useEffect(() => {
         const current = stepRef.current;
