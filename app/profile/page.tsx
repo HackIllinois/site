@@ -1,21 +1,13 @@
 "use client";
-import {
-    authenticate,
-    getChallenge,
-    getRegistrationOrDefault,
-    getRSVP,
-    isAuthenticated
-} from "@/util/api";
-import styles from "./styles.module.scss";
+import Loading from "@/components/Loading/Loading";
 import APPLICATION_STATUS_BACKGROUND from "@/public/registration/backgrounds/application_status_background.svg";
 import APPLICATION_STATUS_BOARD from "@/public/registration/backgrounds/application_status_board.svg";
-import React, { useEffect, useState } from "react";
+import { RegistrationData, RSVPType } from "@/util/types";
 import clsx from "clsx";
 import Head from "next/head";
-import { RegistrationData, RSVPType } from "@/util/types";
-import { registrationFromAPI } from "@/util/helpers";
-import Loading from "@/components/Loading/Loading";
 import { usePathname, useRouter } from "next/navigation";
+import React, { useState } from "react";
+import styles from "./styles.module.scss";
 
 type ValueItemProps = {
     label: string;
@@ -44,26 +36,6 @@ const Profile: React.FC = () => {
     const [RSVP, setRSVP] = useState<RSVPType | null>(null);
     const [isProApplicant, setIsProApplicant] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-        // if (!isAuthenticated()) {
-        //     authenticate(pathname);
-        //     return;
-        // }
-        // getRegistrationOrDefault().then(registration => {
-        //     if (!registration.hasSubmitted) {
-        //         router.push("/register");
-        //     }
-        //     setRegistration(registrationFromAPI(registration));
-        //     Promise.all([getChallenge(), getRSVP()]).then(
-        //         ([challenge, RSVP]) => {
-        //             setIsProApplicant(challenge.complete);
-        //             setRSVP(RSVP);
-        //             setIsLoading(false);
-        //         }
-        //     );
-        // });
-    }, []);
 
     return (
         <>

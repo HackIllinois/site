@@ -3,23 +3,17 @@ import { Source_Code_Pro } from "next/font/google";
 
 const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
 
-import styles from "./styles.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import styles from "./styles.module.scss";
 
-import FOREGROUND from "@/public/registration/pro/foreground.svg";
 import EXAMPLE_CHALLENGE_GRAPHIC from "@/public/registration/example_challenge_graphic.svg";
+import FOREGROUND from "@/public/registration/pro/foreground.svg";
 
 import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
-import {
-    isAuthenticated,
-    authenticate,
-    getRegistrationOrDefault,
-    getChallenge
-} from "@/util/api";
-import { usePathname, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
 import Loading from "@/components/Loading/Loading";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const jwtUrl = `https://adonix.hackillinois.org/auth/login/github/?device=challenge`;
 const challengeEndpoint =

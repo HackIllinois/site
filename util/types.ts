@@ -3,6 +3,58 @@ export type WithId<Type> = Type & { id: string };
 export type MethodType = "GET" | "POST" | "PUT" | "DELETE";
 export type FileType = "resume" | "photo" | "blobstore";
 
+export type RegistrationApplicationSubmitted = {
+    userId: string;
+    firstName: string;
+    lastName: string;
+    preferredName?: string;
+    age: string;
+    email: string;
+    gender: string;
+    race: string[];
+    country: string;
+    state?: string;
+    school: string;
+    education: string;
+    graduate: string;
+    major: string;
+    underrepresented: string;
+    hackathonsParticipated: string;
+    application1: string;
+    application2: string;
+    applicationOptional?: string;
+    applicationPro?: string;
+    attribution: string;
+    eventInterest: string;
+    requestTravelReimbursement: boolean;
+};
+
+export type RegistrationApplicationDraftBody = {
+    firstName?: string;
+    lastName?: string;
+    preferredName?: string;
+    age?: string;
+    email?: string;
+    gender?: string;
+    race?: string[];
+    country?: string;
+    state?: string;
+    school?: string;
+    education?: string;
+    graduate?: string;
+    major?: string;
+    underrepresented?: string;
+    hackathonsParticipated?: string;
+    application1?: string;
+    application2?: string;
+    applicationOptional?: string;
+    applicationPro?: string;
+    attribution?: string;
+    eventInterest?: string;
+    requestTravelReimbursement?: boolean;
+};
+
+/** Deprecated. Use RegistrationApplicationDraft and RegistrationApplicationSubmitted instead. */
 export type RegistrationData = {
     legalName: string;
     preferredName: string;
@@ -38,6 +90,7 @@ export type RegistrationResponseFieldInfo = {
     shownResponse?: string;
 };
 
+/** TODO:  */
 export type RegistrationType = {
     // 0. Personal Information
     firstName: string;
