@@ -231,7 +231,9 @@ const GeneralRegistration = () => {
                     elevation={0}
                     sx={{
                         backgroundColor: "rgba(255, 255, 255,0)",
-                        height: "100%"
+                        height: "100%",
+                        mx: "auto",
+                        maxWidth: "1200px"
                     }}
                 >
                     <RocketOverlay
@@ -242,8 +244,7 @@ const GeneralRegistration = () => {
                         alternativeLabel
                         activeStep={currentStep}
                         sx={{
-                            pt: { xs: 20, lg: 22 },
-                            px: { xs: 1, md: 10 },
+                            pt: { xs: 20, lg: 24 },
                             width: "100%",
                             "& .MuiStepLabel-root": {
                                 zIndex: 1,
