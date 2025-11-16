@@ -9,7 +9,9 @@ import {
     Step,
     StepLabel,
     Stepper,
-    useMediaQuery
+    Typography,
+    useMediaQuery,
+    Button
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import Image from "next/image";
@@ -31,6 +33,14 @@ import Review from "./formPages/Review";
 import { RegistrationApplicationDraftBody } from "@/util/types";
 import { useParams } from "next/navigation";
 import RocketOverlay from "./rocket";
+import {
+    authenticate,
+    isAuthenticated,
+    loadDraft,
+    loadSubmission,
+    saveDraft,
+    submitDraft
+} from "@/util/api";
 
 const page_slugs = [
     "personal-information",
@@ -212,6 +222,85 @@ const GeneralRegistration = () => {
         }
     };
 
+    const handleAuthenticateUser = async () => {
+        if (!(await isAuthenticated())) {
+            // TODO: Remove this loop
+            const shouldReauth = window.confirm(
+                "Not authenticated. Re-authenticate? || This prompt will be removed in production -- it is to prevent infinite loops during testing."
+            );
+            if (shouldReauth) {
+                await authenticate();
+            }
+        }
+    };
+
+    useEffect(() => {
+        handleAuthenticateUser();
+    }, []);
+
+    // TODO: Remove these registration API testing functions.
+    const handleTestSaveIncompleteDraft = async () => {
+        const response = await saveDraft({
+            firstName: "Ronakin",
+            lastName: "Kanandini",
+            preferredName: "Ron",
+            age: "24",
+            email: "ronakin@example.com"
+        });
+        console.log("Saved incomplete draft response:");
+        console.log(response);
+    };
+
+    const handleTestSaveCompleteDraft = async () => {
+        const response = await saveDraft({
+            firstName: "Ronakin",
+            lastName: "Kanandini",
+            age: "21",
+            email: "rpak@gmail.org",
+            gender: "Prefer Not to Answer",
+            race: ["Prefer Not to Answer"],
+            country: "United States",
+            state: "Illinois",
+            school: "University of Illinois Urbana-Champaign",
+            education: "Undergraduate University (3+ year)",
+            graduate: "Spring 2026",
+            major: "Computer science, computer engineering, or software engineering",
+            underrepresented: "No",
+            hackathonsParticipated: "2-3",
+            application1:
+                "I am passionate about hackathons and building innovative solutions that can make a real difference in the world. I have attended multiple hackathons and love collaborating with like-minded individuals.",
+            application2:
+                "Technology has always fascinated me, and I believe hackathons are the best way to learn new skills while creating meaningful projects. I am excited to contribute to the HackIllinois community.",
+            applicationOptional:
+                "I am particularly interested in AI and machine learning applications.",
+            applicationPro:
+                "My professional experience includes internships at top tech companies where I worked on full-stack development and learned valuable skills in system design and architecture.",
+            attribution: "Friend",
+            eventInterest: "Networking",
+            requestTravelReimbursement: true
+        });
+        console.log("Saved complete draft response:");
+        console.log(response);
+    };
+
+    const handleTestLoadDraft = async () => {
+        const draftData = await loadDraft();
+        console.log("Loaded draft data:");
+        console.log(draftData);
+    };
+
+    const handleTestSubmitDraft = async () => {
+        const response = await submitDraft();
+        console.log("Submit draft response:");
+        console.log(response);
+    };
+
+    const handleTestLoadSubmission = async () => {
+        const response = await loadSubmission();
+        console.log("Load submission response:");
+        console.log(response);
+    };
+
     return (
         <main className={"screen"}>
             <Box
@@ -378,6 +467,42 @@ const GeneralRegistration = () => {
                         )}
                     </Formik>
                 </Paper>
+                {/* REMOVE THESE BUTTONS, FOR TESTING PURPOSES ONLY */}
+                <Box
+                    sx={{
+                        display: "flex",
+                        gap: 2,
+                        justifyContent: "center",
+                        p: 2,
+                        flexWrap: "wrap",
+                        mt: 5
+                    }}
+                >
+                    <Button
+                        variant="outlined"
+                        onClick={handleTestSaveIncompleteDraft}
+                    >
+                        Test Save Incomplete Draft
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        onClick={handleTestSaveCompleteDraft}
+                    >
+                        Test Save Complete Draft
+                    </Button>
+                    <Button variant="outlined" onClick={handleTestLoadDraft}>
+                        Test Load Draft
+                    </Button>
+                    <Button variant="outlined" onClick={handleTestSubmitDraft}>
+                        Test Submit Draft
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        onClick={handleTestLoadSubmission}
+                    >
+                        Test Load Submission
+                    </Button>
+                </Box>
             </Box>
         </main>
     );

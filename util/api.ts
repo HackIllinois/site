@@ -1,13 +1,12 @@
-import {
-    MethodType,
-    RegistrationType,
-    WithId,
-    RSVPType,
-    ChallengeStatus,
-    FileType
-} from "./types";
-import { APIError } from "./error";
 import { handleError } from "./helpers";
+import {
+    ChallengeStatus,
+    FileType,
+    MethodType,
+    RegistrationApplicationDraftBody,
+    RegistrationType,
+    WithId
+} from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
 
@@ -17,7 +16,12 @@ export const isAuthenticated = async (): Promise<boolean> => {
 
 export async function getAuthToken(): Promise<string | null> {
     const response = await fetch(APIv2 + "/auth/token", {
-        credentials: "include"
+        mode: "cors",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+            Origin: "www.hackillinois.org"
+        }
     });
     if (response.ok) {
         const data = await response.json();
@@ -29,7 +33,6 @@ export async function getAuthToken(): Promise<string | null> {
 }
 
 export function authenticate(): void {
-    // localStorage.setItem("to", to);
     const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/register/general`;
     window.location.replace(authUrl);
 }
@@ -48,8 +51,7 @@ export async function requestv2(
         credentials: "include",
         headers: {
             "Content-Type": "application/json",
-            Origin: "www.hackillinois.org",
-            Authorization: localStorage.getItem("token") || ""
+            Origin: "www.hackillinois.org"
         },
         body: JSON.stringify(body)
     });
@@ -139,4 +141,28 @@ export async function uploadFile(file: File, type: FileType): Promise<unknown> {
         });
     }
     return res;
+}
+
+// Save data to draft
+export async function saveDraft(data: RegistrationApplicationDraftBody) {
+    return await requestv2("PUT", "/registration/draft", data);
+}
+
+// Load draft data
+export async function loadDraft() {
+    return (await requestv2(
+        "GET",
+        "/registration/draft"
+    )) as RegistrationApplicationDraftBody & {
+        userId: string;
+    };
+}
+
+// Submit draft
+export async function submitDraft() {
+    return await requestv2("POST", "/registration/submit");
+}
+
+export async function loadSubmission() {
+    return await requestv2("GET", "/registration");
 }
