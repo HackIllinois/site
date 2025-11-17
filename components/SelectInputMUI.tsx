@@ -1,13 +1,12 @@
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import CheckIcon from "@mui/icons-material/Check";
-import Typography from "@mui/material/Typography";
-import FormHelperText from "@mui/material/FormHelperText";
+import CancelIcon from "@mui/icons-material/Cancel";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
-import CancelIcon from "@mui/icons-material/Cancel";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormLabel from "@mui/material/FormLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Typography from "@mui/material/Typography";
 
 interface Option {
     label: string;
@@ -22,7 +21,7 @@ interface SelectInputProps {
     placeholder?: string;
     options: Option[];
     // formik controls
-    value: string | string[];
+    value?: string | string[];
     /** Called with the normalized value:
      *  - single: string
      *  - multiple: string[]

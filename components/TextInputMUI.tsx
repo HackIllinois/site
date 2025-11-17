@@ -13,7 +13,7 @@ interface TextInputProps {
     required?: boolean;
     placeholder?: string;
     // formik controls
-    value: string;
+    value?: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     error: boolean;
     helperText?: string;

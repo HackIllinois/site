@@ -1,11 +1,9 @@
 // import { RegistrationData } from "@/util/types";
 import {
-    Checkbox,
     FormControlLabel,
-    FormGroup,
     FormHelperText,
-    RadioGroup,
-    Radio
+    Radio,
+    RadioGroup
 } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
@@ -13,7 +11,7 @@ import Typography from "@mui/material/Typography";
 
 interface Option {
     label: string;
-    value: string;
+    value: string | boolean;
 }
 
 interface RadioSelectGroupInputProps {
@@ -21,12 +19,12 @@ interface RadioSelectGroupInputProps {
     label: string;
     options: Option[];
     required?: boolean;
-    // formik controls
-    value: string;
-    onChange: (value: string) => void;
+    // Typically used by formik.
+    value?: string | boolean;
+    onChange: (value: string | boolean) => void;
     error: boolean;
     helperText?: string;
-    // extra props
+    // Extra props
     accentColor?: string;
     [key: string]: unknown;
     row?: boolean;
@@ -84,7 +82,7 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
             >
                 {options.map(opt => (
                     <FormControlLabel
-                        key={opt.value}
+                        key={String(opt.value)}
                         sx={{
                             width: "fit-content",
                             height: "fit-content",

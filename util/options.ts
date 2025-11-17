@@ -62,15 +62,10 @@ for (let i = 2027; i <= 2030; i += 1) {
 graduationYearOptions.push("After Spring 2030");
 
 export const majorOptions: string[] = majors;
-// .concat(
-//     "Undecided/Undeclared",
-//     "My school does not offer majors or primary areas of study",
-//     "Prefer not to answer"
-// );
 
 export const underrepresentedOptions: string[] = ["Yes", "No", "Unsure"];
 
-export const hackOutreachOptions: string[] = [
+export const attributionOptions: string[] = [
     "HackIllinois Newsletter",
     "Instagram",
     "Facebook",
@@ -82,7 +77,7 @@ export const hackOutreachOptions: string[] = [
     "Other"
 ];
 
-export const hackInterestOptions: string[] = [
+export const eventInterestOptions: string[] = [
     "Attending technical workshops",
     "Winning Prizes",
     "Mini Events & Game Tournaments",
