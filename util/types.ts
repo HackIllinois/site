@@ -23,11 +23,9 @@ export type RegistrationApplicationSubmitted = {
     application1: string;
     application2: string;
     applicationOptional?: string;
-    considerForPro: boolean;
     applicationPro?: string;
     attribution: string[];
     eventInterest: string[];
-    requestTravelReimbursement: boolean;
 };
 
 export type RegistrationApplicationDraftBody = {
