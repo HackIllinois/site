@@ -3,6 +3,79 @@ export type WithId<Type> = Type & { id: string };
 export type MethodType = "GET" | "POST" | "PUT" | "DELETE";
 export type FileType = "resume" | "photo" | "blobstore";
 
+export type RegistrationApplicationSubmitted = {
+    userId: string;
+    firstName: string;
+    lastName: string;
+    preferredName?: string;
+    age: string;
+    email: string;
+    gender: string;
+    race: string[];
+    country: string;
+    state?: string;
+    school: string;
+    education: string;
+    graduate: string;
+    major: string;
+    underrepresented: string;
+    hackathonsParticipated: string;
+    application1: string;
+    application2: string;
+    applicationOptional?: string;
+    considerForPro: boolean;
+    applicationPro?: string;
+    attribution: string[];
+    eventInterest: string[];
+    requestTravelReimbursement: boolean;
+};
+
+export type RegistrationApplicationDraftBody = {
+    firstName?: string;
+    lastName?: string;
+    preferredName?: string;
+    age?: string;
+    email?: string;
+    gender?: string;
+    race?: string[];
+    country?: string;
+    state?: string;
+    school?: string;
+    education?: string;
+    graduate?: string;
+    major?: string;
+    underrepresented?: string;
+    hackathonsParticipated?: string;
+    application1?: string;
+    application2?: string;
+    applicationOptional?: string;
+    applicationPro?: string;
+    attribution?: string[];
+    eventInterest?: string[];
+};
+
+/** Includes fields available only on the frontend. */
+export type RegistrationApplicationDraftBodyForm =
+    RegistrationApplicationDraftBody & {
+        travelAcknowledge?: boolean;
+        considerForPro?: boolean;
+        requestTravelReimbursement?: boolean;
+        codeOfConductAcknowledge?: boolean;
+        reviewedAcknowledge?: boolean;
+    };
+
+export type RegistrationResponseFieldInfo = {
+    key: keyof RegistrationApplicationDraftBody;
+    text: string;
+    options?: string[] | { value: string; label: string }[];
+    proOnly?: boolean;
+    customEmptyMessage?: string;
+    shownResponse?: string;
+};
+
+/**
+ * RegistrationData is deprecated. Use RegistrationApplicationDraftBody instead.
+ */
 export type RegistrationData = {
     legalName: string;
     preferredName: string;
@@ -29,15 +102,9 @@ export type RegistrationData = {
     reviewedInformationAcknowledge: string[];
 };
 
-export type RegistrationResponseFieldInfo = {
-    key: keyof RegistrationData;
-    text: string;
-    options?: string[] | { value: string; label: string }[];
-    proOnly?: boolean;
-    customEmptyMessage?: string;
-    shownResponse?: string;
-};
-
+/**
+ * RegistrationType is deprecated. Use RegistrationApplicationDraftBody instead.
+ */
 export type RegistrationType = {
     // 0. Personal Information
     firstName: string;
@@ -52,7 +119,7 @@ export type RegistrationType = {
     state: string;
     school: string;
     studyLevel: string;
-    gradYear: string;
+    gradYear: number;
     major: string;
     underrepresented: string;
     // 2. Application Questions
@@ -64,7 +131,7 @@ export type RegistrationType = {
     // 3. Attending HackIllinois
     hackOutreach: string[];
     hackInterest: string[];
-    requestedTravelReimbursement: string;
+    requestedTravelReimbursement: boolean;
     travelAcknowledge: boolean;
     // 4. Review (final acknowledgements)
     reviewedAcknowledge: boolean;
@@ -81,8 +148,6 @@ export type RSVPType = {
     response: DecisionResponse;
     admittedPro: boolean;
     reimbursementValue: number;
-    // reviewer: string;
-    // emailSent: false;
 };
 
 export type UserType = {
