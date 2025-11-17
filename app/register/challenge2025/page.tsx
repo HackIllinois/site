@@ -349,12 +349,14 @@ const ProChallenge: React.FC = () => {
                         text="Back"
                         pointRight={false}
                         href="/register"
+                        color="white"
                     />
 
                     <NavigationButton
                         text="Next"
                         pointRight={true}
                         href="/register/challenge/status"
+                        color="white"
                     />
                 </div>
             </div>

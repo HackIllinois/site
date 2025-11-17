@@ -1,7 +1,6 @@
 "use client";
 import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 import theme from "@/theme";
-import { RegistrationData } from "@/util/types";
 import { initialValues, validationSchemas } from "@/util/validation";
 import {
     Box,
@@ -10,7 +9,6 @@ import {
     Step,
     StepLabel,
     Stepper,
-    Typography,
     useMediaQuery,
     Button
 } from "@mui/material";
@@ -18,10 +16,10 @@ import { Form, Formik } from "formik";
 import Image from "next/image";
 import {
     useCallback,
+    useEffect,
     useLayoutEffect,
     useRef,
-    useState,
-    useEffect
+    useState
 } from "react";
 import * as Yup from "yup";
 import AppQuestions from "./formPages/AppQuestions";
@@ -31,6 +29,7 @@ import Confirmation from "./formPages/Confirmation";
 import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
 
+import { RegistrationApplicationDraftBody } from "@/util/types";
 import { useParams } from "next/navigation";
 import RocketOverlay from "./rocket";
 import {
@@ -138,7 +137,10 @@ const GeneralRegistration = () => {
         { id: "confirmation", name: "Confirmation", color: "#480021" }
     ];
 
-    const handleNext = async (values: RegistrationData, setTouched: any) => {
+    const handleNext = async (
+        values: RegistrationApplicationDraftBody,
+        setTouched: any
+    ) => {
         const currentSchema = validationSchemas[currentStep];
 
         try {
@@ -176,7 +178,7 @@ const GeneralRegistration = () => {
         window.scrollTo(0, 0);
     };
 
-    const handleSubmit = (values: RegistrationData) => {
+    const handleSubmit = (values: RegistrationApplicationDraftBody) => {
         alert("Form submitted successfully! Check console for data.");
     };
 

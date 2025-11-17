@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { RegistrationType } from "@/util/types";
+import CheckboxSelect from "@/components/CheckboxSelectMUI";
+import { RegistrationApplicationDraftBodyForm } from "@/util/types";
+import LaunchIcon from "@mui/icons-material/Launch";
 import {
     AccordionDetails,
     Box,
@@ -8,22 +9,20 @@ import {
     ThemeProvider,
     Typography
 } from "@mui/material";
-import LaunchIcon from "@mui/icons-material/Launch";
-import CheckboxSelect from "@/components/CheckboxSelectMUI";
 import { FormikProps } from "formik";
+import React, { useEffect, useState } from "react";
 import {
+    AccordionHeader,
     ReviewContainer,
+    ReviewInfoAccordionBox,
     StyledAccordion,
     StyledAccordionDetails,
-    AccordionHeader,
-    ReviewInfoAccordionBox,
     UserInfoBox
 } from "../components/Review";
 import { registrationTheme } from "../theme";
-import { useEffect } from "react";
 
 interface ReviewProps {
-    formik: FormikProps<RegistrationType>;
+    formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     onEditStep: (step: number) => void;
 }
 
@@ -71,11 +70,11 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             <ReviewInfoAccordionBox>
                                 <UserInfoBox
                                     label="First Name"
-                                    userResponse={values.firstName}
+                                    userResponse={values.firstName || ""}
                                 />
                                 <UserInfoBox
                                     label="Last Name"
-                                    userResponse={values.lastName}
+                                    userResponse={values.lastName || ""}
                                 />
                                 <UserInfoBox
                                     label="Preferred Name"
@@ -83,11 +82,11 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 />
                                 <UserInfoBox
                                     label="Age"
-                                    userResponse={values.age}
+                                    userResponse={values.age || ""}
                                 />
                                 <UserInfoBox
                                     label="Email"
-                                    userResponse={values.emailAddress || "N/A"}
+                                    userResponse={values.email || "N/A"}
                                 />
                             </ReviewInfoAccordionBox>
                         </StyledAccordionDetails>
@@ -108,7 +107,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             <ReviewInfoAccordionBox>
                                 <UserInfoBox
                                     label="Level of Study"
-                                    userResponse={values.studyLevel || "N/A"}
+                                    userResponse={values.education || "N/A"}
                                 />
                                 <UserInfoBox
                                     label="School"
@@ -116,9 +115,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 />
                                 <UserInfoBox
                                     label="Graduation Year"
-                                    userResponse={
-                                        values.gradYear.toString() || "N/A"
-                                    }
+                                    userResponse={values.graduate || "N/A"}
                                 />
                                 <UserInfoBox
                                     label="Major/Field of Study"
@@ -126,18 +123,18 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 />
                                 <UserInfoBox
                                     label="Country of Residence"
-                                    userResponse={values.country}
+                                    userResponse={values.country || "N/A"}
                                 />
                                 {values.country === "United States" && (
                                     <UserInfoBox
                                         label="State/Territory"
-                                        userResponse={values.state}
+                                        userResponse={values.state || "N/A"}
                                     />
                                 )}
                                 <UserInfoBox
                                     label="Race/Ethnicity"
                                     userResponse={
-                                        values.race.join(", ") || "N/A"
+                                        values?.race?.join(", ") || "N/A"
                                     }
                                 />
                                 <UserInfoBox
@@ -169,15 +166,17 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             <ReviewInfoAccordionBox>
                                 <UserInfoBox
                                     label="What opportunity, event, or feature of HackIllinois 2026 are you most excited to take part in, and why?"
-                                    userResponse={values.hackEssay1 || "N/A"}
+                                    userResponse={values.application1 || "N/A"}
                                 />
                                 <UserInfoBox
                                     label="Describe a challenge you have faced in the field of CS, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
-                                    userResponse={values.hackEssay2 || "N/A"}
+                                    userResponse={values.application2 || "N/A"}
                                 />
                                 <UserInfoBox
                                     label="Optional: If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
-                                    userResponse={values.optionalEssay || "N/A"}
+                                    userResponse={
+                                        values.applicationOptional || "N/A"
+                                    }
                                 />
                                 <UserInfoBox
                                     label="Would you like to be considered for (pro track)?"
@@ -192,7 +191,9 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 {values.considerForPro && (
                                     <UserInfoBox
                                         label="TODO: PRO ESSAY PROMPT"
-                                        userResponse={values.proEssay}
+                                        userResponse={
+                                            values.applicationPro || "N/A"
+                                        }
                                     />
                                 )}
                             </ReviewInfoAccordionBox>
@@ -215,22 +216,23 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 <UserInfoBox
                                     label="How did you hear about HackIllinois?"
                                     userResponse={
-                                        values.hackOutreach.join(", ") || "N/A"
+                                        values.attribution?.join(", ") || "N/A"
                                     }
                                 />
                                 <UserInfoBox
                                     label="Which of these are you most interested in participating in during the hackathon?"
                                     userResponse={
-                                        values.hackInterest.join(", ") || "N/A"
+                                        values.eventInterest?.join(", ") ||
+                                        "N/A"
                                     }
                                 />
                                 <UserInfoBox
                                     label="Would you like to be considered for travel reimbursement?"
                                     userResponse={
-                                        values.requestedTravelReimbursement ===
+                                        values.requestTravelReimbursement ===
                                         undefined
                                             ? "N/A"
-                                            : values.requestedTravelReimbursement
+                                            : values.requestTravelReimbursement
                                               ? "Yes"
                                               : "No"
                                     }

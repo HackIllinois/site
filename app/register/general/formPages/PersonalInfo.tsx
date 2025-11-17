@@ -1,15 +1,13 @@
-import StyledTextField from "@/components/StyledTextfield/StyledTextfield";
-import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
-import { RegistrationData } from "@/util/types";
-import { Box, Container, Grid, Typography } from "@mui/material";
-import { FormikProps } from "formik";
-import TextInput from "@/components/TextInputMUI";
 import SelectInput from "@/components/SelectInputMUI";
+import TextInput from "@/components/TextInputMUI";
 import { ageOptions } from "@/util/options";
+import { RegistrationApplicationDraftBodyForm } from "@/util/types";
+import { Container, Grid, Typography } from "@mui/material";
+import { FormikProps } from "formik";
 import { useEffect } from "react";
 
 interface PersonalInfoProps {
-    formik: FormikProps<RegistrationData>;
+    formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     accentColor?: string;
 }
 
@@ -101,20 +99,15 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
 
                 <Grid size={{ xs: 12, sm: 12, md: 6 }}>
                     <TextInput
-                        name="emailAddress"
+                        name="email"
                         label="Email Address"
                         accentColor={accentColor}
                         required
                         type="email"
-                        value={values.emailAddress}
+                        value={values.email}
                         onChange={handleChange}
-                        error={
-                            !!touched.emailAddress &&
-                            Boolean(errors.emailAddress)
-                        }
-                        helperText={
-                            !!touched.emailAddress ? errors.emailAddress : ""
-                        }
+                        error={!!touched.email && Boolean(errors.email)}
+                        helperText={!!touched.email ? errors.email : ""}
                     />
                 </Grid>
             </Grid>

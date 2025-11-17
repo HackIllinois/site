@@ -24,9 +24,8 @@ export type RegistrationApplicationSubmitted = {
     application2: string;
     applicationOptional?: string;
     applicationPro?: string;
-    attribution: string;
-    eventInterest: string;
-    requestTravelReimbursement: boolean;
+    attribution: string[];
+    eventInterest: string[];
 };
 
 export type RegistrationApplicationDraftBody = {
@@ -49,12 +48,32 @@ export type RegistrationApplicationDraftBody = {
     application2?: string;
     applicationOptional?: string;
     applicationPro?: string;
-    attribution?: string;
-    eventInterest?: string;
-    requestTravelReimbursement?: boolean;
+    attribution?: string[];
+    eventInterest?: string[];
 };
 
-/** Deprecated. Use RegistrationApplicationDraft and RegistrationApplicationSubmitted instead. */
+/** Includes fields available only on the frontend. */
+export type RegistrationApplicationDraftBodyForm =
+    RegistrationApplicationDraftBody & {
+        travelAcknowledge?: boolean;
+        considerForPro?: boolean;
+        requestTravelReimbursement?: boolean;
+        codeOfConductAcknowledge?: boolean;
+        reviewedAcknowledge?: boolean;
+    };
+
+export type RegistrationResponseFieldInfo = {
+    key: keyof RegistrationApplicationDraftBody;
+    text: string;
+    options?: string[] | { value: string; label: string }[];
+    proOnly?: boolean;
+    customEmptyMessage?: string;
+    shownResponse?: string;
+};
+
+/**
+ * RegistrationData is deprecated. Use RegistrationApplicationDraftBody instead.
+ */
 export type RegistrationData = {
     legalName: string;
     preferredName: string;
@@ -81,16 +100,9 @@ export type RegistrationData = {
     reviewedInformationAcknowledge: string[];
 };
 
-export type RegistrationResponseFieldInfo = {
-    key: keyof RegistrationData;
-    text: string;
-    options?: string[] | { value: string; label: string }[];
-    proOnly?: boolean;
-    customEmptyMessage?: string;
-    shownResponse?: string;
-};
-
-/** TODO:  */
+/**
+ * RegistrationType is deprecated. Use RegistrationApplicationDraftBody instead.
+ */
 export type RegistrationType = {
     // 0. Personal Information
     firstName: string;
@@ -105,7 +117,7 @@ export type RegistrationType = {
     state: string;
     school: string;
     studyLevel: string;
-    gradYear: string;
+    gradYear: number;
     major: string;
     underrepresented: string;
     // 2. Application Questions
@@ -117,7 +129,7 @@ export type RegistrationType = {
     // 3. Attending HackIllinois
     hackOutreach: string[];
     hackInterest: string[];
-    requestedTravelReimbursement: string;
+    requestedTravelReimbursement: boolean;
     travelAcknowledge: boolean;
     // 4. Review (final acknowledgements)
     reviewedAcknowledge: boolean;
@@ -134,8 +146,6 @@ export type RSVPType = {
     response: DecisionResponse;
     admittedPro: boolean;
     reimbursementValue: number;
-    // reviewer: string;
-    // emailSent: false;
 };
 
 export type UserType = {

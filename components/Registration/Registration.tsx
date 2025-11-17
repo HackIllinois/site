@@ -171,11 +171,13 @@ const Registration: React.FC<PropTypes> = ({
                                             previous();
                                         }}
                                         type="button"
+                                        color="white"
                                     />
                                     <NavigationButton
                                         text={buttonNames[pathname][1]}
                                         pointRight
                                         type="submit"
+                                        color="white"
                                     />
                                 </div>
                             </Form>

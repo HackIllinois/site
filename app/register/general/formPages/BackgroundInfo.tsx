@@ -1,8 +1,5 @@
-import { RegistrationData } from "@/util/types";
-import { Box, Container, Grid, Typography } from "@mui/material";
-import { FormikProps } from "formik";
+import RadioSelectGroup from "@/components/RadioSelectGroupMUI";
 import SelectInput from "@/components/SelectInputMUI";
-import TextInput from "@/components/TextInputMUI";
 import {
     countryOptions,
     genderOptions,
@@ -14,11 +11,13 @@ import {
     studyLevelOptions,
     underrepresentedOptions
 } from "@/util/options";
-import RadioSelectGroup from "@/components/RadioSelectGroupMUI";
+import { RegistrationApplicationDraftBodyForm } from "@/util/types";
+import { Container, Grid, Typography } from "@mui/material";
+import { FormikProps } from "formik";
 import { useEffect } from "react";
 
 interface EducationProps {
-    formik: FormikProps<RegistrationData>;
+    formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     accentColor?: string;
 }
 
@@ -54,21 +53,17 @@ const Education = ({ formik, accentColor }: EducationProps) => {
             <Grid container columnSpacing={2} rowSpacing={6}>
                 <Grid size={{ xs: 12, sm: 12, md: 4 }}>
                     <SelectInput
-                        name="studyLevel"
+                        name="education"
                         label="Level of Study"
                         required
                         options={studyLevelOptions.map(option => ({
                             label: option,
                             value: option
                         }))}
-                        value={values.studyLevel}
-                        onChange={value => setFieldValue("studyLevel", value)}
-                        error={
-                            !!touched.studyLevel && Boolean(errors.studyLevel)
-                        }
-                        helperText={
-                            !!touched.studyLevel ? errors.studyLevel : ""
-                        }
+                        value={values.education}
+                        onChange={value => setFieldValue("education", value)}
+                        error={!!touched.education && Boolean(errors.education)}
+                        helperText={!!touched.education ? errors.education : ""}
                     />{" "}
                 </Grid>
                 <Grid size={{ xs: 12, sm: 8, md: 5 }}>
@@ -89,7 +84,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                 </Grid>
                 <Grid size={{ xs: 12, sm: 4, md: 3 }}>
                     <SelectInput
-                        name="gradYear"
+                        name="graduate"
                         label="Graduation Year"
                         accentColor={accentColor}
                         required
@@ -97,10 +92,10 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                             label: option,
                             value: option
                         }))}
-                        value={values.gradYear}
-                        onChange={value => setFieldValue("gradYear", value)}
-                        error={!!touched.gradYear && Boolean(errors.gradYear)}
-                        helperText={!!touched.gradYear ? errors.gradYear : ""}
+                        value={values.graduate}
+                        onChange={value => setFieldValue("graduate", value)}
+                        error={!!touched.graduate && Boolean(errors.graduate)}
+                        helperText={!!touched.graduate ? errors.graduate : ""}
                     />
                 </Grid>
 

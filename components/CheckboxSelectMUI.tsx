@@ -12,7 +12,7 @@ interface CheckboxSelectInputProps {
     optionLabelSx?: object;
     required?: boolean;
     // formik controls
-    value: boolean;
+    value?: boolean;
     onChange: (value: boolean) => void;
     error: boolean;
     helperText?: string;
