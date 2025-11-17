@@ -1,6 +1,7 @@
 "use client";
 import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 import theme from "@/theme";
+import { RegistrationData } from "@/util/types";
 import { initialValues, validationSchemas } from "@/util/validation";
 import {
     Box,
@@ -9,16 +10,17 @@ import {
     Step,
     StepLabel,
     Stepper,
+    Typography,
     useMediaQuery
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import {
     useCallback,
-    useEffect,
     useLayoutEffect,
     useRef,
-    useState
+    useState,
+    useEffect
 } from "react";
 import * as Yup from "yup";
 import AppQuestions from "./formPages/AppQuestions";
@@ -28,7 +30,6 @@ import Confirmation from "./formPages/Confirmation";
 import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
 
-import { RegistrationApplicationDraftBody } from "@/util/types";
 import { useParams } from "next/navigation";
 import RocketOverlay from "./rocket";
 
@@ -50,6 +51,7 @@ const indexToSlug = (i: number) =>
 
 const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
+    const [initialized, setInitialized] = useState(false);
     const [planetCenters, setPlanetCenters] = useState<
         { x: number; y: number }[]
     >([]);
@@ -59,10 +61,19 @@ const GeneralRegistration = () => {
     const params = useParams();
 
     useEffect(() => {
+        const slug = window.location.hash.replace(/^#/, "");
+        if (slug) {
+            setCurrentStep(slugToIndex(slug));
+        }
+        setInitialized(true);
+    }, []);
+
+    useEffect(() => {
+        if (!initialized) return;
         const slug = indexToSlug(currentStep);
         if (window.location.hash === `#${slug}`) return;
         window.location.hash = slug;
-    }, [currentStep]);
+    }, [currentStep, initialized]);
 
     useEffect(() => {
         const readHash = () => {
@@ -128,10 +139,7 @@ const GeneralRegistration = () => {
         { id: "confirmation", name: "Confirmation", color: "#480021" }
     ];
 
-    const handleNext = async (
-        values: RegistrationApplicationDraftBody,
-        setTouched: any
-    ) => {
+    const handleNext = async (values: RegistrationData, setTouched: any) => {
         const currentSchema = validationSchemas[currentStep];
 
         try {
@@ -169,7 +177,7 @@ const GeneralRegistration = () => {
         window.scrollTo(0, 0);
     };
 
-    const handleSubmit = (values: RegistrationApplicationDraftBody) => {
+    const handleSubmit = (values: RegistrationData) => {
         alert("Form submitted successfully! Check console for data.");
     };
 

@@ -1,4 +1,5 @@
 import { Box, Button, Container, Typography } from "@mui/material";
+import Link from "next/link";
 
 export default function ChallengeResult() {
     return (
@@ -71,9 +72,14 @@ export default function ChallengeResult() {
                     To finish registering, click continue to complete the rest
                     of the application
                 </Typography>
-                <Button variant="contained" sx={{ color: "black", mt: 3 }}>
-                    Continue
-                </Button>
+                <Link
+                    prefetch={false}
+                    href="/register/general#review-and-submit"
+                >
+                    <Button variant="contained" sx={{ color: "black", mt: 3 }}>
+                        Continue
+                    </Button>
+                </Link>
             </Container>
         </Box>
     );
