@@ -14,7 +14,8 @@ import {
 import { useRouter } from "next/navigation";
 
 export const ReviewContainer = styled(Stack)(({ theme }) => ({
-    width: "85vw",
+    width: "100%",
+    maxWidth: "85vw",
     margin: "0 auto",
     marginTop: "25px",
     alignItems: "stretch",
