@@ -1,28 +1,23 @@
-"use client";
 import { FC } from "react";
-
 import styles from "./FAQ.module.scss";
-import BACKGROUND_MOBILE from "@/public/home/faq/background-mobile.svg";
-import BACKGROUND_DESKTOP from "@/public/home/faq/background-desktop.svg";
-
-import Image from "next/image";
 import FAQ from "@/components/FAQ/FAQ";
-import useWindowSize from "@/hooks/use-window-size";
+import Image from "next/image";
 
 const FAQSection: FC = () => {
-    const windowSizeHook = useWindowSize();
     return (
-        <section className={styles.sponsorsMain}>
+        <section className={styles.faqMain}>
             <Image
-                alt="background"
-                src={
-                    windowSizeHook?.width && windowSizeHook.width >= 768
-                        ? BACKGROUND_DESKTOP
-                        : BACKGROUND_MOBILE
-                }
-                className={styles.background}
+                src="/backgrounds/fourth.png"
+                alt="FAQ background"
+                fill
+                className={styles.backgroundImage}
             />
-            <FAQ />
+            <div className={styles.content}>
+                <h1 className={styles.title}>FAQ</h1>
+                <div className={styles.faqContent}>
+                    <FAQ />
+                </div>
+            </div>
         </section>
     );
 };
