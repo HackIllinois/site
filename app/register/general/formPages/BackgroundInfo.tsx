@@ -1,8 +1,7 @@
 import { RegistrationData } from "@/util/types";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";
-import SelectInput from "@/components/SelectInputMUI";
-import TextInput from "@/components/TextInputMUI";
+import SelectTextInput from "@/components/SelectTextInputMUI";
 import {
     countryOptions,
     genderOptions,
@@ -39,7 +38,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
 
             <Grid container columnSpacing={2} rowSpacing={6}>
                 <Grid size={{ xs: 12, sm: 12, md: 4 }}>
-                    <SelectInput
+                    <SelectTextInput
                         name="studyLevel"
                         label="Level of Study"
                         required
@@ -58,7 +57,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                     />{" "}
                 </Grid>
                 <Grid size={{ xs: 12, sm: 8, md: 5 }}>
-                    <SelectInput
+                    <SelectTextInput
                         name="school"
                         label="School"
                         accentColor={accentColor}
@@ -74,7 +73,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                     />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 4, md: 3 }}>
-                    <SelectInput
+                    <SelectTextInput
                         name="gradYear"
                         label="Graduation Year"
                         accentColor={accentColor}
@@ -97,7 +96,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         md: values.country === "United States" ? 5 : 6
                     }}
                 >
-                    <SelectInput
+                    <SelectTextInput
                         name="major"
                         label="Major/Field of Study"
                         accentColor={accentColor}
@@ -119,7 +118,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         md: values.country === "United States" ? 4 : 6
                     }}
                 >
-                    <SelectInput
+                    <SelectTextInput
                         name="country"
                         label="Country of Residence"
                         accentColor={accentColor}
@@ -140,7 +139,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                 </Grid>
                 {values.country === "United States" && (
                     <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-                        <SelectInput
+                        <SelectTextInput
                             name="state"
                             label="State/Territory"
                             accentColor={accentColor}
@@ -157,7 +156,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                     </Grid>
                 )}
                 <Grid size={{ xs: 12, sm: 7, md: 8 }}>
-                    <SelectInput
+                    <SelectTextInput
                         name="race"
                         label="Race/Ethnicity"
                         accentColor={accentColor}
@@ -174,7 +173,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                     />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 5, md: 4 }}>
-                    <SelectInput
+                    <SelectTextInput
                         name="gender"
                         label="Gender"
                         accentColor={accentColor}

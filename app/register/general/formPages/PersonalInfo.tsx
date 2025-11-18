@@ -1,10 +1,8 @@
-import StyledTextField from "@/components/StyledTextfield/StyledTextfield";
-import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
 import { RegistrationData } from "@/util/types";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import TextInput from "@/components/TextInputMUI";
-import SelectInput from "@/components/SelectInputMUI";
+import SelectTextInput from "@/components/SelectTextInputMUI";
 import { ageOptions } from "@/util/options";
 
 interface PersonalInfoProps {
@@ -53,7 +51,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                     />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 3, md: 2 }}>
-                    <SelectInput
+                    <SelectTextInput
                         name="age"
                         label="Age"
                         accentColor={accentColor}
