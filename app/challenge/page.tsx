@@ -2,7 +2,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import { Source_Code_Pro } from "next/font/google";
 import LANDING from "@/public/registration/pro/landing.svg";
-import Link from "next/link";
 
 const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
 
@@ -75,26 +74,24 @@ const ProChallenge: React.FC = () => {
                 </Typography>
 
                 {/* Begin button */}
-                <Link prefetch={false} href="/challenge/result/success">
-                    <Button
-                        variant="contained"
-                        sx={{
-                            backgroundColor: "#D9D9D9",
-                            color: "black",
-                            fontWeight: 800,
-                            fontSize: { xs: "18px", sm: "20px" },
-                            textTransform: "none",
-                            px: { xs: 6, sm: 8 },
-                            py: 1,
-                            borderRadius: "30px",
-                            "&:hover": {
-                                backgroundColor: "white"
-                            }
-                        }}
-                    >
-                        BEGIN
-                    </Button>
-                </Link>
+                <Button
+                    variant="contained"
+                    sx={{
+                        backgroundColor: "#D9D9D9",
+                        color: "black",
+                        fontWeight: 800,
+                        fontSize: { xs: "18px", sm: "20px" },
+                        textTransform: "none",
+                        px: { xs: 6, sm: 8 },
+                        py: 1,
+                        borderRadius: "30px",
+                        "&:hover": {
+                            backgroundColor: "white"
+                        }
+                    }}
+                >
+                    BEGIN
+                </Button>
             </Box>
         </main>
     );

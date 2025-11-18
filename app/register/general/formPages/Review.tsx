@@ -53,15 +53,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
         <>
             <ThemeProvider theme={registrationTheme}>
                 <ReviewContainer>
-                    <Typography
-                        variant="h1"
-                        sx={{
-                            mt: 8,
-                            mb: "7px"
-                        }}
-                    >
-                        REVIEW INFORMATION
-                    </Typography>
+                    <Typography variant="h1">REVIEW INFORMATION</Typography>
 
                     {/* Personal Details accordion */}
                     <StyledAccordion
@@ -256,53 +248,6 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             </ReviewInfoAccordionBox>
                         </AccordionDetails>
                     </StyledAccordion>
-
-                    {/* Pro Challenge */}
-                    {values.considerForPro && (
-                        <Box
-                            mt={2}
-                            p={2}
-                            borderRadius={4}
-                            border="1px solid white"
-                            bgcolor="#f6f6f67A"
-                        >
-                            <Typography variant="body1">
-                                You have selected the Pro Track and must
-                                complete the
-                                <MuiLink
-                                    href="/challenge/"
-                                    target="_blank"
-                                    color="#ADED4A"
-                                    sx={{
-                                        display: "inline-flex",
-                                        alignItems: "center",
-                                        padding: "2px 5px",
-                                        borderRadius: "5px",
-                                        color: "#ADED4A",
-                                        fontWeight: "500",
-                                        textDecoration: "underline",
-                                        textDecorationColor: "#ADED4A",
-                                        textDecorationThickness: "2px",
-                                        "&:hover": {
-                                            color: "#fff",
-                                            textDecorationColor: "#fff"
-                                        }
-                                    }}
-                                >
-                                    Pro Challenge
-                                    <LaunchIcon
-                                        sx={{
-                                            fontSize: {
-                                                xs: "small",
-                                                sm: "medium"
-                                            }
-                                        }}
-                                    />
-                                </MuiLink>
-                                .
-                            </Typography>
-                        </Box>
-                    )}
 
                     {/* Acknowledgements */}
                     <Box>
