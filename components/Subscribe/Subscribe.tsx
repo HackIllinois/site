@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
-import styles from "./Subscribe.module.scss";
 import { subscribe } from "@/util/api";
 import { handleError } from "@/util/helpers";
+import React, { useState } from "react";
+import styles from "./Subscribe.module.scss";
 
 const Subscribe = () => {
     const [email, setEmail] = useState("");

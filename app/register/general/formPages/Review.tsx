@@ -1,26 +1,28 @@
-import React, { useState } from "react";
-import { RegistrationType } from "@/util/types";
+import CheckboxSelect from "@/components/CheckboxSelectMUI";
+import { RegistrationApplicationDraftBodyForm } from "@/util/types";
+import LaunchIcon from "@mui/icons-material/Launch";
 import {
     AccordionDetails,
     Box,
     FormHelperText,
     Link as MuiLink,
+    ThemeProvider,
     Typography
 } from "@mui/material";
 import { FormikProps } from "formik";
+import React, { useEffect, useState } from "react";
 import {
+    AccordionHeader,
     ReviewContainer,
+    ReviewInfoAccordionBox,
     StyledAccordion,
     StyledAccordionDetails,
-    AccordionHeader,
-    ReviewInfoAccordionBox,
     UserInfoBox
 } from "../components/Review";
-import { Checkbox, FormControlLabel, ThemeProvider } from "@mui/material";
 import { registrationTheme } from "../theme";
 
 interface ReviewProps {
-    formik: FormikProps<RegistrationType>;
+    formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     onEditStep: (step: number) => void;
 }
 
@@ -33,6 +35,19 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
         (_event: React.SyntheticEvent, isExpanded: boolean) => {
             setExpanded(isExpanded ? panel : false);
         };
+
+    useEffect(() => {
+        if (!formik.dirty || formik.isSubmitting) return;
+
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            e.preventDefault();
+            (e as any).returnValue = "";
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () =>
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+    }, [formik.dirty, formik.isSubmitting]);
 
     return (
         <>
@@ -55,11 +70,11 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             <ReviewInfoAccordionBox>
                                 <UserInfoBox
                                     label="First Name"
-                                    userResponse={values.firstName}
+                                    userResponse={values.firstName || ""}
                                 />
                                 <UserInfoBox
                                     label="Last Name"
-                                    userResponse={values.lastName}
+                                    userResponse={values.lastName || ""}
                                 />
                                 <UserInfoBox
                                     label="Preferred Name"
@@ -67,11 +82,11 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 />
                                 <UserInfoBox
                                     label="Age"
-                                    userResponse={values.age}
+                                    userResponse={values.age || ""}
                                 />
                                 <UserInfoBox
                                     label="Email"
-                                    userResponse={values.emailAddress || "N/A"}
+                                    userResponse={values.email || "N/A"}
                                 />
                             </ReviewInfoAccordionBox>
                         </StyledAccordionDetails>
@@ -91,36 +106,40 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                         <AccordionDetails>
                             <ReviewInfoAccordionBox>
                                 <UserInfoBox
-                                    label="Gender"
-                                    userResponse={values.gender || "N/A"}
-                                />
-                                <UserInfoBox
-                                    label="Race/Ethnicity"
-                                    userResponse={
-                                        values.race.join(", ") || "N/A"
-                                    }
-                                />
-                                <UserInfoBox
-                                    label="Country of Residence"
-                                    userResponse={values.country}
+                                    label="Level of Study"
+                                    userResponse={values.education || "N/A"}
                                 />
                                 <UserInfoBox
                                     label="School"
                                     userResponse={values.school || "N/A"}
                                 />
                                 <UserInfoBox
-                                    label="Level of Study"
-                                    userResponse={values.studyLevel || "N/A"}
-                                />
-                                <UserInfoBox
                                     label="Graduation Year"
-                                    userResponse={
-                                        values.gradYear.toString() || "N/A"
-                                    }
+                                    userResponse={values.graduate || "N/A"}
                                 />
                                 <UserInfoBox
                                     label="Major/Field of Study"
                                     userResponse={values.major || "N/A"}
+                                />
+                                <UserInfoBox
+                                    label="Country of Residence"
+                                    userResponse={values.country || "N/A"}
+                                />
+                                {values.country === "United States" && (
+                                    <UserInfoBox
+                                        label="State/Territory"
+                                        userResponse={values.state || "N/A"}
+                                    />
+                                )}
+                                <UserInfoBox
+                                    label="Race/Ethnicity"
+                                    userResponse={
+                                        values?.race?.join(", ") || "N/A"
+                                    }
+                                />
+                                <UserInfoBox
+                                    label="Gender"
+                                    userResponse={values.gender || "N/A"}
                                 />
                                 <UserInfoBox
                                     label="Do you identify as part of an underrepresented group in the technology industry?"
@@ -132,7 +151,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                         </AccordionDetails>
                     </StyledAccordion>
 
-                    {/* Hack-Specific accordion */}
+                    {/* Application Questions accordion */}
                     <StyledAccordion
                         defaultExpanded
                         expanded={expanded === "specific"}
@@ -147,15 +166,17 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             <ReviewInfoAccordionBox>
                                 <UserInfoBox
                                     label="What opportunity, event, or feature of HackIllinois 2026 are you most excited to take part in, and why?"
-                                    userResponse={values.hackEssay1 || "N/A"}
+                                    userResponse={values.application1 || "N/A"}
                                 />
                                 <UserInfoBox
                                     label="Describe a challenge you have faced in the field of CS, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
-                                    userResponse={values.hackEssay2 || "N/A"}
+                                    userResponse={values.application2 || "N/A"}
                                 />
                                 <UserInfoBox
                                     label="Optional: If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
-                                    userResponse={values.optionalEssay || "N/A"}
+                                    userResponse={
+                                        values.applicationOptional || "N/A"
+                                    }
                                 />
                                 <UserInfoBox
                                     label="Would you like to be considered for (pro track)?"
@@ -167,11 +188,19 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                               : "No"
                                     }
                                 />
+                                {values.considerForPro && (
+                                    <UserInfoBox
+                                        label="TODO: PRO ESSAY PROMPT"
+                                        userResponse={
+                                            values.applicationPro || "N/A"
+                                        }
+                                    />
+                                )}
                             </ReviewInfoAccordionBox>
                         </AccordionDetails>
                     </StyledAccordion>
 
-                    {/* Attendance accordion */}
+                    {/* Attendaning HackIllinois accordion */}
                     <StyledAccordion
                         defaultExpanded
                         expanded={expanded === "attendance"}
@@ -187,22 +216,23 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 <UserInfoBox
                                     label="How did you hear about HackIllinois?"
                                     userResponse={
-                                        values.hackOutreach.join(", ") || "N/A"
+                                        values.attribution?.join(", ") || "N/A"
                                     }
                                 />
                                 <UserInfoBox
                                     label="Which of these are you most interested in participating in during the hackathon?"
                                     userResponse={
-                                        values.hackInterest.join(", ") || "N/A"
+                                        values.eventInterest?.join(", ") ||
+                                        "N/A"
                                     }
                                 />
                                 <UserInfoBox
                                     label="Would you like to be considered for travel reimbursement?"
                                     userResponse={
-                                        values.requestedTravelReimbursement ===
+                                        values.requestTravelReimbursement ===
                                         undefined
                                             ? "N/A"
-                                            : values.requestedTravelReimbursement
+                                            : values.requestTravelReimbursement
                                               ? "Yes"
                                               : "No"
                                     }
@@ -212,7 +242,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                     userResponse={
                                         values.travelAcknowledge
                                             ? "Acknowledged"
-                                            : "N.A"
+                                            : "N/A"
                                     }
                                 />
                             </ReviewInfoAccordionBox>
@@ -232,28 +262,56 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 <Typography variant="body1" sx={{ mt: 0 }}>
                                     Please review the above information.
                                 </Typography>
-                                <Typography variant="body1">
+                                <Typography variant="body1" sx={{ mt: "4px" }}>
                                     Once you submit you will not be able to
                                     change any information without contacting
                                     us.
                                 </Typography>
 
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            name={"reviewedAcknowledge"}
-                                            checked={values.reviewedAcknowledge}
-                                            onChange={handleChange}
-                                        />
+                                <CheckboxSelect
+                                    name="reviewedAcknowledge"
+                                    accentColor="#983300"
+                                    optionLabel="I reviewed my information to ensure it is correct."
+                                    optionLabelSx={{
+                                        fontFamily: `Montserrat, sans-serif`,
+                                        fontSize: "22px",
+                                        color: "#fff",
+                                        fontWeight: 400,
+                                        "@media (max-width:560px)": {
+                                            fontSize: "18px"
+                                        }
+                                    }}
+                                    value={values.reviewedAcknowledge}
+                                    onChange={val =>
+                                        formik.setFieldValue(
+                                            "reviewedAcknowledge",
+                                            val
+                                        )
                                     }
-                                    label="I reviewed my information to ensure it is correct."
+                                    error={
+                                        !!touched.reviewedAcknowledge &&
+                                        Boolean(errors.reviewedAcknowledge)
+                                    }
                                 />
                                 {touched.reviewedAcknowledge &&
                                 errors.reviewedAcknowledge ? (
                                     <FormHelperText
                                         error
                                         sx={{
-                                            fontFamily: "Montserrat"
+                                            fontFamily: "Montserrat",
+                                            fontSize: "13px",
+                                            fontWeight: 500,
+                                            "&.Mui-error": {
+                                                color: "white"
+                                            },
+                                            border: "1px solid rgba(255, 0, 0, 0.5)",
+                                            borderRadius: "6px",
+                                            backgroundColor:
+                                                "rgba(255, 0, 0, 0.5)",
+                                            width: "fit-content",
+                                            padding: "4px",
+                                            boxShadow:
+                                                "0 0 8px rgba(255, 0, 0, 0.3)"
                                         }}
                                     >
                                         {errors.reviewedAcknowledge as string}
@@ -266,35 +324,85 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             <Box mt={3}>
                                 <Typography variant="body1">
                                     To participate in HackIllinois, you must
-                                    accept our{" "}
+                                    accept the
                                     <MuiLink
-                                        href="/legal/code-of-conduct"
+                                        href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md"
                                         target="_blank"
-                                        underline="hover"
+                                        color="#ADED4A"
+                                        sx={{
+                                            display: "inline-flex",
+                                            alignItems: "center",
+                                            padding: "2px 5px",
+                                            borderRadius: "5px",
+                                            color: "#ADED4A",
+                                            fontWeight: "500",
+                                            textDecoration: "underline",
+                                            textDecorationColor: "#ADED4A",
+                                            textDecorationThickness: "2px",
+                                            "&:hover": {
+                                                color: "#fff",
+                                                textDecorationColor: "#fff"
+                                            }
+                                        }}
                                     >
-                                        Code of Conduct
+                                        MLH Code of Conduct
+                                        <LaunchIcon
+                                            sx={{
+                                                fontSize: {
+                                                    xs: "small",
+                                                    sm: "medium"
+                                                }
+                                            }}
+                                        />
                                     </MuiLink>
                                     .
                                 </Typography>
 
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            name={"codeOfConductAcknowledge"}
-                                            checked={
-                                                values.codeOfConductAcknowledge
-                                            }
-                                            onChange={handleChange}
-                                        />
+                                <CheckboxSelect
+                                    name="codeOfConductAcknowledge"
+                                    // label="I accept the Code of Conduct."
+                                    accentColor="#983300"
+                                    optionLabel="I accept the Code of Conduct."
+                                    optionLabelSx={{
+                                        fontFamily: `Montserrat, sans-serif`,
+                                        fontSize: "22px",
+                                        color: "#fff",
+                                        fontWeight: 400,
+                                        "@media (max-width:560px)": {
+                                            fontSize: "18px"
+                                        }
+                                    }}
+                                    value={values.codeOfConductAcknowledge}
+                                    onChange={val =>
+                                        formik.setFieldValue(
+                                            "codeOfConductAcknowledge",
+                                            val
+                                        )
                                     }
-                                    label="I accept the Code of Conduct."
+                                    error={
+                                        !!touched.codeOfConductAcknowledge &&
+                                        Boolean(errors.codeOfConductAcknowledge)
+                                    }
                                 />
                                 {touched.codeOfConductAcknowledge &&
                                 errors.codeOfConductAcknowledge ? (
                                     <FormHelperText
                                         error
                                         sx={{
-                                            fontFamily: "Montserrat"
+                                            fontFamily: "Montserrat",
+                                            fontSize: "13px",
+                                            fontWeight: 500,
+                                            "&.Mui-error": {
+                                                color: "white"
+                                            },
+                                            border: "1px solid rgba(255, 0, 0, 0.5)",
+                                            borderRadius: "6px",
+                                            backgroundColor:
+                                                "rgba(255, 0, 0, 0.5)",
+                                            width: "fit-content",
+                                            padding: "4px",
+                                            boxShadow:
+                                                "0 0 8px rgba(255, 0, 0, 0.3)"
                                         }}
                                     >
                                         {

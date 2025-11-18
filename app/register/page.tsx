@@ -35,7 +35,7 @@ const Registration: React.FC = () => {
                     <h2>Sign Up As:</h2>
                     <OlympianButton
                         text="HackVoyagers"
-                        link="/register/challenge"
+                        link="/challenge"
                         blue
                     />
                     <p className={styles.link}>

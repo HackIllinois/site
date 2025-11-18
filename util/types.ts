@@ -1,66 +1,69 @@
-import {
-    degreeOptions,
-    graduationYearOptions,
-    locationOptions,
-    majorOptions,
-    schoolOptions
-} from "@/app/register/(general)/(form)/education/options";
-import {
-    allergiesRestrictionsOptions,
-    generalConsiderationOptions,
-    heardAboutOptions,
-    lookingForwardToOptions
-} from "@/app/register/(general)/(form)/hack-specific/options";
-import {
-    gender,
-    race
-} from "@/app/register/(general)/(form)/personal-info/options";
-import {
-    travelAcknowledgeOptions,
-    travelReimbursementOptions
-} from "@/app/register/(general)/(form)/transportation/options";
-
 export type WithId<Type> = Type & { id: string };
 
 export type MethodType = "GET" | "POST" | "PUT" | "DELETE";
 export type FileType = "resume" | "photo" | "blobstore";
 
-export type RegistrationData = {
-    // 0. Personal Information
+export type RegistrationApplicationSubmitted = {
+    userId: string;
     firstName: string;
     lastName: string;
-    preferredName: string;
+    preferredName?: string;
     age: string;
-    emailAddress: string;
-    // 1. Background Information
+    email: string;
     gender: string;
     race: string[];
     country: string;
-    state: string;
+    state?: string;
     school: string;
-    studyLevel: string;
-    gradYear: string;
+    education: string;
+    graduate: string;
     major: string;
     underrepresented: string;
-    // 2. Application Questions
-    hackEssay1: string;
-    hackEssay2: string;
-    optionalEssay: string;
-    considerForPro: boolean;
-    proEssay: string;
-    // 3. Attending HackIllinois
-    hackOutreach: string[];
-    hackInterest: string[];
-    requestedTravelReimbursement: string;
-    travelAcknowledge: boolean;
-    // 4. Review (final acknowledgements)
-    reviewedAcknowledge: boolean;
-    proChallengeAcknowledge: boolean;
-    codeOfConductAcknowledge: boolean;
+    hackathonsParticipated: string;
+    application1: string;
+    application2: string;
+    applicationOptional?: string;
+    applicationPro?: string;
+    attribution: string[];
+    eventInterest: string[];
 };
 
+export type RegistrationApplicationDraftBody = {
+    firstName?: string;
+    lastName?: string;
+    preferredName?: string;
+    age?: string;
+    email?: string;
+    gender?: string;
+    race?: string[];
+    country?: string;
+    state?: string;
+    school?: string;
+    education?: string;
+    graduate?: string;
+    major?: string;
+    underrepresented?: string;
+    hackathonsParticipated?: string;
+    application1?: string;
+    application2?: string;
+    applicationOptional?: string;
+    applicationPro?: string;
+    attribution?: string[];
+    eventInterest?: string[];
+};
+
+/** Includes fields available only on the frontend. */
+export type RegistrationApplicationDraftBodyForm =
+    RegistrationApplicationDraftBody & {
+        travelAcknowledge?: boolean;
+        considerForPro?: boolean;
+        requestTravelReimbursement?: boolean;
+        codeOfConductAcknowledge?: boolean;
+        reviewedAcknowledge?: boolean;
+    };
+
 export type RegistrationResponseFieldInfo = {
-    key: keyof RegistrationData;
+    key: keyof RegistrationApplicationDraftBody;
     text: string;
     options?: string[] | { value: string; label: string }[];
     proOnly?: boolean;
@@ -68,6 +71,38 @@ export type RegistrationResponseFieldInfo = {
     shownResponse?: string;
 };
 
+/**
+ * RegistrationData is deprecated. Use RegistrationApplicationDraftBody instead.
+ */
+export type RegistrationData = {
+    legalName: string;
+    preferredName: string;
+    gender: string;
+    race: string[];
+    emailAddress: string;
+    location: string;
+    degree: string;
+    university: string;
+    gradYear: string;
+    major: string;
+    minor: string;
+    hackEssay1: string;
+    hackEssay2: string;
+    optionalEssay: string;
+    proEssay: string;
+    considerForGeneral: string[];
+    hackOutreach: string[];
+    hackInterest: string[];
+    dietaryRestrictions: string[];
+    requestedTravelReimbursement: string[];
+    travelAcknowledge: string[];
+    codeOfConductAcknowledge: string[];
+    reviewedInformationAcknowledge: string[];
+};
+
+/**
+ * RegistrationType is deprecated. Use RegistrationApplicationDraftBody instead.
+ */
 export type RegistrationType = {
     // 0. Personal Information
     firstName: string;
@@ -82,7 +117,7 @@ export type RegistrationType = {
     state: string;
     school: string;
     studyLevel: string;
-    gradYear: string;
+    gradYear: number;
     major: string;
     underrepresented: string;
     // 2. Application Questions
@@ -94,7 +129,7 @@ export type RegistrationType = {
     // 3. Attending HackIllinois
     hackOutreach: string[];
     hackInterest: string[];
-    requestedTravelReimbursement: string;
+    requestedTravelReimbursement: boolean;
     travelAcknowledge: boolean;
     // 4. Review (final acknowledgements)
     reviewedAcknowledge: boolean;
@@ -111,8 +146,6 @@ export type RSVPType = {
     response: DecisionResponse;
     admittedPro: boolean;
     reimbursementValue: number;
-    // reviewer: string;
-    // emailSent: false;
 };
 
 export type UserType = {
@@ -161,6 +194,12 @@ export type ChallengeStatus = {
     attempts: number;
     complete: boolean;
 };
+
+export enum ChallengeResultEnum {
+    Success = 0,
+    Failure = 1,
+    Invalid = 2
+}
 
 export type RefreshTokenResType = {
     token: string;
