@@ -18,7 +18,7 @@ type NavbarItem = {
 const NAVBAR_ITEMS: NavbarItem[] = [
     {
         title: "Register",
-        link: "/register"
+        link: "/register/general#personal-information"
     },
     {
         title: "Legal",
@@ -142,7 +142,7 @@ export default Navbar;
 
 const OlympianButton = () => {
     return (
-        <Link prefetch={false} href="/olympians">
+        <Link prefetch={false} href="/challenge/landing-page">
             <button className={styles.olympianButton}>
                 <div className={styles.buttonBackground}></div>
                 <div className={styles.buttonContent}>
@@ -163,7 +163,7 @@ const OlympianButton = () => {
                         />
                     </svg>
 
-                    <span>Olympians</span>
+                    <span>HackVoyagers</span>
                 </div>
             </button>
         </Link>

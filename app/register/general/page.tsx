@@ -216,7 +216,7 @@ const GeneralRegistration = () => {
             case 4:
                 return <Review formik={formik} onEditStep={setCurrentStep} />;
             case 5:
-                return <Confirmation />;
+                return <Confirmation formik={formik} />;
             default:
                 return <div>Unknown step</div>;
         }

@@ -69,13 +69,10 @@ export default function ChallengeResult() {
                         fontWeight: 500
                     }}
                 >
-                    To finish registering, click continue to complete the rest
-                    of the application
+                    Your registration is now complete. Click Continue to view
+                    your confirmation.
                 </Typography>
-                <Link
-                    prefetch={false}
-                    href="/register/general#review-and-submit"
-                >
+                <Link prefetch={false} href="/register/general#confirmation">
                     <Button variant="contained" sx={{ color: "black", mt: 3 }}>
                         Continue
                     </Button>
