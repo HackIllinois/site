@@ -15,12 +15,7 @@ const nextConfig = {
             //     source: "/legal",
             //     destination: "/legal/code-of-conduct",
             //     permanent: true
-            // },
-            {
-                source: "/",
-                destination: "https://hype.hackillinois.org",
-                permanent: false
-            }
+            // }
         ];
     }
 };

@@ -10,7 +10,7 @@
     padding: 0;
 
     @media screen and (max-width: 768px) {
-        min-height: 110vh;
+        min-height: 100vh;
     }
 }
 
@@ -18,6 +18,10 @@
     object-fit: cover;
     object-position: center center;
     z-index: 0;
+
+    @media screen and (max-width: 768px) {
+        object-position: center top;
+    }
 }
 
 .olympianMain::after {
@@ -67,6 +71,7 @@
     text-transform: uppercase;
     margin: 0;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    animation: dropIn 1s ease-out;
 
     @media screen and (max-width: 1152px) {
         font-size: 80px;
@@ -74,12 +79,29 @@
     }
 
     @media screen and (max-width: 768px) {
-        font-size: 48px;
-        letter-spacing: 4px;
+        font-size: 36px;
+        letter-spacing: 3px;
     }
 
     @media screen and (max-width: 480px) {
-        font-size: 36px;
+        font-size: 28px;
         letter-spacing: 2px;
+    }
+}
+
+@keyframes dropIn {
+    0% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(10px);
+    }
+    80% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
     }
 }

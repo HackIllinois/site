@@ -17,6 +17,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname();
 
     useEffect(() => {
+        // Skip auth checks for challenge page
+        if (pathname.startsWith("/register/challenge")) {
+            setIsLoading(false);
+            return;
+        }
+
         if (eventStatus === "loading") {
             return;
         }

@@ -80,14 +80,14 @@
     background: linear-gradient(135deg, #e8d8d0 0%, #c8b8b0 100%);
     padding: 20px 50px;
     width: fit-content;
-    margin: 0 0 60px 60px;
+    margin: 0 0 60px 30px;
     border-radius: 8px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 
     @media screen and (max-width: 1152px) {
         font-size: 64px;
         padding: 16px 40px;
-        margin: 0 0 50px 40px;
+        margin: 0 0 50px 30px;
     }
 
     @media screen and (max-width: 768px) {
@@ -99,6 +99,7 @@
     @media screen and (max-width: 480px) {
         font-size: 36px;
         padding: 10px 24px;
+        margin: 0 0 40px 20px;
     }
 }
 
