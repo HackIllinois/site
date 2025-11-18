@@ -105,3 +105,132 @@
         opacity: 1;
     }
 }
+
+// Left side ellipses
+.ellipse8 {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    z-index: 0;
+    pointer-events: none;
+
+    @media screen and (max-width: 768px) {
+        width: 150px;
+        height: 150px;
+        top: 12%;
+        left: -5%;
+    }
+}
+
+.ellipse11 {
+    position: absolute;
+    top: 20%;
+    left: -5%;
+    z-index: 0;
+    pointer-events: none;
+
+    @media screen and (max-width: 768px) {
+        width: 140px;
+        height: 140px;
+        left: -15%;
+        top: 22%;
+    }
+}
+
+.ellipse10 {
+    position: absolute;
+    top: 35%;
+    left: -10%;
+    z-index: 1;
+    pointer-events: none;
+
+    @media screen and (max-width: 768px) {
+        width: 300px;
+        height: 300px;
+        left: -30%;
+        top: 32%;
+    }
+}
+
+// Center ellipses (under HACKSTRONAUT text, blurred)
+.ellipse12 {
+    position: absolute;
+    top: 25%;
+    left: 15%;
+    z-index: 0;
+    filter: blur(40px);
+    pointer-events: none;
+
+    @media screen and (max-width: 768px) {
+        width: 60px;
+        height: 60px;
+        filter: blur(15px);
+        top: 38%;
+        left: 10%;
+    }
+}
+
+.ellipse14 {
+    position: absolute;
+    top: 25%;
+    left: 45%;
+    z-index: 0;
+    filter: blur(30px);
+    pointer-events: none;
+
+    @media screen and (max-width: 768px) {
+        width: 50px;
+        height: 50px;
+        filter: blur(12px);
+        top: 41%;
+        left: 45%;
+    }
+}
+
+.ellipse13 {
+    position: absolute;
+    top: 22%;
+    left: 73%;
+    z-index: 0;
+    filter: blur(35px);
+    pointer-events: none;
+
+    @media screen and (max-width: 768px) {
+        width: 55px;
+        height: 55px;
+        filter: blur(13px);
+        top: 39%;
+        left: 70%;
+    }
+}
+
+// Right side ellipses
+.ellipse15 {
+    position: absolute;
+    top: 15%;
+    right: -5%;
+    z-index: 0;
+    pointer-events: none;
+
+    @media screen and (max-width: 768px) {
+        width: 180px;
+        height: 180px;
+        right: -15%;
+        top: 16%;
+    }
+}
+
+.ellipse9 {
+    position: absolute;
+    top: 30%;
+    right: -15%;
+    z-index: 1;
+    pointer-events: none;
+
+    @media screen and (max-width: 768px) {
+        width: 350px;
+        height: 350px;
+        right: -35%;
+        top: 26%;
+    }
+}
