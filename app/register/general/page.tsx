@@ -275,9 +275,8 @@ const GeneralRegistration = () => {
                 "I am particularly interested in AI and machine learning applications.",
             applicationPro:
                 "My professional experience includes internships at top tech companies where I worked on full-stack development and learned valuable skills in system design and architecture.",
-            attribution: "Friend",
-            eventInterest: "Networking",
-            requestTravelReimbursement: true
+            attribution: ["Friend"],
+            eventInterest: ["Networking"]
         });
         console.log("Saved complete draft response:");
         console.log(response);
