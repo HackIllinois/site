@@ -96,6 +96,12 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                             borderRadius: 6,
                             color: accentColor,
                             border: "2px solid #f0f0f0",
+                            "& .MuiAutocomplete-inputRoot": {
+                                padding: "2px 8px",
+                                display: "flex",
+                                alignItems: "center",
+                                minHeight: 40
+                            },
                             "& .MuiInputBase-input": {
                                 padding: "0 12px !important",
                                 width: "100%",
