@@ -97,16 +97,25 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                             color: accentColor,
                             border: "2px solid #f0f0f0",
                             "& .MuiAutocomplete-inputRoot": {
-                                padding: "2px 18px",
                                 display: "flex",
-                                minHeight: 40
+                                alignItems: "center",
+                                overflowX: "scroll",
+                                padding: "4px 18px 4px 18px",
+                                marginLeft: "12px",
+                                minHeight: 40,
+                                whiteSpace: "nowrap",
+                                scrollbarWidth: "none",
+                                msOverflowStyle: "none",
+                                "&::-webkit-scrollbar": {
+                                    display: "none"
+                                }
                             },
                             "& .MuiAutocomplete-tag": {
-                                alignItems: "center"
-                            },
-                            "& .MuiAutocomplete-tag:first-of-type": {
-                                // left margin for first chip
-                                marginLeft: "8px"
+                                // chips in multiselect
+                                display: "flex",
+                                alignItems: "center",
+                                height: "24px",
+                                margin: "2px 2px 2px 0"
                             },
                             "& .MuiInputBase-input": {
                                 padding: "0 12px !important",
