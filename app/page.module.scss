@@ -1,5 +1,12 @@
 .main {
     background-color: #000000;
-    // height: 100vh;
-    // overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+
+    > section {
+        margin: 0;
+        padding: 0;
+    }
 }

@@ -1,60 +1,85 @@
-@use "/app/colors" as *;
-
 .olympianMain {
     position: relative;
     width: 100%;
-    height: fit-content;
-    background: linear-gradient(
-        360deg,
-        #fff3b6 61.1%,
-        #ffe1d6 68.5%,
-        #32c0e2 82.05%,
-        #0e87cc 100%
-    );
+    min-height: 160vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+
+    @media screen and (max-width: 768px) {
+        min-height: 110vh;
+    }
 }
 
-.main {
+.backgroundImage {
+    object-fit: cover;
+    object-position: center center;
+    z-index: 0;
+}
+
+.olympianMain::after {
+    content: "";
     position: absolute;
-    top: 200px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40vh;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(26, 20, 52, 0.15) 20%,
+        rgba(26, 20, 52, 0.4) 50%,
+        rgba(26, 20, 52, 0.75) 80%,
+        rgba(26, 20, 52, 0.95) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+
+    @media screen and (max-width: 768px) {
+        height: 30vh;
+    }
+}
+
+.content {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 80px;
+    gap: 60px;
+    margin-top: -50vh;
+
+    @media screen and (max-width: 768px) {
+        gap: 40px;
+        margin-top: -10vh;
+    }
+}
+
+.title {
+    font-size: 120px;
+    font-weight: 900;
+    color: white;
+    text-align: center;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    margin: 0;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 
     @media screen and (max-width: 1152px) {
-        top: 120px;
-        gap: 20px;
+        font-size: 80px;
+        letter-spacing: 6px;
     }
-}
-
-@keyframes scaleUpDown {
-    0%,
-    100% {
-        transform: scale(1); /* Normal scale */
-    }
-    50% {
-        transform: scale(1.01); /* Scaled up by 2% */
-    }
-}
-
-.logo {
-    height: fit-content;
-    width: 80vw;
-    animation: scaleUpDown 5s infinite;
 
     @media screen and (max-width: 768px) {
-        width: 90vw;
+        font-size: 48px;
+        letter-spacing: 4px;
     }
-}
 
-.background {
-    height: fit-content;
-    width: 100vw;
-
-    @media screen and (max-width: 768px) {
-        margin-top: 86px;
+    @media screen and (max-width: 480px) {
+        font-size: 36px;
+        letter-spacing: 2px;
     }
 }

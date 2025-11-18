@@ -1,23 +1,17 @@
 .faqContainer {
-    position: absolute;
-    top: 200px;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 20px;
-
-    @media screen and (max-width: 1152px) {
-        top: 100px;
-    }
+    width: 100%;
 
     @media screen and (max-width: 768px) {
         padding: 0 10px;
-        top: 50px;
     }
 
     @media screen and (max-width: 400px) {
         padding: 0 10px;
-        top: 45px;
     }
 }
 
@@ -26,10 +20,19 @@
     border: none;
     font-size: 36px;
     cursor: pointer;
+    color: white;
 
     @media screen and (max-width: 768px) {
         font-size: 18px;
     }
+}
+
+.faqArrowLeft {
+    color: white;
+}
+
+.faqArrowRight {
+    color: white;
 }
 
 .faqArrow:disabled {
@@ -53,14 +56,23 @@
 }
 
 .faqItem {
+    color: white;
+
     h3 {
         font-size: 42px;
         font-weight: 500;
         margin-bottom: 0.5rem;
+        color: white;
     }
 
     p {
         font-size: 21px;
+        color: white;
+        line-height: 1.6;
+    }
+
+    strong {
+        color: white;
     }
 
     a {
@@ -68,11 +80,11 @@
     }
 
     a:link {
-        color: #a5c300;
+        color: #ff9d5c;
     }
 
     a:visited {
-        color: #a5c300;
+        color: #ff9d5c;
     }
 
     @media screen and (max-width: 1650px) {
