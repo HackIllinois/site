@@ -80,42 +80,7 @@ export async function getChallenge(): Promise<ChallengeStatus> {
     return res;
 }
 
-export async function getRegistrationOrDefault(): Promise<
-    WithId<RegistrationType> | RegistrationType
-> {
-    try {
-        const response = await requestv2("GET", "/registration");
-        return response;
-    } catch (error: any) {
-        if (error.error !== "NotFound") {
-            handleError(error);
-        }
-
-        return {
-            legalName: "",
-            preferredName: "",
-            gender: "",
-            race: [],
-            emailAddress: "",
-            location: "",
-            degree: "",
-            university: "",
-            gradYear: 0,
-            major: "",
-            minor: "",
-            hackEssay1: "",
-            hackEssay2: "",
-            optionalEssay: "",
-            considerForGeneral: false,
-            proEssay: "",
-            hackOutreach: [],
-            hackInterest: [],
-            dietaryRestrictions: [],
-            requestedTravelReimbursement: false
-        };
-    }
-}
-
+/** Deprecated */
 export async function registerUpdate(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
@@ -125,6 +90,7 @@ export async function registerUpdate(
     return res;
 }
 
+/** Deprecated */
 export async function registerSubmit(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
@@ -136,6 +102,7 @@ export async function registerSubmit(
     return res;
 }
 
+/** Deprecated */
 export async function getRSVP(): Promise<RSVPType> {
     const res = await requestv2("GET", "/admission/rsvp").catch(body =>
         handleError(body)

@@ -1,16 +1,29 @@
-import { RegistrationData } from "@/util/types";
-import { Box, Container, Grid, Typography } from "@mui/material";
-import { FormikProps } from "formik";
-import TextInput from "@/components/TextInputMUI";
 import CheckboxSelect from "@/components/CheckboxSelectMUI";
-
-interface ExperienceProps {
-    formik: FormikProps<RegistrationData>;
+import TextInput from "@/components/TextInputMUI";
+import { RegistrationApplicationDraftBodyForm } from "@/util/types";
+import { Container, Grid, Typography } from "@mui/material";
+import { FormikProps } from "formik";
+import { useEffect } from "react";
+interface AppQuestionsProps {
+    formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     accentColor?: string;
 }
 
-const Experience = ({ formik, accentColor }: ExperienceProps) => {
+const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
+
+    useEffect(() => {
+        if (!formik.dirty || formik.isSubmitting) return;
+
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            e.preventDefault();
+            (e as any).returnValue = "";
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () =>
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+    }, [formik.dirty, formik.isSubmitting]);
 
     return (
         <Container>
@@ -28,59 +41,63 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
             <Grid container columnSpacing={2} rowSpacing={6}>
                 <Grid size={12}>
                     <TextInput
-                        name="hackEssay1"
+                        name="application1"
                         label="What opportunity, event, or feature of HackIllinois 2026 are you most excited to take part in and why?"
-                        // subLabel="max. 50 words"
+                        sublabel="max. 50 words"
                         accentColor={accentColor}
                         multiline
                         required
                         minRows={4}
-                        value={values.hackEssay1}
+                        value={values.application1}
                         onChange={handleChange}
                         error={
-                            !!touched.hackEssay1 && Boolean(errors.hackEssay1)
+                            !!touched.application1 &&
+                            Boolean(errors.application1)
                         }
                         helperText={
-                            !!touched.hackEssay1 ? errors.hackEssay1 : ""
+                            !!touched.application1 ? errors.application1 : ""
                         }
                     />
                 </Grid>
                 <Grid size={12}>
                     <TextInput
-                        name="hackEssay2"
+                        name="application2"
                         label="Describe a challenge you have faced in the field of CS, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
-                        // subLabel="max. 50 words"
+                        sublabel="max. 50 words"
                         accentColor={accentColor}
                         multiline
                         required
                         minRows={4}
-                        value={values.hackEssay2}
+                        value={values.application2}
                         onChange={handleChange}
                         error={
-                            !!touched.hackEssay2 && Boolean(errors.hackEssay2)
+                            !!touched.application2 &&
+                            Boolean(errors.application2)
                         }
                         helperText={
-                            !!touched.hackEssay2 ? errors.hackEssay2 : ""
+                            !!touched.application2 ? errors.application2 : ""
                         }
                     />
                 </Grid>
                 <Grid size={12}>
                     <TextInput
-                        name="optionalEssay"
+                        name="applicationOptional"
                         label="If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
-                        // subLabel="optional, max. 100 words"
+                        sublabel="optional, max. 100 words"
                         accentColor={accentColor}
                         multiline
-                        required
+                        // not required
                         minRows={4}
-                        value={values.optionalEssay}
+                        value={values.applicationOptional}
                         onChange={handleChange}
                         error={
-                            !!touched.optionalEssay &&
-                            Boolean(errors.optionalEssay)
+                            !!touched.applicationOptional &&
+                            Boolean(errors.applicationOptional)
                         }
                         helperText={
-                            !!touched.optionalEssay ? errors.optionalEssay : ""
+                            !!touched.applicationOptional
+                                ? errors.applicationOptional
+                                : ""
                         }
                     />
                 </Grid>
@@ -88,6 +105,7 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                     <CheckboxSelect
                         name="considerForPro"
                         label="Would you like to be considered for pro track?"
+                        sublabel="You'll have to complete a short coding challenge."
                         optionLabel="Yes"
                         accentColor={accentColor}
                         value={values.considerForPro}
@@ -108,19 +126,23 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                 {values.considerForPro && (
                     <Grid size={12}>
                         <TextInput
-                            name="proEssay"
+                            name="applicationPro"
                             label="<PRO ESSAY PROMPT>"
+                            sublabel="max. 50 words"
                             accentColor={accentColor}
                             multiline
                             required
                             minRows={4}
-                            value={values.proEssay}
+                            value={values.applicationPro}
                             onChange={handleChange}
                             error={
-                                !!touched.proEssay && Boolean(errors.proEssay)
+                                !!touched.applicationPro &&
+                                Boolean(errors.applicationPro)
                             }
                             helperText={
-                                !!touched.proEssay ? errors.proEssay : ""
+                                !!touched.applicationPro
+                                    ? errors.applicationPro
+                                    : ""
                             }
                         />
                     </Grid>
@@ -130,4 +152,4 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
     );
 };
 
-export default Experience;
+export default AppQuestions;
