@@ -1,12 +1,9 @@
+import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-import CheckIcon from "@mui/icons-material/Check";
 import FormHelperText from "@mui/material/FormHelperText";
-import Box from "@mui/material/Box";
+import FormLabel from "@mui/material/FormLabel";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
 
 interface Option {
     label: string;
@@ -42,22 +39,17 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
     accentColor = "2c2540",
     ...props
 }) => {
-    const handleChange = (e: SelectChangeEvent<typeof value>) => {
-        const raw = e.target.value;
-        const normalized = multiple
-            ? Array.isArray(raw)
-                ? (raw as string[])
-                : typeof raw === "string"
-                  ? raw.split(",")
-                  : []
-            : (raw as string);
-
-        onChange(normalized);
-    };
+    const OPTIONS_LIMIT = 20;
 
     const normalizedValue = multiple
         ? options.filter(o => Array.isArray(value) && value.includes(o.value))
         : options.find(o => o.value === value) || null;
+
+    const defaultFilterOptions = createFilterOptions();
+
+    const filterOptions = (options: any, state: any) => {
+        return defaultFilterOptions(options, state).slice(0, OPTIONS_LIMIT);
+    };
 
     return (
         <FormControl fullWidth error={error}>
@@ -72,11 +64,13 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
             </FormLabel>
 
             <Autocomplete
+                filterOptions={filterOptions}
                 multiple={multiple}
                 options={options}
                 value={normalizedValue as any}
                 disableCloseOnSelect={multiple}
                 filterSelectedOptions={false}
+                autoHighlight={true}
                 isOptionEqualToValue={(opt, val) => opt.value === val.value}
                 getOptionLabel={opt => opt.label}
                 onChange={(_, val) => {
@@ -123,8 +117,7 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                             },
                             "& .MuiOutlinedInput-root": {
                                 padding: 0,
-                                borderRadius: 6,
-                                height: "40px"
+                                borderRadius: 6
                             },
                             "& .MuiOutlinedInput-notchedOutline": {
                                 border: "none"
@@ -134,7 +127,7 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                                 opacity: 0.8
                             },
                             "& .MuiOutlinedInput-root.Mui-focused": {
-                                backgroundColor: "#ffffff",
+                                backgroundColor: "#f0f0f0",
                                 boxShadow: "0 0 4px 2px #ffffff40"
                             },
                             "&.Mui-error": {
@@ -148,7 +141,7 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
 
                     return (
                         <MenuItem
-                            key={key}
+                            key={`${key}-${Math.random()}`}
                             {...rest}
                             value={option.value}
                             sx={{
