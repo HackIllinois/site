@@ -1,10 +1,8 @@
 "use client";
-import { Box, Button, Typography } from "@mui/material";
-import { Source_Code_Pro } from "next/font/google";
 import LANDING from "@/public/registration/pro/landing.svg";
+import { montserrat } from "@/theme/fonts";
+import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
-
-const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
 
 const ProChallenge: React.FC = () => {
     return (
@@ -75,7 +73,7 @@ const ProChallenge: React.FC = () => {
                 </Typography>
 
                 {/* Begin button */}
-                <Link prefetch={false} href="/challenge/result/success">
+                <Link prefetch={false} href="/challenge/description">
                     <Button
                         variant="contained"
                         sx={{
@@ -87,6 +85,7 @@ const ProChallenge: React.FC = () => {
                             px: { xs: 6, sm: 8 },
                             py: 1,
                             borderRadius: "30px",
+                            fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
                             "&:hover": {
                                 backgroundColor: "white"
                             }

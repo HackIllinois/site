@@ -1,3 +1,4 @@
+import { montserrat } from "@/theme/fonts";
 import { Box, Button, Container, Typography } from "@mui/material";
 import Link from "next/link";
 
@@ -73,7 +74,14 @@ export default function ChallengeResult() {
                     your confirmation.
                 </Typography>
                 <Link prefetch={false} href="/register/general#confirmation">
-                    <Button variant="contained" sx={{ color: "black", mt: 3 }}>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            color: "black",
+                            mt: 3,
+                            fontFamily: `${montserrat.style.fontFamily}, sans-serif`
+                        }}
+                    >
                         Continue
                     </Button>
                 </Link>

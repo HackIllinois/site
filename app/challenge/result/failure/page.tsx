@@ -1,3 +1,4 @@
+import { montserrat } from "@/theme/fonts";
 import { Box, Button, Container, Typography } from "@mui/material";
 
 export default function ChallengeResult() {
@@ -5,14 +6,10 @@ export default function ChallengeResult() {
         <Box
             sx={{
                 minHeight: "100vh", // full viewport height
-                minWidth: "100vw",
                 height: "100%",
                 width: "100%",
                 pb: "50px",
-                backgroundImage: {
-                    xs: `url("/challenge/backgrounds/mobile/failure.png"), url("/challenge/backgrounds/failure.png")`,
-                    md: `url("/challenge/backgrounds/failure.png")`
-                },
+                backgroundImage: `url("/challenge/backgrounds/failure.svg")`,
                 backgroundSize: "cover", // fill the screen
                 backgroundRepeat: "no-repeat", // prevent tiling
                 backgroundPosition: "center", // center the image
@@ -24,7 +21,6 @@ export default function ChallengeResult() {
         >
             <Container
                 sx={{
-                    width: "600px",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -35,11 +31,10 @@ export default function ChallengeResult() {
                 }}
             >
                 <Typography
-                    variant="h3"
-                    component="h1"
                     sx={{
                         fontSize: "2rem",
-                        fontWeight: 600
+                        fontWeight: 600,
+                        maxWidth: "600px"
                     }}
                 >
                     Unfortunately, your solution did not pass the challenge
@@ -53,10 +48,24 @@ export default function ChallengeResult() {
                 >
                     Please select one of the following options:
                 </Typography>
-                <Button variant="contained" sx={{ color: "black" }}>
+                <Button
+                    variant="contained"
+                    href="/challenge/"
+                    sx={{
+                        color: "black",
+                        fontFamily: `${montserrat.style.fontFamily}, sans-serif`
+                    }}
+                >
                     Try again
                 </Button>
-                <Button variant="contained" sx={{ color: "black" }}>
+                <Button
+                    variant="contained"
+                    href="/register/general"
+                    sx={{
+                        color: "black",
+                        fontFamily: `${montserrat.style.fontFamily}, sans-serif`
+                    }}
+                >
                     Back to registration
                 </Button>
             </Container>

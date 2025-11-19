@@ -39,6 +39,7 @@ const GeneralRegistration = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [isSaving, setIsSaving] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const renderStepContent = (step: number, formik: any) => {
         switch (step) {
@@ -98,6 +99,8 @@ const GeneralRegistration = () => {
         try {
             const submission = await loadSubmission();
             if (submission) {
+                formik.setValues(submission);
+                setIsSubmitted(true);
                 skipToStep(steps.length - 1);
                 setIsLoading(false);
                 return;
@@ -160,6 +163,7 @@ const GeneralRegistration = () => {
 
     const handleSave = useCallback(async () => {
         // Already submitted
+        if (isSubmitted) return;
         if (currentStep === steps.length - 1) return;
         if (!loadedDraft || isSaving) return;
         // Ensure that the data is correctly formatted before autosaving.
@@ -195,7 +199,7 @@ const GeneralRegistration = () => {
             );
             setShowErrorAlert(true);
         }
-    }, [loadedDraft, isSaving, formik.values]);
+    }, [loadedDraft, isSaving, formik.values, isSubmitted, currentStep]);
 
     const handleNextOrSubmit = async () => {
         try {
@@ -219,6 +223,7 @@ const GeneralRegistration = () => {
             setIsLoading(true);
             try {
                 await submitDraft();
+                setIsSubmitted(true);
             } catch (error: any) {
                 console.error("Failed to submit draft:", error);
                 setErrorMessage(
