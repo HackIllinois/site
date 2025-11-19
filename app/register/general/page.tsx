@@ -1,16 +1,9 @@
 "use client";
 import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 import { initialValues, validationSchemas } from "@/util/validation";
-import { Box, Paper, Stack, Step, StepLabel, Stepper } from "@mui/material";
-import { Form, useFormik } from "formik";
-import Image from "next/image";
-import {
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useRef,
-    useState
-} from "react";
+import { Box, Paper, Stack } from "@mui/material";
+import { useFormik } from "formik";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import AppQuestions from "./formPages/AppQuestions";
 import AttendingHack from "./formPages/AttendingHack";
@@ -19,9 +12,10 @@ import Confirmation from "./formPages/Confirmation";
 import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
 
+import { saveDraft } from "@/util/api";
 import { RegistrationApplicationDraftBody } from "@/util/types";
-import RocketOverlay from "./rocket";
-import { loadSubmission, saveDraft } from "@/util/api";
+import RegistrationStepper from "./components/RegistrationStepper";
+import { steps } from "./constants/steps";
 
 const page_slugs = [
     "personal-information",
@@ -41,11 +35,6 @@ const indexToSlug = (i: number) =>
 
 const GeneralRegistration = () => {
     const [currentStep, setCurrentStep] = useState(0);
-    const [planetCenters, setPlanetCenters] = useState<
-        { x: number; y: number }[]
-    >([]);
-
-    const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {
         const slug = indexToSlug(currentStep);
@@ -67,56 +56,6 @@ const GeneralRegistration = () => {
         return () => window.removeEventListener("hashchange", readHash);
     }, [currentStep]);
 
-    const measurePlanets = useCallback(() => {
-        const centers = planetRefs.current.map(el => {
-            if (!el) return { x: 0, y: 0 };
-            const rect = el.getBoundingClientRect();
-            return {
-                x: rect.left + rect.width / 2,
-                y: rect.top + rect.height / 2
-            };
-        });
-        setPlanetCenters(centers);
-    }, []);
-
-    useLayoutEffect(() => {
-        measurePlanets();
-
-        const onResize = () => {
-            measurePlanets();
-        };
-
-        window.addEventListener("resize", onResize);
-        return () => {
-            window.removeEventListener("resize", onResize);
-        };
-    }, [measurePlanets]);
-
-    const steps = [
-        {
-            id: "personal_info",
-            name: "Personal Information",
-            color: "#3A2541"
-        },
-        {
-            id: "background_info",
-            name: "Background Information",
-            color: "#01023B"
-        },
-        {
-            id: "app_questions",
-            name: "Application Questions",
-            color: "#01313B"
-        },
-        {
-            id: "attending_hack",
-            name: "Attending HackIllinois",
-            color: "#87304E"
-        },
-        { id: "review", name: "Review & Submit", color: "#983300" },
-        { id: "confirmation", name: "Confirmation", color: "#480021" }
-    ];
-
     const handleNext = async (
         values: RegistrationApplicationDraftBody,
         setTouched: any
@@ -128,7 +67,7 @@ const GeneralRegistration = () => {
 
             console.log("Validation for currentSchema passed");
 
-            await saveDraft(formik.values);
+            // await saveDraft(formik.values);
             if (currentStep < steps.length - 1) {
                 setCurrentStep(prev => prev + 1);
                 window.scrollTo(0, 0);
@@ -197,12 +136,12 @@ const GeneralRegistration = () => {
     const formik = useFormik({
         initialValues,
         validationSchema: validationSchemas[currentStep],
-        onSubmit: saveDraft
+        onSubmit: () => {}
     });
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            saveDraft(formik.values);
+            // saveDraft(formik.values);
         }, 1_000);
         return () => clearTimeout(timeout);
     }, [formik.values]);
@@ -233,80 +172,7 @@ const GeneralRegistration = () => {
                         maxWidth: "1200px"
                     }}
                 >
-                    <RocketOverlay
-                        activeStep={currentStep}
-                        planetCenters={planetCenters}
-                    />
-                    <Stepper
-                        alternativeLabel
-                        activeStep={currentStep}
-                        sx={{
-                            pt: { xs: 20, lg: 24 },
-                            width: "100%",
-                            "& .MuiStepLabel-root": {
-                                zIndex: 1,
-                                position: "relative"
-                            }
-                        }}
-                    >
-                        {steps.map((step, i) => (
-                            <Step key={step.id}>
-                                <StepLabel
-                                    sx={{
-                                        "& .MuiStepLabel-label": {
-                                            pt: {
-                                                xs: 0.5,
-                                                sm: 2.5,
-                                                md: 3,
-                                                lg: 3.5
-                                            },
-                                            fontSize: {
-                                                xs: "8.5px",
-                                                sm: "12px",
-                                                md: "14px"
-                                            },
-                                            color: "white", // default text color
-                                            fontFamily: "Tsukimi Rounded",
-                                            "&.Mui-active": { color: "white" }, // active step stays white
-                                            "&.Mui-completed": {
-                                                color: "white"
-                                            } // completed step stays white
-                                        }
-                                    }}
-                                    slots={{
-                                        stepIcon: props => (
-                                            <Box
-                                                ref={(
-                                                    el: HTMLDivElement | null
-                                                ) => {
-                                                    planetRefs.current[i] = el;
-                                                }}
-                                                sx={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    width: 32, // matches MUI's default StepIcon size
-                                                    height: 32,
-                                                    margin: "0 auto"
-                                                }}
-                                            >
-                                                <Image
-                                                    src={`/registration/progress_bar/${step.id}.svg`}
-                                                    alt="Transportation"
-                                                    width={80}
-                                                    height={80}
-                                                    style={{
-                                                        width: "clamp(40px, 10vw,100px)",
-                                                        height: "auto"
-                                                    }}
-                                                />
-                                            </Box>
-                                        )
-                                    }}
-                                />
-                            </Step>
-                        ))}
-                    </Stepper>
+                    <RegistrationStepper currentStep={currentStep} />
                     <Box sx={{ mb: 4, fontFamily: "Montserrat" }}>
                         {renderStepContent(currentStep, formik)}
                     </Box>
