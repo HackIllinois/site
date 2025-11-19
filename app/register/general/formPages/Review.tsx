@@ -27,7 +27,7 @@ interface ReviewProps {
 }
 
 const Review = ({ formik, onEditStep }: ReviewProps) => {
-    const { values, errors, touched, handleChange } = formik;
+    const { values, errors, touched } = formik;
     const [expanded, setExpanded] = useState<string | false>("personal");
 
     const handleExpand =
