@@ -1,5 +1,4 @@
 import styles from "./Description.module.scss";
-import Image from "next/image";
 
 const Description: React.FC = () => {
     return (
