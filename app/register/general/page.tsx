@@ -159,6 +159,8 @@ const GeneralRegistration = () => {
     }, [formik, skipToStep]);
 
     const handleSave = useCallback(async () => {
+        // Already submitted
+        if (currentStep === steps.length - 1) return;
         if (!loadedDraft || isSaving) return;
         // Ensure that the data is correctly formatted before autosaving.
 

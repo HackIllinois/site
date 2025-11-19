@@ -8,6 +8,7 @@ import {
     genderOptions,
     graduationYearOptions,
     majorOptions,
+    numHackathonOptions,
     raceOptions,
     schoolOptions,
     stateOptions,
@@ -189,6 +190,33 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         onChange={value => setFieldValue("gender", value)}
                         error={!!touched.gender && Boolean(errors.gender)}
                         helperText={!!touched.gender ? errors.gender : ""}
+                    />
+                </Grid>
+
+                <Grid size={12}>
+                    <SelectTextInput
+                        name="hackathonsParticipated"
+                        label="How many hackathons have you participated in?"
+                        accentColor={accentColor}
+                        required
+                        options={numHackathonOptions.map(option => ({
+                            label: option,
+                            value: option
+                        }))}
+                        value={values.hackathonsParticipated || ""}
+                        onChange={value =>
+                            setFieldValue("hackathonsParticipated", value)
+                        }
+                        error={
+                            !!touched.hackathonsParticipated &&
+                            Boolean(errors.hackathonsParticipated)
+                        }
+                        helperText={
+                            !!touched.hackathonsParticipated
+                                ? errors.hackathonsParticipated
+                                : ""
+                        }
+                        maxInputWidth={"300px"}
                     />
                 </Grid>
 

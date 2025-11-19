@@ -38,6 +38,8 @@ export const raceOptions: string[] = [
     "Prefer Not to Answer"
 ];
 
+export const numHackathonOptions: string[] = ["0", "1", "2-3", "4+"];
+
 export const countryOptions: string[] = countries.concat("N/A");
 
 export const stateOptions: string[] = states.concat("N/A");
