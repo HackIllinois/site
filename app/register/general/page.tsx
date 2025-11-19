@@ -1,19 +1,8 @@
 "use client";
 import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
-import theme from "@/theme";
 import { initialValues, validationSchemas } from "@/util/validation";
-import {
-    Box,
-    Paper,
-    Stack,
-    Step,
-    StepLabel,
-    Stepper,
-    Typography,
-    useMediaQuery,
-    Button
-} from "@mui/material";
-import { Form, Formik } from "formik";
+import { Box, Paper, Stack, Step, StepLabel, Stepper } from "@mui/material";
+import { Form, useFormik } from "formik";
 import Image from "next/image";
 import {
     useCallback,
@@ -31,16 +20,8 @@ import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
 
 import { RegistrationApplicationDraftBody } from "@/util/types";
-import { useParams } from "next/navigation";
 import RocketOverlay from "./rocket";
-import {
-    authenticate,
-    isAuthenticated,
-    loadDraft,
-    loadSubmission,
-    saveDraft,
-    submitDraft
-} from "@/util/api";
+import { loadSubmission, saveDraft } from "@/util/api";
 
 const page_slugs = [
     "personal-information",
@@ -64,9 +45,7 @@ const GeneralRegistration = () => {
         { x: number; y: number }[]
     >([]);
 
-    const smallMode = useMediaQuery(theme.breakpoints.down("sm"));
     const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const params = useParams();
 
     useEffect(() => {
         const slug = indexToSlug(currentStep);
@@ -149,11 +128,8 @@ const GeneralRegistration = () => {
 
             console.log("Validation for currentSchema passed");
 
-            // If on the final step, submit the form
-            if (currentStep === steps.length - 1) {
-                handleSubmit(values);
-            } else {
-                // Otherwise, just move to the next step
+            await saveDraft(formik.values);
+            if (currentStep < steps.length - 1) {
                 setCurrentStep(prev => prev + 1);
                 window.scrollTo(0, 0);
             }
@@ -177,10 +153,6 @@ const GeneralRegistration = () => {
     const handleBack = () => {
         setCurrentStep(prev => prev - 1);
         window.scrollTo(0, 0);
-    };
-
-    const handleSubmit = (values: RegistrationApplicationDraftBody) => {
-        alert("Form submitted successfully! Check console for data.");
     };
 
     const renderStepContent = (step: number, formik: any) => {
@@ -222,83 +194,18 @@ const GeneralRegistration = () => {
         }
     };
 
-    const handleAuthenticateUser = async () => {
-        if (!(await isAuthenticated())) {
-            // TODO: Remove this loop
-            const shouldReauth = window.confirm(
-                "Not authenticated. Re-authenticate? || This prompt will be removed in production -- it is to prevent infinite loops during testing."
-            );
-            if (shouldReauth) {
-                await authenticate();
-            }
-        }
-    };
+    const formik = useFormik({
+        initialValues,
+        validationSchema: validationSchemas[currentStep],
+        onSubmit: saveDraft
+    });
 
     useEffect(() => {
-        handleAuthenticateUser();
-    }, []);
-
-    // TODO: Remove these registration API testing functions.
-    const handleTestSaveIncompleteDraft = async () => {
-        const response = await saveDraft({
-            firstName: "Ronakin",
-            lastName: "Kanandini",
-            preferredName: "Ron",
-            age: "24",
-            email: "ronakin@example.com"
-        });
-        console.log("Saved incomplete draft response:");
-        console.log(response);
-    };
-
-    const handleTestSaveCompleteDraft = async () => {
-        const response = await saveDraft({
-            firstName: "Ronakin",
-            lastName: "Kanandini",
-            age: "21",
-            email: "rpak@gmail.org",
-            gender: "Prefer Not to Answer",
-            race: ["Prefer Not to Answer"],
-            country: "United States",
-            state: "Illinois",
-            school: "University of Illinois Urbana-Champaign",
-            education: "Undergraduate University (3+ year)",
-            graduate: "Spring 2026",
-            major: "Computer science, computer engineering, or software engineering",
-            underrepresented: "No",
-            hackathonsParticipated: "2-3",
-            application1:
-                "I am passionate about hackathons and building innovative solutions that can make a real difference in the world. I have attended multiple hackathons and love collaborating with like-minded individuals.",
-            application2:
-                "Technology has always fascinated me, and I believe hackathons are the best way to learn new skills while creating meaningful projects. I am excited to contribute to the HackIllinois community.",
-            applicationOptional:
-                "I am particularly interested in AI and machine learning applications.",
-            applicationPro:
-                "My professional experience includes internships at top tech companies where I worked on full-stack development and learned valuable skills in system design and architecture.",
-            attribution: ["Friend"],
-            eventInterest: ["Networking"]
-        });
-        console.log("Saved complete draft response:");
-        console.log(response);
-    };
-
-    const handleTestLoadDraft = async () => {
-        const draftData = await loadDraft();
-        console.log("Loaded draft data:");
-        console.log(draftData);
-    };
-
-    const handleTestSubmitDraft = async () => {
-        const response = await submitDraft();
-        console.log("Submit draft response:");
-        console.log(response);
-    };
-
-    const handleTestLoadSubmission = async () => {
-        const response = await loadSubmission();
-        console.log("Load submission response:");
-        console.log(response);
-    };
+        const timeout = setTimeout(() => {
+            saveDraft(formik.values);
+        }, 1_000);
+        return () => clearTimeout(timeout);
+    }, [formik.values]);
 
     return (
         <main className={"screen"}>
@@ -400,108 +307,53 @@ const GeneralRegistration = () => {
                             </Step>
                         ))}
                     </Stepper>
+                    <Box sx={{ mb: 4, fontFamily: "Montserrat" }}>
+                        {renderStepContent(currentStep, formik)}
+                    </Box>
 
-                    <Formik
-                        initialValues={initialValues}
-                        validationSchema={validationSchemas[currentStep]}
-                        onSubmit={handleSubmit}
+                    <Stack
+                        direction={{ xs: "column", sm: "row" }}
+                        justifyContent={
+                            currentStep === 0 ? "flex-end" : "space-between"
+                        } // Personal info page has one arrow
+                        alignItems="center"
+                        gap={{ xs: "24px", md: "0px" }}
+                        mt={10}
+                        mb={2}
+                        mr={4}
+                        ml={4}
                     >
-                        {formik => (
-                            <Form>
-                                <Box sx={{ mb: 4, fontFamily: "Montserrat" }}>
-                                    {renderStepContent(currentStep, formik)}
-                                </Box>
-
-                                <Stack
-                                    direction={{ xs: "column", sm: "row" }}
-                                    justifyContent={
-                                        currentStep === 0
-                                            ? "flex-end"
-                                            : "space-between"
-                                    } // Personal info page has one arrow
-                                    alignItems="center"
-                                    gap={{ xs: "24px", md: "0px" }}
-                                    mt={10}
-                                    mb={2}
-                                    mr={4}
-                                    ml={4}
-                                >
-                                    {/* Left arrow */}
-                                    {currentStep > 0 &&
-                                        currentStep < steps.length - 1 && (
-                                            <NavigationButton
-                                                text={steps[
-                                                    currentStep - 1
-                                                ].name.toUpperCase()}
-                                                color={steps[currentStep].color}
-                                                onClick={handleBack}
-                                                disabled={currentStep === 0}
-                                                type="button"
-                                            />
-                                        )}
-
-                                    {/* Right arrow */}
-                                    {currentStep < steps.length - 1 && (
-                                        <NavigationButton
-                                            text={
-                                                currentStep === steps.length - 2
-                                                    ? "SUBMIT"
-                                                    : steps[
-                                                          currentStep + 1
-                                                      ].name.toUpperCase()
-                                            }
-                                            color={steps[currentStep].color}
-                                            pointRight={true}
-                                            onClick={() =>
-                                                handleNext(
-                                                    formik.values,
-                                                    formik.setTouched
-                                                )
-                                            }
-                                            type="button"
-                                        />
-                                    )}
-                                </Stack>
-                            </Form>
+                        {/* Left arrow */}
+                        {currentStep > 0 && currentStep < steps.length - 1 && (
+                            <NavigationButton
+                                text={steps[currentStep - 1].name.toUpperCase()}
+                                color={steps[currentStep].color}
+                                onClick={handleBack}
+                                disabled={currentStep === 0}
+                                type="button"
+                            />
                         )}
-                    </Formik>
+
+                        {/* Right arrow */}
+                        {currentStep < steps.length - 1 && (
+                            <NavigationButton
+                                text={
+                                    currentStep === steps.length - 2
+                                        ? "SUBMIT"
+                                        : steps[
+                                              currentStep + 1
+                                          ].name.toUpperCase()
+                                }
+                                color={steps[currentStep].color}
+                                pointRight={true}
+                                onClick={() =>
+                                    handleNext(formik.values, formik.setTouched)
+                                }
+                                type="button"
+                            />
+                        )}
+                    </Stack>
                 </Paper>
-                {/* REMOVE THESE BUTTONS, FOR TESTING PURPOSES ONLY */}
-                <Box
-                    sx={{
-                        display: "flex",
-                        gap: 2,
-                        justifyContent: "center",
-                        p: 2,
-                        flexWrap: "wrap",
-                        mt: 5
-                    }}
-                >
-                    <Button
-                        variant="outlined"
-                        onClick={handleTestSaveIncompleteDraft}
-                    >
-                        Test Save Incomplete Draft
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        onClick={handleTestSaveCompleteDraft}
-                    >
-                        Test Save Complete Draft
-                    </Button>
-                    <Button variant="outlined" onClick={handleTestLoadDraft}>
-                        Test Load Draft
-                    </Button>
-                    <Button variant="outlined" onClick={handleTestSubmitDraft}>
-                        Test Submit Draft
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        onClick={handleTestLoadSubmission}
-                    >
-                        Test Load Submission
-                    </Button>
-                </Box>
             </Box>
         </main>
     );

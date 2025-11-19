@@ -82,36 +82,6 @@ export async function getChallenge(): Promise<ChallengeStatus> {
     return res;
 }
 
-/** Deprecated */
-export async function registerUpdate(
-    registration: RegistrationType
-): Promise<WithId<RegistrationType>> {
-    const res = await requestv2("POST", `/registration`, registration).catch(
-        body => handleError(body)
-    );
-    return res;
-}
-
-/** Deprecated */
-export async function registerSubmit(
-    registration: RegistrationType
-): Promise<WithId<RegistrationType>> {
-    const res = await requestv2(
-        "POST",
-        `/registration/submit`,
-        registration
-    ).catch(body => handleError(body));
-    return res;
-}
-
-/** Deprecated */
-export async function getRSVP(): Promise<RSVPType> {
-    const res = await requestv2("GET", "/admission/rsvp").catch(body =>
-        handleError(body)
-    );
-    return res;
-}
-
 export async function subscribe(
     listName: string,
     emailAddress: string
@@ -143,12 +113,10 @@ export async function uploadFile(file: File, type: FileType): Promise<unknown> {
     return res;
 }
 
-// Save data to draft
 export async function saveDraft(data: RegistrationApplicationDraftBody) {
     return await requestv2("PUT", "/registration/draft", data);
 }
 
-// Load draft data
 export async function loadDraft() {
     return (await requestv2(
         "GET",
@@ -158,7 +126,6 @@ export async function loadDraft() {
     };
 }
 
-// Submit draft
 export async function submitDraft() {
     return await requestv2("POST", "/registration/submit");
 }
