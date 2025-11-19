@@ -24,7 +24,8 @@ import {
     loadDraft,
     loadSubmission,
     saveDraft,
-    submitDraft
+    submitDraft,
+    subscribe
 } from "@/util/api";
 import RegistrationStepper from "./components/RegistrationStepper";
 import { steps } from "./constants/registration";
@@ -221,6 +222,28 @@ const GeneralRegistration = () => {
             // Final step before submission
             setShowClickOffAlert(false);
             setIsLoading(true);
+
+            if (formik.values.optInNewsletter) {
+                try {
+                    if (!formik.values.email) {
+                        return; // This should not happen; email is a required field.
+                    }
+                    await subscribe(
+                        "hackillinois2026_interest",
+                        formik.values.email
+                    );
+                    await subscribe("2026_applicants", formik.values.email);
+                } catch (error: any) {
+                    console.error("Failed to save draft:", error);
+                    setErrorMessage(
+                        error?.message ||
+                            "Failed to subscribe to HackIllinois newsletters. Please try again."
+                    );
+                    setShowErrorAlert(true);
+                    setIsLoading(false);
+                    return;
+                }
+            }
             try {
                 await submitDraft();
                 setIsSubmitted(true);
