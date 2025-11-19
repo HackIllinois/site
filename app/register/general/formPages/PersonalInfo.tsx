@@ -1,9 +1,10 @@
-import SelectInput from "@/components/SelectInputMUI";
-import TextInput from "@/components/TextInputMUI";
-import { ageOptions } from "@/util/options";
-import { RegistrationApplicationDraftBodyForm } from "@/util/types";
+import { RegistrationData } from "@/util/types";
 import { Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";
+import TextInput from "@/components/TextInputMUI";
+import SelectTextInput from "@/components/SelectTextInputMUI";
+import { ageOptions } from "@/util/options";
+import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { useEffect } from "react";
 
 interface PersonalInfoProps {
@@ -13,20 +14,6 @@ interface PersonalInfoProps {
 
 const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
-
-    useEffect(() => {
-        if (!formik.dirty || formik.isSubmitting) return;
-
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            e.preventDefault();
-            (e as any).returnValue = "";
-        };
-
-        window.addEventListener("beforeunload", handleBeforeUnload);
-        return () =>
-            window.removeEventListener("beforeunload", handleBeforeUnload);
-    }, [formik.dirty, formik.isSubmitting]);
-
     return (
         <Container>
             <Typography
@@ -65,7 +52,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                     />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 3, md: 2 }}>
-                    <SelectInput
+                    <SelectTextInput
                         name="age"
                         label="Age"
                         accentColor={accentColor}
@@ -74,7 +61,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                             label: option,
                             value: option
                         }))}
-                        value={values.age}
+                        value={values.age || ""}
                         onChange={value => setFieldValue("age", value)}
                         error={!!touched.age && Boolean(errors.age)}
                         helperText={!!touched.age ? errors.age : ""}

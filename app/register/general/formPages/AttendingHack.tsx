@@ -18,20 +18,6 @@ interface TransportationProps {
 
 const Transportation = ({ formik, accentColor }: TransportationProps) => {
     const { values, errors, touched, setFieldValue } = formik;
-
-    useEffect(() => {
-        if (!formik.dirty || formik.isSubmitting) return;
-
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            e.preventDefault();
-            (e as any).returnValue = "";
-        };
-
-        window.addEventListener("beforeunload", handleBeforeUnload);
-        return () =>
-            window.removeEventListener("beforeunload", handleBeforeUnload);
-    }, [formik.dirty, formik.isSubmitting]);
-
     return (
         <Container>
             <Typography

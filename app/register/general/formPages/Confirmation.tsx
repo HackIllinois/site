@@ -46,7 +46,8 @@ const Confirmation = ({ formik }: ConfirmationProps) => {
                     alignItems: "center",
                     justifyContent: "center",
                     width: "100%",
-                    maxWidth: "800px"
+                    maxWidth: "800px",
+                    paddingTop: "100px"
                 }}
             >
                 <Image

@@ -13,7 +13,6 @@ import NavigationButton from "../Form/NavigationButton/NavigationButton";
 import Loading from "../Loading/Loading";
 import styles from "./Registration.module.scss";
 import { getRegistrationSchema } from "./validation";
-
 const pages = [
     "/register/personal-info",
     "/register/education",
@@ -138,9 +137,6 @@ const Registration: React.FC<PropTypes> = ({
         };
 
         setIsLoading(true);
-        // await registerUpdate(
-        //     registrationToAPI({ ...registration, ...newIgnore })
-        // ).catch(err => handleError(err));
         await formikRef.current?.setTouched({}, false);
         setIgnoredFields(newIgnore);
         router.push(pages[pageIndex + 1]);
