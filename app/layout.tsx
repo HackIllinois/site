@@ -3,7 +3,7 @@
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import "./globals.scss";
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar/Navbar";
+import NavbarWrapper from "@/components/Navbar/NavbarWrapper";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
 import { montserrat, tsukimi } from "../theme/fonts";
@@ -27,7 +27,7 @@ export default function RootLayout({
             >
                 <AppRouterCacheProvider>
                     <ThemeProvider theme={theme}>
-                        <Navbar />
+                        <NavbarWrapper />
                         {children}
                     </ThemeProvider>
                 </AppRouterCacheProvider>

@@ -2,15 +2,7 @@
 import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 import theme from "@/theme";
 import { initialValues, validationSchemas } from "@/util/validation";
-import {
-    Box,
-    Paper,
-    Stack,
-    Step,
-    StepLabel,
-    Stepper,
-    useMediaQuery
-} from "@mui/material";
+import { Box, Paper, Stack, useMediaQuery } from "@mui/material";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import {
@@ -27,10 +19,12 @@ import BackgroundInfo from "./formPages/BackgroundInfo";
 import Confirmation from "./formPages/Confirmation";
 import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
-
-import { RegistrationApplicationDraftBody } from "@/util/types";
+import RegistrationStepper from "@/components/RegistrationStepper";
+import {
+    RegistrationApplicationDraftBody,
+    RegistrationSteps as steps
+} from "@/util/types";
 import { useParams } from "next/navigation";
-import RocketOverlay from "./rocket";
 
 const page_slugs = [
     "personal-information",
@@ -102,31 +96,6 @@ const GeneralRegistration = () => {
             window.removeEventListener("resize", onResize);
         };
     }, [measurePlanets]);
-
-    const steps = [
-        {
-            id: "personal_info",
-            name: "Personal Information",
-            color: "#3A2541"
-        },
-        {
-            id: "background_info",
-            name: "Background Information",
-            color: "#01023B"
-        },
-        {
-            id: "app_questions",
-            name: "Application Questions",
-            color: "#01313B"
-        },
-        {
-            id: "attending_hack",
-            name: "Attending HackIllinois",
-            color: "#87304E"
-        },
-        { id: "review", name: "Review & Submit", color: "#983300" },
-        { id: "confirmation", name: "Confirmation", color: "#480021" }
-    ];
 
     const handleNext = async (
         values: RegistrationApplicationDraftBody,
@@ -229,90 +198,31 @@ const GeneralRegistration = () => {
                     backgroundPosition: "center" // center the image
                 }}
             >
+                <Box
+                    sx={{
+                        position: "absolute",
+                        top: { xs: 16, md: 32 },
+                        right: { xs: 16, md: 32 },
+                        zIndex: 10
+                    }}
+                >
+                    <RegistrationStepper
+                        currentStep={currentStep}
+                        planetCenters={planetCenters}
+                    />
+                </Box>
+
                 <Paper
                     elevation={0}
                     sx={{
                         backgroundColor: "rgba(255, 255, 255,0)",
                         height: "100%",
                         mx: "auto",
-                        maxWidth: "1200px"
+                        maxWidth: "1200px",
+                        pt: { xs: 8, md: 12 },
+                        pb: 8
                     }}
                 >
-                    <RocketOverlay
-                        activeStep={currentStep}
-                        planetCenters={planetCenters}
-                    />
-                    <Stepper
-                        alternativeLabel
-                        activeStep={currentStep}
-                        sx={{
-                            pt: { xs: 20, lg: 24 },
-                            width: "100%",
-                            "& .MuiStepLabel-root": {
-                                zIndex: 1,
-                                position: "relative"
-                            }
-                        }}
-                    >
-                        {steps.map((step, i) => (
-                            <Step key={step.id}>
-                                <StepLabel
-                                    sx={{
-                                        "& .MuiStepLabel-label": {
-                                            pt: {
-                                                xs: 0.5,
-                                                sm: 2.5,
-                                                md: 3,
-                                                lg: 3.5
-                                            },
-                                            fontSize: {
-                                                xs: "8.5px",
-                                                sm: "12px",
-                                                md: "14px"
-                                            },
-                                            color: "white", // default text color
-                                            fontFamily: "Tsukimi Rounded",
-                                            "&.Mui-active": { color: "white" }, // active step stays white
-                                            "&.Mui-completed": {
-                                                color: "white"
-                                            } // completed step stays white
-                                        }
-                                    }}
-                                    slots={{
-                                        stepIcon: props => (
-                                            <Box
-                                                ref={(
-                                                    el: HTMLDivElement | null
-                                                ) => {
-                                                    planetRefs.current[i] = el;
-                                                }}
-                                                sx={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    width: 32, // matches MUI's default StepIcon size
-                                                    height: 32,
-                                                    margin: "0 auto"
-                                                }}
-                                            >
-                                                <Image
-                                                    src={`/registration/progress_bar/${step.id}.svg`}
-                                                    alt="Transportation"
-                                                    width={80}
-                                                    height={80}
-                                                    style={{
-                                                        width: "clamp(40px, 10vw,100px)",
-                                                        height: "auto"
-                                                    }}
-                                                />
-                                            </Box>
-                                        )
-                                    }}
-                                />
-                            </Step>
-                        ))}
-                    </Stepper>
-
                     <Formik
                         initialValues={initialValues}
                         validationSchema={validationSchemas[currentStep]}
