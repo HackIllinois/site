@@ -1,23 +1,44 @@
 "use client";
 import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
-import { initialValues, validationSchemas } from "@/util/validation";
-import { Box, Paper, Stack } from "@mui/material";
+import {
+    draftValidationSchemas,
+    initialValues,
+    validationSchemas,
+    valuesToDraftContent
+} from "@/util/validation";
+import { Alert, Box, Paper, Snackbar, Stack } from "@mui/material";
 import { useFormik } from "formik";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AppQuestions from "./formPages/AppQuestions";
 import AttendingHack from "./formPages/AttendingHack";
 import BackgroundInfo from "./formPages/BackgroundInfo";
 import Confirmation from "./formPages/Confirmation";
 import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
+import * as Yup from "yup";
 
+import Loading from "@/components/Loading/Loading";
+import {
+    authenticate,
+    isAuthenticated,
+    loadDraft,
+    loadSubmission,
+    saveDraft,
+    submitDraft
+} from "@/util/api";
 import RegistrationStepper from "./components/RegistrationStepper";
 import { steps } from "./constants/registration";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
 
 const GeneralRegistration = () => {
-    const { currentStep, setCurrentStep, handleNext, handleBack } =
+    const { currentStep, setCurrentStep, handleNext, handleBack, skipToStep } =
         useRegistrationSteps(validationSchemas);
+    const [showSaveAlert, setShowSaveAlert] = useState(false);
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
+    const [showClickOffAlert, setShowClickOffAlert] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isSaving, setIsSaving] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const renderStepContent = (step: number, formik: any) => {
         switch (step) {
@@ -58,21 +79,223 @@ const GeneralRegistration = () => {
         }
     };
 
+    const [loadedDraft, setLoadedDraft] = useState(false);
+
     const formik = useFormik({
         initialValues,
         validationSchema: validationSchemas[currentStep],
         onSubmit: () => {}
     });
 
+    const handleLoadDraft = useCallback(async () => {
+        setIsLoading(true);
+        setLoadedDraft(false);
+        if (!isAuthenticated()) {
+            authenticate();
+            setIsLoading(false);
+            return;
+        }
+        try {
+            const submission = await loadSubmission();
+            if (submission) {
+                skipToStep(steps.length - 1);
+                setIsLoading(false);
+                return;
+            }
+        } catch (error: any) {
+            // Only show error if it's not a 404 (no submission exists yet)
+            if (error.error !== "NotFound") {
+                console.error("Failed to load submission:", error);
+                setErrorMessage(
+                    "Failed to load your submission: " + (error?.message || "")
+                );
+                setShowErrorAlert(true);
+            }
+        }
+        try {
+            const draft = await loadDraft();
+
+            if (draft) {
+                // Merge draft with initialValues to fill in any missing fields
+
+                console.log("Draft", draft);
+
+                let mergedValues = { ...initialValues, ...draft };
+                mergedValues.considerForPro = mergedValues.applicationPro
+                    ? true
+                    : false;
+                formik.setValues(mergedValues);
+            }
+
+            let furthestValidPage = 0;
+            for (let i = 0; i < steps.length - 1; i++) {
+                try {
+                    await validationSchemas[i].validate(draft);
+                    furthestValidPage = i + 1;
+                } catch {
+                    // Validation failed, stop here
+                    console.log("Failed at", i);
+                    break;
+                }
+            }
+
+            skipToStep(furthestValidPage);
+
+            // TODO: Send the user to the correct page.
+            setLoadedDraft(true);
+            setIsLoading(false);
+        } catch (error: any) {
+            // Only show error if it's not a 404 (no draft exists yet)
+            if (error?.error !== "NotFound") {
+                console.error("Failed to load draft:", error);
+                setErrorMessage(
+                    "Failed to load your draft: " + (error?.message || "")
+                );
+                setShowErrorAlert(true);
+            }
+            setLoadedDraft(true);
+            setIsLoading(false);
+        }
+    }, [formik, skipToStep]);
+
+    const handleSave = useCallback(async () => {
+        if (!loadedDraft || isSaving) return;
+        // Ensure that the data is correctly formatted before autosaving.
+
+        const draftContent = valuesToDraftContent(formik.values);
+        try {
+            await draftValidationSchemas[currentStep].validate(draftContent, {
+                abortEarly: false
+            });
+        } catch (error) {
+            setShowClickOffAlert(true);
+            return;
+        }
+
+        setShowClickOffAlert(false);
+
+        try {
+            if (!isAuthenticated()) {
+                authenticate();
+                return;
+            }
+            setIsSaving(true);
+            await saveDraft(draftContent);
+            setShowClickOffAlert(false);
+            setShowSaveAlert(true);
+            setIsSaving(false);
+        } catch (error: any) {
+            console.error("Failed to save draft:", error);
+            setIsSaving(false);
+            setErrorMessage(
+                error?.message ||
+                    "Failed to save your progress. Please try again."
+            );
+            setShowErrorAlert(true);
+        }
+    }, [loadedDraft, isSaving, formik.values]);
+
+    const handleNextOrSubmit = async () => {
+        try {
+            await validationSchemas[currentStep].validate(formik.values, {
+                abortEarly: false
+            });
+        } catch (error: unknown) {
+            if (error instanceof Yup.ValidationError) {
+                const touchedFields: any = {};
+                error.inner.forEach(err => {
+                    if (err.path) touchedFields[err.path] = true;
+                });
+                formik.setTouched(touchedFields);
+            }
+            return;
+        }
+
+        if (currentStep === steps.length - 2) {
+            // Final step before submission
+            setShowClickOffAlert(false);
+            setIsLoading(true);
+            try {
+                await submitDraft();
+            } catch (error: any) {
+                console.error("Failed to submit draft:", error);
+                setErrorMessage(
+                    error?.message ||
+                        "Failed to submit your application. Please try again."
+                );
+                setShowErrorAlert(true);
+                return;
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        await handleNext(formik.values, formik.setTouched);
+    };
+
     useEffect(() => {
+        setShowClickOffAlert(true);
         const timeout = setTimeout(() => {
-            // saveDraft(formik.values);
-        }, 1_000);
+            handleSave();
+        }, 3_000);
         return () => clearTimeout(timeout);
     }, [formik.values]);
 
+    useEffect(() => {
+        handleSave();
+    }, [currentStep]);
+
+    useEffect(() => {
+        handleLoadDraft();
+    }, []);
+
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+        e.preventDefault();
+        (e as any).returnValue = "";
+    };
+    useEffect(() => {
+        if (!showClickOffAlert) {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+            return;
+        }
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () =>
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+    }, [showClickOffAlert]);
+
+    if (isLoading) {
+        return <Loading />;
+    }
+
     return (
         <main className={"screen"}>
+            <Snackbar
+                open={showSaveAlert}
+                autoHideDuration={3000}
+                onClose={() => setShowSaveAlert(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+                <Alert
+                    onClose={() => setShowSaveAlert(false)}
+                    severity="success"
+                    sx={{ width: "100%" }}
+                >
+                    Your progress has been saved!
+                </Alert>
+            </Snackbar>
+            <Snackbar
+                open={showErrorAlert}
+                autoHideDuration={5000}
+                onClose={() => setShowErrorAlert(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+                <Alert
+                    onClose={() => setShowErrorAlert(false)}
+                    severity="error"
+                    sx={{ width: "100%" }}
+                >
+                    {errorMessage}
+                </Alert>
+            </Snackbar>
             <Box
                 sx={{
                     minHeight: "100vh", // Full viewport height
@@ -137,9 +360,7 @@ const GeneralRegistration = () => {
                                 }
                                 color={steps[currentStep].color}
                                 pointRight={true}
-                                onClick={() =>
-                                    handleNext(formik.values, formik.setTouched)
-                                }
+                                onClick={handleNextOrSubmit}
                                 type="button"
                             />
                         )}

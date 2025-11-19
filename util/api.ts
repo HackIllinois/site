@@ -3,9 +3,7 @@ import {
     ChallengeStatus,
     FileType,
     MethodType,
-    RegistrationApplicationDraftBody,
-    RegistrationType,
-    WithId
+    RegistrationApplicationDraftBody
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";

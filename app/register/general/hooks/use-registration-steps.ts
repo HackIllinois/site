@@ -50,6 +50,7 @@ export function useRegistrationSteps(
                     setCurrentStep(prev => prev + 1);
                     window.scrollTo(0, 0);
                 }
+                return true;
             } catch (error) {
                 if (error instanceof Yup.ValidationError) {
                     const touchedFields: any = {};
@@ -58,6 +59,7 @@ export function useRegistrationSteps(
                     });
                     setTouched(touchedFields);
                 }
+                return false;
             }
         },
         [currentStep, validationSchemas]
@@ -72,7 +74,24 @@ export function useRegistrationSteps(
         });
     }, []);
 
+    const skipToStep = useCallback((step: number) => {
+        setCurrentStep(() => {
+            const next = step;
+            if (next < 0) return 0;
+            if (next >= steps.length) return steps.length - 1;
+            window.scrollTo(0, 0);
+            return next;
+        });
+    }, []);
+
     const isLastStep = currentStep === steps.length - 1;
 
-    return { currentStep, setCurrentStep, handleNext, handleBack, isLastStep };
+    return {
+        currentStep,
+        setCurrentStep,
+        handleNext,
+        handleBack,
+        skipToStep,
+        isLastStep
+    };
 }
