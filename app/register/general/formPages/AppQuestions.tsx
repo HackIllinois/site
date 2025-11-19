@@ -11,20 +11,6 @@ interface AppQuestionsProps {
 
 const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
-
-    useEffect(() => {
-        if (!formik.dirty || formik.isSubmitting) return;
-
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            e.preventDefault();
-            (e as any).returnValue = "";
-        };
-
-        window.addEventListener("beforeunload", handleBeforeUnload);
-        return () =>
-            window.removeEventListener("beforeunload", handleBeforeUnload);
-    }, [formik.dirty, formik.isSubmitting]);
-
     return (
         <Container>
             <Typography
@@ -79,6 +65,29 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                         }
                     />
                 </Grid>
+                <Grid size={12}>
+                    <TextInput
+                        name="hackathonsParticipated"
+                        label="How many hackathons have you participated in (including HackIllinois)?"
+                        sublabel="max. 50 words"
+                        accentColor={accentColor}
+                        multiline
+                        required
+                        minRows={4}
+                        value={values.hackathonsParticipated}
+                        onChange={handleChange}
+                        error={
+                            !!touched.hackathonsParticipated &&
+                            Boolean(errors.hackathonsParticipated)
+                        }
+                        helperText={
+                            !!touched.hackathonsParticipated
+                                ? errors.hackathonsParticipated
+                                : ""
+                        }
+                    />
+                </Grid>
+
                 <Grid size={12}>
                     <TextInput
                         name="applicationOptional"
