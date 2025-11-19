@@ -40,7 +40,8 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
 
     // Review
     codeOfConductAcknowledge: false,
-    reviewedAcknowledge: false
+    reviewedAcknowledge: false,
+    optInNewsletter: true
 };
 
 /**
@@ -103,8 +104,8 @@ export const draftValidationSchemas = [
             }
         ),
         application2: Yup.string().test(
-            "max-50-words",
-            "Response cannot be over 50 words",
+            "max-100-words",
+            "Response cannot be over 100 words",
             value => {
                 if (!value) return true;
                 const wordCount = value
@@ -210,14 +211,18 @@ export const validationSchemas = [
             }),
         application2: Yup.string()
             .required("This essay is required")
-            .test("max-50-words", "Response cannot be over 50 words", value => {
-                if (!value) return true;
-                const wordCount = value
-                    .trim()
-                    .split(/\s+/)
-                    .filter(word => word.length > 0).length;
-                return wordCount <= 50;
-            }),
+            .test(
+                "max-100-words",
+                "Response cannot be over 100 words",
+                value => {
+                    if (!value) return true;
+                    const wordCount = value
+                        .trim()
+                        .split(/\s+/)
+                        .filter(word => word.length > 0).length;
+                    return wordCount <= 50;
+                }
+            ),
         applicationOptional: Yup.string()
             .nullable()
             .test(

@@ -19,6 +19,7 @@ interface SelectTextInputProps {
     options: Option[];
     value: string | string[];
     onChange: (value: string | string[]) => void;
+    maxInputWidth?: string;
     error?: boolean;
     helperText?: string;
     accentColor?: string;
@@ -35,6 +36,7 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
     value,
     onChange,
     error,
+    maxInputWidth,
     helperText = "",
     accentColor = "2c2540",
     ...props
@@ -64,6 +66,9 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
             </FormLabel>
 
             <Autocomplete
+                sx={{
+                    maxWidth: maxInputWidth
+                }}
                 filterOptions={filterOptions}
                 multiple={multiple}
                 options={options}

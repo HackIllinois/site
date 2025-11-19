@@ -28,7 +28,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 <Grid size={12}>
                     <TextInput
                         name="application1"
-                        label="What opportunity, event, or feature of HackIllinois 2026 are you most excited to take part in and why?"
+                        label="Pick a product you use often. What’s one thing you’d change to make it better, and what motivated that change?"
                         sublabel="max. 50 words"
                         accentColor={accentColor}
                         multiline
@@ -49,7 +49,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                     <TextInput
                         name="application2"
                         label="Describe a challenge you have faced in the field of CS, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
-                        sublabel="max. 50 words"
+                        sublabel="max. 100 words"
                         accentColor={accentColor}
                         multiline
                         required
@@ -62,28 +62,6 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                         }
                         helperText={
                             !!touched.application2 ? errors.application2 : ""
-                        }
-                    />
-                </Grid>
-                <Grid size={12}>
-                    <TextInput
-                        name="hackathonsParticipated"
-                        label="How many hackathons have you participated in (including HackIllinois)?"
-                        sublabel="max. 50 words"
-                        accentColor={accentColor}
-                        multiline
-                        required
-                        minRows={4}
-                        value={values.hackathonsParticipated}
-                        onChange={handleChange}
-                        error={
-                            !!touched.hackathonsParticipated &&
-                            Boolean(errors.hackathonsParticipated)
-                        }
-                        helperText={
-                            !!touched.hackathonsParticipated
-                                ? errors.hackathonsParticipated
-                                : ""
                         }
                     />
                 </Grid>
