@@ -1,8 +1,4 @@
-import {
-    RegistrationApplicationDraftBody,
-    RegistrationApplicationDraftBodyForm,
-    RegistrationData
-} from "@/util/types";
+import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import * as Yup from "yup";
 
 export const initialValues: RegistrationApplicationDraftBodyForm = {

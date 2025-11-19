@@ -22,3 +22,12 @@ export const steps = [
     { id: "review", name: "Review & Submit", color: "#983300" },
     { id: "confirmation", name: "Confirmation", color: "#480021" }
 ];
+
+export const page_slugs = [
+    "personal-information",
+    "background-information",
+    "application-questions",
+    "attending-hackillinois",
+    "review-and-submit",
+    "confirmation"
+] as const;

@@ -1,8 +1,8 @@
 import { Box, Step, StepLabel, Stepper } from "@mui/material";
 import Image from "next/image";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { steps } from "../constants/steps";
-import RocketOverlay from "../rocket";
+import { steps } from "../constants/registration";
+import RocketOverlay from "./RocketOverlay";
 
 type RegistrationStepperProps = {
     currentStep: number;

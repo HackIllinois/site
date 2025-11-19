@@ -3,8 +3,7 @@ import NavigationButton from "@/components/Form/NavigationButton/NavigationButto
 import { initialValues, validationSchemas } from "@/util/validation";
 import { Box, Paper, Stack } from "@mui/material";
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
-import * as Yup from "yup";
+import { useEffect } from "react";
 import AppQuestions from "./formPages/AppQuestions";
 import AttendingHack from "./formPages/AttendingHack";
 import BackgroundInfo from "./formPages/BackgroundInfo";
@@ -12,87 +11,13 @@ import Confirmation from "./formPages/Confirmation";
 import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
 
-import { saveDraft } from "@/util/api";
-import { RegistrationApplicationDraftBody } from "@/util/types";
 import RegistrationStepper from "./components/RegistrationStepper";
-import { steps } from "./constants/steps";
-
-const page_slugs = [
-    "personal-information",
-    "background-information",
-    "application-questions",
-    "attending-hackillinois",
-    "review-and-submit",
-    "confirmation"
-] as const;
-
-const slugToIndex = (slug?: string) => {
-    const i = page_slugs.indexOf((slug as any) ?? "");
-    return i >= 0 ? i : 0;
-};
-const indexToSlug = (i: number) =>
-    page_slugs[Math.max(0, Math.min(i, page_slugs.length - 1))];
+import { steps } from "./constants/registration";
+import { useRegistrationSteps } from "./hooks/use-registration-steps";
 
 const GeneralRegistration = () => {
-    const [currentStep, setCurrentStep] = useState(0);
-
-    useEffect(() => {
-        const slug = indexToSlug(currentStep);
-        if (window.location.hash === `#${slug}`) return;
-        window.location.hash = slug;
-    }, [currentStep]);
-
-    useEffect(() => {
-        const readHash = () => {
-            const slug = window.location.hash.replace(/^#/, "");
-            if (!slug) return;
-            const idx = slugToIndex(slug);
-            if (idx !== currentStep) setCurrentStep(idx);
-        };
-
-        readHash();
-
-        window.addEventListener("hashchange", readHash);
-        return () => window.removeEventListener("hashchange", readHash);
-    }, [currentStep]);
-
-    const handleNext = async (
-        values: RegistrationApplicationDraftBody,
-        setTouched: any
-    ) => {
-        const currentSchema = validationSchemas[currentStep];
-
-        try {
-            await currentSchema.validate(values, { abortEarly: false });
-
-            console.log("Validation for currentSchema passed");
-
-            // await saveDraft(formik.values);
-            if (currentStep < steps.length - 1) {
-                setCurrentStep(prev => prev + 1);
-                window.scrollTo(0, 0);
-            }
-        } catch (error) {
-            console.log(
-                "Validation for currentSchema failed with error",
-                error
-            );
-            if (error instanceof Yup.ValidationError) {
-                const touchedFields: any = {};
-                error.inner.forEach(err => {
-                    if (err.path) {
-                        touchedFields[err.path] = true;
-                    }
-                });
-                setTouched(touchedFields);
-            }
-        }
-    };
-
-    const handleBack = () => {
-        setCurrentStep(prev => prev - 1);
-        window.scrollTo(0, 0);
-    };
+    const { currentStep, setCurrentStep, handleNext, handleBack } =
+        useRegistrationSteps(validationSchemas);
 
     const renderStepContent = (step: number, formik: any) => {
         switch (step) {
@@ -150,7 +75,7 @@ const GeneralRegistration = () => {
         <main className={"screen"}>
             <Box
                 sx={{
-                    minHeight: "100vh", // full viewport height
+                    minHeight: "100vh", // Full viewport height
                     height: "100%",
                     width: "100%",
                     pb: "50px",
@@ -158,9 +83,9 @@ const GeneralRegistration = () => {
                         xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}.svg")`,
                         md: `url("/registration/backgrounds/${steps[currentStep].id}.svg")`
                     },
-                    backgroundSize: "cover", // fill the screen
-                    backgroundRepeat: "no-repeat", // prevent tiling
-                    backgroundPosition: "center" // center the image
+                    backgroundSize: "cover", // Fill the screen
+                    backgroundRepeat: "no-repeat", // Prevent tiling
+                    backgroundPosition: "center" // Center the image
                 }}
             >
                 <Paper
