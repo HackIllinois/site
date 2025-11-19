@@ -1,5 +1,4 @@
 "use client";
-import { montserrat } from "@/theme/fonts";
 import { Button } from "@mui/material";
 import Link from "next/link";
 
@@ -37,8 +36,7 @@ const OlympianButton: React.FC<OlympianButtonProps> = ({
                 "linear-gradient(135deg, #F0D1B3 0%, #E8C4A0 50%, #D9A97A 100%)",
             transform: "translateY(-2px)",
             boxShadow: "0 6px 24px rgba(0, 0, 0, 0.4)"
-        },
-        fontFamily: `${montserrat.style.fontFamily}, sans-serif`
+        }
     };
 
     if (link) {
