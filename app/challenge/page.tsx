@@ -1,9 +1,8 @@
 "use client";
-import { Box, Button, Typography } from "@mui/material";
-import { Source_Code_Pro } from "next/font/google";
 import LANDING from "@/public/registration/pro/landing.svg";
-
-const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
+import { montserrat } from "@/theme/fonts";
+import { Box, Button, Typography } from "@mui/material";
+import Link from "next/link";
 
 const ProChallenge: React.FC = () => {
     return (
@@ -74,24 +73,27 @@ const ProChallenge: React.FC = () => {
                 </Typography>
 
                 {/* Begin button */}
-                <Button
-                    variant="contained"
-                    sx={{
-                        backgroundColor: "#D9D9D9",
-                        color: "black",
-                        fontWeight: 800,
-                        fontSize: { xs: "18px", sm: "20px" },
-                        textTransform: "none",
-                        px: { xs: 6, sm: 8 },
-                        py: 1,
-                        borderRadius: "30px",
-                        "&:hover": {
-                            backgroundColor: "white"
-                        }
-                    }}
-                >
-                    BEGIN
-                </Button>
+                <Link prefetch={false} href="/challenge/description">
+                    <Button
+                        variant="contained"
+                        sx={{
+                            backgroundColor: "#D9D9D9",
+                            color: "black",
+                            fontWeight: 800,
+                            fontSize: { xs: "18px", sm: "20px" },
+                            textTransform: "none",
+                            px: { xs: 6, sm: 8 },
+                            py: 1,
+                            borderRadius: "30px",
+                            fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
+                            "&:hover": {
+                                backgroundColor: "white"
+                            }
+                        }}
+                    >
+                        BEGIN
+                    </Button>
+                </Link>
             </Box>
         </main>
     );

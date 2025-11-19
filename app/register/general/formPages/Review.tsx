@@ -53,7 +53,15 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
         <>
             <ThemeProvider theme={registrationTheme}>
                 <ReviewContainer>
-                    <Typography variant="h1">REVIEW INFORMATION</Typography>
+                    <Typography
+                        variant="h1"
+                        sx={{
+                            mt: 8,
+                            mb: "7px"
+                        }}
+                    >
+                        REVIEW INFORMATION
+                    </Typography>
 
                     {/* Personal Details accordion */}
                     <StyledAccordion

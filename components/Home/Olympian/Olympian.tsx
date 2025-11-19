@@ -17,7 +17,7 @@ const Olympian: React.FC = () => {
                 />
                 <OlympianButton
                     text="Register Now"
-                    link="/register"
+                    link="/register/general#personal-information"
                     bottomPadding
                 />
             </div>
