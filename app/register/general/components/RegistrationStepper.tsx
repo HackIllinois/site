@@ -105,6 +105,7 @@ const RegistrationStepper = ({ currentStep }: RegistrationStepperProps) => {
                                                 width: "auto",
                                                 height: "clamp(30px, 8vw, 75px)"
                                             }}
+                                            priority
                                         />
                                     </Box>
                                 )
