@@ -333,8 +333,8 @@ const GeneralRegistration = () => {
                     width: "100%",
                     pb: "50px",
                     backgroundImage: {
-                        xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}.svg")`,
-                        md: `url("/registration/backgrounds/${steps[currentStep].id}.svg")`
+                        xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}.png")`,
+                        md: `url("/registration/backgrounds/${steps[currentStep].id}.png")`
                     },
                     backgroundSize: "cover", // Fill the screen
                     backgroundRepeat: "no-repeat", // Prevent tiling

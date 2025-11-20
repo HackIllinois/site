@@ -28,28 +28,31 @@ export default function ChallengeResult() {
                 variant="h1"
                 component="h1"
                 sx={{
-                    fontSize: "3rem"
+                    fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" },
+                    textAlign: "center",
+                    px: 2
                 }}
             >
                 Congratulations, you passed!
             </Typography>
             <Container
                 sx={{
-                    width: "600px",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
                     textAlign: "center",
                     gap: 3,
-                    mt: 6
+                    mt: { xs: 4, md: 6 },
+                    px: { xs: 2, sm: 3 }
                 }}
             >
                 <Typography
                     variant="h3"
                     component="p"
                     sx={{
-                        fontWeight: 600
+                        fontWeight: 600,
+                        fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem" }
                     }}
                 >
                     You are invited to apply as a
@@ -58,7 +61,8 @@ export default function ChallengeResult() {
                     variant="h1"
                     component="b"
                     sx={{
-                        textShadow: "0 0 30px #ffffff"
+                        textShadow: "0 0 30px #ffffff",
+                        fontSize: { xs: "3rem", sm: "4rem", md: "5rem" }
                     }}
                 >
                     HackVoyager
@@ -67,7 +71,14 @@ export default function ChallengeResult() {
                     variant="h3"
                     component="p"
                     sx={{
-                        fontWeight: 500
+                        maxWidth: "700px",
+                        px: 5,
+                        fontWeight: 500,
+                        fontSize: {
+                            xs: "0.875rem",
+                            sm: "1.25rem",
+                            md: "1.5rem"
+                        }
                     }}
                 >
                     Your registration is now complete. Click Continue to view
@@ -79,7 +90,9 @@ export default function ChallengeResult() {
                         sx={{
                             color: "black",
                             mt: 3,
-                            fontFamily: `${montserrat.style.fontFamily}, sans-serif`
+                            fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
+                            fontSize: { xs: "0.875rem", sm: "1rem" },
+                            padding: { xs: "10px 20px", sm: "12px 30px" }
                         }}
                     >
                         Continue

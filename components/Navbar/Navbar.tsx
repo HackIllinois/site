@@ -26,7 +26,7 @@ const NAVBAR_ITEMS: NavbarItem[] = [
     }
 ];
 
-const DARK_PAGES = ["/register/challenge"];
+const DARK_PAGES = ["/register/challenge", "/challenge/landing-page"];
 
 const Navbar = () => {
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
