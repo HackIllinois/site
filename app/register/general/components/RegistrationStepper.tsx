@@ -97,13 +97,13 @@ const RegistrationStepper = ({ currentStep }: RegistrationStepperProps) => {
                                         }}
                                     >
                                         <Image
-                                            src={`/registration/progress_bar/${step.id}.svg`}
+                                            src={`/registration/progress_bar/${step.id}.png`}
                                             alt="Transportation"
                                             width={80}
                                             height={80}
                                             style={{
-                                                width: "clamp(40px, 10vw,100px)",
-                                                height: "auto"
+                                                width: "auto",
+                                                height: "clamp(30px, 8vw, 75px)"
                                             }}
                                         />
                                     </Box>
