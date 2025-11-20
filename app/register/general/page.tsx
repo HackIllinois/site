@@ -58,6 +58,8 @@ const GeneralRegistration = () => {
     const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
     const params = useParams();
 
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
     useEffect(() => {
         const slug = indexToSlug(currentStep);
         if (window.location.hash === `#${slug}`) return;
@@ -325,7 +327,7 @@ const GeneralRegistration = () => {
                                 </Box>
 
                                 <Stack
-                                    direction={{ xs: "column", sm: "row" }}
+                                    direction="row"
                                     justifyContent={
                                         currentStep === 0
                                             ? "flex-end"
@@ -340,15 +342,21 @@ const GeneralRegistration = () => {
                                 >
                                     {/* Left arrow */}
                                     {currentStep > 0 &&
-                                        currentStep < steps.length - 1 && (
+                                        currentStep < steps.length - 1 &&
+                                        window.innerWidth < 600 && (
                                             <NavigationButton
-                                                text={steps[
-                                                    currentStep - 1
-                                                ].name.toUpperCase()}
+                                                text={
+                                                    isMobile
+                                                        ? "BACK"
+                                                        : steps[
+                                                              currentStep - 1
+                                                          ].name.toUpperCase()
+                                                }
                                                 color={steps[currentStep].color}
                                                 onClick={handleBack}
                                                 disabled={currentStep === 0}
                                                 type="button"
+                                                isMobile={isMobile}
                                             />
                                         )}
 
@@ -356,14 +364,21 @@ const GeneralRegistration = () => {
                                     {currentStep < steps.length - 1 && (
                                         <NavigationButton
                                             text={
-                                                currentStep === steps.length - 2
-                                                    ? "SUBMIT"
-                                                    : steps[
-                                                          currentStep + 1
-                                                      ].name.toUpperCase()
+                                                isMobile
+                                                    ? currentStep ===
+                                                      steps.length - 2
+                                                        ? "SUBMIT"
+                                                        : "NEXT"
+                                                    : currentStep ===
+                                                        steps.length - 2
+                                                      ? "SUBMIT"
+                                                      : steps[
+                                                            currentStep + 1
+                                                        ].name.toUpperCase()
                                             }
                                             color={steps[currentStep].color}
                                             pointRight={true}
+                                            isMobile={isMobile}
                                             onClick={() =>
                                                 handleNext(
                                                     formik.values,
