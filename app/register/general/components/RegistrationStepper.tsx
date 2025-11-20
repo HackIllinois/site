@@ -9,42 +9,52 @@ type RegistrationStepperProps = {
 };
 
 const RegistrationStepper = ({ currentStep }: RegistrationStepperProps) => {
-    const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const [planetCenters, setPlanetCenters] = useState<
-        { x: number; y: number }[]
-    >([]);
+const wrapperRef = useRef<HTMLDivElement | null>(null);
+const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
+const [planetCenters, setPlanetCenters] = useState<{ x: number; y: number }[]>([]);
 
-    const measurePlanets = useCallback(() => {
-        const centers = planetRefs.current.map(el => {
-            if (!el) return { x: 0, y: 0 };
-            const rect = el.getBoundingClientRect();
-            return {
-                x: rect.left + rect.width / 2,
-                y: rect.top + rect.height / 2
-            };
-        });
-        setPlanetCenters(centers);
-    }, []);
+const measurePlanets = useCallback(() => {
+    if (!wrapperRef.current) return;
+    const wrapperRect = wrapperRef.current.getBoundingClientRect();
 
-    useLayoutEffect(() => {
+    const centers = planetRefs.current.map(el => {
+        if (!el) return { x: 0, y: 0 };
+        const rect = el.getBoundingClientRect();
+        return {
+            x: rect.left - wrapperRect.left + rect.width / 2,
+            y: rect.top - wrapperRect.top + rect.height / 2
+        };
+    });
+
+    setPlanetCenters(centers);
+}, []);
+
+useLayoutEffect(() => {
+    const scrollTarget = wrapperRef.current ?? window;
+
+    const handle = () => {
         measurePlanets();
+    };
 
-        const onResize = () => {
-            measurePlanets();
-        };
+    measurePlanets();
 
-        window.addEventListener("resize", onResize);
-        return () => {
-            window.removeEventListener("resize", onResize);
-        };
-    }, [measurePlanets]);
+    scrollTarget.addEventListener("scroll", handle, { passive: true });
+    window.addEventListener("resize", handle);
+
+    return () => {
+        scrollTarget.removeEventListener("scroll", handle);
+        window.removeEventListener("resize", handle);
+    };
+}, [measurePlanets]);
 
     return (
         <>
+         <div ref={wrapperRef} style={{ position: "relative" }}>
             <RocketOverlay
                 activeStep={currentStep}
                 planetCenters={planetCenters}
             />
+            </div>
             <Stepper
                 alternativeLabel
                 activeStep={currentStep}
@@ -105,6 +115,7 @@ const RegistrationStepper = ({ currentStep }: RegistrationStepperProps) => {
                                                 width: "auto",
                                                 height: "clamp(30px, 8vw, 75px)"
                                             }}
+                                            priority
                                         />
                                     </Box>
                                 )
