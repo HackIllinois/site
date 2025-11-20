@@ -6,7 +6,7 @@ const FooterSection: FC = () => {
     return (
         <section className={styles.footerMain}>
             <Image
-                src="/backgrounds/fifth.svg"
+                src="/backgrounds/fifth.png"
                 alt="Footer background"
                 fill
                 className={styles.backgroundImage}
