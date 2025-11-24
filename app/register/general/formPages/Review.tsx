@@ -263,7 +263,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                     pl={"18px"}
                     borderRadius={4}
                     border="1px solid white"
-                    bgcolor="#f6f6f67A"
+                    bgcolor="rgba(0, 0, 0, 0.3)"
                 >
                     <Box>
                         <Typography sx={[AckTextStyle, { paddingTop: "8px" }]}>
