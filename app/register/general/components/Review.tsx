@@ -210,7 +210,6 @@ export const AckTextStyle = (theme: Theme) => ({
     fontFamily: "Montserrat, sans-serif",
     fontSize: "24px",
     fontWeight: 600,
-    paddingTop: "24px",
     paddingLeft: "18px",
     [theme.breakpoints.down("sm")]: {
         fontSize: "18px",

@@ -208,7 +208,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                     </AccordionDetails>
                 </StyledAccordion>
 
-                {/* Attendaning HackIllinois accordion */}
+                {/* Attending HackIllinois accordion */}
                 <StyledAccordion
                     defaultExpanded
                     expanded={expanded === "attendance"}
@@ -269,13 +269,13 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                         <Typography sx={[AckTextStyle, { paddingTop: "8px" }]}>
                             Please review the above information. Once you submit
                             you will not be able to change any information
-                            without contacting us.*
+                            without contacting us.
                         </Typography>
 
                         <CheckboxSelect
                             name="reviewedAcknowledge"
                             accentColor="#983300"
-                            optionLabel="I reviewed my information to ensure it is correct."
+                            optionLabel="I reviewed my information to ensure it is correct.*"
                             optionLabelSx={AckOptionLabelStyle}
                             value={values.reviewedAcknowledge}
                             sx={{ pl: "18px" }}
@@ -419,7 +419,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                         )}
                     </Box>
 
-                    <Box>
+                    <Box mt={3}>
                         <Typography sx={AckTextStyle}>
                             Newsletter Opt-In
                         </Typography>
