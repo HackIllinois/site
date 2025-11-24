@@ -14,9 +14,6 @@ import {
 import { useRouter } from "next/navigation";
 
 export const ReviewContainer = styled(Stack)(({ theme }) => ({
-    width: "85vw",
-    margin: "0 auto",
-    marginTop: "25px",
     alignItems: "stretch",
     gap: "25px",
     [theme.breakpoints.down("sm")]: {
@@ -137,7 +134,7 @@ export const ReviewInfoAccordionBox = styled(Box)(({ theme }) => ({
     flexWrap: "wrap",
     justifyContent: "flex-start",
     gap: "25px",
-    alignItems: "center",
+    alignItems: "flex-start",
     padding: "0px 13px 13px 13px",
     [theme.breakpoints.down("sm")]: {
         flexDirection: "column",
