@@ -12,6 +12,10 @@ import { FormikProps } from "formik";
 import React, { useEffect, useState } from "react";
 import {
     AccordionHeader,
+    AckErrorStyle,
+    AckLinkStyle,
+    AckOptionLabelStyle,
+    AckTextStyle,
     ReviewContainer,
     ReviewInfoAccordionBox,
     StyledAccordion,
@@ -253,164 +257,185 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                 </StyledAccordion>
 
                 {/* Acknowledgements */}
-                <Box>
-                    <Box
-                        mt={2}
-                        p={2}
-                        borderRadius={4}
-                        border="1px solid white"
-                        bgcolor="#f6f6f67A"
-                    >
-                        <Box>
-                            <Typography variant="body1" sx={{ mt: 0 }}>
-                                Please review the above information.
-                            </Typography>
-                            <Typography variant="body1" sx={{ mt: "4px" }}>
-                                Once you submit you will not be able to change
-                                any information without contacting us.
-                            </Typography>
+                <Box
+                    mt={2}
+                    p={2}
+                    pl={"18px"}
+                    borderRadius={4}
+                    border="1px solid white"
+                    bgcolor="#f6f6f67A"
+                >
+                    <Box>
+                        <Typography sx={[AckTextStyle, { paddingTop: "8px" }]}>
+                            Please review the above information. Once you submit
+                            you will not be able to change any information
+                            without contacting us.*
+                        </Typography>
 
-                            <CheckboxSelect
-                                name="reviewedAcknowledge"
-                                accentColor="#983300"
-                                optionLabel="I reviewed my information to ensure it is correct."
-                                optionLabelSx={{
-                                    fontFamily: `Montserrat, sans-serif`,
-                                    fontSize: "22px",
-                                    color: "#fff",
-                                    fontWeight: 400,
-                                    "@media (max-width:560px)": {
-                                        fontSize: "18px"
-                                    }
-                                }}
-                                value={values.reviewedAcknowledge}
-                                onChange={val =>
-                                    formik.setFieldValue(
-                                        "reviewedAcknowledge",
-                                        val
-                                    )
-                                }
-                                error={
-                                    !!touched.reviewedAcknowledge &&
-                                    Boolean(errors.reviewedAcknowledge)
-                                }
-                            />
-                            {touched.reviewedAcknowledge &&
-                            errors.reviewedAcknowledge ? (
-                                <FormHelperText
-                                    error
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "13px",
-                                        fontWeight: 500,
-                                        "&.Mui-error": {
-                                            color: "white"
-                                        },
-                                        border: "1px solid rgba(255, 0, 0, 0.5)",
-                                        borderRadius: "6px",
-                                        backgroundColor: "rgba(255, 0, 0, 0.5)",
-                                        width: "fit-content",
-                                        padding: "4px",
-                                        boxShadow:
-                                            "0 0 8px rgba(255, 0, 0, 0.3)"
-                                    }}
-                                >
-                                    {errors.reviewedAcknowledge as string}
-                                </FormHelperText>
-                            ) : (
-                                <></>
-                            )}
-                        </Box>
+                        <CheckboxSelect
+                            name="reviewedAcknowledge"
+                            accentColor="#983300"
+                            optionLabel="I reviewed my information to ensure it is correct."
+                            optionLabelSx={AckOptionLabelStyle}
+                            value={values.reviewedAcknowledge}
+                            sx={{ pl: "18px" }}
+                            onChange={val =>
+                                formik.setFieldValue("reviewedAcknowledge", val)
+                            }
+                            error={
+                                !!touched.reviewedAcknowledge &&
+                                Boolean(errors.reviewedAcknowledge)
+                            }
+                        />
+                        {touched.reviewedAcknowledge &&
+                        errors.reviewedAcknowledge ? (
+                            <FormHelperText error sx={AckErrorStyle}>
+                                {errors.reviewedAcknowledge as string}
+                            </FormHelperText>
+                        ) : (
+                            <></>
+                        )}
+                    </Box>
 
-                        <Box mt={3}>
-                            <Typography variant="body1">
-                                To participate in HackIllinois, you must accept
-                                the
-                                <MuiLink
-                                    href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md"
-                                    target="_blank"
-                                    color="#ADED4A"
-                                    sx={{
-                                        display: "inline-flex",
-                                        alignItems: "center",
-                                        padding: "2px 5px",
-                                        borderRadius: "5px",
-                                        color: "#ADED4A",
-                                        fontWeight: "500",
-                                        textDecoration: "underline",
-                                        textDecorationColor: "#ADED4A",
-                                        textDecorationThickness: "2px",
-                                        "&:hover": {
-                                            color: "#fff",
-                                            textDecorationColor: "#fff"
-                                        }
-                                    }}
-                                >
-                                    MLH Code of Conduct
-                                    <LaunchIcon
-                                        sx={{
-                                            fontSize: {
-                                                xs: "small",
-                                                sm: "medium"
-                                            }
-                                        }}
-                                    />
-                                </MuiLink>
-                                .
-                            </Typography>
+                    <Box mt={3}>
+                        <Typography sx={AckTextStyle}>
+                            To participate in HackIllinois, you must agree to
+                            the following MLH policies.
+                        </Typography>
 
-                            <CheckboxSelect
-                                name="codeOfConductAcknowledge"
-                                // label="I accept the Code of Conduct."
-                                accentColor="#983300"
-                                optionLabel="I accept the Code of Conduct."
-                                optionLabelSx={{
-                                    fontFamily: `Montserrat, sans-serif`,
-                                    fontSize: "22px",
-                                    color: "#fff",
-                                    fontWeight: 400,
-                                    "@media (max-width:560px)": {
-                                        fontSize: "18px"
-                                    }
-                                }}
-                                value={values.codeOfConductAcknowledge}
-                                onChange={val =>
-                                    formik.setFieldValue(
-                                        "codeOfConductAcknowledge",
-                                        val
-                                    )
-                                }
-                                error={
-                                    !!touched.codeOfConductAcknowledge &&
-                                    Boolean(errors.codeOfConductAcknowledge)
-                                }
-                            />
-                            {touched.codeOfConductAcknowledge &&
-                            errors.codeOfConductAcknowledge ? (
-                                <FormHelperText
-                                    error
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "13px",
-                                        fontWeight: 500,
-                                        "&.Mui-error": {
-                                            color: "white"
-                                        },
-                                        border: "1px solid rgba(255, 0, 0, 0.5)",
-                                        borderRadius: "6px",
-                                        backgroundColor: "rgba(255, 0, 0, 0.5)",
-                                        width: "fit-content",
-                                        padding: "4px",
-                                        boxShadow:
-                                            "0 0 8px rgba(255, 0, 0, 0.3)"
-                                    }}
-                                >
-                                    {errors.codeOfConductAcknowledge as string}
-                                </FormHelperText>
-                            ) : (
-                                <></>
-                            )}
-                        </Box>
+                        {/* MLH code of conduct acknowledgement */}
+                        <CheckboxSelect
+                            name="codeOfConductAcknowledge"
+                            accentColor="#983300"
+                            optionLabel={
+                                <span style={{ color: "#fff" }}>
+                                    I have read and agree to the{" "}
+                                    <MuiLink
+                                        href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md"
+                                        target="_blank"
+                                        color="#ADED4A"
+                                        sx={AckLinkStyle}
+                                    >
+                                        MLH Code of Conduct
+                                        <LaunchIcon
+                                            sx={{
+                                                fontSize: {
+                                                    xs: "small",
+                                                    sm: "medium"
+                                                }
+                                            }}
+                                        />
+                                    </MuiLink>
+                                    .*
+                                </span>
+                            }
+                            optionLabelSx={AckOptionLabelStyle}
+                            value={values.codeOfConductAcknowledge}
+                            onChange={val =>
+                                formik.setFieldValue(
+                                    "codeOfConductAcknowledge",
+                                    val
+                                )
+                            }
+                            error={
+                                !!touched.codeOfConductAcknowledge &&
+                                Boolean(errors.codeOfConductAcknowledge)
+                            }
+                        />
+                        {touched.codeOfConductAcknowledge &&
+                        errors.codeOfConductAcknowledge ? (
+                            <FormHelperText error sx={AckErrorStyle}>
+                                {errors.codeOfConductAcknowledge as string}
+                            </FormHelperText>
+                        ) : (
+                            <></>
+                        )}
+
+                        {/* MLH data sharing acknowledgement */}
+                        <CheckboxSelect
+                            name="mlhDataSharingAcknowledge"
+                            accentColor="#983300"
+                            optionLabel={
+                                <span style={{ color: "#fff" }}>
+                                    I authorize you to share my
+                                    application/registration information with
+                                    Major League Hacking for event
+                                    administration, ranking, and MLH
+                                    administration in-line with the{" "}
+                                    <MuiLink
+                                        href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md"
+                                        target="_blank"
+                                        sx={AckLinkStyle}
+                                    >
+                                        MLH Privacy Policy
+                                        <LaunchIcon
+                                            sx={{
+                                                fontSize: {
+                                                    xs: "small",
+                                                    sm: "medium"
+                                                }
+                                            }}
+                                        />
+                                    </MuiLink>
+                                    . I further agree to the terms of both the{" "}
+                                    <MuiLink
+                                        href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
+                                        target="_blank"
+                                        sx={AckLinkStyle}
+                                    >
+                                        MLH Contest Terms and Conditions
+                                        <LaunchIcon
+                                            sx={{
+                                                fontSize: {
+                                                    xs: "small",
+                                                    sm: "medium"
+                                                }
+                                            }}
+                                        />
+                                    </MuiLink>{" "}
+                                    and the MLH Privacy Policy.*
+                                </span>
+                            }
+                            optionLabelSx={AckOptionLabelStyle}
+                            value={values.mlhDataSharingAcknowledge}
+                            onChange={val =>
+                                formik.setFieldValue(
+                                    "mlhDataSharingAcknowledge",
+                                    val
+                                )
+                            }
+                            error={
+                                !!touched.mlhDataSharingAcknowledge &&
+                                Boolean(errors.mlhDataSharingAcknowledge)
+                            }
+                        />
+                        {touched.mlhDataSharingAcknowledge &&
+                        errors.mlhDataSharingAcknowledge ? (
+                            <FormHelperText error sx={AckErrorStyle}>
+                                {errors.mlhDataSharingAcknowledge as string}
+                            </FormHelperText>
+                        ) : (
+                            <></>
+                        )}
+                    </Box>
+
+                    <Box>
+                        <Typography sx={AckTextStyle}>
+                            Newsletter Opt-In
+                        </Typography>
+
+                        {/* MLH newsletter opt-in */}
+                        <CheckboxSelect
+                            name="mlhNewsAcknowledge"
+                            accentColor="#983300"
+                            optionLabel="I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements."
+                            optionLabelSx={AckOptionLabelStyle}
+                            value={values.mlhNewsAcknowledge}
+                            onChange={val =>
+                                formik.setFieldValue("mlhNewsAcknowledge", val)
+                            }
+                            error={false}
+                        />
                     </Box>
                 </Box>
             </ReviewContainer>

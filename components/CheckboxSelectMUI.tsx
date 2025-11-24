@@ -8,7 +8,7 @@ interface CheckboxSelectInputProps {
     name: string;
     label?: string;
     sublabel?: string;
-    optionLabel: string;
+    optionLabel: React.ReactNode | string;
     optionLabelSx?: object;
     required?: boolean;
     // formik controls

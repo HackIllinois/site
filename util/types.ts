@@ -58,8 +58,10 @@ export type RegistrationApplicationDraftBodyForm =
         travelAcknowledge?: boolean;
         considerForPro?: boolean;
         requestTravelReimbursement?: boolean;
-        codeOfConductAcknowledge?: boolean;
         reviewedAcknowledge?: boolean;
+        codeOfConductAcknowledge?: boolean;
+        mlhDataSharingAcknowledge?: boolean;
+        mlhNewsAcknowledge?: boolean;
     };
 
 export type RegistrationResponseFieldInfo = {
@@ -96,8 +98,10 @@ export type RegistrationData = {
     dietaryRestrictions: string[];
     requestedTravelReimbursement: string[];
     travelAcknowledge: string[];
-    codeOfConductAcknowledge: string[];
     reviewedInformationAcknowledge: string[];
+    codeOfConductAcknowledge: string[];
+    mlhDataSharingAcknowledge: string[];
+    mlhNewsAcknowledge: string[];
 };
 
 /**
