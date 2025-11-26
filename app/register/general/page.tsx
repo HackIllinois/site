@@ -266,7 +266,7 @@ const GeneralRegistration = () => {
         setShowClickOffAlert(true);
         const timeout = setTimeout(() => {
             handleSave();
-        }, 3_000);
+        }, 10_000);
         return () => clearTimeout(timeout);
     }, [formik.values]);
 
@@ -291,6 +291,14 @@ const GeneralRegistration = () => {
         return () =>
             window.removeEventListener("beforeunload", handleBeforeUnload);
     }, [showClickOffAlert]);
+
+    useEffect(() => {
+        if (isSubmitted) {
+            setCurrentStep(steps.length - 1);
+            setShowClickOffAlert(false);
+            return;
+        }
+    }, [isSubmitted, currentStep]);
 
     if (isLoading) {
         return <Loading />;
