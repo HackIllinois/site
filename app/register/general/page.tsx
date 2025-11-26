@@ -6,7 +6,14 @@ import {
     validationSchemas,
     valuesToDraftContent
 } from "@/util/validation";
-import { Alert, Box, Paper, Snackbar, Stack } from "@mui/material";
+import {
+    Alert,
+    Box,
+    Paper,
+    Snackbar,
+    Stack,
+    useMediaQuery
+} from "@mui/material";
 import { useFormik } from "formik";
 import { useCallback, useEffect, useState } from "react";
 import AppQuestions from "./formPages/AppQuestions";
@@ -30,6 +37,7 @@ import {
 import RegistrationStepper from "./components/RegistrationStepper";
 import { steps } from "./constants/registration";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
+import theme from "@/theme";
 
 const GeneralRegistration = () => {
     const { currentStep, setCurrentStep, handleNext, handleBack, skipToStep } =
@@ -292,13 +300,15 @@ const GeneralRegistration = () => {
             window.removeEventListener("beforeunload", handleBeforeUnload);
     }, [showClickOffAlert]);
 
-    useEffect(() => {
-        if (isSubmitted) {
-            setCurrentStep(steps.length - 1);
-            setShowClickOffAlert(false);
-            return;
-        }
-    }, [isSubmitted, currentStep]);
+    // useEffect(() => {
+    //     if (isSubmitted) {
+    //         setCurrentStep(steps.length - 1);
+    //         setShowClickOffAlert(false);
+    //         return;
+    //     }
+    // }, [isSubmitted, currentStep]);
+
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     if (isLoading) {
         return <Loading />;
@@ -364,7 +374,7 @@ const GeneralRegistration = () => {
                     </Box>
 
                     <Stack
-                        direction={{ xs: "column", sm: "row" }}
+                        direction={"row"}
                         justifyContent={
                             currentStep === 0 ? "flex-end" : "space-between"
                         } // Personal info page has one arrow
@@ -378,11 +388,18 @@ const GeneralRegistration = () => {
                         {/* Left arrow */}
                         {currentStep > 0 && currentStep < steps.length - 1 && (
                             <NavigationButton
-                                text={steps[currentStep - 1].name.toUpperCase()}
+                                text={
+                                    isMobile
+                                        ? "BACK"
+                                        : steps[
+                                              currentStep - 1
+                                          ].name.toUpperCase()
+                                }
                                 color={steps[currentStep].color}
                                 onClick={handleBack}
                                 disabled={currentStep === 0}
                                 type="button"
+                                isMobile={isMobile}
                             />
                         )}
 
@@ -390,15 +407,20 @@ const GeneralRegistration = () => {
                         {currentStep < steps.length - 1 && (
                             <NavigationButton
                                 text={
-                                    currentStep === steps.length - 2
-                                        ? "SUBMIT"
-                                        : steps[
-                                              currentStep + 1
-                                          ].name.toUpperCase()
+                                    isMobile
+                                        ? currentStep === steps.length - 2
+                                            ? "SUBMIT"
+                                            : "NEXT"
+                                        : currentStep === steps.length - 2
+                                          ? "SUBMIT"
+                                          : steps[
+                                                currentStep + 1
+                                            ].name.toUpperCase()
                                 }
                                 color={steps[currentStep].color}
                                 pointRight={true}
-                                onClick={handleNextOrSubmit}
+                                isMobile={isMobile}
+                                onClick={() => handleNextOrSubmit()}
                                 type="button"
                             />
                         )}
