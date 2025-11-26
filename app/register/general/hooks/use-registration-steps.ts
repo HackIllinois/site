@@ -19,13 +19,13 @@ export function useRegistrationSteps(
     // step -> hash
     useEffect(() => {
         let slug = indexToSlug(currentStep);
-        // if (submitted) {
-        //     // The user should be at the confirmation page if they submitted.
-        //     slug = "confirmation";
-        // } else if (slug === "confirmation") {
-        //     // If the user somehow navigated to the confirmation page without submitting, send them back to the beginning.
-        //     slug = indexToSlug(0);
-        // }
+        if (submitted) {
+            // The user should be at the confirmation page if they submitted.
+            slug = "confirmation";
+        } else if (slug === "confirmation") {
+            // If the user somehow navigated to the confirmation page without submitting, send them back to the beginning.
+            slug = indexToSlug(0);
+        }
         if (window.location.hash === `#${slug}`) return;
         window.location.hash = slug;
     }, [currentStep, submitted]);
