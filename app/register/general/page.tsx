@@ -121,9 +121,6 @@ const GeneralRegistration = () => {
 
             if (draft) {
                 // Merge draft with initialValues to fill in any missing fields
-
-                console.log("Draft", draft);
-
                 let mergedValues = { ...initialValues, ...draft };
                 formik.setValues(mergedValues);
             }
@@ -260,6 +257,10 @@ const GeneralRegistration = () => {
     };
 
     useEffect(() => {
+        if (currentStep >= steps.length - 2) {
+            setShowClickOffAlert(false);
+            return;
+        }
         setShowClickOffAlert(true);
         const timeout = setTimeout(() => {
             handleSave();
@@ -268,6 +269,9 @@ const GeneralRegistration = () => {
     }, [formik.values]);
 
     useEffect(() => {
+        // Don't autosave on the review info page and confirmation page.
+        // This ensures that the user won't see an error when they submit.
+        if (currentStep >= steps.length - 2) return;
         handleSave();
     }, [currentStep]);
 

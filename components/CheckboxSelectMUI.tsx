@@ -36,9 +36,6 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
 }) => {
     // handle toggle manually so it works with Formik (onChange tries to pass event.target.checked)
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event);
-        console.log(event.target.value);
-        console.log(event.target.checked);
         onChange(event.target.checked);
     };
 

@@ -23,8 +23,6 @@ export async function getAuthToken(): Promise<string | null> {
     });
     if (response.ok) {
         const data = await response.json();
-        console.log("Data", data);
-        // localStorage.setItem("token", data.token);
         return data.jwt;
     }
     return null;
