@@ -97,7 +97,7 @@ const ProChallenge: React.FC = () => {
                     fontSize: "clamp(16px, 3.2vw, 24px)"
                 }}
             >
-                Welcome aboard
+                Welcome aboard (More info coming soon!)
             </p>
 
             <div

@@ -60,6 +60,7 @@ export type RegistrationApplicationDraftBodyForm =
         requestTravelReimbursement?: boolean;
         codeOfConductAcknowledge?: boolean;
         reviewedAcknowledge?: boolean;
+        optInNewsletter?: boolean;
     };
 
 export type RegistrationResponseFieldInfo = {

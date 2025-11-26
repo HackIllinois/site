@@ -27,7 +27,7 @@ interface ReviewProps {
 }
 
 const Review = ({ formik, onEditStep }: ReviewProps) => {
-    const { values, errors, touched, handleChange } = formik;
+    const { values, errors, touched } = formik;
     const [expanded, setExpanded] = useState<string | false>("personal");
 
     const handleExpand =
@@ -53,7 +53,15 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
         <>
             <ThemeProvider theme={registrationTheme}>
                 <ReviewContainer>
-                    <Typography variant="h1">REVIEW INFORMATION</Typography>
+                    <Typography
+                        variant="h1"
+                        sx={{
+                            mt: 8,
+                            mb: "7px"
+                        }}
+                    >
+                        REVIEW INFORMATION
+                    </Typography>
 
                     {/* Personal Details accordion */}
                     <StyledAccordion
@@ -259,7 +267,10 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             bgcolor="#f6f6f67A"
                         >
                             <Box>
-                                <Typography variant="body1" sx={{ mt: 0 }}>
+                                <Typography
+                                    variant="body1"
+                                    sx={{ mt: 0, fontWeight: "bold" }}
+                                >
                                     Please review the above information.
                                 </Typography>
                                 <Typography variant="body1" sx={{ mt: "4px" }}>
@@ -408,6 +419,65 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                         {
                                             errors.codeOfConductAcknowledge as string
                                         }
+                                    </FormHelperText>
+                                ) : (
+                                    <></>
+                                )}
+                            </Box>
+
+                            <Box mt={3}>
+                                <Typography variant="body1">
+                                    Stay updated on HackIllinois news and
+                                    announcements by opting into our newsletter.
+                                </Typography>
+
+                                <CheckboxSelect
+                                    name="optInNewsletter"
+                                    accentColor="#983300"
+                                    optionLabel="Opt-in to the HackIllinois newsletter."
+                                    optionLabelSx={{
+                                        fontFamily: `Montserrat, sans-serif`,
+                                        fontSize: "22px",
+                                        color: "#fff",
+                                        fontWeight: 400,
+                                        "@media (max-width:560px)": {
+                                            fontSize: "18px"
+                                        }
+                                    }}
+                                    value={values.optInNewsletter}
+                                    onChange={val =>
+                                        formik.setFieldValue(
+                                            "optInNewsletter",
+                                            val
+                                        )
+                                    }
+                                    error={
+                                        !!touched.optInNewsletter &&
+                                        Boolean(errors.optInNewsletter)
+                                    }
+                                />
+                                {touched.optInNewsletter &&
+                                errors.optInNewsletter ? (
+                                    <FormHelperText
+                                        error
+                                        sx={{
+                                            fontFamily: "Montserrat",
+                                            fontSize: "13px",
+                                            fontWeight: 500,
+                                            "&.Mui-error": {
+                                                color: "white"
+                                            },
+                                            border: "1px solid rgba(255, 0, 0, 0.5)",
+                                            borderRadius: "6px",
+                                            backgroundColor:
+                                                "rgba(255, 0, 0, 0.5)",
+                                            width: "fit-content",
+                                            padding: "4px",
+                                            boxShadow:
+                                                "0 0 8px rgba(255, 0, 0, 0.3)"
+                                        }}
+                                    >
+                                        {errors.optInNewsletter as string}
                                     </FormHelperText>
                                 ) : (
                                     <></>
