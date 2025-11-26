@@ -11,16 +11,24 @@ const indexToSlug = (i: number) =>
     page_slugs[Math.max(0, Math.min(i, page_slugs.length - 1))];
 
 export function useRegistrationSteps(
-    validationSchemas: Yup.ObjectSchema<any, any, any, any>[]
+    validationSchemas: Yup.ObjectSchema<any, any, any, any>[],
+    submitted: boolean
 ) {
     const [currentStep, setCurrentStep] = useState(0);
 
     // step -> hash
     useEffect(() => {
-        const slug = indexToSlug(currentStep);
+        let slug = indexToSlug(currentStep);
+        if (submitted) {
+            // The user should be at the confirmation page if they submitted.
+            slug = "confirmation";
+        } else if (slug === "confirmation") {
+            // If the user somehow navigated to the confirmation page without submitting, send them back to the beginning.
+            slug = indexToSlug(0);
+        }
         if (window.location.hash === `#${slug}`) return;
         window.location.hash = slug;
-    }, [currentStep]);
+    }, [currentStep, submitted]);
 
     // hash -> step
     useEffect(() => {

@@ -124,8 +124,8 @@ export async function loadDraft() {
     };
 }
 
-export async function submitDraft() {
-    return await requestv2("POST", "/registration/submit");
+export async function submitDraft(body: RegistrationApplicationDraftBody) {
+    return await requestv2("POST", "/registration/submit", body);
 }
 
 export async function loadSubmission() {

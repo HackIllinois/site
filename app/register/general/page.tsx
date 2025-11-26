@@ -32,8 +32,6 @@ import { steps } from "./constants/registration";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
 
 const GeneralRegistration = () => {
-    const { currentStep, setCurrentStep, handleNext, handleBack, skipToStep } =
-        useRegistrationSteps(validationSchemas);
     const [showSaveAlert, setShowSaveAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [showClickOffAlert, setShowClickOffAlert] = useState(false);
@@ -41,6 +39,8 @@ const GeneralRegistration = () => {
     const [isSaving, setIsSaving] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const { currentStep, setCurrentStep, handleNext, handleBack, skipToStep } =
+        useRegistrationSteps(validationSchemas, isSubmitted);
 
     const renderStepContent = (step: number, formik: any) => {
         switch (step) {
@@ -125,9 +125,6 @@ const GeneralRegistration = () => {
                 console.log("Draft", draft);
 
                 let mergedValues = { ...initialValues, ...draft };
-                mergedValues.considerForPro = mergedValues.applicationPro
-                    ? true
-                    : false;
                 formik.setValues(mergedValues);
             }
 
@@ -245,7 +242,7 @@ const GeneralRegistration = () => {
                 }
             }
             try {
-                await submitDraft();
+                await submitDraft(formik.values);
                 setIsSubmitted(true);
             } catch (error: any) {
                 console.error("Failed to submit draft:", error);
@@ -292,13 +289,17 @@ const GeneralRegistration = () => {
             window.removeEventListener("beforeunload", handleBeforeUnload);
     }, [showClickOffAlert]);
 
-    useEffect(() => {
-        if (isSubmitted) {
-            setCurrentStep(steps.length - 1);
-            setShowClickOffAlert(false);
-            return;
-        }
-    }, [isSubmitted, currentStep]);
+    // useEffect(() => {
+    //     if (isSubmitted) {
+    //         // The user should be at the confirmation page if they already submitted.
+    //         setCurrentStep(steps.length - 1);
+    //         setShowClickOffAlert(false);
+    //         return;
+    //     } else if (currentStep === steps.length - 1) {
+    //         // If the user somehow navigated to the confirmation page without submitting, send them back to the beginning.
+    //         setCurrentStep(0);
+    //     }
+    // }, [isSubmitted, currentStep]);
 
     if (isLoading) {
         return <Loading />;

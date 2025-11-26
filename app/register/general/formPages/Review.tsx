@@ -173,37 +173,27 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                         <AccordionDetails>
                             <ReviewInfoAccordionBox>
                                 <UserInfoBox
-                                    label="What opportunity, event, or feature of HackIllinois 2026 are you most excited to take part in, and why?"
+                                    label="Pick a product you like: what’s one thing you’d change to make it better and why?"
                                     userResponse={values.application1 || "N/A"}
                                 />
                                 <UserInfoBox
-                                    label="Describe a challenge you have faced in the field of CS, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
+                                    label="Describe a time you learned something for fun."
                                     userResponse={values.application2 || "N/A"}
                                 />
                                 <UserInfoBox
-                                    label="Optional: If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
+                                    label="Describe a challenge you have faced in your field, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
+                                    userResponse={values.application3 || "N/A"}
+                                />
+                                <UserInfoBox
+                                    label="If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
                                     userResponse={
                                         values.applicationOptional || "N/A"
                                     }
                                 />
                                 <UserInfoBox
-                                    label="Would you like to be considered for (pro track)?"
-                                    userResponse={
-                                        values.considerForPro === undefined
-                                            ? "N/A"
-                                            : values.considerForPro
-                                              ? "Yes"
-                                              : "No"
-                                    }
+                                    label="Would you like to be considered for Pro Track?"
+                                    userResponse={values.pro ? "Yes" : "No"}
                                 />
-                                {values.considerForPro && (
-                                    <UserInfoBox
-                                        label="TODO: PRO ESSAY PROMPT"
-                                        userResponse={
-                                            values.applicationPro || "N/A"
-                                        }
-                                    />
-                                )}
                             </ReviewInfoAccordionBox>
                         </AccordionDetails>
                     </StyledAccordion>

@@ -5,27 +5,37 @@ export type FileType = "resume" | "photo" | "blobstore";
 
 export type RegistrationApplicationSubmitted = {
     userId: string;
+
     firstName: string;
     lastName: string;
     preferredName?: string;
+
     age: string;
     email: string;
     gender: string;
     race: string[];
+
     country: string;
     state?: string;
+
     school: string;
     education: string;
     graduate: string;
     major: string;
     underrepresented: string;
     hackathonsParticipated: string;
+
     application1: string;
     application2: string;
+    application3: string;
     applicationOptional?: string;
-    applicationPro?: string;
+
+    pro?: boolean;
+
     attribution: string[];
     eventInterest: string[];
+
+    requestTravelReimbursement: boolean;
 };
 
 export type RegistrationApplicationDraftBody = {
@@ -46,17 +56,18 @@ export type RegistrationApplicationDraftBody = {
     hackathonsParticipated?: string;
     application1?: string;
     application2?: string;
+    application3?: string;
     applicationOptional?: string;
-    applicationPro?: string;
+    pro?: boolean;
     attribution?: string[];
     eventInterest?: string[];
+    requestTravelReimbursement?: boolean;
 };
 
 /** Includes fields available only on the frontend. */
 export type RegistrationApplicationDraftBodyForm =
     RegistrationApplicationDraftBody & {
         travelAcknowledge?: boolean;
-        considerForPro?: boolean;
         requestTravelReimbursement?: boolean;
         codeOfConductAcknowledge?: boolean;
         reviewedAcknowledge?: boolean;

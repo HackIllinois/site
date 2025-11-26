@@ -28,8 +28,8 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 <Grid size={12}>
                     <TextInput
                         name="application1"
-                        label="Pick a product you use often. What’s one thing you’d change to make it better, and what motivated that change?"
-                        sublabel="max. 50 words"
+                        label="Pick a product you like: what’s one thing you’d change to make it better and why?"
+                        sublabel="max 50 words"
                         accentColor={accentColor}
                         multiline
                         required
@@ -48,8 +48,8 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 <Grid size={12}>
                     <TextInput
                         name="application2"
-                        label="Describe a challenge you have faced in the field of CS, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
-                        sublabel="max. 100 words"
+                        label="Describe a time you learned something for fun."
+                        sublabel="max 50 words"
                         accentColor={accentColor}
                         multiline
                         required
@@ -65,12 +65,32 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                         }
                     />
                 </Grid>
+                <Grid size={12}>
+                    <TextInput
+                        name="application3"
+                        label="Describe a challenge you have faced in your field, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
+                        sublabel="max 100 words"
+                        accentColor={accentColor}
+                        multiline
+                        required
+                        minRows={4}
+                        value={values.application3}
+                        onChange={handleChange}
+                        error={
+                            !!touched.application3 &&
+                            Boolean(errors.application3)
+                        }
+                        helperText={
+                            !!touched.application3 ? errors.application3 : ""
+                        }
+                    />
+                </Grid>
 
                 <Grid size={12}>
                     <TextInput
                         name="applicationOptional"
                         label="If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
-                        sublabel="optional, max. 100 words"
+                        sublabel="optional, max 100 words"
                         accentColor={accentColor}
                         multiline
                         // not required
@@ -90,50 +110,19 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 </Grid>
                 <Grid size={12}>
                     <CheckboxSelect
-                        name="considerForPro"
-                        label="Would you like to be considered for pro track?"
-                        sublabel="You'll have to complete a short coding challenge."
+                        name="pro"
+                        label="Would you like to be considered for Pro Track?"
+                        sublabel="You'll have to complete a short coding challenge about 1 hour long."
                         optionLabel="Yes"
                         accentColor={accentColor}
-                        value={values.considerForPro}
-                        onChange={value =>
-                            setFieldValue("considerForPro", value)
-                        }
-                        error={
-                            !!touched.considerForPro &&
-                            Boolean(errors.considerForPro)
-                        }
-                        helperText={
-                            !!touched.considerForPro
-                                ? errors.considerForPro
-                                : ""
-                        }
+                        value={values.pro}
+                        onChange={val => {
+                            setFieldValue("pro", val);
+                        }}
+                        error={!!touched.pro && Boolean(errors.pro)}
+                        helperText={!!touched.pro ? errors.pro : ""}
                     />
                 </Grid>
-                {values.considerForPro && (
-                    <Grid size={12}>
-                        <TextInput
-                            name="applicationPro"
-                            label="<PRO ESSAY PROMPT>"
-                            sublabel="max. 50 words"
-                            accentColor={accentColor}
-                            multiline
-                            required
-                            minRows={4}
-                            value={values.applicationPro}
-                            onChange={handleChange}
-                            error={
-                                !!touched.applicationPro &&
-                                Boolean(errors.applicationPro)
-                            }
-                            helperText={
-                                !!touched.applicationPro
-                                    ? errors.applicationPro
-                                    : ""
-                            }
-                        />
-                    </Grid>
-                )}
             </Grid>
         </Container>
     );
