@@ -295,7 +295,7 @@ const GeneralRegistration = () => {
     useEffect(() => {
         if (isSubmitted) {
             setCurrentStep(steps.length - 1);
-            window.removeEventListener("beforeunload", handleBeforeUnload);
+            setShowClickOffAlert(false);
             return;
         }
     }, [isSubmitted, currentStep]);
