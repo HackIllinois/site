@@ -27,9 +27,9 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     // Application Questions
     application1: "",
     application2: "",
+    application3: "",
     applicationOptional: "",
-    considerForPro: false,
-    applicationPro: "",
+    pro: false,
     hackathonsParticipated: "",
 
     // Attending HackIllinois

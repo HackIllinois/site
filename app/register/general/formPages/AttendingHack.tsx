@@ -92,9 +92,9 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                             value: option === "Yes"
                         }))}
                         value={values.requestTravelReimbursement}
-                        onChange={value =>
-                            setFieldValue("requestTravelReimbursement", value)
-                        }
+                        onChange={value => {
+                            setFieldValue("requestTravelReimbursement", value);
+                        }}
                         error={
                             !!touched.requestTravelReimbursement &&
                             Boolean(errors.requestTravelReimbursement)

@@ -1,5 +1,5 @@
 import { RegistrationData } from "@/util/types";
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Tooltip, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import TextInput from "@/components/TextInputMUI";
 import SelectTextInput from "@/components/SelectTextInputMUI";
@@ -55,6 +55,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                     <SelectTextInput
                         name="age"
                         label="Age"
+                        openTooltipText="You must be 18 or older to register."
                         accentColor={accentColor}
                         required
                         options={ageOptions.map(option => ({

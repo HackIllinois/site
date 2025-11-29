@@ -59,7 +59,7 @@ const Confirmation = ({ formik }: ConfirmationProps) => {
                     }}
                 />
 
-                {values.applicationPro ? (
+                {values.pro ? (
                     <>
                         <Typography
                             sx={{
@@ -183,7 +183,7 @@ const Confirmation = ({ formik }: ConfirmationProps) => {
                     </>
                 )}
 
-                {values.applicationPro && (
+                {values.pro && (
                     <>
                         <Typography
                             sx={{

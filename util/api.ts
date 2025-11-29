@@ -23,8 +23,6 @@ export async function getAuthToken(): Promise<string | null> {
     });
     if (response.ok) {
         const data = await response.json();
-        console.log("Data", data);
-        // localStorage.setItem("token", data.token);
         return data.jwt;
     }
     return null;
@@ -124,8 +122,8 @@ export async function loadDraft() {
     };
 }
 
-export async function submitDraft() {
-    return await requestv2("POST", "/registration/submit");
+export async function submitDraft(body: RegistrationApplicationDraftBody) {
+    return await requestv2("POST", "/registration/submit", body);
 }
 
 export async function loadSubmission() {

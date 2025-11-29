@@ -44,7 +44,8 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
 }) => {
     // handle toggle manually so it works with Formik (onChange tries to pass event.target.checked)
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        onChange(event.target.value);
+        // event.target.value is a string. We must convert it back to a boolean here.
+        onChange(event.target.value === "true");
     };
 
     return (
@@ -75,8 +76,6 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
                         md: "repeat(auto-fit, 250px)"
                     },
                     rowGap: 4,
-                    // columnGap: 20,
-                    // justifyContent: { xs: "space-between", sm: "normal" },
                     p: 2
                 }}
             >

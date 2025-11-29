@@ -40,8 +40,6 @@ import { useRegistrationSteps } from "./hooks/use-registration-steps";
 import theme from "@/theme";
 
 const GeneralRegistration = () => {
-    const { currentStep, setCurrentStep, handleNext, handleBack, skipToStep } =
-        useRegistrationSteps(validationSchemas);
     const [showSaveAlert, setShowSaveAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [showClickOffAlert, setShowClickOffAlert] = useState(false);
@@ -49,6 +47,8 @@ const GeneralRegistration = () => {
     const [isSaving, setIsSaving] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const { currentStep, setCurrentStep, handleNext, handleBack, skipToStep } =
+        useRegistrationSteps(validationSchemas, isSubmitted);
 
     const renderStepContent = (step: number, formik: any) => {
         switch (step) {
@@ -129,13 +129,7 @@ const GeneralRegistration = () => {
 
             if (draft) {
                 // Merge draft with initialValues to fill in any missing fields
-
-                console.log("Draft", draft);
-
                 let mergedValues = { ...initialValues, ...draft };
-                mergedValues.considerForPro = mergedValues.applicationPro
-                    ? true
-                    : false;
                 formik.setValues(mergedValues);
             }
 
@@ -253,7 +247,7 @@ const GeneralRegistration = () => {
                 }
             }
             try {
-                await submitDraft();
+                await submitDraft(formik.values);
                 setIsSubmitted(true);
             } catch (error: any) {
                 console.error("Failed to submit draft:", error);
@@ -271,6 +265,10 @@ const GeneralRegistration = () => {
     };
 
     useEffect(() => {
+        if (currentStep >= steps.length - 2) {
+            setShowClickOffAlert(false);
+            return;
+        }
         setShowClickOffAlert(true);
         const timeout = setTimeout(() => {
             handleSave();
@@ -279,6 +277,9 @@ const GeneralRegistration = () => {
     }, [formik.values]);
 
     useEffect(() => {
+        // Don't autosave on the review info page and confirmation page.
+        // This ensures that the user won't see an error when they submit.
+        if (currentStep >= steps.length - 2) return;
         handleSave();
     }, [currentStep]);
 
@@ -299,14 +300,6 @@ const GeneralRegistration = () => {
         return () =>
             window.removeEventListener("beforeunload", handleBeforeUnload);
     }, [showClickOffAlert]);
-
-    // useEffect(() => {
-    //     if (isSubmitted) {
-    //         setCurrentStep(steps.length - 1);
-    //         setShowClickOffAlert(false);
-    //         return;
-    //     }
-    // }, [isSubmitted, currentStep]);
 
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
