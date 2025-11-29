@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Tooltip } from "@mui/material";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
@@ -5,7 +6,6 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormLabel from "@mui/material/FormLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
 
 interface Option {
     label: string;
@@ -46,26 +46,42 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
     openTooltipText,
     ...props
 }) => {
-    const OPTIONS_LIMIT = 20;
+    const OPTIONS_LIMIT = 55; // 55 so that all US states show up when used for state selection
 
     const [isOpen, setIsOpen] = useState(false);
+    const [visibleCount, setVisibleCount] = useState(OPTIONS_LIMIT);
 
     const normalizedValue = multiple
         ? options.filter(o => Array.isArray(value) && value.includes(o.value))
         : options.find(o => o.value === value) || null;
 
-    const defaultFilterOptions = createFilterOptions();
+    const defaultFilterOptions = createFilterOptions<Option>();
 
-    const filterOptions = (options: any, state: any) => {
-        return defaultFilterOptions(options, state).slice(0, OPTIONS_LIMIT);
+    const filterOptions = (optionsToFilter: Option[], state: any) => {
+        const filtered = defaultFilterOptions(
+            optionsToFilter,
+            state
+        ) as Option[];
+        return filtered.slice(0, visibleCount);
     };
 
     const handleOpen = () => {
+        setVisibleCount(OPTIONS_LIMIT); // reset when opening
         setIsOpen(true);
     };
 
     const handleClose = () => {
         setIsOpen(false);
+    };
+
+    const handleListboxScroll = (event: React.UIEvent<HTMLUListElement>) => {
+        const listboxNode = event.currentTarget;
+        const { scrollTop, clientHeight, scrollHeight } = listboxNode;
+
+        // When user reaches (or is very close to) the bottom, show more
+        if (scrollTop + clientHeight >= scrollHeight - 8) {
+            setVisibleCount(prev => prev + OPTIONS_LIMIT);
+        }
     };
 
     const showTooltip = Boolean(openTooltipText) && isOpen;
@@ -104,6 +120,9 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                         onChange((val as Option | null)?.value || "");
                     }
                 }}
+                ListboxProps={{
+                    onScroll: handleListboxScroll
+                }}
                 renderInput={params => (
                     <Tooltip
                         title={openTooltipText || ""}
@@ -137,7 +156,6 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                                     }
                                 },
                                 "& .MuiAutocomplete-tag": {
-                                    // chips in multiselect
                                     display: "flex",
                                     alignItems: "center",
                                     height: "24px",

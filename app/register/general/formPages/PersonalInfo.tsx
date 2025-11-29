@@ -27,7 +27,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                 PERSONAL INFO
             </Typography>
             <Grid container columnSpacing={2} rowSpacing={{ xs: 3, md: 6 }}>
-                <Grid size={{ xs: 12, sm: 12, md: 5 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 4.75 }}>
                     <TextInput
                         name="firstName"
                         label="First Name"
@@ -39,7 +39,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={!!touched.firstName ? errors.firstName : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 12, md: 5 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 4.75 }}>
                     <TextInput
                         name="lastName"
                         label="Last Name"
@@ -51,7 +51,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={!!touched.lastName ? errors.lastName : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 3, md: 2 }}>
+                <Grid size={{ xs: 12, sm: 5, md: 2.5 }}>
                     <SelectTextInput
                         name="age"
                         label="Age"
@@ -68,7 +68,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={!!touched.age ? errors.age : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 9, md: 6 }}>
+                <Grid size={{ xs: 12, sm: 7, md: 6 }}>
                     <TextInput
                         name="preferredName"
                         label="Preferred Name"
