@@ -185,12 +185,12 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                                 whiteSpace: "normal",
                                 wordBreak: "break-word",
                                 ...(selected && {
-                                    backgroundColor: "#70D6FF !important",
+                                    backgroundColor: "#48b7e3ff !important",
                                     color: "#fff"
                                 }),
                                 "&.Mui-focused": {
                                     backgroundColor: selected
-                                        ? "#70D6FF !important"
+                                        ? "#48b7e3ff !important"
                                         : "#E0F4FF"
                                 }
                             }}

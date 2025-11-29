@@ -18,10 +18,25 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 component="h1"
                 sx={{
                     mt: 8,
-                    mb: 4
+                    mb: 2
                 }}
             >
                 APPLICATION QUESTIONS
+            </Typography>
+            <Typography
+                variant="body1"
+                sx={{
+                    mb: 4,
+                    lineHeight: 1.6,
+                    fontFamily: "Montserrat",
+                    color: "#e9e9e9ff",
+                    fontSize: "20px"
+                }}
+            >
+                Your application to HackIllinois will be evaluated solely based
+                on your responses to these questions.
+                <br />
+                No other registration information will be used.
             </Typography>
 
             <Grid container columnSpacing={2} rowSpacing={6}>

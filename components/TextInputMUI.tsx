@@ -49,7 +49,7 @@ const TextInput: React.FC<TextInputProps> = ({
                 <Typography
                     component="span"
                     variant="body2"
-                    sx={{ ml: 1, opacity: "0.8", fontStyle: "oblique" }}
+                    sx={{ ml: 1, color: "#c4c4c4ff", fontStyle: "oblique" }}
                 >
                     {sublabel}
                 </Typography>
@@ -84,7 +84,13 @@ const TextInput: React.FC<TextInputProps> = ({
                             "::placeholder": {
                                 color: "gray",
                                 opacity: 0.8
-                            }
+                            },
+                            "&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus":
+                                {
+                                    WebkitBoxShadow:
+                                        "0 0 0 1000px #f0f0f0 inset", // same as your bg
+                                    WebkitTextFillColor: accentColor
+                                }
                         }
                     }
                 }}
