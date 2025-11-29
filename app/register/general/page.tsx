@@ -210,7 +210,6 @@ const GeneralRegistration = () => {
                 abortEarly: false
             });
         } catch (error: unknown) {
-            console.log("error", error);
             if (error instanceof Yup.ValidationError) {
                 const touchedFields: any = {};
                 error.inner.forEach(err => {
@@ -218,11 +217,8 @@ const GeneralRegistration = () => {
                 });
                 formik.setTouched(touchedFields);
 
-                // NEW: scroll to the first field with an error
+                // Scroll to the first error field
                 const firstErrorPath = error.inner[0]?.path || error.path;
-
-                console.log("firstErrorPath", firstErrorPath);
-
                 if (firstErrorPath) {
                     const el = document.querySelector(
                         `[name="${firstErrorPath}"], [id="${firstErrorPath}"]`
