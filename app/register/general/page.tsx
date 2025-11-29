@@ -47,8 +47,15 @@ const GeneralRegistration = () => {
     const [isSaving, setIsSaving] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const { currentStep, setCurrentStep, handleNext, handleBack, skipToStep } =
-        useRegistrationSteps(validationSchemas, isSubmitted);
+    const {
+        maxStep,
+        currentStep,
+        setCurrentStep,
+        handleNext,
+        handleGoToStep,
+        handleBack,
+        skipToStep
+    } = useRegistrationSteps(validationSchemas, isSubmitted);
 
     const renderStepContent = (step: number, formik: any) => {
         switch (step) {
@@ -319,6 +326,24 @@ const GeneralRegistration = () => {
 
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+    const handleGoToStepViaStepper = async (step: number) => {
+        try {
+            const result = await handleGoToStep(
+                formik.values,
+                step,
+                formik.setTouched
+            );
+            if (result) {
+                setCurrentStep(step);
+            }
+        } catch {
+            setShowErrorAlert(true);
+            setErrorMessage(
+                "Please complete and correct all required fields before proceeding."
+            );
+        }
+    };
+
     if (isLoading) {
         return <Loading />;
     }
@@ -377,7 +402,11 @@ const GeneralRegistration = () => {
                         maxWidth: "1200px"
                     }}
                 >
-                    <RegistrationStepper currentStep={currentStep} />
+                    <RegistrationStepper
+                        currentStep={currentStep}
+                        maxStep={maxStep}
+                        onGoToStep={handleGoToStepViaStepper}
+                    />
                     <Box sx={{ mb: 4, fontFamily: "Montserrat" }}>
                         {renderStepContent(currentStep, formik)}
                     </Box>

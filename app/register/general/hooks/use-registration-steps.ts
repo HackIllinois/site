@@ -14,6 +14,7 @@ export function useRegistrationSteps(
     validationSchemas: Yup.ObjectSchema<any, any, any, any>[],
     submitted: boolean
 ) {
+    const [maxStep, setMaxStep] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);
 
     // step -> hash
@@ -45,6 +46,10 @@ export function useRegistrationSteps(
         return () => window.removeEventListener("hashchange", readHash);
     }, []);
 
+    useEffect(() => {
+        setMaxStep(Math.max(maxStep, currentStep));
+    }, [currentStep, maxStep]);
+
     const handleNext = useCallback(
         async (
             values: RegistrationApplicationDraftBody,
@@ -73,6 +78,55 @@ export function useRegistrationSteps(
         [currentStep, validationSchemas]
     );
 
+    const handleGoToStep = async (
+        values: RegistrationApplicationDraftBody,
+        step: number,
+        setTouched: (t: any) => void
+    ) => {
+        if (currentStep === page_slugs.length - 1) {
+            // Already at the confirmation page; can't navigate anymore.
+            return false;
+        }
+        if (step === currentStep) {
+            console.error("Already on step", step);
+            return false;
+        }
+        if (step > maxStep) {
+            console.error(
+                "Cannot go to step",
+                step,
+                "as it exceeds maxStep",
+                maxStep
+            );
+            return false;
+        }
+        if (step > currentStep) {
+            const currentSchema = validationSchemas[currentStep];
+
+            try {
+                await currentSchema.validate(values, { abortEarly: false });
+                if (currentStep < steps.length - 1) {
+                    setCurrentStep(prev => prev + 1);
+                    window.scrollTo(0, 0);
+                }
+                return true;
+            } catch (error) {
+                if (error instanceof Yup.ValidationError) {
+                    const touchedFields: any = {};
+                    error.inner.forEach(err => {
+                        if (err.path) touchedFields[err.path] = true;
+                    });
+                    setTouched(touchedFields);
+                }
+                throw error;
+            }
+        }
+
+        setCurrentStep(step);
+        window.scrollTo(0, 0);
+        return true;
+    };
+
     const handleBack = useCallback(() => {
         setCurrentStep(prev => {
             const next = prev - 1;
@@ -95,8 +149,10 @@ export function useRegistrationSteps(
     const isLastStep = currentStep === steps.length - 1;
 
     return {
+        maxStep,
         currentStep,
         setCurrentStep,
+        handleGoToStep,
         handleNext,
         handleBack,
         skipToStep,
