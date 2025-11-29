@@ -41,7 +41,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
             <Grid container columnSpacing={2} rowSpacing={6}>
                 <Grid size={{ xs: 12, sm: 12, md: 4 }}>
                     <SelectTextInput
-                        name="studyLevel"
+                        name="education"
                         label="Level of Study"
                         required
                         options={studyLevelOptions.map(option => ({

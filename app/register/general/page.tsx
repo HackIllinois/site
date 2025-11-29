@@ -216,6 +216,22 @@ const GeneralRegistration = () => {
                     if (err.path) touchedFields[err.path] = true;
                 });
                 formik.setTouched(touchedFields);
+
+                // Scroll to the first error field
+                const firstErrorPath = error.inner[0]?.path || error.path;
+                if (firstErrorPath) {
+                    const el = document.querySelector(
+                        `[name="${firstErrorPath}"], [id="${firstErrorPath}"]`
+                    ) as HTMLElement | null;
+
+                    if (el) {
+                        el.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
+                        (el as any).focus?.();
+                    }
+                }
             }
             return;
         }
