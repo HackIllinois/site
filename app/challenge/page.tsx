@@ -1,10 +1,28 @@
 "use client";
+import Loading from "@/components/Loading/Loading";
+import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import LANDING from "@/public/registration/pro/landing.svg";
 import { montserrat } from "@/theme/fonts";
 import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
+import GithubAuthPage from "../register/general/formPages/GithubAuthPage";
+import NotProTrackPage from "../register/general/formPages/NotProTrackPage";
 
 const ProChallenge: React.FC = () => {
+    const registrationAuth = useRegistrationAuth(true);
+
+    if (registrationAuth.isLoading || !registrationAuth.submission) {
+        return <Loading backgroundImage={LANDING.src} zoom={false} />;
+    }
+
+    if (!registrationAuth.authenticated) {
+        return <GithubAuthPage />;
+    }
+
+    if (!registrationAuth.submission?.pro) {
+        return <NotProTrackPage />;
+    }
+
     return (
         <main className={"screen"}>
             <Box

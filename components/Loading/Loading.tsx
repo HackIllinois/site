@@ -1,7 +1,15 @@
 import { Box, CircularProgress } from "@mui/material";
 import styles from "./Loading.module.scss";
 
-const Loading: React.FC = () => {
+type LoadingProps = {
+    backgroundImage?: string;
+    zoom?: boolean;
+};
+
+const Loading: React.FC<LoadingProps> = ({
+    backgroundImage = "/registration/backgrounds/personal_info.svg",
+    zoom = true
+}) => {
     return (
         <>
             <Box
@@ -9,12 +17,12 @@ const Loading: React.FC = () => {
                     display: "flex",
                     width: "100vw",
                     height: "100vh",
-                    backgroundImage: `url("/registration/backgrounds/personal_info.svg")`,
+                    backgroundImage: `url(${backgroundImage})`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
                     filter: "blur(10px)",
-                    transform: "scale(1.25)"
+                    transform: zoom ? "scale(1.25)" : "scale(1)"
                 }}
             ></Box>
             <Box

@@ -16,18 +16,18 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useCallback, useEffect, useState } from "react";
+import * as Yup from "yup";
 import AppQuestions from "./formPages/AppQuestions";
 import AttendingHack from "./formPages/AttendingHack";
 import BackgroundInfo from "./formPages/BackgroundInfo";
 import Confirmation from "./formPages/Confirmation";
 import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
-import * as Yup from "yup";
 
 import Loading from "@/components/Loading/Loading";
+import { useRegistrationAuth } from "@/hooks/use-registration-auth";
+import theme from "@/theme";
 import {
-    authenticate,
-    isAuthenticated,
     loadDraft,
     loadSubmission,
     saveDraft,
@@ -36,9 +36,8 @@ import {
 } from "@/util/api";
 import RegistrationStepper from "./components/RegistrationStepper";
 import { steps } from "./constants/registration";
-import { useRegistrationSteps } from "./hooks/use-registration-steps";
-import theme from "@/theme";
 import GithubAuthPage from "./formPages/GithubAuthPage";
+import { useRegistrationSteps } from "./hooks/use-registration-steps";
 
 const GeneralRegistration = () => {
     const [showSaveAlert, setShowSaveAlert] = useState(false);
@@ -46,9 +45,10 @@ const GeneralRegistration = () => {
     const [showClickOffAlert, setShowClickOffAlert] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [isSaving, setIsSaving] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingComponent, setIsLoadingComponent] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [authenticated, setAuthenticated] = useState(false);
+    const registrationAuth = useRegistrationAuth();
+
     const {
         maxStep,
         currentStep,
@@ -107,21 +107,21 @@ const GeneralRegistration = () => {
     });
 
     const handleLoadDraft = useCallback(async () => {
-        setIsLoading(true);
+        setIsLoadingComponent(true);
         setLoadedDraft(false);
-        if (!(await isAuthenticated())) {
-            setIsLoading(false);
-            setAuthenticated(false);
+
+        if (!registrationAuth.authenticated) {
+            setIsLoadingComponent(false);
             return;
         }
-        setAuthenticated(true);
+
         try {
             const submission = await loadSubmission();
             if (submission) {
                 formik.setValues(submission);
                 setIsSubmitted(true);
                 skipToStep(steps.length - 1);
-                setIsLoading(false);
+                setIsLoadingComponent(false);
                 return;
             }
         } catch (error: any) {
@@ -159,7 +159,7 @@ const GeneralRegistration = () => {
 
             // TODO: Send the user to the correct page.
             setLoadedDraft(true);
-            setIsLoading(false);
+            setIsLoadingComponent(false);
         } catch (error: any) {
             // Only show error if it's not a 404 (no draft exists yet)
             if (error?.error !== "NotFound") {
@@ -170,9 +170,9 @@ const GeneralRegistration = () => {
                 setShowErrorAlert(true);
             }
             setLoadedDraft(true);
-            setIsLoading(false);
+            setIsLoadingComponent(false);
         }
-    }, [formik, skipToStep]);
+    }, [formik, skipToStep, registrationAuth.authenticated]);
 
     const handleSave = useCallback(async () => {
         // Already submitted
@@ -194,11 +194,9 @@ const GeneralRegistration = () => {
         setShowClickOffAlert(false);
 
         try {
-            if (!(await isAuthenticated())) {
-                setAuthenticated(false);
+            if (!registrationAuth.authenticated) {
                 return;
             }
-            setAuthenticated(true);
             setIsSaving(true);
             await saveDraft(draftContent);
             setShowClickOffAlert(false);
@@ -213,7 +211,14 @@ const GeneralRegistration = () => {
             );
             setShowErrorAlert(true);
         }
-    }, [loadedDraft, isSaving, formik.values, isSubmitted, currentStep]);
+    }, [
+        loadedDraft,
+        isSaving,
+        formik.values,
+        isSubmitted,
+        currentStep,
+        registrationAuth.authenticated
+    ]);
 
     const handleNextOrSubmit = async () => {
         try {
@@ -250,7 +255,7 @@ const GeneralRegistration = () => {
         if (currentStep === steps.length - 2) {
             // Final step before submission
             setShowClickOffAlert(false);
-            setIsLoading(true);
+            setIsLoadingComponent(true);
 
             if (formik.values.optInNewsletter) {
                 try {
@@ -269,7 +274,7 @@ const GeneralRegistration = () => {
                             "Failed to subscribe to HackIllinois newsletters. Please try again."
                     );
                     setShowErrorAlert(true);
-                    setIsLoading(false);
+                    setIsLoadingComponent(false);
                     return;
                 }
             }
@@ -285,7 +290,7 @@ const GeneralRegistration = () => {
                 setShowErrorAlert(true);
                 return;
             } finally {
-                setIsLoading(false);
+                setIsLoadingComponent(false);
             }
         }
         await handleNext(formik.values, formik.setTouched);
@@ -301,7 +306,7 @@ const GeneralRegistration = () => {
             handleSave();
         }, 10_000);
         return () => clearTimeout(timeout);
-    }, [formik.values]);
+    }, [formik.values, registrationAuth.authenticated]);
 
     useEffect(() => {
         // Don't autosave on the review info page and confirmation page.
@@ -312,7 +317,7 @@ const GeneralRegistration = () => {
 
     useEffect(() => {
         handleLoadDraft();
-    }, []);
+    }, [registrationAuth.authenticated]);
 
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
         e.preventDefault();
@@ -349,14 +354,16 @@ const GeneralRegistration = () => {
     };
 
     useEffect(() => {
-        console.log("Authenticated", authenticated);
-    }, [authenticated]);
+        console.log("Authenticated", registrationAuth.authenticated);
+    }, [registrationAuth.authenticated]);
+
+    const isLoading = isLoadingComponent || registrationAuth.isLoading;
 
     if (isLoading) {
         return <Loading />;
     }
 
-    if (!authenticated) {
+    if (!registrationAuth.authenticated) {
         return <GithubAuthPage />;
     }
 
