@@ -3,7 +3,8 @@ import {
     ChallengeStatus,
     FileType,
     MethodType,
-    RegistrationApplicationDraftBody
+    RegistrationApplicationDraftBody,
+    RegistrationApplicationSubmitted
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -125,6 +126,6 @@ export async function submitDraft(body: RegistrationApplicationDraftBody) {
     return await requestv2("POST", "/registration/submit", body);
 }
 
-export async function loadSubmission() {
+export async function loadSubmission(): Promise<RegistrationApplicationSubmitted> {
     return await requestv2("GET", "/registration");
 }
