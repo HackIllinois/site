@@ -1,14 +1,28 @@
 import { Box, Step, StepLabel, Stepper } from "@mui/material";
 import Image from "next/image";
-import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
+import {
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useMemo,
+    useRef,
+    useState
+} from "react";
 import { steps } from "../constants/registration";
 import RocketOverlay from "./RocketOverlay";
 
 type RegistrationStepperProps = {
     currentStep: number;
+    maxStep: number;
+    onGoToStep: (step: number) => void;
 };
 
-const RegistrationStepper = ({ currentStep }: RegistrationStepperProps) => {
+const RegistrationStepper = ({
+    currentStep,
+    maxStep,
+    onGoToStep
+}: RegistrationStepperProps) => {
+    const atEnd = currentStep === steps.length - 1;
     const wrapperRef = useRef<HTMLDivElement | null>(null);
     const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
     const [planetCenters, setPlanetCenters] = useState<
@@ -99,7 +113,27 @@ const RegistrationStepper = ({ currentStep }: RegistrationStepperProps) => {
                                             justifyContent: "center",
                                             width: 32, // matches MUI's default StepIcon size
                                             height: 32,
-                                            margin: "0 auto"
+                                            margin: "0 auto",
+                                            filter:
+                                                i <= maxStep
+                                                    ? "brightness(95%)"
+                                                    : "brightness(70%)",
+                                            "&:hover": {
+                                                filter:
+                                                    i <= maxStep
+                                                        ? "brightness(100%)"
+                                                        : "brightness(40%)"
+                                            },
+                                            cursor:
+                                                i <= maxStep && !atEnd
+                                                    ? "pointer"
+                                                    : "default",
+                                            transition: "all 0.3s ease"
+                                        }}
+                                        onClick={() => {
+                                            if (i <= maxStep) {
+                                                onGoToStep(i);
+                                            }
                                         }}
                                     >
                                         <Image
@@ -121,7 +155,7 @@ const RegistrationStepper = ({ currentStep }: RegistrationStepperProps) => {
                 ))}
             </Stepper>
         );
-    }, [currentStep]);
+    }, [currentStep, maxStep, onGoToStep]);
 
     return (
         <>
