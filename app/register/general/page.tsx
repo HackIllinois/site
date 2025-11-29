@@ -38,6 +38,7 @@ import RegistrationStepper from "./components/RegistrationStepper";
 import { steps } from "./constants/registration";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
 import theme from "@/theme";
+import GithubAuthPage from "./formPages/GithubAuthPage";
 
 const GeneralRegistration = () => {
     const [showSaveAlert, setShowSaveAlert] = useState(false);
@@ -47,6 +48,7 @@ const GeneralRegistration = () => {
     const [isSaving, setIsSaving] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [authenticated, setAuthenticated] = useState(false);
     const {
         maxStep,
         currentStep,
@@ -107,11 +109,12 @@ const GeneralRegistration = () => {
     const handleLoadDraft = useCallback(async () => {
         setIsLoading(true);
         setLoadedDraft(false);
-        if (!isAuthenticated()) {
-            authenticate();
+        if (!(await isAuthenticated())) {
             setIsLoading(false);
+            setAuthenticated(false);
             return;
         }
+        setAuthenticated(true);
         try {
             const submission = await loadSubmission();
             if (submission) {
@@ -191,10 +194,11 @@ const GeneralRegistration = () => {
         setShowClickOffAlert(false);
 
         try {
-            if (!isAuthenticated()) {
-                authenticate();
+            if (!(await isAuthenticated())) {
+                setAuthenticated(false);
                 return;
             }
+            setAuthenticated(true);
             setIsSaving(true);
             await saveDraft(draftContent);
             setShowClickOffAlert(false);
@@ -344,8 +348,16 @@ const GeneralRegistration = () => {
         }
     };
 
+    useEffect(() => {
+        console.log("Authenticated", authenticated);
+    }, [authenticated]);
+
     if (isLoading) {
         return <Loading />;
+    }
+
+    if (!authenticated) {
+        return <GithubAuthPage />;
     }
 
     return (
