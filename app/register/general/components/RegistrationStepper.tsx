@@ -1,6 +1,6 @@
 import { Box, Step, StepLabel, Stepper } from "@mui/material";
 import Image from "next/image";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { steps } from "../constants/registration";
 import RocketOverlay from "./RocketOverlay";
 
@@ -49,14 +49,8 @@ const RegistrationStepper = ({ currentStep }: RegistrationStepperProps) => {
         };
     }, [measurePlanets]);
 
-    return (
-        <>
-            <div ref={wrapperRef} style={{ position: "relative" }}>
-                <RocketOverlay
-                    activeStep={currentStep}
-                    planetCenters={planetCenters}
-                />
-            </div>
+    const stepper = useMemo(() => {
+        return (
             <Stepper
                 alternativeLabel
                 activeStep={currentStep}
@@ -110,7 +104,7 @@ const RegistrationStepper = ({ currentStep }: RegistrationStepperProps) => {
                                     >
                                         <Image
                                             src={`/registration/progress_bar/${step.id}.png`}
-                                            alt="Transportation"
+                                            alt={`${step.name} icon`}
                                             width={80}
                                             height={80}
                                             style={{
@@ -126,6 +120,18 @@ const RegistrationStepper = ({ currentStep }: RegistrationStepperProps) => {
                     </Step>
                 ))}
             </Stepper>
+        );
+    }, [currentStep]);
+
+    return (
+        <>
+            <div ref={wrapperRef} style={{ position: "relative" }}>
+                <RocketOverlay
+                    activeStep={currentStep}
+                    planetCenters={planetCenters}
+                />
+            </div>
+            {stepper}
         </>
     );
 };
