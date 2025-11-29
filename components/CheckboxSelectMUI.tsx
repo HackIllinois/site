@@ -3,11 +3,13 @@ import { Checkbox, FormControlLabel, FormHelperText } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Typography from "@mui/material/Typography";
+import React from "react";
 
 interface CheckboxSelectInputProps {
     name: string;
     label?: string;
     sublabel?: string;
+    sublabelContent?: React.ReactNode;
     optionLabel: string;
     optionLabelSx?: object;
     required?: boolean;
@@ -25,6 +27,7 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
     name,
     label,
     sublabel,
+    sublabelContent,
     optionLabel = "Yes",
     optionLabelSx,
     required = false,
@@ -53,13 +56,17 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                 }}
             >
                 {label ? label + (required ? "*" : "") : null}
-                <Typography
-                    component="p"
-                    variant="body2"
-                    sx={{ opacity: "0.8", fontStyle: "oblique" }}
-                >
-                    {sublabel}
-                </Typography>
+                {sublabel ? (
+                    <Typography
+                        component="p"
+                        variant="body2"
+                        sx={{ opacity: "0.8", fontStyle: "oblique" }}
+                    >
+                        {sublabel}
+                    </Typography>
+                ) : (
+                    sublabelContent || null
+                )}
             </FormLabel>
 
             <FormControlLabel

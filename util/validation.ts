@@ -66,6 +66,10 @@ export const valuesToDraftContent = (
     return draftContent;
 };
 
+/**
+ * Treats all fields as optional, so the user can save progress even if they haven't filled out all fields.
+ * Used during autosaves, since we don't expect all fields to be filled.
+ */
 export const draftValidationSchemas = [
     // 0. Personal Information
     Yup.object({
@@ -104,8 +108,8 @@ export const draftValidationSchemas = [
             }
         ),
         application2: Yup.string().test(
-            "max-100-words",
-            "Response cannot be over 100 words",
+            "max-50-words",
+            "Response cannot be over 50 words",
             value => {
                 if (!value) return true;
                 const wordCount = value
@@ -113,6 +117,18 @@ export const draftValidationSchemas = [
                     .split(/\s+/)
                     .filter(word => word.length > 0).length;
                 return wordCount <= 50;
+            }
+        ),
+        application3: Yup.string().test(
+            "max-100-words",
+            "Response cannot be over 100 words",
+            value => {
+                if (!value || !value.trim()) return true;
+                const wordCount = value
+                    .trim()
+                    .split(/\s+/)
+                    .filter(word => word.length > 0).length;
+                return wordCount <= 100;
             }
         ),
         applicationOptional: Yup.string().test(
@@ -127,23 +143,7 @@ export const draftValidationSchemas = [
                 return wordCount <= 100;
             }
         ),
-        considerForPro: Yup.boolean(),
-        applicationPro: Yup.string().when("considerForPro", {
-            is: (val: boolean) => !!val,
-            then: schema =>
-                schema.test(
-                    "max-50-words",
-                    "Response cannot be over 50 words",
-                    value => {
-                        if (!value) return true;
-                        const wordCount = value
-                            .trim()
-                            .split(/\s+/)
-                            .filter(word => word.length > 0).length;
-                        return wordCount <= 50;
-                    }
-                )
-        }),
+        pro: Yup.boolean(),
         hackathonsParticipated: Yup.string()
     }),
 
@@ -169,6 +169,11 @@ export const draftValidationSchemas = [
     Yup.object({})
 ];
 
+/**
+ * Validates draft content, ensuring that all required fields are filled.
+ * Used during page navigation (we expect the page to be filled before the user moves forward)
+ * and final submission (we expect all fields to be filled).
+ */
 export const validationSchemas = [
     // 0. Personal Information
     Yup.object({
@@ -211,18 +216,26 @@ export const validationSchemas = [
             }),
         application2: Yup.string()
             .required("This essay is required")
-            .test(
-                "max-100-words",
-                "Response cannot be over 100 words",
-                value => {
-                    if (!value) return true;
-                    const wordCount = value
-                        .trim()
-                        .split(/\s+/)
-                        .filter(word => word.length > 0).length;
-                    return wordCount <= 50;
-                }
-            ),
+            .test("max-50-words", "Response cannot be over 50 words", value => {
+                if (!value) return true;
+                const wordCount = value
+                    .trim()
+                    .split(/\s+/)
+                    .filter(word => word.length > 0).length;
+                return wordCount <= 50;
+            }),
+        application3: Yup.string().test(
+            "max-100-words",
+            "Response cannot be over 100 words",
+            value => {
+                if (!value || !value.trim()) return true;
+                const wordCount = value
+                    .trim()
+                    .split(/\s+/)
+                    .filter(word => word.length > 0).length;
+                return wordCount <= 100;
+            }
+        ),
         applicationOptional: Yup.string()
             .nullable()
             .test(
@@ -237,27 +250,7 @@ export const validationSchemas = [
                     return wordCount <= 100;
                 }
             ),
-        considerForPro: Yup.boolean(),
-        applicationPro: Yup.string().when("considerForPro", {
-            is: (val: boolean) => !!val,
-            then: schema =>
-                schema
-                    .required(
-                        "You must fill out this essay to be considered for pro track"
-                    )
-                    .test(
-                        "max-50-words",
-                        "Response cannot be over 50 words",
-                        value => {
-                            if (!value) return true;
-                            const wordCount = value
-                                .trim()
-                                .split(/\s+/)
-                                .filter(word => word.length > 0).length;
-                            return wordCount <= 50;
-                        }
-                    )
-        }),
+        pro: Yup.boolean(),
         hackathonsParticipated: Yup.string()
     }),
 

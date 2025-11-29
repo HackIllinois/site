@@ -104,6 +104,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                                 ? errors.requestTravelReimbursement
                                 : ""
                         }
+                        booleanOptions
                     />
                 </Grid>
 

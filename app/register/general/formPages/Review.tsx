@@ -191,7 +191,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                     }
                                 />
                                 <UserInfoBox
-                                    label="Would you like to be considered for Pro Track?"
+                                    label="Would you like to be considered for HackVoyagers Track?"
                                     userResponse={values.pro ? "Yes" : "No"}
                                 />
                             </ReviewInfoAccordionBox>

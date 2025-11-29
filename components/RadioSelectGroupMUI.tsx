@@ -28,6 +28,7 @@ interface RadioSelectGroupInputProps {
     accentColor?: string;
     [key: string]: unknown;
     row?: boolean;
+    booleanOptions?: boolean;
 }
 
 const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
@@ -40,12 +41,15 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
     error,
     helperText = "",
     accentColor = "#2c2540",
-    row = false
+    row = false,
+    booleanOptions = false
 }) => {
     // handle toggle manually so it works with Formik (onChange tries to pass event.target.checked)
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // event.target.value is a string. We must convert it back to a boolean here.
-        onChange(event.target.value === "true");
+        onChange(
+            booleanOptions ? event.target.value === "true" : event.target.value
+        );
     };
 
     return (
