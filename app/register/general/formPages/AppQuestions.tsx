@@ -1,7 +1,7 @@
 import CheckboxSelect from "@/components/CheckboxSelectMUI";
 import TextInput from "@/components/TextInputMUI";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography, Link, Box } from "@mui/material";
 import { FormikProps } from "formik";
 import { useEffect } from "react";
 interface AppQuestionsProps {
@@ -111,8 +111,42 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 <Grid size={12}>
                     <CheckboxSelect
                         name="pro"
-                        label="Would you like to be considered for Pro Track?"
-                        sublabel="You'll have to complete a short coding challenge about 1 hour long."
+                        label="Would you like to be considered for HackVoyagers Track?"
+                        sublabelContent={
+                            <Box sx={{ display: "flex", alignItems: "center" }}>
+                                <Typography
+                                    component="p"
+                                    variant="body2"
+                                    sx={{ opacity: "0.8" }}
+                                >
+                                    {
+                                        "You'll have to complete a short coding challenge about 1 hour long. Learn more about HackVoyagers"
+                                    }
+                                    <Link
+                                        href="/challenge/landing-page"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        sx={{
+                                            fontSize: "16px",
+                                            alignItems: "center",
+                                            padding: "2px 5px",
+                                            borderRadius: "5px",
+                                            color: "#ADED4A",
+                                            fontWeight: "500",
+                                            textDecorationColor: "#ADED4A",
+                                            textDecorationThickness: "2px",
+                                            "&:hover": {
+                                                color: "#fff",
+                                                textDecorationColor: "#fff",
+                                                textDecoration: "underline"
+                                            }
+                                        }}
+                                    >
+                                        here
+                                    </Link>
+                                </Typography>
+                            </Box>
+                        }
                         optionLabel="Yes"
                         accentColor={accentColor}
                         value={values.pro}

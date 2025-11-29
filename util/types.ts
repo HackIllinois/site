@@ -9,12 +9,11 @@ export type RegistrationApplicationSubmitted = {
     firstName: string;
     lastName: string;
     preferredName?: string;
-
     age: string;
     email: string;
+
     gender: string;
     race: string[];
-
     country: string;
     state?: string;
 
