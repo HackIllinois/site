@@ -355,7 +355,7 @@ const GeneralRegistration = () => {
             </Snackbar>
             <Box
                 sx={{
-                    minHeight: "100vh", // Full viewport height
+                    minHeight: "100dvh", // Full viewport height
                     height: "100%",
                     width: "100%",
                     pb: "50px",
