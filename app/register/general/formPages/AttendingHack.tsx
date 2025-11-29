@@ -32,7 +32,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
             </Typography>
 
             <Grid container columnSpacing={2} rowSpacing={6}>
-                <Grid size={12}>
+                <Grid size={12} id="attribution">
                     <CheckboxGroup
                         name="attribution"
                         label="How did you hear about HackIllinois?"
@@ -54,7 +54,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         }
                     />
                 </Grid>
-                <Grid size={12}>
+                <Grid size={12} id="eventInterest">
                     <CheckboxGroup
                         name="eventInterest"
                         label="Which of these are you most interested in participating in during the hackathon?"

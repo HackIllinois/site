@@ -224,18 +224,20 @@ export const validationSchemas = [
                     .filter(word => word.length > 0).length;
                 return wordCount <= 50;
             }),
-        application3: Yup.string().test(
-            "max-100-words",
-            "Response cannot be over 100 words",
-            value => {
-                if (!value || !value.trim()) return true;
-                const wordCount = value
-                    .trim()
-                    .split(/\s+/)
-                    .filter(word => word.length > 0).length;
-                return wordCount <= 100;
-            }
-        ),
+        application3: Yup.string()
+            .required("This essay is required")
+            .test(
+                "max-100-words",
+                "Response cannot be over 100 words",
+                value => {
+                    if (!value || !value.trim()) return true;
+                    const wordCount = value
+                        .trim()
+                        .split(/\s+/)
+                        .filter(word => word.length > 0).length;
+                    return wordCount <= 100;
+                }
+            ),
         applicationOptional: Yup.string()
             .nullable()
             .test(
@@ -251,7 +253,7 @@ export const validationSchemas = [
                 }
             ),
         pro: Yup.boolean(),
-        hackathonsParticipated: Yup.string()
+        hackathonsParticipated: Yup.string().required("This field is required.")
     }),
 
     // 3. Attending HackIllinois

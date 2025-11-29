@@ -44,6 +44,7 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
 
     return (
         <FormControl
+            id={name}
             component="fieldset"
             error={error}
             sx={{ width: "100%", height: "100%" }}

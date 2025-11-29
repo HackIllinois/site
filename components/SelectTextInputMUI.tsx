@@ -71,7 +71,7 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
     const showTooltip = Boolean(openTooltipText) && isOpen;
 
     return (
-        <FormControl fullWidth error={error}>
+        <FormControl fullWidth error={error} id={name}>
             <FormLabel
                 sx={{
                     color: "#ffffff",

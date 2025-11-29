@@ -83,7 +83,7 @@ export type RegistrationResponseFieldInfo = {
 };
 
 /**
- * RegistrationData is deprecated. Use RegistrationApplicationDraftBody instead.
+ * (!!!) RegistrationData is deprecated. Use RegistrationApplicationDraftBody instead.
  */
 export type RegistrationData = {
     legalName: string;
@@ -109,43 +109,6 @@ export type RegistrationData = {
     travelAcknowledge: string[];
     codeOfConductAcknowledge: string[];
     reviewedInformationAcknowledge: string[];
-};
-
-/**
- * RegistrationType is deprecated. Use RegistrationApplicationDraftBody instead.
- */
-export type RegistrationType = {
-    // 0. Personal Information
-    firstName: string;
-    lastName: string;
-    preferredName: string;
-    age: string;
-    emailAddress: string;
-    // 1. Background Information
-    gender: string;
-    race: string[];
-    country: string;
-    state: string;
-    school: string;
-    studyLevel: string;
-    gradYear: number;
-    major: string;
-    underrepresented: string;
-    // 2. Application Questions
-    hackEssay1: string;
-    hackEssay2: string;
-    optionalEssay: string;
-    considerForPro: boolean;
-    proEssay: string;
-    // 3. Attending HackIllinois
-    hackOutreach: string[];
-    hackInterest: string[];
-    requestedTravelReimbursement: boolean;
-    travelAcknowledge: boolean;
-    // 4. Review (final acknowledgements)
-    reviewedAcknowledge: boolean;
-    proChallengeAcknowledge: boolean;
-    codeOfConductAcknowledge: boolean;
 };
 
 export type DecisionStatus = "TBD" | "ACCEPTED" | "REJECTED" | "WAITLISTED";

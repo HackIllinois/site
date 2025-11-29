@@ -210,12 +210,32 @@ const GeneralRegistration = () => {
                 abortEarly: false
             });
         } catch (error: unknown) {
+            console.log("error", error);
             if (error instanceof Yup.ValidationError) {
                 const touchedFields: any = {};
                 error.inner.forEach(err => {
                     if (err.path) touchedFields[err.path] = true;
                 });
                 formik.setTouched(touchedFields);
+
+                // NEW: scroll to the first field with an error
+                const firstErrorPath = error.inner[0]?.path || error.path;
+
+                console.log("firstErrorPath", firstErrorPath);
+
+                if (firstErrorPath) {
+                    const el = document.querySelector(
+                        `[name="${firstErrorPath}"], [id="${firstErrorPath}"]`
+                    ) as HTMLElement | null;
+
+                    if (el) {
+                        el.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
+                        (el as any).focus?.();
+                    }
+                }
             }
             return;
         }
