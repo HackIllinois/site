@@ -1,17 +1,16 @@
-import { RegistrationData } from "@/util/types";
-import { Box, Container, Grid, Typography } from "@mui/material";
-import { FormikProps } from "formik";
-import TextInput from "@/components/TextInputMUI";
 import CheckboxSelect from "@/components/CheckboxSelectMUI";
-
-interface ExperienceProps {
-    formik: FormikProps<RegistrationData>;
+import TextInput from "@/components/TextInputMUI";
+import { RegistrationApplicationDraftBodyForm } from "@/util/types";
+import { Container, Grid, Typography, Link, Box } from "@mui/material";
+import { FormikProps } from "formik";
+import { useEffect } from "react";
+interface AppQuestionsProps {
+    formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     accentColor?: string;
 }
 
-const Experience = ({ formik, accentColor }: ExperienceProps) => {
+const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
-
     return (
         <Container>
             <Typography
@@ -19,115 +18,164 @@ const Experience = ({ formik, accentColor }: ExperienceProps) => {
                 component="h1"
                 sx={{
                     mt: 8,
-                    mb: 4
+                    mb: 2
                 }}
             >
                 APPLICATION QUESTIONS
+            </Typography>
+            <Typography
+                variant="body1"
+                sx={{
+                    mb: 4,
+                    lineHeight: 1.6,
+                    fontFamily: "Montserrat",
+                    color: "#e9e9e9ff",
+                    fontSize: "16px"
+                }}
+            >
+                Your application to HackIllinois will be evaluated solely based
+                on your responses to these questions.
+                <br />
+                <br />
+                No other registration information will be used.
             </Typography>
 
             <Grid container columnSpacing={2} rowSpacing={6}>
                 <Grid size={12}>
                     <TextInput
-                        name="hackEssay1"
-                        label="What opportunity, event, or feature of HackIllinois 2026 are you most excited to take part in and why?"
-                        // subLabel="max. 50 words"
+                        name="application1"
+                        label="Pick a product you like: what’s one thing you’d change to make it better and why?"
+                        sublabel="max 50 words"
                         accentColor={accentColor}
                         multiline
                         required
                         minRows={4}
-                        value={values.hackEssay1}
+                        value={values.application1}
                         onChange={handleChange}
                         error={
-                            !!touched.hackEssay1 && Boolean(errors.hackEssay1)
+                            !!touched.application1 &&
+                            Boolean(errors.application1)
                         }
                         helperText={
-                            !!touched.hackEssay1 ? errors.hackEssay1 : ""
+                            !!touched.application1 ? errors.application1 : ""
                         }
                     />
                 </Grid>
                 <Grid size={12}>
                     <TextInput
-                        name="hackEssay2"
-                        label="Describe a challenge you have faced in the field of CS, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
-                        // subLabel="max. 50 words"
+                        name="application2"
+                        label="Describe a time you learned something for fun."
+                        sublabel="max 50 words"
                         accentColor={accentColor}
                         multiline
                         required
                         minRows={4}
-                        value={values.hackEssay2}
+                        value={values.application2}
                         onChange={handleChange}
                         error={
-                            !!touched.hackEssay2 && Boolean(errors.hackEssay2)
+                            !!touched.application2 &&
+                            Boolean(errors.application2)
                         }
                         helperText={
-                            !!touched.hackEssay2 ? errors.hackEssay2 : ""
+                            !!touched.application2 ? errors.application2 : ""
                         }
                     />
                 </Grid>
                 <Grid size={12}>
                     <TextInput
-                        name="optionalEssay"
+                        name="application3"
+                        label="Describe a challenge you have faced in your field, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
+                        sublabel="max 100 words"
+                        accentColor={accentColor}
+                        multiline
+                        required
+                        minRows={4}
+                        value={values.application3}
+                        onChange={handleChange}
+                        error={
+                            !!touched.application3 &&
+                            Boolean(errors.application3)
+                        }
+                        helperText={
+                            !!touched.application3 ? errors.application3 : ""
+                        }
+                    />
+                </Grid>
+
+                <Grid size={12}>
+                    <TextInput
+                        name="applicationOptional"
                         label="If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
-                        // subLabel="optional, max. 100 words"
+                        sublabel="optional, max 100 words"
                         accentColor={accentColor}
                         multiline
-                        required
+                        // not required
                         minRows={4}
-                        value={values.optionalEssay}
+                        value={values.applicationOptional}
                         onChange={handleChange}
                         error={
-                            !!touched.optionalEssay &&
-                            Boolean(errors.optionalEssay)
+                            !!touched.applicationOptional &&
+                            Boolean(errors.applicationOptional)
                         }
                         helperText={
-                            !!touched.optionalEssay ? errors.optionalEssay : ""
+                            !!touched.applicationOptional
+                                ? errors.applicationOptional
+                                : ""
                         }
                     />
                 </Grid>
                 <Grid size={12}>
                     <CheckboxSelect
-                        name="considerForPro"
-                        label="Would you like to be considered for pro track?"
+                        name="pro"
+                        label="Would you like to be considered for HackVoyagers Track?"
+                        sublabelContent={
+                            <Box sx={{ display: "flex", alignItems: "center" }}>
+                                <Typography
+                                    component="p"
+                                    variant="body2"
+                                    sx={{ opacity: "0.8" }}
+                                >
+                                    {
+                                        "You'll have to complete a short coding challenge about 1 hour long. Learn more about HackVoyagers"
+                                    }
+                                    <Link
+                                        href="/challenge/landing-page"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        sx={{
+                                            fontSize: "16px",
+                                            alignItems: "center",
+                                            padding: "2px 5px",
+                                            borderRadius: "5px",
+                                            color: "#ADED4A",
+                                            fontWeight: "500",
+                                            textDecorationColor: "#ADED4A",
+                                            textDecorationThickness: "2px",
+                                            "&:hover": {
+                                                color: "#fff",
+                                                textDecorationColor: "#fff",
+                                                textDecoration: "underline"
+                                            }
+                                        }}
+                                    >
+                                        here
+                                    </Link>
+                                </Typography>
+                            </Box>
+                        }
                         optionLabel="Yes"
                         accentColor={accentColor}
-                        value={values.considerForPro}
-                        onChange={value =>
-                            setFieldValue("considerForPro", value)
-                        }
-                        error={
-                            !!touched.considerForPro &&
-                            Boolean(errors.considerForPro)
-                        }
-                        helperText={
-                            !!touched.considerForPro
-                                ? errors.considerForPro
-                                : ""
-                        }
+                        value={values.pro}
+                        onChange={val => {
+                            setFieldValue("pro", val);
+                        }}
+                        error={!!touched.pro && Boolean(errors.pro)}
+                        helperText={!!touched.pro ? errors.pro : ""}
                     />
                 </Grid>
-                {values.considerForPro && (
-                    <Grid size={12}>
-                        <TextInput
-                            name="proEssay"
-                            label="<PRO ESSAY PROMPT>"
-                            accentColor={accentColor}
-                            multiline
-                            required
-                            minRows={4}
-                            value={values.proEssay}
-                            onChange={handleChange}
-                            error={
-                                !!touched.proEssay && Boolean(errors.proEssay)
-                            }
-                            helperText={
-                                !!touched.proEssay ? errors.proEssay : ""
-                            }
-                        />
-                    </Grid>
-                )}
             </Grid>
         </Container>
     );
 };
 
-export default Experience;
+export default AppQuestions;

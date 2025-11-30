@@ -8,11 +8,12 @@ import Typography from "@mui/material/Typography";
 interface TextInputProps {
     name: string;
     label: string;
+    sublabel?: string;
     multiline?: boolean;
     required?: boolean;
     placeholder?: string;
     // formik controls
-    value: string;
+    value?: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     error: boolean;
     helperText?: string;
@@ -24,6 +25,7 @@ interface TextInputProps {
 const TextInput: React.FC<TextInputProps> = ({
     name,
     label,
+    sublabel,
     multiline = false,
     required = false,
     placeholder = "Type here",
@@ -44,6 +46,13 @@ const TextInput: React.FC<TextInputProps> = ({
                 }}
             >
                 {label + (required ? "*" : "")}
+                <Typography
+                    component="span"
+                    variant="body2"
+                    sx={{ ml: 1, color: "#c4c4c4ff", fontStyle: "oblique" }}
+                >
+                    {sublabel}
+                </Typography>
             </FormLabel>
             <InputBase
                 name={name}
@@ -75,7 +84,13 @@ const TextInput: React.FC<TextInputProps> = ({
                             "::placeholder": {
                                 color: "gray",
                                 opacity: 0.8
-                            }
+                            },
+                            "&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus":
+                                {
+                                    WebkitBoxShadow:
+                                        "0 0 0 1000px #f0f0f0 inset", // same as your bg
+                                    WebkitTextFillColor: accentColor
+                                }
                         }
                     }
                 }}

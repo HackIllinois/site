@@ -1,21 +1,20 @@
 // import { RegistrationData } from "@/util/types";
-import {
-    Checkbox,
-    FormControlLabel,
-    FormGroup,
-    FormHelperText
-} from "@mui/material";
+import { Checkbox, FormControlLabel, FormHelperText } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Typography from "@mui/material/Typography";
+import React from "react";
 
 interface CheckboxSelectInputProps {
     name: string;
-    label: string;
+    label?: string;
+    sublabel?: string;
+    sublabelContent?: React.ReactNode;
     optionLabel: string;
+    optionLabelSx?: object;
     required?: boolean;
     // formik controls
-    value: boolean;
+    value?: boolean;
     onChange: (value: boolean) => void;
     error: boolean;
     helperText?: string;
@@ -27,7 +26,10 @@ interface CheckboxSelectInputProps {
 const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
     name,
     label,
+    sublabel,
+    sublabelContent,
     optionLabel = "Yes",
+    optionLabelSx,
     required = false,
     value = false,
     onChange,
@@ -37,14 +39,12 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
 }) => {
     // handle toggle manually so it works with Formik (onChange tries to pass event.target.checked)
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event);
-        console.log(event.target.value);
-        console.log(event.target.checked);
         onChange(event.target.checked);
     };
 
     return (
         <FormControl
+            id={name}
             component="fieldset"
             error={error}
             sx={{ width: "100%", height: "100%" }}
@@ -56,14 +56,29 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                     fontWeight: 500
                 }}
             >
-                {label + (required ? "*" : "")}
+                {label ? label + (required ? "*" : "") : null}
+                {sublabel ? (
+                    <Typography
+                        component="p"
+                        variant="body2"
+                        sx={{ opacity: "0.8", fontStyle: "oblique" }}
+                    >
+                        {sublabel}
+                    </Typography>
+                ) : (
+                    sublabelContent || null
+                )}
             </FormLabel>
 
             <FormControlLabel
                 sx={{
-                    width: "fit-content",
-                    height: "fit-content",
-                    padding: 2
+                    padding: 2,
+                    display: "flex",
+                    "& .MuiCheckbox-root": {
+                        width: 36,
+                        height: 36,
+                        flexShrink: 0 // prevents checkbox from shrinking or stretching
+                    }
                 }}
                 control={
                     <Checkbox
@@ -71,10 +86,10 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                         onChange={handleChange}
                         value={value}
                         sx={{
-                            width: 48,
-                            height: 48,
-                            padding: "3px", // override default
-                            borderRadius: 3,
+                            width: 36,
+                            height: 36,
+                            padding: "2px", // override default
+                            borderRadius: 2,
                             backgroundColor: "#f0f0f0",
 
                             "& .MuiSvgIcon-root": {
@@ -102,7 +117,8 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                         variant="h3"
                         sx={{
                             color: "#ffffff",
-                            pl: 2
+                            pl: 2,
+                            ...optionLabelSx
                         }}
                     >
                         {optionLabel}

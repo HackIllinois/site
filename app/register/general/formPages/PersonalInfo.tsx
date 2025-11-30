@@ -1,20 +1,19 @@
-import StyledTextField from "@/components/StyledTextfield/StyledTextfield";
-import StyledDropdown from "@/components/StyledDropdown/StyledDropdown";
 import { RegistrationData } from "@/util/types";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Tooltip, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import TextInput from "@/components/TextInputMUI";
-import SelectInput from "@/components/SelectInputMUI";
+import SelectTextInput from "@/components/SelectTextInputMUI";
 import { ageOptions } from "@/util/options";
+import { RegistrationApplicationDraftBodyForm } from "@/util/types";
+import { useEffect } from "react";
 
 interface PersonalInfoProps {
-    formik: FormikProps<RegistrationData>;
+    formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     accentColor?: string;
 }
 
 const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
-
     return (
         <Container>
             <Typography
@@ -28,7 +27,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                 PERSONAL INFO
             </Typography>
             <Grid container columnSpacing={2} rowSpacing={{ xs: 3, md: 6 }}>
-                <Grid size={{ xs: 12, sm: 12, md: 5 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 4.75 }}>
                     <TextInput
                         name="firstName"
                         label="First Name"
@@ -40,7 +39,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={!!touched.firstName ? errors.firstName : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 12, md: 5 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 4.75 }}>
                     <TextInput
                         name="lastName"
                         label="Last Name"
@@ -52,23 +51,24 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={!!touched.lastName ? errors.lastName : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 3, md: 2 }}>
-                    <SelectInput
+                <Grid size={{ xs: 12, sm: 5, md: 2.5 }}>
+                    <SelectTextInput
                         name="age"
                         label="Age"
+                        sublabel="You must be 18 or older to register."
                         accentColor={accentColor}
                         required
                         options={ageOptions.map(option => ({
                             label: option,
                             value: option
                         }))}
-                        value={values.age}
+                        value={values.age || ""}
                         onChange={value => setFieldValue("age", value)}
                         error={!!touched.age && Boolean(errors.age)}
                         helperText={!!touched.age ? errors.age : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 9, md: 6 }}>
+                <Grid size={{ xs: 12, sm: 7, md: 6 }}>
                     <TextInput
                         name="preferredName"
                         label="Preferred Name"
@@ -87,20 +87,15 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
 
                 <Grid size={{ xs: 12, sm: 12, md: 6 }}>
                     <TextInput
-                        name="emailAddress"
+                        name="email"
                         label="Email Address"
                         accentColor={accentColor}
                         required
                         type="email"
-                        value={values.emailAddress}
+                        value={values.email}
                         onChange={handleChange}
-                        error={
-                            !!touched.emailAddress &&
-                            Boolean(errors.emailAddress)
-                        }
-                        helperText={
-                            !!touched.emailAddress ? errors.emailAddress : ""
-                        }
+                        error={!!touched.email && Boolean(errors.email)}
+                        helperText={!!touched.email ? errors.email : ""}
                     />
                 </Grid>
             </Grid>

@@ -18,7 +18,7 @@ type NavbarItem = {
 const NAVBAR_ITEMS: NavbarItem[] = [
     {
         title: "Register",
-        link: "/register"
+        link: "/register/general#personal-information"
     },
     {
         title: "Legal",
@@ -26,7 +26,7 @@ const NAVBAR_ITEMS: NavbarItem[] = [
     }
 ];
 
-const DARK_PAGES = ["/register/challenge"];
+const DARK_PAGES = ["/register/challenge", "/challenge/landing-page"];
 
 const Navbar = () => {
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
@@ -62,10 +62,11 @@ const Navbar = () => {
         <>
             <nav className={clsx(styles.navbar, isDark && styles.dark)}>
                 <Link href="/" prefetch={false}>
-                    <Image
+                    <img
+                        className={styles.logo}
                         alt="HackIllinois Logo"
                         style={{ cursor: "pointer" }}
-                        src={isDark ? LogoDark : Logo}
+                        src={isDark ? LogoDark.src : Logo.src}
                     />
                 </Link>
                 <ul className={styles.navbarList}>
@@ -93,10 +94,10 @@ const Navbar = () => {
                 <div className={styles.mobileTop}>
                     <div className={styles.title}>
                         <Link prefetch={false} href="/">
-                            <Image
+                            <img
                                 alt="Logo"
-                                src={isDark ? LogoDark : Logo}
-                                className="logo"
+                                src={isDark ? LogoDark.src : Logo.src}
+                                className={styles.logo}
                             />
                         </Link>
                     </div>
@@ -142,7 +143,7 @@ export default Navbar;
 
 const OlympianButton = () => {
     return (
-        <Link prefetch={false} href="/olympians">
+        <Link prefetch={false} href="/challenge/landing-page">
             <button className={styles.olympianButton}>
                 <div className={styles.buttonBackground}></div>
                 <div className={styles.buttonContent}>
@@ -163,7 +164,7 @@ const OlympianButton = () => {
                         />
                     </svg>
 
-                    <span>Olympians</span>
+                    <span>HackVoyagers</span>
                 </div>
             </button>
         </Link>

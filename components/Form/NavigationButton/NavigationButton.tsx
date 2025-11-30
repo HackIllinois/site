@@ -1,13 +1,14 @@
 "use client";
 
-import { Box, Button, CardMedia, Typography } from "@mui/material";
+import { Box, darken, Typography } from "@mui/material";
 import Link from "next/link";
 import { MouseEventHandler } from "react";
 
 interface NavButtonProps {
     text: string;
-    img: string;
+    color: string;
     pointRight?: boolean;
+    isMobile?: boolean;
     onClick?: MouseEventHandler<HTMLButtonElement>;
     href?: string;
     disabled?: boolean;
@@ -16,8 +17,9 @@ interface NavButtonProps {
 
 const NavigationButton: React.FC<NavButtonProps> = ({
     text,
-    img,
+    color,
     pointRight,
+    isMobile,
     onClick,
     href,
     disabled,
@@ -27,37 +29,50 @@ const NavigationButton: React.FC<NavButtonProps> = ({
         <Box
             sx={{
                 position: "relative",
-                display: "inline-block",
-                height: { sm: "39px", md: "60px" },
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                pl: isMobile
+                    ? 3
+                    : pointRight
+                      ? { xs: 3, md: 4 }
+                      : { xs: 4, md: 6 },
+                pr: isMobile
+                    ? 3
+                    : pointRight
+                      ? { xs: 4, md: 6 }
+                      : { xs: 3, md: 4 },
+                height: { xs: "50px", md: "60px" },
+                minWidth: isMobile ? 50 : 160,
                 cursor: "pointer",
+                backgroundColor: color,
+                transition: "0.2s ease",
                 "&:hover": {
                     opacity: 0.9
-                }
+                },
+                clipPath: isMobile
+                    ? "none"
+                    : pointRight
+                      ? "polygon(0% 0%, calc(100% - 40px) 0%, 100% 50%, calc(100% - 40px) 100%, 0% 100%)"
+                      : "polygon(40px 0%, 100% 0%, 100% 100%, 40px 100%, 0% 50%)",
+
+                borderRadius: isMobile
+                    ? "16px"
+                    : pointRight
+                      ? "40px 0 0 40px"
+                      : "0 40px 40px 0"
             }}
+            {...props}
         >
-            <CardMedia
-                component="img"
-                image={img}
-                alt={pointRight ? "right arrow" : "left arrow"}
-                sx={{
-                    width: "100%",
-                    height: "100%",
-                    display: "block"
-                }}
-            />
             <Typography
                 sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
                     color: "white",
                     textAlign: "center",
-                    padding: 1,
                     fontFamily: "'Tsukimi Rounded', sans-serif",
                     fontWeight: 700,
-                    fontSize: { xs: "14px", md: "22px" },
-                    whiteSpace: "nowrap"
+                    fontSize: { xs: "14px", md: "20px" }
                 }}
             >
                 {text}
@@ -74,20 +89,20 @@ const NavigationButton: React.FC<NavButtonProps> = ({
     }
 
     return (
-        <button
+        <Box
+            component="button"
             onClick={onClick}
             disabled={disabled}
-            style={{
+            sx={{
                 border: "none",
-                padding: 0,
                 background: "none",
-                display: "inline-block",
-                cursor: disabled ? "not-allowed" : "pointer"
+                padding: 0,
+                margin: 0,
+                display: "inline-block"
             }}
-            {...props}
         >
             {Content}
-        </button>
+        </Box>
     );
 };
 

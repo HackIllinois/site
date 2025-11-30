@@ -1,5 +1,7 @@
 "use client";
-import styles from "./Registration.module.scss";
+import { RegistrationData } from "@/util/types";
+import { Form, Formik, FormikHelpers, FormikProps } from "formik";
+import { usePathname, useRouter } from "next/navigation";
 import React, {
     createContext,
     useContext,
@@ -7,16 +9,10 @@ import React, {
     useRef,
     useState
 } from "react";
-import { Form, Formik, FormikHelpers, FormikProps } from "formik";
-import { RegistrationData } from "@/util/types";
-import { usePathname, useRouter } from "next/navigation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
-import { registerUpdate } from "@/util/api";
 import Loading from "../Loading/Loading";
-import { handleError, registrationToAPI } from "@/util/helpers";
+import styles from "./Registration.module.scss";
 import { getRegistrationSchema } from "./validation";
-import Image from "next/image";
-
 const pages = [
     "/register/personal-info",
     "/register/education",
@@ -141,9 +137,6 @@ const Registration: React.FC<PropTypes> = ({
         };
 
         setIsLoading(true);
-        // await registerUpdate(
-        //     registrationToAPI({ ...registration, ...newIgnore })
-        // ).catch(err => handleError(err));
         await formikRef.current?.setTouched({}, false);
         setIgnoredFields(newIgnore);
         router.push(pages[pageIndex + 1]);
@@ -178,11 +171,13 @@ const Registration: React.FC<PropTypes> = ({
                                             previous();
                                         }}
                                         type="button"
+                                        color="white"
                                     />
                                     <NavigationButton
                                         text={buttonNames[pathname][1]}
                                         pointRight
                                         type="submit"
+                                        color="white"
                                     />
                                 </div>
                             </Form>
