@@ -1,390 +1,409 @@
 "use client";
 import { Box, Typography } from "@mui/material";
-import { Source_Code_Pro } from "next/font/google";
 
 const ProChallenge: React.FC = () => {
-    const Lollipop = ({
-        size = 120,
-        color = "#d9d9d9",
-        stem = 16,
-        stemWidth = 10,
-        sx = {}
-    }: {
-        size?: number | string;
-        color?: string;
-        stem?: number;
-        stemWidth?: number;
-        sx?: any;
-    }) => (
+    return (
         <Box
             sx={{
-                position: "absolute",
-                width: size,
-                aspectRatio: "1 / 1",
-                borderRadius: "50%",
-                bgcolor: color,
-                transform: "translate(-50%, -50%)",
-                "&::after": {
-                    content: '""',
-                    position: "absolute",
-                    left: "50%",
-                    bottom: `-${stem}px`,
-                    transform: "translateX(-50%)",
-                    width: stemWidth,
-                    height: stem,
-                    bgcolor: color,
-                    borderRadius: 1
-                },
-                ...sx
-            }}
-        />
-    );
-
-    const nodes = [
-        // bottom left
-        {
-            top: { xs: "70%", md: "72%" },
-            left: { xs: "15%", md: "18%" },
-            size: { xs: 70, sm: 100, md: 150 }
-        },
-        // top right
-        {
-            top: { xs: "14%", md: "16%" },
-            left: { xs: "82%", md: "86%" },
-            size: { xs: 70, sm: 100, md: 150 }
-        },
-        // upper middle
-        {
-            top: { xs: "28%", md: "30%" },
-            left: { xs: "42%", md: "44%" },
-            size: { xs: 70, sm: 100, md: 150 }
-        },
-        // lower right
-        {
-            top: { xs: "64%", md: "66%" },
-            left: { xs: "72%", md: "76%" },
-            size: { xs: 70, sm: 100, md: 150 }
-        }
-    ];
-
-    return (
-        <div
-            style={{
-                backgroundColor: "white",
-                width: "100vw",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "flex-start",
-                padding: "10vh 10vh 0 10vh",
-                paddingTop: "20vh"
+                width: "100%",
+                minHeight: "100vh",
+                m: 0,
+                p: 0,
+                bgcolor: "#020316"
             }}
         >
-            <h1
-                style={{
-                    color: "black",
-                    fontSize: "clamp(28px, 6vw, 56px)",
-                    margin: 0
-                }}
-            >
-                HackVoyagers
-            </h1>
-
-            <p
-                style={{
-                    color: "black",
-                    marginTop: "clamp(8px, 2vh, 16px)",
-                    fontSize: "clamp(16px, 3.2vw, 24px)"
-                }}
-            >
-                Welcome aboard (More info coming soon!)
-            </p>
-
-            <div
-                style={{
-                    backgroundColor: "#D9D9D9",
-                    width: "clamp(220px, 70vw, 320px)",
-                    aspectRatio: "3 / 2",
-                    marginTop: "clamp(16px, 8vh, 80px)"
-                }}
-            />
-
-            <div
-                style={{
-                    backgroundColor: "#D9D9D9",
-                    width: "100%",
-                    height: "clamp(80px, 18vw, 160px)"
-                }}
-            />
-
-            <Box
-                sx={{
-                    width: {
-                        xs: "90vw",
-                        sm: "min(85vw, 1500px)"
-                    },
-                    aspectRatio: "16 / 9",
-                    backgroundColor: "#D9D9D9",
-                    transform: "rotate(7deg)",
-                    marginTop: {
-                        xs: "10vh",
-                        sm: "15vh",
-                        md: "25vh"
-                    },
-                    padding: "20px",
-                    overflow: "hidden",
-                    boxSizing: "border-box",
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: "2%"
-                }}
-            >
-                <p
-                    style={{
-                        color: "#7A7676",
-                        margin: 0,
-                        fontSize: "clamp(8px, 1.4vw, 18px)"
-                    }}
-                >
-                    Click for more info
-                </p>
-
-                <div
-                    style={{
-                        flex: 1,
-                        display: "grid",
-                        gridTemplateColumns: "1fr 2fr 0.7fr",
-                        gap: "20px",
-                        width: "100%",
-                        minHeight: 0
-                    }}
-                >
-                    {/* left side */}
-                    <div
-                        style={{
-                            backgroundColor: "#7A7676",
-                            display: "flex",
-                            alignItems: "flex-end",
-                            justifyContent: "center",
-                            color: "white",
-                            padding: "5px",
-                            fontSize: "clamp(8px, 1.6vw, 22px)",
-                            letterSpacing: "0.06em"
-                        }}
-                    >
-                        USER INFO
-                    </div>
-
-                    {/* middle */}
-                    <div
-                        style={{
-                            display: "grid",
-                            gridTemplateRows: "1fr 1fr 1fr",
-                            gap: "20px",
-                            width: "100%",
-                            height: "100%",
-                            minHeight: 0
-                        }}
-                    >
-                        <div
-                            style={{ backgroundColor: "#7A7676", minHeight: 0 }}
-                        />
-                        <div
-                            style={{ backgroundColor: "#7A7676", minHeight: 0 }}
-                        />
-                        <div
-                            style={{ backgroundColor: "#7A7676", minHeight: 0 }}
-                        />
-                    </div>
-
-                    {/* right side */}
-                    <div
-                        style={{
-                            display: "grid",
-                            gridTemplateRows: "1fr 1fr 1fr",
-                            gap: "2%",
-                            width: "100%",
-                            height: "100%",
-                            minHeight: 0
-                        }}
-                    >
-                        {[0, 1, 2].map(i => (
-                            <div
-                                key={i}
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center"
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        backgroundColor: "#7A7676",
-                                        borderRadius: "50%",
-                                        aspectRatio: "1 / 1",
-                                        width: "70%"
-                                    }}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </Box>
-
-            <Box
-                sx={{
-                    mt: { xs: "10vh", sm: "15vh", md: "25vh" },
-                    width: "100%"
-                }}
-            >
-                <Box
-                    component="h1"
-                    sx={{
-                        m: 0,
-                        color: "black",
-                        textAlign: "center",
-                        fontSize: { xs: "clamp(24px, 7vw, 40px)", md: "3rem" }
-                    }}
-                >
-                    Who are the HackVoyagers?
-                </Box>
-
-                <Box
-                    sx={{
-                        mt: { xs: 2, sm: 3 },
-                        display: "grid",
-                        gridTemplateColumns: {
-                            xs: "1fr",
-                            sm: "repeat(auto-fit, minmax(170px, 1fr))"
-                        },
-                        gap: { xs: 2, sm: 3 },
-                        width: "100%",
-                        maxWidth: 1100,
-                        mx: "auto"
-                    }}
-                >
-                    {[0, 1, 2].map(i => (
-                        <Box
-                            key={i}
-                            sx={{
-                                bgcolor: "#D9D9D9",
-                                aspectRatio: "3/4",
-                                width: "100%"
-                            }}
-                        />
-                    ))}
-                </Box>
-            </Box>
-
-            <h1
-                style={{
-                    color: "black",
-                    fontSize: "clamp(28px, 6vw, 48px)",
-                    marginTop: "clamp(24px, 8vh, 160px)",
-                    marginBottom: "clamp(8px, 2vh, 24px)"
-                }}
-            >
-                Benefits
-            </h1>
-
-            <div
-                style={{
-                    width: "min(80vw, 1100px)",
-                    display: "grid",
-                    rowGap: "clamp(12px, 2.5vw, 24px)",
-                    paddingTop: "clamp(8px, 2vw, 20px)"
-                }}
-            >
-                {[0, 1, 2, 3].map(i => (
-                    <div
-                        key={i}
-                        style={{
-                            display: "grid",
-                            gridTemplateColumns: "clamp(48px, 9vw, 80px) 1fr",
-                            columnGap: "clamp(12px, 2vw, 20px)"
-                        }}
-                    >
-                        <div
-                            style={{
-                                width: "clamp(44px, 9vw, 72px)",
-                                aspectRatio: "1 / 1",
-                                display: "grid",
-                                placeItems: "center"
-                            }}
-                        >
-                            <img
-                                src="/registration/challenge/Star.svg"
-                                style={{ width: "100%", height: "100%" }}
-                            />
-                        </div>
-
-                        <div
-                            style={{
-                                backgroundColor: "#D9D9D9",
-                                height: "clamp(48px, 8vw, 80px)",
-                                borderRadius: "8px",
-                                width: "100%"
-                            }}
-                        />
-                    </div>
-                ))}
-            </div>
-
-            <Typography
-                component="h1"
-                variant="h1"
-                align="left"
-                sx={{
-                    fontSize: { xs: "clamp(20px, 5vw, 40px)", md: "3rem" },
-                    alignSelf: "flex-start",
-                    width: "100%",
-                    color: "black",
-                    marginTop: "10vh"
-                }}
-            >
-                Application Process
-            </Typography>
+            {/* HERO CONTAINER */}
             <Box
                 sx={{
                     position: "relative",
-                    width: "min(95vw, 1100px)",
-                    aspectRatio: "16 / 9",
-                    bgcolor: "transparent",
-                    marginTop: "6vh"
-                }}
-            >
-                {nodes.map((n, i) => (
-                    <Lollipop
-                        key={i}
-                        size={n.size as any}
-                        sx={{ top: n.top as any, left: n.left as any }}
-                    />
-                ))}
-            </Box>
-
-            <Typography
-                component="h1"
-                variant="h1"
-                align="left"
-                sx={{
-                    fontSize: { xs: "clamp(20px, 5vw, 40px)", md: "3rem" },
-                    alignSelf: "flex-start",
                     width: "100%",
-                    color: "black",
-                    marginTop: "10vh"
+                    mx: "auto"
                 }}
             >
-                Questions? Contact Us!
-            </Typography>
-            <div
-                style={{
-                    width: "100vw",
-                    height: "400px",
-                    backgroundColor: "#D9D9D9",
-                    marginTop: "8vh"
-                }}
-            ></div>
-        </div>
+                {/* full bg */}
+                <Box
+                    component="img"
+                    alt="HackVoyagers hero"
+                    sx={{
+                        width: "100%",
+                        height: "auto",
+                        display: "block",
+                        zIndex: -1,
+
+                        content: {
+                            xs: 'url("/challenge/backgrounds/mobile/landing_page.svg")',
+                            md: 'url("/challenge/backgrounds/landing_page.svg")'
+                        }
+                    }}
+                />
+
+                {/* OVERLAY LAYER (same size as the image) */}
+                <Box
+                    sx={{
+                        position: "absolute",
+                        inset: 0
+                    }}
+                >
+                    {/* pill and text */}
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            left: "50%",
+                            top: { xs: "13.3%", md: "9%" },
+                            transform: "translate(-50%, -50%) rotate(-16deg)",
+                            width: { xs: "85vw", md: "55vw" },
+                            maxWidth: "900px",
+                            height: { xs: "20vw", md: "11vw" },
+                            maxHeight: "200px",
+                            borderRadius: "200px",
+                            backgroundColor: "rgba(51, 5, 82, 0.68)",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center"
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                color: "white",
+                                fontSize: { xs: "4.5vw", md: "3vw" },
+                                fontWeight: 500
+                            }}
+                        >
+                            INTRODUCING
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "6vw", md: "3.5vw" },
+                                fontWeight: 700,
+                                fontFamily: "Tsukimi Rounded",
+                                color: "white"
+                            }}
+                        >
+                            HACK{" "}
+                            <Box
+                                component="span"
+                                sx={{
+                                    background:
+                                        "linear-gradient(90deg, #FEB963 32.69%, #FF61E2 67.79%, #FEB963 100%)",
+                                    backgroundClip: "text",
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent"
+                                }}
+                            >
+                                VOYAGERS
+                            </Box>
+                        </Typography>
+                    </Box>
+
+                    {/* panel start*/}
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            left: "50%",
+                            top: { xs: "23%", md: "20%" },
+                            transform: "translateX(-50%)",
+                            width: { xs: "120vw", md: "85vw" },
+                            aspectRatio: "1018.479 / 728.271",
+                            backgroundImage: `url("/challenge/landing_page/panel.svg")`,
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat",
+                            backgroundPosition: "center",
+
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            px: { xs: "17vw", md: "15vw" },
+                            textAlign: "center"
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "5vw", md: "3vw" },
+                                fontWeight: 700,
+                                fontFamily: "Tsukimi Rounded",
+                                color: "white",
+                                mb: { xs: 2, md: 6 },
+                                transform: "rotate(1.457deg)"
+                            }}
+                        >
+                            WHAT ARE HACKVOYAGERS?
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                lineHeight: 1.45,
+                                color: "white",
+                                opacity: 0.88,
+                                mb: { xs: 2, md: 3 },
+                                transform: "rotate(1.457deg)"
+                            }}
+                        >
+                            HackVoyagers is an exclusive path tailored for
+                            prospective attendees to dive into a competitively
+                            elevated hackathon atmosphere for an increased prize
+                            value.
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                lineHeight: 1.45,
+                                color: "white",
+                                opacity: 0.88,
+                                mb: { xs: 2, md: 3 },
+                                transform: "rotate(1.457deg)"
+                            }}
+                        >
+                            It&apos;s a specialized arena for experienced
+                            hackers who have mastered the fundamentals and are
+                            now looking to test their skills in a more
+                            challenging environment.
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                lineHeight: 1.45,
+                                color: "white",
+                                opacity: 0.88,
+                                transform: "rotate(1.457deg)"
+                            }}
+                        >
+                            Admission into HackVoyagers requires completing our
+                            application, which includes a coding challenge.
+                        </Typography>
+                    </Box>
+
+                    {/* panel end*/}
+
+                    {/* textbox 1 start */}
+
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            left: { xs: "50%", md: "40%" },
+                            top: { xs: "41.2%", md: "42%" },
+                            transform: "translateX(-50%)",
+                            width: "80vw",
+
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            px: { md: "15vw" },
+                            textAlign: "center"
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "5vw", md: "3vw" },
+                                fontWeight: 700,
+                                fontFamily: "Tsukimi Rounded",
+                                color: "white",
+                                mb: { xs: 2, md: 6 }
+                            }}
+                        >
+                            WHAT ARE THE BENEFITS OF BEING A HACKVOYAGER?
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                lineHeight: 1.45,
+                                color: "white",
+                                opacity: 0.88,
+                                mb: { xs: 2, md: 3 }
+                            }}
+                        >
+                            Attendees in this path have the exclusive
+                            opportunity to compete for the grand HackVoyagers
+                            prize (to be released soon).
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                lineHeight: 1.45,
+                                color: "white",
+                                opacity: 0.88,
+                                mb: { xs: 2, md: 3 }
+                            }}
+                        >
+                            Additionally, they will gain access to special
+                            networking opportunities with our event sponsors and
+                            the chance to present their project in a thrilling
+                            Shark-Tank inspired showcase, among other exciting
+                            perks – but spots are limited, so register soon!
+                        </Typography>
+                    </Box>
+
+                    {/* textbox 1 end */}
+
+                    {/* textbox 2 start */}
+
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            left: { xs: "50%", md: "63%" },
+                            top: { xs: "52.2%", md: "52.7%" },
+                            transform: "translateX(-50%)",
+                            width: "65vw",
+
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            px: { md: "15vw" },
+                            textAlign: "center"
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "5vw", md: "3vw" },
+                                fontWeight: 700,
+                                fontFamily: "Tsukimi Rounded",
+                                color: "white",
+                                mb: { xs: 2, md: 6 }
+                            }}
+                        >
+                            HOW DO I BECOME A HACKVOYAGER?
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                lineHeight: 1.45,
+                                color: "white",
+                                opacity: 0.88,
+                                mb: { xs: 2, md: 3 }
+                            }}
+                        >
+                            Admission into HackVoyagers requires completing a
+                            special challenge in addition to registering.
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                lineHeight: 1.45,
+                                color: "white",
+                                opacity: 0.88,
+                                mb: { xs: 2, md: 3 }
+                            }}
+                        >
+                            Note: You MUST complete the challenge before
+                            submitting registration. Once you submit, you can no
+                            longer complete the challenge.
+                        </Typography>
+                    </Box>
+
+                    {/* textbox 2 end */}
+
+                    {/* textbox 3 start */}
+
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            left: { xs: "50%", md: "38%" },
+                            top: { xs: "72%", md: "66%" },
+                            transform: "translateX(-50%)",
+                            width: "85vw",
+
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            px: { md: "15vw" },
+                            textAlign: "center"
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "5vw", md: "3vw" },
+                                fontWeight: 700,
+                                fontFamily: "Tsukimi Rounded",
+                                color: "white",
+                                mb: { xs: 2, md: 6 }
+                            }}
+                        >
+                            HOW IS HACKVOYAGERS DIFFERENT FROM STANDARD
+                            HACKILLINOIS ATTENDANCE?
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                lineHeight: 1.45,
+                                color: "white",
+                                opacity: 0.88,
+                                mb: { xs: 2, md: 3 }
+                            }}
+                        >
+                            HackIllinois is a historically welcoming space for
+                            coders of all skill levels, particularly those who
+                            are just starting out. This inclusive environment
+                            encourages beginner-level coders to engage and
+                            learn, while HackVoyagers caters to more advanced
+                            participants, fostering a competitive and
+                            stimulating atmosphere for seasoned hackers.
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                lineHeight: 1.45,
+                                color: "white",
+                                opacity: 0.88,
+                                mb: { xs: 2, md: 3 }
+                            }}
+                        >
+                            All attendees from both paths will enjoy access to
+                            Hacklllinois&apos;s vibrant array of events,
+                            workshops, company Q&As, and the Company Expo. Each
+                            path will maintain the spirit of inclusivity and
+                            learning to ensure that all attendees, regardless of
+                            their track, experience the full magic of
+                            HackIllinois!
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                lineHeight: 1.45,
+                                color: "white",
+                                opacity: 0.88,
+                                mb: { xs: 2, md: 3 }
+                            }}
+                        >
+                            Additionally, all HackIllinois attendees are
+                            eligible to compete in all our sponsored tracks.*
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                lineHeight: 1.45,
+                                color: "white",
+                                opacity: 0.88,
+                                mb: { xs: 2, md: 3 },
+                                fontStyle: "italic"
+                            }}
+                        >
+                            *The Best Beginner and General prizes are reserved
+                            for HackIllinois General attendees, while the Best
+                            Voyagers prize is reserved for HackVoyagers
+                            attendees.
+                        </Typography>
+                    </Box>
+
+                    {/* textbox 3 end */}
+                </Box>
+            </Box>
+        </Box>
     );
 };
 
