@@ -45,7 +45,8 @@ const TextInput: React.FC<TextInputProps> = ({
                     fontWeight: 400
                 }}
             >
-                {label + (required ? "*" : "")}
+                {label}
+                {required && <span style={{ color: "#d32f2f" }}>*</span>}
                 <Typography
                     component="span"
                     variant="body2"

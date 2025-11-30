@@ -66,7 +66,8 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
                     fontWeight: 500
                 }}
             >
-                {label + (required ? "*" : "")}
+                {label}
+                {required && <span style={{ color: "#d32f2f" }}>*</span>}
             </FormLabel>
             <RadioGroup
                 row={row}
