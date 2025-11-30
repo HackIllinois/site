@@ -14,7 +14,7 @@ export default function ChallengeResult() {
     const registrationAuth = useRegistrationAuth(true);
     const { width, height } = useWindowSize();
 
-    if (registrationAuth.isLoading || !registrationAuth.submission) {
+    if (registrationAuth.isLoading) {
         return (
             <Loading
                 backgroundImage={"/challenge/backgrounds/success.png"}

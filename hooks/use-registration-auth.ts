@@ -9,17 +9,22 @@ export const useRegistrationAuth = (shouldLoadSubmission: boolean = false) => {
         useState<RegistrationApplicationSubmitted | null>(null);
 
     const handleLoad = async () => {
-        if (!(await isAuthenticated())) {
+        const isAuthenticatedResult = await isAuthenticated();
+        if (!isAuthenticatedResult) {
             setIsLoading(false);
             setAuthenticated(false);
             return;
         }
         setAuthenticated(true);
-        setIsLoading(false);
 
-        if (shouldLoadSubmission) {
-            const submissionData = await loadSubmission();
-            setSubmission(submissionData);
+        try {
+            if (shouldLoadSubmission) {
+                const submissionData = await loadSubmission();
+                setSubmission(submissionData);
+            }
+        } catch {
+        } finally {
+            setIsLoading(false);
         }
     };
 
