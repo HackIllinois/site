@@ -96,10 +96,10 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
                                 onChange={handleChange}
                                 value={opt.value}
                                 sx={{
-                                    width: "48px",
-                                    height: "48px",
-                                    padding: "3px", // override default
-                                    borderRadius: 3,
+                                    width: "36px",
+                                    height: "36px",
+                                    padding: "2px", // override default
+                                    borderRadius: 2,
                                     backgroundColor: "#f0f0f0",
                                     display: "flex",
                                     flexShrink: 0,

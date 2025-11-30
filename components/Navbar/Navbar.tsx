@@ -62,10 +62,11 @@ const Navbar = () => {
         <>
             <nav className={clsx(styles.navbar, isDark && styles.dark)}>
                 <Link href="/" prefetch={false}>
-                    <Image
+                    <img
+                        className={styles.logo}
                         alt="HackIllinois Logo"
                         style={{ cursor: "pointer" }}
-                        src={isDark ? LogoDark : Logo}
+                        src={isDark ? LogoDark.src : Logo.src}
                     />
                 </Link>
                 <ul className={styles.navbarList}>
@@ -93,10 +94,10 @@ const Navbar = () => {
                 <div className={styles.mobileTop}>
                     <div className={styles.title}>
                         <Link prefetch={false} href="/">
-                            <Image
+                            <img
                                 alt="Logo"
-                                src={isDark ? LogoDark : Logo}
-                                className="logo"
+                                src={isDark ? LogoDark.src : Logo.src}
+                                className={styles.logo}
                             />
                         </Link>
                     </div>

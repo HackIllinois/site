@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { Tooltip } from "@mui/material";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormLabel from "@mui/material/FormLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
+import React, { useState } from "react";
 
 interface Option {
     label: string;
@@ -15,6 +14,7 @@ interface Option {
 interface SelectTextInputProps {
     name: string;
     label: string;
+    sublabel?: string;
     multiple?: boolean;
     required?: boolean;
     placeholder?: string;
@@ -25,14 +25,13 @@ interface SelectTextInputProps {
     error?: boolean;
     helperText?: string;
     accentColor?: string;
-    // Optional tooltip text shown while the field is open
-    openTooltipText?: string;
     [key: string]: unknown;
 }
 
 const SelectTextInput: React.FC<SelectTextInputProps> = ({
     name,
     label,
+    sublabel,
     multiple = false,
     required = false,
     placeholder = "Select an option",
@@ -43,12 +42,10 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
     maxInputWidth,
     helperText = "",
     accentColor = "2c2540",
-    openTooltipText,
     ...props
 }) => {
     const OPTIONS_LIMIT = 55; // 55 so that all US states show up when used for state selection
 
-    const [isOpen, setIsOpen] = useState(false);
     const [visibleCount, setVisibleCount] = useState(OPTIONS_LIMIT);
 
     const normalizedValue = multiple
@@ -67,11 +64,6 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
 
     const handleOpen = () => {
         setVisibleCount(OPTIONS_LIMIT); // reset when opening
-        setIsOpen(true);
-    };
-
-    const handleClose = () => {
-        setIsOpen(false);
     };
 
     const handleListboxScroll = (event: React.UIEvent<HTMLUListElement>) => {
@@ -83,8 +75,6 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
             setVisibleCount(prev => prev + OPTIONS_LIMIT);
         }
     };
-
-    const showTooltip = Boolean(openTooltipText) && isOpen;
 
     return (
         <FormControl fullWidth error={error} id={name}>
@@ -100,7 +90,8 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
 
             <Autocomplete
                 sx={{
-                    maxWidth: maxInputWidth
+                    maxWidth: maxInputWidth,
+                    fontSize: "14px"
                 }}
                 filterOptions={filterOptions}
                 multiple={multiple}
@@ -112,7 +103,6 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                 isOptionEqualToValue={(opt, val) => opt.value === val.value}
                 getOptionLabel={opt => opt.label}
                 onOpen={handleOpen}
-                onClose={handleClose}
                 onChange={(_, val) => {
                     if (multiple) {
                         onChange((val as Option[]).map(v => v.value));
@@ -124,69 +114,60 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                     onScroll: handleListboxScroll
                 }}
                 renderInput={params => (
-                    <Tooltip
-                        title={openTooltipText || ""}
-                        placement="top"
-                        open={showTooltip}
-                        disableHoverListener
-                        disableFocusListener
-                        disableTouchListener
-                        arrow
-                    >
-                        <TextField
-                            {...params}
-                            placeholder={placeholder}
-                            error={error}
-                            sx={theme => ({
-                                backgroundColor: "#f0f0f0",
-                                borderRadius: 6,
-                                color: accentColor,
-                                border: "2px solid #f0f0f0",
-                                "& .MuiAutocomplete-inputRoot": {
-                                    display: "flex",
-                                    alignItems: "center",
-                                    overflowX: "scroll",
-                                    padding: "4px 12px",
-                                    minHeight: 40,
-                                    whiteSpace: "nowrap",
-                                    scrollbarWidth: "none",
-                                    msOverflowStyle: "none",
-                                    "&::-webkit-scrollbar": {
-                                        display: "none"
-                                    }
-                                },
-                                "& .MuiAutocomplete-tag": {
-                                    display: "flex",
-                                    alignItems: "center",
-                                    height: "24px",
-                                    margin: "2px 2px 2px 0"
-                                },
-                                "& .MuiInputBase-input": {
-                                    padding: "0 12px !important",
-                                    width: "100%",
-                                    boxSizing: "border-box"
-                                },
-                                "& .MuiOutlinedInput-root": {
-                                    padding: 0,
-                                    borderRadius: 6
-                                },
-                                "& .MuiOutlinedInput-notchedOutline": {
-                                    border: "none"
-                                },
-                                "& .MuiInputBase-input::placeholder": {
-                                    color: "gray",
-                                    opacity: 0.8
-                                },
-                                "& .MuiOutlinedInput-root.Mui-focused": {
-                                    backgroundColor: "#f0f0f0",
-                                    boxShadow: "0 0 4px 2px #ffffff40"
-                                },
-                                "&.Mui-error": {
-                                    borderColor: theme.palette.error.main
+                    <TextField
+                        {...params}
+                        placeholder={placeholder}
+                        error={error}
+                        sx={theme => ({
+                            fontSize: "14px",
+                            backgroundColor: "#f0f0f0",
+                            borderRadius: 6,
+                            color: accentColor,
+                            border: "2px solid #f0f0f0",
+                            "& .MuiAutocomplete-inputRoot": {
+                                display: "flex",
+                                alignItems: "center",
+                                overflowX: "scroll",
+                                padding: "4px 12px",
+                                minHeight: 40,
+                                whiteSpace: "nowrap",
+                                scrollbarWidth: "none",
+                                msOverflowStyle: "none",
+                                "&::-webkit-scrollbar": {
+                                    display: "none"
                                 }
-                            })}
-                        />
-                    </Tooltip>
+                            },
+                            "& .MuiAutocomplete-tag": {
+                                display: "flex",
+                                alignItems: "center",
+                                height: "24px",
+                                margin: "2px 2px 2px 0"
+                            },
+                            "& .MuiInputBase-input": {
+                                padding: "0 12px !important",
+                                width: "100%",
+                                boxSizing: "border-box"
+                            },
+                            "& .MuiOutlinedInput-root": {
+                                padding: 0,
+                                borderRadius: 6
+                            },
+                            "& .MuiOutlinedInput-notchedOutline": {
+                                border: "none"
+                            },
+                            "& .MuiInputBase-input::placeholder": {
+                                color: "gray",
+                                opacity: 0.8
+                            },
+                            "& .MuiOutlinedInput-root.Mui-focused": {
+                                backgroundColor: "#f0f0f0",
+                                boxShadow: "0 0 4px 2px #ffffff40"
+                            },
+                            "&.Mui-error": {
+                                borderColor: theme.palette.error.main
+                            }
+                        })}
+                    />
                 )}
                 renderOption={(props, option, { selected }) => {
                     const { key, ...rest } = props;
@@ -202,6 +183,7 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                                 alignItems: "flex-start",
                                 whiteSpace: "normal",
                                 wordBreak: "break-word",
+                                fontSize: "14px",
                                 ...(selected && {
                                     backgroundColor: "#48b7e3ff !important",
                                     color: "#fff"
@@ -219,6 +201,14 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                 }}
                 {...props}
             />
+
+            {sublabel && (
+                <FormHelperText
+                    sx={{ m: 0, mt: 1, color: "#ffffffb3", fontSize: "12px" }}
+                >
+                    {sublabel}
+                </FormHelperText>
+            )}
 
             {helperText && (
                 <FormHelperText sx={{ mt: 0.5 }}>{helperText}</FormHelperText>
