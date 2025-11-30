@@ -17,7 +17,8 @@ const ProChallenge: React.FC = () => {
                 sx={{
                     position: "relative",
                     width: "100%",
-                    mx: "auto"
+                    mx: "auto",
+                    aspectRatio: { xs: "393 / 2596", md: "1440 / 4695" }
                 }}
             >
                 {/* full bg */}
