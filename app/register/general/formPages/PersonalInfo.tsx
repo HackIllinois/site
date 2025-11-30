@@ -37,6 +37,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         onChange={handleChange}
                         error={!!touched.firstName && Boolean(errors.firstName)}
                         helperText={!!touched.firstName ? errors.firstName : ""}
+                        inputProps={{ maxLength: 200 }}
                     />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 12, md: 4.75 }}>
@@ -49,6 +50,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         onChange={handleChange}
                         error={!!touched.lastName && Boolean(errors.lastName)}
                         helperText={!!touched.lastName ? errors.lastName : ""}
+                        inputProps={{ maxLength: 200 }}
                     />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 5, md: 2.5 }}>
@@ -82,6 +84,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={
                             !!touched.preferredName ? errors.preferredName : ""
                         }
+                        inputProps={{ maxLength: 200 }}
                     />
                 </Grid>
 
@@ -96,6 +99,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         onChange={handleChange}
                         error={!!touched.email && Boolean(errors.email)}
                         helperText={!!touched.email ? errors.email : ""}
+                        inputProps={{ maxLength: 200 }}
                     />
                 </Grid>
             </Grid>

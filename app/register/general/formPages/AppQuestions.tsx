@@ -59,6 +59,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                         helperText={
                             !!touched.application1 ? errors.application1 : ""
                         }
+                        inputProps={{ maxLength: 700 }}
                     />
                 </Grid>
                 <Grid size={12}>
@@ -79,6 +80,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                         helperText={
                             !!touched.application2 ? errors.application2 : ""
                         }
+                        inputProps={{ maxLength: 700 }}
                     />
                 </Grid>
                 <Grid size={12}>
@@ -99,6 +101,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                         helperText={
                             !!touched.application3 ? errors.application3 : ""
                         }
+                        inputProps={{ maxLength: 1400 }}
                     />
                 </Grid>
 
@@ -122,6 +125,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                                 ? errors.applicationOptional
                                 : ""
                         }
+                        inputProps={{ maxLength: 1400 }}
                     />
                 </Grid>
                 <Grid size={12}>
