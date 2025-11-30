@@ -75,8 +75,8 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                     padding: 2,
                     display: "flex",
                     "& .MuiCheckbox-root": {
-                        width: { xs: 36, sm: 48 },
-                        height: { xs: 36, sm: 48 },
+                        width: 36,
+                        height: 36,
                         flexShrink: 0 // prevents checkbox from shrinking or stretching
                     }
                 }}
@@ -86,10 +86,10 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                         onChange={handleChange}
                         value={value}
                         sx={{
-                            width: 48,
-                            height: 48,
-                            padding: "3px", // override default
-                            borderRadius: 3,
+                            width: 36,
+                            height: 36,
+                            padding: "2px", // override default
+                            borderRadius: 2,
                             backgroundColor: "#f0f0f0",
 
                             "& .MuiSvgIcon-root": {

@@ -55,7 +55,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                     <SelectTextInput
                         name="age"
                         label="Age"
-                        openTooltipText="You must be 18 or older to register."
+                        sublabel="You must be 18 or older to register."
                         accentColor={accentColor}
                         required
                         options={ageOptions.map(option => ({

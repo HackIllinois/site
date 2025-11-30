@@ -63,19 +63,11 @@ const GithubAuthPage = () => {
                             color: "white",
                             opacity: 0.9,
                             fontFamily: "Montserrat",
-                            paddingLeft: 4,
-                            paddingRight: 4
+                            paddingLeft: 6,
+                            paddingRight: 6
                         }}
                     >
-                        <span>{"Sign in with your GitHub account"}</span>
-                        <Box
-                            component="span"
-                            sx={{
-                                display: { xs: "block", sm: "inline" }
-                            }}
-                        >
-                            {" to get started."}
-                        </Box>
+                        Sign in with your GitHub account to get started
                     </Typography>
                     <Button
                         variant="contained"

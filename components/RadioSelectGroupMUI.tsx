@@ -76,12 +76,11 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
                     color: "#ffffff",
                     display: row ? "grid" : "flex",
                     gridTemplateColumns: {
-                        xs: "repeat(auto-fit, minmax(150px, 1fr))",
-                        sm: "repeat(auto-fit, 150px)",
-                        md: "repeat(auto-fit, 250px)"
+                        xs: "repeat(auto-fit, minmax(120px, 1fr))",
+                        sm: "repeat(auto-fit, 120px)",
+                        md: "repeat(auto-fit, 150px)"
                     },
-                    rowGap: 4,
-                    p: 2
+                    rowGap: 4
                 }}
             >
                 {options.map(opt => (
@@ -98,9 +97,9 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
                                 onChange={handleChange}
                                 value={opt.value}
                                 sx={{
-                                    width: 48,
-                                    height: 48,
-                                    padding: "8px", // override default
+                                    width: 36,
+                                    height: 36,
+                                    padding: "6px", // override default
                                     borderRadius: "50%",
                                     backgroundColor: "#f0f0f0",
 

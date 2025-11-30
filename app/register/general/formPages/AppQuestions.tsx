@@ -30,11 +30,12 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                     lineHeight: 1.6,
                     fontFamily: "Montserrat",
                     color: "#e9e9e9ff",
-                    fontSize: "20px"
+                    fontSize: "16px"
                 }}
             >
                 Your application to HackIllinois will be evaluated solely based
                 on your responses to these questions.
+                <br />
                 <br />
                 No other registration information will be used.
             </Typography>
