@@ -11,7 +11,7 @@ import NotProTrackPage from "../register/general/formPages/NotProTrackPage";
 const ProChallenge: React.FC = () => {
     const registrationAuth = useRegistrationAuth(true);
 
-    if (registrationAuth.isLoading || !registrationAuth.submission) {
+    if (registrationAuth.isLoading) {
         return <Loading backgroundImage={LANDING.src} zoom={false} />;
     }
 

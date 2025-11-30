@@ -87,7 +87,7 @@ export default function ChallengeDescription() {
         setFileIdCopied(true);
     };
 
-    if (registrationAuth.isLoading || !registrationAuth.submission) {
+    if (registrationAuth.isLoading || registrationAuth.authenticated) {
         return (
             <Loading
                 backgroundImage={CHALLENGE_DESCRIPTION_BACKGROUND.src}

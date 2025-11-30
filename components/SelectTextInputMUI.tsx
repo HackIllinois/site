@@ -202,16 +202,22 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                 {...props}
             />
 
+            {helperText && (
+                <FormHelperText sx={{ m: 0, mt: 0.5 }}>
+                    {helperText}
+                </FormHelperText>
+            )}
             {sublabel && (
                 <FormHelperText
-                    sx={{ m: 0, mt: 1, color: "#ffffffb3", fontSize: "12px" }}
+                    sx={{
+                        m: 0,
+                        mt: 1,
+                        color: "#ffffffb3 !important",
+                        fontSize: "12px"
+                    }}
                 >
                     {sublabel}
                 </FormHelperText>
-            )}
-
-            {helperText && (
-                <FormHelperText sx={{ mt: 0.5 }}>{helperText}</FormHelperText>
             )}
         </FormControl>
     );
