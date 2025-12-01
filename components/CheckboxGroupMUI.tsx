@@ -67,7 +67,8 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
                     fontWeight: 500
                 }}
             >
-                {label + (required ? "*" : "")}
+                {label}
+                {required && <span style={{ color: "#d32f2f" }}>*</span>}
             </FormLabel>
             <FormGroup
                 sx={{
@@ -98,13 +99,15 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
                                 sx={{
                                     width: "36px",
                                     height: "36px",
-                                    padding: "2px", // override default
+                                    padding: "0px", // override default
                                     borderRadius: 2,
                                     backgroundColor: "#f0f0f0",
                                     display: "flex",
                                     flexShrink: 0,
+                                    overflow: "hidden",
 
                                     "& .MuiSvgIcon-root": {
+                                        transform: "scale(1.34)",
                                         width: "100%",
                                         height: "100%",
                                         backgroundColor: "transparent",
