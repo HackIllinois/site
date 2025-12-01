@@ -88,11 +88,13 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                         sx={{
                             width: 36,
                             height: 36,
-                            padding: "2px", // override default
+                            padding: "0px", // override default
                             borderRadius: 2,
                             backgroundColor: "#f0f0f0",
+                            overflow: "hidden",
 
                             "& .MuiSvgIcon-root": {
+                                transform: "scale(1.34)",
                                 width: "100%",
                                 height: "100%",
                                 backgroundColor: "transparent",
