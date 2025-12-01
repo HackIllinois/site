@@ -256,17 +256,13 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                     bgcolor="rgba(0, 0, 0, 0.3)"
                 >
                     <Box>
-                        <Typography sx={[AckTextStyle, { paddingTop: "8px" }]}>
-                            Please review the above information. Once you submit
-                            you will not be able to change any information
-                            without contacting us.
-                        </Typography>
-
                         <CheckboxSelect
                             name="reviewedAcknowledge"
+                            label="Please review the above information. Once you submit you will not be able to change any information without contacting us."
                             accentColor="#983300"
-                            optionLabel="I reviewed my information to ensure it is correct.*"
+                            optionLabel="I reviewed my information to ensure it is correct."
                             optionLabelSx={AckOptionLabelStyle}
+                            required
                             value={values.reviewedAcknowledge}
                             sx={{ pl: "18px" }}
                             onChange={val =>
@@ -288,14 +284,12 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                     </Box>
 
                     <Box mt={3}>
-                        <Typography sx={AckTextStyle}>
-                            To participate in HackIllinois, you must agree to
-                            the following MLH policies.
-                        </Typography>
-
                         {/* MLH code of conduct acknowledgement */}
                         <CheckboxSelect
                             name="codeOfConductAcknowledge"
+                            label={
+                                "To participate in HackIllinois, you must agree to the following MLH policies."
+                            }
                             accentColor="#983300"
                             optionLabel={
                                 <span style={{ color: "#fff" }}>
@@ -316,10 +310,11 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                             }}
                                         />
                                     </MuiLink>
-                                    .*
+                                    .
                                 </span>
                             }
                             optionLabelSx={AckOptionLabelStyle}
+                            required
                             value={values.codeOfConductAcknowledge}
                             onChange={val =>
                                 formik.setFieldValue(
@@ -383,10 +378,11 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                             }}
                                         />
                                     </MuiLink>{" "}
-                                    and the MLH Privacy Policy.*
+                                    and the MLH Privacy Policy.
                                 </span>
                             }
                             optionLabelSx={AckOptionLabelStyle}
+                            required
                             value={values.mlhDataSharingAcknowledge}
                             onChange={val =>
                                 formik.setFieldValue(
@@ -410,13 +406,10 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                     </Box>
 
                     <Box mt={3}>
-                        <Typography sx={AckTextStyle}>
-                            Newsletter Opt-In
-                        </Typography>
-
                         {/* MLH newsletter opt-in */}
                         <CheckboxSelect
                             name="optInMlhNewsletter"
+                            label="Newsletter Opt-In"
                             accentColor="#983300"
                             optionLabel="I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements."
                             optionLabelSx={AckOptionLabelStyle}
