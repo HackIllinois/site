@@ -56,7 +56,14 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                     fontWeight: 500
                 }}
             >
-                {label ? label + (required ? "*" : "") : null}
+                {label ? (
+                    <>
+                        {label}
+                        {required && (
+                            <span style={{ color: "#d32f2f" }}>*</span>
+                        )}
+                    </>
+                ) : null}
                 {sublabel ? (
                     <Typography
                         component="p"

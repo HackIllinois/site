@@ -67,7 +67,8 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
                     fontWeight: 500
                 }}
             >
-                {label + (required ? "*" : "")}
+                {label}
+                {required && <span style={{ color: "#d32f2f" }}>*</span>}
             </FormLabel>
             <FormGroup
                 sx={{
