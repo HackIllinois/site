@@ -282,8 +282,7 @@ export const validationSchemas = [
             .oneOf([true], "You must accept the Code of Conduct"),
         mlhDataSharingAcknowledge: Yup.boolean()
             .required("You must agree to share your data with MLH")
-            .oneOf([true], "You must agree to share your data with MLH"),
-        mlhNewsAcknowledge: Yup.boolean() // optional
+            .oneOf([true], "You must agree to share your data with MLH")
     }),
 
     // 5. Confirmation (no new inputs, keep for indexing purposes)
