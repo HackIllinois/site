@@ -199,7 +199,8 @@ export const validationSchemas = [
         }),
         race: Yup.array().of(Yup.string()).min(1, "Select at least one option"),
         gender: Yup.string().required("Gender is required"),
-        underrepresented: Yup.string().required("This question is required")
+        underrepresented: Yup.string().required("This question is required"),
+        hackathonsParticipated: Yup.string().required("This field is required.")
     }),
 
     // 2. Application Questions
@@ -252,8 +253,7 @@ export const validationSchemas = [
                     return wordCount <= 100;
                 }
             ),
-        pro: Yup.boolean(),
-        hackathonsParticipated: Yup.string().required("This field is required.")
+        pro: Yup.boolean()
     }),
 
     // 3. Attending HackIllinois
