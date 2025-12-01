@@ -80,11 +80,11 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                         <ReviewInfoAccordionBox>
                             <UserInfoBox
                                 label="First Name"
-                                userResponse={values.firstName || ""}
+                                userResponse={values.firstName || "N/A"}
                             />
                             <UserInfoBox
                                 label="Last Name"
-                                userResponse={values.lastName || ""}
+                                userResponse={values.lastName || "N/A"}
                             />
                             <UserInfoBox
                                 label="Preferred Name"
@@ -92,7 +92,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             />
                             <UserInfoBox
                                 label="Age"
-                                userResponse={values.age || ""}
+                                userResponse={values.age || "N/A"}
                             />
                             <UserInfoBox
                                 label="Email"
