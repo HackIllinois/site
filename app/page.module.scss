@@ -1,5 +1,461 @@
 .main {
-    background-color: #000000;
-    // height: 100vh;
-    // overflow-y: auto;
+    width: 100vw;
+    height: auto; /* Remove fixed height constraint */
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: none; /* Remove any border */
+}
+
+.backgroundContainer {
+    position: relative;
+    width: 100vw;
+    height: auto; /* Let SVG determine its own height */
+    z-index: 1;
+    margin: 0; /* Remove any margin */
+    padding: 0; /* Remove any padding */
+    border: none; /* Remove any border */
+}
+
+.backgroundLayout {
+    width: 100vw !important;
+    height: auto !important; /* Maintain aspect ratio */
+    object-fit: contain; /* Change back to contain to see full image */
+    object-position: top center;
+}
+
+.interactiveOverlays {
+    position: relative;
+    z-index: 10;
+    width: 100vw;
+    height: 8000px; /* Give extra space to ensure full scrolling */
+}
+
+// Hero Section
+.heroSection {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.fightBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.starsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    z-index: 2;
+}
+
+.tinyStarsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+    z-index: 3;
+}
+
+.hackastraLogo {
+    position: absolute;
+    top: 30vh;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 70%;
+    height: auto;
+    animation: fadeIn 1s ease-in;
+    z-index: 3;
+}
+
+.heroRegisterButton {
+    position: absolute;
+    top: 46vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    height: 84px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    
+    &:hover {
+        transform: translateX(-50%) scale(1.05);
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    }
+}
+
+.registerButtonImage {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+// About Section
+.aboutSection {
+    position: absolute;
+    top: 120vh;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.planetsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.aboutTinyStarsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    z-index: 2;
+}
+
+.aboutText {
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    max-width: 80%;
+    height: auto;
+    animation: fadeIn 1s ease-in 0.5s both;
+    z-index: 5;
+}
+
+// HackVoyagers Section
+.hackVoyagersSection {
+    position: absolute;
+    top: 250vh;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+}
+
+.cloudsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.robotContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.robotImage {
+    max-width: 80%;
+    height: auto;
+    animation: slideInLeft 1.5s ease-out both;
+}
+
+.textContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    z-index: 3;
+}
+
+.introducingText {
+    max-width: 80%;
+    height: auto;
+    animation: fadeIn 1s ease-in 1.5s both;
+}
+
+.hackVoyagersText {
+    max-width: 90%;
+    height: auto;
+    animation: fadeIn 1s ease-in 1.7s both;
+}
+
+.learnMoreButton {
+    width: 340px;
+    height: 95px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    animation: fadeIn 1s ease-in 1.9s both;
+    margin-top: 3rem;
+    
+    &:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    }
+}
+
+.learnMoreButtonImage {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.sponsorsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.joinUsText {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 30%;
+    height: auto;
+    animation: fadeIn 1s ease-in 2.1s both;
+    z-index: 2;
+}
+
+// Join Us Section
+.joinUsSection {
+    position: absolute;
+    top: 500vh;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.joinUsText {
+    position: absolute;
+    top: 10vh;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 40%;
+    height: auto;
+    animation: fadeIn 1s ease-in 1.6s both;
+}
+
+.joinUsButton {
+    position: absolute;
+    top: 25vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 55px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    
+    &:hover {
+        transform: translateX(-50%) scale(1.05);
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    }
+}
+
+
+
+
+
+.footerText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 40%;
+    height: auto;
+    animation: fadeIn 1s ease-in 2s both;
+}
+
+// Animations
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+
+
+
+
+
+// Responsive Design
+@media (max-width: 768px) {
+    .hackastraLogo {
+        max-width: 80%;
+        top: 10vh;
+    }
+    
+    .heroRegisterButton {
+        top: 30vh;
+        width: 160px;
+        height: 50px;
+    }
+    
+    .aboutText {
+        max-width: 90%;
+    }
+    
+    .introducingText {
+        max-width: 60%;
+        top: 8vh;
+    }
+    
+    .hackVoyagersText {
+        max-width: 80%;
+        top: 18vh;
+    }
+    
+    .robotImage {
+        max-width: 70%;
+        top: 35vh;
+    }
+    
+    .learnMoreButton {
+        top: 65vh;
+        width: 140px;
+        height: 45px;
+    }
+    
+    .joinUsText {
+        max-width: 60%;
+        top: 8vh;
+    }
+    
+    .joinUsButton {
+        top: 20vh;
+        width: 140px;
+        height: 45px;
+    }
+    
+    .newsletterText {
+        max-width: 70%;
+        top: 30vh;
+    }
+    
+    .newsletterOverlay {
+        top: 40vh;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .emailInputOverlay {
+        width: 200px;
+    }
+    
+    .footerText {
+        max-width: 60%;
+    }
+}
+
+// FAQ Section
+.faqSection {
+    position: absolute;
+    top: 678vh;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+
+.faqText {
+    max-width: 90%;
+    height: auto;
+    animation: fadeIn 1s ease-in 2.3s both;
+}
+
+// Stay Up To Date Section
+.stayUpToDateSection {
+    position: absolute;
+    top: 810vh;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+
+.stayUpToDateText {
+    max-width: 90%;
+    height: auto;
+    animation: fadeIn 1s ease-in 2.5s both;
 }
