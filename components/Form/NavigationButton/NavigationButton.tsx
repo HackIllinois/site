@@ -8,6 +8,7 @@ interface NavButtonProps {
     text: string;
     color: string;
     pointRight?: boolean;
+    isMobile?: boolean;
     onClick?: MouseEventHandler<HTMLButtonElement>;
     href?: string;
     disabled?: boolean;
@@ -18,6 +19,7 @@ const NavigationButton: React.FC<NavButtonProps> = ({
     text,
     color,
     pointRight,
+    isMobile,
     onClick,
     href,
     disabled,
@@ -30,20 +32,35 @@ const NavigationButton: React.FC<NavButtonProps> = ({
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                pl: pointRight ? { xs: 3, md: 4 } : { xs: 4, md: 6 },
-                pr: pointRight ? { xs: 4, md: 6 } : { xs: 3, md: 4 },
+                pl: isMobile
+                    ? 3
+                    : pointRight
+                      ? { xs: 3, md: 4 }
+                      : { xs: 4, md: 6 },
+                pr: isMobile
+                    ? 3
+                    : pointRight
+                      ? { xs: 4, md: 6 }
+                      : { xs: 3, md: 4 },
                 height: { xs: "50px", md: "60px" },
-                minWidth: 160,
+                minWidth: isMobile ? 50 : 160,
                 cursor: "pointer",
                 backgroundColor: color,
                 transition: "0.2s ease",
                 "&:hover": {
                     opacity: 0.9
                 },
-                clipPath: pointRight
-                    ? "polygon(0% 0%, calc(100% - 40px) 0%, 100% 50%, calc(100% - 40px) 100%, 0% 100%)"
-                    : "polygon(40px 0%, 100% 0%, 100% 100%, 40px 100%, 0% 50%)",
-                borderRadius: pointRight ? "40px 0 0 40px" : "0 40px 40px 0"
+                clipPath: isMobile
+                    ? "none"
+                    : pointRight
+                      ? "polygon(0% 0%, calc(100% - 40px) 0%, 100% 50%, calc(100% - 40px) 100%, 0% 100%)"
+                      : "polygon(40px 0%, 100% 0%, 100% 100%, 40px 100%, 0% 50%)",
+
+                borderRadius: isMobile
+                    ? "16px"
+                    : pointRight
+                      ? "40px 0 0 40px"
+                      : "0 40px 40px 0"
             }}
             {...props}
         >

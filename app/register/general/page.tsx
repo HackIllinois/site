@@ -1,25 +1,21 @@
 "use client";
 import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
-import theme from "@/theme";
-import { initialValues, validationSchemas } from "@/util/validation";
 import {
+    draftValidationSchemas,
+    initialValues,
+    validationSchemas,
+    valuesToDraftContent
+} from "@/util/validation";
+import {
+    Alert,
     Box,
     Paper,
+    Snackbar,
     Stack,
-    Step,
-    StepLabel,
-    Stepper,
     useMediaQuery
 } from "@mui/material";
-import { Form, Formik } from "formik";
-import Image from "next/image";
-import {
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useRef,
-    useState
-} from "react";
+import { useFormik } from "formik";
+import { useCallback, useEffect, useState } from "react";
 import * as Yup from "yup";
 import AppQuestions from "./formPages/AppQuestions";
 import AttendingHack from "./formPages/AttendingHack";
@@ -28,150 +24,40 @@ import Confirmation from "./formPages/Confirmation";
 import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
 
-import { RegistrationApplicationDraftBody } from "@/util/types";
-import { useParams } from "next/navigation";
-import RocketOverlay from "./rocket";
-
-const page_slugs = [
-    "personal-information",
-    "background-information",
-    "application-questions",
-    "attending-hackillinois",
-    "review-and-submit",
-    "confirmation"
-] as const;
-
-const slugToIndex = (slug?: string) => {
-    const i = page_slugs.indexOf((slug as any) ?? "");
-    return i >= 0 ? i : 0;
-};
-const indexToSlug = (i: number) =>
-    page_slugs[Math.max(0, Math.min(i, page_slugs.length - 1))];
+import Loading from "@/components/Loading/Loading";
+import { useRegistrationAuth } from "@/hooks/use-registration-auth";
+import theme from "@/theme";
+import {
+    loadDraft,
+    loadSubmission,
+    saveDraft,
+    submitDraft,
+    subscribe
+} from "@/util/api";
+import RegistrationStepper from "./components/RegistrationStepper";
+import { steps } from "./constants/registration";
+import GithubAuthPage from "./formPages/GithubAuthPage";
+import { useRegistrationSteps } from "./hooks/use-registration-steps";
 
 const GeneralRegistration = () => {
-    const [currentStep, setCurrentStep] = useState(0);
-    const [planetCenters, setPlanetCenters] = useState<
-        { x: number; y: number }[]
-    >([]);
+    const [showSaveAlert, setShowSaveAlert] = useState(false);
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
+    const [showClickOffAlert, setShowClickOffAlert] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isSaving, setIsSaving] = useState(false);
+    const [isLoadingComponent, setIsLoadingComponent] = useState(true);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const registrationAuth = useRegistrationAuth();
 
-    const smallMode = useMediaQuery(theme.breakpoints.down("sm"));
-    const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const params = useParams();
-
-    useEffect(() => {
-        const slug = indexToSlug(currentStep);
-        if (window.location.hash === `#${slug}`) return;
-        window.location.hash = slug;
-    }, [currentStep]);
-
-    useEffect(() => {
-        const readHash = () => {
-            const slug = window.location.hash.replace(/^#/, "");
-            if (!slug) return;
-            const idx = slugToIndex(slug);
-            if (idx !== currentStep) setCurrentStep(idx);
-        };
-
-        readHash();
-
-        window.addEventListener("hashchange", readHash);
-        return () => window.removeEventListener("hashchange", readHash);
-    }, [currentStep]);
-
-    const measurePlanets = useCallback(() => {
-        const centers = planetRefs.current.map(el => {
-            if (!el) return { x: 0, y: 0 };
-            const rect = el.getBoundingClientRect();
-            return {
-                x: rect.left + rect.width / 2,
-                y: rect.top + rect.height / 2
-            };
-        });
-        setPlanetCenters(centers);
-    }, []);
-
-    useLayoutEffect(() => {
-        measurePlanets();
-
-        const onResize = () => {
-            measurePlanets();
-        };
-
-        window.addEventListener("resize", onResize);
-        return () => {
-            window.removeEventListener("resize", onResize);
-        };
-    }, [measurePlanets]);
-
-    const steps = [
-        {
-            id: "personal_info",
-            name: "Personal Information",
-            color: "#3A2541"
-        },
-        {
-            id: "background_info",
-            name: "Background Information",
-            color: "#01023B"
-        },
-        {
-            id: "app_questions",
-            name: "Application Questions",
-            color: "#01313B"
-        },
-        {
-            id: "attending_hack",
-            name: "Attending HackIllinois",
-            color: "#87304E"
-        },
-        { id: "review", name: "Review & Submit", color: "#983300" },
-        { id: "confirmation", name: "Confirmation", color: "#480021" }
-    ];
-
-    const handleNext = async (
-        values: RegistrationApplicationDraftBody,
-        setTouched: any
-    ) => {
-        const currentSchema = validationSchemas[currentStep];
-
-        try {
-            await currentSchema.validate(values, { abortEarly: false });
-
-            console.log("Validation for currentSchema passed");
-
-            // If on the final step, submit the form
-            if (currentStep === steps.length - 1) {
-                handleSubmit(values);
-            } else {
-                // Otherwise, just move to the next step
-                setCurrentStep(prev => prev + 1);
-                window.scrollTo(0, 0);
-            }
-        } catch (error) {
-            console.log(
-                "Validation for currentSchema failed with error",
-                error
-            );
-            if (error instanceof Yup.ValidationError) {
-                const touchedFields: any = {};
-                error.inner.forEach(err => {
-                    if (err.path) {
-                        touchedFields[err.path] = true;
-                    }
-                });
-                setTouched(touchedFields);
-            }
-        }
-    };
-
-    const handleBack = () => {
-        setCurrentStep(prev => prev - 1);
-        window.scrollTo(0, 0);
-    };
-
-    const handleSubmit = (values: RegistrationApplicationDraftBody) => {
-        alert("Form submitted successfully! Check console for data.");
-    };
+    const {
+        maxStep,
+        currentStep,
+        setCurrentStep,
+        handleNext,
+        handleGoToStep,
+        handleBack,
+        skipToStep
+    } = useRegistrationSteps(validationSchemas, isSubmitted);
 
     const renderStepContent = (step: number, formik: any) => {
         switch (step) {
@@ -206,27 +92,324 @@ const GeneralRegistration = () => {
             case 4:
                 return <Review formik={formik} onEditStep={setCurrentStep} />;
             case 5:
-                return <Confirmation />;
+                return <Confirmation formik={formik} />;
             default:
                 return <div>Unknown step</div>;
         }
     };
 
+    const [loadedDraft, setLoadedDraft] = useState(false);
+
+    const formik = useFormik({
+        initialValues,
+        validationSchema: validationSchemas[currentStep],
+        onSubmit: () => {}
+    });
+
+    const handleLoadDraft = useCallback(async () => {
+        setIsLoadingComponent(true);
+        setLoadedDraft(false);
+
+        if (!registrationAuth.authenticated) {
+            setIsLoadingComponent(false);
+            return;
+        }
+
+        try {
+            const submission = await loadSubmission();
+            if (submission) {
+                formik.setValues(submission);
+                setIsSubmitted(true);
+                skipToStep(steps.length - 1);
+                setIsLoadingComponent(false);
+                return;
+            }
+        } catch (error: any) {
+            // Only show error if it's not a 404 (no submission exists yet)
+            if (error.error !== "NotFound") {
+                console.error("Failed to load submission:", error);
+                setErrorMessage(
+                    "Failed to load your submission: " + (error?.message || "")
+                );
+                setShowErrorAlert(true);
+            }
+        }
+        try {
+            const draft = await loadDraft();
+
+            if (draft) {
+                // Merge draft with initialValues to fill in any missing fields
+                let mergedValues = { ...initialValues, ...draft };
+                formik.setValues(mergedValues);
+            }
+
+            let furthestValidPage = 0;
+            for (let i = 0; i < steps.length - 1; i++) {
+                try {
+                    await validationSchemas[i].validate(draft);
+                    furthestValidPage = i + 1;
+                } catch {
+                    // Validation failed, stop here
+                    console.log("Failed at", i);
+                    break;
+                }
+            }
+
+            skipToStep(furthestValidPage);
+
+            // TODO: Send the user to the correct page.
+            setLoadedDraft(true);
+            setIsLoadingComponent(false);
+        } catch (error: any) {
+            // Only show error if it's not a 404 (no draft exists yet)
+            if (error?.error !== "NotFound") {
+                console.error("Failed to load draft:", error);
+                setErrorMessage(
+                    "Failed to load your draft: " + (error?.message || "")
+                );
+                setShowErrorAlert(true);
+            }
+            setLoadedDraft(true);
+            setIsLoadingComponent(false);
+        }
+    }, [formik, skipToStep, registrationAuth.authenticated]);
+
+    const handleSave = useCallback(async () => {
+        // Already submitted
+        if (isSubmitted) return;
+        if (currentStep === steps.length - 1) return;
+        if (!loadedDraft || isSaving) return;
+        // Ensure that the data is correctly formatted before autosaving.
+
+        const draftContent = valuesToDraftContent(formik.values);
+        try {
+            await draftValidationSchemas[currentStep].validate(draftContent, {
+                abortEarly: false
+            });
+        } catch (error) {
+            setShowClickOffAlert(true);
+            return;
+        }
+
+        setShowClickOffAlert(false);
+
+        try {
+            if (!registrationAuth.authenticated) {
+                return;
+            }
+            setIsSaving(true);
+            await saveDraft(draftContent);
+            setShowClickOffAlert(false);
+            setShowSaveAlert(true);
+            setIsSaving(false);
+        } catch (error: any) {
+            console.error("Failed to save draft:", error);
+            setIsSaving(false);
+            setErrorMessage(
+                error?.message ||
+                    "Failed to save your progress. Please try again."
+            );
+            setShowErrorAlert(true);
+        }
+    }, [
+        loadedDraft,
+        isSaving,
+        formik.values,
+        isSubmitted,
+        currentStep,
+        registrationAuth.authenticated
+    ]);
+
+    const handleNextOrSubmit = async () => {
+        try {
+            await validationSchemas[currentStep].validate(formik.values, {
+                abortEarly: false
+            });
+        } catch (error: unknown) {
+            if (error instanceof Yup.ValidationError) {
+                const touchedFields: any = {};
+                error.inner.forEach(err => {
+                    if (err.path) touchedFields[err.path] = true;
+                });
+                formik.setTouched(touchedFields);
+
+                // Scroll to the first error field
+                const firstErrorPath = error.inner[0]?.path || error.path;
+                if (firstErrorPath) {
+                    const el = document.querySelector(
+                        `[name="${firstErrorPath}"], [id="${firstErrorPath}"]`
+                    ) as HTMLElement | null;
+
+                    if (el) {
+                        el.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
+                        (el as any).focus?.();
+                    }
+                }
+            }
+            return;
+        }
+
+        if (currentStep === steps.length - 2) {
+            // Final step before submission
+            setShowClickOffAlert(false);
+            setIsLoadingComponent(true);
+
+            if (formik.values.optInHackNewsletter) {
+                try {
+                    if (!formik.values.email) {
+                        return; // This should not happen; email is a required field.
+                    }
+                    await subscribe(
+                        "hackillinois2026_interest",
+                        formik.values.email
+                    );
+                    await subscribe("2026_applicants", formik.values.email);
+                } catch (error: any) {
+                    console.error("Failed to save draft:", error);
+                    setErrorMessage(
+                        error?.message ||
+                            "Failed to subscribe to HackIllinois newsletters. Please try again."
+                    );
+                    setShowErrorAlert(true);
+                    setIsLoadingComponent(false);
+                    return;
+                }
+            }
+            try {
+                await submitDraft(formik.values);
+                setIsSubmitted(true);
+            } catch (error: any) {
+                console.error("Failed to submit draft:", error);
+                setErrorMessage(
+                    error?.message ||
+                        "Failed to submit your application. Please try again."
+                );
+                setShowErrorAlert(true);
+                return;
+            } finally {
+                setIsLoadingComponent(false);
+            }
+        }
+        await handleNext(formik.values, formik.setTouched);
+    };
+
+    useEffect(() => {
+        if (currentStep >= steps.length - 2) {
+            setShowClickOffAlert(false);
+            return;
+        }
+        setShowClickOffAlert(true);
+        const timeout = setTimeout(() => {
+            handleSave();
+        }, 10_000);
+        return () => clearTimeout(timeout);
+    }, [formik.values, registrationAuth.authenticated]);
+
+    useEffect(() => {
+        // Don't autosave on the review info page and confirmation page.
+        // This ensures that the user won't see an error when they submit.
+        if (currentStep >= steps.length - 2) return;
+        handleSave();
+    }, [currentStep]);
+
+    useEffect(() => {
+        handleLoadDraft();
+    }, [registrationAuth.authenticated]);
+
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+        e.preventDefault();
+        (e as any).returnValue = "";
+    };
+    useEffect(() => {
+        if (!showClickOffAlert) {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+            return;
+        }
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () =>
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+    }, [showClickOffAlert]);
+
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+    const handleGoToStepViaStepper = async (step: number) => {
+        try {
+            const result = await handleGoToStep(
+                formik.values,
+                step,
+                formik.setTouched
+            );
+            if (result) {
+                setCurrentStep(step);
+            }
+        } catch {
+            setShowErrorAlert(true);
+            setErrorMessage(
+                "Please complete and correct all required fields before proceeding."
+            );
+        }
+    };
+
+    useEffect(() => {
+        console.log("Authenticated", registrationAuth.authenticated);
+    }, [registrationAuth.authenticated]);
+
+    const isLoading = isLoadingComponent || registrationAuth.isLoading;
+
+    if (isLoading) {
+        return <Loading />;
+    }
+
+    if (!registrationAuth.authenticated) {
+        return <GithubAuthPage />;
+    }
+
     return (
         <main className={"screen"}>
+            <Snackbar
+                open={showSaveAlert}
+                autoHideDuration={3000}
+                onClose={() => setShowSaveAlert(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+                <Alert
+                    onClose={() => setShowSaveAlert(false)}
+                    severity="success"
+                    sx={{ width: "100%" }}
+                >
+                    Your progress has been saved!
+                </Alert>
+            </Snackbar>
+            <Snackbar
+                open={showErrorAlert}
+                autoHideDuration={5000}
+                onClose={() => setShowErrorAlert(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+                <Alert
+                    onClose={() => setShowErrorAlert(false)}
+                    severity="error"
+                    sx={{ width: "100%" }}
+                >
+                    {errorMessage}
+                </Alert>
+            </Snackbar>
             <Box
                 sx={{
-                    minHeight: "100vh", // full viewport height
+                    minHeight: "100dvh", // Full viewport height
                     height: "100%",
                     width: "100%",
                     pb: "50px",
                     backgroundImage: {
-                        xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}.svg")`,
-                        md: `url("/registration/backgrounds/${steps[currentStep].id}.svg")`
+                        xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}.png")`,
+                        md: `url("/registration/backgrounds/${steps[currentStep].id}.png")`
                     },
-                    backgroundSize: "cover", // fill the screen
-                    backgroundRepeat: "no-repeat", // prevent tiling
-                    backgroundPosition: "center" // center the image
+                    backgroundSize: "cover", // Fill the screen
+                    backgroundRepeat: "no-repeat", // Prevent tiling
+                    backgroundPosition: "center" // Center the image
                 }}
             >
                 <Paper
@@ -238,145 +421,67 @@ const GeneralRegistration = () => {
                         maxWidth: "1200px"
                     }}
                 >
-                    <RocketOverlay
-                        activeStep={currentStep}
-                        planetCenters={planetCenters}
+                    <RegistrationStepper
+                        currentStep={currentStep}
+                        maxStep={maxStep}
+                        onGoToStep={handleGoToStepViaStepper}
                     />
-                    <Stepper
-                        alternativeLabel
-                        activeStep={currentStep}
-                        sx={{
-                            pt: { xs: 20, lg: 24 },
-                            width: "100%",
-                            "& .MuiStepLabel-root": {
-                                zIndex: 1,
-                                position: "relative"
-                            }
-                        }}
+                    <Box sx={{ mb: 4, fontFamily: "Montserrat" }}>
+                        {renderStepContent(currentStep, formik)}
+                    </Box>
+
+                    <Stack
+                        direction={"row"}
+                        justifyContent={
+                            currentStep === 0 ? "flex-end" : "space-between"
+                        } // Personal info page has one arrow
+                        alignItems="center"
+                        gap={{ xs: "24px", md: "0px" }}
+                        mt={10}
+                        mb={2}
+                        mr={4}
+                        ml={4}
                     >
-                        {steps.map((step, i) => (
-                            <Step key={step.id}>
-                                <StepLabel
-                                    sx={{
-                                        "& .MuiStepLabel-label": {
-                                            pt: {
-                                                xs: 0.5,
-                                                sm: 2.5,
-                                                md: 3,
-                                                lg: 3.5
-                                            },
-                                            fontSize: {
-                                                xs: "8.5px",
-                                                sm: "12px",
-                                                md: "14px"
-                                            },
-                                            color: "white", // default text color
-                                            fontFamily: "Tsukimi Rounded",
-                                            "&.Mui-active": { color: "white" }, // active step stays white
-                                            "&.Mui-completed": {
-                                                color: "white"
-                                            } // completed step stays white
-                                        }
-                                    }}
-                                    slots={{
-                                        stepIcon: props => (
-                                            <Box
-                                                ref={(
-                                                    el: HTMLDivElement | null
-                                                ) => {
-                                                    planetRefs.current[i] = el;
-                                                }}
-                                                sx={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    width: 32, // matches MUI's default StepIcon size
-                                                    height: 32,
-                                                    margin: "0 auto"
-                                                }}
-                                            >
-                                                <Image
-                                                    src={`/registration/progress_bar/${step.id}.svg`}
-                                                    alt="Transportation"
-                                                    width={80}
-                                                    height={80}
-                                                    style={{
-                                                        width: "clamp(40px, 10vw,100px)",
-                                                        height: "auto"
-                                                    }}
-                                                />
-                                            </Box>
-                                        )
-                                    }}
-                                />
-                            </Step>
-                        ))}
-                    </Stepper>
-
-                    <Formik
-                        initialValues={initialValues}
-                        validationSchema={validationSchemas[currentStep]}
-                        onSubmit={handleSubmit}
-                    >
-                        {formik => (
-                            <Form>
-                                <Box sx={{ mb: 4, fontFamily: "Montserrat" }}>
-                                    {renderStepContent(currentStep, formik)}
-                                </Box>
-
-                                <Stack
-                                    direction={{ xs: "column", sm: "row" }}
-                                    justifyContent={
-                                        currentStep === 0
-                                            ? "flex-end"
-                                            : "space-between"
-                                    } // Personal info page has one arrow
-                                    alignItems="center"
-                                    gap={{ xs: "24px", md: "0px" }}
-                                    mt={10}
-                                    mb={2}
-                                    mr={4}
-                                    ml={4}
-                                >
-                                    {/* Left arrow */}
-                                    {currentStep > 0 &&
-                                        currentStep < steps.length - 1 && (
-                                            <NavigationButton
-                                                text={steps[
-                                                    currentStep - 1
-                                                ].name.toUpperCase()}
-                                                color={steps[currentStep].color}
-                                                onClick={handleBack}
-                                                disabled={currentStep === 0}
-                                                type="button"
-                                            />
-                                        )}
-
-                                    {/* Right arrow */}
-                                    {currentStep < steps.length - 1 && (
-                                        <NavigationButton
-                                            text={
-                                                currentStep === steps.length - 2
-                                                    ? "SUBMIT"
-                                                    : steps[
-                                                          currentStep + 1
-                                                      ].name.toUpperCase()
-                                            }
-                                            color={steps[currentStep].color}
-                                            pointRight={true}
-                                            onClick={() =>
-                                                handleNext(
-                                                    formik.values,
-                                                    formik.setTouched
-                                                )
-                                            }
-                                            type="button"
-                                        />
-                                    )}
-                                </Stack>
-                            </Form>
+                        {/* Left arrow */}
+                        {currentStep > 0 && currentStep < steps.length - 1 && (
+                            <NavigationButton
+                                text={
+                                    isMobile
+                                        ? "BACK"
+                                        : steps[
+                                              currentStep - 1
+                                          ].name.toUpperCase()
+                                }
+                                color={steps[currentStep].color}
+                                onClick={handleBack}
+                                disabled={currentStep === 0}
+                                type="button"
+                                isMobile={isMobile}
+                            />
                         )}
-                    </Formik>
+
+                        {/* Right arrow */}
+                        {currentStep < steps.length - 1 && (
+                            <NavigationButton
+                                text={
+                                    isMobile
+                                        ? currentStep === steps.length - 2
+                                            ? "SUBMIT"
+                                            : "NEXT"
+                                        : currentStep === steps.length - 2
+                                          ? "SUBMIT"
+                                          : steps[
+                                                currentStep + 1
+                                            ].name.toUpperCase()
+                                }
+                                color={steps[currentStep].color}
+                                pointRight={true}
+                                isMobile={isMobile}
+                                onClick={() => handleNextOrSubmit()}
+                                type="button"
+                            />
+                        )}
+                    </Stack>
                 </Paper>
             </Box>
         </main>

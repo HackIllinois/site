@@ -1,9 +1,10 @@
-import SelectInput from "@/components/SelectInputMUI";
+import { RegistrationData } from "@/util/types";
+import { Container, Grid, Tooltip, Typography } from "@mui/material";
+import { FormikProps } from "formik";
 import TextInput from "@/components/TextInputMUI";
+import SelectTextInput from "@/components/SelectTextInputMUI";
 import { ageOptions } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
-import { Container, Grid, Typography } from "@mui/material";
-import { FormikProps } from "formik";
 import { useEffect } from "react";
 
 interface PersonalInfoProps {
@@ -13,20 +14,6 @@ interface PersonalInfoProps {
 
 const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
     const { values, errors, touched, handleChange, setFieldValue } = formik;
-
-    useEffect(() => {
-        if (!formik.dirty || formik.isSubmitting) return;
-
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            e.preventDefault();
-            (e as any).returnValue = "";
-        };
-
-        window.addEventListener("beforeunload", handleBeforeUnload);
-        return () =>
-            window.removeEventListener("beforeunload", handleBeforeUnload);
-    }, [formik.dirty, formik.isSubmitting]);
-
     return (
         <Container>
             <Typography
@@ -40,7 +27,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                 PERSONAL INFO
             </Typography>
             <Grid container columnSpacing={2} rowSpacing={{ xs: 3, md: 6 }}>
-                <Grid size={{ xs: 12, sm: 12, md: 5 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 4.75 }}>
                     <TextInput
                         name="firstName"
                         label="First Name"
@@ -52,7 +39,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={!!touched.firstName ? errors.firstName : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 12, md: 5 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 4.75 }}>
                     <TextInput
                         name="lastName"
                         label="Last Name"
@@ -64,23 +51,24 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={!!touched.lastName ? errors.lastName : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 3, md: 2 }}>
-                    <SelectInput
+                <Grid size={{ xs: 12, sm: 5, md: 2.5 }}>
+                    <SelectTextInput
                         name="age"
                         label="Age"
+                        sublabel="You must be 18 or older to register."
                         accentColor={accentColor}
                         required
                         options={ageOptions.map(option => ({
                             label: option,
                             value: option
                         }))}
-                        value={values.age}
+                        value={values.age || ""}
                         onChange={value => setFieldValue("age", value)}
                         error={!!touched.age && Boolean(errors.age)}
                         helperText={!!touched.age ? errors.age : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 9, md: 6 }}>
+                <Grid size={{ xs: 12, sm: 7, md: 6 }}>
                     <TextInput
                         name="preferredName"
                         label="Preferred Name"

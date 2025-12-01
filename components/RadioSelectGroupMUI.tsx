@@ -28,6 +28,7 @@ interface RadioSelectGroupInputProps {
     accentColor?: string;
     [key: string]: unknown;
     row?: boolean;
+    booleanOptions?: boolean;
 }
 
 const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
@@ -40,15 +41,20 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
     error,
     helperText = "",
     accentColor = "#2c2540",
-    row = false
+    row = false,
+    booleanOptions = false
 }) => {
     // handle toggle manually so it works with Formik (onChange tries to pass event.target.checked)
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        onChange(event.target.value);
+        // event.target.value is a string. We must convert it back to a boolean here.
+        onChange(
+            booleanOptions ? event.target.value === "true" : event.target.value
+        );
     };
 
     return (
         <FormControl
+            id={name}
             component="fieldset"
             error={error}
             sx={{ width: "100%", height: "100%" }}
@@ -70,14 +76,11 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
                     color: "#ffffff",
                     display: row ? "grid" : "flex",
                     gridTemplateColumns: {
-                        xs: "repeat(auto-fit, minmax(150px, 1fr))",
-                        sm: "repeat(auto-fit, 150px)",
-                        md: "repeat(auto-fit, 250px)"
+                        xs: "repeat(auto-fit, minmax(120px, 1fr))",
+                        sm: "repeat(auto-fit, 120px)",
+                        md: "repeat(auto-fit, 150px)"
                     },
-                    rowGap: 4,
-                    // columnGap: 20,
-                    // justifyContent: { xs: "space-between", sm: "normal" },
-                    p: 2
+                    rowGap: 4
                 }}
             >
                 {options.map(opt => (
@@ -94,9 +97,9 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
                                 onChange={handleChange}
                                 value={opt.value}
                                 sx={{
-                                    width: 48,
-                                    height: 48,
-                                    padding: "8px", // override default
+                                    width: 36,
+                                    height: 36,
+                                    padding: "6px", // override default
                                     borderRadius: "50%",
                                     backgroundColor: "#f0f0f0",
 

@@ -5,27 +5,36 @@ export type FileType = "resume" | "photo" | "blobstore";
 
 export type RegistrationApplicationSubmitted = {
     userId: string;
+
     firstName: string;
     lastName: string;
     preferredName?: string;
     age: string;
     email: string;
+
     gender: string;
     race: string[];
     country: string;
     state?: string;
+
     school: string;
     education: string;
     graduate: string;
     major: string;
     underrepresented: string;
     hackathonsParticipated: string;
+
     application1: string;
     application2: string;
+    application3: string;
     applicationOptional?: string;
-    applicationPro?: string;
+
+    pro?: boolean;
+
     attribution: string[];
     eventInterest: string[];
+
+    requestTravelReimbursement: boolean;
 };
 
 export type RegistrationApplicationDraftBody = {
@@ -46,22 +55,24 @@ export type RegistrationApplicationDraftBody = {
     hackathonsParticipated?: string;
     application1?: string;
     application2?: string;
+    application3?: string;
     applicationOptional?: string;
-    applicationPro?: string;
+    pro?: boolean;
     attribution?: string[];
     eventInterest?: string[];
+    requestTravelReimbursement?: boolean;
 };
 
 /** Includes fields available only on the frontend. */
 export type RegistrationApplicationDraftBodyForm =
     RegistrationApplicationDraftBody & {
         travelAcknowledge?: boolean;
-        considerForPro?: boolean;
         requestTravelReimbursement?: boolean;
         reviewedAcknowledge?: boolean;
         codeOfConductAcknowledge?: boolean;
         mlhDataSharingAcknowledge?: boolean;
-        mlhNewsAcknowledge?: boolean;
+        optInMlhNewsletter?: boolean;
+        optInHackNewsletter?: boolean;
     };
 
 export type RegistrationResponseFieldInfo = {
@@ -74,7 +85,7 @@ export type RegistrationResponseFieldInfo = {
 };
 
 /**
- * RegistrationData is deprecated. Use RegistrationApplicationDraftBody instead.
+ * (!!!) RegistrationData is deprecated. Use RegistrationApplicationDraftBody instead.
  */
 export type RegistrationData = {
     legalName: string;
@@ -99,46 +110,6 @@ export type RegistrationData = {
     requestedTravelReimbursement: string[];
     travelAcknowledge: string[];
     reviewedInformationAcknowledge: string[];
-    codeOfConductAcknowledge: string[];
-    mlhDataSharingAcknowledge: string[];
-    mlhNewsAcknowledge: string[];
-};
-
-/**
- * RegistrationType is deprecated. Use RegistrationApplicationDraftBody instead.
- */
-export type RegistrationType = {
-    // 0. Personal Information
-    firstName: string;
-    lastName: string;
-    preferredName: string;
-    age: string;
-    emailAddress: string;
-    // 1. Background Information
-    gender: string;
-    race: string[];
-    country: string;
-    state: string;
-    school: string;
-    studyLevel: string;
-    gradYear: number;
-    major: string;
-    underrepresented: string;
-    // 2. Application Questions
-    hackEssay1: string;
-    hackEssay2: string;
-    optionalEssay: string;
-    considerForPro: boolean;
-    proEssay: string;
-    // 3. Attending HackIllinois
-    hackOutreach: string[];
-    hackInterest: string[];
-    requestedTravelReimbursement: boolean;
-    travelAcknowledge: boolean;
-    // 4. Review (final acknowledgements)
-    reviewedAcknowledge: boolean;
-    proChallengeAcknowledge: boolean;
-    codeOfConductAcknowledge: boolean;
 };
 
 export type DecisionStatus = "TBD" | "ACCEPTED" | "REJECTED" | "WAITLISTED";

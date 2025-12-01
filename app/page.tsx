@@ -1,19 +1,19 @@
+import Description from "@/components/Home/Description/Description";
+import FAQSection from "@/components/Home/FAQ/FAQ";
+import FooterSection from "@/components/Home/Footer/FooterSection";
+import Olympian from "@/components/Home/Olympian/Olympian";
+import Sponsors from "@/components/Home/Sponsors/Sponsors";
 import React from "react";
 import styles from "./page.module.scss";
-import Olympian from "@/components/Home/Olympian/Olympian";
-import Footer from "@/components/Home/Footer/Footer";
-import FAQJoinUs from "@/components/Home/FAQJoinUs/FAQJoinUs";
-import Sponsors from "@/components/Home/Sponsors/Sponsors";
-import FAQSection from "@/components/Home/FAQ/FAQ";
 
 const Home: React.FC = () => {
     return (
         <main className={styles.main}>
             <Olympian />
-            <FAQJoinUs />
-            <FAQSection />
+            <Description />
             <Sponsors />
-            <Footer />
+            <FAQSection />
+            <FooterSection />
         </main>
     );
 };

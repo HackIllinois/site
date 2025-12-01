@@ -18,20 +18,6 @@ interface TransportationProps {
 
 const Transportation = ({ formik, accentColor }: TransportationProps) => {
     const { values, errors, touched, setFieldValue } = formik;
-
-    useEffect(() => {
-        if (!formik.dirty || formik.isSubmitting) return;
-
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            e.preventDefault();
-            (e as any).returnValue = "";
-        };
-
-        window.addEventListener("beforeunload", handleBeforeUnload);
-        return () =>
-            window.removeEventListener("beforeunload", handleBeforeUnload);
-    }, [formik.dirty, formik.isSubmitting]);
-
     return (
         <Container>
             <Typography
@@ -46,7 +32,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
             </Typography>
 
             <Grid container columnSpacing={2} rowSpacing={6}>
-                <Grid size={12}>
+                <Grid size={12} id="attribution">
                     <CheckboxGroup
                         name="attribution"
                         label="How did you hear about HackIllinois?"
@@ -68,7 +54,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         }
                     />
                 </Grid>
-                <Grid size={12}>
+                <Grid size={12} id="eventInterest">
                     <CheckboxGroup
                         name="eventInterest"
                         label="Which of these are you most interested in participating in during the hackathon?"
@@ -106,9 +92,9 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                             value: option === "Yes"
                         }))}
                         value={values.requestTravelReimbursement}
-                        onChange={value =>
-                            setFieldValue("requestTravelReimbursement", value)
-                        }
+                        onChange={value => {
+                            setFieldValue("requestTravelReimbursement", value);
+                        }}
                         error={
                             !!touched.requestTravelReimbursement &&
                             Boolean(errors.requestTravelReimbursement)
@@ -118,6 +104,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                                 ? errors.requestTravelReimbursement
                                 : ""
                         }
+                        booleanOptions
                     />
                 </Grid>
 

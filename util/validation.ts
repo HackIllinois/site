@@ -1,10 +1,10 @@
-import {
-    RegistrationApplicationDraftBody,
-    RegistrationApplicationDraftBodyForm,
-    RegistrationData
-} from "@/util/types";
+import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import * as Yup from "yup";
 
+/**
+ * Initial values for the form. We shouldn't initialize with undefined values
+ * because Formik treats undefined values as uncontrolled inputs.
+ */
 export const initialValues: RegistrationApplicationDraftBodyForm = {
     // Personal Information
     firstName: "",
@@ -27,9 +27,9 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     // Application Questions
     application1: "",
     application2: "",
+    application3: "",
     applicationOptional: "",
-    considerForPro: false,
-    applicationPro: "",
+    pro: false,
     hackathonsParticipated: "",
 
     // Attending HackIllinois
@@ -42,9 +42,140 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     reviewedAcknowledge: false,
     codeOfConductAcknowledge: false,
     mlhDataSharingAcknowledge: false,
-    mlhNewsAcknowledge: false
+    optInMlhNewsletter: true,
+    optInHackNewsletter: true
 };
 
+/**
+ * Given raw form values, return a draft content object with only filled fields.
+ */
+export const valuesToDraftContent = (
+    values: RegistrationApplicationDraftBodyForm
+) => {
+    const draftContent: RegistrationApplicationDraftBodyForm = {};
+    for (const key in values) {
+        const value = values[key as keyof RegistrationApplicationDraftBodyForm];
+        if (
+            value !== "" &&
+            !(Array.isArray(value) && value.length === 0) &&
+            value !== undefined
+        ) {
+            // TODO: Avoid the use of any here.
+            draftContent[key as keyof RegistrationApplicationDraftBodyForm] =
+                value as any;
+        }
+    }
+    return draftContent;
+};
+
+/**
+ * Treats all fields as optional, so the user can save progress even if they haven't filled out all fields.
+ * Used during autosaves, since we don't expect all fields to be filled.
+ */
+export const draftValidationSchemas = [
+    // 0. Personal Information
+    Yup.object({
+        firstName: Yup.string(),
+        lastName: Yup.string(),
+        preferredName: Yup.string().nullable(),
+        age: Yup.string(),
+        email: Yup.string().email("Invalid email address")
+    }),
+
+    // 1. Background Information
+    Yup.object({
+        education: Yup.string(),
+        school: Yup.string(),
+        graduate: Yup.string(),
+        major: Yup.string(),
+        country: Yup.string(),
+        state: Yup.string(),
+        race: Yup.array().of(Yup.string()).min(1, "Select at least one option"),
+        gender: Yup.string(),
+        underrepresented: Yup.string()
+    }),
+
+    // 2. Application Questions
+    Yup.object({
+        application1: Yup.string().test(
+            "max-50-words",
+            "Response cannot be over 50 words",
+            value => {
+                if (!value) return true;
+                const wordCount = value
+                    .trim()
+                    .split(/\s+/)
+                    .filter(word => word.length > 0).length;
+                return wordCount <= 50;
+            }
+        ),
+        application2: Yup.string().test(
+            "max-50-words",
+            "Response cannot be over 50 words",
+            value => {
+                if (!value) return true;
+                const wordCount = value
+                    .trim()
+                    .split(/\s+/)
+                    .filter(word => word.length > 0).length;
+                return wordCount <= 50;
+            }
+        ),
+        application3: Yup.string().test(
+            "max-100-words",
+            "Response cannot be over 100 words",
+            value => {
+                if (!value || !value.trim()) return true;
+                const wordCount = value
+                    .trim()
+                    .split(/\s+/)
+                    .filter(word => word.length > 0).length;
+                return wordCount <= 100;
+            }
+        ),
+        applicationOptional: Yup.string().test(
+            "max-100-words",
+            "Response cannot be over 100 words",
+            value => {
+                if (!value || !value.trim()) return true;
+                const wordCount = value
+                    .trim()
+                    .split(/\s+/)
+                    .filter(word => word.length > 0).length;
+                return wordCount <= 100;
+            }
+        ),
+        pro: Yup.boolean(),
+        hackathonsParticipated: Yup.string()
+    }),
+
+    // 3. Attending HackIllinois
+    Yup.object({
+        attribution: Yup.array().of(Yup.string()),
+        eventInterest: Yup.array().of(Yup.string()),
+        requestTravelReimbursement: Yup.boolean(),
+        travelAcknowledge: Yup.boolean()
+    }),
+
+    // 4. Review (final acknowledgements)
+    Yup.object({
+        reviewedAcknowledge: Yup.boolean()
+            .required("Please confirm you have reviewed your information")
+            .oneOf([true], "Please confirm you have reviewed your information"),
+        codeOfConductAcknowledge: Yup.boolean()
+            .required("You must accept the Code of Conduct")
+            .oneOf([true], "You must accept the Code of Conduct")
+    }),
+
+    // 5. Confirmation (no new inputs, keep for indexing purposes)
+    Yup.object({})
+];
+
+/**
+ * Validates draft content, ensuring that all required fields are filled.
+ * Used during page navigation (we expect the page to be filled before the user moves forward)
+ * and final submission (we expect all fields to be filled).
+ */
 export const validationSchemas = [
     // 0. Personal Information
     Yup.object({
@@ -95,6 +226,20 @@ export const validationSchemas = [
                     .filter(word => word.length > 0).length;
                 return wordCount <= 50;
             }),
+        application3: Yup.string()
+            .required("This essay is required")
+            .test(
+                "max-100-words",
+                "Response cannot be over 100 words",
+                value => {
+                    if (!value || !value.trim()) return true;
+                    const wordCount = value
+                        .trim()
+                        .split(/\s+/)
+                        .filter(word => word.length > 0).length;
+                    return wordCount <= 100;
+                }
+            ),
         applicationOptional: Yup.string()
             .nullable()
             .test(
@@ -109,40 +254,8 @@ export const validationSchemas = [
                     return wordCount <= 100;
                 }
             ),
-        considerForPro: Yup.boolean(),
-        applicationPro: Yup.string().when("considerForPro", {
-            is: (val: boolean) => !!val,
-            then: schema =>
-                schema
-                    .required(
-                        "You must fill out this essay to be considered for pro track"
-                    )
-                    .test(
-                        "min-50-words",
-                        "Please write at least 50 words",
-                        value => {
-                            if (!value) return false;
-                            const wordCount = value
-                                .trim()
-                                .split(/\s+/)
-                                .filter(word => word.length > 0).length;
-                            return wordCount >= 50;
-                        }
-                    )
-                    .test(
-                        "max-50-words",
-                        "Response cannot be over 50 words",
-                        value => {
-                            if (!value) return true;
-                            const wordCount = value
-                                .trim()
-                                .split(/\s+/)
-                                .filter(word => word.length > 0).length;
-                            return wordCount <= 50;
-                        }
-                    )
-        }),
-        hackathonsParticipated: Yup.string()
+        pro: Yup.boolean(),
+        hackathonsParticipated: Yup.string().required("This field is required.")
     }),
 
     // 3. Attending HackIllinois
