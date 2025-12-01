@@ -27,6 +27,18 @@
     object-position: top center;
 }
 
+.mobileBackgroundLayout {
+    width: 100vw !important;
+    height: auto !important;
+    object-fit: contain;
+    object-position: top center;
+    display: none; /* Hidden by default, shown on mobile */
+    
+    @media (max-width: 768px) {
+        display: block;
+    }
+}
+
 .interactiveOverlays {
     position: relative;
     z-index: 10;
@@ -57,7 +69,7 @@
     height: 100%;
     object-fit: cover;
     opacity: 0.8;
-    z-index: 1;
+    z-index: 1; /* Below navbar (z-index: 6) */
 }
 
 .starsBackground {
@@ -84,7 +96,7 @@
 
 .hackastraLogo {
     position: absolute;
-    top: 30vh;
+    top: 25vh;
     left: 50%;
     transform: translateX(-50%);
     max-width: 70%;
@@ -153,15 +165,23 @@
     z-index: 2;
 }
 
-.aboutText {
+.aboutTextContainer {
     position: absolute;
-    top: 30%;
-    left: 25%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     max-width: 80%;
-    height: auto;
+    text-align: center;
     animation: fadeIn 1s ease-in 0.5s both;
     z-index: 5;
+}
+
+.aboutText {
+    margin-bottom: 1rem;
+}
+
+.aboutSubtext {
+    line-height: 1.6;
 }
 
 // HackVoyagers Section
@@ -357,17 +377,18 @@
 @media (max-width: 768px) {
     .hackastraLogo {
         max-width: 80%;
-        top: 10vh;
+        top: 15vh;
     }
     
     .heroRegisterButton {
-        top: 30vh;
-        width: 160px;
-        height: 50px;
+        top: 35vh;
+        width: 200px;
+        height: 60px;
     }
     
-    .aboutText {
+    .aboutTextContainer {
         max-width: 90%;
+        padding: 0 1rem;
     }
     
     .introducingText {
@@ -402,60 +423,79 @@
         height: 45px;
     }
     
-    .newsletterText {
-        max-width: 70%;
-        top: 30vh;
+    .faqSection {
+        top: 600vh;
+        padding: 1rem;
     }
     
-    .newsletterOverlay {
-        top: 40vh;
-        flex-direction: column;
-        gap: 0.5rem;
+    .faqContainer {
+        max-width: 100%;
     }
     
-    .emailInputOverlay {
-        width: 200px;
+    .stayUpToDateSection {
+        top: 720vh;
+        padding: 1rem;
     }
     
-    .footerText {
-        max-width: 60%;
+    .newsletterForm {
+        max-width: 100%;
     }
 }
 
 // FAQ Section
 .faqSection {
     position: absolute;
-    top: 678vh;
+    top: 650vh;
     left: 0;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
     z-index: 5;
 }
 
-.faqText {
-    max-width: 90%;
-    height: auto;
-    animation: fadeIn 1s ease-in 2.3s both;
+.faqTitle {
+    margin-bottom: 2rem;
+}
+
+.faqContainer {
+    width: 100%;
+    max-width: 800px;
+}
+
+.faqItem {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    
+    &:before {
+        display: none;
+    }
 }
 
 // Stay Up To Date Section
 .stayUpToDateSection {
     position: absolute;
-    top: 810vh;
+    top: 780vh;
     left: 0;
     width: 100%;
-    height: 80vh;
+    min-height: 80vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
     z-index: 5;
 }
 
-.stayUpToDateText {
-    max-width: 90%;
-    height: auto;
+.stayUpToDateTitle {
+    margin-bottom: 2rem;
+}
+
+.newsletterForm {
     animation: fadeIn 1s ease-in 2.5s both;
 }
