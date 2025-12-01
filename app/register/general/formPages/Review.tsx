@@ -432,15 +432,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             name="optInHackNewsletter"
                             accentColor="#983300"
                             optionLabel="Opt-in to the HackIllinois newsletter."
-                            optionLabelSx={{
-                                fontFamily: `Montserrat, sans-serif`,
-                                fontSize: "22px",
-                                color: "#fff",
-                                fontWeight: 400,
-                                "@media (max-width:560px)": {
-                                    fontSize: "18px"
-                                }
-                            }}
+                            optionLabelSx={AckOptionLabelStyle}
                             value={values.optInHackNewsletter}
                             onChange={val =>
                                 formik.setFieldValue("optInHackNewsletter", val)

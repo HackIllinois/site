@@ -250,6 +250,6 @@ export const AckOptionLabelStyle = {
     color: "#fff",
     fontWeight: 400,
     "@media (max-width:600px)": {
-        fontSize: "16px"
+        fontSize: "18px"
     }
 };
