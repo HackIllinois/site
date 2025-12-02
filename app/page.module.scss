@@ -659,6 +659,11 @@
         top: 30vh;
         width: 160px;
         height: 50px;
+        font-size: 1.2rem;
+        padding: 12px 24px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .aboutText {
@@ -666,8 +671,9 @@
     }
 
     .introducingText {
-        max-width: 60%;
-        top: 8vh;
+        max-width: 70%;
+        height: auto;
+        top: 15vh;
     }
 
     .hackVoyagersText {
@@ -716,6 +722,38 @@
         max-width: 60%;
     }
 
+    .faqSection {
+        padding: 3rem 1rem;
+        min-height: auto;
+    }
+
+    .faqHeading {
+        font-size: 3rem;
+    }
+
+    .faqItems {
+        max-width: 100%;
+    }
+
+    .faqFooterContent {
+        padding-bottom: 100px;
+    }
+
+    .footerHeading {
+        font-size: 2.2rem;
+    }
+
+    .footerSubscribeForm {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .footerEmailInput {
+        width: 100%;
+        max-width: 280px;
+    }
+
     // Mobile background adjustments
     .hackVoyagersSection {
         flex-direction: column;
@@ -730,6 +768,79 @@
     .textContainer {
         order: 1;
         text-align: center;
+    }
+}
+
+// Extra small mobile devices
+@media (max-width: 480px) {
+    .heroRegisterButton {
+        width: 140px;
+        height: 45px;
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    .introducingText {
+        max-width: 85%;
+        margin-top: 2rem;
+    }
+
+    .hackVoyagersText {
+        max-width: 90%;
+    }
+
+    .textContainer {
+        padding: 0 0.5rem;
+    }
+
+    .faqQuestion {
+        font-size: 1.1rem;
+        padding: 0.8rem 1.2rem;
+    }
+
+    .faqItem {
+        padding: 1rem;
+    }
+
+    .faqSection {
+        padding: 2rem 1rem;
+        min-height: auto;
+    }
+
+    .faqHeading {
+        font-size: 2.5rem;
+    }
+
+    .faqItems {
+        max-width: 100%;
+    }
+
+    .faqFooterContent {
+        padding-bottom: 80px;
+    }
+
+    .footerHeading {
+        font-size: 1.8rem;
+    }
+
+    .socialMediaIcons {
+        gap: 1rem;
+    }
+
+    .socialIcon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .footerSubscribeForm {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .footerEmailInput {
+        width: 100%;
+        max-width: 300px;
     }
 }
 
@@ -1115,7 +1226,7 @@
 .faqItems {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.2rem;
     width: 100%;
     max-width: 800px;
 }
@@ -1124,27 +1235,34 @@
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
-    padding: 2rem;
+    border-radius: 12px;
+    padding: 1.2rem;
     transition: all 0.3s ease;
 }
 
 .faqQuestion {
     width: 100%;
-    padding: 1.5rem 2rem;
+    padding: 1rem 1.5rem;
     background: transparent;
     border: none;
     color: white;
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 600;
     text-align: left;
     cursor: pointer;
     transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     &:hover {
         color: #6f4e92;
         text-shadow: 0 0 10px rgba(111, 78, 146, 0.3);
+    }
+
+    span {
+        flex: 1;
     }
 }
 
@@ -1167,9 +1285,22 @@
 
 .faqAnswer p {
     color: rgba(255, 255, 255, 0.95);
-    line-height: 1.7;
+    line-height: 1.6;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+}
+
+// Dropdown Arrow
+.dropdownArrow {
+    transition: transform 0.3s ease;
+    color: rgba(255, 255, 255, 0.8);
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+
+.dropdownArrowOpen {
+    transform: rotate(180deg);
 }
 
 // FAQ Footer Content

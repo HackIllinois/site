@@ -231,13 +231,16 @@ const Home: React.FC = () => {
                     </Typography>
                     
                     <div className={styles.faqItems}>
-                        <div className={styles.faqItem}>
-                            <button 
-                                className={styles.faqQuestion}
-                                onClick={() => toggleFAQ(0)}
-                            >
-                                Who is eligible to attend?
-                            </button>
+                         <div className={styles.faqItem}>
+                             <button 
+                                 className={styles.faqQuestion}
+                                 onClick={() => toggleFAQ(0)}
+                             >
+                                 <span>Who is eligible to attend?</span>
+                                 <svg className={`${styles.dropdownArrow} ${openFAQ === 0 ? styles.dropdownArrowOpen : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                     <path d="M6 9l6 6 6-6"/>
+                                 </svg>
+                             </button>
                             <div className={`${styles.faqAnswer} ${openFAQ === 0 ? styles.faqAnswerVisible : styles.faqAnswerHidden}`}>
                                 <Typography variant="body1" component="p" fontFamily="Montserrat">
                                     HackIllinois is open to all current college students and recent graduates (within 1 year of graduation). You don't need any prior coding experience - we welcome students of all skill levels! Whether you're a beginner or an experienced hacker, there's a place for you at HackIllinois.
@@ -245,13 +248,16 @@ const Home: React.FC = () => {
                             </div>
                         </div>
                         
-                        <div className={styles.faqItem}>
-                            <button 
-                                className={styles.faqQuestion}
-                                onClick={() => toggleFAQ(1)}
-                            >
-                                How can I get help during event?
-                            </button>
+                         <div className={styles.faqItem}>
+                             <button 
+                                 className={styles.faqQuestion}
+                                 onClick={() => toggleFAQ(1)}
+                             >
+                                 <span>How can I get help during event?</span>
+                                 <svg className={`${styles.dropdownArrow} ${openFAQ === 1 ? styles.dropdownArrowOpen : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                     <path d="M6 9l6 6 6-6"/>
+                                 </svg>
+                             </button>
                             <div className={`${styles.faqAnswer} ${openFAQ === 1 ? styles.faqAnswerVisible : styles.faqAnswerHidden}`}>
                                 <Typography variant="body1" component="p" fontFamily="Montserrat">
                                     We'll have mentors available throughout the entire hackathon to help you with your projects! You can also attend our workshops and tech talks to learn new skills. Our staff and sponsors will be on-site to answer questions and provide guidance. Additionally, we'll have a dedicated help desk and online support channels to ensure you get the assistance you need.
@@ -259,13 +265,16 @@ const Home: React.FC = () => {
                             </div>
                         </div>
                         
-                        <div className={styles.faqItem}>
-                            <button 
-                                className={styles.faqQuestion}
-                                onClick={() => toggleFAQ(2)}
-                            >
-                                Where is HackIllinois located?
-                            </button>
+                         <div className={styles.faqItem}>
+                             <button 
+                                 className={styles.faqQuestion}
+                                 onClick={() => toggleFAQ(2)}
+                             >
+                                 <span>Where is HackIllinois located?</span>
+                                 <svg className={`${styles.dropdownArrow} ${openFAQ === 2 ? styles.dropdownArrowOpen : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                     <path d="M6 9l6 6 6-6"/>
+                                 </svg>
+                             </button>
                             <div className={`${styles.faqAnswer} ${openFAQ === 2 ? styles.faqAnswerVisible : styles.faqAnswerHidden}`}>
                                 <Typography variant="body1" component="p" fontFamily="Montserrat">
                                     HackIllinois 2026 will be held at the Siebel Center for Computer Science at the University of Illinois Urbana-Champaign. The address is 201 N Goodwin Ave, Urbana, IL 61801. The event will take place from February 27th to March 1st. We'll provide more detailed location and parking information closer to the event date.
