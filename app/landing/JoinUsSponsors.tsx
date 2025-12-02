@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import styles from "./JoinUsSponsors.module.scss";
 import Image from "next/image";
+import { tsukimi } from "@/theme/fonts";
 
 const alienAssets = [
     "/landing/sponsors/aliens/alien1.svg",
@@ -30,7 +31,7 @@ const JoinUsSponsors = () => {
                     className={styles.ufoImage}
                 />
 
-                <div className={styles.contentContainer}>
+                <div className={styles.joinUsContentContainer}>
                     <Typography
                         variant="h4"
                         component="h2"
@@ -40,6 +41,32 @@ const JoinUsSponsors = () => {
                         }}
                     >
                         Join Us Section
+                    </Typography>
+                </div>
+
+                <div className={styles.sponsorSectionContentContainer}>
+                    <Typography
+                        variant="h4"
+                        component="h2"
+                        sx={{
+                            color: "white",
+                            textAlign: "center",
+                            fontFamily: tsukimi.style.fontFamily,
+                            fontWeight: 700
+                        }}
+                    >
+                        SPONSORS
+                    </Typography>
+                    <Typography
+                        variant="h5"
+                        component="h2"
+                        sx={{
+                            color: "#ccc",
+                            textAlign: "center",
+                            fontFamily: "Montserrat"
+                        }}
+                    >
+                        To be announced soon!
                     </Typography>
                 </div>
 
