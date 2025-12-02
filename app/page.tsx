@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import styles from "./page.module.scss";
 import { Typography } from "@mui/material";
+import clsx from "clsx";
 
 const Home: React.FC = () => {
     const [email, setEmail] = useState("");
@@ -32,27 +33,37 @@ const Home: React.FC = () => {
             <div className={styles.interactiveOverlays}>
                 {/* Hero Section */}
                 <div className={styles.heroSection}>
-                    {/* <Image
-                        src="/design-reference/fight.svg"
-                        alt="Fight Background"
-                        fill
-                        className={styles.fightBackground}
-                        priority
-                    />
                     <Image
-                        src="/design-reference/stars.svg"
+                        src="/landing/hero/desktop/fight.svg"
                         alt="Stars Background"
                         fill
                         className={styles.starsBackground}
                         priority
                     />
                     <Image
-                        src="/design-reference/tiny stars.svg"
+                        src="/landing/hero/desktop/stars.svg"
                         alt="Tiny Stars Background"
                         fill
                         className={styles.tinyStarsBackground}
                         priority
-                    /> */}
+                    />
+                    <Image
+                        src="/landing/hero/mobile/fight.svg"
+                        alt="Stars Background"
+                        fill
+                        className={clsx(styles.starsBackground, styles.mobile)}
+                        priority
+                    />
+                    <Image
+                        src="/landing/hero/mobile/stars.svg"
+                        alt="Tiny Stars Background"
+                        fill
+                        className={clsx(
+                            styles.tinyStarsBackground,
+                            styles.mobile
+                        )}
+                        priority
+                    />
 
                     <div className={styles.heroSectionContent}>
                         <Image
