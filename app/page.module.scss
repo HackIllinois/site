@@ -1,49 +1,21 @@
 .main {
     width: 100vw;
-    height: auto; /* Remove fixed height constraint */
     min-height: 100vh;
     overflow-x: hidden;
-    overflow-y: auto;
-    position: relative;
     margin: 0;
     padding: 0;
-    border: none; /* Remove any border */
 }
 
-.backgroundContainer {
-    position: relative;
-    width: 100vw;
-    height: auto; /* Let SVG determine its own height */
-    z-index: 1;
-    margin: 0; /* Remove any margin */
-    padding: 0; /* Remove any padding */
-    border: none; /* Remove any border */
-}
-
-.backgroundLayout {
-    width: 100vw !important;
-    height: auto !important; /* Maintain aspect ratio */
-    object-fit: contain; /* Change back to contain to see full image */
-    object-position: top center;
-}
-
-.interactiveOverlays {
-    position: relative;
-    z-index: 10;
-    width: 100vw;
-    height: 8000px; /* Give extra space to ensure full scrolling */
-}
-
-// Hero Section
+// Hero Section - Hackastra
 .heroSection {
-    position: relative;
     width: 100%;
-    height: 700px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background: linear-gradient(to bottom, #16133e, #3a3069);
+    padding: 2rem;
 }
 
 .heroSection .heroSectionContent {
@@ -52,102 +24,53 @@
     align-items: center;
     justify-content: center;
     gap: 30px;
+    text-align: center;
 }
 
-.fightBackground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    opacity: 0.8;
-    z-index: 1;
-}
 
-.starsBackground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    opacity: 0.6;
-    z-index: 2;
-    @media (max-width: 768px) {
-        display: none;
-    }
-    &.mobile {
-        display: none;
-        @media (max-width: 768px) {
-            display: block;
-        }
-    }
-}
-
-.tinyStarsBackground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    opacity: 0.4;
-    z-index: 3;
-
-    @media (max-width: 768px) {
-        display: none;
-    }
-    &.mobile {
-        display: none;
-        @media (max-width: 768px) {
-            display: block;
-        }
-    }
-}
 
 .hackastraLogo {
     height: 100px;
     animation: fadeIn 1s ease-in;
     z-index: 3;
+    margin: 0 auto;
+    display: block;
 }
 
 .heroRegisterButton {
-    width: 280px;
-    height: 84px;
-    background: transparent;
-    border: none;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #6f4e92, #434c84);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: white;
+    font-family: inherit;
+    font-size: 1.5rem;
+    font-weight: 600;
     cursor: pointer;
     z-index: 10;
-    transition:
-        transform 0.3s ease,
-        filter 0.3s ease;
-
-    &:hover {
-        transform: translateX(-50%) scale(1.05);
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-    }
-}
-
-.registerButtonImage {
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin: 0 auto;
+    display: block;
 }
 
 // About Section
 .aboutSection {
     width: 100%;
+    min-height: 100vh;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     background: linear-gradient(to bottom, #3a3069, #6f4e92);
+    padding: 4rem 2rem;
 }
 
 .aboutSection .content {
     max-width: 800px;
     padding: 0 10px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .planetsBackground {
@@ -187,24 +110,15 @@
 // HackVoyagers Section
 .hackVoyagersSection {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(to bottom, #6f4e92, #6f4e92);
-    padding: 0 5%;
+    background: linear-gradient(to bottom, #6f4e92, #434c84);
+    padding: 4rem 5%;
 }
 
-.cloudsBackground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.3;
-    z-index: 1;
-}
+
 
 .robotContainer {
     flex: 1;
@@ -212,6 +126,7 @@
     justify-content: center;
     align-items: center;
     z-index: 3;
+    text-align: center;
 }
 
 .robotImage {
@@ -227,18 +142,23 @@
     align-items: center;
     gap: 2.5rem;
     z-index: 3;
+    text-align: center;
 }
 
 .introducingText {
     max-width: 80%;
     height: auto;
     animation: fadeIn 1s ease-in 1.5s both;
+    margin: 0 auto;
+    display: block;
 }
 
 .hackVoyagersText {
     max-width: 90%;
     height: auto;
     animation: fadeIn 1s ease-in 1.7s both;
+    margin: 0 auto;
+    display: block;
 }
 
 .learnMoreButton {
@@ -252,7 +172,8 @@
         transform 0.3s ease,
         filter 0.3s ease;
     animation: fadeIn 1s ease-in 1.9s both;
-    margin-top: 3rem;
+    margin: 3rem auto 0;
+    display: block;
 
     &:hover {
         transform: scale(1.05);
@@ -276,36 +197,70 @@
     z-index: 1;
 }
 
-.joinUsText {
-    position: absolute;
-    top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 30%;
-    height: auto;
-    animation: fadeIn 1s ease-in 2.1s both;
-    z-index: 2;
-}
+
 
 // Join Us Section
 .joinUsSection {
     width: 100%;
-    height: 80vh;
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(to bottom, #6f4e92, #434c84);
+    justify-content: center;
+    background: linear-gradient(to bottom, #434c84, #3a3069);
+    padding: 4rem 2rem;
 }
 
-.joinUsText {
-    position: absolute;
-    top: 10vh;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 40%;
-    height: auto;
-    animation: fadeIn 1s ease-in 1.6s both;
+.joinUsContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 }
+
+
+
+// Join Us Section
+.joinUsSection {
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #434c84, #3a3069);
+    padding: 4rem 2rem;
+}
+
+.joinUsContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+}
+
+// Sponsors Section
+.sponsorsSection {
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #3a3069, #16133e);
+    padding: 4rem 2rem;
+}
+
+.sponsorsContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+}
+
+
 
 .joinUsButton {
     position: absolute;
@@ -432,35 +387,96 @@
 
 // FAQ Section
 .faqSection {
-    position: absolute;
-    top: 678vh;
-    left: 0;
     width: 100%;
-    height: 100vh;
+    min-height: 60vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    z-index: 5;
+    justify-content: center;
+    background: linear-gradient(to bottom, #16133e, #0a0824);
+    padding: 4rem 2rem;
+}
+
+.faqContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
 }
 
 .faqText {
     max-width: 90%;
     height: auto;
     animation: fadeIn 1s ease-in 2.3s both;
+    margin: 0 auto;
+    display: block;
 }
 
-// Stay Up To Date Section
+// Footer - Stay Up To Date
 .stayUpToDateSection {
     width: 100%;
-    height: 80vh;
+    min-height: 60vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    z-index: 5;
+    justify-content: center;
+    background: linear-gradient(to bottom, #0a0824, #000000);
+    padding: 4rem 2rem;
+}
+
+.footerContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    text-align: center;
+}
+
+.subscribeForm {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.emailInput {
+    padding: 12px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-family: inherit;
+    font-size: 1rem;
+    width: 300px;
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    &:focus {
+        outline: none;
+        border-color: #6f4e92;
+        background: rgba(255, 255, 255, 0.15);
+    }
+}
+
+.subscribeButton {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #6f4e92, #434c84);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: white;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .stayUpToDateText {
     max-width: 90%;
     height: auto;
     animation: fadeIn 1s ease-in 2.5s both;
+    margin: 0 auto;
+    display: block;
 }
