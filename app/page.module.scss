@@ -36,18 +36,22 @@
 
 // Hero Section
 .heroSection {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background: linear-gradient(to bottom, #16133e, #3a3069);
 }
 
-
+.heroSection .heroSectionContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
 
 .fightBackground {
     position: absolute;
@@ -83,29 +87,22 @@
 }
 
 .hackastraLogo {
-    position: absolute;
-    top: 30vh;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 70%;
-    height: auto;
+    height: 100px;
     animation: fadeIn 1s ease-in;
     z-index: 3;
 }
 
 .heroRegisterButton {
-    position: absolute;
-    top: 46vh;
-    left: 50%;
-    transform: translateX(-50%);
     width: 280px;
     height: 84px;
     background: transparent;
     border: none;
     cursor: pointer;
     z-index: 10;
-    transition: transform 0.3s ease, filter 0.3s ease;
-    
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
+
     &:hover {
         transform: translateX(-50%) scale(1.05);
         filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
@@ -120,14 +117,17 @@
 
 // About Section
 .aboutSection {
-    position: absolute;
-    top: 120vh;
-    left: 0;
     width: 100%;
-    height: 100vh;
+    text-align: center;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    background: linear-gradient(to bottom, #3a3069, #6f4e92);
+}
+
+.aboutSection .content {
+    max-width: 800px;
+    padding: 0 10px;
 }
 
 .planetsBackground {
@@ -166,14 +166,12 @@
 
 // HackVoyagers Section
 .hackVoyagersSection {
-    position: absolute;
-    top: 250vh;
-    left: 0;
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: linear-gradient(to bottom, #6f4e92, #6f4e92);
     padding: 0 5%;
 }
 
@@ -230,10 +228,12 @@
     border: none;
     cursor: pointer;
     z-index: 10;
-    transition: transform 0.3s ease, filter 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
     animation: fadeIn 1s ease-in 1.9s both;
     margin-top: 3rem;
-    
+
     &:hover {
         transform: scale(1.05);
         filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
@@ -245,8 +245,6 @@
     width: 100%;
     height: 100%;
 }
-
-
 
 .sponsorsBackground {
     position: absolute;
@@ -271,14 +269,12 @@
 
 // Join Us Section
 .joinUsSection {
-    position: absolute;
-    top: 500vh;
-    left: 0;
     width: 100%;
     height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: linear-gradient(to bottom, #6f4e92, #434c84);
 }
 
 .joinUsText {
@@ -302,17 +298,15 @@
     border: none;
     cursor: pointer;
     z-index: 10;
-    transition: transform 0.3s ease, filter 0.3s ease;
-    
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
+
     &:hover {
         transform: translateX(-50%) scale(1.05);
         filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
     }
 }
-
-
-
-
 
 .footerText {
     position: absolute;
@@ -347,76 +341,70 @@
     }
 }
 
-
-
-
-
-
-
 // Responsive Design
 @media (max-width: 768px) {
     .hackastraLogo {
         max-width: 80%;
         top: 10vh;
     }
-    
+
     .heroRegisterButton {
         top: 30vh;
         width: 160px;
         height: 50px;
     }
-    
+
     .aboutText {
         max-width: 90%;
     }
-    
+
     .introducingText {
         max-width: 60%;
         top: 8vh;
     }
-    
+
     .hackVoyagersText {
         max-width: 80%;
         top: 18vh;
     }
-    
+
     .robotImage {
         max-width: 70%;
         top: 35vh;
     }
-    
+
     .learnMoreButton {
         top: 65vh;
         width: 140px;
         height: 45px;
     }
-    
+
     .joinUsText {
         max-width: 60%;
         top: 8vh;
     }
-    
+
     .joinUsButton {
         top: 20vh;
         width: 140px;
         height: 45px;
     }
-    
+
     .newsletterText {
         max-width: 70%;
         top: 30vh;
     }
-    
+
     .newsletterOverlay {
         top: 40vh;
         flex-direction: column;
         gap: 0.5rem;
     }
-    
+
     .emailInputOverlay {
         width: 200px;
     }
-    
+
     .footerText {
         max-width: 60%;
     }
@@ -443,9 +431,6 @@
 
 // Stay Up To Date Section
 .stayUpToDateSection {
-    position: absolute;
-    top: 810vh;
-    left: 0;
     width: 100%;
     height: 80vh;
     display: flex;

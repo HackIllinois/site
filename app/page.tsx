@@ -1,49 +1,38 @@
 "use client";
-import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import styles from "./page.module.scss";
+import { Typography } from "@mui/material";
 
 const Home: React.FC = () => {
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState("");
     const router = useRouter();
-    
+
     const handleRegisterClick = () => {
-        router.push('/register');
+        router.push("/register");
     };
-    
+
     const handleLearnMoreClick = () => {
-        router.push('/challenge');
+        router.push("/challenge");
     };
-    
+
     const handleSubscribe = (e: React.FormEvent) => {
         e.preventDefault();
         if (email) {
-            console.log('Subscribing email:', email);
-            alert('Thank you for subscribing to HackVoyagers newsletter!');
-            setEmail('');
+            console.log("Subscribing email:", email);
+            alert("Thank you for subscribing to HackVoyagers newsletter!");
+            setEmail("");
         }
     };
 
     return (
         <main className={styles.main}>
-            {/* Full Page Background */}
-            <div className={styles.backgroundContainer}>
-                <Image
-                    src="/design-reference/entirebg.svg"
-                    alt="HackVoyagers Page"
-                    fill
-                    className={styles.backgroundLayout}
-                    priority
-                />
-            </div>
-
             {/* Interactive Overlays - Position absolutely over background */}
             <div className={styles.interactiveOverlays}>
-                
                 {/* Hero Section */}
                 <div className={styles.heroSection}>
-                    <Image
+                    {/* <Image
                         src="/design-reference/fight.svg"
                         alt="Fight Background"
                         fill
@@ -63,33 +52,37 @@ const Home: React.FC = () => {
                         fill
                         className={styles.tinyStarsBackground}
                         priority
-                    />
-                    <Image
-                        src="/design-reference/hackastra.svg"
-                        alt="Hackastra"
-                        width={850}
-                        height={267}
-                        className={styles.hackastraLogo}
-                        priority
-                    />
-                    <button 
-                        className={styles.heroRegisterButton}
-                        onClick={handleRegisterClick}
-                        aria-label="Register Now"
-                    >
+                    /> */}
+
+                    <div className={styles.heroSectionContent}>
                         <Image
-                            src="/design-reference/register button.svg"
-                            alt="Register Button"
-                            width={300}
-                            height={84}
-                            className={styles.registerButtonImage}
+                            src="/design-reference/hackastra.svg"
+                            alt="Hackastra"
+                            width={850}
+                            height={267}
+                            className={styles.hackastraLogo}
+                            priority
                         />
-                    </button>
+                        [Button goes here]
+                        {/* <button 
+                            className={styles.heroRegisterButton}
+                            onClick={handleRegisterClick}
+                            aria-label="Register Now"
+                        >
+                            <Image
+                                src="/design-reference/register button.svg"
+                                alt="Register Button"
+                                width={300}
+                                height={84}
+                                className={styles.registerButtonImage}
+                            />
+                        </button> */}
+                    </div>
                 </div>
 
                 {/* About Section */}
                 <div className={styles.aboutSection}>
-                    <Image
+                    {/* <Image
                         src="/design-reference/planets.svg"
                         alt="Planets Background"
                         fill
@@ -102,14 +95,48 @@ const Home: React.FC = () => {
                         fill
                         className={styles.aboutTinyStarsBackground}
                         priority
-                    />
-                    <Image
+                    /> */}
+                    <div className={styles.content}>
+                        <Typography
+                            variant="h2"
+                            component="h1"
+                            sx={{
+                                mt: 8,
+                                mb: 4
+                            }}
+                        >
+                            ABOUT THE EVENT
+                        </Typography>
+
+                        <Typography
+                            component="p"
+                            sx={{
+                                mt: 8,
+                                mb: 4
+                            }}
+                        >
+                            {`HackIllinois is University of Illinois at Urbana-Champaign's premier collegiate hackathon. Join us in-person from February 27th to March 1st at the Siebel Center for Computer Science!
+
+                            Participants can work individually or in teams to submit projects to a specific track for a chance to win prizes. Whether you're a beginner or an experienced hacker, HackIllinois offers workshops, mentorship, and an inclusive environment for everyone to learn and create.`}
+                        </Typography>
+                        <Typography
+                            component="p"
+                            sx={{
+                                mt: 8,
+                                mb: 4
+                            }}
+                        >
+                            LAUNCH YOUR LEGACY!
+                        </Typography>
+                    </div>
+
+                    {/* <Image
                         src="/design-reference/text.svg"
                         alt="About HackVoyagers"
                         width={1000}
                         height={500}
                         className={styles.aboutText}
-                    />
+                    /> */}
                 </div>
 
                 {/* HackVoyagers Section */}
@@ -145,7 +172,7 @@ const Home: React.FC = () => {
                             height={150}
                             className={styles.hackVoyagersText}
                         />
-                        <button 
+                        <button
                             className={styles.learnMoreButton}
                             onClick={handleLearnMoreClick}
                             aria-label="Learn More"
@@ -161,11 +188,18 @@ const Home: React.FC = () => {
                     </div>
                 </div>
 
-
-
                 {/* Join Us Section */}
                 <div className={styles.joinUsSection}>
-                    <button 
+                    <Typography
+                        component="p"
+                        sx={{
+                            mt: 8,
+                            mb: 4
+                        }}
+                    >
+                        [Join us section]
+                    </Typography>
+                    <button
                         className={styles.joinUsButton}
                         onClick={handleRegisterClick}
                         aria-label="Join Us"
@@ -193,7 +227,6 @@ const Home: React.FC = () => {
                         className={styles.stayUpToDateText}
                     />
                 </div>
-
             </div>
         </main>
     );
