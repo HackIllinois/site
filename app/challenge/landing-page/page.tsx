@@ -72,12 +72,6 @@ const ProChallenge: React.FC = () => {
                                     md: "3vw",
                                     xl: "50px"
                                 },
-                                //                                 fontSize: {
-                                //   xs: "17px",
-                                //   sm: "24px",
-                                //   md: "43px",
-                                //   lg: "50px"
-                                // },
                                 fontWeight: 500
                             }}
                         >
@@ -91,12 +85,6 @@ const ProChallenge: React.FC = () => {
                                     md: "3.5vw",
                                     xl: "58px"
                                 },
-                                //                                 fontSize: {
-                                //   xs: "24px",
-                                //   sm: "32px",
-                                //   md: "50px",
-                                //   lg: "58px"
-                                // },
                                 fontWeight: 700,
                                 fontFamily: "Tsukimi Rounded",
                                 color: "white"
