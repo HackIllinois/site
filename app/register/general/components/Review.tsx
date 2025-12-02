@@ -173,49 +173,28 @@ export const UserInfoBox: React.FC<UserInfoProps> = ({
     return (
         <StyledUserInfoBox>
             <Typography
-                sx={theme => ({
-                    fontWeight: 700,
-                    fontSize: "15px",
+                variant="h3"
+                sx={{
                     color: "text.primary",
-                    fontFamily: "'Montserrat', sans-serif",
-                    [theme.breakpoints.down("sm")]: {
-                        fontSize: "13px"
-                    }
-                })}
+                    fontWeight: 600
+                }}
             >
                 {label}
             </Typography>
             <Typography
-                sx={theme => ({
-                    fontWeight: 400,
-                    fontSize: "15px",
-                    fontFamily: "'Montserrat', sans-serif",
+                variant="h3"
+                sx={{
                     color: "text.secondary",
                     wordWrap: "break-word",
                     overflowWrap: "anywhere",
-                    whiteSpace: "normal",
-                    [theme.breakpoints.down("sm")]: {
-                        fontSize: "13px"
-                    }
-                })}
+                    whiteSpace: "normal"
+                }}
             >
                 {userResponse}
             </Typography>
         </StyledUserInfoBox>
     );
 };
-
-export const AckTextStyle = (theme: Theme) => ({
-    color: "#fff",
-    fontFamily: "Montserrat, sans-serif",
-    fontSize: "24px",
-    fontWeight: 600,
-    paddingLeft: "18px",
-    [theme.breakpoints.down("sm")]: {
-        fontSize: "18px",
-        paddingLeft: "13px"
-    }
-});
 
 export const AckLinkStyle = {
     color: "#ADED4A",

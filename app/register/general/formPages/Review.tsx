@@ -15,7 +15,6 @@ import {
     AckErrorStyle,
     AckLinkStyle,
     AckOptionLabelStyle,
-    AckTextStyle,
     ReviewContainer,
     ReviewInfoAccordionBox,
     StyledAccordion,
