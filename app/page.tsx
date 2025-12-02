@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import styles from "./page.module.scss";
 import { Typography } from "@mui/material";
 import clsx from "clsx";
+import JoinUsSponsors from "./landing/JoinUsSponsors";
 
 const Home: React.FC = () => {
     const [email, setEmail] = useState("");
@@ -269,27 +270,8 @@ const Home: React.FC = () => {
                 </div>
             </section>
 
-            {/* Sponsors Section */}
-            <section className={styles.sponsorsSection}>
-                <div className={styles.sponsorsContent}>
-                    <Image
-                        src="/design-reference/SPONSORS.svg"
-                        alt="Sponsors"
-                        width={800}
-                        height={200}
-                        className={styles.sponsorsText}
-                    />
-                    <Typography
-                        component="p"
-                        sx={{
-                            mt: 4,
-                            mb: 8
-                        }}
-                    >
-                        [Sponsors will be displayed here]
-                    </Typography>
-                </div>
-            </section>
+              {/* Join Us Section */}
+              <JoinUsSponsors />
 
             {/* FAQ Section */}
             <section className={styles.faqSection}>
