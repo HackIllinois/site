@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Box, Typography, Button, TextField, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styles from "./page.module.scss";
 
 const Home: React.FC = () => {
@@ -112,34 +110,13 @@ const Home: React.FC = () => {
                         className={styles.aboutTinyStarsBackground}
                         priority
                     />
-                    <Box className={styles.aboutTextContainer}>
-                        <Typography 
-                            variant="h3" 
-                            className={styles.aboutText}
-                            sx={{
-                                color: 'white',
-                                textAlign: 'center',
-                                fontWeight: 'bold',
-                                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '3rem' }
-                            }}
-                        >
-                            About HackVoyagers
-                        </Typography>
-                        <Typography 
-                            variant="body1" 
-                            className={styles.aboutSubtext}
-                            sx={{
-                                color: 'white',
-                                textAlign: 'center',
-                                mt: 2,
-                                fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem', lg: '1.2rem' }
-                            }}
-                        >
-                            Join us for an exciting journey into the world of hacking and innovation. 
-                            HackVoyagers brings together the brightest minds to solve challenges, 
-                            learn new skills, and build amazing projects.
-                        </Typography>
-                    </Box>
+                    <Image
+                        src="/design-reference/text.svg"
+                        alt="About HackVoyagers"
+                        width={1000}
+                        height={500}
+                        className={styles.aboutText}
+                    />
                 </div>
 
                 {/* HackVoyagers Section */}
@@ -204,145 +181,24 @@ const Home: React.FC = () => {
 
                 {/* FAQ Section */}
                 <div className={styles.faqSection}>
-                    <Typography 
-                        variant="h2" 
-                        className={styles.faqTitle}
-                        sx={{
-                            color: 'white',
-                            textAlign: 'center',
-                            fontWeight: 'bold',
-                            mb: 4,
-                            fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem', lg: '3.5rem' }
-                        }}
-                    >
-                        Frequently Asked Questions
-                    </Typography>
-                    
-                    <Box className={styles.faqContainer}>
-                        <Accordion className={styles.faqItem}>
-                            <AccordionSummary 
-                                expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
-                                sx={{ 
-                                    backgroundColor: 'rgba(255,255,255,0.1)',
-                                    color: 'white',
-                                    '&:hover': { backgroundColor: 'rgba(255,255,255,0.2)' }
-                                }}
-                            >
-                                <Typography variant="h6">What is HackVoyagers?</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails sx={{ backgroundColor: 'rgba(0,0,0,0.3)', color: 'white' }}>
-                                <Typography>
-                                    HackVoyagers is a hackathon event that brings together students and professionals 
-                                    to innovate, learn, and create amazing projects over a weekend of coding and collaboration.
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion>
-
-                        <Accordion className={styles.faqItem}>
-                            <AccordionSummary 
-                                expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
-                                sx={{ 
-                                    backgroundColor: 'rgba(255,255,255,0.1)',
-                                    color: 'white',
-                                    '&:hover': { backgroundColor: 'rgba(255,255,255,0.2)' }
-                                }}
-                            >
-                                <Typography variant="h6">Who can participate?</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails sx={{ backgroundColor: 'rgba(0,0,0,0.3)', color: 'white' }}>
-                                <Typography>
-                                    Anyone with a passion for technology and innovation! Whether you're a beginner 
-                                    or an experienced developer, designer, or idea generator, you're welcome to join.
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion>
-
-                        <Accordion className={styles.faqItem}>
-                            <AccordionSummary 
-                                expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
-                                sx={{ 
-                                    backgroundColor: 'rgba(255,255,255,0.1)',
-                                    color: 'white',
-                                    '&:hover': { backgroundColor: 'rgba(255,255,255,0.2)' }
-                                }}
-                            >
-                                <Typography variant="h6">What should I bring?</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails sx={{ backgroundColor: 'rgba(0,0,0,0.3)', color: 'white' }}>
-                                <Typography>
-                                    Bring your laptop, charger, and enthusiasm! We'll provide the workspace, 
-                                    food, drinks, and mentorship to help you succeed.
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion>
-                    </Box>
+                    <Image
+                        src="/design-reference/FAQ (1).svg"
+                        alt="FAQ"
+                        width={1100}
+                        height={275}
+                        className={styles.faqText}
+                    />
                 </div>
 
                 {/* Stay Up To Date Section */}
                 <div className={styles.stayUpToDateSection}>
-                    <Typography 
-                        variant="h2" 
-                        className={styles.stayUpToDateTitle}
-                        sx={{
-                            color: 'white',
-                            textAlign: 'center',
-                            fontWeight: 'bold',
-                            mb: 3,
-                            fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem', lg: '3.5rem' }
-                        }}
-                    >
-                        Stay Up To Date
-                    </Typography>
-                    
-                    <Box 
-                        component="form" 
-                        className={styles.newsletterForm}
-                        onSubmit={handleSubscribe}
-                        sx={{
-                            display: 'flex',
-                            flexDirection: { xs: 'column', sm: 'row' },
-                            gap: 2,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            maxWidth: '500px',
-                            mx: 'auto'
-                        }}
-                    >
-                        <TextField
-                            variant="outlined"
-                            placeholder="Enter your email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            sx={{
-                                flex: 1,
-                                width: { xs: '100%', sm: 'auto' },
-                                '& .MuiOutlinedInput-root': {
-                                    backgroundColor: 'rgba(255,255,255,0.9)',
-                                    borderRadius: '50px',
-                                    '& fieldset': { border: 'none' },
-                                    '&:hover fieldset': { border: 'none' },
-                                    '&.Mui-focused fieldset': { border: 'none' },
-                                }
-                            }}
-                        />
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            sx={{
-                                borderRadius: '50px',
-                                px: 4,
-                                py: 2,
-                                background: 'linear-gradient(45deg, #ff9dcc, #d0fdc9)',
-                                color: 'black',
-                                fontWeight: 'bold',
-                                '&:hover': {
-                                    background: 'linear-gradient(45deg, #ff7acc, #b0fcb9)',
-                                }
-                            }}
-                        >
-                            Subscribe
-                        </Button>
-                    </Box>
+                    <Image
+                        src="/design-reference/STAY UP TO DATE.svg"
+                        alt="Stay Up To Date"
+                        width={1200}
+                        height={250}
+                        className={styles.stayUpToDateText}
+                    />
                 </div>
 
             </div>
