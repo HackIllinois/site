@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import styles from "./JoinUsSponsors.module.scss";
+import Image from "next/image";
 
 const alienAssets = [
     "/landing/sponsors/aliens/alien1.svg",
@@ -13,9 +14,13 @@ const alienAssets = [
 const JoinUsSponsors = () => {
     return (
         <div className={styles.joinUsSection}>
-            <Typography component="p" sx={{ mt: 8, mb: 4 }}>
-                [Join us/sponsors section]
-            </Typography>
+            <Image
+                src="/landing/sponsors/background.png"
+                alt="Sponsors Background"
+                fill
+                className={styles.background}
+                priority
+            />
 
             <div className={styles.ufoContainer}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -24,6 +29,19 @@ const JoinUsSponsors = () => {
                     alt="UFO"
                     className={styles.ufoImage}
                 />
+
+                <div className={styles.contentContainer}>
+                    <Typography
+                        variant="h4"
+                        component="h2"
+                        sx={{
+                            color: "black",
+                            textAlign: "center"
+                        }}
+                    >
+                        Join Us Section
+                    </Typography>
+                </div>
 
                 <div className={styles.aliensContainer}>
                     {alienAssets.map((src, index) => (
