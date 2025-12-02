@@ -257,7 +257,7 @@ const GeneralRegistration = () => {
             setShowClickOffAlert(false);
             setIsLoadingComponent(true);
 
-            if (formik.values.optInNewsletter) {
+            if (formik.values.optInHackNewsletter) {
                 try {
                     if (!formik.values.email) {
                         return; // This should not happen; email is a required field.
