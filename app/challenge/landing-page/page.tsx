@@ -67,7 +67,17 @@ const ProChallenge: React.FC = () => {
                         <Typography
                             sx={{
                                 color: "white",
-                                fontSize: { xs: "4.5vw", md: "3vw" },
+                                fontSize: {
+                                    xs: "4.5vw",
+                                    md: "3vw",
+                                    xl: "50px"
+                                },
+                                //                                 fontSize: {
+                                //   xs: "17px",
+                                //   sm: "24px",
+                                //   md: "43px",
+                                //   lg: "50px"
+                                // },
                                 fontWeight: 500
                             }}
                         >
@@ -76,13 +86,23 @@ const ProChallenge: React.FC = () => {
 
                         <Typography
                             sx={{
-                                fontSize: { xs: "6vw", md: "3.5vw" },
+                                fontSize: {
+                                    xs: "6vw",
+                                    md: "3.5vw",
+                                    xl: "58px"
+                                },
+                                //                                 fontSize: {
+                                //   xs: "24px",
+                                //   sm: "32px",
+                                //   md: "50px",
+                                //   lg: "58px"
+                                // },
                                 fontWeight: 700,
                                 fontFamily: "Tsukimi Rounded",
                                 color: "white"
                             }}
                         >
-                            HACK{" "}
+                            HACK
                             <Box
                                 component="span"
                                 sx={{
@@ -105,7 +125,7 @@ const ProChallenge: React.FC = () => {
                             left: "50%",
                             top: { xs: "23%", md: "20%" },
                             transform: "translateX(-50%)",
-                            width: { xs: "120vw", md: "85vw" },
+                            width: { xs: "122vw", md: "85vw" },
                             aspectRatio: "1018.479 / 728.271",
                             backgroundImage: `url("/challenge/landing_page/panel.svg")`,
                             backgroundSize: "cover",
@@ -122,11 +142,15 @@ const ProChallenge: React.FC = () => {
                     >
                         <Typography
                             sx={{
-                                fontSize: { xs: "5vw", md: "3vw" },
+                                fontSize: {
+                                    xs: "5.2vw",
+                                    md: "3vw",
+                                    xl: "50px"
+                                },
                                 fontWeight: 700,
                                 fontFamily: "Tsukimi Rounded",
                                 color: "white",
-                                mb: { xs: 2, md: 6 },
+                                mb: { xs: 1, md: 6 },
                                 transform: "rotate(1.457deg)"
                             }}
                         >
@@ -135,11 +159,15 @@ const ProChallenge: React.FC = () => {
 
                         <Typography
                             sx={{
-                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                fontSize: {
+                                    xs: "3.3vw",
+                                    md: "1.4vw",
+                                    xl: "24px"
+                                },
                                 lineHeight: 1.45,
                                 color: "white",
                                 opacity: 0.88,
-                                mb: { xs: 2, md: 3 },
+                                mb: { xs: 1, md: 3 },
                                 transform: "rotate(1.457deg)"
                             }}
                         >
@@ -151,11 +179,15 @@ const ProChallenge: React.FC = () => {
 
                         <Typography
                             sx={{
-                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                fontSize: {
+                                    xs: "3.3vw",
+                                    md: "1.4vw",
+                                    xl: "24px"
+                                },
                                 lineHeight: 1.45,
                                 color: "white",
                                 opacity: 0.88,
-                                mb: { xs: 2, md: 3 },
+                                mb: { xs: 1, md: 3 },
                                 transform: "rotate(1.457deg)"
                             }}
                         >
@@ -167,7 +199,11 @@ const ProChallenge: React.FC = () => {
 
                         <Typography
                             sx={{
-                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                fontSize: {
+                                    xs: "3.3vw",
+                                    md: "1.4vw",
+                                    xl: "24px"
+                                },
                                 lineHeight: 1.45,
                                 color: "white",
                                 opacity: 0.88,
@@ -201,11 +237,15 @@ const ProChallenge: React.FC = () => {
                     >
                         <Typography
                             sx={{
-                                fontSize: { xs: "5vw", md: "3vw" },
+                                fontSize: {
+                                    xs: "5.2vw",
+                                    md: "3vw",
+                                    xl: "50px"
+                                },
                                 fontWeight: 700,
                                 fontFamily: "Tsukimi Rounded",
                                 color: "white",
-                                mb: { xs: 2, md: 6 }
+                                mb: { xs: 1, md: 6 }
                             }}
                         >
                             WHAT ARE THE BENEFITS OF BEING A HACKVOYAGER?
@@ -213,11 +253,15 @@ const ProChallenge: React.FC = () => {
 
                         <Typography
                             sx={{
-                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                fontSize: {
+                                    xs: "3.3vw",
+                                    md: "1.4vw",
+                                    xl: "24px"
+                                },
                                 lineHeight: 1.45,
                                 color: "white",
                                 opacity: 0.88,
-                                mb: { xs: 2, md: 3 }
+                                mb: { xs: 1, md: 3 }
                             }}
                         >
                             Attendees in this path have the exclusive
@@ -227,11 +271,14 @@ const ProChallenge: React.FC = () => {
 
                         <Typography
                             sx={{
-                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                fontSize: {
+                                    xs: "3.3vw",
+                                    md: "1.4vw",
+                                    xl: "24px"
+                                },
                                 lineHeight: 1.45,
                                 color: "white",
-                                opacity: 0.88,
-                                mb: { xs: 2, md: 3 }
+                                opacity: 0.88
                             }}
                         >
                             Additionally, they will gain access to special
@@ -264,11 +311,15 @@ const ProChallenge: React.FC = () => {
                     >
                         <Typography
                             sx={{
-                                fontSize: { xs: "5vw", md: "3vw" },
+                                fontSize: {
+                                    xs: "5.2vw",
+                                    md: "3vw",
+                                    xl: "50px"
+                                },
                                 fontWeight: 700,
                                 fontFamily: "Tsukimi Rounded",
                                 color: "white",
-                                mb: { xs: 2, md: 6 }
+                                mb: { xs: 1, md: 6 }
                             }}
                         >
                             HOW DO I BECOME A HACKVOYAGER?
@@ -276,11 +327,15 @@ const ProChallenge: React.FC = () => {
 
                         <Typography
                             sx={{
-                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                fontSize: {
+                                    xs: "3.3vw",
+                                    md: "1.4vw",
+                                    xl: "24px"
+                                },
                                 lineHeight: 1.45,
                                 color: "white",
                                 opacity: 0.88,
-                                mb: { xs: 2, md: 3 }
+                                mb: { xs: 1, md: 3 }
                             }}
                         >
                             Admission into HackVoyagers requires completing a
@@ -289,11 +344,14 @@ const ProChallenge: React.FC = () => {
 
                         <Typography
                             sx={{
-                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                fontSize: {
+                                    xs: "3.3vw",
+                                    md: "1.4vw",
+                                    xl: "24px"
+                                },
                                 lineHeight: 1.45,
                                 color: "white",
-                                opacity: 0.88,
-                                mb: { xs: 2, md: 3 }
+                                opacity: 0.88
                             }}
                         >
                             Note: You MUST complete the challenge before
@@ -310,7 +368,7 @@ const ProChallenge: React.FC = () => {
                         sx={{
                             position: "absolute",
                             left: { xs: "50%", md: "38%" },
-                            top: { xs: "72%", md: "66%" },
+                            top: { xs: "71%", md: "66%" },
                             transform: "translateX(-50%)",
                             width: "85vw",
 
@@ -324,7 +382,11 @@ const ProChallenge: React.FC = () => {
                     >
                         <Typography
                             sx={{
-                                fontSize: { xs: "5vw", md: "3vw" },
+                                fontSize: {
+                                    xs: "5.2vw",
+                                    md: "3vw",
+                                    xl: "50px"
+                                },
                                 fontWeight: 700,
                                 fontFamily: "Tsukimi Rounded",
                                 color: "white",
@@ -337,11 +399,15 @@ const ProChallenge: React.FC = () => {
 
                         <Typography
                             sx={{
-                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                fontSize: {
+                                    xs: "3.3vw",
+                                    md: "1.4vw",
+                                    xl: "24px"
+                                },
                                 lineHeight: 1.45,
                                 color: "white",
                                 opacity: 0.88,
-                                mb: { xs: 2, md: 3 }
+                                mb: { xs: 1, md: 3 }
                             }}
                         >
                             HackIllinois is a historically welcoming space for
@@ -355,11 +421,15 @@ const ProChallenge: React.FC = () => {
 
                         <Typography
                             sx={{
-                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                fontSize: {
+                                    xs: "3.3vw",
+                                    md: "1.4vw",
+                                    xl: "24px"
+                                },
                                 lineHeight: 1.45,
                                 color: "white",
                                 opacity: 0.88,
-                                mb: { xs: 2, md: 3 }
+                                mb: { xs: 1, md: 3 }
                             }}
                         >
                             All attendees from both paths will enjoy access to
@@ -373,7 +443,11 @@ const ProChallenge: React.FC = () => {
 
                         <Typography
                             sx={{
-                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                fontSize: {
+                                    xs: "3.3vw",
+                                    md: "1.4vw",
+                                    xl: "24px"
+                                },
                                 lineHeight: 1.45,
                                 color: "white",
                                 opacity: 0.88,
@@ -386,11 +460,14 @@ const ProChallenge: React.FC = () => {
 
                         <Typography
                             sx={{
-                                fontSize: { xs: "3vw", md: "1.4vw" },
+                                fontSize: {
+                                    xs: "3.3vw",
+                                    md: "1.4vw",
+                                    xl: "24px"
+                                },
                                 lineHeight: 1.45,
                                 color: "white",
                                 opacity: 0.88,
-                                mb: { xs: 2, md: 3 },
                                 fontStyle: "italic"
                             }}
                         >
