@@ -35,13 +35,34 @@ const JoinUsSponsors = () => {
                     <Typography
                         variant="h4"
                         component="h2"
-                        sx={{
-                            color: "black",
-                            textAlign: "center"
-                        }}
+                        className={styles.joinUsHeading}
                     >
-                        Join Us Section
+                        JOIN US
                     </Typography>
+                    <Typography
+                        variant="h5"
+                        component="h3"
+                        className={styles.newsletterSubheader}
+                    >
+                        NEWSLETTER SIGN UP
+                    </Typography>
+                    <Typography
+                        variant="body1"
+                        component="p"
+                        className={styles.joinUsDescription}
+                    >
+                        Follow us on Instagram (@HackIllinois) or subscribe to our newsletter to be notified of our event updates! There will be regular content and posts.
+                    </Typography>
+                    <div className={styles.emailSubscription}>
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            className={styles.emailInput}
+                        />
+                        <button className={styles.subscribeButton}>
+                            SUBSCRIBE
+                        </button>
+                    </div>
                 </div>
 
                 <div className={styles.sponsorSectionContentContainer}>
