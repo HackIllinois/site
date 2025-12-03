@@ -1,58 +1,36 @@
 .navbar {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
     z-index: 1100;
     margin: 0;
-    padding: 20px 30px;
+    max-height: 80px;
+    padding: 10px 25px;
+    padding-right: 10px;
+    padding-top: 0;
     color: white;
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
     // border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    background-color: rgba(30, 30, 30, 0.3);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(58, 48, 105, 0) 100%
+    );
     transition:
         background-color 0.2s ease,
         box-shadow 0.2s ease;
-
-    @media screen and (max-width: 960px) {
-        display: none;
-    }
-
-    // img {
-    //     object-fit: contain;
-
-    //     width: 228px;
-    //     height: 75px;
-
-    //     @media screen and (max-width: 1440px) {
-    //         width: 182.4px;
-    //         height: 60px;
-    //     }
-    //     @media screen and (max-width: 960px) {
-    //         width: 152px;
-    //         height: 50px;
-    //     }
-    //     @media screen and (max-width: 640px) {
-    //         width: 121.6px;
-    //         height: 40px;
-    //     }
-    // }
-
-    @media screen and (max-width: 1152px) {
-    }
-    @media screen and (max-width: 960px) {
-        padding: 12px 32px;
-    }
-    @media screen and (max-width: 640px) {
-        padding: 10px 20px;
-    }
 }
 
 .logo {
     height: 40px;
+    margin-top: 25px;
+}
+
+.mlhBanner {
+    width: 80px;
+    margin-left: 20px;
 }
 
 .navbar.dark {
@@ -63,8 +41,10 @@
     display: flex;
     align-items: center;
     list-style: none;
+    margin-top: 25px;
     font-weight: 500;
     font-size: 20px;
+    margin-left: auto;
     gap: 40px;
     @media screen and (max-width: 960px) {
         display: none;
@@ -93,8 +73,9 @@
 .mobile {
     display: none;
     align-items: center;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
     z-index: 1100;
 
