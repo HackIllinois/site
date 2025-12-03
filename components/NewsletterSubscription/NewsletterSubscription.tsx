@@ -22,6 +22,13 @@ export const NewsletterSubscription = () => {
             return;
         }
 
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+            setSnackbarSeverity("error");
+            setSnackbarMessage("Please enter a valid email address.");
+            setSnackbarOpen(true);
+            return;
+        }
+
         await subscribe("hackillinois2026_interest", trimmed);
 
         setSnackbarSeverity("success");
@@ -43,7 +50,7 @@ export const NewsletterSubscription = () => {
         <>
             <Box
                 sx={{
-                    p: { xs: "2px", sm: "4px" },
+                    p: { xs: "2px", sm: "4px", zIndex: 999 },
                     borderRadius: "40px",
                     background:
                         "linear-gradient(90deg, #A315D6, #FDAB60, #A315D6)",
@@ -63,6 +70,7 @@ export const NewsletterSubscription = () => {
                 >
                     <TextField
                         value={email}
+                        type="email"
                         onChange={e => setEmail(e.target.value)}
                         placeholder="Enter your email"
                         variant="standard"
@@ -119,7 +127,10 @@ export const NewsletterSubscription = () => {
                 open={snackbarOpen}
                 autoHideDuration={3000}
                 onClose={handleSnackbarClose}
-                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                sx={{
+                    zIndex: 999
+                }}
             >
                 <Alert
                     onClose={handleSnackbarClose}
