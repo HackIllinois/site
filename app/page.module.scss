@@ -20,6 +20,25 @@
     z-index: 1;
 }
 
+.mobileBackgroundLayout {
+    width: 100vw !important;
+    height: auto !important;
+    object-fit: contain;
+    object-position: top center;
+    display: none; /* Hidden by default, shown on mobile */
+    
+    @media (max-width: 768px) {
+        display: block;
+    }
+}
+
+.interactiveOverlays {
+    position: relative;
+    z-index: 10;
+    width: 100vw;
+    height: 8000px; /* Give extra space to ensure full scrolling */
+}
+
 // Hero Section - Hackastra
 .heroSection {
     width: 100%;
@@ -52,7 +71,7 @@
     object-fit: cover;
     object-position: center;
     opacity: 0.8;
-    z-index: 1;
+    z-index: 1; /* Below navbar (z-index: 6) */
 }
 
 .starsBackground {
@@ -647,7 +666,7 @@
 @media (max-width: 768px) {
     .hackastraLogo {
         max-width: 80%;
-        top: 10vh;
+        top: 15vh;
     }
 
     .heroRegisterButton {
@@ -663,6 +682,7 @@
 
     .aboutText {
         max-width: 90%;
+        padding: 0 1rem;
     }
 
     .introducingText {
