@@ -451,24 +451,6 @@ export default function ChallengeDescription() {
                 >
                     <Button
                         variant="text"
-                        href=""
-                        sx={{
-                            color: "rgba(255, 255, 255, 0.7)",
-                            fontSize: { xs: ".8rem", sm: "1.2rem" },
-                            textTransform: "none",
-                            "&:hover": {
-                                color: "white",
-                                border: "3px solid white"
-                            },
-                            fontFamily: "Tsukimi Rounded",
-                            border: "3px solid rgba(255,255,255,0.7)",
-                            borderRadius: "999px"
-                        }}
-                    >
-                        {"<"} PREV (no link)
-                    </Button>
-                    <Button
-                        variant="text"
                         href="/challenge/result/success"
                         sx={{
                             color: "rgba(255, 255, 255, 0.7)",
