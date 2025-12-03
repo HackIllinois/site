@@ -1,51 +1,58 @@
 .navbar {
-    position: absolute;
+    position: sticky;
     top: 0;
-    z-index: 99;
-    margin: 48px 0px;
-    padding: 0px 64px;
+    z-index: 1100;
+    margin: 0;
+    padding: 20px 30px;
     color: white;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    // border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(30, 30, 30, 0.3);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
 
     @media screen and (max-width: 960px) {
         display: none;
     }
 
-    img {
-        object-fit: contain;
+    // img {
+    //     object-fit: contain;
 
-        width: 228px;
-        height: 75px;
+    //     width: 228px;
+    //     height: 75px;
 
-        @media screen and (max-width: 1440px) {
-            width: 182.4px;
-            height: 60px;
-        }
-        @media screen and (max-width: 960px) {
-            width: 152px;
-            height: 50px;
-        }
-        @media screen and (max-width: 640px) {
-            width: 121.6px;
-            height: 40px;
-        }
-    }
+    //     @media screen and (max-width: 1440px) {
+    //         width: 182.4px;
+    //         height: 60px;
+    //     }
+    //     @media screen and (max-width: 960px) {
+    //         width: 152px;
+    //         height: 50px;
+    //     }
+    //     @media screen and (max-width: 640px) {
+    //         width: 121.6px;
+    //         height: 40px;
+    //     }
+    // }
 
     @media screen and (max-width: 1152px) {
     }
     @media screen and (max-width: 960px) {
-        padding: 32px 42.66px;
+        padding: 12px 32px;
     }
     @media screen and (max-width: 640px) {
-        padding: 24px 32px;
+        padding: 10px 20px;
     }
 }
 
 .logo {
-    height: 50px;
+    height: 40px;
 }
 
 .navbar.dark {
@@ -85,16 +92,26 @@
 
 .mobile {
     display: none;
-    margin: auto;
     align-items: center;
-    position: absolute;
-    width: 100vw;
-    z-index: 99;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1100;
 
     @media screen and (max-width: 960px) {
         display: flex;
         flex-direction: column;
     }
+}
+
+.mobileTop {
+    background: linear-gradient(
+        180deg,
+        rgba(22, 19, 62, 0.85) 0%,
+        rgba(58, 48, 105, 0.6) 60%
+    );
+    width: 100%;
+    backdrop-filter: blur(6px);
 }
 
 .mobileTop {

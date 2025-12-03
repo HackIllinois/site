@@ -2,13 +2,12 @@
 
 import Logo from "@/public/logo.svg";
 import LogoDark from "@/public/logo_dark.svg";
-import Image from "next/image";
 import styles from "./Navbar.module.scss";
 // import CloudMenu from "@/public/cloud-menu.svg";
 import clsx from "clsx";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 
 type NavbarItem = {
     title: string;

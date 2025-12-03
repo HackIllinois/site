@@ -105,8 +105,7 @@ const JoinUsSponsors = () => {
 
                 <div className={styles.sponsorSectionContentContainer}>
                     <Typography
-                        variant="h4"
-                        component="h2"
+                        variant="h2"
                         sx={{
                             color: "white",
                             textAlign: "center",

@@ -1,0 +1,149 @@
+.faqContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    width: 100%;
+
+    @media screen and (max-width: 768px) {
+        padding: 0 10px;
+    }
+
+    @media screen and (max-width: 400px) {
+        padding: 0 10px;
+    }
+}
+
+.faqArrow {
+    background: none;
+    border: none;
+    font-size: 36px;
+    cursor: pointer;
+    color: white;
+
+    @media screen and (max-width: 768px) {
+        font-size: 18px;
+    }
+}
+
+.faqArrowLeft {
+    color: white;
+}
+
+.faqArrowRight {
+    color: white;
+}
+
+.faqArrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.faqContent {
+    display: grid;
+    gap: 3rem;
+    padding: 0 10px;
+    flex: 1;
+
+    @media screen and (max-width: 1152px) {
+        gap: 1rem;
+    }
+
+    @media screen and (max-width: 768px) {
+        gap: 7px;
+    }
+}
+
+.faqItem {
+    color: white;
+
+    h3 {
+        font-size: 42px;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: white;
+    }
+
+    p {
+        font-size: 21px;
+        color: white;
+        line-height: 1.6;
+    }
+
+    strong {
+        color: white;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+
+    a:link {
+        color: #ff9d5c;
+    }
+
+    a:visited {
+        color: #ff9d5c;
+    }
+
+    @media screen and (max-width: 1650px) {
+        h3 {
+            font-size: 36px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+    }
+
+    @media screen and (max-width: 1450px) {
+        h3 {
+            font-size: 30px;
+        }
+
+        p {
+            font-size: 17px;
+        }
+    }
+
+    @media screen and (max-width: 1152px) {
+        h3 {
+            font-size: 28px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        h3 {
+            font-size: 18px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+        h3 {
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+    }
+
+    @media screen and (max-width: 370px) {
+        h3 {
+            font-size: 14px;
+        }
+
+        p {
+            font-size: 12px;
+        }
+    }
+}

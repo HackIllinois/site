@@ -1,113 +1,120 @@
 "use client";
-import clsx from "clsx";
-import React, { useEffect, useState } from "react";
+
+import { useState } from "react";
+import {
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Typography,
+    Box
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styles from "./FAQ.module.scss";
 
-const faqData = [
+const faqItems = [
     {
-        question: <strong>Who is eligible to attend?</strong>,
-        answer: (
-            <p>
-                HackIllinois is open to all current college students and recent
-                graduates (within 1 year of graduation). You don&apos;t need any
-                prior coding experience - we welcome students of all skill
-                levels! Whether you&apos;re a beginner or an experienced hacker,
-                there&apos;s a place for you at HackIllinois.
-            </p>
-        )
+        question: "Who is eligible to attend?",
+        answer: "HackIllinois is open to all current college students and recent graduates (within 1 year of graduation). You don't need any prior coding experience - we welcome students of all skill levels! Whether you're a beginner or an experienced hacker, there's a place for you at HackIllinois."
     },
     {
-        question: <strong>How can I get help during the event?</strong>,
-        answer: (
-            <p>
-                We&apos;ll have mentors available throughout the entire
-                hackathon to help you with your projects! You can also attend
-                our workshops and tech talks to learn new skills. Our staff and
-                sponsors will be on-site to answer questions and provide
-                guidance. Additionally, we&apos;ll have a dedicated help desk
-                and online support channels to ensure you get the assistance you
-                need.
-            </p>
-        )
+        question: "How can I get help during the event?",
+        answer: "We'll have mentors available throughout the entire hackathon to help you with your projects! You can also attend our workshops and tech talks to learn new skills. Our staff and sponsors will be on-site to answer questions and provide guidance. Additionally, we'll have a dedicated help desk and online support channels to ensure you get the assistance you need."
     },
     {
-        question: <strong>Where is HackIllinois located?</strong>,
-        answer: (
-            <p>
-                HackIllinois 2025 will be held at the Siebel Center for Computer
-                Science at the University of Illinois Urbana-Champaign. The
-                address is 201 N Goodwin Ave, Urbana, IL 61801. The event will
-                take place from February 28th to March 2nd. We&apos;ll provide
-                more detailed location and parking information closer to the
-                event date.
-            </p>
-        )
+        question: "Where is HackIllinois located?",
+        answer: "HackIllinois 2026 will be held at the Siebel Center for Computer Science at the University of Illinois Urbana-Champaign. The address is 201 N Goodwin Ave, Urbana, IL 61801. The event will take place from February 27th to March 1st. We'll provide more detailed location and parking information closer to the event date."
     }
 ];
 
-const FAQ: React.FC = () => {
-    const [currentPage, setCurrentPage] = useState(0);
-    const [windowWidth, setWindowWidth] = useState(0);
+export const FAQ = () => {
+    const [expanded, setExpanded] = useState<number | false>(0);
 
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth);
+    const handleChange =
+        (panelIndex: number) =>
+        (_event: React.SyntheticEvent, isExpanded: boolean) => {
+            setExpanded(isExpanded ? panelIndex : false);
         };
-
-        handleResize();
-
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    });
-
-    const faqsPerPage = windowWidth < 1350 ? 3 : faqData.length;
-    const totalPages = Math.ceil(faqData.length / faqsPerPage);
-    const showArrows = totalPages > 1;
-
-    const navigatePage = (direction: number) => {
-        setCurrentPage(prevPage =>
-            Math.max(0, Math.min(totalPages - 1, prevPage + direction))
-        );
-    };
-
-    const currentFAQs = faqData.slice(
-        currentPage * faqsPerPage,
-        (currentPage + 1) * faqsPerPage
-    );
 
     return (
-        <div className={styles.faqContainer}>
-            {showArrows && (
-                <button
-                    className={clsx(styles.faqArrow, styles.faqArrowLeft)}
-                    onClick={() => navigatePage(-1)}
-                    disabled={currentPage === 0}
-                >
-                    &#x25C0;
-                </button>
-            )}
-            <div className={styles.faqContent}>
-                {currentFAQs.map((faq, index) => (
-                    <div className={styles.faqItem} key={index}>
-                        <h3>{faq.question}</h3>
-                        {faq.answer}
-                    </div>
-                ))}
-            </div>
-            {showArrows && (
-                <button
-                    className={clsx(styles.faqArrow, styles.faqArrowRight)}
-                    onClick={() => navigatePage(1)}
-                    disabled={currentPage === totalPages - 1}
-                >
-                    &#x25B6;
-                </button>
-            )}
+        <div className={styles.faqItems}>
+            {faqItems.map((item, index) => (
+                <Box key={item.question} sx={{ mb: 2 }}>
+                    <Accordion
+                        expanded={expanded === index}
+                        onChange={handleChange(index)}
+                        disableGutters
+                        elevation={0}
+                        square={false}
+                        sx={{
+                            background:
+                                "linear-gradient(135deg, rgba(163, 112, 170, 0.7) 0%, rgba(151, 132, 203, 0.7) 100%)",
+                            backdropFilter: "blur(10px)",
+                            borderRadius: "32px !important",
+                            border: "3px solid #3F2B75",
+                            color: "white",
+                            overflow: "hidden",
+                            "&:before": {
+                                display: "none"
+                            },
+                            "&.Mui-expanded": {
+                                margin: 0
+                            }
+                        }}
+                    >
+                        <AccordionSummary
+                            expandIcon={
+                                <ExpandMoreIcon
+                                    sx={{ color: "white", fontSize: "2rem" }}
+                                />
+                            }
+                            sx={{
+                                minHeight: 80,
+                                px: 4,
+                                "& .MuiAccordionSummary-content": {
+                                    margin: 0
+                                }
+                            }}
+                        >
+                            <Typography
+                                component="span"
+                                sx={{
+                                    fontFamily: "Tsukimi Rounded",
+                                    fontWeight: 700,
+                                    fontSize: "1.25rem",
+                                    textAlign: "left"
+                                }}
+                            >
+                                {item.question}
+                            </Typography>
+                        </AccordionSummary>
+
+                        {item.answer && (
+                            <AccordionDetails
+                                sx={{
+                                    px: 4,
+                                    pb: 4,
+                                    pt: 0,
+                                    textAlign: "left"
+                                }}
+                            >
+                                <Typography
+                                    variant="body1"
+                                    component="p"
+                                    sx={{
+                                        fontFamily: "Montserrat",
+                                        fontSize: { xs: "0.9rem", md: "1rem" },
+                                        lineHeight: 1.6,
+                                        textAlign: "left",
+                                        mb: 2
+                                    }}
+                                >
+                                    {item.answer}
+                                </Typography>
+                            </AccordionDetails>
+                        )}
+                    </Accordion>
+                </Box>
+            ))}
         </div>
     );
 };
-
-export default FAQ;
