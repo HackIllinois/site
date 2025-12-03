@@ -2,6 +2,7 @@
 
 import GithubAuthPage from "@/app/register/general/formPages/GithubAuthPage";
 import NotProTrackPage from "@/app/register/general/formPages/NotProTrackPage";
+import { GradientButton } from "@/components/GradientButton/GradientButton";
 import Loading from "@/components/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import useWindowSize from "@/hooks/use-window-size";
@@ -155,49 +156,10 @@ export default function ChallengeResult() {
                         Your registration is now complete. Click Continue to
                         view your confirmation.
                     </Typography>
-                    <Link
-                        prefetch={false}
-                        href="/register/general#confirmation"
-                    >
-                        <Box
-                            sx={{
-                                p: "6px",
-                                borderRadius: "40px",
-                                background:
-                                    "linear-gradient(90deg, #A315D6, #FDAB60, #A315D6)",
-                                display: "inline-block"
-                            }}
-                        >
-                            <Button
-                                variant="contained"
-                                sx={{
-                                    backgroundImage:
-                                        "linear-gradient(120deg, #401A79 0%, #401A79 30%, #653089 30%, #653089 53%, #401A79 53%, #401A79 100%)",
-                                    backgroundSize: "150% 100%",
-                                    backgroundPosition: "50% 0%",
-                                    color: "white",
-                                    fontWeight: 800,
-                                    fontSize: {
-                                        xs: "16px",
-                                        sm: "15px",
-                                        md: "20px"
-                                    },
-                                    textTransform: "none",
-                                    px: { xs: 4, sm: 6 },
-                                    py: 1.5,
-                                    borderRadius: "40px",
-                                    fontFamily: "Tsukimi Rounded",
-                                    border: "none",
-                                    transition: "background-position 0.5s ease",
-                                    "&:hover": {
-                                        backgroundPosition: "-20% 0%"
-                                    }
-                                }}
-                            >
-                                CONTINUE
-                            </Button>
-                        </Box>
-                    </Link>
+                    <GradientButton
+                        text="CONTINUE"
+                        link="/register/general#confirmation"
+                    />
                 </Container>
             </Box>
 

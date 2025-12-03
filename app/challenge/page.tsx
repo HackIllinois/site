@@ -7,6 +7,7 @@ import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
 import GithubAuthPage from "../register/general/formPages/GithubAuthPage";
 import NotProTrackPage from "../register/general/formPages/NotProTrackPage";
+import { GradientButton } from "@/components/GradientButton/GradientButton";
 
 const ProChallenge: React.FC = () => {
     const registrationAuth = useRegistrationAuth(true);
@@ -125,42 +126,7 @@ const ProChallenge: React.FC = () => {
                 </Typography>
 
                 {/* Begin button */}
-                <Link prefetch={false} href="/challenge/description">
-                    <Box
-                        sx={{
-                            p: "6px",
-                            borderRadius: "40px",
-                            background:
-                                "linear-gradient(90deg, #A315D6, #FDAB60, #A315D6)",
-                            display: "inline-block"
-                        }}
-                    >
-                        <Button
-                            variant="contained"
-                            sx={{
-                                backgroundImage:
-                                    "linear-gradient(120deg, #401A79 0%, #401A79 30%, #653089 30%, #653089 53%, #401A79 53%, #401A79 100%)",
-                                backgroundSize: "150% 100%",
-                                backgroundPosition: "50% 0%",
-                                color: "white",
-                                fontWeight: 800,
-                                fontSize: { xs: "18px", sm: "20px" },
-                                textTransform: "none",
-                                px: { xs: 4, sm: 6 },
-                                py: 1.5,
-                                borderRadius: "40px",
-                                fontFamily: "Tsukimi Rounded",
-                                border: "none",
-                                transition: "background-position 0.5s ease",
-                                "&:hover": {
-                                    backgroundPosition: "-20% 0%"
-                                }
-                            }}
-                        >
-                            BEGIN
-                        </Button>
-                    </Box>
-                </Link>
+                <GradientButton text="BEGIN" link="/challenge/description" />
             </Box>
         </main>
     );
