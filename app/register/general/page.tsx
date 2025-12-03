@@ -324,6 +324,7 @@ const GeneralRegistration = () => {
         (e as any).returnValue = "";
     };
     useEffect(() => {
+        if (!registrationAuth.authenticated) return;
         if (!showClickOffAlert) {
             window.removeEventListener("beforeunload", handleBeforeUnload);
             return;
@@ -331,7 +332,7 @@ const GeneralRegistration = () => {
         window.addEventListener("beforeunload", handleBeforeUnload);
         return () =>
             window.removeEventListener("beforeunload", handleBeforeUnload);
-    }, [showClickOffAlert]);
+    }, [showClickOffAlert, registrationAuth.authenticated]);
 
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 

@@ -88,16 +88,13 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
         parts.seconds
     ].map(v => (v < 10 ? `0${v}` : `${v}`));
 
-    const unitLabels = ["days", "hours", "minutes", "seconds"];
-    const unitShort = ["d", "h", "m", "s"]; // optional, if you prefer shorter
-
     return (
         <Box
             sx={{
                 position: "fixed",
                 right: 24,
                 bottom: 24,
-                zIndex: theme => theme.zIndex.snackbar + 1,
+                zIndex: 90,
                 display: "flex",
                 alignItems: "center",
                 gap: 1,
