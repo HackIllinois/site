@@ -30,7 +30,7 @@
     height: 40px;
     margin-top: 25px;
     @media screen and (max-width: 960px) {
-        margin-top: 0px;
+        margin-top: 20px;
         margin-left: 20px;
     }
 }
@@ -38,6 +38,11 @@
 .mlhBanner {
     width: 80px;
     margin-left: 20px;
+
+    @media screen and (max-width: 960px) {
+        width: 50px;
+        margin-right: 20px;
+    }
 }
 
 .navbar.dark {
@@ -104,8 +109,6 @@
 .mobileTop {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
     width: 100%;
     position: relative;
 
@@ -118,11 +121,15 @@
     width: 60px;
     height: 45px;
     position: relative;
-    margin: 35px 25px;
     transform: rotate(0deg) scale(0.7);
     transition: 0.5s ease-in-out;
     z-index: 1001;
+    margin-left: auto;
     cursor: pointer;
+
+    @media (max-width: 961px) {
+        margin-top: 20px;
+    }
 
     span {
         display: block;

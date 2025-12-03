@@ -123,6 +123,19 @@ const Navbar = () => {
                         <span></span>
                         <span></span>
                     </div>
+
+                    <Link
+                        href="https://mlh.io/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img
+                            className={styles.mlhBanner}
+                            alt="MLH Banner"
+                            style={{ cursor: "pointer" }}
+                            src={MLH.src}
+                        />
+                    </Link>
                 </div>
                 <div
                     className={clsx(
