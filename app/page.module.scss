@@ -142,6 +142,7 @@
     }
     &.mobile {
         display: none;
+        opacity: 1;
         @media (max-width: 768px) {
             display: block;
         }
@@ -232,6 +233,9 @@
     text-align: center;
     position: relative;
     z-index: 10;
+    @media (max-width: 768px) {
+        padding: 20px 0px;
+    }
 }
 
 .planetsBackground {
@@ -244,6 +248,17 @@
     object-position: center bottom;
     opacity: 0.7;
     z-index: 1;
+    @media (max-width: 768px) {
+        display: none;
+    }
+    &.mobile {
+        display: none;
+        object-fit: contain;
+        object-position: center top;
+        @media (max-width: 768px) {
+            display: block;
+        }
+    }
 }
 
 .aboutTinyStarsBackground {
@@ -345,12 +360,25 @@
     max-width: 1500px;
 }
 
+@keyframes floatUpDown {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
 .robotImage {
     max-width: 80%;
     height: auto;
     animation:
         slideInLeft 1.5s ease-out both,
-        glow 2s ease-in-out infinite alternate;
+        glow 2s ease-in-out infinite alternate,
+        floatUpDown 3s ease-in-out infinite;
     filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
     transition: transform 0.3s ease;
 
@@ -749,8 +777,13 @@
 // Responsive Design
 @media (max-width: 768px) {
     .hackastraLogo {
+        height: 80px;
         max-width: 80%;
         top: 15vh;
+    }
+
+    .heroSection {
+        height: 600px;
     }
 
     .heroRegisterButton {
@@ -938,20 +971,6 @@
     }
 }
 
-// FAQ Section
-.faqSection {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #ff6b6b, #ff8e53, #ff6b9d);
-    padding: 4rem 2rem;
-    position: relative;
-    overflow: hidden;
-}
-
 // Red Stars
 .redStars {
     position: absolute;
@@ -1046,7 +1065,8 @@
     margin: 0 auto;
     position: relative;
     z-index: 10;
-    height: 50vh;
+    height: 70vh;
+    min-height: 600px;
 }
 
 .faqHeading {
@@ -1290,19 +1310,38 @@
     }
 }
 
-// Frame 368 Background
-.frame368Background {
+.faqBackground {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: center top;
     z-index: 1;
+    @media (max-width: 768px) {
+        display: none;
+    }
+    &.mobile {
+        -webkit-mask-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 1) 90%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        mask-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 1) 90%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        display: none;
+        object-fit: contain;
+        object-position: center top;
+        @media (max-width: 768px) {
+            display: block;
+        }
+    }
 }
 
-// FAQ Section with Frame 368
 .faqSection {
     width: 100%;
     min-height: 100vh;
@@ -1314,6 +1353,7 @@
     padding: 4rem 2rem;
     position: relative;
     overflow: hidden;
+    background-color: #32145a;
 }
 
 .faqContent {
@@ -1324,6 +1364,7 @@
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
+    margin-top: 10rem;
     position: relative;
     z-index: 10;
 }

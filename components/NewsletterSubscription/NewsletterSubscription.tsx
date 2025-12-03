@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Box, Button, Snackbar, TextField, Alert } from "@mui/material";
+import { subscribe } from "@/util/api";
 
 export const NewsletterSubscription = () => {
     const [email, setEmail] = useState("");
@@ -21,7 +22,7 @@ export const NewsletterSubscription = () => {
             return;
         }
 
-        // Hook up your real subscription logic here
+        await subscribe("hackillinois2026_interest", trimmed);
 
         setSnackbarSeverity("success");
         setSnackbarMessage(
@@ -42,13 +43,13 @@ export const NewsletterSubscription = () => {
         <>
             <Box
                 sx={{
-                    p: "4px",
+                    p: { xs: "2px", sm: "4px" },
                     borderRadius: "40px",
                     background:
                         "linear-gradient(90deg, #A315D6, #FDAB60, #A315D6)",
                     display: "inline-block",
                     width: "100%",
-                    maxWidth: 520
+                    maxWidth: { xs: 360, sm: 520 } // smaller on mobile
                 }}
             >
                 <Box
@@ -69,11 +70,11 @@ export const NewsletterSubscription = () => {
                         InputProps={{
                             disableUnderline: true,
                             sx: {
-                                px: { xs: 2.5, sm: 3 },
-                                py: 1,
+                                px: { xs: 1.75, sm: 3 },
+                                py: { xs: 0.5, sm: 1 },
                                 "& .MuiInputBase-input": {
                                     fontFamily: "Montserrat",
-                                    fontSize: "16px",
+                                    fontSize: { xs: "14px", sm: "16px" },
                                     color: "#555555",
                                     "&::placeholder": {
                                         color: "#B0B0B0",
@@ -89,10 +90,10 @@ export const NewsletterSubscription = () => {
                         disableElevation
                         sx={{
                             borderRadius: "40px",
-                            px: 8,
-                            minWidth: 140,
+                            px: { xs: 4, sm: 8 },
+                            minWidth: { xs: 110, sm: 140 },
                             fontWeight: 800,
-                            fontSize: "16px",
+                            fontSize: { xs: "14px", sm: "16px" },
                             fontFamily: "Tsukimi Rounded",
                             textTransform: "uppercase",
                             color: "white",

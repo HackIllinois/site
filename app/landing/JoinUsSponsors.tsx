@@ -4,6 +4,7 @@ import Image from "next/image";
 import { tsukimi } from "@/theme/fonts";
 import NewsletterSubscription from "@/components/NewsletterSubscription/NewsletterSubscription";
 import { GradientButtonInstagram } from "@/components/GradientButton/GradientButtonInstagram";
+import clsx from "clsx";
 
 const alienAssets = [
     "/landing/sponsors/aliens/alien1.svg",
@@ -28,15 +29,20 @@ const JoinUsSponsors = () => {
             <div className={styles.ufoContainer}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                    src="/landing/sponsors/ufo.svg"
+                    src="/landing/sponsors/desktop/ufo.svg"
                     alt="UFO"
                     className={styles.ufoImage}
                 />
 
+                <img
+                    src="/landing/sponsors/desktop/ufo.svg"
+                    alt="UFO"
+                    className={clsx(styles.ufoImage, styles.mobile)}
+                />
+
                 <div className={styles.joinUsContentContainer}>
                     <Typography
-                        variant="h4"
-                        component="h2"
+                        variant="h2"
                         sx={{
                             fontFamily: "Tsukimi Rounded",
                             fontWeight: 600,
@@ -54,7 +60,11 @@ const JoinUsSponsors = () => {
                             color: "#3F2B75",
                             textAlign: "center",
                             maxWidth: "700px",
-                            margin: "20px auto"
+                            margin: "20px auto",
+                            fontSize: {
+                                xs: "14px",
+                                md: "20px"
+                            }
                         }}
                     >
                         Follow us on{" "}
@@ -80,17 +90,30 @@ const JoinUsSponsors = () => {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            gap: "30px"
+                            gap: "30px",
+                            zIndex: 95
                         }}
                     >
-                        <GradientButtonInstagram />
+                        <Box
+                            sx={{
+                                display: {
+                                    xs: "none",
+                                    md: "block"
+                                }
+                            }}
+                        >
+                            <GradientButtonInstagram />
+                        </Box>
                         <Box>
                             <Typography
                                 variant="body2"
                                 component="p"
                                 sx={{
                                     fontFamily: "Tsukimi Rounded",
-                                    fontSize: "20px",
+                                    fontSize: {
+                                        xs: "14px",
+                                        md: "20px"
+                                    },
                                     color: "#3F2B75",
                                     fontWeight: 600,
                                     mb: 1
@@ -110,7 +133,11 @@ const JoinUsSponsors = () => {
                             color: "white",
                             textAlign: "center",
                             fontFamily: tsukimi.style.fontFamily,
-                            fontWeight: 700
+                            fontWeight: 700,
+                            mt: {
+                                xs: "20px",
+                                md: 0
+                            }
                         }}
                     >
                         SPONSORS

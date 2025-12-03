@@ -23,6 +23,7 @@
     flex-direction: column;
     align-items: center;
     position: relative;
+    width: 95%;
     max-width: 1500px;
     z-index: 2;
 }
@@ -30,6 +31,20 @@
 .ufoImage {
     width: 100%;
     height: auto;
+    @media (max-width: 900px) {
+        display: none;
+    }
+    &.mobile {
+        display: none;
+        @media (max-width: 900px) {
+            display: block;
+            width: 170%;
+            margin-top: 1rem;
+        }
+        @media (max-width: 400px) {
+            width: 200%;
+        }
+    }
 }
 
 .joinUsContentContainer {
@@ -42,6 +57,16 @@
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    @media (max-width: 900px) {
+        top: 15%;
+        height: auto;
+    }
+    @media (max-width: 600px) {
+        top: 8%;
+    }
+    @media (max-width: 400px) {
+        top: 10%;
+    }
 }
 
 .joinUsHeading {
@@ -208,7 +233,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     z-index: 1;
     // Make the background bottom align with the actual bottom
     object-position: center bottom;
@@ -224,4 +249,8 @@
         rgba(0, 0, 0, 0) 0%,
         rgba(0, 0, 0, 1) 10%
     );
+
+    @media (min-width: 900px) {
+        object-fit: cover;
+    }
 }
