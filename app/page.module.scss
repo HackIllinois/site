@@ -9,17 +9,14 @@
 
 // Section overlap and meshing effects
 .heroSection {
-    margin-bottom: -5vh;
     z-index: 3;
 }
 
 .aboutSection {
-    margin-bottom: -5vh;
     z-index: 2;
 }
 
 .hackVoyagersSection {
-    margin-bottom: -5vh;
     z-index: 1;
 }
 
@@ -93,8 +90,6 @@
     z-index: 10;
 }
 
-
-
 .hackastraLogo {
     height: 140px;
     animation: fadeIn 1s ease-in;
@@ -109,7 +104,7 @@
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 8px;
     color: white;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 1.8rem;
     font-weight: 600;
     cursor: pointer;
@@ -244,8 +239,6 @@
     z-index: 2;
 }
 
-
-
 .robotContainer {
     flex: 1;
     display: flex;
@@ -259,7 +252,9 @@
 .robotImage {
     max-width: 80%;
     height: auto;
-    animation: slideInLeft 1.5s ease-out both, glow 2s ease-in-out infinite alternate;
+    animation:
+        slideInLeft 1.5s ease-out both,
+        glow 2s ease-in-out infinite alternate;
     filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
     transition: transform 0.3s ease;
 
@@ -274,18 +269,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2.5rem;
+    gap: 1rem;
     z-index: 10;
     text-align: center;
     position: relative;
 }
 
 .introducingText {
-    max-width: 80%;
-    height: auto;
     animation: fadeIn 1s ease-in 1.5s both;
-    margin: 0 auto;
     display: block;
+    font-size: 55px;
+    font-weight: 400;
+    @media (max-width: 768px) {
+        font-size: 32px;
+    }
 }
 
 .hackVoyagersText {
@@ -309,7 +306,7 @@
     animation: fadeIn 1s ease-in 1.9s both;
     margin: 3rem auto 0;
     display: block;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
 
     &:hover {
         transform: scale(1.05);
@@ -333,8 +330,6 @@
     z-index: 1;
 }
 
-
-
 // Join Us Section
 .joinUsSection {
     width: 100%;
@@ -353,8 +348,6 @@
     align-items: center;
     gap: 2rem;
 }
-
-
 
 // Join Us Section
 .joinUsSection {
@@ -389,7 +382,8 @@
     transform: translateX(-50%);
     width: 200px;
     height: 120%;
-    background: linear-gradient(to bottom, 
+    background: linear-gradient(
+        to bottom,
         rgba(255, 255, 255, 0.3) 0%,
         rgba(255, 255, 255, 0.1) 50%,
         rgba(255, 255, 255, 0.05) 100%
@@ -406,7 +400,7 @@
     left: 10%;
     width: 60px;
     height: 60px;
-    background: linear-gradient(45deg, #833AB4, #E1306C, #F77737);
+    background: linear-gradient(45deg, #833ab4, #e1306c, #f77737);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -465,7 +459,7 @@
     border-radius: 50px;
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 1rem;
     width: 300px;
     backdrop-filter: blur(10px);
@@ -487,7 +481,7 @@
     border: none;
     border-radius: 50px;
     color: white;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -520,8 +514,9 @@
     box-shadow: 0 8px 25px rgba(74, 222, 128, 0.4);
     position: relative;
 
-    &::before, &::after {
-        content: '';
+    &::before,
+    &::after {
+        content: "";
         position: absolute;
         width: 8px;
         height: 8px;
@@ -564,8 +559,6 @@
     gap: 2rem;
     text-align: center;
 }
-
-
 
 .joinUsButton {
     position: absolute;
@@ -622,7 +615,8 @@
 }
 
 @keyframes float {
-    0%, 100% {
+    0%,
+    100% {
         transform: translateY(0px) rotate(35deg);
     }
     50% {
@@ -631,7 +625,8 @@
 }
 
 @keyframes bounce {
-    0%, 100% {
+    0%,
+    100% {
         transform: translateY(0px);
     }
     50% {
@@ -868,7 +863,9 @@
     z-index: 1;
 }
 
-.redStar1, .redStar2, .redStar3 {
+.redStar1,
+.redStar2,
+.redStar3 {
     position: absolute;
     width: 0;
     height: 0;
@@ -906,7 +903,9 @@
     z-index: 2;
 }
 
-.alien1, .alien2, .alien3 {
+.alien1,
+.alien2,
+.alien3 {
     position: absolute;
     width: 40px;
     height: 40px;
@@ -1021,7 +1020,7 @@
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 25px;
     color: white;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1041,10 +1040,29 @@
     height: 80px;
     background: linear-gradient(to top, #1a1a1a, transparent);
     clip-path: polygon(
-        0 100%, 0 60%, 5% 40%, 10% 50%, 15% 30%, 20% 45%, 25% 35%, 
-        30% 55%, 35% 40%, 40% 50%, 45% 30%, 50% 45%, 55% 35%, 
-        60% 50%, 65% 40%, 70% 55%, 75% 45%, 80% 50%, 85% 40%, 
-        90% 45%, 95% 35%, 100% 50%, 100% 100%
+        0 100%,
+        0 60%,
+        5% 40%,
+        10% 50%,
+        15% 30%,
+        20% 45%,
+        25% 35%,
+        30% 55%,
+        35% 40%,
+        40% 50%,
+        45% 30%,
+        50% 45%,
+        55% 35%,
+        60% 50%,
+        65% 40%,
+        70% 55%,
+        75% 45%,
+        80% 50%,
+        85% 40%,
+        90% 45%,
+        95% 35%,
+        100% 50%,
+        100% 100%
     );
     z-index: 3;
 }
@@ -1137,7 +1155,7 @@
     border-radius: 50px;
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 1rem;
     width: 300px;
     backdrop-filter: blur(10px);
@@ -1159,7 +1177,7 @@
     border: none;
     border-radius: 50px;
     color: white;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -1171,8 +1189,6 @@
         box-shadow: 0 12px 35px rgba(111, 78, 146, 0.6);
     }
 }
-
-
 
 // Frame 368 Background
 .frame368Background {
@@ -1220,7 +1236,7 @@
     letter-spacing: 0.2em;
     margin: 0;
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 .faqItems {
@@ -1246,7 +1262,7 @@
     background: transparent;
     border: none;
     color: white;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 1.2rem;
     font-weight: 600;
     text-align: left;
@@ -1287,7 +1303,7 @@
     color: rgba(255, 255, 255, 0.95);
     line-height: 1.6;
     margin: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 1rem;
 }
 
@@ -1326,9 +1342,23 @@
     height: 100px;
     background: linear-gradient(to top, #000000, transparent);
     clip-path: polygon(
-        0 100%, 0 70%, 8% 50%, 15% 60%, 22% 40%, 30% 55%, 38% 35%, 
-        45% 50%, 52% 30%, 60% 45%, 68% 25%, 75% 40%, 82% 35%, 
-        90% 45%, 95% 30%, 100% 40%, 100% 100%
+        0 100%,
+        0 70%,
+        8% 50%,
+        15% 60%,
+        22% 40%,
+        30% 55%,
+        38% 35%,
+        45% 50%,
+        52% 30%,
+        60% 45%,
+        68% 25%,
+        75% 40%,
+        82% 35%,
+        90% 45%,
+        95% 30%,
+        100% 40%,
+        100% 100%
     );
     z-index: 5;
 }
