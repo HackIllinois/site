@@ -20,6 +20,25 @@
     z-index: 1;
 }
 
+.heroBackgrounds {
+    position: absolute;
+    inset: 0;
+    pointer-events: none; // background only
+    z-index: 0;
+
+    /* Fade out at the bottom */
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
 .mobileBackgroundLayout {
     width: 100vw !important;
     height: auto !important;
@@ -39,27 +58,24 @@
     height: 8000px; /* Give extra space to ensure full scrolling */
 }
 
-// Hero Section - Hackastra
+// Hero Section
 .heroSection {
+    position: relative;
     width: 100%;
-    min-height: 100vh;
+    height: 900px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background: linear-gradient(to bottom, #16133e, #3a3069);
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
 }
 
-.heroBackgrounds {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+.heroSection .heroSectionContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
 }
 
 .fightBackground {
@@ -69,11 +85,9 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
     opacity: 0.8;
-    z-index: 1; /* Below navbar (z-index: 6) */
+    z-index: 1;
 }
-
 .starsBackground {
     position: absolute;
     top: 0;
@@ -81,9 +95,36 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
     opacity: 0.6;
     z-index: 2;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+
+    &.mobile {
+        display: none;
+        @media (max-width: 768px) {
+            display: block;
+        }
+    }
+
+    // Fade out at top and bottom, solid in the middle
+}
+
+@keyframes tinyStarsGlow {
+    0% {
+        opacity: 0.2;
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
+    }
+    50% {
+        opacity: 0.4;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+    }
+    100% {
+        opacity: 0.2;
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
+    }
 }
 
 .tinyStarsBackground {
@@ -92,10 +133,20 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center;
+    object-fit: contain;
     opacity: 0.4;
     z-index: 3;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+    &.mobile {
+        display: none;
+        @media (max-width: 768px) {
+            display: block;
+        }
+    }
+    animation: tinyStarsGlow 8s ease-in-out infinite;
 }
 
 .heroSection .heroSectionContent {
@@ -154,18 +205,24 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-}
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        // fully transparent at top
+        rgba(0, 0, 0, 1) 10%,
+        // fade in
+        rgba(0, 0, 0, 1) 90%,
+        // solid through most of the middle
+        rgba(0, 0, 0, 0) 100% // fade out at bottom
+    );
 
-.planetsBackground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    opacity: 0.7;
-    z-index: 1;
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
 }
 
 .aboutSection .content {
@@ -217,7 +274,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(to bottom, #6f4e92, #434c84);
+    background: linear-gradient(to bottom, #6f4e92, #7e5ea7);
     padding: 4rem 5%;
     position: relative;
     overflow: hidden;
@@ -230,6 +287,25 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        // fully transparent at top
+        rgba(0, 0, 0, 1) 10%,
+        // fade in
+        rgba(0, 0, 0, 1) 90%,
+        // solid through most of the middle
+        rgba(0, 0, 0, 0) 100% // fade out at bottom
+    );
+
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
 }
 
 .cloudsBackground {

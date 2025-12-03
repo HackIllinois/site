@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styles from "./FAQ.module.scss";
-import FAQ from "@/components/FAQ/FAQ";
+import FAQ from "@/components/FAQ/FAQ2025";
 import Image from "next/image";
 
 const FAQSection: FC = () => {

@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import JoinUsSponsors from "./landing/JoinUsSponsors";
 import styles from "./page.module.scss";
 import { SocialIconsRow } from "@/components/GradientButton/GradientSocialButton";
+import clsx from "clsx";
 
 const Home: React.FC = () => {
     const [email, setEmail] = useState("");
@@ -28,24 +29,34 @@ const Home: React.FC = () => {
                 {/* Background Elements */}
                 <div className={styles.heroBackgrounds}>
                     <Image
-                        src="/design-reference/fight.svg"
-                        alt="Fight Background"
-                        fill
-                        className={styles.fightBackground}
-                        priority
-                    />
-                    <Image
-                        src="/design-reference/stars.svg"
+                        src="/landing/hero/desktop/fight.svg"
                         alt="Stars Background"
                         fill
                         className={styles.starsBackground}
                         priority
                     />
                     <Image
-                        src="/design-reference/tiny stars.svg"
-                        alt="Tiny Stars"
+                        src="/landing/hero/desktop/stars.svg"
+                        alt="Tiny Stars Background"
                         fill
                         className={styles.tinyStarsBackground}
+                        priority
+                    />
+                    <Image
+                        src="/landing/hero/mobile/fight.svg"
+                        alt="Stars Background"
+                        fill
+                        className={clsx(styles.starsBackground, styles.mobile)}
+                        priority
+                    />
+                    <Image
+                        src="/landing/hero/mobile/stars.svg"
+                        alt="Tiny Stars Background"
+                        fill
+                        className={clsx(
+                            styles.tinyStarsBackground,
+                            styles.mobile
+                        )}
                         priority
                     />
                 </div>
@@ -196,9 +207,8 @@ const Home: React.FC = () => {
 
             {/* FAQ Section */}
             <section className={styles.faqSection}>
-                {/* Frame 368 Background */}
                 <Image
-                    src="/design-reference/Frame 368.svg"
+                    src="/landing/faq/background.png"
                     alt="FAQ Background"
                     fill
                     className={styles.frame368Background}
