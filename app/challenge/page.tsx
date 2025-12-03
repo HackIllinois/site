@@ -46,21 +46,55 @@ const ProChallenge: React.FC = () => {
                 <Typography
                     fontFamily={"Montserrat"}
                     sx={{
-                        fontWeight: 600,
+                        fontWeight: 500,
                         fontSize: { xs: "20px", sm: "24px" }
                     }}
                 >
                     Ready to be a
                 </Typography>
                 <Typography
-                    fontFamily={"Montserrat"}
+                    fontFamily={"Tsukimi Rounded"}
                     sx={{
-                        mb: "40px",
-                        fontWeight: 800,
-                        fontSize: { xs: "28px", sm: "32px" }
+                        fontWeight: 700,
+                        fontSize: { xs: "32px", sm: "54px" }
                     }}
                 >
-                    HackVoyager?
+                    <Box
+                        component="span"
+                        sx={{
+                            fontSize: { xs: "42px", sm: "64px" }
+                        }}
+                    >
+                        H
+                    </Box>
+                    <Box component="span">ACK</Box>
+
+                    <Box
+                        component="span"
+                        sx={{
+                            background:
+                                "linear-gradient(90deg, #FEB963 32.69%)",
+                            backgroundClip: "text",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            fontSize: { xs: "42px", sm: "64px" }
+                        }}
+                    >
+                        V
+                    </Box>
+                    <Box
+                        component="span"
+                        sx={{
+                            background:
+                                "linear-gradient(90deg, #FEB963 32.69%, #FF61E2 67.79%, #FEB963 100%)",
+                            backgroundClip: "text",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent"
+                        }}
+                    >
+                        OYAGER
+                    </Box>
+                    <Box component="span">?</Box>
                 </Typography>
 
                 <Typography
@@ -83,7 +117,7 @@ const ProChallenge: React.FC = () => {
                     fontFamily={"Montserrat"}
                     fontSize={28}
                     sx={{
-                        mb: "40px",
+                        mb: "20px",
                         fontSize: { xs: "20px", sm: "24px" }
                     }}
                 >
@@ -92,25 +126,40 @@ const ProChallenge: React.FC = () => {
 
                 {/* Begin button */}
                 <Link prefetch={false} href="/challenge/description">
-                    <Button
-                        variant="contained"
+                    <Box
                         sx={{
-                            backgroundColor: "#D9D9D9",
-                            color: "black",
-                            fontWeight: 800,
-                            fontSize: { xs: "18px", sm: "20px" },
-                            textTransform: "none",
-                            px: { xs: 6, sm: 8 },
-                            py: 1,
-                            borderRadius: "30px",
-                            fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
-                            "&:hover": {
-                                backgroundColor: "white"
-                            }
+                            p: "6px",
+                            borderRadius: "40px",
+                            background:
+                                "linear-gradient(90deg, #A315D6, #FDAB60, #A315D6)",
+                            display: "inline-block"
                         }}
                     >
-                        BEGIN
-                    </Button>
+                        <Button
+                            variant="contained"
+                            sx={{
+                                backgroundImage:
+                                    "linear-gradient(120deg, #401A79 0%, #401A79 30%, #653089 30%, #653089 53%, #401A79 53%, #401A79 100%)",
+                                backgroundSize: "150% 100%",
+                                backgroundPosition: "50% 0%",
+                                color: "white",
+                                fontWeight: 800,
+                                fontSize: { xs: "18px", sm: "20px" },
+                                textTransform: "none",
+                                px: { xs: 4, sm: 6 },
+                                py: 1.5,
+                                borderRadius: "40px",
+                                fontFamily: "Tsukimi Rounded",
+                                border: "none",
+                                transition: "background-position 0.5s ease",
+                                "&:hover": {
+                                    backgroundPosition: "-20% 0%"
+                                }
+                            }}
+                        >
+                            BEGIN
+                        </Button>
+                    </Box>
                 </Link>
             </Box>
         </main>

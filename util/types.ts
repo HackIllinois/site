@@ -68,9 +68,11 @@ export type RegistrationApplicationDraftBodyForm =
     RegistrationApplicationDraftBody & {
         travelAcknowledge?: boolean;
         requestTravelReimbursement?: boolean;
-        codeOfConductAcknowledge?: boolean;
         reviewedAcknowledge?: boolean;
-        optInNewsletter?: boolean;
+        codeOfConductAcknowledge?: boolean;
+        mlhDataSharingAcknowledge?: boolean;
+        optInMlhNewsletter?: boolean;
+        optInHackNewsletter?: boolean;
     };
 
 export type RegistrationResponseFieldInfo = {
@@ -107,7 +109,6 @@ export type RegistrationData = {
     dietaryRestrictions: string[];
     requestedTravelReimbursement: string[];
     travelAcknowledge: string[];
-    codeOfConductAcknowledge: string[];
     reviewedInformationAcknowledge: string[];
 };
 

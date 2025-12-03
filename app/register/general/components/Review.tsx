@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { styled } from "@mui/material/styles";
+import { styled, Theme } from "@mui/material/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EditIcon from "@mui/icons-material/Edit";
 import {
@@ -14,14 +14,14 @@ import {
 import { useRouter } from "next/navigation";
 
 export const ReviewContainer = styled(Stack)(({ theme }) => ({
-    width: "100%",
-    maxWidth: "85vw",
-    margin: "0 auto",
-    marginTop: "25px",
     alignItems: "stretch",
     gap: "25px",
+    marginLeft: "20px",
+    marginRight: "20px",
     [theme.breakpoints.down("sm")]: {
-        gap: "18px"
+        gap: "18px",
+        marginLeft: "20px",
+        marginRight: "20px"
     }
 }));
 
@@ -138,7 +138,7 @@ export const ReviewInfoAccordionBox = styled(Box)(({ theme }) => ({
     flexWrap: "wrap",
     justifyContent: "flex-start",
     gap: "25px",
-    alignItems: "center",
+    alignItems: "flex-start",
     padding: "0px 13px 13px 13px",
     [theme.breakpoints.down("sm")]: {
         flexDirection: "column",
@@ -173,34 +173,62 @@ export const UserInfoBox: React.FC<UserInfoProps> = ({
     return (
         <StyledUserInfoBox>
             <Typography
-                sx={theme => ({
-                    fontWeight: 700,
-                    fontSize: "15px",
+                variant="h3"
+                sx={{
                     color: "text.primary",
-                    fontFamily: "'Montserrat', sans-serif",
-                    [theme.breakpoints.down("sm")]: {
-                        fontSize: "13px"
-                    }
-                })}
+                    fontWeight: 600
+                }}
             >
                 {label}
             </Typography>
             <Typography
-                sx={theme => ({
-                    fontWeight: 400,
-                    fontSize: "15px",
-                    fontFamily: "'Montserrat', sans-serif",
+                variant="h3"
+                sx={{
                     color: "text.secondary",
                     wordWrap: "break-word",
                     overflowWrap: "anywhere",
-                    whiteSpace: "normal",
-                    [theme.breakpoints.down("sm")]: {
-                        fontSize: "13px"
-                    }
-                })}
+                    whiteSpace: "normal"
+                }}
             >
                 {userResponse}
             </Typography>
         </StyledUserInfoBox>
     );
+};
+
+export const AckLinkStyle = {
+    color: "#ADED4A",
+    textDecoration: "underline",
+    textDecorationColor: "#ADED4A",
+    textDecorationThickness: "2px",
+    "&:hover": {
+        color: "#fff",
+        textDecorationColor: "#fff"
+    }
+};
+
+export const AckErrorStyle = {
+    fontFamily: "Montserrat",
+    fontSize: "13px",
+    fontWeight: 500,
+    "&.Mui-error": {
+        color: "white"
+    },
+    border: "1px solid rgba(255, 0, 0, 0.5)",
+    borderRadius: "6px",
+    backgroundColor: "rgba(255, 0, 0, 0.5)",
+    width: "fit-content",
+    padding: "4px",
+    boxShadow: "0 0 8px rgba(255, 0, 0, 0.3)",
+    mb: 2
+};
+
+export const AckOptionLabelStyle = {
+    fontFamily: `Montserrat, sans-serif`,
+    fontSize: "20px",
+    color: "#fff",
+    fontWeight: 400,
+    "@media (max-width:600px)": {
+        fontSize: "18px"
+    }
 };

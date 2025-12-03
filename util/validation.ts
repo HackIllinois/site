@@ -39,9 +39,11 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     travelAcknowledge: false,
 
     // Review
-    codeOfConductAcknowledge: false,
     reviewedAcknowledge: false,
-    optInNewsletter: true
+    codeOfConductAcknowledge: false,
+    mlhDataSharingAcknowledge: false,
+    optInMlhNewsletter: true,
+    optInHackNewsletter: true
 };
 
 /**
@@ -199,7 +201,8 @@ export const validationSchemas = [
         }),
         race: Yup.array().of(Yup.string()).min(1, "Select at least one option"),
         gender: Yup.string().required("Gender is required"),
-        underrepresented: Yup.string().required("This question is required")
+        underrepresented: Yup.string().required("This question is required"),
+        hackathonsParticipated: Yup.string().required("This field is required.")
     }),
 
     // 2. Application Questions
@@ -252,8 +255,7 @@ export const validationSchemas = [
                     return wordCount <= 100;
                 }
             ),
-        pro: Yup.boolean(),
-        hackathonsParticipated: Yup.string().required("This field is required.")
+        pro: Yup.boolean()
     }),
 
     // 3. Attending HackIllinois
@@ -277,7 +279,10 @@ export const validationSchemas = [
             .oneOf([true], "Please confirm you have reviewed your information"),
         codeOfConductAcknowledge: Yup.boolean()
             .required("You must accept the Code of Conduct")
-            .oneOf([true], "You must accept the Code of Conduct")
+            .oneOf([true], "You must accept the Code of Conduct"),
+        mlhDataSharingAcknowledge: Yup.boolean()
+            .required("You must agree to share your data with MLH")
+            .oneOf([true], "You must agree to share your data with MLH")
     }),
 
     // 5. Confirmation (no new inputs, keep for indexing purposes)

@@ -10,7 +10,7 @@ interface CheckboxSelectInputProps {
     label?: string;
     sublabel?: string;
     sublabelContent?: React.ReactNode;
-    optionLabel: string;
+    optionLabel: React.ReactNode | string;
     optionLabelSx?: object;
     required?: boolean;
     // formik controls
@@ -56,7 +56,14 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                     fontWeight: 500
                 }}
             >
-                {label ? label + (required ? "*" : "") : null}
+                {label ? (
+                    <>
+                        {label}
+                        {required && (
+                            <span style={{ color: "#d32f2f" }}>*</span>
+                        )}
+                    </>
+                ) : null}
                 {sublabel ? (
                     <Typography
                         component="p"
@@ -88,11 +95,13 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                         sx={{
                             width: 36,
                             height: 36,
-                            padding: "2px", // override default
+                            padding: "0px", // override default
                             borderRadius: 2,
                             backgroundColor: "#f0f0f0",
+                            overflow: "hidden",
 
                             "& .MuiSvgIcon-root": {
+                                transform: "scale(1.34)",
                                 width: "100%",
                                 height: "100%",
                                 backgroundColor: "transparent",

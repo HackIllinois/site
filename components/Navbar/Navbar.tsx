@@ -19,14 +19,10 @@ const NAVBAR_ITEMS: NavbarItem[] = [
     {
         title: "Register",
         link: "/register/general#personal-information"
-    },
-    {
-        title: "Legal",
-        link: "/legal"
     }
 ];
 
-const DARK_PAGES = ["/register/challenge", "/challenge/landing-page"];
+const DARK_PAGES = ["/register/challenge"];
 
 const Navbar = () => {
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
