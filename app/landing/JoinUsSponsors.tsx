@@ -1,7 +1,9 @@
-import { Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import styles from "./JoinUsSponsors.module.scss";
 import Image from "next/image";
 import { tsukimi } from "@/theme/fonts";
+import NewsletterSubscription from "@/components/NewsletterSubscription/NewsletterSubscription";
+import { GradientButtonInstagram } from "@/components/GradientButton/GradientButtonInstagram";
 
 const alienAssets = [
     "/landing/sponsors/aliens/alien1.svg",
@@ -35,34 +37,70 @@ const JoinUsSponsors = () => {
                     <Typography
                         variant="h4"
                         component="h2"
-                        className={styles.joinUsHeading}
+                        sx={{
+                            fontFamily: "Tsukimi Rounded",
+                            fontWeight: 600,
+                            color: "#3F2B75",
+                            textAlign: "center"
+                        }}
                     >
                         JOIN US
                     </Typography>
                     <Typography
-                        variant="h5"
-                        component="h3"
-                        className={styles.newsletterSubheader}
-                    >
-                        NEWSLETTER SIGN UP
-                    </Typography>
-                    <Typography
                         variant="body1"
                         component="p"
-                        className={styles.joinUsDescription}
+                        sx={{
+                            fontFamily: "Montserrat",
+                            color: "#3F2B75",
+                            textAlign: "center",
+                            maxWidth: "700px",
+                            margin: "20px auto"
+                        }}
                     >
-                        Follow us on Instagram (@HackIllinois) or subscribe to our newsletter to be notified of our event updates! There will be regular content and posts.
+                        Follow us on{" "}
+                        <b>
+                            Instagram (
+                            <Link
+                                href="https://www.instagram.com/hackillinois"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                underline={"always"}
+                                color="inherit"
+                            >
+                                @HackIllinois
+                            </Link>
+                            )
+                        </b>{" "}
+                        or <b>subscribe to our newsletter</b> to be notified of
+                        our event updates! There will be regular content and
+                        posts.
                     </Typography>
-                    <div className={styles.emailSubscription}>
-                        <input
-                            type="email"
-                            placeholder="Enter your email"
-                            className={styles.emailInput}
-                        />
-                        <button className={styles.subscribeButton}>
-                            SUBSCRIBE
-                        </button>
-                    </div>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "30px"
+                        }}
+                    >
+                        <GradientButtonInstagram />
+                        <Box>
+                            <Typography
+                                variant="body2"
+                                component="p"
+                                sx={{
+                                    fontFamily: "Tsukimi Rounded",
+                                    fontSize: "20px",
+                                    color: "#3F2B75",
+                                    fontWeight: 600,
+                                    mb: 1
+                                }}
+                            >
+                                NEWSLETTER SIGN UP
+                            </Typography>
+                            <NewsletterSubscription />
+                        </Box>
+                    </Box>
                 </div>
 
                 <div className={styles.sponsorSectionContentContainer}>

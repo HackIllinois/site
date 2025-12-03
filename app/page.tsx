@@ -6,6 +6,7 @@ import styles from "./page.module.scss";
 import { Typography } from "@mui/material";
 import clsx from "clsx";
 import JoinUsSponsors from "./landing/JoinUsSponsors";
+import { GradientButton } from "@/components/GradientButton/GradientButton";
 
 const Home: React.FC = () => {
     const [email, setEmail] = useState("");
@@ -18,10 +19,6 @@ const Home: React.FC = () => {
 
     const handleRegisterClick = () => {
         router.push("/register");
-    };
-
-    const handleLearnMoreClick = () => {
-        router.push("/challenge");
     };
 
     const handleSubscribe = (e: React.FormEvent) => {
@@ -71,13 +68,10 @@ const Home: React.FC = () => {
                         className={styles.hackastraLogo}
                         priority
                     />
-                    <button
-                        className={styles.heroRegisterButton}
-                        onClick={handleRegisterClick}
-                        aria-label="Register Now"
-                    >
-                        REGISTER NOW!
-                    </button>
+                    <GradientButton
+                        text="REGISTER NOW"
+                        link="/register/general"
+                    />
                 </div>
             </section>
 
@@ -127,15 +121,31 @@ const Home: React.FC = () => {
                             mb: 4
                         }}
                     >
-                        {`HackIllinois is University of Illinois at Urbana-Champaign's premier collegiate hackathon. Join us in-person from February 27th to March 1st at the Siebel Center for Computer Science!
-
-                        Participants can work individually or in teams to submit projects to a specific track for a chance to win prizes. Whether you're a beginner or an experienced hacker, HackIllinois offers workshops, mentorship, and an inclusive environment for everyone to learn and create.`}
+                        HackIllinois is University of Illinois at
+                        Urbana-Champaign&apos;s premier collegiate hackathon.
+                        Join us in-person from{" "}
+                        <strong>February 27th to March 1st</strong> at the{" "}
+                        <strong>Siebel Center for Computer Science</strong>!
                     </Typography>
+
                     <Typography
                         component="p"
                         sx={{
                             mt: 4,
-                            mb: 8
+                            mb: 4
+                        }}
+                    >
+                        {`Participants can work individually or in teams to submit projects to a specific track for a chance to win prizes. Whether you're a beginner or an experienced hacker, HackIllinois offers workshops, mentorship, and an inclusive environment for everyone to learn and create.`}
+                    </Typography>
+
+                    <Typography
+                        component="p"
+                        sx={{
+                            mt: 4,
+                            mb: 8,
+                            fontSize: 28,
+                            fontFamily: "Tsukimi Rounded",
+                            fontWeight: 600
                         }}
                     >
                         LAUNCH YOUR LEGACY!
@@ -181,20 +191,12 @@ const Home: React.FC = () => {
                         height={150}
                         className={styles.hackVoyagersText}
                     />
-                    <button
-                        className={styles.learnMoreButton}
-                        onClick={handleLearnMoreClick}
-                        aria-label="Learn More"
-                        style={{ fontFamily: "Montserrat" }}
-                    >
-                        <Image
-                            src="/design-reference/voyagers button learn more.svg"
-                            alt="Learn More Button"
-                            width={180}
-                            height={55}
-                            className={styles.learnMoreButtonImage}
+                    <div className={styles.hackVoyagersButtonContainer}>
+                        <GradientButton
+                            text="LEARN MORE"
+                            link="/challenge/landing-page"
                         />
-                    </button>
+                    </div>
                 </div>
             </section>
 

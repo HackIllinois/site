@@ -26,7 +26,7 @@
     object-fit: contain;
     object-position: top center;
     display: none; /* Hidden by default, shown on mobile */
-    
+
     @media (max-width: 768px) {
         display: block;
     }
@@ -136,7 +136,6 @@
 // About Section
 .aboutSection {
     width: 100%;
-    min-height: 100vh;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -170,8 +169,8 @@
 }
 
 .aboutSection .content {
-    max-width: 1000px;
-    padding: 0 10px;
+    max-width: 800px;
+    padding: 50px 10px;
     margin: 0 auto;
     text-align: center;
     position: relative;
@@ -215,7 +214,6 @@
 // HackVoyagers Section
 .hackVoyagersSection {
     width: 100%;
-    min-height: 100vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -266,6 +264,9 @@
     z-index: 10;
     text-align: center;
     position: relative;
+    height: fit-content;
+    width: 100%;
+    max-width: 1500px;
 }
 
 .robotImage {
@@ -292,6 +293,7 @@
     z-index: 10;
     text-align: center;
     position: relative;
+    max-width: 1500px;
 }
 
 .introducingText {
@@ -299,9 +301,15 @@
     display: block;
     font-size: 55px;
     font-weight: 400;
+    margin-top: 15px;
     @media (max-width: 768px) {
         font-size: 32px;
     }
+}
+
+.hackVoyagersButtonContainer {
+    animation: fadeIn 1s ease-in 1.9s both;
+    margin: 25px 0;
 }
 
 .hackVoyagersText {
@@ -697,7 +705,7 @@
     }
 
     .robotImage {
-        max-width: 70%;
+        width: 100%;
         top: 35vh;
     }
 
@@ -773,11 +781,6 @@
     .hackVoyagersSection {
         flex-direction: column;
         padding: 2rem;
-    }
-
-    .robotContainer {
-        order: 2;
-        margin-top: 2rem;
     }
 
     .textContainer {
