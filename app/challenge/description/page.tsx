@@ -4,7 +4,7 @@ import GithubAuthPage from "@/app/register/general/formPages/GithubAuthPage";
 import NotProTrackPage from "@/app/register/general/formPages/NotProTrackPage";
 import Loading from "@/components/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
-import CHALLENGE_DESCRIPTION_BACKGROUND from "@/public/registration/backgrounds/challenge-description-background.svg";
+import CHALLENGE_DESCRIPTION_BACKGROUND from "@/public/registration/backgrounds/challenge_background.svg";
 import { Box, Button, Snackbar, Typography } from "@mui/material";
 import React, { useCallback, useRef, useState } from "react";
 
@@ -118,12 +118,13 @@ export default function ChallengeDescription() {
                 backgroundImage: `url("${CHALLENGE_DESCRIPTION_BACKGROUND.src}")`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
+                backgroundPosition: "top center",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-start",
                 alignItems: "center",
-                paddingTop: "18vh"
+                paddingTop: "18vh",
+                paddingBottom: "14vh"
             }}
         >
             <Box
@@ -131,24 +132,33 @@ export default function ChallengeDescription() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "flex-start",
-                    maxWidth: "800px",
                     textAlign: "center",
-                    padding: "2rem",
-                    backgroundColor: "rgba(0, 0, 0, 0.6)",
-                    backdropFilter: "blur(10px)",
-                    borderRadius: "16px",
-                    border: "2px solid rgba(255, 255, 255, 0.2)"
+                    padding: {
+                        xs: "6rem 4rem 6rem 4rem",
+                        lg: "5rem 5rem 7rem 5rem"
+                    },
+                    mb: 1,
+
+                    backgroundImage: `url("/registration/backgrounds/frame.svg")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "top center",
+                    border: "none",
+                    borderRadius: 0,
+                    aspectRatio: { lg: "1530 / 995" }
                 }}
             >
-                <Typography
-                    variant="h2"
+                <Box
                     sx={{
-                        mb: 3,
-                        textAlign: "left"
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center"
                     }}
                 >
-                    Challenge
-                </Typography>
+                    <Typography variant="h2" sx={{ mb: 8 }}>
+                        CODING CHALLENGE
+                    </Typography>
+                </Box>
 
                 <Typography
                     sx={{
@@ -402,12 +412,12 @@ export default function ChallengeDescription() {
                     )}
                 </Box>
 
-                <Box
+                {/* <Box
                     sx={{
                         display: "flex",
                         gap: 2,
                         justifyContent: "center",
-                        mt: 4
+                        mt: 2
                     }}
                 >
                     <Button
@@ -425,9 +435,58 @@ export default function ChallengeDescription() {
                     >
                         Go to success page (REMOVE THIS IN PRODUCTION)
                     </Button>
+                    </Box> */}
+
+                <Box
+                    sx={{
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: 8,
+                        mt: 3,
+                        mb: { xs: -1, sm: -3 }
+                    }}
+                >
+                    <Button
+                        variant="text"
+                        href=""
+                        sx={{
+                            color: "rgba(255, 255, 255, 0.7)",
+                            fontSize: { xs: ".8rem", sm: "1.2rem" },
+                            textTransform: "none",
+                            "&:hover": {
+                                color: "white",
+                                border: "3px solid white"
+                            },
+                            fontFamily: "Tsukimi Rounded",
+                            border: "3px solid rgba(255,255,255,0.7)",
+                            borderRadius: "999px"
+                        }}
+                    >
+                        {"<"} PREV (no link)
+                    </Button>
+                    <Button
+                        variant="text"
+                        href="/challenge/result/success"
+                        sx={{
+                            color: "rgba(255, 255, 255, 0.7)",
+                            fontSize: { xs: ".8rem", sm: "1.2rem" },
+                            textTransform: "none",
+                            "&:hover": {
+                                color: "white",
+                                border: "3px solid white"
+                            },
+                            fontFamily: "Tsukimi Rounded",
+                            border: "3px solid rgba(255,255,255,0.7)",
+                            borderRadius: "999px"
+                        }}
+                    >
+                        NEXT (success page. remove in prod) {">"}
+                    </Button>
                 </Box>
             </Box>
-
             <Snackbar
                 open={fileIdCopied}
                 autoHideDuration={3000}
