@@ -1,0 +1,215 @@
+/* Bobbing animation */
+@keyframes bob {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.joinUsSection {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, #6f4e92, #434c84);
+}
+
+.ufoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    max-width: 1500px;
+    z-index: 2;
+}
+
+.ufoImage {
+    width: 100%;
+    height: auto;
+}
+
+.joinUsContentContainer {
+    position: absolute;
+    top: 12%;
+    width: 100%;
+    height: 27%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.joinUsHeading {
+    color: white;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.newsletterSubheader {
+    color: white;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+.joinUsDescription {
+    color: white;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 1rem auto;
+    line-height: 1.6;
+}
+
+.emailSubscription {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.emailInput {
+    padding: 12px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    width: 250px;
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    &:focus {
+        outline: none;
+        border-color: #6f4e92;
+        background: rgba(255, 255, 255, 0.15);
+    }
+}
+
+.subscribeButton {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #6f4e92, #4a3d7a);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(111, 78, 146, 0.4);
+    }
+}
+
+.sponsorSectionContentContainer {
+    position: absolute;
+    top: 47%;
+    width: 100%;
+    height: 50%;
+    z-index: 3;
+}
+
+/**
+ * Area of the light beam where aliens can be placed.
+ * Uses percentages so the layout scales with UFO size.
+ */
+.aliensContainer {
+    position: absolute;
+    top: 52%; // start of beam
+    left: 50%;
+    transform: translateX(-55%);
+    width: 45%; // matches beam width
+    height: 55%; // height of beam
+    pointer-events: none;
+    z-index: 2;
+
+    @media (max-width: 600px) {
+        top: 45%;
+        left: 52%;
+        width: 60%;
+        height: 50%;
+    }
+}
+
+.alienImage {
+    position: absolute;
+    width: clamp(40px, 10vw, 120px);
+    height: auto;
+    animation: bob 1.8s ease-in-out infinite;
+}
+
+/* Individual alien positions (approximate your mockup) */
+.alien0 {
+    // top middle
+    top: 8%;
+    left: 17%;
+    transform: translateX(-50%);
+}
+
+.alien1 {
+    // mid-left
+    top: 0%;
+    left: 40%;
+}
+
+.alien2 {
+    // mid-right
+    top: 6%;
+    left: 65%;
+}
+
+.alien3 {
+    // bottom-left
+    top: 30%;
+    left: 15%;
+}
+
+.alien4 {
+    // big center bottom
+    top: 32%;
+    left: 42%;
+}
+
+.alien5 {
+    // bottom-right
+    top: 35%;
+    left: 65%;
+    transform: scale(1.5);
+}
+
+/* Optionally tweak for very small screens */
+// @media (max-width: 600px) {
+//     .alien0 { top: 5%;  left: 50%; }
+//     .alien1 { top: 26%; left: 28%; }
+//     .alien2 { top: 24%; left: 70%; }
+//     .alien3 { top: 56%; left: 25%; }
+//     .alien4 { top: 52%; left: 50%; }
+//     .alien5 { top: 54%; left: 73%; }
+// }
+
+.background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    // Make the background bottom align with the actual bottom
+    object-position: center bottom;
+}

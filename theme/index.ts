@@ -9,15 +9,15 @@ theme = createTheme(theme, {
         }
     },
     typography: {
-        fontFamily: "Montserrat, Roboto, Tsukimi Rounded, sans-serif",
+        fontFamily: "var(--font-family-primary)",
         h1: {
             // titles/headers
-            fontFamily: "Montserrat, sans-serif",
+            fontFamily: "var(--font-family-primary)",
             fontWeight: 700
         },
         h2: {
             // page/section headers
-            fontFamily: "Tsukimi Rounded, sans-serif",
+            fontFamily: "var(--font-family-primary)",
             fontWeight: 600,
             fontSize: "3rem",
             [theme.breakpoints.down("sm")]: {
@@ -27,7 +27,7 @@ theme = createTheme(theme, {
         },
         h3: {
             // labels for inputs, etc
-            fontFamily: "Montserrat, sans-serif",
+            fontFamily: "var(--font-family-primary)",
             fontWeight: 400,
             fontSize: "1.2rem",
             [theme.breakpoints.down("md")]: {
@@ -36,7 +36,7 @@ theme = createTheme(theme, {
         },
         body1: {
             // body font (placeholders, inputs) -- default
-            fontFamily: "Montserrat, sans-serif",
+            fontFamily: "var(--font-family-primary)",
             fontWeight: 400
         },
         body2: {
