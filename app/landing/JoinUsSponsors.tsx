@@ -1,7 +1,10 @@
-import { Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import styles from "./JoinUsSponsors.module.scss";
 import Image from "next/image";
 import { tsukimi } from "@/theme/fonts";
+import NewsletterSubscription from "@/components/NewsletterSubscription/NewsletterSubscription";
+import { GradientButtonInstagram } from "@/components/GradientButton/GradientButtonInstagram";
+import clsx from "clsx";
 
 const alienAssets = [
     "/landing/sponsors/aliens/alien1.svg",
@@ -26,54 +29,115 @@ const JoinUsSponsors = () => {
             <div className={styles.ufoContainer}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                    src="/landing/sponsors/ufo.svg"
+                    src="/landing/sponsors/desktop/ufo.svg"
                     alt="UFO"
                     className={styles.ufoImage}
                 />
 
+                <img
+                    src="/landing/sponsors/desktop/ufo.svg"
+                    alt="UFO"
+                    className={clsx(styles.ufoImage, styles.mobile)}
+                />
+
                 <div className={styles.joinUsContentContainer}>
                     <Typography
-                        variant="h4"
-                        component="h2"
-                        className={styles.joinUsHeading}
+                        variant="h2"
+                        sx={{
+                            fontFamily: "Tsukimi Rounded",
+                            fontWeight: 600,
+                            color: "#3F2B75",
+                            textAlign: "center"
+                        }}
                     >
                         JOIN US
                     </Typography>
                     <Typography
-                        variant="h5"
-                        component="h3"
-                        className={styles.newsletterSubheader}
-                    >
-                        NEWSLETTER SIGN UP
-                    </Typography>
-                    <Typography
                         variant="body1"
                         component="p"
-                        className={styles.joinUsDescription}
+                        sx={{
+                            fontFamily: "Montserrat",
+                            color: "#3F2B75",
+                            textAlign: "center",
+                            maxWidth: "700px",
+                            margin: "20px auto",
+                            fontSize: {
+                                xs: "14px",
+                                md: "20px"
+                            }
+                        }}
                     >
-                        Follow us on Instagram (@HackIllinois) or subscribe to our newsletter to be notified of our event updates! There will be regular content and posts.
+                        Follow us on{" "}
+                        <b>
+                            Instagram (
+                            <Link
+                                href="https://www.instagram.com/hackillinois"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                underline={"always"}
+                                color="inherit"
+                            >
+                                @HackIllinois
+                            </Link>
+                            )
+                        </b>{" "}
+                        or <b>subscribe to our newsletter</b> to be notified of
+                        our event updates! There will be regular content and
+                        posts.
                     </Typography>
-                    <div className={styles.emailSubscription}>
-                        <input
-                            type="email"
-                            placeholder="Enter your email"
-                            className={styles.emailInput}
-                        />
-                        <button className={styles.subscribeButton}>
-                            SUBSCRIBE
-                        </button>
-                    </div>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "30px",
+                            zIndex: 95
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                display: {
+                                    xs: "none",
+                                    md: "block"
+                                }
+                            }}
+                        >
+                            <GradientButtonInstagram />
+                        </Box>
+                        <Box>
+                            <Typography
+                                variant="body2"
+                                component="p"
+                                sx={{
+                                    fontFamily: "Tsukimi Rounded",
+                                    fontSize: {
+                                        xs: "14px",
+                                        md: "20px"
+                                    },
+                                    color: "#3F2B75",
+                                    fontWeight: 600,
+                                    mb: 1
+                                }}
+                            >
+                                NEWSLETTER SIGN UP
+                            </Typography>
+                            <NewsletterSubscription />
+                        </Box>
+                    </Box>
                 </div>
 
                 <div className={styles.sponsorSectionContentContainer}>
                     <Typography
-                        variant="h4"
-                        component="h2"
+                        variant="h2"
                         sx={{
                             color: "white",
                             textAlign: "center",
                             fontFamily: tsukimi.style.fontFamily,
-                            fontWeight: 700
+                            fontWeight: 700,
+                            mt: {
+                                xs: "20px",
+                                md: 0
+                            }
                         }}
                     >
                         SPONSORS

@@ -1,12 +1,12 @@
 // "use client";
 
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import "./globals.scss";
-import type { Metadata } from "next";
 import Navbar from "@/components/Navbar/Navbar";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
+import type { Metadata } from "next";
 import theme from "../theme";
 import { montserrat, tsukimi } from "../theme/fonts";
+import "./globals.scss";
 
 export const metadata: Metadata = {
     title: "HackIllinois",

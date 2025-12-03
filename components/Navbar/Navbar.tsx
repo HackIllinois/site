@@ -2,13 +2,13 @@
 
 import Logo from "@/public/logo.svg";
 import LogoDark from "@/public/logo_dark.svg";
-import Image from "next/image";
+import MLH from "@/public/assets/mlh.svg";
 import styles from "./Navbar.module.scss";
 // import CloudMenu from "@/public/cloud-menu.svg";
 import clsx from "clsx";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 
 type NavbarItem = {
     title: string;
@@ -65,6 +65,7 @@ const Navbar = () => {
                         src={isDark ? LogoDark.src : Logo.src}
                     />
                 </Link>
+
                 <ul className={styles.navbarList}>
                     {NAVBAR_ITEMS.map(item => (
                         <li key={item.title}>
@@ -85,6 +86,18 @@ const Navbar = () => {
                         <OlympianButton />
                     </li>
                 </ul>
+                <Link
+                    href="https://mlh.io/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <img
+                        className={styles.mlhBanner}
+                        alt="MLH Banner"
+                        style={{ cursor: "pointer" }}
+                        src={MLH.src}
+                    />
+                </Link>
             </nav>
             <nav className={styles.mobile}>
                 <div className={styles.mobileTop}>

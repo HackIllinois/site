@@ -1,51 +1,43 @@
 .navbar {
-    position: absolute;
+    position: fixed;
     top: 0;
-    z-index: 99;
-    margin: 48px 0px;
-    padding: 0px 64px;
+    left: 0;
+    z-index: 1100;
+    margin: 0;
+    max-height: 80px;
+    padding: 10px 25px;
+    padding-right: 10px;
+    padding-top: 0;
     color: white;
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(58, 48, 105, 0) 100%
+    );
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
 
     @media screen and (max-width: 960px) {
         display: none;
     }
-
-    img {
-        object-fit: contain;
-
-        width: 228px;
-        height: 75px;
-
-        @media screen and (max-width: 1440px) {
-            width: 182.4px;
-            height: 60px;
-        }
-        @media screen and (max-width: 960px) {
-            width: 152px;
-            height: 50px;
-        }
-        @media screen and (max-width: 640px) {
-            width: 121.6px;
-            height: 40px;
-        }
-    }
-
-    @media screen and (max-width: 1152px) {
-    }
-    @media screen and (max-width: 960px) {
-        padding: 32px 42.66px;
-    }
-    @media screen and (max-width: 640px) {
-        padding: 24px 32px;
-    }
 }
 
 .logo {
-    height: 50px;
+    height: 40px;
+    margin-top: 25px;
+    @media screen and (max-width: 960px) {
+        margin-top: 0px;
+        margin-left: 20px;
+    }
+}
+
+.mlhBanner {
+    width: 80px;
+    margin-left: 20px;
 }
 
 .navbar.dark {
@@ -56,8 +48,10 @@
     display: flex;
     align-items: center;
     list-style: none;
+    margin-top: 25px;
     font-weight: 500;
     font-size: 20px;
+    margin-left: auto;
     gap: 40px;
     @media screen and (max-width: 960px) {
         display: none;
@@ -85,16 +79,26 @@
 
 .mobile {
     display: none;
-    margin: auto;
     align-items: center;
-    position: absolute;
-    width: 100vw;
-    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1100;
 
     @media screen and (max-width: 960px) {
         display: flex;
         flex-direction: column;
     }
+}
+
+.mobileTop {
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(58, 48, 105, 0) 100%
+    );
+    width: 100%;
 }
 
 .mobileTop {
@@ -106,7 +110,6 @@
     position: relative;
 
     .title {
-        transform: scale(0.7);
         z-index: 7;
     }
 }
@@ -189,11 +192,11 @@
         align-content: center;
         justify-content: space-evenly;
         align-items: center;
-        margin-bottom: 20px;
+        padding-bottom: 150px;
         width: 100%;
-        padding-top: 60px;
-        height: 50vh;
+        padding-top: 150px;
         z-index: 6;
+        gap: 100px;
 
         a {
             font-size: x-large;
