@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Box, Button, Snackbar, TextField, Alert } from "@mui/material";
+import { Box, Button, TextField, Alert } from "@mui/material";
 import { subscribe } from "@/util/api";
 
 export const NewsletterSubscription = () => {
@@ -38,11 +38,7 @@ export const NewsletterSubscription = () => {
         setSnackbarOpen(true);
     };
 
-    const handleSnackbarClose = (
-        _event?: React.SyntheticEvent | Event,
-        reason?: string
-    ) => {
-        if (reason === "clickaway") return;
+    const handleSnackbarClose = () => {
         setSnackbarOpen(false);
     };
 
@@ -50,7 +46,7 @@ export const NewsletterSubscription = () => {
         <>
             <Box
                 sx={{
-                    p: { xs: "2px", sm: "4px", zIndex: 999 },
+                    p: { xs: "2px", sm: "4px" },
                     borderRadius: "40px",
                     background:
                         "linear-gradient(90deg, #A315D6, #FDAB60, #A315D6)",
@@ -123,33 +119,37 @@ export const NewsletterSubscription = () => {
                 </Box>
             </Box>
 
-            <Snackbar
-                open={snackbarOpen}
-                autoHideDuration={3000}
-                onClose={handleSnackbarClose}
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            {/* Inline status area with reserved space */}
+            <Box
                 sx={{
-                    zIndex: 999
+                    mt: 1.5,
+                    minHeight: 48,
+                    display: "flex",
+                    alignItems: "center"
                 }}
             >
-                <Alert
-                    onClose={handleSnackbarClose}
-                    severity={snackbarSeverity}
-                    variant="outlined"
-                    sx={{
-                        bgcolor: "#FFFFFF",
-                        color: "#401A79",
-                        borderColor:
-                            snackbarSeverity === "error"
-                                ? "#F48B82"
-                                : "#D3C3FF",
-                        fontFamily: "Montserrat",
-                        fontSize: "14px"
-                    }}
-                >
-                    {snackbarMessage}
-                </Alert>
-            </Snackbar>
+                {snackbarOpen && (
+                    <Alert
+                        onClose={handleSnackbarClose}
+                        severity={snackbarSeverity}
+                        variant="outlined"
+                        sx={{
+                            bgcolor: "#FFFFFF",
+                            color: "#401A79",
+                            borderColor:
+                                snackbarSeverity === "error"
+                                    ? "#F48B82"
+                                    : "#D3C3FF",
+                            fontFamily: "Montserrat",
+                            fontSize: "14px",
+                            width: "100%",
+                            maxWidth: { xs: 360, sm: 520 }
+                        }}
+                    >
+                        {snackbarMessage}
+                    </Alert>
+                )}
+            </Box>
         </>
     );
 };

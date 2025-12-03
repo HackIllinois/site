@@ -88,7 +88,7 @@ const JoinUsSponsors = () => {
                     <Box
                         sx={{
                             display: "flex",
-                            alignItems: "center",
+                            alignItems: "flex-start",
                             justifyContent: "center",
                             gap: "30px",
                             zIndex: 95
