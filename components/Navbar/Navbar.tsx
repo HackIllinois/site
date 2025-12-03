@@ -19,10 +19,6 @@ const NAVBAR_ITEMS: NavbarItem[] = [
     {
         title: "Register",
         link: "/register/general#personal-information"
-    },
-    {
-        title: "Legal",
-        link: "/legal"
     }
 ];
 
