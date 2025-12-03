@@ -249,7 +249,7 @@ const Home: React.FC = () => {
                         priority
                     />
                     <Image
-                        src="/landing/faq/mobile/background.svg"
+                        src="/landing/faq/mobile/background.png"
                         alt="FAQ Background"
                         fill
                         className={clsx(styles.faqBackground, styles.mobile)}

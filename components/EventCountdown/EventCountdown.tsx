@@ -94,7 +94,7 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
                 position: "fixed",
                 right: 24,
                 bottom: 24,
-                zIndex: 90,
+                zIndex: 99,
                 display: "flex",
                 alignItems: "center",
                 gap: 1,
