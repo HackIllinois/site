@@ -101,7 +101,8 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
                 borderRadius: "16px",
                 backgroundColor: "rgba(255, 255, 255, 0.24)",
                 backdropFilter: "blur(12px)",
-                boxShadow: "0 12px 30px rgba(15, 23, 42, 0.35)"
+                boxShadow: "0 12px 30px rgba(15, 23, 42, 0.35)",
+                width: "250px"
             }}
             aria-label={label}
             role="status"
@@ -135,7 +136,7 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
                     onClick={onRocketClick}
                     size="small"
                     sx={{
-                        ml: 1,
+                        ml: "auto",
                         borderRadius: "10px",
                         backgroundColor: "#ffffff",
                         boxShadow: "0 8px 18px rgba(15, 23, 42, 0.25)",

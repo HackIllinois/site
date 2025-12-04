@@ -1065,8 +1065,8 @@
     margin: 0 auto;
     position: relative;
     z-index: 5;
-    height: 70vh;
-    min-height: 600px;
+    height: fit-content;
+    min-height: 80vh;
 }
 
 .faqHeading {

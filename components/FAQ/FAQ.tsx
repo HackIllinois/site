@@ -70,6 +70,7 @@ export const FAQ = () => {
                             sx={{
                                 minHeight: 80,
                                 px: 4,
+                                py: 2,
                                 "& .MuiAccordionSummary-content": {
                                     margin: 0
                                 }
