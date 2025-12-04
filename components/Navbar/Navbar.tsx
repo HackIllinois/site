@@ -57,14 +57,23 @@ const Navbar = () => {
     return (
         <>
             <nav className={clsx(styles.navbar, isDark && styles.dark)}>
-                <Link href="/" prefetch={false}>
+                {pathname === "/" ? (
                     <img
                         className={styles.logo}
                         alt="HackIllinois Logo"
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: "default" }}
                         src={isDark ? LogoDark.src : Logo.src}
                     />
-                </Link>
+                ) : (
+                    <Link href="/" prefetch={false}>
+                        <img
+                            className={styles.logo}
+                            alt="HackIllinois Logo"
+                            style={{ cursor: "pointer" }}
+                            src={isDark ? LogoDark.src : Logo.src}
+                        />
+                    </Link>
+                )}
 
                 <ul className={styles.navbarList}>
                     {NAVBAR_ITEMS.map(item => (
@@ -102,13 +111,22 @@ const Navbar = () => {
             <nav className={styles.mobile}>
                 <div className={styles.mobileTop}>
                     <div className={styles.title}>
-                        <Link prefetch={false} href="/">
+                        {pathname === "/" ? (
                             <img
                                 alt="Logo"
                                 src={isDark ? LogoDark.src : Logo.src}
                                 className={styles.logo}
+                                style={{ cursor: "default" }}
                             />
-                        </Link>
+                        ) : (
+                            <Link prefetch={false} href="/">
+                                <img
+                                    alt="Logo"
+                                    src={isDark ? LogoDark.src : Logo.src}
+                                    className={styles.logo}
+                                />
+                            </Link>
+                        )}
                     </div>
                     <div
                         className={clsx(
@@ -123,19 +141,22 @@ const Navbar = () => {
                         <span></span>
                         <span></span>
                     </div>
-
-                    <Link
-                        href="https://mlh.io/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <img
-                            className={styles.mlhBanner}
-                            alt="MLH Banner"
-                            style={{ cursor: "pointer" }}
-                            src={MLH.src}
-                        />
-                    </Link>
+                    {!showMobileNavbar ? (
+                        <Link
+                            href="https://mlh.io/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                className={styles.mlhBanner}
+                                alt="MLH Banner"
+                                style={{ cursor: "pointer" }}
+                                src={MLH.src}
+                            />
+                        </Link>
+                    ) : (
+                        <></>
+                    )}
                 </div>
                 <div
                     className={clsx(
