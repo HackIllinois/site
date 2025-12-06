@@ -60,30 +60,20 @@ const ProChallenge: React.FC = () => {
                         fontSize: { xs: "32px", sm: "54px" }
                     }}
                 >
-                    <Box
-                        component="span"
-                        sx={{
-                            fontSize: { xs: "42px", sm: "64px" }
-                        }}
-                    >
-                        H
-                    </Box>
-                    <Box component="span">ACK</Box>
-
-                    <Box
-                        component="span"
-                        sx={{
-                            background:
-                                "linear-gradient(90deg, #FEB963 32.69%)",
-                            backgroundClip: "text",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            fontSize: { xs: "42px", sm: "64px" }
-                        }}
-                    >
-                        V
+                    <Box component="span" fontFamily={"Tsukimi Rounded"}>
+                        <Box
+                            fontFamily={"Tsukimi Rounded"}
+                            component="span"
+                            sx={{
+                                fontSize: { xs: "42px", sm: "64px" }
+                            }}
+                        >
+                            H
+                        </Box>
+                        ACK
                     </Box>
                     <Box
+                        fontFamily={"Tsukimi Rounded"}
                         component="span"
                         sx={{
                             background:
@@ -93,9 +83,20 @@ const ProChallenge: React.FC = () => {
                             WebkitTextFillColor: "transparent"
                         }}
                     >
+                        <Box
+                            component="span"
+                            fontFamily={"Tsukimi Rounded"}
+                            sx={{
+                                fontSize: { xs: "42px", sm: "64px" }
+                            }}
+                        >
+                            V
+                        </Box>
                         OYAGER
                     </Box>
-                    <Box component="span">?</Box>
+                    <Box component="span" fontFamily={"Tsukimi Rounded"}>
+                        ?
+                    </Box>
                 </Typography>
 
                 <Typography

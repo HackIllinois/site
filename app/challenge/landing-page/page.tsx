@@ -98,7 +98,8 @@ const ProChallenge: React.FC = () => {
                                         "linear-gradient(90deg, #FEB963 32.69%, #FF61E2 67.79%, #FEB963 100%)",
                                     backgroundClip: "text",
                                     WebkitBackgroundClip: "text",
-                                    WebkitTextFillColor: "transparent"
+                                    WebkitTextFillColor: "transparent",
+                                    fontFamily: "Tsukimi Rounded"
                                 }}
                             >
                                 VOYAGERS

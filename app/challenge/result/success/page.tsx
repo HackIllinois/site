@@ -51,7 +51,7 @@ export default function ChallengeResult() {
                     },
                     backgroundSize: "cover", // fill the screen
                     backgroundRepeat: "no-repeat", // prevent tiling
-                    backgroundPosition: "center", // center the image
+                    backgroundPosition: { xs: "left", sm: "center" }, // center the image
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
@@ -99,43 +99,42 @@ export default function ChallengeResult() {
                         sx={{
                             fontWeight: 700,
                             fontSize: { xs: "34px", sm: "54px" },
-                            textShadow: "0 0 30px #ffffff"
+                            textShadow: "0 0 35px #f6a5edff"
                         }}
                     >
-                        <Box
-                            component="span"
-                            sx={{
-                                fontSize: { xs: "44px", sm: "64px" }
-                            }}
-                        >
-                            H
+                        <Box component="span" fontFamily={"Tsukimi Rounded"}>
+                            <Box
+                                fontFamily={"Tsukimi Rounded"}
+                                component="span"
+                                sx={{
+                                    fontSize: { xs: "42px", sm: "64px" }
+                                }}
+                            >
+                                H
+                            </Box>
+                            ACK
                         </Box>
-                        <Box component="span">ACK</Box>
 
                         <Box
-                            component="span"
-                            sx={{
-                                background:
-                                    "linear-gradient(90deg, #FEB963 32.69%)",
-                                backgroundClip: "text",
-                                WebkitBackgroundClip: "text",
-                                WebkitTextFillColor: "transparent",
-                                fontSize: { xs: "44px", sm: "64px" }
-                            }}
-                        >
-                            V
-                        </Box>
-                        <Box
+                            fontFamily={"Tsukimi Rounded"}
                             component="span"
                             sx={{
                                 background:
                                     "linear-gradient(90deg, #FEB963 32.69%, #FF61E2 67.79%, #FEB963 100%)",
                                 backgroundClip: "text",
                                 WebkitBackgroundClip: "text",
-                                WebkitTextFillColor: "transparent",
-                                textShadow: "0 0 30px #FEB963"
+                                WebkitTextFillColor: "transparent"
                             }}
                         >
+                            <Box
+                                component="span"
+                                fontFamily={"Tsukimi Rounded"}
+                                sx={{
+                                    fontSize: { xs: "42px", sm: "64px" }
+                                }}
+                            >
+                                V
+                            </Box>
                             OYAGER
                         </Box>
                     </Typography>
