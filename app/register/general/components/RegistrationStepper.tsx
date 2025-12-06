@@ -117,7 +117,7 @@ const RegistrationStepper = ({
                                             filter:
                                                 i <= maxStep
                                                     ? "brightness(95%)"
-                                                    : "brightness(70%)",
+                                                    : "brightness(50%)",
                                             "&:hover": {
                                                 filter:
                                                     i <= maxStep
