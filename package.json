@@ -23,7 +23,7 @@
         "formik": "^2.4.6",
         "motion": "^12.23.22",
         "next": "^15.1.9",
-        "react": "^19.0.1",
+        "react": "^19.0.0",
         "react-confetti": "^6.4.0",
         "react-dom": "^19.2.0",
         "react-icons": "^5.4.0",
