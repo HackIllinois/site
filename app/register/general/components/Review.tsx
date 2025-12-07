@@ -1,17 +1,16 @@
 "use client";
-import React from "react";
-import { styled, Theme } from "@mui/material/styles";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EditIcon from "@mui/icons-material/Edit";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
-    Box,
     Accordion,
     AccordionDetails,
     AccordionSummary,
+    Box,
     Stack,
     Typography
 } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { styled } from "@mui/material/styles";
+import React from "react";
 
 export const ReviewContainer = styled(Stack)(({ theme }) => ({
     alignItems: "stretch",
@@ -67,8 +66,6 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
     isExpanded,
     onEdit
 }) => {
-    const router = useRouter();
-
     return (
         <AccordionSummary
             sx={{

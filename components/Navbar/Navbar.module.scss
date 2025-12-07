@@ -216,7 +216,7 @@
     }
 }
 
-.olympianButton {
+.proTrackButton {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -228,7 +228,7 @@
     animation: all 3s;
 }
 
-.olympianButton:hover {
+.proTrackButton:hover {
     .buttonBackground {
         filter: blur(12px);
     }

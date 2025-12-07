@@ -56,6 +56,7 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
 
     return (
         <FormControl
+            name={name}
             component="fieldset"
             error={error}
             sx={{ width: "100%", height: "100%" }}

@@ -6,11 +6,9 @@ import { GradientButton } from "@/components/GradientButton/GradientButton";
 import Loading from "@/components/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import useWindowSize from "@/hooks/use-window-size";
-import { montserrat } from "@/theme/fonts";
-import { Box, Button, Container, Typography } from "@mui/material";
-import Link from "next/link";
-import Confetti from "react-confetti";
+import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
+import Confetti from "react-confetti";
 
 export default function ChallengeResult() {
     const registrationAuth = useRegistrationAuth(true);

@@ -1,13 +1,6 @@
 import { Box, Step, StepLabel, Stepper } from "@mui/material";
 import Image from "next/image";
-import {
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useMemo,
-    useRef,
-    useState
-} from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { steps } from "../constants/registration";
 import RocketOverlay from "./RocketOverlay";
 

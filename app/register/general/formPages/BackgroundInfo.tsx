@@ -1,8 +1,5 @@
-import { RegistrationData } from "@/util/types";
-import { Container, Grid, Typography } from "@mui/material";
-import { FormikProps } from "formik";
-import SelectTextInput from "@/components/SelectTextInputMUI";
 import RadioSelectGroup from "@/components/RadioSelectGroupMUI";
+import SelectTextInput from "@/components/SelectTextInputMUI";
 import {
     countryOptions,
     genderOptions,
@@ -16,7 +13,8 @@ import {
     underrepresentedOptions
 } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
-import { useEffect } from "react";
+import { Container, Grid, Typography } from "@mui/material";
+import { FormikProps } from "formik";
 
 interface EducationProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
@@ -24,7 +22,7 @@ interface EducationProps {
 }
 
 const Education = ({ formik, accentColor }: EducationProps) => {
-    const { values, errors, touched, handleChange, setFieldValue } = formik;
+    const { values, errors, touched, setFieldValue } = formik;
     return (
         <Container>
             <Typography

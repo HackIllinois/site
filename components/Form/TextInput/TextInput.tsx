@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
-import styles from "./TextInput.module.scss";
 import clsx from "clsx";
 import { Field, useField } from "formik";
+import React from "react";
+import styles from "./TextInput.module.scss";
 
 type TextInputProps = {
     name: string;
@@ -25,7 +25,7 @@ const TextInput: React.FC<TextInputProps> = ({
     required,
     ...props
 }) => {
-    const [field, meta] = useField(name);
+    const [_, meta] = useField(name);
     const showFeedback = meta.error && meta.touched;
 
     return (

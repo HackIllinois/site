@@ -186,7 +186,7 @@ const GeneralRegistration = () => {
             await draftValidationSchemas[currentStep].validate(draftContent, {
                 abortEarly: false
             });
-        } catch (error) {
+        } catch {
             setShowClickOffAlert(true);
             return;
         }

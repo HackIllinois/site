@@ -1,14 +1,12 @@
 "use client";
+import { GradientButton } from "@/components/GradientButton/GradientButton";
 import Loading from "@/components/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import LANDING from "@/public/registration/pro/landing.svg";
-import { montserrat } from "@/theme/fonts";
-import { Box, Button, Typography } from "@mui/material";
-import Link from "next/link";
+import { Box, Typography } from "@mui/material";
+import Image from "next/image";
 import GithubAuthPage from "../register/general/formPages/GithubAuthPage";
 import NotProTrackPage from "../register/general/formPages/NotProTrackPage";
-import { GradientButton } from "@/components/GradientButton/GradientButton";
-import Image from "next/image";
 
 const ProChallenge: React.FC = () => {
     const registrationAuth = useRegistrationAuth(true);

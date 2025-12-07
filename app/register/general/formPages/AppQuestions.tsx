@@ -1,9 +1,8 @@
 import CheckboxSelect from "@/components/CheckboxSelectMUI";
 import TextInput from "@/components/TextInputMUI";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
-import { Container, Grid, Typography, Link, Box } from "@mui/material";
+import { Box, Container, Grid, Link, Typography } from "@mui/material";
 import { FormikProps } from "formik";
-import { useEffect } from "react";
 interface AppQuestionsProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     accentColor?: string;
