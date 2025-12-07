@@ -10,6 +10,7 @@ import { montserrat } from "@/theme/fonts";
 import { Box, Button, Container, Typography } from "@mui/material";
 import Link from "next/link";
 import Confetti from "react-confetti";
+import Image from "next/image";
 
 export default function ChallengeResult() {
     const registrationAuth = useRegistrationAuth(true);
@@ -102,40 +103,26 @@ export default function ChallengeResult() {
                             textShadow: "0 0 35px #f6a5edff"
                         }}
                     >
-                        <Box component="span" fontFamily={"Tsukimi Rounded"}>
-                            <Box
-                                fontFamily={"Tsukimi Rounded"}
-                                component="span"
-                                sx={{
-                                    fontSize: { xs: "42px", sm: "64px" }
-                                }}
-                            >
-                                H
-                            </Box>
-                            ACK
-                        </Box>
-
                         <Box
-                            fontFamily={"Tsukimi Rounded"}
-                            component="span"
                             sx={{
-                                background:
-                                    "linear-gradient(90deg, #FEB963 32.69%, #FF61E2 67.79%, #FEB963 100%)",
-                                backgroundClip: "text",
-                                WebkitBackgroundClip: "text",
-                                WebkitTextFillColor: "transparent"
+                                mt: "-40px",
+                                mb: { xs: "-50px", sm: "-65px" },
+                                width: {
+                                    xs: "370px",
+                                    sm: "640px"
+                                }
                             }}
                         >
-                            <Box
-                                component="span"
-                                fontFamily={"Tsukimi Rounded"}
-                                sx={{
-                                    fontSize: { xs: "42px", sm: "64px" }
+                            <Image
+                                src="/design-reference/HACKVOYAGERS_GLOW.svg"
+                                alt="HackVoyagers"
+                                width={600}
+                                height={150}
+                                style={{
+                                    width: "100%",
+                                    height: "auto"
                                 }}
-                            >
-                                V
-                            </Box>
-                            OYAGER
+                            />
                         </Box>
                     </Typography>
                     <Typography
