@@ -11,7 +11,7 @@ export const GradientButton = ({ text, link }: GradientButtonProps) => {
         <Link prefetch={false} href={link}>
             <Box
                 sx={{
-                    p: "6px",
+                    p: { xs: "4px", sm: "5px", md: "6px" },
                     borderRadius: "40px",
                     background:
                         "linear-gradient(90deg, #A315D6, #FDAB60, #A315D6)",
@@ -27,10 +27,10 @@ export const GradientButton = ({ text, link }: GradientButtonProps) => {
                         backgroundPosition: "50% 0%",
                         color: "white",
                         fontWeight: 800,
-                        fontSize: { xs: "18px", sm: "20px" },
+                        fontSize: { xs: "14px", sm: "18px", md: "20px" },
                         textTransform: "none",
-                        px: { xs: 4, sm: 6 },
-                        py: 1.5,
+                        px: { xs: 2.5, sm: 4, md: 6 },
+                        py: { xs: 1, sm: 1.25, md: 1.5 },
                         borderRadius: "40px",
                         fontFamily: "Tsukimi Rounded",
                         border: "none",
