@@ -28,7 +28,6 @@ const Home: React.FC = () => {
             <main className={styles.main}>
                 {/* Hero Section - Hackastra */}
                 <section className={styles.heroSection}>
-                    {/* Background Elements */}
                     <div className={styles.heroBackgrounds}>
                         <Image
                             src="/landing/hero/desktop/fight.svg"
