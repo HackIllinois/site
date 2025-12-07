@@ -337,9 +337,9 @@ const ProChallenge: React.FC = () => {
                                 opacity: 0.88
                             }}
                         >
-                            Note: You MUST complete the challenge before
-                            submitting registration. Once you submit, you can no
-                            longer complete the challenge.
+                            Note: You MUST complete the challenge after
+                            submitting registration to be considered for
+                            HackVoyagers.
                         </Typography>
                     </Box>
 

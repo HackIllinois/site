@@ -117,7 +117,7 @@ const RegistrationStepper = ({
                                             filter:
                                                 i <= maxStep
                                                     ? "brightness(95%)"
-                                                    : "brightness(70%)",
+                                                    : "brightness(50%)",
                                             "&:hover": {
                                                 filter:
                                                     i <= maxStep
@@ -137,13 +137,16 @@ const RegistrationStepper = ({
                                         }}
                                     >
                                         <Image
-                                            src={`/registration/progress_bar/${step.id}.png`}
+                                            src={`/registration/progress_bar/${step.id}.svg`}
                                             alt={`${step.name} icon`}
                                             width={80}
                                             height={80}
                                             style={{
                                                 width: "auto",
-                                                height: "clamp(30px, 8vw, 75px)"
+                                                height:
+                                                    step.id === "review"
+                                                        ? "clamp(30px, 10.5vw, 100px)"
+                                                        : "clamp(30px, 8vw, 75px)"
                                             }}
                                             priority
                                         />
