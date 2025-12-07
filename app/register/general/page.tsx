@@ -410,7 +410,8 @@ const GeneralRegistration = () => {
                     },
                     backgroundSize: "cover", // Fill the screen
                     backgroundRepeat: "no-repeat", // Prevent tiling
-                    backgroundPosition: "center" // Center the image
+                    backgroundPosition: "center", // Center the image
+                    backgroundAttachment: "fixed" // Prevent scaling
                 }}
             >
                 <Paper
