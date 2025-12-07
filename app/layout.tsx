@@ -14,11 +14,7 @@ export const metadata: Metadata = {
         "The official website of the University of Illinois at Urbana-Champaign's Premier Hackathon!"
 };
 
-export default function RootLayout({
-    children
-}: {
-    children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
             <body

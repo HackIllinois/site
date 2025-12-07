@@ -1,5 +1,5 @@
 {
-    "extends": "next/core-web-vitals",
+    "extends": ["next/core-web-vitals", "next/typescript"],
     "plugins": ["unused-imports"],
     "rules": {
         "no-unused-vars": "off",
