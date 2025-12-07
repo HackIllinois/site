@@ -7,7 +7,8 @@ import {
 } from "@/util/api";
 import Head from "next/head";
 import { usePathname, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import GlobalContext from "../context";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     const [isLoading, setIsLoading] = useState(false);

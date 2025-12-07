@@ -29,7 +29,6 @@ type PropTypes = {
 const FileUpload: React.FC<PropTypes> = ({
     name,
     label,
-    type,
     text,
     accept,
     className,
@@ -48,7 +47,7 @@ const FileUpload: React.FC<PropTypes> = ({
     const onFileUpload = (file: File) => {
         setIsUploading(true);
         setValue(file.name);
-        uploadFile(file, type)
+        uploadFile(file)
             .then(() => {
                 field.onChange(file.name);
             })

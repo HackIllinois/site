@@ -36,6 +36,7 @@ const Registration: React.FC = () => {
                         text="HackOlympian"
                         link="/register/challenge"
                         blue
+                        medium
                     />
                     <p className={styles.link}>
                         <Link
@@ -50,6 +51,7 @@ const Registration: React.FC = () => {
                         text="General Attendee"
                         link="/register/personal-info"
                         gold
+                        medium
                     />
                 </div>
                 <div className={styles.spacer}></div>

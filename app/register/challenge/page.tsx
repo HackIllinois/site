@@ -11,12 +11,7 @@ import FOREGROUND from "@/public/registration/pro/foreground.svg";
 import EXAMPLE_CHALLENGE_GRAPHIC from "@/public/registration/example_challenge_graphic.svg";
 
 import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
-import {
-    isAuthenticated,
-    authenticate,
-    getRegistrationOrDefault,
-    getChallenge
-} from "@/util/api";
+import { isAuthenticated, authenticate, getChallenge } from "@/util/api";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import Loading from "@/components/Loading/Loading";
@@ -117,9 +112,9 @@ const ProChallenge: React.FC = () => {
                         </p>
                         <p>
                             To begin, you must retrieve your{" "}
-                            <b>celestial JWT token</b> to prove your worth. Use
-                            the same GitHub account you used to register for
-                            HackIllinois to claim your token!
+                            <b>celestial JWT token</b> to prove your worth. Make
+                            sure you use the same GitHub account as you did
+                            earlier!
                         </p>
                         <ShineButton
                             text="Fetch JWT"

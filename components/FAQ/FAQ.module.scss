@@ -1,34 +1,25 @@
 .faqContainer {
     position: absolute;
-    top: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 20px;
-
-    @media screen and (max-width: 1152px) {
-        top: 100px;
-    }
+    top: 12vw;
+    padding: 0 3vw;
+    height: 60vw;
 
     @media screen and (max-width: 768px) {
-        padding: 0 10px;
-        top: 50px;
-    }
-
-    @media screen and (max-width: 400px) {
-        padding: 0 10px;
-        top: 45px;
+        height: 90vw;
     }
 }
 
 .faqArrow {
     background: none;
     border: none;
-    font-size: 36px;
+    font-size: 48px;
     cursor: pointer;
 
-    @media screen and (max-width: 768px) {
-        font-size: 18px;
+    @media screen and (max-width: 1152px) {
+        font-size: 24px;
     }
 }
 
@@ -46,21 +37,17 @@
     @media screen and (max-width: 1152px) {
         gap: 1rem;
     }
-
-    @media screen and (max-width: 768px) {
-        gap: 7px;
-    }
 }
 
 .faqItem {
     h3 {
-        font-size: 42px;
+        font-size: 2.5vw;
         font-weight: 500;
         margin-bottom: 0.5rem;
     }
 
     p {
-        font-size: 21px;
+        font-size: 1.25vw;
     }
 
     a {
@@ -75,63 +62,23 @@
         color: #a5c300;
     }
 
-    @media screen and (max-width: 1650px) {
+    @media screen and (max-width: 1350px) {
         h3 {
-            font-size: 36px;
+            font-size: 3vw;
         }
 
         p {
-            font-size: 18px;
+            font-size: 2.5vw;
         }
     }
 
-    @media screen and (max-width: 1450px) {
+    @media screen and (max-width: 432px) {
         h3 {
-            font-size: 30px;
+            font-size: 4vw;
         }
 
         p {
-            font-size: 17px;
-        }
-    }
-
-    @media screen and (max-width: 1152px) {
-        h3 {
-            font-size: 28px;
-        }
-
-        p {
-            font-size: 16px;
-        }
-    }
-
-    @media screen and (max-width: 768px) {
-        h3 {
-            font-size: 9px;
-        }
-
-        p {
-            font-size: 8px;
-        }
-    }
-
-    @media screen and (max-width: 400px) {
-        h3 {
-            font-size: 9px;
-        }
-
-        p {
-            font-size: 7px;
-        }
-    }
-
-    @media screen and (max-width: 370px) {
-        h3 {
-            font-size: 8px;
-        }
-
-        p {
-            font-size: 6px;
+            font-size: 2.9vw;
         }
     }
 }

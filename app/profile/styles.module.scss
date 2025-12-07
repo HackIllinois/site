@@ -66,10 +66,22 @@
 .container .info {
     width: 100%;
     display: flex;
-    @media (max-width: 768px) {
-        flex-direction: column;
-        gap: 40px;
-    }
+    // @media (max-width: 768px) {
+    //     flex-direction: column;
+    //     gap: 40px;
+    // }
+}
+
+.container .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    // @media (max-width: 768px) {
+    //     width: fit-content;
+    //     flex-direction: row;
+    //     gap: 10px;
+    // }
 }
 
 .container .info .col {
@@ -83,4 +95,127 @@
 .col h3 {
     text-decoration: underline;
     padding-bottom: 5px;
+}
+
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: calc(100% - (4rem + 5vw));
+    padding: calc(2rem + 5vw) 2rem 2rem 2rem;
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        min-height: calc(100% - (4rem + 30vw));
+        padding: calc(2rem + 30vw) 1rem 2rem 1rem;
+    }
+}
+
+.modalContent p {
+    color: black;
+}
+
+.qr {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+}
+
+.modalContent h1 {
+    color: white;
+    font-size: 3vw;
+
+    @media screen and (max-width: 768px) {
+        font-size: 6vw;
+    }
+}
+
+.modalContent p {
+    color: white;
+    margin-bottom: 10px;
+    font-size: 2vw;
+
+    @media screen and (max-width: 768px) {
+        font-size: 6vw;
+    }
+}
+
+.closeButton {
+    color: #34274a;
+    position: relative;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #34274a;
+    padding-top: 14px;
+    font-size: 30px;
+}
+
+.closeButton:hover {
+    color: #34274a;
+    text-decoration: underline;
+    text-decoration-color: #34274a;
+    cursor: pointer;
+}
+
+.link {
+    color: #34274a;
+    position: relative;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #34274a;
+    padding-top: 14px;
+}
+
+.link:hover {
+    color: #34274a;
+    text-decoration: underline;
+    text-decoration-color: #34274a;
+    cursor: pointer;
+}
+
+.qrCodeCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    @media (max-width: 768px) {
+        gap: 5px;
+    }
+}
+
+.signOut {
+    position: absolute;
+    aspect-ratio: 1;
+    padding: 1rem;
+    background-color: rgba(110, 144, 163, 0.8);
+    border-radius: 1rem;
+    bottom: 30px;
+    right: 30px;
+}
+
+.signOutButton {
+    cursor: pointer;
+}
+
+.profileImage {
+    cursor: pointer;
+
+    @media screen and (max-width: 1152px) {
+        display: none;
+    }
+}
+
+.profileImageMobile {
+    position: absolute;
+    display: none;
+    bottom: 25px;
+    left: 30px;
+    cursor: pointer;
+
+    @media screen and (max-width: 1152px) {
+        display: block;
+    }
 }

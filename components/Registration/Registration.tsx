@@ -7,7 +7,7 @@ import React, {
     useRef,
     useState
 } from "react";
-import { Form, Formik, FormikHelpers, FormikProps } from "formik";
+import { Form, Formik, FormikProps } from "formik";
 import { RegistrationData } from "@/util/types";
 import { usePathname, useRouter } from "next/navigation";
 import NavigationButton from "../Form/NavigationButton/NavigationButton";
@@ -124,10 +124,7 @@ const Registration: React.FC<PropTypes> = ({
         );
     };
 
-    const handleSubmit = async (
-        values: RegistrationData,
-        helpers: FormikHelpers<RegistrationData>
-    ) => {
+    const handleSubmit = async (values: RegistrationData) => {
         const schemaKeys = Object.keys(schema.fields);
         const newIgnore = Object.fromEntries(
             Object.entries(ignoredFields).filter(
@@ -189,6 +186,16 @@ const Registration: React.FC<PropTypes> = ({
                         </Formik>
                     </div>
                 </div>
+                {characters[pageIndex] && (
+                    <div className={styles.character}>
+                        <Image
+                            src={characters[pageIndex].src}
+                            alt="Character"
+                            width={400}
+                            height={1000}
+                        />
+                    </div>
+                )}
             </div>
         </>
     );

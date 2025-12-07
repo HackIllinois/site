@@ -25,7 +25,7 @@ const TextInput: React.FC<TextInputProps> = ({
     required,
     ...props
 }) => {
-    const [field, meta] = useField(name);
+    const [, meta] = useField(name);
     const showFeedback = meta.error && meta.touched;
 
     return (

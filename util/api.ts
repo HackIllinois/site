@@ -4,9 +4,11 @@ import {
     WithId,
     RSVPType,
     ChallengeStatus,
-    FileType
+    ProfileBodyType,
+    ProfileType,
+    EventType,
+    AuthRoles
 } from "./types";
-import { APIError } from "./error";
 import { handleError } from "./helpers";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -18,6 +20,11 @@ export function authenticate(to: string): void {
     localStorage.setItem("to", to);
     const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/auth/`;
     window.location.replace(authUrl);
+}
+
+export function logOut() {
+    localStorage.removeItem("token");
+    window.location.replace("/");
 }
 
 // If status is good, returns response. If status is bad, throws the error response.
@@ -59,8 +66,8 @@ export async function requestv2(
 }
 
 export async function getChallenge(): Promise<ChallengeStatus> {
-    const res = await requestv2("GET", "/registration/challenge/").catch(body =>
-        handleError(body)
+    const res = await requestv2("GET", "/registration/challenge/").catch(
+        handleError
     );
     return res;
 }
@@ -71,6 +78,7 @@ export async function getRegistrationOrDefault(): Promise<
     try {
         // const response = await requestv2("GET", "/registration");
         return response;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (error.error !== "NotFound") {
             handleError(error);
@@ -105,7 +113,7 @@ export async function registerUpdate(
     registration: RegistrationType
 ): Promise<WithId<RegistrationType>> {
     const res = await requestv2("POST", `/registration`, registration).catch(
-        body => handleError(body)
+        handleError
     );
     return res;
 }
@@ -117,32 +125,57 @@ export async function registerSubmit(
         "POST",
         `/registration/submit`,
         registration
-    ).catch(body => handleError(body));
+    ).catch(handleError);
     return res;
 }
 
-export async function getRSVP(): Promise<RSVPType> {
-    const res = await requestv2("GET", "/admission/rsvp").catch(body =>
-        handleError(body)
+export async function getRegistrationStatus(): Promise<{ alive: boolean }> {
+    const res = await requestv2("GET", "/registration/status").catch(
+        handleError
     );
     return res;
 }
 
-export async function subscribe(
-    listName: string,
-    emailAddress: string
-): Promise<string> {
-    const res = await requestv2("POST", "/newsletter/subscribe/", {
-        listName,
-        emailAddress
-    }).catch(body => handleError(body));
+export async function getRSVP(): Promise<RSVPType> {
+    const res = await requestv2("GET", "/admission/rsvp").catch(handleError);
     return res;
 }
 
-export async function uploadFile(file: File, type: FileType): Promise<unknown> {
-    const { url, fields } = await requestv2("GET", "/s3/upload");
-    let data = new FormData();
-    for (let key in fields) {
+export async function getProfile(): Promise<ProfileType> {
+    const res = await requestv2("GET", "/profile").catch(handleError);
+    return res;
+}
+
+export async function getEvents(): Promise<EventType[]> {
+    const res = await requestv2("GET", "/event").catch(handleError);
+    return res.events as EventType[];
+}
+
+export async function RSVPDecideAccept() {
+    const res = await requestv2("PUT", "/admission/rsvp/accept").catch(
+        handleError
+    );
+    return res;
+}
+
+export async function refreshToken() {
+    const res = await requestv2("GET", "/auth/token/refresh/").catch(
+        handleError
+    );
+    localStorage.setItem("token", res.token);
+}
+
+export async function RSVPDecideDecline() {
+    const res = await requestv2("PUT", "/admission/rsvp/decline").catch(
+        handleError
+    );
+    return res;
+}
+
+export async function uploadFile(file: File): Promise<unknown> {
+    const { url, fields } = await requestv2("GET", "/resume/upload");
+    const data = new FormData();
+    for (const key in fields) {
         data.append(key, fields[key]);
     }
     data.append("file", file, file.name);
@@ -157,4 +190,31 @@ export async function uploadFile(file: File, type: FileType): Promise<unknown> {
         });
     }
     return res;
+}
+
+export async function unsubscribe(listName: string, emailAddress: string) {
+    const res = await requestv2("DELETE", "/newsletter/subscribe/", {
+        listName,
+        emailAddress
+    }).catch(handleError);
+    return res;
+}
+
+export async function getQRCode(): Promise<string> {
+    const res = await requestv2("GET", "/user/qr").catch(handleError);
+    return res.qrInfo;
+}
+
+export function setProfile(body: ProfileBodyType): Promise<ProfileType> {
+    return requestv2("POST", "/profile", body).catch(handleError);
+}
+
+export function updateProfile(
+    body: Partial<ProfileBodyType>
+): Promise<ProfileType> {
+    return requestv2("PUT", "/profile", body).catch(handleError);
+}
+
+export function getAuthRoles(): Promise<AuthRoles> {
+    return requestv2("GET", "/auth/roles").catch(handleError);
 }

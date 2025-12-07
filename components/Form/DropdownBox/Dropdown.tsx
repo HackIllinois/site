@@ -30,7 +30,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     const [field, meta, helpers] = useField(name);
     const showFeedback = meta.error && meta.touched;
 
-    let formattedOptions = options.map(option => ({
+    const formattedOptions = options.map(option => ({
         label: option,
         value: option
     }));

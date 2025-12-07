@@ -1,0 +1,119 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    padding-top: 50px;
+    overflow: hidden;
+    height: 100%;
+}
+
+.leftDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex: 0.7;
+    margin-top: 100px;
+    padding-left: 0px;
+    height: 80vh;
+    overflow: hidden;
+}
+
+.title {
+    font-size: 5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white;
+    margin-left: 30px;
+}
+
+.scrollableGrid {
+    flex: 2;
+    max-height: calc(100vh - 50px);
+    overflow-y: auto;
+    width: 100%;
+    margin-top: 100px;
+    padding-bottom: 50px;
+}
+
+.prizesGrid {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.prizeInfo h2 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.prizeInfo p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.character {
+    width: 100%;
+    min-width: 300px;
+    margin-right: 30px;
+}
+
+@media screen and (max-width: 1152px) {
+    .prizesGrid {
+        grid-template-columns: 1fr;
+        margin: 50px auto 0 auto;
+        margin-top: 0;
+    }
+    .character {
+        margin-left: -100px;
+        overflow: hidden;
+    }
+
+    .title {
+        font-size: 3rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding-top: 30px;
+    }
+
+    .title {
+        margin-left: 0;
+    }
+
+    .character {
+        display: none;
+    }
+
+    .scrollableGrid {
+        height: fit-content;
+        max-height: unset;
+        margin-top: 0;
+    }
+
+    .leftDiv {
+        width: 100%;
+        align-items: center;
+        flex: 1;
+        margin-top: 50px;
+        padding-left: 0;
+    }
+
+    .title {
+        font-size: 3rem;
+    }
+
+    .prizesGrid {
+        grid-template-columns: 1fr;
+        margin: 50px auto 0 auto;
+        height: fit-content;
+        padding-bottom: 100px;
+        margin-top: 10px;
+    }
+}

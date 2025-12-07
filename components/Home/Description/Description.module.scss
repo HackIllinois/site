@@ -1,19 +1,15 @@
 .container {
     position: absolute;
-    bottom: -270px;
+    top: 84vw;
     width: 100%;
     height: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 3;
-
-    @media screen and (max-width: 1152px) {
-        bottom: -100px;
-    }
+    z-index: 100;
 
     @media screen and (max-width: 768px) {
-        bottom: -60px;
+        margin-top: 25vw;
     }
 }
 
@@ -22,43 +18,33 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: left;
+    align-items: center;
+    text-align: center;
     justify-content: center;
     position: absolute;
     color: #3a464f;
-    padding: 0 12rem;
-    gap: 0.5rem;
-
+    gap: 0.5vw;
     h1 {
-        font-size: 67px;
+        font-size: 5vw;
         font-weight: 900;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5vw;
     }
 
     p {
-        font-size: 24px;
+        font-size: 2vw;
     }
 
-    @media screen and (max-width: 1152px) {
-        padding: 48px;
-        h1 {
-            font-size: 48px;
-            margin-bottom: 0.25rem;
-        }
-        p {
-            font-size: 16px;
-        }
-    }
+    @media screen and (max-width: 480px) {
+        align-items: center;
+        text-align: center;
+        padding: 0 1vw;
 
-    @media screen and (max-width: 768px) {
-        padding: 24px;
-        gap: 0.25rem;
         h1 {
-            font-size: 18px;
-            margin-bottom: 0.25rem;
+            font-size: 4vw;
         }
+
         p {
-            font-size: 10px;
+            font-size: 3vw;
         }
     }
 }

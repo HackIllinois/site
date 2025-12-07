@@ -15,10 +15,8 @@ type StyledInputProps = {
  * Please use MUI instead.
  */
 const StyledInput: React.FC<StyledInputProps> = ({
-    name,
     className,
     multiline,
-    required,
     ...props
 }) => {
     return multiline ? (

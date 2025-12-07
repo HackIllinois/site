@@ -31,7 +31,7 @@ const Education: React.FC = () => {
 
             <Dropdown
                 name="degree"
-                label="What degree are you currently persuing"
+                label="What degree are you currently pursuing"
                 options={degreeOptions}
                 required
             />
