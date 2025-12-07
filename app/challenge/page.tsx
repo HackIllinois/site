@@ -8,6 +8,7 @@ import Link from "next/link";
 import GithubAuthPage from "../register/general/formPages/GithubAuthPage";
 import NotProTrackPage from "../register/general/formPages/NotProTrackPage";
 import { GradientButton } from "@/components/GradientButton/GradientButton";
+import Image from "next/image";
 
 const ProChallenge: React.FC = () => {
     const registrationAuth = useRegistrationAuth(true);
@@ -53,51 +54,27 @@ const ProChallenge: React.FC = () => {
                 >
                     Ready to be a
                 </Typography>
-                <Typography
-                    fontFamily={"Tsukimi Rounded"}
+                <Box
                     sx={{
-                        fontWeight: 700,
-                        fontSize: { xs: "32px", sm: "54px" }
+                        mt: "20px",
+                        mb: "20px",
+                        width: {
+                            xs: "310px",
+                            sm: "540px"
+                        }
                     }}
                 >
-                    <Box
-                        component="span"
-                        sx={{
-                            fontSize: { xs: "42px", sm: "64px" }
+                    <Image
+                        src="/design-reference/HACKVOYAGER_.svg"
+                        alt="HackVoyagers"
+                        width={600}
+                        height={150}
+                        style={{
+                            width: "100%",
+                            height: "auto"
                         }}
-                    >
-                        H
-                    </Box>
-                    <Box component="span">ACK</Box>
-
-                    <Box
-                        component="span"
-                        sx={{
-                            background:
-                                "linear-gradient(90deg, #FEB963 32.69%)",
-                            backgroundClip: "text",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            fontSize: { xs: "42px", sm: "64px" }
-                        }}
-                    >
-                        V
-                    </Box>
-                    <Box
-                        component="span"
-                        sx={{
-                            background:
-                                "linear-gradient(90deg, #FEB963 32.69%, #FF61E2 67.79%, #FEB963 100%)",
-                            backgroundClip: "text",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent"
-                        }}
-                    >
-                        OYAGER
-                    </Box>
-                    <Box component="span">?</Box>
-                </Typography>
-
+                    />
+                </Box>
                 <Typography
                     fontFamily={"Montserrat"}
                     sx={{

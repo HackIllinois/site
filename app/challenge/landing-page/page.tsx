@@ -1,5 +1,6 @@
 "use client";
 import { Box, Typography } from "@mui/material";
+import Image from "next/image";
 
 const ProChallenge: React.FC = () => {
     return (
@@ -77,33 +78,27 @@ const ProChallenge: React.FC = () => {
                         >
                             INTRODUCING
                         </Typography>
-
-                        <Typography
+                        <Box
                             sx={{
-                                fontSize: {
-                                    xs: "6vw",
-                                    md: "3.5vw",
-                                    xl: "58px"
-                                },
-                                fontWeight: 700,
-                                fontFamily: "Tsukimi Rounded",
-                                color: "white"
+                                mt: "0.5vw",
+                                width: {
+                                    xs: "58vw",
+                                    md: "33vw",
+                                    xl: "580px"
+                                }
                             }}
                         >
-                            HACK
-                            <Box
-                                component="span"
-                                sx={{
-                                    background:
-                                        "linear-gradient(90deg, #FEB963 32.69%, #FF61E2 67.79%, #FEB963 100%)",
-                                    backgroundClip: "text",
-                                    WebkitBackgroundClip: "text",
-                                    WebkitTextFillColor: "transparent"
+                            <Image
+                                src="/design-reference/HACKVOYAGERS.svg"
+                                alt="HackVoyagers"
+                                width={600}
+                                height={150}
+                                style={{
+                                    width: "100%",
+                                    height: "auto"
                                 }}
-                            >
-                                VOYAGERS
-                            </Box>
-                        </Typography>
+                            />
+                        </Box>
                     </Box>
 
                     {/* panel start*/}
