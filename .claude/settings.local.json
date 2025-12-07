@@ -1,9 +1,7 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(cp:*)"
-    ],
-    "deny": [],
-    "ask": []
-  }
+    "permissions": {
+        "allow": ["Bash(cp:*)"],
+        "deny": [],
+        "ask": []
+    }
 }

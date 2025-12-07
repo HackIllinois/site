@@ -1,5 +1,4 @@
 import { Box, CircularProgress } from "@mui/material";
-import styles from "./Loading.module.scss";
 
 type LoadingProps = {
     backgroundImage?: string;

@@ -1,10 +1,8 @@
-import { RegistrationData } from "@/util/types";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import InputBase from "@mui/material/InputBase";
 import Typography from "@mui/material/Typography";
 // import TextField from "@mui/material/TextField";
-import { FormikProps } from "formik";
 
 interface TextInputProps {
     name: string;

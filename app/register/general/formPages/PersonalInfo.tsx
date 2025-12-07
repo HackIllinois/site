@@ -1,11 +1,9 @@
-import { RegistrationData } from "@/util/types";
-import { Container, Grid, Tooltip, Typography } from "@mui/material";
-import { FormikProps } from "formik";
-import TextInput from "@/components/TextInputMUI";
 import SelectTextInput from "@/components/SelectTextInputMUI";
+import TextInput from "@/components/TextInputMUI";
 import { ageOptions } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
-import { useEffect } from "react";
+import { Container, Grid, Typography } from "@mui/material";
+import { FormikProps } from "formik";
 
 interface PersonalInfoProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;

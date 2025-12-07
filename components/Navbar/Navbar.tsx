@@ -92,7 +92,7 @@ const Navbar = () => {
                         </li>
                     ))}
                     <li>
-                        <OlympianButton />
+                        <ProTrackButton />
                     </li>
                 </ul>
                 <Link
@@ -175,7 +175,7 @@ const Navbar = () => {
                             {item.title}
                         </Link>
                     ))}
-                    <OlympianButton />
+                    <ProTrackButton />
                 </div>
             </nav>
         </>
@@ -184,10 +184,10 @@ const Navbar = () => {
 
 export default Navbar;
 
-const OlympianButton = () => {
+const ProTrackButton = () => {
     return (
         <Link prefetch={false} href="/challenge/landing-page">
-            <button className={styles.olympianButton}>
+            <button className={styles.proTrackButton}>
                 <div className={styles.buttonBackground}></div>
                 <div className={styles.buttonContent}>
                     <svg

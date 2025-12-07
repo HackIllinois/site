@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, darken, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import { MouseEventHandler } from "react";
 

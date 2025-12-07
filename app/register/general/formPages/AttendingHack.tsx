@@ -9,7 +9,6 @@ import {
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";
-import { useEffect } from "react";
 
 interface TransportationProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;

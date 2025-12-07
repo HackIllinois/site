@@ -4,13 +4,11 @@ import GithubAuthPage from "@/app/register/general/formPages/GithubAuthPage";
 import NotProTrackPage from "@/app/register/general/formPages/NotProTrackPage";
 import Loading from "@/components/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
-import useWindowSize from "@/hooks/use-window-size";
 import { Box, Button, Container, Typography } from "@mui/material";
 import Link from "next/link";
 
 export default function ChallengeResult() {
     const registrationAuth = useRegistrationAuth(true);
-    const { width, height } = useWindowSize();
 
     if (registrationAuth.isLoading) {
         return (
