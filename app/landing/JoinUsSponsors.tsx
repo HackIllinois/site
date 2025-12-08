@@ -26,6 +26,14 @@ const JoinUsSponsors = () => {
                 priority
             />
 
+            <Image
+                src="/landing/sponsors/foreground.svg"
+                alt="Sponsors Foreground"
+                fill
+                className={styles.foreground}
+                priority
+            />
+
             <div className={styles.ufoContainer}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
