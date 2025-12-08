@@ -6,7 +6,8 @@ import {
     AccordionSummary,
     AccordionDetails,
     Typography,
-    Box
+    Box,
+    Link
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styles from "./FAQ.module.scss";
@@ -22,7 +23,30 @@ const faqItems = [
     },
     {
         question: "Where is HackIllinois located?",
-        answer: "HackIllinois 2026 will be held at the Siebel Center for Computer Science at the University of Illinois Urbana-Champaign. The address is 201 N Goodwin Ave, Urbana, IL 61801. The event will take place from February 27th to March 1st. We'll provide more detailed location and parking information closer to the event date."
+        answer: (
+            <>
+                HackIllinois 2026 will be held at the Siebel Center for Computer
+                Science at the University of Illinois Urbana-Champaign. The
+                address is (
+                <Link
+                    href="https://maps.app.goo.gl/2mphY68Pwd6qTuBz5"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                        color: "#4A90E2",
+                        textDecoration: "underline",
+                        "&:hover": {
+                            color: "#357ABD"
+                        }
+                    }}
+                >
+                    201 N Goodwin Ave, Urbana, IL 61801
+                </Link>
+                ). The event will take place from February 27th to March 1st.
+                We&apos;ll provide more detailed location and parking
+                information closer to the event date.
+            </>
+        )
     }
 ];
 

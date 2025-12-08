@@ -1,5 +1,4 @@
 "use client";
-import { EventCountdownPill } from "@/components/EventCountdown/EventCountdown";
 import React from "react";
 import About from "./landing/About";
 import FaqSection from "./landing/FaqSection";
@@ -10,29 +9,22 @@ import styles from "./page.module.scss";
 
 const Home: React.FC = () => {
     return (
-        <>
-            <main className={styles.main}>
-                {/* Hero Section - Hackastra */}
-                <Hero />
+        <main className={styles.main}>
+            {/* Hero Section - Hackastra */}
+            <Hero />
 
-                {/* About Section */}
-                <About />
+            {/* About Section */}
+            <About />
 
-                {/* HackVoyagers Section */}
-                <HackVoyagers />
+            {/* HackVoyagers Section */}
+            <HackVoyagers />
 
-                {/* Join Us Section */}
-                <JoinUsSponsors />
+            {/* Join Us Section */}
+            <JoinUsSponsors />
 
-                {/* FAQ Section */}
-                <FaqSection />
-            </main>
-
-            <EventCountdownPill
-                targetDateTime="2026-02-27T18:00:00-06:00" // 6pm CST (with timezone)
-                label="Countdown to HackIllinois 2026"
-            />
-        </>
+            {/* FAQ Section */}
+            <FaqSection />
+        </main>
     );
 };
 
