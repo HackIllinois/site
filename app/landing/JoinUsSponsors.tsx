@@ -7,7 +7,8 @@ import { tsukimi } from "@/theme/fonts";
 import NewsletterSubscription from "@/components/NewsletterSubscription/NewsletterSubscription";
 import { GradientButtonInstagram } from "@/components/GradientButton/GradientButtonInstagram";
 import clsx from "clsx";
-import { motion, Variants } from "framer-motion";
+import { motion, useAnimation, Variants } from "framer-motion"; // Import useAnimation
+import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
 
 const alienAssets = [
     "/landing/sponsors/aliens/alien1.svg",
@@ -18,26 +19,57 @@ const alienAssets = [
     "/landing/sponsors/aliens/alien6.svg"
 ];
 
-// Create a motion component for Next.js Image to allow animation props
 const MotionImage = motion(Image);
 
 const JoinUsSponsors = () => {
-    const ufoHoverVariants: Variants = {
-        float: {
-            y: ["-20px", "20px"], // Move up 10px, then down 10px
-            rotate: ["-1deg", "1deg"], // Slight wobble rotation
+    // 1. Initialize animation controls
+    const ufoControls = useAnimation();
+    const { offsetY, ref } = useParallaxScrollY();
+
+    // 2. Define the sequenced variants
+    const ufoVariants: Variants = {
+        hidden: {
+            x: "50vw", // Starts off-screen to the right
+            y: "-50vh", // Starts off-screen to the top
+            scale: 0.5, // Starts smaller (perspective)
+            opacity: 0,
+            rotate: 15
+        },
+        enter: {
+            x: 0,
+            y: 0,
+            scale: 1,
+            opacity: 1,
+            rotate: 0,
             transition: {
-                duration: 4, // Slow duration for a gentle effect
-                repeat: Infinity, // Loop forever
-                repeatType: "mirror" as const, // Go back and forth smoothly
+                type: "spring",
+                duration: 5,
+                bounce: 0.4 // Gives it a nice bouncy stop when it arrives
+            }
+        },
+        float: {
+            y: ["-20px", "20px"],
+            rotate: ["-1deg", "1deg"],
+            transition: {
+                duration: 4,
+                repeat: Infinity,
+                repeatType: "mirror",
                 ease: "easeInOut"
             }
         }
     };
 
+    // 3. The Sequence Function
+    const handleUfoEntrance = async () => {
+        // Play entrance animation
+        await ufoControls.start("enter");
+        // Immediately start the infinite float loop
+        ufoControls.start("float");
+    };
+
     const backgroundPulseVariants: Variants = {
         pulse: {
-            filter: ["brightness(0.5)", "brightness(0.8)", "brightness(0.5)"], // Gentle pulsating glow
+            filter: ["brightness(0.5)", "brightness(0.8)", "brightness(0.5)"],
             transition: {
                 duration: 5,
                 repeat: Infinity,
@@ -46,19 +78,17 @@ const JoinUsSponsors = () => {
         }
     };
 
-    // 1. Variants for the Content Containers (stagger)
     const contentContainerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.2, // Delay between each child
-                delayChildren: 0.3 // Initial wait time
+                staggerChildren: 0.2,
+                delayChildren: 0.3
             }
         }
     };
 
-    // 2. Variants for the individual text/box items (fade up)
     const itemVariants: Variants = {
         hidden: { opacity: 0, y: 30 },
         visible: {
@@ -68,8 +98,12 @@ const JoinUsSponsors = () => {
         }
     };
 
+    const parallaxStyle = {
+        transform: `translateY(${offsetY * 0.1}px)`
+    };
+
     return (
-        <div className={styles.joinUsSection}>
+        <div className={styles.joinUsSection} ref={ref}>
             <MotionImage
                 src="/landing/sponsors/background.png"
                 alt="Sponsors Background"
@@ -87,6 +121,14 @@ const JoinUsSponsors = () => {
                 className={styles.foreground}
                 priority
             />
+            <Image
+                src="/landing/sponsors/foreground-rocks.svg"
+                alt="Sponsors Foreground Rocks"
+                fill
+                className={styles.foreground}
+                style={parallaxStyle}
+                priority
+            />
 
             <div className={styles.ufoContainer}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -94,19 +136,28 @@ const JoinUsSponsors = () => {
                     src="/landing/sponsors/desktop/ufo.svg"
                     alt="UFO"
                     className={styles.ufoImage}
-                    variants={ufoHoverVariants}
-                    animate="float"
+                    // Apply the variants
+                    variants={ufoVariants}
+                    initial="hidden"
+                    // Attach controls
+                    animate={ufoControls}
+                    // Trigger sequence when element enters viewport
+                    onViewportEnter={handleUfoEntrance}
+                    viewport={{ once: true }} // Ensures it only flies in once
                 />
 
                 <motion.img
                     src="/landing/sponsors/desktop/ufo.svg"
                     alt="UFO"
                     className={clsx(styles.ufoImage, styles.mobile)}
-                    variants={ufoHoverVariants}
-                    animate="float"
+                    // Apply same controls to mobile version
+                    variants={ufoVariants}
+                    initial="hidden"
+                    animate={ufoControls}
+                    onViewportEnter={handleUfoEntrance}
+                    viewport={{ once: true }}
                 />
 
-                {/* Join Us Content */}
                 <motion.div
                     className={styles.joinUsContentContainer}
                     variants={contentContainerVariants}
@@ -207,7 +258,6 @@ const JoinUsSponsors = () => {
                     </motion.div>
                 </motion.div>
 
-                {/* Sponsor Section Content - Now Animated */}
                 <motion.div
                     className={styles.sponsorSectionContentContainer}
                     variants={contentContainerVariants}

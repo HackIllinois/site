@@ -82,7 +82,7 @@ const Hero = () => {
                 />
                 <Image
                     src="/landing/hero/mobile/fight.svg"
-                    alt="Stars Background"
+                    alt="Fight Background"
                     fill
                     className={clsx(styles.starsBackground, styles.mobile)}
                     priority
@@ -90,10 +90,11 @@ const Hero = () => {
                 />
                 <Image
                     src="/landing/hero/mobile/stars.svg"
-                    alt="Tiny Stars Background"
+                    alt="Stars Background"
                     fill
                     className={clsx(styles.tinyStarsBackground, styles.mobile)}
                     priority
+                    style={parallaxStyle2}
                 />
             </div>
 
