@@ -1,7 +1,6 @@
 import { handleError } from "./helpers";
 import {
     ChallengeStatus,
-    FileType,
     MethodType,
     RegistrationApplicationDraftBody,
     RegistrationApplicationSubmitted
@@ -72,8 +71,8 @@ export async function requestv2(
 }
 
 export async function getChallenge(): Promise<ChallengeStatus> {
-    const res = await requestv2("GET", "/registration/challenge/").catch(body =>
-        handleError(body)
+    const res = await requestv2("GET", "/registration/challenge/").catch(
+        handleError
     );
     return res;
 }
@@ -86,26 +85,6 @@ export async function subscribe(
         listName,
         emailAddress
     }).catch(body => handleError(body));
-    return res;
-}
-
-export async function uploadFile(file: File, type: FileType): Promise<unknown> {
-    const { url, fields } = await requestv2("GET", "/s3/upload");
-    let data = new FormData();
-    for (let key in fields) {
-        data.append(key, fields[key]);
-    }
-    data.append("file", file, file.name);
-    const res = await fetch(url, { method: "POST", body: data });
-
-    if (!res.ok) {
-        const errorBody = await res.text();
-        handleError({
-            message: errorBody,
-            status: res.status,
-            type: "upload_error"
-        });
-    }
     return res;
 }
 

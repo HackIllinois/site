@@ -8,11 +8,7 @@ import theme from "../theme";
 import { montserrat, tsukimi } from "../theme/fonts";
 import "./globals.scss";
 
-export default function RootLayout({
-    children
-}: {
-    children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
             <body

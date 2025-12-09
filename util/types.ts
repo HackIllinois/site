@@ -130,30 +130,24 @@ export type UserType = {
     name: string;
 };
 
-export enum Avatars {
-    BUNNY = "bunny",
-    SQUIRREL = "squirrel",
-    GOBLIN = "goblin",
-    CHESTER = "chester",
-    CAT = "cat",
-    MUSHROOM = "mushroom",
-    FISHERCAT = "fishercat",
-    AXOLOTL = "axolotl"
-}
-
 export type ProfileBodyType = {
     displayName: string;
     discordTag: string;
-    avatarId: Avatars;
+    avatarId: string;
 };
 
 export type ProfileType = {
-    userID: string;
+    userId: string;
     displayName: string;
     discordTag: string;
     avatarUrl: string;
     points: number;
     coins: number;
+};
+
+export type AuthRoles = {
+    id: string;
+    roles: string[];
 };
 
 export type RSVPDecisionType = {
@@ -164,6 +158,10 @@ export type RSVPDecisionType = {
 };
 
 export type RegistrationRole = "attendee" | "mentor";
+
+export type RegistrationStatus = {
+    alive: boolean;
+};
 
 export type ChallengeStatus = {
     attempts: number;
@@ -184,6 +182,17 @@ export type FormProps = {
     formIndex: number;
     setFormIndex: React.Dispatch<React.SetStateAction<number>>;
 };
+
+export enum Avatars {
+    ARTEMIS = "artemis",
+    ZEUS = "zeus",
+    APHRODITE = "aphrodite",
+    POSEIDON = "poseidon",
+    APOLLO = "apollo",
+    ATHENA = "athena",
+    MEDUSA = "medusa",
+    HADES = "hades"
+}
 
 export interface EventType {
     id: string;
