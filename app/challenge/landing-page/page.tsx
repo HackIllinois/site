@@ -12,21 +12,21 @@ const ProChallenge: React.FC = () => {
     const { offsetY: offsetY3, ref: ref3 } = useParallaxScrollY();
 
     const parallaxStyle = {
-        transform: `translateY(${offsetY * 0.4}px)`
+        transform: `translateY(${offsetY * 0.1}px)`
     };
     const parallaxStyleMobile = {
         transform: `translateY(${offsetY * 0.1}px)`
     };
 
     const parallaxStyle2 = {
-        transform: `translateY(${offsetY2 * 0.5}px)`
+        transform: `translateY(${offsetY2 * 0.15}px)`
     };
     const parallaxStyleMobile2 = {
         transform: `translateY(${offsetY2 * 0.1}px)`
     };
 
     const parallaxStyle3 = {
-        transform: `translateY(${offsetY3 * 0.2}px)`
+        transform: `translateY(${offsetY3 * 0.05}px)`
     };
     const parallaxStyleMobile3 = {
         transform: `translateY(${offsetY3 * 0.1}px)`

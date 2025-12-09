@@ -21,6 +21,12 @@ const Hero = () => {
     const parallaxStyle2 = {
         transform: `translateY(${offsetY * 0.1}px)`
     };
+    const parallaxStyleMobile = {
+        transform: `translateY(${offsetY * 0.05}px)`
+    };
+    const parallaxStyle2Mobile = {
+        transform: `translateY(${offsetY * 0.1}px)`
+    };
 
     // 1. Container Variant: Controls the timing of the children
     const containerVariants: Variants = {
@@ -86,7 +92,7 @@ const Hero = () => {
                     fill
                     className={clsx(styles.starsBackground, styles.mobile)}
                     priority
-                    style={parallaxStyle}
+                    style={parallaxStyleMobile}
                 />
                 <Image
                     src="/landing/hero/mobile/stars.svg"
@@ -94,7 +100,7 @@ const Hero = () => {
                     fill
                     className={clsx(styles.tinyStarsBackground, styles.mobile)}
                     priority
-                    style={parallaxStyle2}
+                    style={parallaxStyle2Mobile}
                 />
             </div>
 

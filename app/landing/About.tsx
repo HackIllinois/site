@@ -11,10 +11,17 @@ const About = () => {
     const { offsetY, ref } = useParallaxScrollY();
 
     const parallaxStyle = {
-        transform: `translateY(${offsetY * 0.1}px)`
+        transform: `translateY(${offsetY * 0.05}px)`
     };
     const parallaxStyle2 = {
-        transform: `translateY(${offsetY * 0.3}px)`
+        transform: `translateY(${offsetY * 0.15}px)`
+    };
+
+    const parallaxStyleMobile = {
+        transform: `translateY(${offsetY * 0.05}px)`
+    };
+    const parallaxStyle2Mobile = {
+        transform: `translateY(${offsetY * 0.15}px)`
     };
 
     const containerVariants: Variants = {
@@ -60,6 +67,14 @@ const About = () => {
                     style={parallaxStyle2}
                 />
                 <Image
+                    src="/landing/about/desktop/stars.svg"
+                    alt="Stars Background"
+                    fill
+                    className={clsx(styles.starsBackground, styles.mobile)}
+                    priority
+                    style={parallaxStyle2Mobile}
+                />
+                <Image
                     src="/design-reference/tiny stars.svg"
                     alt="Tiny Stars"
                     fill
@@ -73,6 +88,7 @@ const About = () => {
                     fill
                     className={clsx(styles.planetsBackground, styles.mobile)}
                     priority
+                    style={parallaxStyleMobile}
                 />
                 <Image
                     src="/landing/about/mobile/tiny stars.png"
@@ -80,6 +96,7 @@ const About = () => {
                     fill
                     className={clsx(styles.tinyStarsBackground, styles.mobile)}
                     priority
+                    style={parallaxStyle2Mobile}
                 />
             </div>
 

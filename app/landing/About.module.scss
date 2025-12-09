@@ -67,6 +67,7 @@
         object-fit: contain;
         object-position: center top;
         @media (max-width: 768px) {
+            top: 20% !important;
             display: block;
         }
     }
@@ -81,6 +82,16 @@
     object-fit: cover;
     opacity: 0.6;
     z-index: 2;
+    @media (max-width: 768px) {
+        display: none;
+    }
+    &.mobile {
+        display: none;
+        @media (max-width: 768px) {
+            display: block;
+            top: 15% !important;
+        }
+    }
 }
 
 .tinyStarsBackground {

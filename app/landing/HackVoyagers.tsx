@@ -9,11 +9,8 @@ import { motion, Variants } from "framer-motion";
 const HackVoyagers = () => {
     const { offsetY, ref } = useParallaxScrollY();
 
-    const parallaxStyle = {
-        transform: `translateY(${offsetY * 0.1}px)`
-    };
     const parallaxStyle2 = {
-        transform: `translateY(${offsetY * 0.5}px)`
+        transform: `translateY(${offsetY * 0.1}px)`
     };
 
     // 1. Define Variants
