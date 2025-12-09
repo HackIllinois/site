@@ -6,25 +6,57 @@ import NewsletterSubscription from "@/components/NewsletterSubscription/Newslett
 import { tsukimi } from "@/theme/fonts";
 import { Box, Typography } from "@mui/material";
 import clsx from "clsx";
+import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import styles from "./FaqSection.module.scss";
 
+// Create a motion component for Next.js Image
+const MotionImage = motion(Image);
+
 const FaqSection = () => {
+    // A slow, rhythmic pulse to simulate an alarm light reflecting off the background
+    // Duration is set to 4s to ensure it is not photosensitive/epileptic
+    const alarmPulseVariants: Variants = {
+        alarm: {
+            filter: ["brightness(0.5)", "brightness(1)", "brightness(0.5)"],
+            transition: {
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut"
+            }
+        }
+    };
+
     return (
         <section className={styles.faqSection}>
             <Image
+                src="/landing/faq/ground-bar.svg"
+                alt="FAQ Ground Bar"
+                fill
+                className={styles.faqGroundBar}
+                priority
+            />
+
+            {/* Desktop Background with Alarm Effect */}
+            <MotionImage
                 src="/landing/faq/desktop/background.png"
                 alt="FAQ Background"
                 fill
                 className={styles.faqBackground}
                 priority
+                variants={alarmPulseVariants}
+                animate="alarm"
             />
-            <Image
+
+            {/* Mobile Background with Alarm Effect */}
+            <MotionImage
                 src="/landing/faq/mobile/background.png"
                 alt="FAQ Background"
                 fill
                 className={clsx(styles.faqBackground, styles.mobile)}
                 priority
+                variants={alarmPulseVariants}
+                animate="alarm"
             />
 
             <div className={styles.faqContent}>

@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styles from "./FAQ.module.scss";
+import { motion, Variants } from "framer-motion";
 
 // We change the type of 'answer' implicitly to React.ReactNode (string | JSX)
 // to allow the anchor link in the reimbursement section.
@@ -59,87 +60,125 @@ export const FAQ = () => {
             setExpanded(isExpanded ? panelIndex : false);
         };
 
+    // 1. Define container variants for staggering children
+    const containerVariants: Variants = {
+        hidden: { opacity: 1 }, // Container remains visible
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2, // Delay between each item
+                delayChildren: 0.1 // Slight delay before starting sequence
+            }
+        }
+    };
+
+    // 2. Define item variants for the fade-up animation
+    const itemVariants: Variants = {
+        hidden: { opacity: 0, y: 30 }, // Start slightly down and invisible
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.6, ease: "easeOut" }
+        }
+    };
+
     return (
-        <div className={styles.faqItems}>
+        // 3. Convert outer div to motion.div and apply container variants
+        <motion.div
+            className={styles.faqItems}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }} // Trigger when 20% visible
+        >
             {faqItems.map((item, index) => (
-                <Box key={index} sx={{ mb: 2 }}>
-                    <Accordion
-                        expanded={expanded === index}
-                        onChange={handleChange(index)}
-                        disableGutters
-                        elevation={0}
-                        square={false}
-                        sx={{
-                            background:
-                                "linear-gradient(135deg, rgba(163, 112, 170, 0.7) 0%, rgba(151, 132, 203, 0.7) 100%)",
-                            backdropFilter: "blur(10px)",
-                            borderRadius: "32px !important",
-                            border: "3px solid #3F2B75",
-                            color: "white",
-                            overflow: "hidden",
-                            "&:before": {
-                                display: "none"
-                            },
-                            "&.Mui-expanded": {
-                                margin: 0
-                            }
-                        }}
-                    >
-                        <AccordionSummary
-                            expandIcon={
-                                <ExpandMoreIcon
-                                    sx={{ color: "white", fontSize: "2rem" }}
-                                />
-                            }
+                // 4. Wrap each item in a motion div with item variants
+                <motion.div key={index} variants={itemVariants}>
+                    <Box sx={{ mb: 2 }}>
+                        <Accordion
+                            expanded={expanded === index}
+                            onChange={handleChange(index)}
+                            disableGutters
+                            elevation={0}
+                            square={false}
                             sx={{
-                                minHeight: 80,
-                                px: 4,
-                                py: 2,
-                                "& .MuiAccordionSummary-content": {
+                                background:
+                                    "linear-gradient(135deg, rgba(163, 112, 170, 0.7) 0%, rgba(151, 132, 203, 0.7) 100%)",
+                                backdropFilter: "blur(10px)",
+                                borderRadius: "32px !important",
+                                border: "3px solid #3F2B75",
+                                color: "white",
+                                overflow: "hidden",
+                                "&:before": {
+                                    display: "none"
+                                },
+                                "&.Mui-expanded": {
                                     margin: 0
                                 }
                             }}
                         >
-                            <Typography
-                                component="span"
+                            <AccordionSummary
+                                expandIcon={
+                                    <ExpandMoreIcon
+                                        sx={{
+                                            color: "white",
+                                            fontSize: "2rem"
+                                        }}
+                                    />
+                                }
                                 sx={{
-                                    fontFamily: "Tsukimi Rounded",
-                                    fontWeight: 700,
-                                    fontSize: "1.25rem",
-                                    textAlign: "left"
-                                }}
-                            >
-                                {item.question}
-                            </Typography>
-                        </AccordionSummary>
-
-                        {item.answer && (
-                            <AccordionDetails
-                                sx={{
+                                    minHeight: 80,
                                     px: 4,
-                                    pb: 4,
-                                    pt: 0,
-                                    textAlign: "left"
+                                    py: 2,
+                                    "& .MuiAccordionSummary-content": {
+                                        margin: 0
+                                    }
                                 }}
                             >
                                 <Typography
-                                    variant="body1"
-                                    component="p"
+                                    component="span"
                                     sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: { xs: "0.9rem", md: "1rem" },
-                                        lineHeight: 1.6,
-                                        textAlign: "left",
-                                        mb: 2
+                                        fontFamily: "Tsukimi Rounded",
+                                        fontWeight: 700,
+                                        fontSize: "1.25rem",
+                                        textAlign: "left"
                                     }}
                                 >
-                                    {item.answer}
+                                    {item.question}
                                 </Typography>
-                            </AccordionDetails>
-                        )}
-                    </Accordion>
-                </Box>
+                            </AccordionSummary>
+
+                            {item.answer && (
+                                <AccordionDetails
+                                    sx={{
+                                        px: 4,
+                                        pb: 4,
+                                        pt: 0,
+                                        textAlign: "left"
+                                    }}
+                                >
+                                    <Typography
+                                        variant="body1"
+                                        component="p"
+                                        sx={{
+                                            fontFamily: "Montserrat",
+                                            fontSize: {
+                                                xs: "0.9rem",
+                                                md: "1rem"
+                                            },
+                                            lineHeight: 1.6,
+                                            textAlign: "left",
+                                            mb: 2
+                                        }}
+                                    >
+                                        {item.answer}
+                                    </Typography>
+                                </AccordionDetails>
+                            )}
+                        </Accordion>
+                    </Box>
+                </motion.div>
             ))}
-        </div>
+        </motion.div>
     );
 };
