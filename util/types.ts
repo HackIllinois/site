@@ -61,6 +61,7 @@ export type RegistrationApplicationDraftBody = {
     attribution?: string[];
     eventInterest?: string[];
     requestTravelReimbursement?: boolean;
+    mlhNewsletter?: boolean;
 };
 
 /** Includes fields available only on the frontend. */
@@ -71,7 +72,6 @@ export type RegistrationApplicationDraftBodyForm =
         reviewedAcknowledge?: boolean;
         codeOfConductAcknowledge?: boolean;
         mlhDataSharingAcknowledge?: boolean;
-        mlhNewsletter?: boolean;
         optInHackNewsletter?: boolean;
     };
 
