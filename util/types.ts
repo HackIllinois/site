@@ -166,8 +166,14 @@ export type RSVPDecisionType = {
 export type RegistrationRole = "attendee" | "mentor";
 
 export type ChallengeStatus = {
+    inputFileId: string;
     attempts: number;
     complete: boolean;
+};
+
+export type ChallengeResponse = {
+    status: number;
+    body: any;
 };
 
 export enum ChallengeResultEnum {
