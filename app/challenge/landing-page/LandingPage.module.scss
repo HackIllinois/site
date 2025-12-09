@@ -1,0 +1,56 @@
+.debris {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 15%;
+    @media (max-width: 768px) {
+        display: none;
+    }
+    &.mobile {
+        display: none;
+        @media (max-width: 768px) {
+            display: block;
+            position: absolute;
+            top: 21%;
+        }
+    }
+}
+
+.ufos {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 35%;
+    @media (max-width: 768px) {
+        display: none;
+    }
+    &.mobile {
+        display: none;
+        filter: brightness(60%);
+
+        @media (max-width: 768px) {
+            display: block;
+            position: absolute;
+            top: 31%;
+        }
+    }
+}
+
+.planets {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 54%;
+    @media (max-width: 768px) {
+        display: none;
+    }
+    &.mobile {
+        display: none;
+        filter: brightness(70%);
+        @media (max-width: 768px) {
+            display: block;
+            position: absolute;
+            top: 58%;
+        }
+    }
+}

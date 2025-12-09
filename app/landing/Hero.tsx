@@ -19,7 +19,7 @@ const Hero = () => {
         transform: `translateY(${offsetY * 0.05}px)`
     };
     const parallaxStyle2 = {
-        transform: `translateY(${offsetY * 0.5}px)`
+        transform: `translateY(${offsetY * 0.1}px)`
     };
 
     // 1. Container Variant: Controls the timing of the children
