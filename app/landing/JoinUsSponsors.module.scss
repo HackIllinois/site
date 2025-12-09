@@ -265,3 +265,14 @@
     // Make the foreground bottom align with the actual bottom
     object-position: center bottom;
 }
+
+.foregroundRocks {
+    bottom: 0 !important;
+    left: 0;
+    width: 100%;
+    height: auto !important;
+    object-fit: contain;
+    z-index: 2;
+    // Make the foreground bottom align with the actual bottom
+    object-position: center bottom;
+}

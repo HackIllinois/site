@@ -410,7 +410,8 @@ const GeneralRegistration = () => {
                     },
                     backgroundSize: "cover", // Fill the screen
                     backgroundRepeat: "no-repeat", // Prevent tiling
-                    backgroundPosition: "center" // Center the image
+                    backgroundPosition: "center", // Center the image
+                    backgroundAttachment: "fixed" // Prevent scaling
                 }}
             >
                 <Paper
@@ -439,7 +440,7 @@ const GeneralRegistration = () => {
                         alignItems="center"
                         gap={{ xs: "24px", md: "0px" }}
                         mt={10}
-                        mb={2}
+                        mb={8}
                         mr={4}
                         ml={4}
                     >

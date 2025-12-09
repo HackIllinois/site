@@ -3,7 +3,6 @@ import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Box, Button, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import { Montserrat, Tsukimi_Rounded } from "next/font/google";
-import Image from "next/image";
 
 const montserrat = Montserrat({
     subsets: ["latin"],
@@ -48,17 +47,6 @@ const Confirmation = ({ formik }: ConfirmationProps) => {
                     paddingTop: "100px"
                 }}
             >
-                <Image
-                    src="/registration/26.svg"
-                    alt="The number 26 in background."
-                    fill
-                    style={{
-                        objectFit: "contain",
-                        objectPosition: "top center",
-                        zIndex: 0
-                    }}
-                />
-
                 {values.pro ? (
                     <>
                         <Typography
