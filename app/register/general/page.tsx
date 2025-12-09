@@ -440,7 +440,7 @@ const GeneralRegistration = () => {
                         alignItems="center"
                         gap={{ xs: "24px", md: "0px" }}
                         mt={10}
-                        mb={2}
+                        mb={8}
                         mr={4}
                         ml={4}
                     >
