@@ -3,6 +3,8 @@ import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Box, Button, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import { Montserrat, Tsukimi_Rounded } from "next/font/google";
+import { useEffect, useState } from "react";
+import { getChallenge } from "@/util/api";
 
 const montserrat = Montserrat({
     subsets: ["latin"],
@@ -20,6 +22,21 @@ interface ConfirmationProps {
 
 const Confirmation = ({ formik }: ConfirmationProps) => {
     const { values } = formik;
+    const [challengePassed, setChallengePassed] = useState(false);
+
+    useEffect(() => {
+        async function load() {
+            try {
+                const res = await getChallenge();
+                if (res.complete) {
+                    setChallengePassed(true);
+                }
+            } finally {
+            }
+        }
+
+        load();
+    }, []);
     return (
         <Box
             sx={{
@@ -85,7 +102,7 @@ const Confirmation = ({ formik }: ConfirmationProps) => {
                                 textShadow: "1px 1px .5px black"
                             }}
                         >
-                            NEXT STEPS
+                            {challengePassed ? "COMPLETE" : "NEXT STEPS"}
                         </Typography>
 
                         <Typography
@@ -184,31 +201,41 @@ const Confirmation = ({ formik }: ConfirmationProps) => {
                                 textShadow: ".5px .5px 1px black"
                             }}
                         >
-                            To join the Pro Track, you’ll need to complete the
-                            Pro Track Challenge.
+                            {challengePassed ? (
+                                <>
+                                    You’ve successfully finished the
+                                    HackVoyagers Challenge <br />
+                                    and will be considered for the HackVoyagers
+                                    track.
+                                </>
+                            ) : (
+                                "To join the Pro Track, you’ll need to complete the Pro Track Challenge."
+                            )}
                         </Typography>
-                        <Button
-                            component="a"
-                            href="/challenge/"
-                            target="_blank"
-                            variant="contained"
-                            sx={{
-                                padding: "4px 10px",
-                                borderRadius: "8px",
-                                fontWeight: 500,
-                                textTransform: "none",
-                                backgroundColor: "rgba(56, 56, 56)",
-                                color: "white",
-                                "&:hover": {
-                                    backgroundColor: "rgba(20, 20, 20)"
-                                },
-                                fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
-                                fontSize: { xs: "16px", sm: "20px" },
-                                mt: "10px"
-                            }}
-                        >
-                            Go to Pro Track Challenge
-                        </Button>
+                        {!challengePassed && (
+                            <Button
+                                component="a"
+                                href="/challenge/"
+                                target="_blank"
+                                variant="contained"
+                                sx={{
+                                    padding: "4px 10px",
+                                    borderRadius: "8px",
+                                    fontWeight: 500,
+                                    textTransform: "none",
+                                    backgroundColor: "rgba(56, 56, 56)",
+                                    color: "white",
+                                    "&:hover": {
+                                        backgroundColor: "rgba(20, 20, 20)"
+                                    },
+                                    fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
+                                    fontSize: { xs: "16px", sm: "20px" },
+                                    mt: "10px"
+                                }}
+                            >
+                                Go to Pro Track Challenge
+                            </Button>
+                        )}
                     </>
                 )}
             </Box>
