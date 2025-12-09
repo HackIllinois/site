@@ -7,7 +7,7 @@ export const steps = [
     {
         id: "background_info",
         name: "Background Information",
-        color: "#01023B"
+        color: "#3e66c2ff"
     },
     {
         id: "app_questions",

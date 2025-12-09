@@ -94,7 +94,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 30px;
+    gap: 10px;
     text-align: center;
     position: relative;
     z-index: 10;
@@ -113,10 +113,20 @@
 
 .hackastraLogo {
     height: 140px;
-    animation: fadeIn 1s ease-in;
     z-index: 3;
     margin: 0 auto;
     display: block;
+    @media (max-width: 768px) {
+        display: none;
+    }
+    &.mobile {
+        display: none;
+        @media (max-width: 768px) {
+            max-width: 80%;
+            height: 150px;
+            display: block;
+        }
+    }
 }
 
 @media (max-width: 900px) {
@@ -127,5 +137,14 @@
 
     .heroSection {
         height: 600px;
+    }
+}
+
+.titleSponsor {
+    width: auto;
+    height: 26px;
+
+    @media (max-width: 900px) {
+        height: 18px;
     }
 }

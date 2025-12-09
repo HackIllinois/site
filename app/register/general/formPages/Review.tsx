@@ -172,16 +172,12 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                     <AccordionDetails>
                         <ReviewInfoAccordionBox>
                             <UserInfoBox
-                                label="Pick a product you like: what’s one thing you’d change to make it better and why?"
+                                label="Tell us a project you have enjoyed working on, technical or non-technical."
                                 userResponse={values.application1 || "N/A"}
                             />
                             <UserInfoBox
-                                label="Describe a time you learned something for fun."
+                                label="Pick a product you like: what’s one thing you’d change to make it better and why?"
                                 userResponse={values.application2 || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="Describe a challenge you have faced in your field, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
-                                userResponse={values.application3 || "N/A"}
                             />
                             <UserInfoBox
                                 label="If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
@@ -407,14 +403,14 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                     <Box mt={3}>
                         {/* MLH newsletter opt-in */}
                         <CheckboxSelect
-                            name="optInMlhNewsletter"
+                            name="mlhNewsletter"
                             label="Newsletter Opt-In"
                             accentColor="#983300"
                             optionLabel="I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements."
                             optionLabelSx={AckOptionLabelStyle}
-                            value={values.optInMlhNewsletter}
+                            value={values.mlhNewsletter}
                             onChange={val =>
-                                formik.setFieldValue("optInMlhNewsletter", val)
+                                formik.setFieldValue("mlhNewsletter", val)
                             }
                             error={false}
                         />

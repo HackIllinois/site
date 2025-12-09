@@ -1,8 +1,37 @@
 "use client";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import styles from "./LandingPage.module.scss";
+import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
+import { motion } from "framer-motion";
+import clsx from "clsx";
 
 const ProChallenge: React.FC = () => {
+    const { offsetY, ref } = useParallaxScrollY();
+    const { offsetY: offsetY2, ref: ref2 } = useParallaxScrollY();
+    const { offsetY: offsetY3, ref: ref3 } = useParallaxScrollY();
+
+    const parallaxStyle = {
+        transform: `translateY(${offsetY * 0.1}px)`
+    };
+    const parallaxStyleMobile = {
+        transform: `translateY(${offsetY * 0.1}px)`
+    };
+
+    const parallaxStyle2 = {
+        transform: `translateY(${offsetY2 * 0.15}px)`
+    };
+    const parallaxStyleMobile2 = {
+        transform: `translateY(${offsetY2 * 0.1}px)`
+    };
+
+    const parallaxStyle3 = {
+        transform: `translateY(${offsetY3 * 0.05}px)`
+    };
+    const parallaxStyleMobile3 = {
+        transform: `translateY(${offsetY3 * 0.1}px)`
+    };
+
     return (
         <Box
             sx={{
@@ -15,6 +44,7 @@ const ProChallenge: React.FC = () => {
         >
             {/* HERO CONTAINER */}
             <Box
+                ref={ref}
                 sx={{
                     position: "relative",
                     width: "100%",
@@ -31,10 +61,9 @@ const ProChallenge: React.FC = () => {
                         height: "auto",
                         display: "block",
                         zIndex: -1,
-
                         content: {
                             xs: 'url("/challenge/backgrounds/mobile/landing_page.svg")',
-                            md: 'url("/challenge/backgrounds/landing_page.svg")'
+                            md: 'url("/challenge/backgrounds/desktop/landing_page.svg")'
                         }
                     }}
                 />
@@ -101,6 +130,50 @@ const ProChallenge: React.FC = () => {
                         </Box>
                     </Box>
 
+                    <Box className={styles.debris} style={parallaxStyle}>
+                        <motion.img
+                            src="/challenge/backgrounds/desktop/debris.svg"
+                            alt="Space Debris"
+                            style={{
+                                width: "100%",
+                                height: "auto",
+                                display: "block"
+                            }}
+                            animate={{
+                                y: [-20, 20, -20], // Slow vertical float
+                                x: [-5, 10, -5] // Gentle horizontal sway
+                            }}
+                            transition={{
+                                duration: 8, // Very slow to feel like zero-gravity junk
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                        />
+                    </Box>
+                    <Box
+                        className={clsx(styles.debris, styles.mobile)}
+                        style={parallaxStyleMobile}
+                    >
+                        <motion.img
+                            src="/challenge/backgrounds/mobile/debris.svg"
+                            alt="Space Debris"
+                            style={{
+                                width: "100%",
+                                height: "auto",
+                                display: "block"
+                            }}
+                            animate={{
+                                y: [-10, 10, -10], // Slow vertical float
+                                x: [-5, 5, -5] // Gentle horizontal sway
+                            }}
+                            transition={{
+                                duration: 8, // Very slow to feel like zero-gravity junk
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                        />
+                    </Box>
+
                     {/* panel start*/}
                     <Box
                         sx={{
@@ -120,7 +193,8 @@ const ProChallenge: React.FC = () => {
                             alignItems: "center",
                             justifyContent: "center",
                             px: { xs: "17vw", md: "15vw" },
-                            textAlign: "center"
+                            textAlign: "center",
+                            zIndex: 6
                         }}
                     >
                         <Typography
@@ -155,54 +229,56 @@ const ProChallenge: React.FC = () => {
                             }}
                         >
                             HackVoyagers is an exclusive path tailored for
-                            prospective attendees to dive into a competitively
-                            elevated hackathon atmosphere for an increased prize
-                            value.
-                        </Typography>
-
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "3.3vw",
-                                    md: "1.4vw",
-                                    xl: "24px"
-                                },
-                                lineHeight: 1.45,
-                                color: "white",
-                                opacity: 0.88,
-                                mb: { xs: 1, md: 3 },
-                                transform: "rotate(1.457deg)"
-                            }}
-                        >
-                            It&apos;s a specialized arena for experienced
-                            hackers who have mastered the fundamentals and are
+                            attendees who have mastered the fundamentals and are
                             now looking to test their skills in a more
                             challenging environment.
                         </Typography>
-
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "3.3vw",
-                                    md: "1.4vw",
-                                    xl: "24px"
-                                },
-                                lineHeight: 1.45,
-                                color: "white",
-                                opacity: 0.88,
-                                transform: "rotate(1.457deg)"
-                            }}
-                        >
-                            Admission into HackVoyagers requires completing our
-                            application, which includes a coding challenge.
-                        </Typography>
                     </Box>
 
-                    {/* panel end*/}
-
-                    {/* textbox 1 start */}
+                    <Box className={styles.ufos} style={parallaxStyle2}>
+                        <motion.img
+                            src="/challenge/backgrounds/desktop/ufos.svg"
+                            alt="UFOs"
+                            style={{
+                                width: "100%",
+                                height: "auto",
+                                display: "block"
+                            }}
+                            animate={{
+                                y: [-15, 10, -15] // Faster bobbing
+                            }}
+                            transition={{
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                        />
+                    </Box>
+                    <Box
+                        className={clsx(styles.ufos, styles.mobile)}
+                        style={parallaxStyleMobile2}
+                    >
+                        <motion.img
+                            src="/challenge/backgrounds/mobile/ufos.svg"
+                            alt="UFOs"
+                            style={{
+                                width: "100%",
+                                height: "auto",
+                                display: "block"
+                            }}
+                            animate={{
+                                y: [-5, 5, -5] // Faster bobbing
+                            }}
+                            transition={{
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                        />
+                    </Box>
 
                     <Box
+                        ref={ref2}
                         sx={{
                             position: "absolute",
                             left: { xs: "50%", md: "40%" },
@@ -215,7 +291,8 @@ const ProChallenge: React.FC = () => {
                             alignItems: "center",
                             justifyContent: "center",
                             px: { md: "15vw" },
-                            textAlign: "center"
+                            textAlign: "center",
+                            zIndex: 6
                         }}
                     >
                         <Typography
@@ -247,28 +324,11 @@ const ProChallenge: React.FC = () => {
                                 mb: { xs: 1, md: 3 }
                             }}
                         >
-                            Attendees in this path have the exclusive
-                            opportunity to compete for the grand HackVoyagers
-                            prize (to be released soon).
-                        </Typography>
-
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "3.3vw",
-                                    md: "1.4vw",
-                                    xl: "24px"
-                                },
-                                lineHeight: 1.45,
-                                color: "white",
-                                opacity: 0.88
-                            }}
-                        >
-                            Additionally, they will gain access to special
-                            networking opportunities with our event sponsors and
-                            the chance to present their project in a thrilling
-                            Shark-Tank inspired showcase, among other exciting
-                            perks – but spots are limited, so register soon!
+                            Attendees in this path compete for the grand
+                            HackVoyagers prize ($5000). Additionally, they will
+                            have the opportunity to present their project in a
+                            thrilling Shark-Tank inspired showcase, among other
+                            exciting perks!
                         </Typography>
                     </Box>
 
@@ -277,10 +337,11 @@ const ProChallenge: React.FC = () => {
                     {/* textbox 2 start */}
 
                     <Box
+                        ref={ref3}
                         sx={{
                             position: "absolute",
                             left: { xs: "50%", md: "63%" },
-                            top: { xs: "52.2%", md: "52.7%" },
+                            top: { xs: "50%", md: "55%" },
                             transform: "translateX(-50%)",
                             width: "65vw",
 
@@ -289,7 +350,8 @@ const ProChallenge: React.FC = () => {
                             alignItems: "center",
                             justifyContent: "center",
                             px: { md: "15vw" },
-                            textAlign: "center"
+                            textAlign: "center",
+                            zIndex: 6
                         }}
                     >
                         <Typography
@@ -321,8 +383,9 @@ const ProChallenge: React.FC = () => {
                                 mb: { xs: 1, md: 3 }
                             }}
                         >
-                            Admission into HackVoyagers requires completing a
-                            special challenge in addition to registering.
+                            In addition to registering, admission into
+                            HackVoyagers requires completing a special coding
+                            challenge.
                         </Typography>
 
                         <Typography
@@ -337,11 +400,25 @@ const ProChallenge: React.FC = () => {
                                 opacity: 0.88
                             }}
                         >
-                            Note: You MUST complete the challenge after
-                            submitting registration to be considered for
-                            HackVoyagers.
+                            NOTE: If you do not submit the challenge, you will
+                            be considered for general admission.
                         </Typography>
                     </Box>
+
+                    {/* ======================================= */}
+                    {/* STATIC: PLANETS (Parallax Only)         */}
+                    {/* ======================================= */}
+                    <img
+                        src="/challenge/backgrounds/desktop/planets.svg"
+                        className={styles.planets}
+                        style={parallaxStyle3}
+                    />
+
+                    <img
+                        src="/challenge/backgrounds/mobile/planets.svg"
+                        className={clsx(styles.planets, styles.mobile)}
+                        style={parallaxStyleMobile3}
+                    />
 
                     {/* textbox 2 end */}
 
@@ -351,7 +428,7 @@ const ProChallenge: React.FC = () => {
                         sx={{
                             position: "absolute",
                             left: { xs: "50%", md: "38%" },
-                            top: { xs: "71%", md: "66%" },
+                            top: { xs: "68%", md: "66%" },
                             transform: "translateX(-50%)",
                             width: "85vw",
 
@@ -393,13 +470,10 @@ const ProChallenge: React.FC = () => {
                                 mb: { xs: 1, md: 3 }
                             }}
                         >
-                            HackIllinois is a historically welcoming space for
-                            coders of all skill levels, particularly those who
-                            are just starting out. This inclusive environment
-                            encourages beginner-level coders to engage and
-                            learn, while HackVoyagers caters to more advanced
-                            participants, fostering a competitive and
-                            stimulating atmosphere for seasoned hackers.
+                            HackVoyagers is designed for advanced hackers,
+                            fostering a competitive atmosphere for a higher
+                            prize pool, while general attendees compete in an
+                            environment that supports learning at every level.
                         </Typography>
 
                         <Typography
@@ -415,49 +489,7 @@ const ProChallenge: React.FC = () => {
                                 mb: { xs: 1, md: 3 }
                             }}
                         >
-                            All attendees from both paths will enjoy access to
-                            Hacklllinois&apos;s vibrant array of events,
-                            workshops, company Q&As, and the Company Expo. Each
-                            path will maintain the spirit of inclusivity and
-                            learning to ensure that all attendees, regardless of
-                            their track, experience the full magic of
-                            HackIllinois!
-                        </Typography>
-
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "3.3vw",
-                                    md: "1.4vw",
-                                    xl: "24px"
-                                },
-                                lineHeight: 1.45,
-                                color: "white",
-                                opacity: 0.88,
-                                mb: { xs: 2, md: 3 }
-                            }}
-                        >
-                            Additionally, all HackIllinois attendees are
-                            eligible to compete in all our sponsored tracks.*
-                        </Typography>
-
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "3.3vw",
-                                    md: "1.4vw",
-                                    xl: "24px"
-                                },
-                                lineHeight: 1.45,
-                                color: "white",
-                                opacity: 0.88,
-                                fontStyle: "italic"
-                            }}
-                        >
-                            *The Best Beginner and General prizes are reserved
-                            for HackIllinois General attendees, while the Best
-                            Voyagers prize is reserved for HackVoyagers
-                            attendees.
+                            {`Regardless, all attendees can enjoy HackIllinois' events, workshops, company Q&As, and the Company Expo.`}
                         </Typography>
                     </Box>
 
