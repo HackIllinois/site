@@ -1,8 +1,37 @@
 "use client";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import styles from "./LandingPage.module.scss";
+import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
+import { motion } from "framer-motion";
+import clsx from "clsx";
 
 const ProChallenge: React.FC = () => {
+    const { offsetY, ref } = useParallaxScrollY();
+    const { offsetY: offsetY2, ref: ref2 } = useParallaxScrollY();
+    const { offsetY: offsetY3, ref: ref3 } = useParallaxScrollY();
+
+    const parallaxStyle = {
+        transform: `translateY(${offsetY * 0.1}px)`
+    };
+    const parallaxStyleMobile = {
+        transform: `translateY(${offsetY * 0.1}px)`
+    };
+
+    const parallaxStyle2 = {
+        transform: `translateY(${offsetY2 * 0.15}px)`
+    };
+    const parallaxStyleMobile2 = {
+        transform: `translateY(${offsetY2 * 0.1}px)`
+    };
+
+    const parallaxStyle3 = {
+        transform: `translateY(${offsetY3 * 0.05}px)`
+    };
+    const parallaxStyleMobile3 = {
+        transform: `translateY(${offsetY3 * 0.1}px)`
+    };
+
     return (
         <Box
             sx={{
@@ -15,6 +44,7 @@ const ProChallenge: React.FC = () => {
         >
             {/* HERO CONTAINER */}
             <Box
+                ref={ref}
                 sx={{
                     position: "relative",
                     width: "100%",
@@ -31,10 +61,9 @@ const ProChallenge: React.FC = () => {
                         height: "auto",
                         display: "block",
                         zIndex: -1,
-
                         content: {
                             xs: 'url("/challenge/backgrounds/mobile/landing_page.svg")',
-                            md: 'url("/challenge/backgrounds/landing_page.svg")'
+                            md: 'url("/challenge/backgrounds/desktop/landing_page.svg")'
                         }
                     }}
                 />
@@ -101,6 +130,50 @@ const ProChallenge: React.FC = () => {
                         </Box>
                     </Box>
 
+                    <Box className={styles.debris} style={parallaxStyle}>
+                        <motion.img
+                            src="/challenge/backgrounds/desktop/debris.svg"
+                            alt="Space Debris"
+                            style={{
+                                width: "100%",
+                                height: "auto",
+                                display: "block"
+                            }}
+                            animate={{
+                                y: [-20, 20, -20], // Slow vertical float
+                                x: [-5, 10, -5] // Gentle horizontal sway
+                            }}
+                            transition={{
+                                duration: 8, // Very slow to feel like zero-gravity junk
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                        />
+                    </Box>
+                    <Box
+                        className={clsx(styles.debris, styles.mobile)}
+                        style={parallaxStyleMobile}
+                    >
+                        <motion.img
+                            src="/challenge/backgrounds/mobile/debris.svg"
+                            alt="Space Debris"
+                            style={{
+                                width: "100%",
+                                height: "auto",
+                                display: "block"
+                            }}
+                            animate={{
+                                y: [-10, 10, -10], // Slow vertical float
+                                x: [-5, 5, -5] // Gentle horizontal sway
+                            }}
+                            transition={{
+                                duration: 8, // Very slow to feel like zero-gravity junk
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                        />
+                    </Box>
+
                     {/* panel start*/}
                     <Box
                         sx={{
@@ -120,7 +193,8 @@ const ProChallenge: React.FC = () => {
                             alignItems: "center",
                             justifyContent: "center",
                             px: { xs: "17vw", md: "15vw" },
-                            textAlign: "center"
+                            textAlign: "center",
+                            zIndex: 6
                         }}
                     >
                         <Typography
@@ -161,11 +235,50 @@ const ProChallenge: React.FC = () => {
                         </Typography>
                     </Box>
 
-                    {/* panel end*/}
-
-                    {/* textbox 1 start */}
+                    <Box className={styles.ufos} style={parallaxStyle2}>
+                        <motion.img
+                            src="/challenge/backgrounds/desktop/ufos.svg"
+                            alt="UFOs"
+                            style={{
+                                width: "100%",
+                                height: "auto",
+                                display: "block"
+                            }}
+                            animate={{
+                                y: [-15, 10, -15] // Faster bobbing
+                            }}
+                            transition={{
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                        />
+                    </Box>
+                    <Box
+                        className={clsx(styles.ufos, styles.mobile)}
+                        style={parallaxStyleMobile2}
+                    >
+                        <motion.img
+                            src="/challenge/backgrounds/mobile/ufos.svg"
+                            alt="UFOs"
+                            style={{
+                                width: "100%",
+                                height: "auto",
+                                display: "block"
+                            }}
+                            animate={{
+                                y: [-5, 5, -5] // Faster bobbing
+                            }}
+                            transition={{
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                        />
+                    </Box>
 
                     <Box
+                        ref={ref2}
                         sx={{
                             position: "absolute",
                             left: { xs: "50%", md: "40%" },
@@ -178,7 +291,8 @@ const ProChallenge: React.FC = () => {
                             alignItems: "center",
                             justifyContent: "center",
                             px: { md: "15vw" },
-                            textAlign: "center"
+                            textAlign: "center",
+                            zIndex: 6
                         }}
                     >
                         <Typography
@@ -223,10 +337,11 @@ const ProChallenge: React.FC = () => {
                     {/* textbox 2 start */}
 
                     <Box
+                        ref={ref3}
                         sx={{
                             position: "absolute",
                             left: { xs: "50%", md: "63%" },
-                            top: { xs: "54%", md: "55%" },
+                            top: { xs: "50%", md: "55%" },
                             transform: "translateX(-50%)",
                             width: "65vw",
 
@@ -235,7 +350,8 @@ const ProChallenge: React.FC = () => {
                             alignItems: "center",
                             justifyContent: "center",
                             px: { md: "15vw" },
-                            textAlign: "center"
+                            textAlign: "center",
+                            zIndex: 6
                         }}
                     >
                         <Typography
@@ -289,6 +405,21 @@ const ProChallenge: React.FC = () => {
                         </Typography>
                     </Box>
 
+                    {/* ======================================= */}
+                    {/* STATIC: PLANETS (Parallax Only)         */}
+                    {/* ======================================= */}
+                    <img
+                        src="/challenge/backgrounds/desktop/planets.svg"
+                        className={styles.planets}
+                        style={parallaxStyle3}
+                    />
+
+                    <img
+                        src="/challenge/backgrounds/mobile/planets.svg"
+                        className={clsx(styles.planets, styles.mobile)}
+                        style={parallaxStyleMobile3}
+                    />
+
                     {/* textbox 2 end */}
 
                     {/* textbox 3 start */}
@@ -297,7 +428,7 @@ const ProChallenge: React.FC = () => {
                         sx={{
                             position: "absolute",
                             left: { xs: "50%", md: "38%" },
-                            top: { xs: "71%", md: "66%" },
+                            top: { xs: "68%", md: "66%" },
                             transform: "translateX(-50%)",
                             width: "85vw",
 
