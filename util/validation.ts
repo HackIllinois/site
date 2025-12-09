@@ -27,7 +27,10 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     // Application Questions
     application1: "",
     application2: "",
-    application3: "",
+
+    // This will be left blank intentionally.
+    application3: "<INTENTIONALLY BLANK>",
+
     applicationOptional: "",
     pro: false,
     hackathonsParticipated: "",
@@ -119,18 +122,6 @@ export const draftValidationSchemas = [
                     .split(/\s+/)
                     .filter(word => word.length > 0).length;
                 return wordCount <= 50;
-            }
-        ),
-        application3: Yup.string().test(
-            "max-100-words",
-            "Response cannot be over 100 words",
-            value => {
-                if (!value || !value.trim()) return true;
-                const wordCount = value
-                    .trim()
-                    .split(/\s+/)
-                    .filter(word => word.length > 0).length;
-                return wordCount <= 100;
             }
         ),
         applicationOptional: Yup.string().test(
