@@ -1,3 +1,5 @@
+"use client";
+
 import { GradientButton } from "@/components/GradientButton/GradientButton";
 import clsx from "clsx";
 import Image from "next/image";

@@ -1,3 +1,5 @@
+"use client";
+
 import { GradientButton } from "@/components/GradientButton/GradientButton";
 import Image from "next/image";
 import styles from "./HackVoyagers.module.scss";

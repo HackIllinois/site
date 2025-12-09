@@ -1,3 +1,5 @@
+"use client";
+
 import { FAQ } from "@/components/FAQ/FAQ";
 import { SocialIconsRow } from "@/components/GradientButton/GradientSocialButton";
 import NewsletterSubscription from "@/components/NewsletterSubscription/NewsletterSubscription";
@@ -40,7 +42,7 @@ const FaqSection = () => {
 
                 <FAQ />
             </div>
-            <div className={styles.faqFooterContent}>
+            <div className={styles.faqFooterContent} id="newsletter">
                 <Typography
                     variant="h2"
                     component="h2"

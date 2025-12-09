@@ -18,24 +18,17 @@ export const genderOptions: string[] = [
 ];
 
 export const raceOptions: string[] = [
-    "Asian Indian",
-    "Black or African",
-    "Chinese",
-    "Filipino",
-    "Guamanian or Chamorro",
-    "Hispanic / Latino / Spanish Origin",
-    "Japanese",
-    "Korean",
-    "Middle Eastern",
-    "Native American or Alaskan Native",
-    "Native Hawaiian",
-    "Samoan",
-    "Vietnamese",
+    "American Indian or Alaska Native",
+    "Arab or Middle Eastern",
+    "Black or African American",
+    "East Asian",
+    "Hispanic or Latino",
+    "Native Hawaiian or Pacific Islander",
+    "South East Asian",
+    "South Asian",
     "White",
-    "Other Asian (Thai, Cambodian, etc)",
-    "Other Pacific Islander",
     "Other",
-    "Prefer Not to Answer"
+    "Prefer Not To Answer"
 ];
 
 export const numHackathonOptions: string[] = ["0", "1", "2-3", "4+"];

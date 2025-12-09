@@ -11,18 +11,42 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styles from "./FAQ.module.scss";
 
+// We change the type of 'answer' implicitly to React.ReactNode (string | JSX)
+// to allow the anchor link in the reimbursement section.
 const faqItems = [
     {
         question: "Who is eligible to attend?",
-        answer: "HackIllinois is open to all current college students and recent graduates (within 1 year of graduation). You don't need any prior coding experience - we welcome students of all skill levels! Whether you're a beginner or an experienced hacker, there's a place for you at HackIllinois."
+        answer: "HackIllinois is open to all current college students and recent graduates (within 1 year of graduation). You do not need any prior coding experience - we welcome students of all skill levels! Whether you are a beginner or an experienced hacker, there is a place for you at HackIllinois."
     },
     {
         question: "How can I get help during the event?",
-        answer: "We'll have mentors available throughout the entire hackathon to help you with your projects! You can also attend our workshops and tech talks to learn new skills. Our staff and sponsors will be on-site to answer questions and provide guidance. Additionally, we'll have a dedicated help desk and online support channels to ensure you get the assistance you need."
+        answer: "HackIllinois 2026 will be held in the University of Illinois Urbana-Champaign. We'll provide more detailed location and parking information closer to the event date."
     },
     {
-        question: "Where is HackIllinois located?",
-        answer: "HackIllinois 2026 will be held at the Siebel Center for Computer Science at the University of Illinois Urbana-Champaign. The address is 201 N Goodwin Ave, Urbana, IL 61801. The event will take place from February 27th to March 1st. We'll provide more detailed location and parking information closer to the event date."
+        question: "Will there be reimbursement?",
+        answer: (
+            <>
+                Yes! HackIllinois will offer only travel reimbursement this year
+                to attendees that submit a project. Final amounts will be
+                announced closer to the event and will be organized by zones.
+                <br />
+                <br />
+                To stay updated, we encourage you to{" "}
+                <a
+                    href="#newsletter"
+                    style={{ color: "inherit", textDecoration: "underline" }}
+                >
+                    sign up for our newsletter
+                </a>
+                . You will receive an email as soon as the reimbursement details
+                are released.
+            </>
+        )
+    },
+    {
+        question: "How can I get help during the event?",
+        answer: `
+We will have mentors available during the event to help with anything you need and there will also be workshops and tech talks for fostering new skillsets! HackIllinois staff will also be available on-site throughout the entire event to answer questions & provide guidance in addition to our online support channels for assistance!`
     }
 ];
 
@@ -38,7 +62,7 @@ export const FAQ = () => {
     return (
         <div className={styles.faqItems}>
             {faqItems.map((item, index) => (
-                <Box key={item.question} sx={{ mb: 2 }}>
+                <Box key={index} sx={{ mb: 2 }}>
                     <Accordion
                         expanded={expanded === index}
                         onChange={handleChange(index)}

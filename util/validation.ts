@@ -45,7 +45,7 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     reviewedAcknowledge: false,
     codeOfConductAcknowledge: false,
     mlhDataSharingAcknowledge: false,
-    optInMlhNewsletter: true,
+    mlhNewsletter: true,
     optInHackNewsletter: true
 };
 

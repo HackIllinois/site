@@ -403,14 +403,14 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                     <Box mt={3}>
                         {/* MLH newsletter opt-in */}
                         <CheckboxSelect
-                            name="optInMlhNewsletter"
+                            name="mlhNewsletter"
                             label="Newsletter Opt-In"
                             accentColor="#983300"
                             optionLabel="I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements."
                             optionLabelSx={AckOptionLabelStyle}
-                            value={values.optInMlhNewsletter}
+                            value={values.mlhNewsletter}
                             onChange={val =>
-                                formik.setFieldValue("optInMlhNewsletter", val)
+                                formik.setFieldValue("mlhNewsletter", val)
                             }
                             error={false}
                         />
