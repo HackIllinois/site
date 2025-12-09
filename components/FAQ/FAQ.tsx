@@ -1,16 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
     Accordion,
-    AccordionSummary,
     AccordionDetails,
-    Typography,
-    Box
+    AccordionSummary,
+    Box,
+    Typography
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import styles from "./FAQ.module.scss";
 import { motion, Variants } from "framer-motion";
+import { useState } from "react";
+import styles from "./FAQ.module.scss";
 
 // We change the type of 'answer' implicitly to React.ReactNode (string | JSX)
 // to allow the anchor link in the reimbursement section.
