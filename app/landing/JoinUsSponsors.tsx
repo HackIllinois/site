@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Link, Typography } from "@mui/material";
 import styles from "./JoinUsSponsors.module.scss";
 import Image from "next/image";

@@ -43,7 +43,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 <Grid size={12}>
                     <TextInput
                         name="application1"
-                        label="Pick a product you like: what’s one thing you’d change to make it better and why?"
+                        label="Tell us a project you have enjoyed working on, technical or non-technical."
                         sublabel="max 50 words"
                         accentColor={accentColor}
                         multiline
@@ -64,7 +64,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 <Grid size={12}>
                     <TextInput
                         name="application2"
-                        label="Describe a time you learned something for fun."
+                        label="Pick a product you like: what’s one thing you’d change to make it better and why?"
                         sublabel="max 50 words"
                         accentColor={accentColor}
                         multiline
@@ -82,33 +82,12 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                         inputProps={{ maxLength: 700 }}
                     />
                 </Grid>
-                <Grid size={12}>
-                    <TextInput
-                        name="application3"
-                        label="Describe a challenge you have faced in your field, and how you overcame it. This challenge can be related to a project, work or volunteer experience, diversity/inclusion, etc."
-                        sublabel="max 100 words"
-                        accentColor={accentColor}
-                        multiline
-                        required
-                        minRows={4}
-                        value={values.application3}
-                        onChange={handleChange}
-                        error={
-                            !!touched.application3 &&
-                            Boolean(errors.application3)
-                        }
-                        helperText={
-                            !!touched.application3 ? errors.application3 : ""
-                        }
-                        inputProps={{ maxLength: 1400 }}
-                    />
-                </Grid>
 
                 <Grid size={12}>
                     <TextInput
                         name="applicationOptional"
                         label="If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
-                        sublabel="optional, max 100 words"
+                        sublabel="Optional, max 100 words"
                         accentColor={accentColor}
                         multiline
                         // not required

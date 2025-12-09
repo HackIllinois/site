@@ -71,7 +71,7 @@ export type RegistrationApplicationDraftBodyForm =
         reviewedAcknowledge?: boolean;
         codeOfConductAcknowledge?: boolean;
         mlhDataSharingAcknowledge?: boolean;
-        optInMlhNewsletter?: boolean;
+        mlhNewsletter?: boolean;
         optInHackNewsletter?: boolean;
     };
 
