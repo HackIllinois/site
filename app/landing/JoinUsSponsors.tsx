@@ -235,7 +235,7 @@ const JoinUsSponsors = () => {
                             >
                                 <GradientButtonInstagram />
                             </Box>
-                            <Box id="newsletter">
+                            <Box>
                                 <Typography
                                     variant="body2"
                                     component="p"

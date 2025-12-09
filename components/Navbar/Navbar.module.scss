@@ -21,7 +21,7 @@
         background-color 0.2s ease,
         box-shadow 0.2s ease;
 
-    @media screen and (max-width: 1365px) {
+    @media screen and (max-width: 960px) {
         display: none;
     }
 }
@@ -91,7 +91,7 @@
     width: 100%;
     z-index: 1100;
 
-    @media screen and (max-width: 1365px) {
+    @media screen and (max-width: 960px) {
         display: flex;
         flex-direction: column;
     }
@@ -111,7 +111,6 @@
     flex-direction: row;
     width: 100%;
     position: relative;
-    z-index: 9999;
 
     .title {
         z-index: 7;
@@ -127,7 +126,6 @@
     z-index: 1001;
     margin-left: auto;
     cursor: pointer;
-    z-index: 9999;
 
     @media (max-width: 961px) {
         margin-top: 20px;
