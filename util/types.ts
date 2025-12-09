@@ -130,25 +130,14 @@ export type UserType = {
     name: string;
 };
 
-export enum Avatars {
-    BUNNY = "bunny",
-    SQUIRREL = "squirrel",
-    GOBLIN = "goblin",
-    CHESTER = "chester",
-    CAT = "cat",
-    MUSHROOM = "mushroom",
-    FISHERCAT = "fishercat",
-    AXOLOTL = "axolotl"
-}
-
 export type ProfileBodyType = {
     displayName: string;
     discordTag: string;
-    avatarId: Avatars;
+    avatarId: string;
 };
 
 export type ProfileType = {
-    userID: string;
+    userId: string;
     displayName: string;
     discordTag: string;
     avatarUrl: string;

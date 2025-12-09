@@ -1,7 +1,6 @@
 import { handleError } from "./helpers";
 import {
     ChallengeStatus,
-    FileType,
     MethodType,
     RegistrationApplicationDraftBody,
     RegistrationApplicationSubmitted
@@ -32,6 +31,11 @@ export async function getAuthToken(): Promise<string | null> {
 export function authenticate(): void {
     const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/register/general`;
     window.location.replace(authUrl);
+}
+
+export function logOut() {
+    localStorage.removeItem("token");
+    window.location.replace("/");
 }
 
 // If status is good, returns response. If status is bad, throws the error response.
@@ -72,8 +76,8 @@ export async function requestv2(
 }
 
 export async function getChallenge(): Promise<ChallengeStatus> {
-    const res = await requestv2("GET", "/registration/challenge/").catch(body =>
-        handleError(body)
+    const res = await requestv2("GET", "/registration/challenge/").catch(
+        handleError
     );
     return res;
 }
@@ -89,10 +93,17 @@ export async function subscribe(
     return res;
 }
 
-export async function uploadFile(file: File, type: FileType): Promise<unknown> {
-    const { url, fields } = await requestv2("GET", "/s3/upload");
-    let data = new FormData();
-    for (let key in fields) {
+export async function refreshToken() {
+    const res = await requestv2("GET", "/auth/token/refresh/").catch(
+        handleError
+    );
+    localStorage.setItem("token", res.token);
+}
+
+export async function uploadFile(file: File): Promise<unknown> {
+    const { url, fields } = await requestv2("GET", "/resume/upload");
+    const data = new FormData();
+    for (const key in fields) {
         data.append(key, fields[key]);
     }
     data.append("file", file, file.name);
