@@ -23,7 +23,7 @@
     -webkit-mask-image: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 1) 20%,
         rgba(0, 0, 0, 1) 90%,
         rgba(0, 0, 0, 0) 100%
     );
@@ -54,7 +54,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: auto !important;
     object-fit: cover;
     object-position: center bottom;
     opacity: 0.7;
@@ -77,7 +77,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: fit-content !important;
     object-fit: cover;
     opacity: 0.6;
     z-index: 2;
