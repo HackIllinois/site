@@ -45,12 +45,29 @@ const TextInput: React.FC<TextInputProps> = ({
                     fontWeight: 400
                 }}
             >
-                {label}
-                {required && <span style={{ color: "#d32f2f" }}>*</span>}
+                <span
+                    style={{
+                        marginRight: required ? "14px" : "8px"
+                    }}
+                >
+                    {label}
+                </span>
+                {required && (
+                    <span
+                        style={{
+                            color: "#d32f2f",
+                            position: "absolute",
+                            marginLeft: "-13px",
+                            fontWeight: 500
+                        }}
+                    >
+                        *
+                    </span>
+                )}
                 <Typography
                     component="span"
                     variant="body2"
-                    sx={{ ml: 1, color: "#c4c4c4ff", fontStyle: "oblique" }}
+                    sx={{ color: "#c4c4c4ff", fontStyle: "oblique" }}
                 >
                     {sublabel}
                 </Typography>

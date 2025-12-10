@@ -60,7 +60,15 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                     <>
                         {label}
                         {required && (
-                            <span style={{ color: "#d32f2f" }}>*</span>
+                            <span
+                                style={{
+                                    color: "#d32f2f",
+                                    position: "absolute",
+                                    fontWeight: 500
+                                }}
+                            >
+                                *
+                            </span>
                         )}
                     </>
                 ) : null}

@@ -34,6 +34,10 @@ interface SelectInputProps {
     [key: string]: unknown;
 }
 
+/**
+ * Warning: this component does not implement virtual options list;
+ * instead use SelectTextInput from SelectTextInputMUI.tsx
+ */
 const SelectInput: React.FC<SelectInputProps> = ({
     name,
     label,
@@ -69,7 +73,18 @@ const SelectInput: React.FC<SelectInputProps> = ({
                     fontWeight: 400
                 }}
             >
-                {label + (required ? "*" : "")}
+                {label}
+                {required && (
+                    <span
+                        style={{
+                            color: "#d32f2f",
+                            position: "absolute",
+                            fontWeight: 500
+                        }}
+                    >
+                        *
+                    </span>
+                )}
             </FormLabel>
 
             <Select

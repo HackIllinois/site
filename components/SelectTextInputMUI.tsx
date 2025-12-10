@@ -86,7 +86,17 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                 }}
             >
                 {label}
-                {required && <span style={{ color: "#d32f2f" }}>*</span>}
+                {required && (
+                    <span
+                        style={{
+                            color: "#d32f2f",
+                            position: "absolute",
+                            fontWeight: 500
+                        }}
+                    >
+                        *
+                    </span>
+                )}
             </FormLabel>
 
             <Autocomplete
