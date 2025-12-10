@@ -32,20 +32,19 @@ const ProChallenge: React.FC = () => {
         transform: `translateY(${offsetY3 * 0.1}px)`
     };
 
-    // 1. Container Variant: Controls the timing of the children
+    // 1. Container Variant
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
             transition: {
-                // Wait 0.3s, then start animating children with a 0.2s gap between each
                 delayChildren: 0.3,
                 staggerChildren: 0.2
             }
         }
     };
 
-    // 2. Item Variant: The actual animation for each element (Fade In + Slide Up)
+    // 2. Standard Item Variant (Used for the rest of the page)
     const itemVariants: Variants = {
         hidden: { opacity: 0, y: 30 },
         visible: {
@@ -53,7 +52,34 @@ const ProChallenge: React.FC = () => {
             y: 0,
             transition: {
                 duration: 0.8,
-                ease: [0.25, 0.46, 0.45, 0.94] // Smooth ease-out
+                ease: [0.25, 0.46, 0.45, 0.94]
+            }
+        }
+    };
+
+    // 3. NEW: Hero Specific Variants (Opposite Directions)
+    // "INTRODUCING" slides DOWN from -40
+    const slideDownVariant: Variants = {
+        hidden: { opacity: 0, y: -40 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.8,
+                ease: [0.25, 0.46, 0.45, 0.94]
+            }
+        }
+    };
+
+    // "HACKVOYAGERS" slides UP from 40
+    const slideUpVariant: Variants = {
+        hidden: { opacity: 0, y: 40 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.8,
+                ease: [0.25, 0.46, 0.45, 0.94]
             }
         }
     };
@@ -94,13 +120,8 @@ const ProChallenge: React.FC = () => {
                     }}
                 />
 
-                {/* OVERLAY LAYER (same size as the image) */}
-                <Box
-                    sx={{
-                        position: "absolute",
-                        inset: 0
-                    }}
-                >
+                {/* OVERLAY LAYER */}
+                <Box sx={{ position: "absolute", inset: 0 }}>
                     {/* pill and text */}
                     <Box
                         sx={{
@@ -125,20 +146,24 @@ const ProChallenge: React.FC = () => {
                             initial="hidden"
                             animate="visible"
                         >
-                            <Typography
-                                sx={{
-                                    textAlign: "center",
-                                    color: "white",
-                                    fontSize: {
-                                        xs: "4.5vw",
-                                        md: "3vw",
-                                        xl: "50px"
-                                    },
-                                    fontWeight: 500
-                                }}
-                            >
-                                INTRODUCING
-                            </Typography>
+                            {/* UPDATED: Uses slideDownVariant */}
+                            <motion.div variants={slideDownVariant}>
+                                <Typography
+                                    sx={{
+                                        textAlign: "center",
+                                        color: "white",
+                                        fontSize: {
+                                            xs: "4.5vw",
+                                            md: "3vw",
+                                            xl: "50px"
+                                        },
+                                        fontWeight: 500
+                                    }}
+                                >
+                                    INTRODUCING
+                                </Typography>
+                            </motion.div>
+
                             <Box
                                 sx={{
                                     mt: "0.5vw",
@@ -149,7 +174,8 @@ const ProChallenge: React.FC = () => {
                                     }
                                 }}
                             >
-                                <motion.div variants={itemVariants}>
+                                {/* UPDATED: Uses slideUpVariant */}
+                                <motion.div variants={slideUpVariant}>
                                     <Image
                                         src="/design-reference/HACKVOYAGERS.svg"
                                         alt="HackVoyagers"
@@ -166,6 +192,7 @@ const ProChallenge: React.FC = () => {
                         </motion.div>
                     </Box>
 
+                    {/* Rest of the code remains exactly as provided... */}
                     <Box className={styles.debris} style={parallaxStyle}>
                         <motion.img
                             src="/challenge/backgrounds/desktop/debris.svg"
@@ -176,16 +203,19 @@ const ProChallenge: React.FC = () => {
                                 display: "block"
                             }}
                             animate={{
-                                y: [-20, 20, -20], // Slow vertical float
-                                x: [-5, 10, -5] // Gentle horizontal sway
+                                y: [-20, 20, -20],
+                                x: [-5, 10, -5]
                             }}
                             transition={{
-                                duration: 8, // Very slow to feel like zero-gravity junk
+                                duration: 8,
                                 repeat: Infinity,
                                 ease: "easeInOut"
                             }}
                         />
                     </Box>
+
+                    {/* ... (The rest of your component logic follows here unchanged) */}
+
                     <Box
                         className={clsx(styles.debris, styles.mobile)}
                         style={parallaxStyleMobile}
@@ -199,11 +229,11 @@ const ProChallenge: React.FC = () => {
                                 display: "block"
                             }}
                             animate={{
-                                y: [-10, 10, -10], // Slow vertical float
-                                x: [-5, 5, -5] // Gentle horizontal sway
+                                y: [-10, 10, -10],
+                                x: [-5, 5, -5]
                             }}
                             transition={{
-                                duration: 8, // Very slow to feel like zero-gravity junk
+                                duration: 8,
                                 repeat: Infinity,
                                 ease: "easeInOut"
                             }}
@@ -315,7 +345,7 @@ const ProChallenge: React.FC = () => {
                                 display: "block"
                             }}
                             animate={{
-                                y: [-15, 10, -15] // Faster bobbing
+                                y: [-15, 10, -15]
                             }}
                             transition={{
                                 duration: 4,
@@ -337,7 +367,7 @@ const ProChallenge: React.FC = () => {
                                 display: "block"
                             }}
                             animate={{
-                                y: [-5, 5, -5] // Faster bobbing
+                                y: [-5, 5, -5]
                             }}
                             transition={{
                                 duration: 4,
