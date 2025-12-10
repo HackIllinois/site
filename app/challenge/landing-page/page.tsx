@@ -284,7 +284,7 @@ const ProChallenge: React.FC = () => {
                                         whiteSpace: "nowrap"
                                     }}
                                 >
-                                    WHAT ARE{" "}
+                                    WHAT IS{" "}
                                     <Box
                                         component="span"
                                         sx={{
@@ -650,7 +650,7 @@ const ProChallenge: React.FC = () => {
                                             }}
                                         />
                                     </Box>{" "}
-                                    DIFFERENT FROM STANDARD HACKILLINOIS
+                                    DIFFERENT FROM GENERAL HACKILLINOIS
                                     ATTENDANCE?
                                 </Typography>
                             </motion.div>
