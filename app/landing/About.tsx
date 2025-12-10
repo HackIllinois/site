@@ -137,7 +137,7 @@ const About = () => {
 
                             "& strong": {
                                 background:
-                                    "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+                                    "linear-gradient(90deg, #ff6dc5ff 0%, #FDAB60 40%, #ff6dc5ff 100%)",
                                 WebkitBackgroundClip: "text",
                                 backgroundClip: "text",
                                 color: "transparent",
@@ -191,7 +191,7 @@ const About = () => {
 
                             "& span": {
                                 background:
-                                    "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+                                    "linear-gradient(90deg, #FFAABB 0%, #FEB46B 30%, #FF66DC 70%, #FEB070 100%)",
                                 WebkitBackgroundClip: "text",
                                 backgroundClip: "text",
                                 color: "transparent",
