@@ -4,7 +4,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormLabel from "@mui/material/FormLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 interface Option {
     label: string;
@@ -47,6 +47,10 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
     const OPTIONS_LIMIT = 55; // 55 so that all US states show up when used for state selection
 
     const [visibleCount, setVisibleCount] = useState(OPTIONS_LIMIT);
+    const autocompleteRef = useRef<HTMLDivElement>(null);
+    const listboxRef = useRef<HTMLUListElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const tabPressedRef = useRef(false);
 
     const normalizedValue = multiple
         ? options.filter(o => Array.isArray(value) && value.includes(o.value))
@@ -100,6 +104,7 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
             </FormLabel>
 
             <Autocomplete
+                ref={autocompleteRef}
                 sx={{
                     maxWidth: maxInputWidth,
                     fontSize: "14px"
@@ -122,11 +127,52 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                     }
                 }}
                 ListboxProps={{
-                    onScroll: handleListboxScroll
+                    onScroll: handleListboxScroll,
+                    ref: listboxRef
                 }}
+                // --- code for handling save-on-Tab-keypress
+                onKeyDown={event => {
+                    if (event.key === "Tab") {
+                        tabPressedRef.current = true;
+                    }
+                }}
+                onBlur={_ => {
+                    // if the user pressed Tab, imitate Enter (select highlighted item)
+                    const isTabPress = tabPressedRef.current;
+                    tabPressedRef.current = false; // reset
+
+                    const focusedItem =
+                        listboxRef.current?.querySelector(".Mui-focused");
+
+                    const focusedValue = focusedItem?.getAttribute("value");
+
+                    if (isTabPress && focusedValue) {
+                        if (multiple) {
+                            const newValues = Array.isArray(value)
+                                ? [...value]
+                                : [];
+                            if (newValues.includes(focusedValue)) {
+                                onChange(
+                                    newValues.filter(v => v !== focusedValue)
+                                );
+                            } else {
+                                onChange([...newValues, focusedValue]);
+                            }
+                        } else {
+                            onChange(focusedValue);
+                        }
+                    }
+                }}
+                onKeyUp={event => {
+                    if (event.key === "Tab") {
+                        tabPressedRef.current = false;
+                    } // reset just in case
+                }}
+                // --- ^ code for handling Tab
                 renderInput={params => (
                     <TextField
                         {...params}
+                        inputRef={inputRef}
                         placeholder={placeholder}
                         error={error}
                         sx={theme => ({
@@ -185,7 +231,8 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
 
                     return (
                         <MenuItem
-                            key={`${key}-${Math.random()}`}
+                            key={`${key}`}
+                            id={`${key}`}
                             {...rest}
                             value={option.value}
                             sx={{
