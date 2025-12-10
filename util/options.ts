@@ -4,10 +4,10 @@ import states from "@/modules/states.json";
 import countries from "@/modules/countries.json";
 
 export const ageOptions: string[] = [];
-for (let i = 18; i < 30; i += 1) {
+for (let i = 18; i < 25; i += 1) {
     ageOptions.push(String(i));
 }
-ageOptions.push("30+");
+ageOptions.push("25+");
 
 export const genderOptions: string[] = [
     "Man",

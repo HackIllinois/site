@@ -4,6 +4,8 @@
     "Computer Science & Animal Sciences",
     "Computer Science & Anthropology",
     "Computer Science & Astronomy",
+    "Computer Science & Bioengineering",
+    "Computer Science & Physics",
     "Computer Science & Chemistry",
     "Computer Science & Crop Sciences",
     "Computer Science & Economics",
@@ -169,5 +171,6 @@
     "Technical Systems Management",
     "Theatre Studies",
     "Undeclared",
-    "Urban Studies and Planning"
+    "Urban Studies and Planning",
+    "Other"
 ]
