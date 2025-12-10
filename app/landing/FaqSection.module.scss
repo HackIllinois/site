@@ -7,15 +7,19 @@
     object-fit: cover;
     object-position: center top;
     z-index: 1;
+    background-color: #3c235f !important;
     @media (max-width: 768px) {
         display: none;
     }
     &.mobile {
         display: none;
-        object-fit: contain;
+        object-fit: cover;
         object-position: center top;
         @media (max-width: 768px) {
             display: block;
+        }
+        @media (max-width: 480px) {
+            object-fit: contain;
         }
     }
 }
@@ -23,10 +27,14 @@
 .faqGroundBar {
     position: absolute;
     top: 0;
-    left: 0;
+    left: -5vw !important;
+    right: 0;
+    // Mobile Chrome and Safari will clip off the edges, so we extend to 110vw.
+    width: 110vw !important;
+
     z-index: 3;
-    width: 100%;
     height: auto !important;
+    object-fit: cover;
 }
 
 .faqSection {
@@ -40,7 +48,6 @@
     padding: 4rem 2rem;
     position: relative;
     overflow: hidden;
-    background-color: #1f122a;
 }
 
 .faqContent {

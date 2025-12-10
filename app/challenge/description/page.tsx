@@ -25,23 +25,21 @@ export default function ChallengeDescription() {
 
     const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
-    useEffect(() => {
-        async function load() {
-            try {
-                const res = await getChallenge();
-                setChallengeStatus(res);
-                if (res.complete) {
-                    setChallengePassed(true);
-                    setTimeout(() => {
-                        window.location.href = "/challenge/result/success";
-                    }, 1500);
-                }
-            } finally {
-                setChallengeLoading(false);
+    async function handleLoadChallengeStatus() {
+        try {
+            const res = await getChallenge();
+            setChallengeStatus(res);
+            if (res.complete) {
+                setChallengePassed(true);
+                window.location.href = "/challenge/result/success";
             }
+        } finally {
+            setChallengeLoading(false);
         }
+    }
 
-        load();
+    useEffect(() => {
+        handleLoadChallengeStatus();
     }, []);
 
     const handleFileSelect = useCallback(

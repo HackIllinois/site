@@ -18,10 +18,10 @@ const About = () => {
     };
 
     const parallaxStyleMobile = {
-        transform: `translateY(${offsetY * 0.05}px)`
+        transform: `translateY(${offsetY * 0.04}px)`
     };
     const parallaxStyle2Mobile = {
-        transform: `translateY(${offsetY * 0.15}px)`
+        transform: `translateY(${offsetY * 0.1}px)`
     };
 
     const containerVariants: Variants = {
@@ -96,7 +96,6 @@ const About = () => {
                     fill
                     className={clsx(styles.tinyStarsBackground, styles.mobile)}
                     priority
-                    style={parallaxStyle2Mobile}
                 />
             </div>
 

@@ -7,8 +7,9 @@ import { tsukimi } from "@/theme/fonts";
 import NewsletterSubscription from "@/components/NewsletterSubscription/NewsletterSubscription";
 import { GradientButtonInstagram } from "@/components/GradientButton/GradientButtonInstagram";
 import clsx from "clsx";
-import { motion, useAnimation, Variants } from "framer-motion"; // Import useAnimation
+import { motion, useAnimation, Variants, useInView } from "framer-motion"; // Added useInView
 import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
+import { useEffect, useRef } from "react"; // Added hooks
 
 const alienAssets = [
     "/landing/sponsors/aliens/alien1.svg",
@@ -22,16 +23,24 @@ const alienAssets = [
 const MotionImage = motion(Image);
 
 const JoinUsSponsors = () => {
-    // 1. Initialize animation controls
     const ufoControls = useAnimation();
     const { offsetY, ref } = useParallaxScrollY();
 
-    // 2. Define the sequenced variants
+    // 1. Create a Ref for the container holding the UFO
+    const containerRef = useRef(null);
+
+    // 2. Track when that container enters the viewport
+    // amount: 0.3 means "trigger when 30% of the container is visible on screen"
+    const isContainerInView = useInView(containerRef, {
+        once: true,
+        amount: 0.3
+    });
+
     const ufoVariants: Variants = {
         hidden: {
-            x: "50vw", // Starts off-screen to the right
-            y: "-50vh", // Starts off-screen to the top
-            scale: 0.5, // Starts smaller (perspective)
+            x: "50vw",
+            y: "-50vh",
+            scale: 0.5,
             opacity: 0,
             rotate: 15
         },
@@ -44,7 +53,7 @@ const JoinUsSponsors = () => {
             transition: {
                 type: "spring",
                 duration: 5,
-                bounce: 0.4 // Gives it a nice bouncy stop when it arrives
+                bounce: 0.4
             }
         },
         float: {
@@ -59,13 +68,16 @@ const JoinUsSponsors = () => {
         }
     };
 
-    // 3. The Sequence Function
-    const handleUfoEntrance = async () => {
-        // Play entrance animation
-        await ufoControls.start("enter");
-        // Immediately start the infinite float loop
-        ufoControls.start("float");
-    };
+    // 3. Trigger the animation via useEffect when the container comes into view
+    useEffect(() => {
+        const handleUfoEntrance = async () => {
+            if (isContainerInView) {
+                await ufoControls.start("enter");
+                ufoControls.start("float");
+            }
+        };
+        handleUfoEntrance();
+    }, [isContainerInView, ufoControls]);
 
     const backgroundPulseVariants: Variants = {
         pulse: {
@@ -130,32 +142,27 @@ const JoinUsSponsors = () => {
                 priority
             />
 
-            <div className={styles.ufoContainer}>
+            {/* 4. Attach the containerRef here */}
+            <div className={styles.ufoContainer} ref={containerRef}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <motion.img
                     src="/landing/sponsors/desktop/ufo.svg"
                     alt="UFO"
                     className={styles.ufoImage}
-                    // Apply the variants
                     variants={ufoVariants}
                     initial="hidden"
-                    // Attach controls
                     animate={ufoControls}
-                    // Trigger sequence when element enters viewport
-                    onViewportEnter={handleUfoEntrance}
-                    viewport={{ once: true }} // Ensures it only flies in once
+                    // Removed onViewportEnter from here
                 />
 
                 <motion.img
                     src="/landing/sponsors/desktop/ufo.svg"
                     alt="UFO"
                     className={clsx(styles.ufoImage, styles.mobile)}
-                    // Apply same controls to mobile version
                     variants={ufoVariants}
                     initial="hidden"
                     animate={ufoControls}
-                    onViewportEnter={handleUfoEntrance}
-                    viewport={{ once: true }}
+                    // Removed onViewportEnter from here
                 />
 
                 <motion.div

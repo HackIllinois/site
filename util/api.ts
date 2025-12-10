@@ -71,10 +71,14 @@ export async function requestv2(
     return responseJSON;
 }
 
-export async function getChallenge(): Promise<ChallengeStatus> {
-    const res = await requestv2("GET", "/registration/challenge/").catch(
-        handleError
-    );
+export async function getChallenge(
+    shouldThrow?: boolean
+): Promise<ChallengeStatus> {
+    const res = await requestv2("GET", "/registration/challenge/").catch(e => {
+        if (shouldThrow) {
+            handleError(e);
+        }
+    });
     return res;
 }
 
