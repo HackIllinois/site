@@ -137,7 +137,7 @@ const About = () => {
 
                             "& strong": {
                                 background:
-                                    "linear-gradient(90deg, #ff6dc5ff 0%, #FDAB60 40%, #ff6dc5ff 100%)",
+                                    "linear-gradient(90deg, #FF66DC 0%, #FDAB60 40%, #FF66DC 100%)",
                                 WebkitBackgroundClip: "text",
                                 backgroundClip: "text",
                                 color: "transparent",
@@ -185,7 +185,7 @@ const About = () => {
                         component="p"
                         sx={{
                             mt: 4,
-                            fontSize: 28,
+                            fontSize: { xs: 28, md: 32 },
                             fontFamily: "Tsukimi Rounded",
                             fontWeight: 600,
 
@@ -195,7 +195,7 @@ const About = () => {
                                 WebkitBackgroundClip: "text",
                                 backgroundClip: "text",
                                 color: "transparent",
-                                filter: "drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.7))"
+                                filter: "drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.9))"
                             }
                         }}
                     >
