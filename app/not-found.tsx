@@ -1,20 +1,54 @@
-import styles from "./Error.module.scss";
+import { Box } from "@mui/material";
 import Link from "next/link";
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
     return (
-        <div className={styles.container}>
-            <div className={styles.errorBox}>
-                <h2 className={styles.heading}>404 Not Found</h2>
-                <p className={styles.text}>
-                    Return to the{" "}
-                    <Link prefetch={false} href="/" className={styles.link}>
-                        home page
-                    </Link>
-                    ?
-                </p>
-            </div>
-        </div>
+        <>
+            <Box
+                sx={{
+                    display: "flex",
+                    width: "100vw",
+                    height: "100vh",
+                    backgroundImage: `url("/registration/backgrounds/personal_info.svg")`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    filter: "blur(10px)",
+                    transform: "scale(1.25)"
+                }}
+            ></Box>
+            <Box
+                sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100vw",
+                    height: "100vh",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: 3
+                }}
+            >
+                <div>
+                    <h2>Page not found</h2>
+                    <br />
+                    <p>
+                        Return to the{" "}
+                        <Link
+                            prefetch={false}
+                            href="/"
+                            style={{
+                                color: "#1976d2",
+                                textDecoration: "underline"
+                            }}
+                        >
+                            home page
+                        </Link>
+                    </p>
+                </div>
+            </Box>
+        </>
     );
 };
 

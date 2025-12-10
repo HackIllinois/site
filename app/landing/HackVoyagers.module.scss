@@ -1,0 +1,209 @@
+// HackVoyagers Section
+.hackVoyagersSection {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, #6f4e92, #7e5ea7);
+    padding: 4rem 5%;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.hackVoyagersBackgrounds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
+
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+.cloudsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto !important;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.tinyStarsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+    object-position: center top;
+    opacity: 0.4;
+    z-index: 2;
+}
+
+.robotContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    text-align: center;
+    position: relative;
+    height: fit-content;
+    width: 100%;
+    max-width: 1500px;
+}
+
+@keyframes floatUpDown {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes glow {
+    from {
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    }
+    to {
+        filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.6));
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.robotImage {
+    max-width: 80%;
+    height: auto;
+    animation:
+        slideInLeft 1.5s ease-out both,
+        glow 2s ease-in-out infinite alternate,
+        floatUpDown 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+    }
+}
+
+.textContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    z-index: 10;
+    text-align: center;
+    position: relative;
+    max-width: 1500px;
+}
+
+.introducingText {
+    display: block;
+    font-size: 55px;
+    font-weight: 400;
+    margin-top: 15px;
+    @media (max-width: 768px) {
+        font-size: 32px;
+    }
+}
+
+.hackVoyagersButtonContainer {
+    margin: 25px 0;
+}
+
+.hackVoyagersText {
+    max-width: 90%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .hackVoyagersSection {
+        flex-direction: column;
+        padding: 2rem;
+    }
+
+    .textContainer {
+        order: 1;
+        text-align: center;
+    }
+
+    .introducingText {
+        max-width: 70%;
+        height: auto;
+        top: 15vh;
+    }
+
+    .hackVoyagersText {
+        max-width: 80%;
+        top: 18vh;
+    }
+
+    .robotImage {
+        width: 100%;
+        top: 35vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .introducingText {
+        max-width: 85%;
+        margin-top: 2rem;
+    }
+
+    .hackVoyagersText {
+        max-width: 90%;
+    }
+
+    .textContainer {
+        padding: 0 0.5rem;
+    }
+}

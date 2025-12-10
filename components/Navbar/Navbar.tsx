@@ -2,69 +2,39 @@
 
 import Logo from "@/public/logo.svg";
 import LogoDark from "@/public/logo_dark.svg";
-import Image from "next/image";
+import MLH from "@/public/assets/mlh.svg";
 import styles from "./Navbar.module.scss";
 // import CloudMenu from "@/public/cloud-menu.svg";
 import clsx from "clsx";
-import { usePathname } from "next/navigation";
-import { useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import GlobalContext from "@/app/context";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 type NavbarItem = {
     title: string;
     link: string;
 };
 
+const NAVBAR_ITEMS: NavbarItem[] = [
+    {
+        title: "Register",
+        link: "/register/general#personal-information"
+    },
+    {
+        title: "Prizes",
+        link: "/prizes"
+    }
+];
+
 const DARK_PAGES = ["/register/challenge"];
 
 const Navbar = () => {
-    const { eventStatus } = useContext(GlobalContext);
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
 
     const isDark = DARK_PAGES.includes(pathname);
-
-    const getDynamicNavItems = () => {
-        switch (eventStatus) {
-            case "registration":
-                return [{ title: "Register", link: "/register" }];
-            case "admission":
-                return [{ title: "Profile", link: "/profile" }];
-            default:
-                return [];
-        }
-    };
-
-    const navbarItems: NavbarItem[] = [
-        {
-            title: "Schedule",
-            link: "/schedule"
-        },
-        {
-            title: "Prizes",
-            link: "/prizes"
-        },
-        {
-            title: "Travel",
-            link: "/travel"
-        },
-        {
-            title: "Mentors",
-            link: "/mentors"
-        },
-        {
-            title: "Judges",
-            link: "/judges"
-        },
-        {
-            title: "Legal",
-            link: "/legal"
-        },
-        ...getDynamicNavItems()
-    ];
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -91,15 +61,26 @@ const Navbar = () => {
     return (
         <>
             <nav className={clsx(styles.navbar, isDark && styles.dark)}>
-                <Link href="/" prefetch={false}>
-                    <Image
+                {pathname === "/" ? (
+                    <img
+                        className={styles.logo}
                         alt="HackIllinois Logo"
-                        style={{ cursor: "pointer" }}
-                        src={isDark ? LogoDark : Logo}
+                        style={{ cursor: "default" }}
+                        src={isDark ? LogoDark.src : Logo.src}
                     />
-                </Link>
+                ) : (
+                    <Link href="/" prefetch={false}>
+                        <img
+                            className={styles.logo}
+                            alt="HackIllinois Logo"
+                            style={{ cursor: "pointer" }}
+                            src={isDark ? LogoDark.src : Logo.src}
+                        />
+                    </Link>
+                )}
+
                 <ul className={styles.navbarList}>
-                    {navbarItems.map(item => (
+                    {NAVBAR_ITEMS.map(item => (
                         <li key={item.title}>
                             <Link
                                 prefetch={false}
@@ -115,20 +96,41 @@ const Navbar = () => {
                         </li>
                     ))}
                     <li>
-                        <OlympianButton />
+                        <ProTrackButton />
                     </li>
                 </ul>
+                <Link
+                    href="https://mlh.io/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <img
+                        className={styles.mlhBanner}
+                        alt="MLH Banner"
+                        style={{ cursor: "pointer" }}
+                        src={MLH.src}
+                    />
+                </Link>
             </nav>
             <nav className={styles.mobile}>
                 <div className={styles.mobileTop}>
                     <div className={styles.title}>
-                        <Link prefetch={false} href="/">
-                            <Image
+                        {pathname === "/" ? (
+                            <img
                                 alt="Logo"
-                                src={isDark ? LogoDark : Logo}
-                                className="logo"
+                                src={isDark ? LogoDark.src : Logo.src}
+                                className={styles.logo}
+                                style={{ cursor: "default" }}
                             />
-                        </Link>
+                        ) : (
+                            <Link prefetch={false} href="/">
+                                <img
+                                    alt="Logo"
+                                    src={isDark ? LogoDark.src : Logo.src}
+                                    className={styles.logo}
+                                />
+                            </Link>
+                        )}
                     </div>
                     <div
                         className={clsx(
@@ -143,6 +145,22 @@ const Navbar = () => {
                         <span></span>
                         <span></span>
                     </div>
+                    {!showMobileNavbar ? (
+                        <Link
+                            href="https://mlh.io/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                className={styles.mlhBanner}
+                                alt="MLH Banner"
+                                style={{ cursor: "pointer" }}
+                                src={MLH.src}
+                            />
+                        </Link>
+                    ) : (
+                        <></>
+                    )}
                 </div>
                 <div
                     className={clsx(
@@ -151,7 +169,7 @@ const Navbar = () => {
                     )}
                     ref={menuRef}
                 >
-                    {navbarItems.map(item => (
+                    {NAVBAR_ITEMS.map(item => (
                         <Link
                             prefetch={false}
                             href={item.link}
@@ -161,7 +179,7 @@ const Navbar = () => {
                             {item.title}
                         </Link>
                     ))}
-                    <OlympianButton />
+                    <ProTrackButton />
                 </div>
             </nav>
         </>
@@ -170,10 +188,10 @@ const Navbar = () => {
 
 export default Navbar;
 
-const OlympianButton = () => {
+const ProTrackButton = () => {
     return (
-        <Link prefetch={false} href="/olympians">
-            <button className={styles.olympianButton}>
+        <Link prefetch={false} href="/challenge/landing-page">
+            <button className={styles.proTrackButton}>
                 <div className={styles.buttonBackground}></div>
                 <div className={styles.buttonContent}>
                     <svg
@@ -193,7 +211,7 @@ const OlympianButton = () => {
                         />
                     </svg>
 
-                    <span>Olympians</span>
+                    <span>HackVoyagers</span>
                 </div>
             </button>
         </Link>

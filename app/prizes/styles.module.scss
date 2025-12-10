@@ -1,119 +1,115 @@
-.container {
+@use "/app/colors" as *;
+
+.main {
+    width: 100%;
+    height: 100svh;
+    overflow: clip;
+    padding: 1rem 0.25rem;
+
     display: flex;
-    flex-direction: row;
-    text-align: center;
-    padding-top: 50px;
-    overflow: hidden;
-    height: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    gap: 2.5rem;
+
+    background-image: url("/hype_animation.gif");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    @media screen and (max-width: 500px) {
+        gap: 2rem;
+    }
 }
 
-.leftDiv {
+.top {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex: 0.7;
-    margin-top: 100px;
-    padding-left: 0px;
-    height: 80vh;
-    overflow: hidden;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .title {
-    font-size: 5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: white;
-    margin-left: 30px;
-}
-
-.scrollableGrid {
-    flex: 2;
-    max-height: calc(100vh - 50px);
-    overflow-y: auto;
     width: 100%;
-    margin-top: 100px;
-    padding-bottom: 50px;
+
+    h1 {
+        position: relative;
+        font-weight: 700;
+        font-size: 75px;
+        color: transparent;
+        text-align: center;
+        line-height: 1;
+
+        @media screen and (max-width: 800px) {
+            font-size: 50px;
+        }
+
+        @media screen and (max-width: 500px) {
+            font-size: 40px;
+        }
+
+        @media screen and (max-height: 500px) {
+            font-size: 35px;
+        }
+
+        &::after {
+            content: attr(data-text);
+            position: absolute;
+            pointer-events: none;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+
+            background: linear-gradient(
+                90deg,
+                #6384be 25%,
+                #fcdc8f 50%,
+                #dd7f48 75%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    }
 }
 
-.prizesGrid {
+.subtitle {
+    width: 100%;
     display: flex;
-    flex-wrap: wrap;
-    row-gap: 10px;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-}
 
-.prizeInfo h2 {
-    font-size: 1.2rem;
-    margin: 0;
-}
+    .text {
+        font-weight: 500;
+        font-size: 45px;
+        color: #fcdc8f;
+        text-shadow: 0px 1px 20px rgba(252, 220, 143, 0.76);
+        animation-name: glow;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
 
-.prizeInfo p {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: bold;
-}
+        @media screen and (max-width: 800px) {
+            font-size: 32px;
+        }
 
-.character {
-    width: 100%;
-    min-width: 300px;
-    margin-right: 30px;
-}
+        @media screen and (max-height: 500px) {
+            font-size: 32px;
+        }
 
-@media screen and (max-width: 1152px) {
-    .prizesGrid {
-        grid-template-columns: 1fr;
-        margin: 50px auto 0 auto;
-        margin-top: 0;
-    }
-    .character {
-        margin-left: -100px;
-        overflow: hidden;
-    }
+        @keyframes glow {
+            from {
+                text-shadow:
+                    0px 0px 5px #fff,
+                    0px 0px 4px #fcdc8f;
+            }
 
-    .title {
-        font-size: 3rem;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        padding-top: 30px;
-    }
-
-    .title {
-        margin-left: 0;
-    }
-
-    .character {
-        display: none;
-    }
-
-    .scrollableGrid {
-        height: fit-content;
-        max-height: unset;
-        margin-top: 0;
-    }
-
-    .leftDiv {
-        width: 100%;
-        align-items: center;
-        flex: 1;
-        margin-top: 50px;
-        padding-left: 0;
-    }
-
-    .title {
-        font-size: 3rem;
-    }
-
-    .prizesGrid {
-        grid-template-columns: 1fr;
-        margin: 50px auto 0 auto;
-        height: fit-content;
-        padding-bottom: 100px;
-        margin-top: 10px;
+            to {
+                text-shadow:
+                    0px 0px 20px #fff,
+                    0px 0px 4px #bd7c62;
+            }
+        }
     }
 }

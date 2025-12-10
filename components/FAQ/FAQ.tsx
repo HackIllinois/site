@@ -1,217 +1,184 @@
 "use client";
-import React, { useContext, useEffect, useMemo, useState } from "react";
+
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Box,
+    Typography
+} from "@mui/material";
+import { motion, Variants } from "framer-motion";
+import { useState } from "react";
 import styles from "./FAQ.module.scss";
-import Link from "next/link";
-import clsx from "clsx";
-import GlobalContext from "@/app/context";
 
-const FAQ: React.FC = () => {
-    const { eventStatus } = useContext(GlobalContext);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [windowWidth, setWindowWidth] = useState(0);
+// We change the type of 'answer' implicitly to React.ReactNode (string | JSX)
+// to allow the anchor link in the reimbursement section.
+const faqItems = [
+    {
+        question: "Who is eligible to attend?",
+        answer: "HackIllinois is open to all current college students and recent graduates (within 1 year of graduation). You do not need any prior coding experience - we welcome students of all skill levels! Whether you are a beginner or an experienced hacker, there is a place for you at HackIllinois."
+    },
+    {
+        question: "How can I get help during the event?",
+        answer: "HackIllinois 2026 will be held in the University of Illinois Urbana-Champaign. We'll provide more detailed location and parking information closer to the event date."
+    },
+    {
+        question: "Will there be reimbursement?",
+        answer: (
+            <>
+                Yes! HackIllinois will offer only travel reimbursement this year
+                to attendees that submit a project. Final amounts will be
+                announced closer to the event and will be organized by zones.
+                <br />
+                <br />
+                To stay updated, we encourage you to{" "}
+                <a
+                    href="#newsletter"
+                    style={{ color: "inherit", textDecoration: "underline" }}
+                >
+                    sign up for our newsletter
+                </a>
+                . You will receive an email as soon as the reimbursement details
+                are released.
+            </>
+        )
+    },
+    {
+        question: "How can I get help during the event?",
+        answer: `
+We will have mentors available during the event to help with anything you need and there will also be workshops and tech talks for fostering new skillsets! HackIllinois staff will also be available on-site throughout the entire event to answer questions & provide guidance in addition to our online support channels for assistance!`
+    }
+];
 
-    const faqData = [
-        {
-            question: <strong>What is a Hackathon?</strong>,
-            answer: (
-                <p>
-                    A hackathon is a collaborative event where teams utilize
-                    their skills to create projects that solve problems or
-                    identify new opportunities! They typically run for a short
-                    and continuous period of time. For Hacklllinois, meals will
-                    be provided.
-                </p>
-            )
-        },
-        {
-            question: <strong>Are there any prizes or incentives?</strong>,
-            answer: (
-                <p>
-                    Yes! Cash prizes will be offered for winning teams in
-                    several different categories, including{" "}
-                    <Link prefetch={false} href={"/olympians"}>
-                        HackOlympians
-                    </Link>
-                    . Additionally, there are various mini-games and events that
-                    offer plenty of opportunities to win prizes through our
-                    Point Shop!
-                </p>
-            )
-        },
-        {
-            question: (
-                <strong>
-                    What is the difference between a path and a track?
-                </strong>
-            ),
-            answer: (
-                <p>
-                    Paths distinguish your level of expertise whereas tracks
-                    specify the type of project you are creating. Our paths are
-                    General and{" "}
-                    <Link prefetch={false} href={"/olympians"}>
-                        HackOlympian
-                    </Link>
-                    {""}; General encompasses beginner and intermediate hackers
-                    competing for a smaller cash prize, while HackOlympians are
-                    experienced hackers looking for a chance to compete in a
-                    more competitive arena with a larger cash prize. Tracks are
-                    designed by our sponsors to provide a specialized topic to
-                    center your project around. Each participant must choose
-                    both a path and track when submitting their project.
-                </p>
-            )
-        },
-        {
-            question: (
-                <strong>
-                    What is <i>HackOlympians</i>?
-                </strong>
-            ),
-            answer: (
-                <p>
-                    <Link prefetch={false} href={"/olympians"}>
-                        HackOlympians
-                    </Link>{" "}
-                    is an exclusive path tailored for prospective attendees to
-                    dive into a competitively elevated hackathon atmosphere for
-                    an increased prize value. It&apos;s a specialized arena for
-                    experienced hackers who have mastered the fundamentals and
-                    are now looking to test their skills in a more challenging
-                    environment. Admission into HackOlympians requires
-                    completing our application, which includes a{" "}
-                    {eventStatus === "registration" ? (
-                        <Link prefetch={false} href="/register/challenge">
-                            coding challenge
-                        </Link>
-                    ) : (
-                        "coding challenge"
-                    )}
-                    .
-                </p>
-            )
-        },
-        {
-            question: (
-                <strong>What are the benefits of being a HackOlympian?</strong>
-            ),
-            answer: (
-                <p>
-                    Attendees in this path have the exclusive opportunity to
-                    compete for the grand Olympians prize. Additionally, they
-                    will gain access to special networking opportunities with
-                    our event sponsors and the chance to present their project
-                    in a thrilling Shark-Tank inspired showcase, among other
-                    exciting perks
-                    {eventStatus === "registration"
-                        ? " - but spots are limited, so register soon!"
-                        : "!"}
-                </p>
-            )
-        },
-        {
-            question: (
-                <strong>
-                    How is HackOlympians different from standard HackIllinois
-                    attendance?
-                </strong>
-            ),
-            answer: (
-                <>
-                    <p>
-                        HackIllinois is a historically welcoming space for
-                        coders of all skill levels, particularly those who are
-                        just starting out. This inclusive environment encourages
-                        beginner-level coders to engage and learn, while
-                        HackOlympians caters to more advanced participants,
-                        fostering a competitive and stimulating atmosphere for
-                        seasoned hackers. All attendees from both paths will
-                        enjoy access to Hacklllinois&apos;s vibrant array of
-                        events, workshops, company Q&As, and the Company Expo.
-                        Each path will maintain the spirit of inclusivity and
-                        learning to ensure that all attendees, regardless of
-                        their track, experience the full magic of HackIllinois!
-                        Additionally, all HackIllinois attendees are eligible to
-                        compete in all our sponsored tracks.*
-                    </p>
-                    <br />
-                    <p>
-                        *The Best Beginner and General prizes are reserved for
-                        HackIllinois General attendees, while the Best Olympians
-                        prize is reserved for HackOlympians attendees.
-                    </p>
-                </>
-            )
-        }
-    ];
+export const FAQ = () => {
+    const [expanded, setExpanded] = useState<number | false>(0);
 
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth);
+    const handleChange =
+        (panelIndex: number) =>
+        (_event: React.SyntheticEvent, isExpanded: boolean) => {
+            setExpanded(isExpanded ? panelIndex : false);
         };
 
-        handleResize();
-
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    });
-
-    const faqsPerPage = useMemo(() => {
-        if (windowWidth <= 432) {
-            return 1;
-        } else if (windowWidth <= 1350) {
-            return 2;
-        } else {
-            return 5;
+    // 1. Define container variants for staggering children
+    const containerVariants: Variants = {
+        hidden: { opacity: 1 }, // Container remains visible
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2, // Delay between each item
+                delayChildren: 0.1 // Slight delay before starting sequence
+            }
         }
-    }, [windowWidth, faqData]);
-    const totalPages = Math.ceil(faqData.length / faqsPerPage);
-    const showArrows = totalPages > 1;
-
-    const navigatePage = (direction: number) => {
-        setCurrentPage(prevPage =>
-            Math.max(0, Math.min(totalPages - 1, prevPage + direction))
-        );
     };
 
-    const currentFAQs = faqData.slice(
-        currentPage * faqsPerPage,
-        (currentPage + 1) * faqsPerPage
-    );
+    // 2. Define item variants for the fade-up animation
+    const itemVariants: Variants = {
+        hidden: { opacity: 0, y: 30 }, // Start slightly down and invisible
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.6, ease: "easeOut" }
+        }
+    };
 
     return (
-        <div className={styles.faqContainer}>
-            {showArrows && (
-                <button
-                    className={clsx(styles.faqArrow, styles.faqArrowLeft)}
-                    onClick={() => navigatePage(-1)}
-                    disabled={currentPage === 0}
-                >
-                    &#x25c4;
-                </button>
-            )}
-            <div className={styles.faqContent}>
-                {currentFAQs.map((faq, index) => (
-                    <div className={styles.faqItem} key={index}>
-                        <h3>{faq.question}</h3>
-                        {faq.answer}
-                    </div>
-                ))}
-            </div>
-            {showArrows && (
-                <button
-                    className={clsx(styles.faqArrow, styles.faqArrowRight)}
-                    onClick={() => navigatePage(1)}
-                    disabled={currentPage === totalPages - 1}
-                >
-                    &#x25ba;
-                </button>
-            )}
-        </div>
+        // 3. Convert outer div to motion.div and apply container variants
+        <motion.div
+            className={styles.faqItems}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }} // Trigger when 20% visible
+        >
+            {faqItems.map((item, index) => (
+                // 4. Wrap each item in a motion div with item variants
+                <motion.div key={index} variants={itemVariants}>
+                    <Box sx={{ mb: 2 }}>
+                        <Accordion
+                            expanded={expanded === index}
+                            onChange={handleChange(index)}
+                            disableGutters
+                            elevation={0}
+                            square={false}
+                            sx={{
+                                background:
+                                    "linear-gradient(135deg, rgba(163, 112, 170, 0.7) 0%, rgba(151, 132, 203, 0.7) 100%)",
+                                backdropFilter: "blur(10px)",
+                                borderRadius: "32px !important",
+                                border: "3px solid #3F2B75",
+                                color: "white",
+                                overflow: "hidden",
+                                "&:before": {
+                                    display: "none"
+                                },
+                                "&.Mui-expanded": {
+                                    margin: 0
+                                }
+                            }}
+                        >
+                            <AccordionSummary
+                                expandIcon={
+                                    <ExpandMoreIcon
+                                        sx={{
+                                            color: "white",
+                                            fontSize: "2rem"
+                                        }}
+                                    />
+                                }
+                                sx={{
+                                    minHeight: 80,
+                                    px: 4,
+                                    py: 2,
+                                    "& .MuiAccordionSummary-content": {
+                                        margin: 0
+                                    }
+                                }}
+                            >
+                                <Typography
+                                    component="span"
+                                    sx={{
+                                        fontFamily: "Tsukimi Rounded",
+                                        fontWeight: 700,
+                                        fontSize: "1.25rem",
+                                        textAlign: "left"
+                                    }}
+                                >
+                                    {item.question}
+                                </Typography>
+                            </AccordionSummary>
+
+                            {item.answer && (
+                                <AccordionDetails
+                                    sx={{
+                                        px: 4,
+                                        pb: 4,
+                                        pt: 0,
+                                        textAlign: "left"
+                                    }}
+                                >
+                                    <Typography
+                                        variant="body1"
+                                        component="p"
+                                        sx={{
+                                            fontFamily: "Montserrat",
+                                            fontSize: {
+                                                xs: "0.9rem",
+                                                md: "1rem"
+                                            },
+                                            lineHeight: 1.6,
+                                            textAlign: "left",
+                                            mb: 2
+                                        }}
+                                    >
+                                        {item.answer}
+                                    </Typography>
+                                </AccordionDetails>
+                            )}
+                        </Accordion>
+                    </Box>
+                </motion.div>
+            ))}
+        </motion.div>
     );
 };
-
-export default FAQ;

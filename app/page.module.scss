@@ -1,5 +1,1496 @@
 .main {
-    background-color: #000000;
-    // height: 100vh;
-    // overflow-y: auto;
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+// Section overlap and meshing effects
+.heroSection {
+    z-index: 3;
+}
+
+.aboutSection {
+    z-index: 2;
+}
+
+.hackVoyagersSection {
+    z-index: 1;
+}
+
+.heroBackgrounds {
+    position: absolute;
+    inset: 0;
+    pointer-events: none; // background only
+    z-index: 0;
+
+    /* Fade out at the bottom */
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+.mobileBackgroundLayout {
+    width: 100vw !important;
+    height: auto !important;
+    object-fit: contain;
+    object-position: top center;
+    display: none; /* Hidden by default, shown on mobile */
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+}
+
+.interactiveOverlays {
+    position: relative;
+    z-index: 10;
+    width: 100vw;
+    height: 8000px; /* Give extra space to ensure full scrolling */
+}
+
+// Hero Section
+.heroSection {
+    position: relative;
+    width: 100%;
+    height: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #16133e, #3a3069);
+}
+
+.heroSection .heroSectionContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.fightBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    z-index: 1;
+}
+.starsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+
+    &.mobile {
+        display: none;
+        @media (max-width: 768px) {
+            display: block;
+        }
+    }
+
+    // Fade out at top and bottom, solid in the middle
+}
+
+@keyframes tinyStarsGlow {
+    0% {
+        opacity: 0.2;
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
+    }
+    50% {
+        opacity: 0.4;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+    }
+    100% {
+        opacity: 0.2;
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
+    }
+}
+
+.tinyStarsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.4;
+    z-index: 3;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+    &.mobile {
+        display: none;
+        opacity: 1;
+        @media (max-width: 768px) {
+            display: block;
+        }
+    }
+    animation: tinyStarsGlow 8s ease-in-out infinite;
+}
+
+.heroSection .heroSectionContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.hackastraLogo {
+    height: 140px;
+    animation: fadeIn 1s ease-in;
+    z-index: 3;
+    margin: 0 auto;
+    display: block;
+}
+
+.heroRegisterButton {
+    padding: 20px 40px;
+    background: linear-gradient(135deg, #6f4e92, #434c84);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin: 0 auto;
+    display: block;
+}
+
+// About Section
+.aboutSection {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #3a3069, #6f4e92);
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.aboutBackgrounds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        // fully transparent at top
+        rgba(0, 0, 0, 1) 10%,
+        // fade in
+        rgba(0, 0, 0, 1) 90%,
+        // solid through most of the middle
+        rgba(0, 0, 0, 0) 100% // fade out at bottom
+    );
+
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+.aboutSection .content {
+    max-width: 800px;
+    padding: 50px 10px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    @media (max-width: 768px) {
+        padding: 20px 0px;
+    }
+}
+
+.planetsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+    opacity: 0.7;
+    z-index: 1;
+    @media (max-width: 768px) {
+        display: none;
+    }
+    &.mobile {
+        display: none;
+        object-fit: contain;
+        object-position: center top;
+        @media (max-width: 768px) {
+            display: block;
+        }
+    }
+}
+
+.aboutTinyStarsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    z-index: 2;
+}
+
+.aboutText {
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    max-width: 80%;
+    height: auto;
+    animation: fadeIn 1s ease-in 0.5s both;
+    z-index: 5;
+}
+
+// HackVoyagers Section
+.hackVoyagersSection {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, #6f4e92, #7e5ea7);
+    padding: 4rem 5%;
+    position: relative;
+    overflow: hidden;
+}
+
+.hackVoyagersBackgrounds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        // fully transparent at top
+        rgba(0, 0, 0, 1) 10%,
+        // fade in
+        rgba(0, 0, 0, 1) 90%,
+        // solid through most of the middle
+        rgba(0, 0, 0, 0) 100% // fade out at bottom
+    );
+
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+.cloudsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.hackVoyagersSection .tinyStarsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+    object-position: center top;
+    opacity: 0.4;
+    z-index: 2;
+}
+
+.robotContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    text-align: center;
+    position: relative;
+    height: fit-content;
+    width: 100%;
+    max-width: 1500px;
+}
+
+@keyframes floatUpDown {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.robotImage {
+    max-width: 80%;
+    height: auto;
+    animation:
+        slideInLeft 1.5s ease-out both,
+        glow 2s ease-in-out infinite alternate,
+        floatUpDown 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+    }
+}
+
+.textContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    z-index: 10;
+    text-align: center;
+    position: relative;
+    max-width: 1500px;
+}
+
+.introducingText {
+    animation: fadeIn 1s ease-in 1.5s both;
+    display: block;
+    font-size: 55px;
+    font-weight: 400;
+    margin-top: 15px;
+    @media (max-width: 768px) {
+        font-size: 32px;
+    }
+}
+
+.hackVoyagersButtonContainer {
+    animation: fadeIn 1s ease-in 1.9s both;
+    margin: 25px 0;
+}
+
+.hackVoyagersText {
+    max-width: 90%;
+    height: auto;
+    animation: fadeIn 1s ease-in 1.7s both;
+    margin: 0 auto;
+    display: block;
+}
+
+.learnMoreButton {
+    width: 340px;
+    height: 95px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
+    animation: fadeIn 1s ease-in 1.9s both;
+    margin: 3rem auto 0;
+    display: block;
+    font-family: "Montserrat", sans-serif;
+
+    &:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    }
+}
+
+.learnMoreButtonImage {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.sponsorsBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+// Join Us Section
+.joinUsSection {
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #434c84, #3a3069);
+    padding: 4rem 2rem;
+}
+
+.joinUsContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+// Join Us Section
+.joinUsSection {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #6f4e92, #4a3d7a, #2d1b69);
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.joinUsContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+}
+
+// UFO Beam
+.ufoBeam {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 120%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    border-radius: 50%;
+    filter: blur(20px);
+    z-index: 1;
+}
+
+// Instagram Icon
+.instagramIcon {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #833ab4, #e1306c, #f77737);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(131, 58, 180, 0.4);
+    z-index: 5;
+}
+
+// Main Content
+.joinUsMainContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    z-index: 10;
+}
+
+.joinUsHeading {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+.newsletterSubheader {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #6f4e92;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.joinUsDescription {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0;
+}
+
+// Email Subscription
+.emailSubscription {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.emailInput {
+    padding: 16px 24px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    width: 300px;
+    backdrop-filter: blur(10px);
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    &:focus {
+        outline: none;
+        border-color: #6f4e92;
+        background: rgba(255, 255, 255, 0.15);
+    }
+}
+
+.subscribeButton {
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #6f4e92, #4a3d7a);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(111, 78, 146, 0.4);
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(111, 78, 146, 0.6);
+    }
+}
+
+// Alien Character
+.alienCharacter {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+.alienBody {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(74, 222, 128, 0.4);
+    position: relative;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+        top: 20%;
+    }
+
+    &::before {
+        left: 25%;
+    }
+
+    &::after {
+        right: 25%;
+    }
+}
+
+.alienSymbol {
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+// Sponsors Section
+.sponsorsSection {
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #3a3069, #16133e);
+    padding: 4rem 2rem;
+}
+
+.sponsorsContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+}
+
+.joinUsButton {
+    position: absolute;
+    top: 25vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 55px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
+
+    &:hover {
+        transform: translateX(-50%) scale(1.05);
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    }
+}
+
+.footerText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 40%;
+    height: auto;
+    animation: fadeIn 1s ease-in 2s both;
+}
+
+// Animations
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px) rotate(35deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(35deg);
+    }
+}
+
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes glow {
+    from {
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    }
+    to {
+        filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.6));
+    }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+    .hackastraLogo {
+        height: 80px;
+        max-width: 80%;
+        top: 15vh;
+    }
+
+    .heroSection {
+        height: 600px;
+    }
+
+    .heroRegisterButton {
+        top: 30vh;
+        width: 160px;
+        height: 50px;
+        font-size: 1.2rem;
+        padding: 12px 24px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .aboutText {
+        max-width: 90%;
+        padding: 0 1rem;
+    }
+
+    .introducingText {
+        max-width: 70%;
+        height: auto;
+        top: 15vh;
+    }
+
+    .hackVoyagersText {
+        max-width: 80%;
+        top: 18vh;
+    }
+
+    .robotImage {
+        width: 100%;
+        top: 35vh;
+    }
+
+    .learnMoreButton {
+        top: 65vh;
+        width: 140px;
+        height: 45px;
+    }
+
+    .joinUsText {
+        max-width: 60%;
+        top: 8vh;
+    }
+
+    .joinUsButton {
+        top: 20vh;
+        width: 140px;
+        height: 45px;
+    }
+
+    .newsletterText {
+        max-width: 70%;
+        top: 30vh;
+    }
+
+    .newsletterOverlay {
+        top: 40vh;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .emailInputOverlay {
+        width: 200px;
+    }
+
+    .footerText {
+        max-width: 60%;
+    }
+
+    .faqSection {
+        padding: 3rem 1rem;
+        min-height: auto;
+    }
+
+    .faqHeading {
+        font-size: 3rem;
+    }
+
+    .faqItems {
+        max-width: 100%;
+    }
+
+    .faqFooterContent {
+        padding-bottom: 100px;
+    }
+
+    .footerHeading {
+        font-size: 2.2rem;
+    }
+
+    .footerSubscribeForm {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .footerEmailInput {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    // Mobile background adjustments
+    .hackVoyagersSection {
+        flex-direction: column;
+        padding: 2rem;
+    }
+
+    .textContainer {
+        order: 1;
+        text-align: center;
+    }
+}
+
+// Extra small mobile devices
+@media (max-width: 480px) {
+    .heroRegisterButton {
+        width: 140px;
+        height: 45px;
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    .introducingText {
+        max-width: 85%;
+        margin-top: 2rem;
+    }
+
+    .hackVoyagersText {
+        max-width: 90%;
+    }
+
+    .textContainer {
+        padding: 0 0.5rem;
+    }
+
+    .faqQuestion {
+        font-size: 1.1rem;
+        padding: 0.8rem 1.2rem;
+    }
+
+    .faqItem {
+        padding: 1rem;
+    }
+
+    .faqSection {
+        padding: 2rem 1rem;
+        min-height: auto;
+    }
+
+    .faqHeading {
+        font-size: 2.5rem;
+    }
+
+    .faqItems {
+        max-width: 100%;
+    }
+
+    .faqFooterContent {
+        padding-bottom: 80px;
+    }
+
+    .footerHeading {
+        font-size: 1.8rem;
+    }
+
+    .socialMediaIcons {
+        gap: 1rem;
+    }
+
+    .socialIcon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .footerSubscribeForm {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .footerEmailInput {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+// Red Stars
+.redStars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.redStar1,
+.redStar2,
+.redStar3 {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 35px solid #ff4757;
+    transform: rotate(35deg);
+}
+
+.redStar1 {
+    top: 15%;
+    left: 10%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.redStar2 {
+    top: 25%;
+    right: 15%;
+    animation: float 8s ease-in-out infinite reverse;
+}
+
+.redStar3 {
+    bottom: 30%;
+    left: 20%;
+    animation: float 7s ease-in-out infinite;
+}
+
+// Alien Decorations
+.alienDecorations {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.alien1,
+.alien2,
+.alien3 {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 0.8rem;
+}
+
+.alien1 {
+    top: 20%;
+    right: 10%;
+    animation: bounce 4s ease-in-out infinite;
+}
+
+.alien2 {
+    bottom: 25%;
+    right: 25%;
+    animation: bounce 5s ease-in-out infinite 1s;
+}
+
+.alien3 {
+    top: 60%;
+    left: 8%;
+    animation: bounce 4.5s ease-in-out infinite 0.5s;
+}
+
+.faqContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
+    height: fit-content;
+    min-height: 80vh;
+}
+
+.faqHeading {
+    font-size: 5rem;
+    font-weight: 900;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin: 0;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+.faqCard {
+    background: rgba(75, 0, 130, 0.15);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 3rem;
+    width: 100%;
+}
+
+.faqItems {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+}
+
+.faqItem {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: left;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+    }
+}
+
+.faqQuestion {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #4a0080;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.faqAnswer {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.7;
+    margin: 0;
+}
+
+// Navigation Buttons
+.faqNavigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.navButton {
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+    }
+}
+
+// City Skyline
+.citySkyline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to top, #1a1a1a, transparent);
+    clip-path: polygon(
+        0 100%,
+        0 60%,
+        5% 40%,
+        10% 50%,
+        15% 30%,
+        20% 45%,
+        25% 35%,
+        30% 55%,
+        35% 40%,
+        40% 50%,
+        45% 30%,
+        50% 45%,
+        55% 35%,
+        60% 50%,
+        65% 40%,
+        70% 55%,
+        75% 45%,
+        80% 50%,
+        85% 40%,
+        90% 45%,
+        95% 35%,
+        100% 50%,
+        100% 100%
+    );
+    z-index: 3;
+}
+
+// Footer Section
+.footerSection {
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #4a0080, #2d004d, #1a0026);
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.footerContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+}
+
+.footerHeading {
+    font-size: 3rem;
+    font-weight: 800;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+// Social Media Icons
+.socialMediaIcons {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.socialIcon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+    }
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.footerDescription {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.footerSubscribeForm {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.footerEmailInput {
+    padding: 16px 24px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    width: 300px;
+    backdrop-filter: blur(10px);
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    &:focus {
+        outline: none;
+        border-color: #6f4e92;
+        background: rgba(255, 255, 255, 0.15);
+    }
+}
+
+.footerSubscribeButton {
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #6f4e92, #4a0080);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(111, 78, 146, 0.4);
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(111, 78, 146, 0.6);
+    }
+}
+
+.faqBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    z-index: 1;
+    @media (max-width: 768px) {
+        display: none;
+    }
+    &.mobile {
+        display: none;
+        object-fit: contain;
+        object-position: center top;
+        @media (max-width: 768px) {
+            display: block;
+        }
+    }
+}
+
+.faqSection {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: transparent;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+    background-color: #1f122a;
+}
+
+.faqContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 10rem;
+    position: relative;
+    z-index: 10;
+}
+
+.faqHeading {
+    font-size: 5rem;
+    font-weight: 900;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin: 0;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    font-family: "Montserrat", sans-serif;
+}
+
+.faqItems {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 100%;
+    max-width: 800px;
+}
+
+.faqItem {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.faqQuestion {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: transparent;
+    border: none;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:hover {
+        color: #6f4e92;
+        text-shadow: 0 0 10px rgba(111, 78, 146, 0.3);
+    }
+
+    span {
+        flex: 1;
+    }
+}
+
+.faqAnswer {
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faqAnswerVisible {
+    max-height: 500px;
+    opacity: 1;
+    margin-top: 1rem;
+}
+
+.faqAnswerHidden {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+}
+
+.faqAnswer p {
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.6;
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+}
+
+// Dropdown Arrow
+.dropdownArrow {
+    transition: transform 0.3s ease;
+    color: rgba(255, 255, 255, 0.8);
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+
+.dropdownArrowOpen {
+    transform: rotate(180deg);
+}
+
+// FAQ Footer Content
+.faqFooterContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    margin-top: auto;
+    padding-bottom: 120px; // Space for city skyline
+    margin-top: 100px;
+}
+
+// Footer City Skyline
+.footerCitySkyline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to top, #000000, transparent);
+    clip-path: polygon(
+        0 100%,
+        0 70%,
+        8% 50%,
+        15% 60%,
+        22% 40%,
+        30% 55%,
+        38% 35%,
+        45% 50%,
+        52% 30%,
+        60% 45%,
+        68% 25%,
+        75% 40%,
+        82% 35%,
+        90% 45%,
+        95% 30%,
+        100% 40%,
+        100% 100%
+    );
+    z-index: 5;
 }

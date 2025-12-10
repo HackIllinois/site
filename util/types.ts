@@ -1,30 +1,92 @@
-import {
-    degreeOptions,
-    graduationYearOptions,
-    locationOptions,
-    majorOptions,
-    schoolOptions
-} from "@/app/register/(general)/(form)/education/options";
-import {
-    allergiesRestrictionsOptions,
-    generalConsiderationOptions,
-    heardAboutOptions,
-    lookingForwardToOptions
-} from "@/app/register/(general)/(form)/hack-specific/options";
-import {
-    gender,
-    race
-} from "@/app/register/(general)/(form)/personal-info/options";
-import {
-    travelAcknowledgeOptions,
-    travelReimbursementOptions
-} from "@/app/register/(general)/(form)/transportation/options";
-
 export type WithId<Type> = Type & { id: string };
 
 export type MethodType = "GET" | "POST" | "PUT" | "DELETE";
 export type FileType = "resume" | "photo" | "blobstore";
 
+export type RegistrationApplicationSubmitted = {
+    userId: string;
+
+    firstName: string;
+    lastName: string;
+    preferredName?: string;
+    age: string;
+    email: string;
+
+    gender: string;
+    race: string[];
+    country: string;
+    state?: string;
+
+    school: string;
+    education: string;
+    graduate: string;
+    major: string;
+    underrepresented: string;
+    hackathonsParticipated: string;
+
+    application1: string;
+    application2: string;
+    application3: string;
+    applicationOptional?: string;
+
+    pro?: boolean;
+
+    attribution: string[];
+    eventInterest: string[];
+
+    requestTravelReimbursement: boolean;
+};
+
+export type RegistrationApplicationDraftBody = {
+    firstName?: string;
+    lastName?: string;
+    preferredName?: string;
+    age?: string;
+    email?: string;
+    gender?: string;
+    race?: string[];
+    country?: string;
+    state?: string;
+    school?: string;
+    education?: string;
+    graduate?: string;
+    major?: string;
+    underrepresented?: string;
+    hackathonsParticipated?: string;
+    application1?: string;
+    application2?: string;
+    application3?: string;
+    applicationOptional?: string;
+    pro?: boolean;
+    attribution?: string[];
+    eventInterest?: string[];
+    requestTravelReimbursement?: boolean;
+    mlhNewsletter?: boolean;
+};
+
+/** Includes fields available only on the frontend. */
+export type RegistrationApplicationDraftBodyForm =
+    RegistrationApplicationDraftBody & {
+        travelAcknowledge?: boolean;
+        requestTravelReimbursement?: boolean;
+        reviewedAcknowledge?: boolean;
+        codeOfConductAcknowledge?: boolean;
+        mlhDataSharingAcknowledge?: boolean;
+        optInHackNewsletter?: boolean;
+    };
+
+export type RegistrationResponseFieldInfo = {
+    key: keyof RegistrationApplicationDraftBody;
+    text: string;
+    options?: string[] | { value: string; label: string }[];
+    proOnly?: boolean;
+    customEmptyMessage?: string;
+    shownResponse?: string;
+};
+
+/**
+ * (!!!) RegistrationData is deprecated. Use RegistrationApplicationDraftBody instead.
+ */
 export type RegistrationData = {
     legalName: string;
     preferredName: string;
@@ -47,153 +109,7 @@ export type RegistrationData = {
     dietaryRestrictions: string[];
     requestedTravelReimbursement: string[];
     travelAcknowledge: string[];
-    codeOfConductAcknowledge: string[];
     reviewedInformationAcknowledge: string[];
-};
-
-export type RegistrationResponseFieldInfo = {
-    key: keyof RegistrationData;
-    text: string;
-    options?: string[] | { value: string; label: string }[];
-    proOnly?: boolean;
-    customEmptyMessage?: string;
-    shownResponse?: string;
-};
-
-export const registrationFieldGroups: RegistrationResponseFieldInfo[][] = [
-    [
-        {
-            key: "legalName",
-            text: "Full Legal Name"
-        },
-        {
-            key: "preferredName",
-            text: "Preferred Name"
-        },
-        {
-            key: "emailAddress",
-            text: "Email Address"
-        },
-        {
-            key: "gender",
-            text: "Gender",
-            options: gender
-        },
-        {
-            key: "race",
-            text: "Race/Ethnicity",
-            options: race
-        }
-    ],
-    [
-        {
-            key: "location",
-            text: "What state/country are you currently residing in?",
-            options: locationOptions
-        },
-        {
-            key: "university",
-            text: "What university do you attend",
-            options: schoolOptions
-        },
-        {
-            key: "degree",
-            text: "What degree are you currently pursuing",
-            options: degreeOptions
-        },
-        {
-            key: "gradYear",
-            text: "Graduation Year",
-            options: graduationYearOptions
-        },
-        {
-            key: "major",
-            text: "Major",
-            options: majorOptions
-        },
-        {
-            key: "minor",
-            text: "Minor",
-            options: majorOptions
-        }
-    ],
-    [
-        {
-            key: "hackEssay1",
-            text: "(50 words) What opportunity, event, or feature of HackIllinois 2025 are you most excited to take part in and why?"
-        },
-        {
-            key: "hackEssay2",
-            text: "(50 words) Talk about a challenge you faced in the field of CS and how you overcame it. This challenge can be related to a technical personal project, experience in a field, personal experience with diversity/inclusions, etc. We recommend you keep your response to under 50 words, but we will accept responses up to 100 words."
-        },
-        {
-            key: "optionalEssay",
-            text: "(Optional, 50 words) If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to do so. Your application will not be negatively impacted if you choose not to answer this question."
-        },
-        {
-            key: "proEssay",
-            text: "How did you complete the coding challenge?",
-            proOnly: true
-        },
-        {
-            key: "considerForGeneral",
-            text: "Would you like to be considered for HackIllinois's General hackathon? This does not impact your Knights application, but will be considered if you are not selected for Knights.",
-            options: generalConsiderationOptions,
-            proOnly: true
-        },
-        {
-            key: "hackOutreach",
-            text: "How did you hear about HackIllinois?",
-            options: heardAboutOptions
-        },
-        {
-            key: "hackInterest",
-            text: "Which of these aspects of the hackathon would you most be interested in engaging in?",
-            options: lookingForwardToOptions
-        },
-        {
-            key: "dietaryRestrictions",
-            text: "What food restrictions or allergies do you have?",
-            options: allergiesRestrictionsOptions
-        }
-    ],
-    [
-        {
-            key: "requestedTravelReimbursement",
-            text: "Would you like to be considered for travel reimbursement?",
-            options: travelReimbursementOptions
-        },
-        {
-            key: "travelAcknowledge",
-            text: "Are you aware that you are responsible for your own transportation to HackIllinois?",
-            options: travelAcknowledgeOptions,
-            shownResponse: "Yes"
-        }
-    ]
-];
-
-export type RegistrationType = {
-    preferredName: string;
-    legalName: string;
-    gender: string;
-    emailAddress: string;
-    race: string[];
-    requestedTravelReimbursement: boolean;
-    location: string;
-    degree: string;
-    university: string;
-    major: string;
-    minor: string;
-    gradYear: number;
-    hackEssay1: string;
-    hackEssay2: string;
-    hackInterest: string[];
-    hackOutreach: string[];
-    dietaryRestrictions: string[];
-    optionalEssay: string;
-    proEssay?: string;
-    considerForGeneral?: boolean;
-    hasSubmitted?: boolean;
 };
 
 export type DecisionStatus = "TBD" | "ACCEPTED" | "REJECTED" | "WAITLISTED";
@@ -205,8 +121,6 @@ export type RSVPType = {
     response: DecisionResponse;
     admittedPro: boolean;
     reimbursementValue: number;
-    // reviewer: string;
-    // emailSent: false;
 };
 
 export type UserType = {
@@ -250,9 +164,21 @@ export type RegistrationStatus = {
 };
 
 export type ChallengeStatus = {
+    inputFileId: string;
     attempts: number;
     complete: boolean;
 };
+
+export type ChallengeResponse = {
+    status: number;
+    body: any;
+};
+
+export enum ChallengeResultEnum {
+    Success = 0,
+    Failure = 1,
+    Invalid = 2
+}
 
 export type RefreshTokenResType = {
     token: string;

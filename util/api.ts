@@ -1,30 +1,37 @@
-import {
-    MethodType,
-    RegistrationType,
-    WithId,
-    RSVPType,
-    ChallengeStatus,
-    ProfileBodyType,
-    ProfileType,
-    EventType,
-    AuthRoles
-} from "./types";
 import { handleError } from "./helpers";
+import {
+    ChallengeStatus,
+    MethodType,
+    RegistrationApplicationDraftBody,
+    RegistrationApplicationSubmitted,
+    ChallengeResponse
+} from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
 
-export const isAuthenticated = (): string | null =>
-    localStorage.getItem("token");
+export const isAuthenticated = async (): Promise<boolean> => {
+    return (await getAuthToken()) !== null;
+};
 
-export function authenticate(to: string): void {
-    localStorage.setItem("to", to);
-    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/auth/`;
-    window.location.replace(authUrl);
+export async function getAuthToken(): Promise<string | null> {
+    const response = await fetch(APIv2 + "/auth/token", {
+        mode: "cors",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+            Origin: "www.hackillinois.org"
+        }
+    });
+    if (response.ok) {
+        const data = await response.json();
+        return data.jwt;
+    }
+    return null;
 }
 
-export function logOut() {
-    localStorage.removeItem("token");
-    window.location.replace("/");
+export function authenticate(): void {
+    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/register/general`;
+    window.location.replace(authUrl);
 }
 
 // If status is good, returns response. If status is bad, throws the error response.
@@ -38,10 +45,10 @@ export async function requestv2(
     const response = await fetch(APIv2 + endpoint, {
         method,
         mode: "cors",
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
-            Origin: "www.hackillinois.org",
-            Authorization: localStorage.getItem("token") || ""
+            Origin: "www.hackillinois.org"
         },
         body: JSON.stringify(body)
     });
@@ -54,7 +61,6 @@ export async function requestv2(
         responseJSON.error == "NoToken"
     ) {
         sessionStorage.removeItem("token");
-        authenticate(window.location.href);
         return;
     }
 
@@ -72,149 +78,50 @@ export async function getChallenge(): Promise<ChallengeStatus> {
     return res;
 }
 
-export async function getRegistrationOrDefault(): Promise<
-    WithId<RegistrationType> | RegistrationType
-> {
-    try {
-        const response = await requestv2("GET", "/registration");
-        return response;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-        if (error.error !== "NotFound") {
-            handleError(error);
-        }
+export async function submitChallenge(file: File): Promise<ChallengeResponse> {
+    const form = new FormData();
+    form.append("solution", file);
 
-        return {
-            legalName: "",
-            preferredName: "",
-            gender: "",
-            race: [],
-            emailAddress: "",
-            location: "",
-            degree: "",
-            university: "",
-            gradYear: 0,
-            major: "",
-            minor: "",
-            hackEssay1: "",
-            hackEssay2: "",
-            optionalEssay: "",
-            considerForGeneral: false,
-            proEssay: "",
-            hackOutreach: [],
-            hackInterest: [],
-            dietaryRestrictions: [],
-            requestedTravelReimbursement: false
-        };
-    }
+    const res = await fetch(APIv2 + "/registration/challenge/", {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        body: form
+    });
+
+    const json = await res.json();
+
+    return { status: res.status, body: json };
 }
 
-export async function registerUpdate(
-    registration: RegistrationType
-): Promise<WithId<RegistrationType>> {
-    const res = await requestv2("POST", `/registration`, registration).catch(
-        handleError
-    );
-    return res;
-}
-
-export async function registerSubmit(
-    registration: RegistrationType
-): Promise<WithId<RegistrationType>> {
-    const res = await requestv2(
-        "POST",
-        `/registration/submit`,
-        registration
-    ).catch(handleError);
-    return res;
-}
-
-export async function getRegistrationStatus(): Promise<{ alive: boolean }> {
-    const res = await requestv2("GET", "/registration/status").catch(
-        handleError
-    );
-    return res;
-}
-
-export async function getRSVP(): Promise<RSVPType> {
-    const res = await requestv2("GET", "/admission/rsvp").catch(handleError);
-    return res;
-}
-
-export async function getProfile(): Promise<ProfileType> {
-    const res = await requestv2("GET", "/profile").catch(handleError);
-    return res;
-}
-
-export async function getEvents(): Promise<EventType[]> {
-    const res = await requestv2("GET", "/event").catch(handleError);
-    return res.events as EventType[];
-}
-
-export async function RSVPDecideAccept() {
-    const res = await requestv2("PUT", "/admission/rsvp/accept").catch(
-        handleError
-    );
-    return res;
-}
-
-export async function refreshToken() {
-    const res = await requestv2("GET", "/auth/token/refresh/").catch(
-        handleError
-    );
-    localStorage.setItem("token", res.token);
-}
-
-export async function RSVPDecideDecline() {
-    const res = await requestv2("PUT", "/admission/rsvp/decline").catch(
-        handleError
-    );
-    return res;
-}
-
-export async function uploadFile(file: File): Promise<unknown> {
-    const { url, fields } = await requestv2("GET", "/resume/upload");
-    const data = new FormData();
-    for (const key in fields) {
-        data.append(key, fields[key]);
-    }
-    data.append("file", file, file.name);
-    const res = await fetch(url, { method: "POST", body: data });
-
-    if (!res.ok) {
-        const errorBody = await res.text();
-        handleError({
-            message: errorBody,
-            status: res.status,
-            type: "upload_error"
-        });
-    }
-    return res;
-}
-
-export async function unsubscribe(listName: string, emailAddress: string) {
-    const res = await requestv2("DELETE", "/newsletter/subscribe/", {
+export async function subscribe(
+    listName: string,
+    emailAddress: string
+): Promise<string> {
+    const res = await requestv2("POST", "/newsletter/subscribe/", {
         listName,
         emailAddress
-    }).catch(handleError);
+    }).catch(body => handleError(body));
     return res;
 }
 
-export async function getQRCode(): Promise<string> {
-    const res = await requestv2("GET", "/user/qr").catch(handleError);
-    return res.qrInfo;
+export async function saveDraft(data: RegistrationApplicationDraftBody) {
+    return await requestv2("PUT", "/registration/draft", data);
 }
 
-export function setProfile(body: ProfileBodyType): Promise<ProfileType> {
-    return requestv2("POST", "/profile", body).catch(handleError);
+export async function loadDraft() {
+    return (await requestv2(
+        "GET",
+        "/registration/draft"
+    )) as RegistrationApplicationDraftBody & {
+        userId: string;
+    };
 }
 
-export function updateProfile(
-    body: Partial<ProfileBodyType>
-): Promise<ProfileType> {
-    return requestv2("PUT", "/profile", body).catch(handleError);
+export async function submitDraft(body: RegistrationApplicationDraftBody) {
+    return await requestv2("POST", "/registration/submit", body);
 }
 
-export function getAuthRoles(): Promise<AuthRoles> {
-    return requestv2("GET", "/auth/roles").catch(handleError);
+export async function loadSubmission(): Promise<RegistrationApplicationSubmitted> {
+    return await requestv2("GET", "/registration");
 }
