@@ -5,6 +5,7 @@ import styles from "./LandingPage.module.scss";
 import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
 import clsx from "clsx";
 import { motion, Variants } from "framer-motion";
+import { ShootingStars } from "@/components/ShootingStars/ShootingStars";
 
 const ProChallenge: React.FC = () => {
     const { offsetY, ref } = useParallaxScrollY();
@@ -119,6 +120,9 @@ const ProChallenge: React.FC = () => {
                         }
                     }}
                 />
+
+                {/* Shooting Stars */}
+                <ShootingStars size={500} />
 
                 {/* OVERLAY LAYER */}
                 <Box sx={{ position: "absolute", inset: 0 }}>
