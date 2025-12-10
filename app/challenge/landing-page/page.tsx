@@ -596,7 +596,7 @@ const ProChallenge: React.FC = () => {
                         sx={{
                             position: "absolute",
                             left: { xs: "50%", md: "38%" },
-                            top: { xs: "68%", md: "66%" },
+                            top: { xs: "71%", md: "69%" },
                             transform: "translateX(-50%)",
                             width: "85vw",
 
@@ -628,7 +628,7 @@ const ProChallenge: React.FC = () => {
                                         mb: { xs: 2, md: 6 }
                                     }}
                                 >
-                                    HOW IS{" "}
+                                    HOW ARE{" "}
                                     <Box
                                         component="span"
                                         sx={{
@@ -650,8 +650,7 @@ const ProChallenge: React.FC = () => {
                                             }}
                                         />
                                     </Box>{" "}
-                                    DIFFERENT FROM GENERAL HACKILLINOIS
-                                    ATTENDANCE?
+                                    DIFFERENT FROM GENERAL ATTENDEES?
                                 </Typography>
                             </motion.div>
                             <motion.div variants={itemVariants}>
