@@ -186,7 +186,6 @@ const About = () => {
                         sx={{
                             mt: 4,
                             fontSize: { xs: 28, md: 32 },
-                            fontFamily: "Tsukimi Rounded",
                             fontWeight: 600,
 
                             "& span": {
@@ -195,7 +194,8 @@ const About = () => {
                                 WebkitBackgroundClip: "text",
                                 backgroundClip: "text",
                                 color: "transparent",
-                                filter: "drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.9))"
+                                filter: "drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.9))",
+                                fontFamily: "Tsukimi Rounded"
                             }
                         }}
                     >
