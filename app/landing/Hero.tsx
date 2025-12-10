@@ -2,7 +2,7 @@
 
 import { GradientButton } from "@/components/GradientButton/GradientButton";
 import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import clsx from "clsx";
 import Image from "next/image";
 import { START_END_DATES } from "./constants";
@@ -155,39 +155,6 @@ const Hero = () => {
                     >
                         <strong>{START_END_DATES}</strong>
                     </Typography>
-                </motion.div>
-
-                {/* 3rd Item: Sponsor */}
-                <motion.div variants={itemVariants}>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            gap: 0.5,
-                            mb: 3
-                        }}
-                    >
-                        <Typography
-                            component="p"
-                            sx={{
-                                fontSize: { xs: "12px", md: "18px" },
-                                fontFamily: "Tsukimi Rounded",
-                                fontWeight: 500,
-                                color: "white"
-                            }}
-                        >
-                            POWERED BY
-                        </Typography>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                            className={styles.titleSponsor}
-                            width="auto"
-                            height="26px"
-                            src="/sponsor_icons/fulcrum.png"
-                            alt="Fulcrum"
-                        />
-                    </Box>
                 </motion.div>
 
                 {/* 4th Item: CTA Button */}
