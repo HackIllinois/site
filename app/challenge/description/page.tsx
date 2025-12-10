@@ -4,9 +4,11 @@ import GithubAuthPage from "@/app/register/general/formPages/GithubAuthPage";
 import NotProTrackPage from "@/app/register/general/formPages/NotProTrackPage";
 import Loading from "@/components/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
+import { getChallenge, submitChallenge } from "@/util/api";
+import { ChallengeStatus } from "@/util/types";
 import CHALLENGE_DESCRIPTION_BACKGROUND from "@/public/registration/backgrounds/challenge_background.svg";
 import { Box, Button, Snackbar, Typography } from "@mui/material";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 
 export default function ChallengeDescription() {
     const registrationAuth = useRegistrationAuth(true);
@@ -16,17 +18,39 @@ export default function ChallengeDescription() {
     const [uploadError, setUploadError] = useState<string | null>(null);
     const [uploadResult, setUploadResult] = useState<string | null>(null);
     const [fileIdCopied, setFileIdCopied] = useState(false);
+    const [challengeStatus, setChallengeStatus] =
+        useState<ChallengeStatus | null>(null);
+    const [challengeLoading, setChallengeLoading] = useState(true);
+    const [challengePassed, setChallengePassed] = useState(false);
 
-    const DUMMY_FILE_ID = "FILE-1234567890-ABCDEF";
     const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+
+    useEffect(() => {
+        async function load() {
+            try {
+                const res = await getChallenge();
+                setChallengeStatus(res);
+                if (res.complete) {
+                    setChallengePassed(true);
+                    setTimeout(() => {
+                        window.location.href = "/challenge/result/success";
+                    }, 1500);
+                }
+            } finally {
+                setChallengeLoading(false);
+            }
+        }
+
+        load();
+    }, []);
 
     const handleFileSelect = useCallback(
         (file: File | null) => {
             if (!file) return;
 
-            if (file.type !== "image/jpeg" && file.type !== "image/jpg") {
+            if (file.type !== "image/png") {
                 setSelectedFile(null);
-                setUploadError("Please upload a JPEG (.jpg) image.");
+                setUploadError("Please upload a PNG (.png) image.");
                 setUploadResult(null);
                 return;
             }
@@ -66,21 +90,38 @@ export default function ChallengeDescription() {
         fileInputRef.current?.click();
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!selectedFile) {
             setUploadResult("Please upload an image before submitting.");
             return;
         }
+        try {
+            const { status, body } = await submitChallenge(selectedFile);
 
-        // For now, always indicate mismatch
-        setUploadResult(
-            "Your uploaded image did not match the expected one. Please try again."
-        );
+            if (status === 200 && body.complete) {
+                setUploadResult("Correct! You solved the challenge.");
+                setChallengePassed(true);
+                setTimeout(() => {
+                    window.location.href = "/challenge/result/success";
+                }, 1500);
+            } else if (status === 400 && body.error === "IncorrectSolution") {
+                setUploadResult(body.message);
+            } else if (status === 400 && body.error === "AlreadySolved") {
+                setUploadResult(body.message);
+            } else if (status === 403) {
+                setUploadResult(body.message);
+            }
+        } catch (err) {
+            setUploadResult(
+                "There was a problem uploading the image. Please try again."
+            );
+        }
     };
 
     const handleFileIdClick = async () => {
+        if (!challengeStatus) return;
         try {
-            await navigator.clipboard.writeText(DUMMY_FILE_ID);
+            await navigator.clipboard.writeText(challengeStatus.inputFileId);
         } catch {
             // clipboard might not be available; still show snackbar so user knows
         }
@@ -88,6 +129,15 @@ export default function ChallengeDescription() {
     };
 
     if (registrationAuth.isLoading) {
+        return (
+            <Loading
+                backgroundImage={CHALLENGE_DESCRIPTION_BACKGROUND.src}
+                zoom={false}
+            />
+        );
+    }
+
+    if (challengeLoading) {
         return (
             <Loading
                 backgroundImage={CHALLENGE_DESCRIPTION_BACKGROUND.src}
@@ -255,7 +305,7 @@ export default function ChallengeDescription() {
                                 wordBreak: "break-all"
                             }}
                         >
-                            {DUMMY_FILE_ID}
+                            {challengeStatus?.inputFileId}
                         </Typography>
                         <Typography
                             sx={{
@@ -317,7 +367,7 @@ export default function ChallengeDescription() {
                         <input
                             ref={fileInputRef}
                             type="file"
-                            accept="image/jpeg,image/jpg"
+                            accept="image/png"
                             style={{ display: "none" }}
                             onChange={handleFileInputChange}
                         />
@@ -328,7 +378,7 @@ export default function ChallengeDescription() {
                                 fontFamily: "Montserrat"
                             }}
                         >
-                            Drag and drop a JPEG file here, or click to browse.
+                            Drag and drop a PNG file here, or click to browse.
                         </Typography>
                         <Typography
                             variant="body2"
@@ -403,70 +453,16 @@ export default function ChallengeDescription() {
                             variant="body2"
                             sx={{
                                 mt: 1,
-                                color: "rgba(255, 118, 118)",
-                                fontFamily: "Montserrat"
+                                color: challengePassed
+                                    ? "rgba(144, 238, 144, 0.95)"
+                                    : "rgba(255, 118, 118)",
+                                fontFamily: "Montserrat",
+                                mb: 3
                             }}
                         >
                             {uploadResult}
                         </Typography>
                     )}
-                </Box>
-
-                {/* <Box
-                    sx={{
-                        display: "flex",
-                        gap: 2,
-                        justifyContent: "center",
-                        mt: 2
-                    }}
-                >
-                    <Button
-                        variant="text"
-                        size="small"
-                        href="/challenge/result/success"
-                        sx={{
-                            color: "rgba(255, 255, 255, 0.7)",
-                            fontSize: "0.875rem",
-                            textTransform: "none",
-                            "&:hover": {
-                                color: "white"
-                            }
-                        }}
-                    >
-                        Go to success page (REMOVE THIS IN PRODUCTION)
-                    </Button>
-                    </Box> */}
-
-                <Box
-                    sx={{
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: 8,
-                        mt: 3,
-                        mb: { xs: -1, sm: -3 }
-                    }}
-                >
-                    <Button
-                        variant="text"
-                        href="/challenge/result/success"
-                        sx={{
-                            color: "rgba(255, 255, 255, 0.7)",
-                            fontSize: { xs: ".8rem", sm: "1.2rem" },
-                            textTransform: "none",
-                            "&:hover": {
-                                color: "white",
-                                border: "3px solid white"
-                            },
-                            fontFamily: "Tsukimi Rounded",
-                            border: "3px solid rgba(255,255,255,0.7)",
-                            borderRadius: "999px"
-                        }}
-                    >
-                        NEXT (success page. remove in prod) {">"}
-                    </Button>
                 </Box>
             </Box>
             <Snackbar

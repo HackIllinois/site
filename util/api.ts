@@ -3,7 +3,8 @@ import {
     ChallengeStatus,
     MethodType,
     RegistrationApplicationDraftBody,
-    RegistrationApplicationSubmitted
+    RegistrationApplicationSubmitted,
+    ChallengeResponse
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -75,6 +76,22 @@ export async function getChallenge(): Promise<ChallengeStatus> {
         handleError
     );
     return res;
+}
+
+export async function submitChallenge(file: File): Promise<ChallengeResponse> {
+    const form = new FormData();
+    form.append("solution", file);
+
+    const res = await fetch(APIv2 + "/registration/challenge/", {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        body: form
+    });
+
+    const json = await res.json();
+
+    return { status: res.status, body: json };
 }
 
 export async function subscribe(

@@ -164,8 +164,14 @@ export type RegistrationStatus = {
 };
 
 export type ChallengeStatus = {
+    inputFileId: string;
     attempts: number;
     complete: boolean;
+};
+
+export type ChallengeResponse = {
+    status: number;
+    body: any;
 };
 
 export enum ChallengeResultEnum {
