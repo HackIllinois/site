@@ -3,8 +3,8 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import styles from "./LandingPage.module.scss";
 import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
-import { motion } from "framer-motion";
 import clsx from "clsx";
+import { motion, Variants } from "framer-motion";
 
 const ProChallenge: React.FC = () => {
     const { offsetY, ref } = useParallaxScrollY();
@@ -30,6 +30,58 @@ const ProChallenge: React.FC = () => {
     };
     const parallaxStyleMobile3 = {
         transform: `translateY(${offsetY3 * 0.1}px)`
+    };
+
+    // 1. Container Variant
+    const containerVariants: Variants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                delayChildren: 0.3,
+                staggerChildren: 0.2
+            }
+        }
+    };
+
+    // 2. Standard Item Variant (Used for the rest of the page)
+    const itemVariants: Variants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.8,
+                ease: [0.25, 0.46, 0.45, 0.94]
+            }
+        }
+    };
+
+    // 3. NEW: Hero Specific Variants (Opposite Directions)
+    // "INTRODUCING" slides DOWN from -40
+    const slideDownVariant: Variants = {
+        hidden: { opacity: 0, y: -40 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.8,
+                ease: [0.25, 0.46, 0.45, 0.94]
+            }
+        }
+    };
+
+    // "HACKVOYAGERS" slides UP from 40
+    const slideUpVariant: Variants = {
+        hidden: { opacity: 0, y: 40 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.8,
+                ease: [0.25, 0.46, 0.45, 0.94]
+            }
+        }
     };
 
     return (
@@ -68,13 +120,8 @@ const ProChallenge: React.FC = () => {
                     }}
                 />
 
-                {/* OVERLAY LAYER (same size as the image) */}
-                <Box
-                    sx={{
-                        position: "absolute",
-                        inset: 0
-                    }}
-                >
+                {/* OVERLAY LAYER */}
+                <Box sx={{ position: "absolute", inset: 0 }}>
                     {/* pill and text */}
                     <Box
                         sx={{
@@ -94,42 +141,58 @@ const ProChallenge: React.FC = () => {
                             justifyContent: "center"
                         }}
                     >
-                        <Typography
-                            sx={{
-                                color: "white",
-                                fontSize: {
-                                    xs: "4.5vw",
-                                    md: "3vw",
-                                    xl: "50px"
-                                },
-                                fontWeight: 500
-                            }}
+                        <motion.div
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
                         >
-                            INTRODUCING
-                        </Typography>
-                        <Box
-                            sx={{
-                                mt: "0.5vw",
-                                width: {
-                                    xs: "58vw",
-                                    md: "33vw",
-                                    xl: "580px"
-                                }
-                            }}
-                        >
-                            <Image
-                                src="/design-reference/HACKVOYAGERS.svg"
-                                alt="HackVoyagers"
-                                width={600}
-                                height={150}
-                                style={{
-                                    width: "100%",
-                                    height: "auto"
+                            {/* UPDATED: Uses slideDownVariant */}
+                            <motion.div variants={slideDownVariant}>
+                                <Typography
+                                    sx={{
+                                        textAlign: "center",
+                                        color: "white",
+                                        fontSize: {
+                                            xs: "4.5vw",
+                                            md: "3vw",
+                                            xl: "50px"
+                                        },
+                                        fontWeight: 500
+                                    }}
+                                >
+                                    INTRODUCING
+                                </Typography>
+                            </motion.div>
+
+                            <Box
+                                sx={{
+                                    mt: "0.5vw",
+                                    width: {
+                                        xs: "58vw",
+                                        md: "33vw",
+                                        xl: "580px"
+                                    }
                                 }}
-                            />
-                        </Box>
+                            >
+                                {/* UPDATED: Uses slideUpVariant */}
+                                <motion.div variants={slideUpVariant}>
+                                    <Image
+                                        src="/design-reference/HACKVOYAGERS.svg"
+                                        alt="HackVoyagers"
+                                        width={600}
+                                        height={150}
+                                        style={{
+                                            width: "100%",
+                                            height: "auto"
+                                        }}
+                                        priority
+                                    />
+                                </motion.div>
+                            </Box>
+                        </motion.div>
                     </Box>
 
+                    {/* Rest of the code remains exactly as provided... */}
                     <Box className={styles.debris} style={parallaxStyle}>
                         <motion.img
                             src="/challenge/backgrounds/desktop/debris.svg"
@@ -140,16 +203,19 @@ const ProChallenge: React.FC = () => {
                                 display: "block"
                             }}
                             animate={{
-                                y: [-20, 20, -20], // Slow vertical float
-                                x: [-5, 10, -5] // Gentle horizontal sway
+                                y: [-20, 20, -20],
+                                x: [-5, 10, -5]
                             }}
                             transition={{
-                                duration: 8, // Very slow to feel like zero-gravity junk
+                                duration: 8,
                                 repeat: Infinity,
                                 ease: "easeInOut"
                             }}
                         />
                     </Box>
+
+                    {/* ... (The rest of your component logic follows here unchanged) */}
+
                     <Box
                         className={clsx(styles.debris, styles.mobile)}
                         style={parallaxStyleMobile}
@@ -163,11 +229,11 @@ const ProChallenge: React.FC = () => {
                                 display: "block"
                             }}
                             animate={{
-                                y: [-10, 10, -10], // Slow vertical float
-                                x: [-5, 5, -5] // Gentle horizontal sway
+                                y: [-10, 10, -10],
+                                x: [-5, 5, -5]
                             }}
                             transition={{
-                                duration: 8, // Very slow to feel like zero-gravity junk
+                                duration: 8,
                                 repeat: Infinity,
                                 ease: "easeInOut"
                             }}
@@ -181,7 +247,7 @@ const ProChallenge: React.FC = () => {
                             left: "50%",
                             top: { xs: "23%", md: "20%" },
                             transform: "translateX(-50%)",
-                            width: { xs: "122vw", md: "85vw" },
+                            width: { xs: "96vw", md: "70vw" },
                             aspectRatio: "1018.479 / 728.271",
                             backgroundImage: `url("/challenge/landing_page/panel.svg")`,
                             backgroundSize: "cover",
@@ -192,47 +258,81 @@ const ProChallenge: React.FC = () => {
                             flexDirection: "column",
                             alignItems: "center",
                             justifyContent: "center",
-                            px: { xs: "17vw", md: "15vw" },
+                            px: { xs: "12vw", md: "10vw" },
                             textAlign: "center",
                             zIndex: 6
                         }}
                     >
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "5.2vw",
-                                    md: "3vw",
-                                    xl: "50px"
-                                },
-                                fontWeight: 700,
-                                fontFamily: "Tsukimi Rounded",
-                                color: "white",
-                                mb: { xs: 1, md: 6 },
-                                transform: "rotate(1.457deg)"
-                            }}
+                        <motion.div
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.5 }}
                         >
-                            WHAT ARE HACKVOYAGERS?
-                        </Typography>
-
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "3.3vw",
-                                    md: "1.4vw",
-                                    xl: "24px"
-                                },
-                                lineHeight: 1.45,
-                                color: "white",
-                                opacity: 0.88,
-                                mb: { xs: 1, md: 3 },
-                                transform: "rotate(1.457deg)"
-                            }}
-                        >
-                            HackVoyagers is an exclusive path tailored for
-                            attendees who have mastered the fundamentals and are
-                            now looking to test their skills in a more
-                            challenging environment.
-                        </Typography>
+                            <motion.div variants={itemVariants}>
+                                <Typography
+                                    sx={{
+                                        fontSize: {
+                                            xs: "4vw",
+                                            md: "3vw",
+                                            xl: "50px"
+                                        },
+                                        fontWeight: 700,
+                                        fontFamily: "Tsukimi Rounded",
+                                        color: "white",
+                                        mb: { xs: 1, md: 6 },
+                                        whiteSpace: "nowrap"
+                                    }}
+                                >
+                                    WHAT ARE{" "}
+                                    <Box
+                                        component="span"
+                                        sx={{
+                                            display: "inline-flex",
+                                            alignItems: "center",
+                                            ml: "6px",
+                                            height: {
+                                                xs: "4.5vw",
+                                                md: "3.25vw"
+                                            },
+                                            verticalAlign: "-0.07em"
+                                        }}
+                                    >
+                                        <Image
+                                            src="/design-reference/HACKVOYAGERS_.svg"
+                                            alt="HackVoyagers"
+                                            width={600}
+                                            height={150}
+                                            style={{
+                                                width: "100%",
+                                                height: "100%"
+                                            }}
+                                        />
+                                    </Box>
+                                </Typography>
+                            </motion.div>
+                            <motion.div variants={itemVariants}>
+                                <Typography
+                                    sx={{
+                                        fontSize: {
+                                            xs: "2.8vw",
+                                            md: "1.4vw",
+                                            xl: "24px"
+                                        },
+                                        lineHeight: 1.45,
+                                        color: "white",
+                                        opacity: 0.88,
+                                        mb: { xs: "28vw", md: "20vw" }
+                                    }}
+                                >
+                                    HackVoyagers is an exclusive path tailored
+                                    for attendees who have mastered the
+                                    fundamentals and are now looking to test
+                                    their skills in a more challenging
+                                    environment.
+                                </Typography>
+                            </motion.div>
+                        </motion.div>
                     </Box>
 
                     <Box className={styles.ufos} style={parallaxStyle2}>
@@ -245,7 +345,7 @@ const ProChallenge: React.FC = () => {
                                 display: "block"
                             }}
                             animate={{
-                                y: [-15, 10, -15] // Faster bobbing
+                                y: [-15, 10, -15]
                             }}
                             transition={{
                                 duration: 4,
@@ -267,7 +367,7 @@ const ProChallenge: React.FC = () => {
                                 display: "block"
                             }}
                             animate={{
-                                y: [-5, 5, -5] // Faster bobbing
+                                y: [-5, 5, -5]
                             }}
                             transition={{
                                 duration: 4,
@@ -295,41 +395,74 @@ const ProChallenge: React.FC = () => {
                             zIndex: 6
                         }}
                     >
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "5.2vw",
-                                    md: "3vw",
-                                    xl: "50px"
-                                },
-                                fontWeight: 700,
-                                fontFamily: "Tsukimi Rounded",
-                                color: "white",
-                                mb: { xs: 1, md: 6 }
-                            }}
+                        <motion.div
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.5 }}
                         >
-                            WHAT ARE THE BENEFITS OF BEING A HACKVOYAGER?
-                        </Typography>
+                            <motion.div variants={itemVariants}>
+                                <Typography
+                                    sx={{
+                                        fontSize: {
+                                            xs: "5.2vw",
+                                            md: "3vw",
+                                            xl: "50px"
+                                        },
+                                        fontWeight: 700,
+                                        fontFamily: "Tsukimi Rounded",
+                                        color: "white",
+                                        mb: { xs: 1, md: 6 }
+                                    }}
+                                >
+                                    WHAT ARE THE BENEFITS OF BEING A{" "}
+                                    <Box
+                                        component="span"
+                                        sx={{
+                                            display: "inline-flex",
+                                            alignItems: "center",
+                                            ml: "6px",
+                                            height: { xs: "5vw", md: "3.2vw" },
+                                            verticalAlign: "-0.07em"
+                                        }}
+                                    >
+                                        <Image
+                                            src="/design-reference/HACKVOYAGER_.svg"
+                                            alt="HackVoyagers"
+                                            width={600}
+                                            height={150}
+                                            style={{
+                                                width: "100%",
+                                                height: "100%"
+                                            }}
+                                        />
+                                    </Box>
+                                </Typography>
+                            </motion.div>
 
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "3.3vw",
-                                    md: "1.4vw",
-                                    xl: "24px"
-                                },
-                                lineHeight: 1.45,
-                                color: "white",
-                                opacity: 0.88,
-                                mb: { xs: 1, md: 3 }
-                            }}
-                        >
-                            Attendees in this path compete for the grand
-                            HackVoyagers prize ($5000). Additionally, they will
-                            have the opportunity to present their project in a
-                            thrilling Shark-Tank inspired showcase, among other
-                            exciting perks!
-                        </Typography>
+                            <motion.div variants={itemVariants}>
+                                <Typography
+                                    sx={{
+                                        fontSize: {
+                                            xs: "3.3vw",
+                                            md: "1.4vw",
+                                            xl: "24px"
+                                        },
+                                        lineHeight: 1.45,
+                                        color: "white",
+                                        opacity: 0.88,
+                                        mb: { xs: 1, md: 3 }
+                                    }}
+                                >
+                                    Attendees in this path compete for the grand
+                                    HackVoyagers prize ($5000). Additionally,
+                                    they will have the opportunity to present
+                                    their project in a thrilling Shark-Tank
+                                    inspired showcase, among other exciting
+                                    perks!
+                                </Typography>
+                            </motion.div>
+                        </motion.div>
                     </Box>
 
                     {/* textbox 1 end */}
@@ -354,55 +487,90 @@ const ProChallenge: React.FC = () => {
                             zIndex: 6
                         }}
                     >
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "5.2vw",
-                                    md: "3vw",
-                                    xl: "50px"
-                                },
-                                fontWeight: 700,
-                                fontFamily: "Tsukimi Rounded",
-                                color: "white",
-                                mb: { xs: 1, md: 6 }
-                            }}
+                        <motion.div
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.5 }}
                         >
-                            HOW DO I BECOME A HACKVOYAGER?
-                        </Typography>
+                            <motion.div variants={itemVariants}>
+                                <Typography
+                                    sx={{
+                                        fontSize: {
+                                            xs: "5.2vw",
+                                            md: "3vw",
+                                            xl: "50px"
+                                        },
+                                        fontWeight: 700,
+                                        fontFamily: "Tsukimi Rounded",
+                                        color: "white",
+                                        mb: { xs: 1, md: 6 }
+                                    }}
+                                >
+                                    HOW DO I BECOME A{" "}
+                                    <Box
+                                        component="span"
+                                        sx={{
+                                            display: "inline-flex",
+                                            alignItems: "center",
+                                            ml: "6px",
+                                            height: { xs: "5vw", md: "3.2vw" },
+                                            verticalAlign: "-0.07em"
+                                        }}
+                                    >
+                                        <Image
+                                            src="/design-reference/HACKVOYAGER_.svg"
+                                            alt="HackVoyagers"
+                                            width={600}
+                                            height={150}
+                                            style={{
+                                                width: "100%",
+                                                height: "100%"
+                                            }}
+                                        />
+                                    </Box>
+                                </Typography>
+                            </motion.div>
 
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "3.3vw",
-                                    md: "1.4vw",
-                                    xl: "24px"
-                                },
-                                lineHeight: 1.45,
-                                color: "white",
-                                opacity: 0.88,
-                                mb: { xs: 1, md: 3 }
-                            }}
-                        >
-                            In addition to registering, admission into
-                            HackVoyagers requires completing a special coding
-                            challenge.
-                        </Typography>
+                            <motion.div variants={itemVariants}>
+                                <Typography
+                                    sx={{
+                                        fontSize: {
+                                            xs: "3.3vw",
+                                            md: "1.4vw",
+                                            xl: "24px"
+                                        },
+                                        lineHeight: 1.45,
+                                        color: "white",
+                                        opacity: 0.88,
+                                        mb: { xs: 1, md: 3 }
+                                    }}
+                                >
+                                    In addition to registering, admission into
+                                    HackVoyagers requires completing a special
+                                    coding challenge.
+                                </Typography>
+                            </motion.div>
 
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "3.3vw",
-                                    md: "1.4vw",
-                                    xl: "24px"
-                                },
-                                lineHeight: 1.45,
-                                color: "white",
-                                opacity: 0.88
-                            }}
-                        >
-                            NOTE: If you do not submit the challenge, you will
-                            be considered for general admission.
-                        </Typography>
+                            <motion.div variants={itemVariants}>
+                                <Typography
+                                    sx={{
+                                        fontSize: {
+                                            xs: "3.3vw",
+                                            md: "1.4vw",
+                                            xl: "24px"
+                                        },
+                                        lineHeight: 1.45,
+                                        color: "white",
+                                        opacity: 0.88
+                                    }}
+                                >
+                                    NOTE: If you do not submit the challenge,
+                                    you will be considered for general
+                                    admission.
+                                </Typography>
+                            </motion.div>
+                        </motion.div>
                     </Box>
 
                     {/* ======================================= */}
@@ -440,57 +608,91 @@ const ProChallenge: React.FC = () => {
                             textAlign: "center"
                         }}
                     >
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "5.2vw",
-                                    md: "3vw",
-                                    xl: "50px"
-                                },
-                                fontWeight: 700,
-                                fontFamily: "Tsukimi Rounded",
-                                color: "white",
-                                mb: { xs: 2, md: 6 }
-                            }}
+                        <motion.div
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.5 }}
                         >
-                            HOW IS HACKVOYAGERS DIFFERENT FROM STANDARD
-                            HACKILLINOIS ATTENDANCE?
-                        </Typography>
-
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "3.3vw",
-                                    md: "1.4vw",
-                                    xl: "24px"
-                                },
-                                lineHeight: 1.45,
-                                color: "white",
-                                opacity: 0.88,
-                                mb: { xs: 1, md: 3 }
-                            }}
-                        >
-                            HackVoyagers is designed for advanced hackers,
-                            fostering a competitive atmosphere for a higher
-                            prize pool, while general attendees compete in an
-                            environment that supports learning at every level.
-                        </Typography>
-
-                        <Typography
-                            sx={{
-                                fontSize: {
-                                    xs: "3.3vw",
-                                    md: "1.4vw",
-                                    xl: "24px"
-                                },
-                                lineHeight: 1.45,
-                                color: "white",
-                                opacity: 0.88,
-                                mb: { xs: 1, md: 3 }
-                            }}
-                        >
-                            {`Regardless, all attendees can enjoy HackIllinois' events, workshops, company Q&As, and the Company Expo.`}
-                        </Typography>
+                            <motion.div variants={itemVariants}>
+                                <Typography
+                                    sx={{
+                                        fontSize: {
+                                            xs: "5.2vw",
+                                            md: "3vw",
+                                            xl: "50px"
+                                        },
+                                        fontWeight: 700,
+                                        fontFamily: "Tsukimi Rounded",
+                                        color: "white",
+                                        mb: { xs: 2, md: 6 }
+                                    }}
+                                >
+                                    HOW IS{" "}
+                                    <Box
+                                        component="span"
+                                        sx={{
+                                            display: "inline-flex",
+                                            alignItems: "center",
+                                            ml: "6px",
+                                            height: { xs: "5vw", md: "3.2vw" },
+                                            verticalAlign: "-0.07em"
+                                        }}
+                                    >
+                                        <Image
+                                            src="/design-reference/HACKVOYAGERS.svg"
+                                            alt="HackVoyagers"
+                                            width={600}
+                                            height={150}
+                                            style={{
+                                                width: "100%",
+                                                height: "100%"
+                                            }}
+                                        />
+                                    </Box>{" "}
+                                    DIFFERENT FROM STANDARD HACKILLINOIS
+                                    ATTENDANCE?
+                                </Typography>
+                            </motion.div>
+                            <motion.div variants={itemVariants}>
+                                <Typography
+                                    sx={{
+                                        fontSize: {
+                                            xs: "3.3vw",
+                                            md: "1.4vw",
+                                            xl: "24px"
+                                        },
+                                        lineHeight: 1.45,
+                                        color: "white",
+                                        opacity: 0.88,
+                                        mb: { xs: 1, md: 3 }
+                                    }}
+                                >
+                                    HackVoyagers is designed for advanced
+                                    hackers, fostering a competitive atmosphere
+                                    for a higher prize pool, while general
+                                    attendees compete in an environment that
+                                    supports learning at every level.
+                                </Typography>
+                            </motion.div>
+                            <motion.div variants={itemVariants}>
+                                <Typography
+                                    sx={{
+                                        fontSize: {
+                                            xs: "3.3vw",
+                                            md: "1.4vw",
+                                            xl: "24px"
+                                        },
+                                        lineHeight: 1.45,
+                                        color: "white",
+                                        opacity: 0.88,
+                                        mb: { xs: 1, md: 3 }
+                                    }}
+                                >
+                                    {`Regardless, all attendees can enjoy HackIllinois' events, workshops, company Q&As, and the Company Expo.`}
+                                </Typography>
+                            </motion.div>
+                        </motion.div>
                     </Box>
 
                     {/* textbox 3 end */}
