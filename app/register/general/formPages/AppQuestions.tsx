@@ -118,7 +118,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                                     sx={{ opacity: "0.8" }}
                                 >
                                     {
-                                        "You'll have to complete a short coding challenge about 1 hour long. Learn more about HackVoyagers"
+                                        "You will have to complete a coding challenge to be eligible for the Path. Learn more about HackVoyagers"
                                     }
                                     <Link
                                         href="/challenge/landing-page"
