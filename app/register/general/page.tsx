@@ -59,6 +59,8 @@ const GeneralRegistration = () => {
         skipToStep
     } = useRegistrationSteps(validationSchemas, isSubmitted);
 
+    const RIGHT_ALIGNED_STEPS = [0, 3];
+
     const renderStepContent = (step: number, formik: any) => {
         switch (step) {
             case 0:
@@ -411,13 +413,16 @@ const GeneralRegistration = () => {
                     width: "100%",
                     pb: "50px",
                     backgroundImage: {
-                        xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}.png")`,
-                        md: `url("/registration/backgrounds/${steps[currentStep].id}.png")`
+                        xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`,
+                        md: `url("/registration/backgrounds/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`
                     },
                     backgroundSize: "cover", // Fill the screen
                     backgroundRepeat: "no-repeat", // Prevent tiling
-                    backgroundPosition: "center", // Center the image
-                    backgroundAttachment: "fixed" // Prevent scaling
+                    backgroundPosition: RIGHT_ALIGNED_STEPS.includes(
+                        currentStep
+                    )
+                        ? "right"
+                        : "center"
                 }}
             >
                 <Paper
