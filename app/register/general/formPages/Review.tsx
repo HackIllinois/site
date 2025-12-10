@@ -150,9 +150,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             />
                             <UserInfoBox
                                 label="Do you identify as part of an underrepresented group in the technology industry?"
-                                userResponse={
-                                    values.underrepresented ? "Yes" : "No"
-                                }
+                                userResponse={values.underrepresented || "No"}
                             />
                         </ReviewInfoAccordionBox>
                     </AccordionDetails>
