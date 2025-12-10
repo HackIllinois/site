@@ -109,7 +109,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 <Grid size={12}>
                     <CheckboxSelect
                         name="pro"
-                        label="Would you like to be considered for HackVoyagers Track?"
+                        label="Would you like to be considered for HackVoyagers Path?"
                         sublabelContent={
                             <Box sx={{ display: "flex", alignItems: "center" }}>
                                 <Typography
