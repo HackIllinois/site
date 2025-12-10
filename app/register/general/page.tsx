@@ -373,8 +373,14 @@ const GeneralRegistration = () => {
             <Snackbar
                 open={showSaveAlert}
                 autoHideDuration={3000}
-                onClose={() => setShowSaveAlert(false)}
                 anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                onClose={(event, reason) => {
+                    if (reason === "clickaway") return;
+                    // ^ ignore clicking outside -- this setting is necessary on small web
+                    // as the snackbar unmounting when it closes on clickaway interrupts (?)
+                    // the click event and prevents it from affecting inputs
+                    setShowSaveAlert(false);
+                }}
             >
                 <Alert
                     onClose={() => setShowSaveAlert(false)}
