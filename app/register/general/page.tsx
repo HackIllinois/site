@@ -15,7 +15,7 @@ import {
     useMediaQuery
 } from "@mui/material";
 import { useFormik } from "formik";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import * as Yup from "yup";
 import AppQuestions from "./formPages/AppQuestions";
 import AttendingHack from "./formPages/AttendingHack";
@@ -45,6 +45,7 @@ const GeneralRegistration = () => {
     const [showClickOffAlert, setShowClickOffAlert] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [isSaving, setIsSaving] = useState(false);
+    const saveTimeoutRef = useRef<NodeJS.Timeout>(null);
     const [isLoadingComponent, setIsLoadingComponent] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const registrationAuth = useRegistrationAuth();
@@ -305,6 +306,7 @@ const GeneralRegistration = () => {
         const timeout = setTimeout(() => {
             handleSave();
         }, 10_000);
+        saveTimeoutRef.current = timeout;
         return () => clearTimeout(timeout);
     }, [formik.values, registrationAuth.authenticated]);
 
@@ -312,6 +314,10 @@ const GeneralRegistration = () => {
         // Don't autosave on the review info page and confirmation page.
         // This ensures that the user won't see an error when they submit.
         if (currentStep >= steps.length - 2) return;
+        if (saveTimeoutRef.current != null) {
+            clearTimeout(saveTimeoutRef.current);
+            saveTimeoutRef.current = null;
+        }
         handleSave();
     }, [currentStep]);
 
