@@ -26,10 +26,10 @@ const ProChallenge: React.FC = () => {
     };
 
     const parallaxStyle3 = {
-        transform: `translateY(${offsetY3 * 0.05}px)`
+        transform: `translateY(${offsetY3 * 0.05}px) scale(1.2)`
     };
     const parallaxStyleMobile3 = {
-        transform: `translateY(${offsetY3 * 0.05}px)`
+        transform: `translateY(${offsetY3 * 0.05}px) scale(1.2)`
     };
 
     // 1. Container Variant
@@ -573,9 +573,6 @@ const ProChallenge: React.FC = () => {
                         </motion.div>
                     </Box>
 
-                    {/* ======================================= */}
-                    {/* STATIC: PLANETS (Parallax Only)         */}
-                    {/* ======================================= */}
                     <img
                         src="/challenge/backgrounds/desktop/planets.svg"
                         className={styles.planets}
@@ -587,10 +584,6 @@ const ProChallenge: React.FC = () => {
                         className={clsx(styles.planets, styles.mobile)}
                         style={parallaxStyleMobile3}
                     />
-
-                    {/* textbox 2 end */}
-
-                    {/* textbox 3 start */}
 
                     <Box
                         sx={{
