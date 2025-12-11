@@ -54,6 +54,8 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
     hideWhenZero = false,
     onRocketClick
 }) => {
+    const [mounted, setMounted] = useState(false);
+
     const targetMs = useMemo(
         () =>
             typeof targetDateTime === "string"
@@ -67,6 +69,10 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
     );
 
     useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    useEffect(() => {
         const update = () => setParts(diffToParts(targetMs, Date.now()));
 
         update(); // initial sync
@@ -74,6 +80,10 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
 
         return () => window.clearInterval(id);
     }, [targetMs]);
+
+    if (!mounted) {
+        return null;
+    }
 
     if (hideWhenZero && parts.sign === 0) {
         return null;
@@ -99,7 +109,7 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
                 alignItems: "center",
                 gap: 1,
                 borderRadius: "16px",
-                backgroundColor: "rgba(255, 255, 255, 0.24)",
+                background: "linear-gradient(135deg, #a68fc4, #8fa3d4)",
                 backdropFilter: "blur(12px)",
                 boxShadow: "0 12px 30px rgba(15, 23, 42, 0.35)",
                 width: "250px"
@@ -114,7 +124,7 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
                     fontWeight: 600,
                     fontSize: "20px",
                     letterSpacing: "0.05em",
-                    color: "#ffffffff", // tweak as needed
+                    color: "#ffffff",
                     userSelect: "none",
                     whiteSpace: "nowrap",
                     paddingLeft: "16px"

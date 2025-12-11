@@ -1,3 +1,10 @@
+export type Step = {
+    id: string;
+    name: string;
+    color: string;
+    use_svg?: boolean;
+};
+
 export const steps = [
     {
         id: "personal_info",
@@ -7,7 +14,7 @@ export const steps = [
     {
         id: "background_info",
         name: "Background Information",
-        color: "#01023B"
+        color: "#3e66c2ff"
     },
     {
         id: "app_questions",
@@ -17,7 +24,8 @@ export const steps = [
     {
         id: "attending_hack",
         name: "Attending HackIllinois",
-        color: "#87304E"
+        color: "#87304E",
+        use_svg: true
     },
     { id: "review", name: "Review & Submit", color: "#983300" },
     { id: "confirmation", name: "Confirmation", color: "#480021" }

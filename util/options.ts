@@ -4,10 +4,10 @@ import states from "@/modules/states.json";
 import countries from "@/modules/countries.json";
 
 export const ageOptions: string[] = [];
-for (let i = 18; i < 30; i += 1) {
+for (let i = 18; i < 25; i += 1) {
     ageOptions.push(String(i));
 }
-ageOptions.push("30+");
+ageOptions.push("25+");
 
 export const genderOptions: string[] = [
     "Man",
@@ -18,24 +18,17 @@ export const genderOptions: string[] = [
 ];
 
 export const raceOptions: string[] = [
-    "Asian Indian",
-    "Black or African",
-    "Chinese",
-    "Filipino",
-    "Guamanian or Chamorro",
-    "Hispanic / Latino / Spanish Origin",
-    "Japanese",
-    "Korean",
-    "Middle Eastern",
-    "Native American or Alaskan Native",
-    "Native Hawaiian",
-    "Samoan",
-    "Vietnamese",
+    "American Indian or Alaska Native",
+    "Arab or Middle Eastern",
+    "Black or African American",
+    "East Asian",
+    "Hispanic or Latino",
+    "Native Hawaiian or Pacific Islander",
+    "South East Asian",
+    "South Asian",
     "White",
-    "Other Asian (Thai, Cambodian, etc)",
-    "Other Pacific Islander",
     "Other",
-    "Prefer Not to Answer"
+    "Prefer Not To Answer"
 ];
 
 export const numHackathonOptions: string[] = ["0", "1", "2-3", "4+"];

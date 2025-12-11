@@ -1,10 +1,10 @@
 import { handleError } from "./helpers";
 import {
     ChallengeStatus,
-    FileType,
     MethodType,
     RegistrationApplicationDraftBody,
-    RegistrationApplicationSubmitted
+    RegistrationApplicationSubmitted,
+    ChallengeResponse
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -71,11 +71,31 @@ export async function requestv2(
     return responseJSON;
 }
 
-export async function getChallenge(): Promise<ChallengeStatus> {
-    const res = await requestv2("GET", "/registration/challenge/").catch(body =>
-        handleError(body)
-    );
+export async function getChallenge(
+    shouldThrow?: boolean
+): Promise<ChallengeStatus> {
+    const res = await requestv2("GET", "/registration/challenge/").catch(e => {
+        if (shouldThrow) {
+            handleError(e);
+        }
+    });
     return res;
+}
+
+export async function submitChallenge(file: File): Promise<ChallengeResponse> {
+    const form = new FormData();
+    form.append("solution", file);
+
+    const res = await fetch(APIv2 + "/registration/challenge/", {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        body: form
+    });
+
+    const json = await res.json();
+
+    return { status: res.status, body: json };
 }
 
 export async function subscribe(
@@ -86,26 +106,6 @@ export async function subscribe(
         listName,
         emailAddress
     }).catch(body => handleError(body));
-    return res;
-}
-
-export async function uploadFile(file: File, type: FileType): Promise<unknown> {
-    const { url, fields } = await requestv2("GET", "/s3/upload");
-    let data = new FormData();
-    for (let key in fields) {
-        data.append(key, fields[key]);
-    }
-    data.append("file", file, file.name);
-    const res = await fetch(url, { method: "POST", body: data });
-
-    if (!res.ok) {
-        const errorBody = await res.text();
-        handleError({
-            message: errorBody,
-            status: res.status,
-            type: "upload_error"
-        });
-    }
     return res;
 }
 
