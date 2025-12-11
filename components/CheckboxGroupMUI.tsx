@@ -111,19 +111,19 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
                                     width: "36px",
                                     height: "36px",
                                     padding: "0px", // override default
-                                    borderRadius: 2,
+                                    borderRadius: 0, // override default
+                                    clipPath: "inset(0 round 8px)",
                                     backgroundColor: "#f0f0f0",
                                     display: "flex",
                                     flexShrink: 0,
                                     overflow: "hidden",
 
                                     "& .MuiSvgIcon-root": {
-                                        transform: "scale(1.34)",
+                                        transform: "scale(1.35)",
                                         width: "100%",
                                         height: "100%",
                                         backgroundColor: "transparent",
-                                        color: "transparent", // unchecked icon color
-                                        borderRadius: 1.5
+                                        color: "transparent" // unchecked icon color
                                     },
                                     "&.Mui-checked": {
                                         color: accentColor // this affects the animation

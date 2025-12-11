@@ -87,7 +87,7 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
 
             <FormControlLabel
                 sx={{
-                    padding: 2,
+                    margin: 2,
                     display: "flex",
                     "& .MuiCheckbox-root": {
                         width: 36,
@@ -104,17 +104,17 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                             width: 36,
                             height: 36,
                             padding: "0px", // override default
-                            borderRadius: 2,
+                            borderRadius: 0, // override default
+                            clipPath: "inset(0 round 8px)",
                             backgroundColor: "#f0f0f0",
                             overflow: "hidden",
 
                             "& .MuiSvgIcon-root": {
-                                transform: "scale(1.34)",
+                                transform: "scale(1.35)",
                                 width: "100%",
                                 height: "100%",
                                 backgroundColor: "transparent",
-                                color: "transparent", // unchecked icon color
-                                borderRadius: 1.5
+                                color: "transparent" // unchecked icon color
                             },
                             "&.Mui-checked": {
                                 color: accentColor // this affects the animation
