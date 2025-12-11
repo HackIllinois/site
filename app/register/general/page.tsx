@@ -60,6 +60,8 @@ const GeneralRegistration = () => {
         skipToStep
     } = useRegistrationSteps(validationSchemas, isSubmitted);
 
+    const RIGHT_ALIGNED_STEPS = [0, 3];
+
     const renderStepContent = (step: number, formik: any) => {
         switch (step) {
             case 0:
@@ -93,7 +95,13 @@ const GeneralRegistration = () => {
             case 4:
                 return <Review formik={formik} onEditStep={setCurrentStep} />;
             case 5:
-                return <Confirmation formik={formik} />;
+                return (
+                    <Confirmation
+                        formik={formik}
+                        onSetErrorMessage={setErrorMessage}
+                        onShowErrorAlert={setShowErrorAlert}
+                    />
+                );
             default:
                 return <div>Unknown step</div>;
         }
@@ -417,12 +425,16 @@ const GeneralRegistration = () => {
                     width: "100%",
                     pb: "50px",
                     backgroundImage: {
-                        xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}.png")`,
-                        md: `url("/registration/backgrounds/${steps[currentStep].id}.png")`
+                        xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`,
+                        md: `url("/registration/backgrounds/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`
                     },
                     backgroundSize: "cover", // Fill the screen
                     backgroundRepeat: "no-repeat", // Prevent tiling
-                    backgroundPosition: "center" // Center the image
+                    backgroundPosition: RIGHT_ALIGNED_STEPS.includes(
+                        currentStep
+                    )
+                        ? "right"
+                        : "center"
                 }}
             >
                 <Paper
@@ -451,7 +463,7 @@ const GeneralRegistration = () => {
                         alignItems="center"
                         gap={{ xs: "24px", md: "0px" }}
                         mt={10}
-                        mb={2}
+                        mb={8}
                         mr={4}
                         ml={4}
                     >

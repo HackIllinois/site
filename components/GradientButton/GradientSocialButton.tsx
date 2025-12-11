@@ -1,16 +1,37 @@
 "use client";
 
-import React from "react";
 import { Box } from "@mui/material";
+import { motion, Variants } from "framer-motion"; // Import motion
 import Link from "next/link";
+import React from "react";
 
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import EmailIcon from "@mui/icons-material/Email";
 import type { SvgIconComponent } from "@mui/icons-material";
+import EmailIcon from "@mui/icons-material/Email";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import TwitterIcon from "@mui/icons-material/Twitter";
+
+// Animation Variants
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1 // Staggers the insertion of each button
+        }
+    }
+};
+
+const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { type: "spring", stiffness: 100 }
+    }
+};
 
 // General-purpose gradient button
 type GradientSocialButtonProps = {
@@ -27,46 +48,49 @@ export const GradientSocialButton: React.FC<GradientSocialButtonProps> = ({
     size = 50
 }) => {
     return (
-        <Link
-            prefetch={false}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={label}
-        >
-            <Box
-                sx={{
-                    p: "4px",
-                    borderRadius: "999px",
-                    background:
-                        "linear-gradient(135deg, #A315D6, #FDAB60, #A315D6)",
-                    display: "inline-block",
-                    cursor: "pointer"
-                }}
+        // Wrap the individual button in a motion.div to receive the staggered state
+        <motion.div variants={itemVariants}>
+            <Link
+                prefetch={false}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
             >
                 <Box
                     sx={{
-                        width: size,
-                        height: size,
+                        p: "4px",
                         borderRadius: "999px",
-                        backgroundImage:
-                            "linear-gradient(120deg, #401A79 0%, #401A79 30%, #653089 30%, #653089 53%, #401A79 53%, #401A79 100%)",
-                        backgroundSize: "150% 100%",
-                        backgroundPosition: "50% 0%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "white",
-                        transition: "background-position 0.5s ease",
-                        "&:hover": {
-                            backgroundPosition: "-20% 0%"
-                        }
+                        background:
+                            "linear-gradient(135deg, #A315D6, #FDAB60, #A315D6)",
+                        display: "inline-block",
+                        cursor: "pointer"
                     }}
                 >
-                    <Icon sx={{ fontSize: size * 0.6 }} />
+                    <Box
+                        sx={{
+                            width: size,
+                            height: size,
+                            borderRadius: "999px",
+                            backgroundImage:
+                                "linear-gradient(120deg, #401A79 0%, #401A79 30%, #653089 30%, #653089 53%, #401A79 53%, #401A79 100%)",
+                            backgroundSize: "150% 100%",
+                            backgroundPosition: "50% 0%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            color: "white",
+                            transition: "background-position 0.5s ease",
+                            "&:hover": {
+                                backgroundPosition: "-20% 0%"
+                            }
+                        }}
+                    >
+                        <Icon sx={{ fontSize: size * 0.6 }} />
+                    </Box>
                 </Box>
-            </Box>
-        </Link>
+            </Link>
+        </motion.div>
     );
 };
 
@@ -76,6 +100,11 @@ export const SocialIconsRow: React.FC = () => {
 
     return (
         <Box
+            component={motion.div} // Turn the container into a motion component
+            initial="hidden"
+            whileInView="visible" // Triggers when scrolled into view
+            viewport={{ once: true }}
+            variants={containerVariants}
             sx={{
                 display: "flex",
                 justifyContent: "center",

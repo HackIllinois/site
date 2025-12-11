@@ -9,10 +9,84 @@ import useWindowSize from "@/hooks/use-window-size";
 import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
 import Confetti from "react-confetti";
+import { getChallenge } from "@/util/api";
+import { useEffect, useState } from "react";
 
 export default function ChallengeResult() {
     const registrationAuth = useRegistrationAuth(true);
     const { width, height } = useWindowSize();
+    const [challengePassed, setChallengePassed] = useState(false);
+    const [challengeLoading, setChallengeLoading] = useState(true);
+
+    useEffect(() => {
+        async function load() {
+            try {
+                const res = await getChallenge();
+                if (res.complete) {
+                    setChallengePassed(true);
+                }
+            } finally {
+                setChallengeLoading(false);
+            }
+        }
+
+        load();
+    }, []);
+
+    if (challengeLoading) {
+        return (
+            <Loading
+                backgroundImage={"/challenge/backgrounds/success.svg"}
+                zoom={false}
+            />
+        );
+    }
+
+    if (!challengePassed) {
+        return (
+            <Box
+                sx={{
+                    minHeight: "100vh",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    textAlign: "center",
+                    px: 3,
+                    backgroundImage: `url("/challenge/backgrounds/success.svg")`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat"
+                }}
+            >
+                <Typography
+                    variant="h4"
+                    sx={{
+                        fontFamily: "Tsukimi Rounded",
+                        color: "white",
+                        fontWeight: 700,
+                        mb: 2
+                    }}
+                >
+                    You still must complete the Pro Challenge
+                </Typography>
+
+                <Typography
+                    variant="body1"
+                    sx={{
+                        color: "rgba(255,255,255,0.8)",
+                        maxWidth: "600px",
+                        mb: 3,
+                        fontFamily: "Montserrat"
+                    }}
+                >
+                    Please return to the challenge page and complete the
+                    challenge.
+                </Typography>
+
+                <GradientButton text="START CHALLENGE" link="/challenge/" />
+            </Box>
+        );
+    }
 
     if (registrationAuth.isLoading) {
         return (

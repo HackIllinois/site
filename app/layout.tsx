@@ -1,24 +1,14 @@
-// "use client";
+"use client";
 
+import { EventCountdownPill } from "@/components/EventCountdown/EventCountdown";
 import Navbar from "@/components/Navbar/Navbar";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
-import type { Metadata } from "next";
 import theme from "../theme";
 import { montserrat, tsukimi } from "../theme/fonts";
 import "./globals.scss";
 
-export const metadata: Metadata = {
-    title: "HackIllinois",
-    description:
-        "The official website of the University of Illinois at Urbana-Champaign's Premier Hackathon!"
-};
-
-export default function RootLayout({
-    children
-}: {
-    children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
             <body
@@ -29,6 +19,10 @@ export default function RootLayout({
                     <ThemeProvider theme={theme}>
                         <Navbar />
                         {children}
+                        <EventCountdownPill
+                            targetDateTime="2026-02-27T18:00:00-06:00"
+                            label="Countdown to HackIllinois 2026"
+                        />
                     </ThemeProvider>
                 </AppRouterCacheProvider>
             </body>

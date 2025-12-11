@@ -7,9 +7,25 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import GithubAuthPage from "../register/general/formPages/GithubAuthPage";
 import NotProTrackPage from "../register/general/formPages/NotProTrackPage";
+import { getChallenge } from "@/util/api";
+import { useEffect } from "react";
 
 const ProChallenge: React.FC = () => {
     const registrationAuth = useRegistrationAuth(true);
+
+    async function handleLoadChallengeStatus() {
+        try {
+            const res = await getChallenge();
+            if (res.complete) {
+                window.location.href = "/challenge/result/success";
+            }
+        } finally {
+        }
+    }
+
+    useEffect(() => {
+        handleLoadChallengeStatus();
+    }, []);
 
     if (registrationAuth.isLoading) {
         return <Loading backgroundImage={LANDING.src} zoom={false} />;
