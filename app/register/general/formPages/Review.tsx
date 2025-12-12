@@ -42,7 +42,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
 
         const handleBeforeUnload = (e: BeforeUnloadEvent) => {
             e.preventDefault();
-            (e as any).returnValue = "";
+            e.returnValue = "";
         };
 
         window.addEventListener("beforeunload", handleBeforeUnload);

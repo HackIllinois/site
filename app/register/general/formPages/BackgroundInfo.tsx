@@ -49,7 +49,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         value={values.education || ""}
                         onChange={value => setFieldValue("education", value)}
                         error={!!touched.education && Boolean(errors.education)}
-                        helperText={!!touched.education ? errors.education : ""}
+                        helperText={touched.education ? errors.education : ""}
                     />{" "}
                 </Grid>
                 <Grid size={{ xs: 12, sm: 8, md: 5 }}>
@@ -65,7 +65,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         value={values.school || ""}
                         onChange={value => setFieldValue("school", value)}
                         error={!!touched.school && Boolean(errors.school)}
-                        helperText={!!touched.school ? errors.school : ""}
+                        helperText={touched.school ? errors.school : ""}
                     />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 4, md: 3 }}>
@@ -81,7 +81,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         value={values.graduate || ""}
                         onChange={value => setFieldValue("graduate", value)}
                         error={!!touched.graduate && Boolean(errors.graduate)}
-                        helperText={!!touched.graduate ? errors.graduate : ""}
+                        helperText={touched.graduate ? errors.graduate : ""}
                     />
                 </Grid>
 
@@ -104,7 +104,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         value={values.major || ""}
                         onChange={value => setFieldValue("major", value)}
                         error={!!touched.major && Boolean(errors.major)}
-                        helperText={!!touched.major ? errors.major : ""}
+                        helperText={touched.major ? errors.major : ""}
                     />
                 </Grid>
                 <Grid
@@ -130,7 +130,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                             // (prevents submitting a state after changing country to non-US)
                         }}
                         error={!!touched.country && Boolean(errors.country)}
-                        helperText={!!touched.country ? errors.country : ""}
+                        helperText={touched.country ? errors.country : ""}
                     />
                 </Grid>
                 {values.country === "United States" ? (
@@ -147,7 +147,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                             value={values.state || ""}
                             onChange={value => setFieldValue("state", value)}
                             error={!!touched.state && Boolean(errors.state)}
-                            helperText={!!touched.state ? errors.state : ""}
+                            helperText={touched.state ? errors.state : ""}
                         />
                     </Grid>
                 ) : (
@@ -166,7 +166,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         }))}
                         value={values.race || []}
                         onChange={value => setFieldValue("race", value)}
-                        error={!!touched.race ? Boolean(errors.race) : false}
+                        error={touched.race ? Boolean(errors.race) : false}
                         helperText={
                             !!touched.race && errors.race
                                 ? String(errors.race)
@@ -187,7 +187,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         value={values.gender || ""}
                         onChange={value => setFieldValue("gender", value)}
                         error={!!touched.gender && Boolean(errors.gender)}
-                        helperText={!!touched.gender ? errors.gender : ""}
+                        helperText={touched.gender ? errors.gender : ""}
                     />
                 </Grid>
 
@@ -210,7 +210,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                             Boolean(errors.hackathonsParticipated)
                         }
                         helperText={
-                            !!touched.hackathonsParticipated
+                            touched.hackathonsParticipated
                                 ? errors.hackathonsParticipated
                                 : ""
                         }
@@ -238,7 +238,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                             Boolean(errors.underrepresented)
                         }
                         helperText={
-                            !!touched.underrepresented
+                            touched.underrepresented
                                 ? errors.underrepresented
                                 : ""
                         }

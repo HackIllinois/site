@@ -47,7 +47,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                             !!touched.attribution && Boolean(errors.attribution)
                         }
                         helperText={
-                            !!touched.attribution
+                            touched.attribution
                                 ? String(errors.attribution || "")
                                 : ""
                         }
@@ -72,7 +72,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                             Boolean(errors.eventInterest)
                         }
                         helperText={
-                            !!touched.eventInterest
+                            touched.eventInterest
                                 ? String(errors.eventInterest || "")
                                 : ""
                         }
@@ -99,7 +99,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                             Boolean(errors.requestTravelReimbursement)
                         }
                         helperText={
-                            !!touched.requestTravelReimbursement
+                            touched.requestTravelReimbursement
                                 ? errors.requestTravelReimbursement
                                 : ""
                         }
@@ -124,7 +124,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                             Boolean(errors.travelAcknowledge)
                         }
                         helperText={
-                            !!touched.travelAcknowledge
+                            touched.travelAcknowledge
                                 ? errors.travelAcknowledge
                                 : ""
                         }
