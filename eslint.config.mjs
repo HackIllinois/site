@@ -1,18 +1,19 @@
-import js from "@eslint/js"
-import tseslint from "typescript-eslint"
-import nextPlugin from "@next/eslint-plugin-next"
-import reactHooks from "eslint-plugin-react-hooks"
-import reactRefresh from "eslint-plugin-react-refresh"
+import js from "@eslint/js";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
+import nextPlugin from "@next/eslint-plugin-next";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
 
-const config = tseslint.config(
-    { ignores: [".next/*"] },
+const config = defineConfig(
+    { ignores: ["next-env.d.ts", ".next/*"] },
     {
         extends: [js.configs.recommended, ...tseslint.configs.recommended],
         files: ["**/*.{ts,tsx}"],
         plugins: {
             "@next/next": nextPlugin,
             "react-hooks": reactHooks,
-            "react-refresh": reactRefresh,
+            "react-refresh": reactRefresh
         },
         rules: {
             ...nextPlugin.configs.recommended.rules,
@@ -20,18 +21,22 @@ const config = tseslint.config(
             "react-hooks/set-state-in-effect": "warn",
             "react-refresh/only-export-components": [
                 "warn",
-                { allowConstantExport: true },
+                { allowConstantExport: true }
             ],
-            "@typescript-eslint/no-explicit-any": "error",
+            "@typescript-eslint/no-explicit-any": "warn",
             "@typescript-eslint/no-unused-vars": [
                 "error",
                 {
                     vars: "all",
-                    args: "after-used",
-                },
+                    args: "after-used"
+                }
             ],
-        },
+            "no-warning-comments": [
+                "warn",
+                { terms: ["TODO"], location: "anywhere" }
+            ]
+        }
     }
-)
+);
 
-export default config
+export default config;

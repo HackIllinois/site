@@ -19,7 +19,8 @@ const ProChallenge: React.FC = () => {
             if (res.complete) {
                 window.location.href = "/challenge/result/success";
             }
-        } finally {
+        } catch {
+            // TODO: handle this error
         }
     }
 

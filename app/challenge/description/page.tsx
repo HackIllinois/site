@@ -109,7 +109,7 @@ export default function ChallengeDescription() {
             } else if (status === 403) {
                 setUploadResult(body.message);
             }
-        } catch (err) {
+        } catch {
             setUploadResult(
                 "There was a problem uploading the image. Please try again."
             );

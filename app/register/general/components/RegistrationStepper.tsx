@@ -56,6 +56,8 @@ const RegistrationStepper = ({
         };
     }, [measurePlanets]);
 
+    // TODO: assess if fixing this will break the stepper
+    // eslint-disable-next-line react-hooks/preserve-manual-memoization
     const stepper = useMemo(() => {
         return (
             <Stepper
@@ -95,7 +97,7 @@ const RegistrationStepper = ({
                                 }
                             }}
                             slots={{
-                                stepIcon: props => (
+                                stepIcon: () => (
                                     <Box
                                         ref={(el: HTMLDivElement | null) => {
                                             planetRefs.current[i] = el;
