@@ -101,7 +101,7 @@ const Confirmation = ({
                                     lineHeight: 1,
                                     mb: 0.5,
                                     zIndex: 1,
-                                    textShadow: "1px 1px .5px black"
+                                    textShadow: "5px 5px 13px black"
                                 }}
                             >
                                 APPLICATION
@@ -121,7 +121,7 @@ const Confirmation = ({
                                     mb: 3,
                                     width: "100%",
                                     zIndex: 1,
-                                    textShadow: "1px 1px .5px black"
+                                    textShadow: "5px 5px 13px black"
                                 }}
                             >
                                 {challengePassed ? "COMPLETE" : "NEXT STEPS"}
@@ -134,7 +134,7 @@ const Confirmation = ({
                                     fontSize: { xs: "11px", sm: "22px" },
                                     color: "white",
                                     zIndex: 1,
-                                    textShadow: ".5px .5px 1px black"
+                                    textShadow: "2px 2px 13px black"
                                 }}
                             >
                                 Thank you for signing up for HackIllinois 2026!
@@ -155,7 +155,7 @@ const Confirmation = ({
                                     lineHeight: 1,
                                     mb: 0.5,
                                     zIndex: 1,
-                                    textShadow: "1px 1px .5px black"
+                                    textShadow: "2px 2px 13px black"
                                 }}
                             >
                                 APPLICATION
@@ -175,7 +175,7 @@ const Confirmation = ({
                                     mb: 3,
                                     width: "100%",
                                     zIndex: 1,
-                                    textShadow: "1px 1px .5px black"
+                                    textShadow: "2px 2px 13px black"
                                 }}
                             >
                                 FINISHED
@@ -187,7 +187,7 @@ const Confirmation = ({
                                     fontSize: { xs: "11px", sm: "22px" },
                                     color: "white",
                                     zIndex: 1,
-                                    textShadow: ".5px .5px 1px black"
+                                    textShadow: "2px 2px 13px black"
                                 }}
                             >
                                 Thank you for signing up for HackIllinois 2026!
@@ -201,7 +201,7 @@ const Confirmation = ({
                                     color: "white",
                                     mb: "17px",
                                     zIndex: 1,
-                                    textShadow: ".5px .5px 1px black"
+                                    textShadow: "2px 2px 13px black"
                                 }}
                             >
                                 Please check the status of your account in your
@@ -220,7 +220,7 @@ const Confirmation = ({
                                     color: "white",
                                     my: "17px",
                                     zIndex: 1,
-                                    textShadow: ".5px .5px 1px black"
+                                    textShadow: "2px 2px 13px black"
                                 }}
                             >
                                 {challengePassed ? (
