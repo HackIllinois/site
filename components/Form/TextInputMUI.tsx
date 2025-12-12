@@ -25,7 +25,6 @@ const TextInput: React.FC<TextInputProps> = ({
     label,
     multiline = false,
     required = false,
-    placeholder = "Type here...",
     value,
     onChange,
     error,

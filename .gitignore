@@ -32,3 +32,4 @@ yarn-error.log*
 .netlify
 
 .env
+next-env.d.ts

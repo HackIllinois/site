@@ -38,7 +38,7 @@ const Confirmation = ({
             if (res && res.complete) {
                 setChallengePassed(true);
             }
-        } catch (error) {
+        } catch {
             onSetErrorMessage("Failed to load challenge status.");
             onShowErrorAlert(true);
         } finally {

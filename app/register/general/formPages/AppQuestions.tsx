@@ -56,7 +56,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                             Boolean(errors.application1)
                         }
                         helperText={
-                            !!touched.application1 ? errors.application1 : ""
+                            touched.application1 ? errors.application1 : ""
                         }
                         inputProps={{ maxLength: 700 }}
                     />
@@ -77,7 +77,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                             Boolean(errors.application2)
                         }
                         helperText={
-                            !!touched.application2 ? errors.application2 : ""
+                            touched.application2 ? errors.application2 : ""
                         }
                         inputProps={{ maxLength: 700 }}
                     />
@@ -99,7 +99,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                             Boolean(errors.applicationOptional)
                         }
                         helperText={
-                            !!touched.applicationOptional
+                            touched.applicationOptional
                                 ? errors.applicationOptional
                                 : ""
                         }
@@ -152,7 +152,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                             setFieldValue("pro", val);
                         }}
                         error={!!touched.pro && Boolean(errors.pro)}
-                        helperText={!!touched.pro ? errors.pro : ""}
+                        helperText={touched.pro ? errors.pro : ""}
                     />
                 </Grid>
             </Grid>

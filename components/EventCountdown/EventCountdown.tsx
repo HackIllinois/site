@@ -37,7 +37,7 @@ function diffToParts(targetMs: number, nowMs: number): TimeParts {
     }
 
     const sign: -1 | 1 = diffMs < 0 ? -1 : 1;
-    let remaining = Math.abs(diffMs);
+    const remaining = Math.abs(diffMs);
 
     const totalSeconds = Math.floor(remaining / 1000);
     const days = Math.floor(totalSeconds / (24 * 3600));

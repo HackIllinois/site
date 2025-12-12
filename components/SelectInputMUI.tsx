@@ -174,7 +174,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
                             key={`menu-${option.value}-${index}`}
                             value={option.value}
                             selected={isSelected}
-                            sx={theme => ({
+                            sx={() => ({
                                 ...(isSelected && {
                                     backgroundColor: "#70D6FF",
                                     color: "#fff"

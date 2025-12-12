@@ -97,7 +97,7 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                 filterOptions={filterOptions}
                 multiple={multiple}
                 options={options}
-                value={normalizedValue as any}
+                value={normalizedValue}
                 disableCloseOnSelect={multiple}
                 filterSelectedOptions={false}
                 autoHighlight={true}
@@ -175,7 +175,7 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
 
                     return (
                         <MenuItem
-                            key={`${key}-${Math.random()}`}
+                            key={`${key}-${option.value}`}
                             {...rest}
                             value={option.value}
                             sx={{

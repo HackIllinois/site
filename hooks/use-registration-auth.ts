@@ -22,7 +22,6 @@ export const useRegistrationAuth = (shouldLoadSubmission: boolean = false) => {
                 const submissionData = await loadSubmission();
                 setSubmission(submissionData);
             }
-        } catch {
         } finally {
             setIsLoading(false);
         }

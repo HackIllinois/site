@@ -147,7 +147,7 @@ const GeneralRegistration = () => {
 
             if (draft) {
                 // Merge draft with initialValues to fill in any missing fields
-                let mergedValues = { ...initialValues, ...draft };
+                const mergedValues = { ...initialValues, ...draft };
                 formik.setValues(mergedValues);
             }
 
