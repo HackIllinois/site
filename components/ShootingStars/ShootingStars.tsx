@@ -10,6 +10,7 @@ interface ShootingStar {
     y: number;
     rotation: number;
     size: number;
+    flipped: boolean;
 }
 
 interface ShootingStarsProps {
@@ -106,13 +107,15 @@ export const ShootingStars = ({
                 2.5;
 
             const rotation = Math.random() * -25; // 0 to -25 degrees
+            const flipped = Math.random() < 0.5; // 50% chance to flip
 
             const newStar: ShootingStar = {
                 id,
                 x,
                 y,
                 rotation,
-                size: effectiveSize
+                size: effectiveSize,
+                flipped
             };
             setShootingStars(prev => [...prev, newStar]);
 
@@ -147,7 +150,7 @@ export const ShootingStars = ({
                         style={{
                             left: `${star.x}%`,
                             top: `${star.y}%`,
-                            transform: `rotate(${star.rotation}deg)`
+                            transform: `rotate(${star.rotation}deg) scaleX(${star.flipped ? -1 : 1})`
                         }}
                     >
                         {/* Size is adjusted to account for large padding in the asset */}
@@ -156,7 +159,9 @@ export const ShootingStars = ({
                             loop={false}
                             autoplay
                             style={{
-                                transform: `translate(-${star.size}px, -${star.size / 2}px)`,
+                                transform: star.flipped
+                                    ? `translateY(-${star.size / 2}px)`
+                                    : `translate(-${star.size}px, -${star.size / 2}px)`,
                                 width: `${star.size * 2}px`,
                                 height: `${star.size * 2}px`
                             }}
