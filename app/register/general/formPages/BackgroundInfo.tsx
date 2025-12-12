@@ -69,6 +69,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                     <SelectTextInput
                         name="school"
                         label="School"
+                        sublabel="School not listed? Select 'Other - Not Listed'"
                         accentColor={accentColor}
                         required
                         options={schoolOptions.map(option => ({

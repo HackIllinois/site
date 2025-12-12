@@ -300,7 +300,12 @@ const GeneralRegistration = () => {
                 }
             }
             try {
-                await submitDraft(formik.values);
+                const body: any = { ...formik.values };
+                if (body.school === "Other - Not Listed") {
+                    body.school = (body.otherSchool || "").trim();
+                }
+                delete body.otherSchool;
+                await submitDraft(body);
                 setIsSubmitted(true);
             } catch (error: any) {
                 console.error("Failed to submit draft:", error);
