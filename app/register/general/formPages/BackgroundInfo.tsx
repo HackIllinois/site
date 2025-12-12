@@ -91,7 +91,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                     <Grid size={{ xs: 12, sm: 12, md: 7 }}>
                         <TextInput
                             name="otherSchool"
-                            label="Other: School"
+                            label="Other School"
                             accentColor="#3A2541"
                             required
                             value={values.otherSchool || ""}
