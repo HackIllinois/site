@@ -38,6 +38,7 @@ import RegistrationStepper from "./components/RegistrationStepper";
 import { steps } from "./constants/registration";
 import GithubAuthPage from "./formPages/GithubAuthPage";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
+import { schoolOptions } from "@/util/options";
 
 const GeneralRegistration = () => {
     const [showSaveAlert, setShowSaveAlert] = useState(false);
@@ -148,6 +149,18 @@ const GeneralRegistration = () => {
             if (draft) {
                 // Merge draft with initialValues to fill in any missing fields
                 let mergedValues = { ...initialValues, ...draft };
+
+                // Checking if school saved is among the options listed in dropdown
+                const savedSchool = (draft.school ?? "").trim();
+                const isListedSchool =
+                    savedSchool === "" || schoolOptions.includes(savedSchool);
+                if (!isListedSchool) {
+                    mergedValues.school = "Other - Not Listed";
+                    mergedValues.otherSchool = savedSchool;
+                } else {
+                    mergedValues.otherSchool = "";
+                }
+
                 formik.setValues(mergedValues);
             }
 

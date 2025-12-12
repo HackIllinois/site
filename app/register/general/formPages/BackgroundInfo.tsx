@@ -12,6 +12,7 @@ import {
     studyLevelOptions,
     underrepresentedOptions
 } from "@/util/options";
+import TextInput from "@/components/TextInputMUI";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";
@@ -22,7 +23,7 @@ interface EducationProps {
 }
 
 const Education = ({ formik, accentColor }: EducationProps) => {
-    const { values, errors, touched, setFieldValue } = formik;
+    const { values, errors, touched, setFieldValue, handleChange } = formik;
     return (
         <Container>
             <Typography
@@ -37,7 +38,13 @@ const Education = ({ formik, accentColor }: EducationProps) => {
             </Typography>
 
             <Grid container columnSpacing={2} rowSpacing={6}>
-                <Grid size={{ xs: 12, sm: 12, md: 4 }}>
+                <Grid
+                    size={
+                        values.school === "Other - Not Listed"
+                            ? { xs: 12, sm: 12, md: 7 }
+                            : { xs: 12, sm: 12, md: 4 }
+                    }
+                >
                     <SelectTextInput
                         name="education"
                         label="Level of Study"
@@ -52,7 +59,13 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         helperText={!!touched.education ? errors.education : ""}
                     />{" "}
                 </Grid>
-                <Grid size={{ xs: 12, sm: 8, md: 5 }}>
+                <Grid
+                    size={
+                        values.school === "Other - Not Listed"
+                            ? { xs: 12, sm: 12, md: 5 }
+                            : { xs: 12, sm: 8, md: 5 }
+                    }
+                >
                     <SelectTextInput
                         name="school"
                         label="School"
@@ -63,12 +76,44 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                             value: option
                         }))}
                         value={values.school || ""}
-                        onChange={value => setFieldValue("school", value)}
+                        onChange={value => {
+                            setFieldValue("school", value);
+                            if (value !== "Other - Not Listed") {
+                                setFieldValue("otherSchool", "");
+                            }
+                        }}
                         error={!!touched.school && Boolean(errors.school)}
                         helperText={!!touched.school ? errors.school : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 4, md: 3 }}>
+
+                {values.school === "Other - Not Listed" && (
+                    <Grid size={{ xs: 12, sm: 12, md: 7 }}>
+                        <TextInput
+                            name="otherSchool"
+                            label="Other: School"
+                            accentColor="#3A2541"
+                            required
+                            value={values.otherSchool || ""}
+                            onChange={handleChange}
+                            error={
+                                !!touched.otherSchool &&
+                                Boolean(errors.otherSchool)
+                            }
+                            helperText={
+                                !!touched.otherSchool ? errors.otherSchool : ""
+                            }
+                            inputProps={{ maxLength: 200 }}
+                        />
+                    </Grid>
+                )}
+                <Grid
+                    size={
+                        values.school === "Other - Not Listed"
+                            ? { xs: 12, sm: 4, md: 5 }
+                            : { xs: 12, sm: 4, md: 3 }
+                    }
+                >
                     <SelectTextInput
                         name="graduate"
                         label="Graduation Year"

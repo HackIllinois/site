@@ -120,7 +120,11 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             />
                             <UserInfoBox
                                 label="School"
-                                userResponse={values.school || "N/A"}
+                                userResponse={
+                                    values.school === "Other - Not Listed"
+                                        ? values.otherSchool || "N/A"
+                                        : values.school || "N/A"
+                                }
                             />
                             <UserInfoBox
                                 label="Graduation Year"

@@ -23,6 +23,7 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     race: [],
     gender: "",
     underrepresented: "",
+    otherSchool: "",
 
     // Application Questions
     application1: "",
@@ -68,6 +69,13 @@ export const valuesToDraftContent = (
                 value as any;
         }
     }
+
+    if (draftContent.school === "Other - Not Listed") {
+        draftContent.school = (draftContent.otherSchool || "").trim();
+    }
+
+    delete draftContent.otherSchool;
+
     return draftContent;
 };
 
@@ -89,6 +97,11 @@ export const draftValidationSchemas = [
     Yup.object({
         education: Yup.string(),
         school: Yup.string(),
+        otherSchool: Yup.string().when("school", {
+            is: "Other - Not Listed",
+            then: schema => schema.trim().required("Please enter your school"),
+            otherwise: schema => schema.notRequired()
+        }),
         graduate: Yup.string(),
         major: Yup.string(),
         country: Yup.string(),
@@ -183,6 +196,11 @@ export const validationSchemas = [
     Yup.object({
         education: Yup.string().required("Level of study is required"),
         school: Yup.string().required("School is required"),
+        otherSchool: Yup.string().when("school", {
+            is: "Other - Not Listed",
+            then: schema => schema.trim().required("Please enter your school"),
+            otherwise: schema => schema.notRequired()
+        }),
         graduate: Yup.string().required("Graduation year is required"),
         major: Yup.string().required("Major is required"),
         country: Yup.string().required("Country is required"),
