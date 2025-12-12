@@ -122,7 +122,7 @@ const ProChallenge: React.FC = () => {
                 />
 
                 {/* Shooting Stars */}
-                <ShootingStars size={500} />
+                <ShootingStars />
 
                 {/* OVERLAY LAYER */}
                 <Box sx={{ position: "absolute", inset: 0 }}>
