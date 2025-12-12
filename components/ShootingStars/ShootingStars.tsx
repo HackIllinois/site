@@ -9,6 +9,7 @@ interface ShootingStar {
     x: number;
     y: number;
     rotation: number;
+    size: number;
 }
 
 interface ShootingStarsProps {
@@ -69,6 +70,9 @@ export const ShootingStars = ({
             const containerHeight = container.offsetHeight;
             const containerWidth = container.offsetWidth;
 
+            // Scale down star size on smaller screens (max 70% of container width)
+            const effectiveSize = Math.min(size, containerWidth * 0.7);
+
             // Calculate visible area within the container
             const visibleTop = Math.max(0, -rect.top);
             const visibleBottom = Math.min(
@@ -81,8 +85,8 @@ export const ShootingStars = ({
             if (visibleHeight <= 0) return;
 
             // Calculate spawn position as percentage of container
-            const starHeightPercent = (size / containerHeight) * 100;
-            const starWidthPercent = (size / containerWidth) * 100;
+            const starHeightPercent = (effectiveSize / containerHeight) * 100;
+            const starWidthPercent = (effectiveSize / containerWidth) * 100;
 
             // X position: across the full width (with padding)
             const maxX = 100 - starWidthPercent;
@@ -103,7 +107,13 @@ export const ShootingStars = ({
 
             const rotation = Math.random() * -25; // 0 to -25 degrees
 
-            const newStar: ShootingStar = { id, x, y, rotation };
+            const newStar: ShootingStar = {
+                id,
+                x,
+                y,
+                rotation,
+                size: effectiveSize
+            };
             setShootingStars(prev => [...prev, newStar]);
 
             // Remove after animation completes
@@ -140,11 +150,16 @@ export const ShootingStars = ({
                             transform: `rotate(${star.rotation}deg)`
                         }}
                     >
+                        {/* Size is adjusted to account for large padding in the asset */}
                         <DotLottieReact
                             data={lottieData}
                             loop={false}
                             autoplay
-                            style={{ width: `${size}px`, height: `${size}px` }}
+                            style={{
+                                transform: `translate(-${star.size}px, -${star.size / 2}px)`,
+                                width: `${star.size * 2}px`,
+                                height: `${star.size * 2}px`
+                            }}
                         />
                     </div>
                 ))}
