@@ -144,7 +144,6 @@ const JoinUsSponsors = () => {
 
             {/* 4. Attach the containerRef here */}
             <div className={styles.ufoContainer} ref={containerRef}>
-                {}
                 <motion.img
                     src="/landing/sponsors/desktop/ufo.svg"
                     alt="UFO"
