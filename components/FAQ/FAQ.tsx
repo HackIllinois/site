@@ -20,7 +20,7 @@ const faqItems = [
         answer: "HackIllinois is open to all current college students and recent graduates (within 1 year of graduation). You do not need any prior coding experience - we welcome students of all skill levels! Whether you are a beginner or an experienced hacker, there is a place for you at HackIllinois."
     },
     {
-        question: "How can I get help during the event?",
+        question: "Where is HackIllinois located?",
         answer: "HackIllinois 2026 will be held in the University of Illinois Urbana-Champaign. We'll provide more detailed location and parking information closer to the event date."
     },
     {
@@ -28,8 +28,8 @@ const faqItems = [
         answer: (
             <>
                 Yes! HackIllinois will offer only travel reimbursement this year
-                to attendees that submit a project. Final amounts will be
-                announced closer to the event and will be organized by zones.
+                to attendees that submit a qualified project. Final amounts will
+                be announced closer to the event and will be organized by zones.
                 <br />
                 <br />
                 To stay updated, we encourage you to{" "}
@@ -41,6 +41,21 @@ const faqItems = [
                 </a>
                 . You will receive an email as soon as the reimbursement details
                 are released.
+            </>
+        )
+    },
+    {
+        question: "What prizes will be offered this year?",
+        answer: (
+            <>
+                This year, we’re expanding our prize lineup! Alongside{" "}
+                <strong>Best General Project</strong> and{" "}
+                <strong>Best HackVoyager Project</strong>, we’re introducing new
+                awards that celebrate creativity, design, and fun, such as{" "}
+                <strong>Best UI/UX Design</strong>,{" "}
+                <strong>Most Popular</strong>, and more! Additionally, attendees
+                can earn points throughout the event and redeem them for items
+                in our point shop.
             </>
         )
     },

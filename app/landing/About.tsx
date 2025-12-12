@@ -19,10 +19,10 @@ const About = () => {
     };
 
     const parallaxStyleMobile = {
-        transform: `translateY(${offsetY * 0.05}px)`
+        transform: `translateY(${offsetY * 0.04}px)`
     };
     const parallaxStyle2Mobile = {
-        transform: `translateY(${offsetY * 0.15}px)`
+        transform: `translateY(${offsetY * 0.1}px)`
     };
 
     const containerVariants: Variants = {
@@ -97,7 +97,6 @@ const About = () => {
                     fill
                     className={clsx(styles.tinyStarsBackground, styles.mobile)}
                     priority
-                    style={parallaxStyle2Mobile}
                 />
             </div>
 
@@ -142,7 +141,7 @@ const About = () => {
 
                             "& strong": {
                                 background:
-                                    "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+                                    "linear-gradient(90deg, #FF66DC 0%, #FDAB60 40%, #FF66DC 100%)",
                                 WebkitBackgroundClip: "text",
                                 backgroundClip: "text",
                                 color: "transparent",
@@ -190,17 +189,17 @@ const About = () => {
                         component="p"
                         sx={{
                             mt: 4,
-                            fontSize: 28,
-                            fontFamily: "Tsukimi Rounded",
+                            fontSize: { xs: 28, md: 32 },
                             fontWeight: 600,
 
                             "& span": {
                                 background:
-                                    "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+                                    "linear-gradient(90deg, #FFAABB 0%, #FEB46B 30%, #FF66DC 70%, #FEB070 100%)",
                                 WebkitBackgroundClip: "text",
                                 backgroundClip: "text",
                                 color: "transparent",
-                                filter: "drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.7))"
+                                filter: "drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.9))",
+                                fontFamily: "Tsukimi Rounded"
                             }
                         }}
                     >

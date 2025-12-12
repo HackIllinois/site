@@ -3,12 +3,12 @@
     height: auto;
     position: absolute;
     top: 15%;
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
         display: none;
     }
     &.mobile {
         display: none;
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             display: block;
             position: absolute;
             top: 22%;
@@ -21,14 +21,14 @@
     height: auto;
     position: absolute;
     top: 39%;
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
         display: none;
     }
     &.mobile {
         display: none;
         filter: brightness(60%);
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             display: block;
             position: absolute;
             top: 33%;
@@ -40,17 +40,17 @@
     width: 100%;
     height: auto;
     position: absolute;
-    top: 54%;
-    @media (max-width: 768px) {
+    top: 56%;
+    @media (max-width: 900px) {
         display: none;
     }
     &.mobile {
         display: none;
         filter: brightness(70%);
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             display: block;
             position: absolute;
-            top: 58%;
+            top: 60.5%;
         }
     }
 }

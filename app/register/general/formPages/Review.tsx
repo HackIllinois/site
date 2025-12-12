@@ -150,9 +150,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             />
                             <UserInfoBox
                                 label="Do you identify as part of an underrepresented group in the technology industry?"
-                                userResponse={
-                                    values.underrepresented ? "Yes" : "No"
-                                }
+                                userResponse={values.underrepresented || "No"}
                             />
                         </ReviewInfoAccordionBox>
                     </AccordionDetails>
@@ -248,7 +246,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                     pl={"18px"}
                     borderRadius={4}
                     border="1px solid white"
-                    bgcolor="rgba(0, 0, 0, 0.3)"
+                    bgcolor="rgba(0, 0, 0, 0.7)"
                 >
                     <Box>
                         <CheckboxSelect

@@ -13,24 +13,24 @@ const ProChallenge: React.FC = () => {
     const { offsetY: offsetY3, ref: ref3 } = useParallaxScrollY();
 
     const parallaxStyle = {
-        transform: `translateY(${offsetY * 0.1}px)`
+        transform: `translateY(${offsetY * 0.05}px)`
     };
     const parallaxStyleMobile = {
-        transform: `translateY(${offsetY * 0.1}px)`
+        transform: `translateY(${offsetY * 0.07}px)`
     };
 
     const parallaxStyle2 = {
-        transform: `translateY(${offsetY2 * 0.15}px)`
+        transform: `translateY(${offsetY2 * 0.1}px)`
     };
     const parallaxStyleMobile2 = {
-        transform: `translateY(${offsetY2 * 0.1}px)`
+        transform: `translateY(${offsetY2 * 0.08}px)`
     };
 
     const parallaxStyle3 = {
-        transform: `translateY(${offsetY3 * 0.05}px)`
+        transform: `translateY(${offsetY3 * 0.05}px) scale(1.2)`
     };
     const parallaxStyleMobile3 = {
-        transform: `translateY(${offsetY3 * 0.1}px)`
+        transform: `translateY(${offsetY3 * 0.05}px) scale(1.2)`
     };
 
     // 1. Container Variant
@@ -288,7 +288,7 @@ const ProChallenge: React.FC = () => {
                                         whiteSpace: "nowrap"
                                     }}
                                 >
-                                    WHAT ARE{" "}
+                                    WHAT IS{" "}
                                     <Box
                                         component="span"
                                         sx={{
@@ -577,9 +577,6 @@ const ProChallenge: React.FC = () => {
                         </motion.div>
                     </Box>
 
-                    {/* ======================================= */}
-                    {/* STATIC: PLANETS (Parallax Only)         */}
-                    {/* ======================================= */}
                     <img
                         src="/challenge/backgrounds/desktop/planets.svg"
                         className={styles.planets}
@@ -592,15 +589,11 @@ const ProChallenge: React.FC = () => {
                         style={parallaxStyleMobile3}
                     />
 
-                    {/* textbox 2 end */}
-
-                    {/* textbox 3 start */}
-
                     <Box
                         sx={{
                             position: "absolute",
                             left: { xs: "50%", md: "38%" },
-                            top: { xs: "68%", md: "66%" },
+                            top: { xs: "71%", md: "69%" },
                             transform: "translateX(-50%)",
                             width: "85vw",
 
@@ -632,7 +625,7 @@ const ProChallenge: React.FC = () => {
                                         mb: { xs: 2, md: 6 }
                                     }}
                                 >
-                                    HOW IS{" "}
+                                    HOW ARE{" "}
                                     <Box
                                         component="span"
                                         sx={{
@@ -654,8 +647,7 @@ const ProChallenge: React.FC = () => {
                                             }}
                                         />
                                     </Box>{" "}
-                                    DIFFERENT FROM STANDARD HACKILLINOIS
-                                    ATTENDANCE?
+                                    DIFFERENT FROM GENERAL ATTENDEES?
                                 </Typography>
                             </motion.div>
                             <motion.div variants={itemVariants}>

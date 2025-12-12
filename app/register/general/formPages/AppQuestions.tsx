@@ -109,7 +109,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 <Grid size={12}>
                     <CheckboxSelect
                         name="pro"
-                        label="Would you like to be considered for HackVoyagers Track?"
+                        label="Would you like to be considered for HackVoyagers Path?"
                         sublabelContent={
                             <Box sx={{ display: "flex", alignItems: "center" }}>
                                 <Typography
@@ -118,7 +118,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                                     sx={{ opacity: "0.8" }}
                                 >
                                     {
-                                        "You'll have to complete a short coding challenge about 1 hour long. Learn more about HackVoyagers"
+                                        "You will have to complete a coding challenge to be eligible for the Path. Learn more about HackVoyagers"
                                     }
                                     <Link
                                         href="/challenge/landing-page"

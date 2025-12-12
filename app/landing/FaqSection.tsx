@@ -65,7 +65,7 @@ const FaqSection = () => {
 
             {/* Desktop Background with Alarm Effect */}
             <MotionImage
-                src="/landing/faq/desktop/background.png"
+                src="/landing/faq/desktop/background.svg"
                 alt="FAQ Background"
                 fill
                 className={styles.faqBackground}
@@ -76,7 +76,7 @@ const FaqSection = () => {
 
             {/* Mobile Background with Alarm Effect */}
             <MotionImage
-                src="/landing/faq/mobile/background.png"
+                src="/landing/faq/mobile/background.svg"
                 alt="FAQ Background"
                 fill
                 className={clsx(styles.faqBackground, styles.mobile)}

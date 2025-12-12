@@ -11,7 +11,7 @@ const HackVoyagers = () => {
     const { offsetY, ref } = useParallaxScrollY();
 
     const parallaxStyle2 = {
-        transform: `translateY(${offsetY * 0.1}px)`
+        transform: `translateY(${offsetY * 0.08}px)`
     };
 
     // 1. Define Variants
