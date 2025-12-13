@@ -21,6 +21,7 @@ import {
     StyledAccordionDetails,
     UserInfoBox
 } from "../components/Review";
+import { OTHER_SCHOOL_OPTION } from "../constants/registration";
 
 interface ReviewProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
@@ -121,7 +122,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             <UserInfoBox
                                 label="School"
                                 userResponse={
-                                    values.school === "Other - Not Listed"
+                                    values.school === OTHER_SCHOOL_OPTION
                                         ? values.otherSchool || "N/A"
                                         : values.school || "N/A"
                                 }

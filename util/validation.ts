@@ -1,3 +1,4 @@
+import { OTHER_SCHOOL_OPTION } from "@/app/register/general/constants/registration";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import * as Yup from "yup";
 
@@ -70,7 +71,7 @@ export const valuesToDraftContent = (
         }
     }
 
-    if (draftContent.school === "Other - Not Listed") {
+    if (draftContent.school === OTHER_SCHOOL_OPTION) {
         draftContent.school = (draftContent.otherSchool || "").trim();
     }
 
@@ -98,7 +99,7 @@ export const draftValidationSchemas = [
         education: Yup.string(),
         school: Yup.string(),
         otherSchool: Yup.string().when("school", {
-            is: "Other - Not Listed",
+            is: OTHER_SCHOOL_OPTION,
             then: schema => schema.trim().required("Please enter your school"),
             otherwise: schema => schema.notRequired()
         }),
@@ -197,7 +198,7 @@ export const validationSchemas = [
         education: Yup.string().required("Level of study is required"),
         school: Yup.string().required("School is required"),
         otherSchool: Yup.string().when("school", {
-            is: "Other - Not Listed",
+            is: OTHER_SCHOOL_OPTION,
             then: schema => schema.trim().required("Please enter your school"),
             otherwise: schema => schema.notRequired()
         }),

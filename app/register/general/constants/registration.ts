@@ -39,3 +39,5 @@ export const page_slugs = [
     "review-and-submit",
     "confirmation"
 ] as const;
+
+export const OTHER_SCHOOL_OPTION = "Other - Not Listed";

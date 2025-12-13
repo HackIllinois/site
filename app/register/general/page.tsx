@@ -35,7 +35,7 @@ import {
     subscribe
 } from "@/util/api";
 import RegistrationStepper from "./components/RegistrationStepper";
-import { steps } from "./constants/registration";
+import { OTHER_SCHOOL_OPTION, steps } from "./constants/registration";
 import GithubAuthPage from "./formPages/GithubAuthPage";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
 import { schoolOptions } from "@/util/options";
@@ -155,7 +155,7 @@ const GeneralRegistration = () => {
                 const isListedSchool =
                     savedSchool === "" || schoolOptions.includes(savedSchool);
                 if (!isListedSchool) {
-                    mergedValues.school = "Other - Not Listed";
+                    mergedValues.school = OTHER_SCHOOL_OPTION;
                     mergedValues.otherSchool = savedSchool;
                 } else {
                     mergedValues.otherSchool = "";
@@ -301,7 +301,7 @@ const GeneralRegistration = () => {
             }
             try {
                 const body: any = { ...formik.values };
-                if (body.school === "Other - Not Listed") {
+                if (body.school === OTHER_SCHOOL_OPTION) {
                     body.school = (body.otherSchool || "").trim();
                 }
                 delete body.otherSchool;

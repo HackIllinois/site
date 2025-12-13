@@ -16,6 +16,7 @@ import TextInput from "@/components/TextInputMUI";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";
+import { OTHER_SCHOOL_OPTION } from "../constants/registration";
 
 interface EducationProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
@@ -40,7 +41,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
             <Grid container columnSpacing={2} rowSpacing={6}>
                 <Grid
                     size={
-                        values.school === "Other - Not Listed"
+                        values.school === OTHER_SCHOOL_OPTION
                             ? { xs: 12, sm: 12, md: 7 }
                             : { xs: 12, sm: 12, md: 4 }
                     }
@@ -61,7 +62,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                 </Grid>
                 <Grid
                     size={
-                        values.school === "Other - Not Listed"
+                        values.school === OTHER_SCHOOL_OPTION
                             ? { xs: 12, sm: 12, md: 5 }
                             : { xs: 12, sm: 8, md: 5 }
                     }
@@ -79,7 +80,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         value={values.school || ""}
                         onChange={value => {
                             setFieldValue("school", value);
-                            if (value !== "Other - Not Listed") {
+                            if (value !== OTHER_SCHOOL_OPTION) {
                                 setFieldValue("otherSchool", "");
                             }
                         }}
@@ -88,7 +89,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                     />
                 </Grid>
 
-                {values.school === "Other - Not Listed" && (
+                {values.school === OTHER_SCHOOL_OPTION && (
                     <Grid size={{ xs: 12, sm: 12, md: 7 }}>
                         <TextInput
                             name="otherSchool"
@@ -110,7 +111,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                 )}
                 <Grid
                     size={
-                        values.school === "Other - Not Listed"
+                        values.school === OTHER_SCHOOL_OPTION
                             ? { xs: 12, sm: 4, md: 5 }
                             : { xs: 12, sm: 4, md: 3 }
                     }
