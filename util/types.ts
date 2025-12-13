@@ -73,6 +73,7 @@ export type RegistrationApplicationDraftBodyForm =
         codeOfConductAcknowledge?: boolean;
         mlhDataSharingAcknowledge?: boolean;
         optInHackNewsletter?: boolean;
+        otherSchool?: string;
     };
 
 export type RegistrationResponseFieldInfo = {

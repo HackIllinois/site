@@ -35,9 +35,10 @@ import {
     subscribe
 } from "@/util/api";
 import RegistrationStepper from "./components/RegistrationStepper";
-import { steps } from "./constants/registration";
+import { OTHER_SCHOOL_OPTION, steps } from "./constants/registration";
 import GithubAuthPage from "./formPages/GithubAuthPage";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
+import { schoolOptions } from "@/util/options";
 
 const GeneralRegistration = () => {
     const [showSaveAlert, setShowSaveAlert] = useState(false);
@@ -148,6 +149,18 @@ const GeneralRegistration = () => {
             if (draft) {
                 // Merge draft with initialValues to fill in any missing fields
                 let mergedValues = { ...initialValues, ...draft };
+
+                // Checking if school saved is among the options listed in dropdown
+                const savedSchool = (draft.school ?? "").trim();
+                const isListedSchool =
+                    savedSchool === "" || schoolOptions.includes(savedSchool);
+                if (!isListedSchool) {
+                    mergedValues.school = OTHER_SCHOOL_OPTION;
+                    mergedValues.otherSchool = savedSchool;
+                } else {
+                    mergedValues.otherSchool = "";
+                }
+
                 formik.setValues(mergedValues);
             }
 
@@ -287,7 +300,12 @@ const GeneralRegistration = () => {
                 }
             }
             try {
-                await submitDraft(formik.values);
+                const body: any = { ...formik.values };
+                if (body.school === OTHER_SCHOOL_OPTION) {
+                    body.school = (body.otherSchool || "").trim();
+                }
+                delete body.otherSchool;
+                await submitDraft(body);
                 setIsSubmitted(true);
             } catch (error: any) {
                 console.error("Failed to submit draft:", error);
