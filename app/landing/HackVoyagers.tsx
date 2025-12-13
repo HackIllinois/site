@@ -5,7 +5,7 @@ import Image from "next/image";
 import styles from "./HackVoyagers.module.scss";
 import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
 import { motion, Variants } from "framer-motion";
-import { ShootingStars } from "@/components/ShootingStars/ShootingStars";
+import { ShootingStar } from "@/components/ShootingStars/ShootingStar";
 
 const HackVoyagers = () => {
     const { offsetY, ref } = useParallaxScrollY();
@@ -84,7 +84,9 @@ const HackVoyagers = () => {
             </div>
 
             {/* Shooting Stars */}
-            <ShootingStars size={500} />
+            <ShootingStar />
+            <ShootingStar />
+            <ShootingStar />
 
             {/* 3. Wrap Robot container with motion div */}
             <motion.div

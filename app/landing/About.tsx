@@ -6,7 +6,7 @@ import Image from "next/image";
 import styles from "./About.module.scss";
 import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
 import { motion, Variants } from "framer-motion";
-import { ShootingStars } from "@/components/ShootingStars/ShootingStars";
+import { ShootingStar } from "@/components/ShootingStars/ShootingStar";
 
 const About = () => {
     const { offsetY, ref } = useParallaxScrollY();
@@ -101,7 +101,9 @@ const About = () => {
             </div>
 
             {/* Shooting Stars */}
-            <ShootingStars size={500} />
+            <ShootingStar />
+            <ShootingStar />
+            <ShootingStar />
 
             {/* 3. Convert container to motion.div and apply container variants */}
             <motion.div
