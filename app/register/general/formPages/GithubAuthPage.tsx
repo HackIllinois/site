@@ -20,7 +20,7 @@ const GithubAuthPage = () => {
                 sx={{
                     position: "fixed",
                     display: "flex",
-                    width: "100vw",
+                    width: "100%",
                     height: "100vh",
                     backgroundImage: `url("/registration/backgrounds/personal_info.svg")`,
                     backgroundSize: "cover",
@@ -38,8 +38,8 @@ const GithubAuthPage = () => {
                     flexDirection: "column",
                     alignItems: "center",
                     textAlign: "center",
-                    pt: "80px",
-                    pb: { xs: "80px", md: "0px" },
+                    pt: "120px",
+                    pb: { xs: 4, md: 0 },
                     px: { xs: 2, sm: 3 }
                 }}
             >
@@ -121,7 +121,7 @@ const GithubAuthPage = () => {
                                 fontFamily: "Montserrat",
                                 fontWeight: 500,
                                 fontStyle: "italic",
-                                fontSize: { xs: "12px", md: "16px" },
+                                fontSize: { xs: "14px", md: "16px" },
                                 lineHeight: "100%",
                                 textAlign: "center",
                                 color: "white"
