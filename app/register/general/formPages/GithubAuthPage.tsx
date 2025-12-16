@@ -37,9 +37,10 @@ const GithubAuthPage = () => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
+                    justifyContent: "center",
                     textAlign: "center",
                     pt: "120px",
-                    pb: { xs: 4, md: 0 },
+                    pb: { xs: 4, md: "120px" },
                     px: { xs: 2, sm: 3 }
                 }}
             >
