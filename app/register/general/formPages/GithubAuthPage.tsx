@@ -8,67 +8,184 @@ const GithubAuthPage = () => {
     };
 
     return (
-        <>
+        <Box
+            sx={{
+                position: "relative",
+                minHeight: "100vh",
+                width: "100%",
+                overflowY: "auto"
+            }}
+        >
             <Box
                 sx={{
+                    position: "fixed",
                     display: "flex",
-                    width: "100vw",
+                    width: "100%",
                     height: "100vh",
                     backgroundImage: `url("/registration/backgrounds/personal_info.svg")`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    transform: "scale(1.25)"
+                    transform: "scale(1.25)",
+                    zIndex: -1
                 }}
-            ></Box>
+            />
             <Box
                 sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100vw",
-                    height: "100vh",
+                    width: "100%",
+                    minHeight: "100vh",
                     display: "flex",
-                    justifyContent: "center",
+                    flexDirection: "column",
                     alignItems: "center",
-                    gap: 3
+                    justifyContent: "center",
+                    textAlign: "center",
+                    pt: "120px",
+                    pb: { xs: 4, md: "120px" },
+                    px: { xs: 2, sm: 3 }
                 }}
             >
-                <Box
+                <img
+                    src="/registration/hackastra-logo.png"
+                    alt="Hackastra Logo"
+                    style={{
+                        width: "auto",
+                        height: "80px",
+                        maxWidth: "100%",
+                        marginBottom: "20px",
+                        objectFit: "contain"
+                    }}
+                />
+                <Typography
+                    variant="h6"
+                    component="p"
                     sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        textAlign: "center",
-                        padding: "0 20px"
+                        mb: 3,
+                        color: "white",
+                        opacity: 0.9,
+                        fontFamily: "Montserrat",
+                        paddingLeft: 6,
+                        paddingRight: 6
                     }}
                 >
-                    <img
-                        src="/registration/hackastra-logo.png"
-                        alt="Hackastra Logo"
-                        style={{
-                            width: "auto",
-                            height: "80px",
-                            maxWidth: "100%",
-                            marginBottom: "20px",
-                            objectFit: "contain"
-                        }}
-                    />
-                    <Typography
-                        variant="h6"
-                        component="p"
+                    Sign in with your GitHub account to get started
+                </Typography>
+
+                {/* Priority and final deadline boxes */}
+                <Box
+                    sx={{
+                        width: {
+                            xs: "100%",
+                            sm: "80vw",
+                            md: "716px"
+                        },
+                        maxWidth: "716px",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "24px",
+                        mb: "26px"
+                    }}
+                >
+                    <Box
                         sx={{
-                            mb: 3,
-                            color: "white",
-                            opacity: 0.9,
-                            fontFamily: "Montserrat",
-                            paddingLeft: 6,
-                            paddingRight: 6
+                            minHeight: { xs: "auto", md: "103px" },
+                            borderRadius: "67px",
+                            px: { xs: 3, md: 4 },
+                            py: { xs: 2, md: 0 },
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            background:
+                                "linear-gradient(90deg, rgba(163,21,214,0.6) 0%, rgba(253,171,96,0.6) 51.44%, rgba(163,21,214,0.6) 100%)"
                         }}
                     >
-                        Sign in with your GitHub account to get started
-                    </Typography>
+                        <Typography
+                            sx={{
+                                fontFamily: "Montserrat",
+                                fontWeight: 700,
+                                fontSize: {
+                                    xs: "14px",
+                                    sm: "16px",
+                                    md: "20px"
+                                },
+                                lineHeight: "100%",
+                                textAlign: "center",
+                                mb: "12px",
+                                color: "white"
+                            }}
+                        >
+                            PRIORITY DEADLINE: Jan 4th, 2026
+                        </Typography>
+
+                        <Typography
+                            sx={{
+                                fontFamily: "Montserrat",
+                                fontWeight: 500,
+                                fontStyle: "italic",
+                                fontSize: { xs: "14px", md: "16px" },
+                                lineHeight: "100%",
+                                textAlign: "center",
+                                color: "white"
+                            }}
+                        >
+                            Those who register by this deadline will be entered
+                            in a raffle to win an{" "}
+                            <Box
+                                component="span"
+                                sx={{
+                                    fontWeight: 600,
+                                    fontStyle: "italic"
+                                }}
+                            >
+                                iPad
+                            </Box>
+                            !
+                        </Typography>
+                    </Box>
+
+                    <Box
+                        sx={{
+                            minHeight: {
+                                xs: "auto",
+                                md: "67px"
+                            },
+                            borderRadius: "67px",
+                            px: { xs: 3, md: 4 },
+                            py: { xs: 2, md: 0 },
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor: "rgba(64, 26, 121, 0.6)"
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                fontFamily: "Montserrat",
+                                fontWeight: 700,
+                                fontSize: {
+                                    xs: "14px",
+                                    sm: "16px",
+                                    md: "20px"
+                                },
+                                lineHeight: "100%",
+                                textAlign: "center",
+                                color: "white"
+                            }}
+                        >
+                            FINAL DEADLINE: Jan 27th, 2026
+                        </Typography>
+                    </Box>
+                </Box>
+
+                <Box
+                    sx={{
+                        borderRadius: "999px",
+                        padding: "5px",
+                        background:
+                            "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
+                        display: "inline-flex"
+                    }}
+                >
                     <Button
                         variant="contained"
                         size="large"
@@ -107,7 +224,7 @@ const GithubAuthPage = () => {
                     </Button>
                 </Box>
             </Box>
-        </>
+        </Box>
     );
 };
 
