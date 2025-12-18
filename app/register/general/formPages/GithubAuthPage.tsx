@@ -41,7 +41,7 @@ const GithubAuthPage = () => {
                     textAlign: "center",
                     pt: "120px",
                     pb: { xs: 4, md: "120px" },
-                    px: { xs: 2, sm: 3 }
+                    px: 3
                 }}
             >
                 <img
@@ -49,7 +49,7 @@ const GithubAuthPage = () => {
                     alt="Hackastra Logo"
                     style={{
                         width: "auto",
-                        height: "80px",
+                        maxHeight: "110px",
                         maxWidth: "100%",
                         marginBottom: "20px",
                         objectFit: "contain"
@@ -63,6 +63,10 @@ const GithubAuthPage = () => {
                         color: "white",
                         opacity: 0.9,
                         fontFamily: "Montserrat",
+                        fontSize: {
+                            xs: "16px",
+                            md: "20px"
+                        },
                         paddingLeft: 6,
                         paddingRight: 6
                     }}
@@ -195,7 +199,11 @@ const GithubAuthPage = () => {
                             backgroundColor: "#24292f",
                             color: "#ffffff",
                             padding: "10px 20px",
-                            fontSize: "16px",
+                            fontSize: {
+                                xs: "16px",
+                                sm: "18px",
+                                md: "20px"
+                            },
                             fontWeight: 600,
                             borderRadius: "999px",
                             textTransform: "none",
