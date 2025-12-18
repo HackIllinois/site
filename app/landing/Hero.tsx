@@ -8,6 +8,7 @@ import Image from "next/image";
 import { START_END_DATES } from "./constants";
 import styles from "./Hero.module.scss";
 import { motion, Variants } from "framer-motion";
+import { ShootingStar } from "@/components/ShootingStars/ShootingStar";
 
 // Create a motion-enabled version of the Next.js Image component
 const MotionImage = motion(Image);
@@ -103,6 +104,11 @@ const Hero = () => {
                     style={parallaxStyle2Mobile}
                 />
             </div>
+
+            {/* Shooting Stars */}
+            <ShootingStar />
+            <ShootingStar />
+            <ShootingStar />
 
             {/* 3. Apply the container variants to the main content wrapper */}
             <motion.div

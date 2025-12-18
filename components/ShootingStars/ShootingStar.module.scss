@@ -1,0 +1,28 @@
+.shootingStarsContainer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.shootingStar {
+    position: absolute;
+    pointer-events: none;
+    animation: shootingStarFade 2s ease-out forwards;
+}
+
+@keyframes shootingStarFade {
+    0% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
