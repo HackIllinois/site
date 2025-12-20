@@ -50,7 +50,6 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
     const autocompleteRef = useRef<HTMLDivElement>(null);
     const listboxRef = useRef<HTMLUListElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const tabPressedRef = useRef(false);
 
     const normalizedValue = multiple
         ? options.filter(o => Array.isArray(value) && value.includes(o.value))
@@ -130,23 +129,20 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                     onScroll: handleListboxScroll,
                     ref: listboxRef
                 }}
-                // --- code for handling save-on-Tab-keypress
+                // handle saving on Tab keypress
                 onKeyDown={event => {
-                    if (event.key === "Tab") {
-                        tabPressedRef.current = true;
+                    if (event.key !== "Tab") {
+                        return;
                     }
-                }}
-                onBlur={_ => {
-                    // if the user pressed Tab, imitate Enter (select highlighted item)
-                    const isTabPress = tabPressedRef.current;
-                    tabPressedRef.current = false; // reset
 
+                    // grab the currently highlighted item
                     const focusedItem =
                         listboxRef.current?.querySelector(".Mui-focused");
 
                     const focusedValue = focusedItem?.getAttribute("value");
 
-                    if (isTabPress && focusedValue) {
+                    // and set it to be properly selected before moving on
+                    if (focusedValue) {
                         if (multiple) {
                             const newValues = Array.isArray(value)
                                 ? [...value]
@@ -163,12 +159,6 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                         }
                     }
                 }}
-                onKeyUp={event => {
-                    if (event.key === "Tab") {
-                        tabPressedRef.current = false;
-                    } // reset just in case
-                }}
-                // --- ^ code for handling Tab
                 renderInput={params => (
                     <TextField
                         {...params}

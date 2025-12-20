@@ -1,4 +1,5 @@
 // import { RegistrationData } from "@/util/types";
+import { Check } from "@mui/icons-material";
 import {
     Checkbox,
     FormControlLabel,
@@ -107,32 +108,36 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
                                 checked={value.includes(opt.value)}
                                 onChange={handleChange}
                                 value={opt.value}
+                                checkedIcon={<Check />}
                                 sx={{
                                     width: "36px",
                                     height: "36px",
                                     padding: "0px", // override default
-                                    borderRadius: 0, // override default
-                                    clipPath: "inset(0 round 8px)",
+                                    borderRadius: 2, // override default
                                     backgroundColor: "#f0f0f0",
                                     display: "flex",
                                     flexShrink: 0,
-                                    overflow: "hidden",
 
                                     "& .MuiSvgIcon-root": {
-                                        transform: "scale(1.35)",
                                         width: "100%",
                                         height: "100%",
                                         backgroundColor: "transparent",
                                         color: "transparent" // unchecked icon color
                                     },
                                     "&.Mui-checked": {
-                                        color: accentColor // this affects the animation
+                                        color: accentColor, // this affects the animation
+                                        background: accentColor
                                     },
                                     "&.Mui-checked .MuiSvgIcon-root": {
-                                        color: accentColor // checkmark color
+                                        color: "#ffffff" // checkmark color
                                     },
+
                                     "&:hover": {
                                         backgroundColor: "#ffffff", // lighter on hover
+                                        boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
+                                    },
+                                    "&.Mui-checked:hover": {
+                                        backgroundColor: accentColor, // don't lighten
                                         boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
                                     }
                                 }}
