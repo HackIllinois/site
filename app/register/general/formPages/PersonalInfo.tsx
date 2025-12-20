@@ -68,7 +68,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={!!touched.age ? errors.age : ""}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 7, md: 6 }}>
+                <Grid size={{ xs: 12, sm: 7, md: 4 }}>
                     <TextInput
                         name="preferredName"
                         label="Preferred Name"
@@ -86,7 +86,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                     />
                 </Grid>
 
-                <Grid size={{ xs: 12, sm: 12, md: 6 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 4 }}>
                     <TextInput
                         name="email"
                         label="Email Address"
@@ -98,6 +98,24 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         error={!!touched.email && Boolean(errors.email)}
                         helperText={!!touched.email ? errors.email : ""}
                         inputProps={{ maxLength: 200 }}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, sm: 12, md: 4 }}>
+                    <TextInput
+                        name="phoneNumber"
+                        label="Phone Number"
+                        accentColor={accentColor}
+                        required
+                        type="tel"
+                        value={values.phoneNumber}
+                        onChange={handleChange}
+                        error={
+                            !!touched.phoneNumber && Boolean(errors.phoneNumber)
+                        }
+                        helperText={
+                            !!touched.phoneNumber ? errors.phoneNumber : ""
+                        }
+                        inputProps={{ maxLength: 20 }}
                     />
                 </Grid>
             </Grid>

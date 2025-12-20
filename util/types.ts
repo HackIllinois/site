@@ -11,6 +11,7 @@ export type RegistrationApplicationSubmitted = {
     preferredName?: string;
     age: string;
     email: string;
+    phoneNumber?: string;
 
     gender: string;
     race: string[];
@@ -43,6 +44,7 @@ export type RegistrationApplicationDraftBody = {
     preferredName?: string;
     age?: string;
     email?: string;
+    phoneNumber?: string;
     gender?: string;
     race?: string[];
     country?: string;

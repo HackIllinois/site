@@ -98,6 +98,10 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 label="Email"
                                 userResponse={values.email || "N/A"}
                             />
+                            <UserInfoBox
+                                label="Phone Number"
+                                userResponse={values.phoneNumber || "N/A"}
+                            />
                         </ReviewInfoAccordionBox>
                     </StyledAccordionDetails>
                 </StyledAccordion>
