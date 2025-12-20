@@ -13,6 +13,7 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     preferredName: "",
     age: "",
     email: "",
+    phoneNumber: "",
 
     // Education
     education: "",
@@ -91,7 +92,8 @@ export const draftValidationSchemas = [
         lastName: Yup.string(),
         preferredName: Yup.string().nullable(),
         age: Yup.string(),
-        email: Yup.string().email("Invalid email address")
+        email: Yup.string().email("Invalid email address"),
+        phoneNumber: Yup.string()
     }),
 
     // 1. Background Information
@@ -190,7 +192,8 @@ export const validationSchemas = [
         age: Yup.string().required("Age is required"),
         email: Yup.string()
             .email("Invalid email address")
-            .required("Email is required")
+            .required("Email is required"),
+        phoneNumber: Yup.string().required("Phone number is required")
     }),
 
     // 1. Background Information
