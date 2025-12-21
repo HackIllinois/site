@@ -1,3 +1,4 @@
+import { OTHER_SCHOOL_OPTION } from "@/app/register/general/constants/registration";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import * as Yup from "yup";
 
@@ -12,6 +13,7 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     preferredName: "",
     age: "",
     email: "",
+    phoneNumber: "",
 
     // Education
     education: "",
@@ -23,6 +25,7 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     race: [],
     gender: "",
     underrepresented: "",
+    otherSchool: "",
 
     // Application Questions
     application1: "",
@@ -68,6 +71,13 @@ export const valuesToDraftContent = (
                 value as any;
         }
     }
+
+    if (draftContent.school === OTHER_SCHOOL_OPTION) {
+        draftContent.school = (draftContent.otherSchool || "").trim();
+    }
+
+    delete draftContent.otherSchool;
+
     return draftContent;
 };
 
@@ -82,13 +92,19 @@ export const draftValidationSchemas = [
         lastName: Yup.string(),
         preferredName: Yup.string().nullable(),
         age: Yup.string(),
-        email: Yup.string().email("Invalid email address")
+        email: Yup.string().email("Invalid email address"),
+        phoneNumber: Yup.string()
     }),
 
     // 1. Background Information
     Yup.object({
         education: Yup.string(),
         school: Yup.string(),
+        otherSchool: Yup.string().when("school", {
+            is: OTHER_SCHOOL_OPTION,
+            then: schema => schema.trim().required("Please enter your school"),
+            otherwise: schema => schema.notRequired()
+        }),
         graduate: Yup.string(),
         major: Yup.string(),
         country: Yup.string(),
@@ -176,13 +192,19 @@ export const validationSchemas = [
         age: Yup.string().required("Age is required"),
         email: Yup.string()
             .email("Invalid email address")
-            .required("Email is required")
+            .required("Email is required"),
+        phoneNumber: Yup.string().required("Phone number is required")
     }),
 
     // 1. Background Information
     Yup.object({
         education: Yup.string().required("Level of study is required"),
         school: Yup.string().required("School is required"),
+        otherSchool: Yup.string().when("school", {
+            is: OTHER_SCHOOL_OPTION,
+            then: schema => schema.trim().required("Please enter your school"),
+            otherwise: schema => schema.notRequired()
+        }),
         graduate: Yup.string().required("Graduation year is required"),
         major: Yup.string().required("Major is required"),
         country: Yup.string().required("Country is required"),
