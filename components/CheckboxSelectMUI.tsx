@@ -1,4 +1,5 @@
 // import { RegistrationData } from "@/util/types";
+import { Check } from "@mui/icons-material";
 import { Checkbox, FormControlLabel, FormHelperText } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
@@ -60,7 +61,15 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                     <>
                         {label}
                         {required && (
-                            <span style={{ color: "#d32f2f" }}>*</span>
+                            <span
+                                style={{
+                                    color: "#d32f2f",
+                                    position: "absolute",
+                                    fontWeight: 500
+                                }}
+                            >
+                                *
+                            </span>
                         )}
                     </>
                 ) : null}
@@ -79,7 +88,7 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
 
             <FormControlLabel
                 sx={{
-                    padding: 2,
+                    margin: 2,
                     display: "flex",
                     "& .MuiCheckbox-root": {
                         width: 36,
@@ -92,30 +101,36 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                         checked={value}
                         onChange={handleChange}
                         value={value}
+                        checkedIcon={<Check />}
                         sx={{
-                            width: 36,
-                            height: 36,
+                            width: "36px",
+                            height: "36px",
                             padding: "0px", // override default
-                            borderRadius: 2,
+                            borderRadius: 2, // override default
                             backgroundColor: "#f0f0f0",
-                            overflow: "hidden",
+                            display: "flex",
+                            flexShrink: 0,
 
                             "& .MuiSvgIcon-root": {
-                                transform: "scale(1.34)",
                                 width: "100%",
                                 height: "100%",
                                 backgroundColor: "transparent",
-                                color: "transparent", // unchecked icon color
-                                borderRadius: 1.5
+                                color: "transparent" // unchecked icon color
                             },
                             "&.Mui-checked": {
-                                color: accentColor // this affects the animation
+                                color: accentColor, // this affects the animation
+                                background: accentColor
                             },
                             "&.Mui-checked .MuiSvgIcon-root": {
-                                color: accentColor // checkmark color
+                                color: "#ffffff" // checkmark color
                             },
+
                             "&:hover": {
                                 backgroundColor: "#ffffff", // lighter on hover
+                                boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
+                            },
+                            "&.Mui-checked:hover": {
+                                backgroundColor: accentColor, // don't lighten
                                 boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
                             }
                         }}

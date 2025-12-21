@@ -15,7 +15,7 @@ import {
     useMediaQuery
 } from "@mui/material";
 import { useFormik } from "formik";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import * as Yup from "yup";
 import AppQuestions from "./formPages/AppQuestions";
 import AttendingHack from "./formPages/AttendingHack";
@@ -46,6 +46,7 @@ const GeneralRegistration = () => {
     const [showClickOffAlert, setShowClickOffAlert] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [isSaving, setIsSaving] = useState(false);
+    const saveTimeoutRef = useRef<NodeJS.Timeout>(null); // stores ten-second-delay autosave
     const [isLoadingComponent, setIsLoadingComponent] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const registrationAuth = useRegistrationAuth();
@@ -328,16 +329,27 @@ const GeneralRegistration = () => {
             return;
         }
         setShowClickOffAlert(true);
+        // save modified values after a delay
         const timeout = setTimeout(() => {
             handleSave();
         }, 10_000);
+        saveTimeoutRef.current = timeout;
         return () => clearTimeout(timeout);
+        // changing currentStep (i.e. changing section/subpage)
+        // triggers a different useEffect (below)
     }, [formik.values, registrationAuth.authenticated]);
 
     useEffect(() => {
         // Don't autosave on the review info page and confirmation page.
         // This ensures that the user won't see an error when they submit.
         if (currentStep >= steps.length - 2) return;
+        // we've just changed currentStep (section) -- autosave the values
+        // immediately, then clear the 10-second-delay autosave so the user
+        // doesn't see the popup twice
+        if (saveTimeoutRef.current != null) {
+            clearTimeout(saveTimeoutRef.current);
+            saveTimeoutRef.current = null;
+        }
         handleSave();
     }, [currentStep]);
 
@@ -399,8 +411,14 @@ const GeneralRegistration = () => {
             <Snackbar
                 open={showSaveAlert}
                 autoHideDuration={3000}
-                onClose={() => setShowSaveAlert(false)}
                 anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                onClose={(event, reason) => {
+                    if (reason === "clickaway") return;
+                    // ^ ignore clicking outside -- this setting is necessary on small web
+                    // as the snackbar unmounting when it closes on clickaway interrupts (?)
+                    // the click event and prevents it from affecting inputs
+                    setShowSaveAlert(false);
+                }}
             >
                 <Alert
                     onClose={() => setShowSaveAlert(false)}
