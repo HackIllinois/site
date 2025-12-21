@@ -243,7 +243,6 @@ const GeneralRegistration = () => {
     ]);
 
     const handleNextOrSubmit = async () => {
-        console.log(formik.values);
         try {
             await validationSchemas[currentStep].validate(formik.values, {
                 abortEarly: false
