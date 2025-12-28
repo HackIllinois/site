@@ -129,21 +129,27 @@ const TravelPage: React.FC = () => {
                                 alt="US Map"
                                 className={styles.usMap}
                             />
-                            <img
-                                src="/travel/key.svg"
-                                alt="Key"
-                                className={styles.legend}
-                            />
-                        </div>
-                        <div className={styles.internationalContainer}>
-                            <img
-                                src="/travel/international.svg"
-                                alt="International"
-                                className={styles.internationalIcon}
-                            />
-                            <span className={styles.internationalLabel}>
-                                INTERNATIONAL
-                            </span>
+                            <div className={styles.legendWrapper}>
+                                <img
+                                    src="/travel/key.svg"
+                                    alt="Key"
+                                    className={styles.legend}
+                                />
+                                <div className={styles.internationalContainer}>
+                                    <div className={styles.internationalWrapper}>
+                                        <img
+                                            src="/travel/Group 912.png"
+                                            alt="International"
+                                            className={styles.internationalIcon}
+                                        />
+                                        <img
+                                            src="/travel/international popup.svg"
+                                            alt="International Popup"
+                                            className={styles.internationalPopup}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
