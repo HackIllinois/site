@@ -1,0 +1,352 @@
+// Main container
+.main {
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+// Main section
+.travelSection {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(
+        to bottom,
+        #16133e 0%,
+        #3a3069 30%,
+        #5b3a7d 60%,
+        #8b5fa8 100%
+    );
+    z-index: 1;
+}
+
+// Ellipse section - Full width, at the back
+.ellipseSection {
+    position: absolute;
+    top: 15%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.ellipseImage {
+    width: 100%;
+    height: auto;
+    display: block;
+    opacity: 0.95;
+}
+
+.ellipseTextSvg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.ellipseTextPath {
+    font-family: "Montserrat", sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    fill: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+}
+
+// Content wrapper - Over the ellipse
+.content {
+    position: relative;
+    max-width: 1600px;
+    width: 100%;
+    padding: 4rem 2rem 30rem;
+    margin: 0 auto;
+    text-align: center;
+    z-index: 10;
+}
+
+// Title
+.title {
+    font-family: "Tsukimi Rounded", sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 15rem;
+    color: white;
+    text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+
+    @media (max-width: 768px) {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+// Section titles
+.sectionTitle {
+    font-family: "Tsukimi Rounded", sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+
+    @media (max-width: 768px) {
+        font-size: 1.4rem;
+    }
+}
+
+// Requirements section
+.requirementsSection {
+    margin-bottom: 5rem;
+    margin-top: 10rem;
+    position: relative;
+    z-index: 10;
+}
+
+.qualifiedSection,
+.disclaimerSection {
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 10;
+}
+
+.contactSection {
+    margin-bottom: 8rem;
+    position: relative;
+    z-index: 10;
+}
+
+.reimbursementSection {
+    margin-bottom: 5rem;
+    position: relative;
+    z-index: 10;
+}
+
+.requirementText {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.7;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+        font-size: 1rem;
+    }
+}
+
+// Requirements grid
+.requirementsGrid {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.requirementItem {
+    text-align: center;
+    max-width: 220px;
+}
+
+.iconContainer {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.requirementIcon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(255, 255, 255, 0.3));
+}
+
+// Disclaimer
+.disclaimerText {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.7;
+    text-align: center;
+    max-width: 1500px;
+    margin: 0 auto 1rem;
+}
+
+// US Map
+.usMapContainer {
+    position: relative;
+    margin: 3rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: nowrap;
+}
+
+.usMap {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.2));
+    flex-shrink: 0;
+}
+
+.legend {
+    width: auto;
+    height: auto;
+    max-width: 200px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+// International label
+.internationalContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 4rem;
+}
+
+.internationalIcon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(255, 255, 255, 0.3));
+}
+
+.internationalLabel {
+    font-family: "Tsukimi Rounded", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
+
+    @media (max-width: 768px) {
+        font-size: 1.2rem;
+    }
+}
+
+// Contact section
+.contactText {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.1rem;
+    color: white;
+    text-align: center;
+    margin: 0;
+}
+
+.contactLink {
+    color: #ffb3ff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: #ff99ff;
+        text-decoration: underline;
+    }
+}
+
+// Bottom wave - Over the ellipse at the bottom
+.bottomWave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.bottomWaveImage {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+    .content {
+        padding: 2rem 1rem 25rem;
+    }
+
+    .requirementsSection {
+        margin-top: 8rem;
+    }
+
+    .contactSection {
+        margin-bottom: 5rem;
+    }
+
+    .ellipseSection {
+        top: 10%;
+    }
+
+    .requirementsGrid {
+        gap: 2rem;
+    }
+
+    .requirementItem {
+        max-width: 150px;
+    }
+
+    .iconContainer {
+        width: 70px;
+        height: 70px;
+    }
+
+    .usMapContainer {
+        flex-wrap: wrap;
+    }
+
+    .usMap {
+        max-width: 100%;
+    }
+
+    .internationalContainer {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .internationalIcon {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.2rem;
+    }
+
+    .requirementText,
+    .disclaimerText,
+    .contactText {
+        font-size: 0.9rem;
+    }
+
+    .requirementsGrid {
+        gap: 1.5rem;
+    }
+}

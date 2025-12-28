@@ -1,0 +1,215 @@
+.travelSection {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: linear-gradient(to bottom, #2a1f4a, #4a3f7a, #6f4e92);
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    min-height: 100vh;
+}
+
+.travelBackgrounds {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.content {
+    max-width: 1200px;
+    padding: 50px 20px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+
+    @media (max-width: 768px) {
+        padding: 20px 15px;
+        gap: 3rem;
+    }
+}
+
+.bottomBackground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100% !important;
+    object-fit: contain;
+    object-position: bottom center;
+    opacity: 0.7;
+    z-index: 1;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+
+    &.mobile {
+        display: none;
+        object-fit: contain;
+        object-position: bottom center;
+
+        @media (max-width: 768px) {
+            display: block;
+        }
+    }
+}
+
+.ellipseContainer {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+        height: 250px;
+    }
+}
+
+.ellipse {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+    object-position: center;
+    opacity: 0.9;
+    z-index: 1;
+}
+
+.curvedText {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+        top: 10%;
+        width: 95%;
+    }
+}
+
+.requirementsSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.requirementsList {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.requirementItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    max-width: 700px;
+    width: 100%;
+    text-align: left;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+    }
+}
+
+.icon {
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+
+    @media (max-width: 768px) {
+        margin-top: 0;
+    }
+}
+
+.actionSection {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    width: 100%;
+}
+
+.buttonContainer {
+    position: relative;
+    width: 220px;
+    height: 65px;
+
+    @media (max-width: 768px) {
+        width: 200px;
+        height: 55px;
+    }
+}
+
+.buttonWithOverlay {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.overlayImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .travelSection {
+        padding: 2rem 1rem;
+    }
+
+    .content {
+        max-width: 95%;
+        padding: 0 1rem;
+        gap: 2rem;
+    }
+
+    .ellipseContainer {
+        height: 200px;
+    }
+
+    .requirementsList {
+        gap: 1.5rem;
+    }
+
+    .buttonContainer {
+        width: 180px;
+        height: 50px;
+    }
+}

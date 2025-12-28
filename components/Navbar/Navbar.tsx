@@ -23,6 +23,10 @@ const NAVBAR_ITEMS: NavbarItem[] = [
     {
         title: "Prizes",
         link: "/prizes"
+    },
+    {
+        title: "Travel",
+        link: "/travel"
     }
 ];
 
