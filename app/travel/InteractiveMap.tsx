@@ -5,7 +5,6 @@ import {
     ComposableMap,
     Geographies,
     Geography,
-    GeographyProps,
 } from "react-simple-maps";
 import { Typography, Box, Paper } from "@mui/material";
 import styles from "./styles.module.scss";
@@ -96,9 +95,9 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
                     className={styles.composableMap}
                 >
                     <Geographies geography="/us-atlas.json">
-                        {({ geographies }) => (
+                        {({ geographies }: { geographies: any[] }) => (
                             <>
-                                {geographies.map((geo) => {
+                                {geographies.map((geo: any) => {
                                     const stateName = geo.properties?.name || "";
                                     const reimbursement =
                                         STATE_REIMBURSEMENT[stateName] ?? 0;
@@ -107,8 +106,9 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
                                     );
                                     const isHovered =
                                         geo.properties?.name === hoveredState;
-                                    const isDimmed =
-                                        hoveredState && !isHovered;
+                                    const isDimmed = Boolean(
+                                        hoveredState && !isHovered
+                                    );
 
                                     return (
                                         <Geography
