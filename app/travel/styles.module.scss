@@ -357,6 +357,20 @@
     flex-shrink: 0;
 }
 
+// Interactive Map Container
+.mapContainer {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.2));
+}
+
+.composableMap {
+    width: 100%;
+    height: auto;
+}
+
 .legendWrapper {
     display: flex;
     flex-direction: column;

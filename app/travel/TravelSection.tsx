@@ -3,8 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import { Typography } from "@mui/material";
-import clsx from "clsx";
 import { motion, Variants } from "framer-motion";
+import InteractiveMap from "./InteractiveMap";
 import styles from "./styles.module.scss";
 
 const TravelSection = () => {
@@ -279,13 +279,7 @@ const TravelSection = () => {
 
                 <motion.div variants={itemVariants}>
                     <div className={styles.usMapContainer}>
-                        <Image
-                            src="/travel/US.svg"
-                            alt="US Map"
-                            width={600}
-                            height={400}
-                            className={styles.usMap}
-                        />
+                        <InteractiveMap className={styles.usMap} />
                         <div className={styles.legend}>
                             <div className={styles.legendItem}>
                                 <div

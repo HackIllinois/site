@@ -17,12 +17,14 @@
         "@mui/material": "^7.3.4",
         "@mui/material-nextjs": "^7.3.5",
         "clsx": "^2.1.1",
+        "d3-geo": "^3.1.1",
         "formik": "^2.4.6",
         "motion": "^12.23.22",
         "next": "^15.1.11",
         "react": "^19.2.3",
         "react-confetti": "^6.4.0",
         "react-dom": "^19.2.3",
+        "react-simple-maps": "^3.0.0",
         "yup": "^1.6.0"
     },
     "devDependencies": {

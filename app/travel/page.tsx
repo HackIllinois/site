@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import InteractiveMap from "./InteractiveMap";
 import styles from "./styles.module.scss";
 
 const TravelPage: React.FC = () => {
@@ -124,11 +125,7 @@ const TravelPage: React.FC = () => {
                             REIMBURSEMENT CAPS:
                         </h2>
                         <div className={styles.usMapContainer}>
-                            <img
-                                src="/travel/US.svg"
-                                alt="US Map"
-                                className={styles.usMap}
-                            />
+                            <InteractiveMap className={styles.usMap} />
                             <div className={styles.legendWrapper}>
                                 <img
                                     src="/travel/key.svg"
