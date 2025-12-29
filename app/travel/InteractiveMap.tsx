@@ -71,7 +71,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
     const [hoveredState, setHoveredState] = useState<string | null>(null);
     const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
-    const handleMouseEnter = (geo: GeographyProps["geo"]) => {
+    const handleMouseEnter = (geo: any) => {
         setHoveredState(geo.properties?.name || null);
     };
 
