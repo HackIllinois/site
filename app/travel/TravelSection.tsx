@@ -163,7 +163,7 @@ const TravelSection = () => {
                                     mt: 1
                                 }}
                             >
-                                RSVP "Yes" to attend HackIllinois
+                                RSVP &quot;Yes&quot; to attend HackIllinois
                             </Typography>
                         </div>
                         <div className={styles.requirementItem}>
@@ -249,8 +249,8 @@ const TravelSection = () => {
                     >
                         The determination of reimbursement amounts is influenced
                         by several factors, including but not limited to an
-                        applicant's geographic location and their distance from
-                        the University of Illinois Urbana-Champaign campus.
+                        applicant&apos;s geographic location and their distance
+                        from the University of Illinois Urbana-Champaign campus.
                         Although a preliminary reimbursement amount may be
                         indicated upon acceptance, please understand that this
                         amount is not guaranteed and may be subject to
