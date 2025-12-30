@@ -1,11 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-    ComposableMap,
-    Geographies,
-    Geography,
-} from "react-simple-maps";
+import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { Typography, Box, Paper } from "@mui/material";
 import styles from "./styles.module.scss";
 
@@ -36,19 +32,19 @@ const STATE_REIMBURSEMENT: Record<string, number> = {
 
     // $350 - Sky Blue (California, Oregon)
     California: 350,
-    Oregon: 350,
+    Oregon: 350
 };
 
 // Color mapping for reimbursement amounts
 const getReimbursementColor = (amount: number): string => {
     const colorMap: Record<number, string> = {
-        0: "#422F89",      // Default - no reimbursement
-        100: "#AC00EA",    // Purple
-        200: "#EB2FD4",    // Violet
-        250: "#FF7274",    // Red
-        275: "#FFBA59",    // Yellow
-        300: "#76B373",    // Green
-        350: "#23ADDB",    // Sky Blue
+        0: "#422F89", // Default - no reimbursement
+        100: "#AC00EA", // Purple
+        200: "#EB2FD4", // Violet
+        250: "#FF7274", // Red
+        275: "#FFBA59", // Yellow
+        300: "#76B373", // Green
+        350: "#23ADDB" // Sky Blue
     };
     return colorMap[amount] ?? "#422F89";
 };
@@ -69,7 +65,10 @@ interface InteractiveMapProps {
 
 const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
     const [hoveredState, setHoveredState] = useState<string | null>(null);
-    const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+    const [mousePosition, setMousePosition] = useState<{
+        x: number;
+        y: number;
+    }>({ x: 0, y: 0 });
 
     const handleMouseEnter = (geo: any) => {
         setHoveredState(geo.properties?.name || null);
@@ -79,7 +78,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
         const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
         setMousePosition({
             x: e.clientX - rect.left,
-            y: e.clientY - rect.top,
+            y: e.clientY - rect.top
         });
     };
 
@@ -98,12 +97,12 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
                         {({ geographies }: { geographies: any[] }) => (
                             <>
                                 {geographies.map((geo: any) => {
-                                    const stateName = geo.properties?.name || "";
+                                    const stateName =
+                                        geo.properties?.name || "";
                                     const reimbursement =
                                         STATE_REIMBURSEMENT[stateName] ?? 0;
-                                    const baseColor = getReimbursementColor(
-                                        reimbursement
-                                    );
+                                    const baseColor =
+                                        getReimbursementColor(reimbursement);
                                     const isHovered =
                                         geo.properties?.name === hoveredState;
                                     const isDimmed = Boolean(
@@ -126,20 +125,20 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
                                                     ),
                                                     stroke: "#fff",
                                                     strokeWidth: 1,
-                                                    outline: "none",
+                                                    outline: "none"
                                                 },
                                                 hover: {
                                                     fill: baseColor,
                                                     stroke: "#fff",
                                                     strokeWidth: 2,
-                                                    outline: "none",
+                                                    outline: "none"
                                                 },
                                                 pressed: {
                                                     fill: baseColor,
                                                     stroke: "#fff",
                                                     strokeWidth: 2,
-                                                    outline: "none",
-                                                },
+                                                    outline: "none"
+                                                }
                                             }}
                                         />
                                     );
@@ -166,7 +165,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
                             border: "2px solid rgba(255, 255, 255, 0.3)",
                             pointerEvents: "none",
                             zIndex: 1000,
-                            whiteSpace: "nowrap",
+                            whiteSpace: "nowrap"
                         }}
                     >
                         <Typography
@@ -175,7 +174,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
                                 fontSize: "0.95rem",
                                 fontWeight: 600,
                                 textAlign: "center",
-                                color: "white",
+                                color: "white"
                             }}
                         >
                             {hoveredState}
@@ -199,11 +198,12 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
                             borderRadius: "12px",
                             border: "2px solid rgba(255, 255, 255, 0.3)",
                             pointerEvents: "none",
-                            zIndex: 1000,
+                            zIndex: 1000
                         }}
                     >
                         {(() => {
-                            const reimbursement = STATE_REIMBURSEMENT[hoveredState] ?? 0;
+                            const reimbursement =
+                                STATE_REIMBURSEMENT[hoveredState] ?? 0;
                             const color = getReimbursementColor(reimbursement);
 
                             return (
@@ -214,10 +214,12 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
                                             fontSize: "1.5rem",
                                             fontWeight: 700,
                                             textAlign: "center",
-                                            color: color,
+                                            color: color
                                         }}
                                     >
-                                        {reimbursement > 0 ? `$${reimbursement}` : "No Reimbursement"}
+                                        {reimbursement > 0
+                                            ? `$${reimbursement}`
+                                            : "No Reimbursement"}
                                     </Typography>
                                     <Typography
                                         sx={{
@@ -225,10 +227,12 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
                                             fontSize: "0.85rem",
                                             textAlign: "center",
                                             color: "rgba(255, 255, 255, 0.8)",
-                                            mt: 0.5,
+                                            mt: 0.5
                                         }}
                                     >
-                                        {reimbursement > 0 ? "reimbursement cap" : "available"}
+                                        {reimbursement > 0
+                                            ? "reimbursement cap"
+                                            : "available"}
                                     </Typography>
                                 </>
                             );

@@ -69,7 +69,7 @@ const TravelPage: React.FC = () => {
                                     />
                                 </div>
                                 <p className={styles.requirementText}>
-                                    RSVP "Yes" to attend HackIllinois
+                                    RSVP &quot;Yes&quot; to attend HackIllinois
                                 </p>
                             </div>
                             <div className={styles.requirementItem}>
@@ -109,13 +109,13 @@ const TravelPage: React.FC = () => {
                         <p className={styles.disclaimerText}>
                             The determination of reimbursement amounts is
                             influenced by several factors, including but not
-                            limited to an applicant's geographic location and
-                            their distance from the University of Illinois
+                            limited to an applicant&apos;s geographic location
+                            and their distance from the University of Illinois
                             Urbana-Champaign campus. Although a preliminary
                             reimbursement amount may be indicated upon
-                            acceptance, please understand that this amount is not
-                            guaranteed and may be subject to adjustments based on
-                            the final review of eligibility criteria.
+                            acceptance, please understand that this amount is
+                            not guaranteed and may be subject to adjustments
+                            based on the final review of eligibility criteria.
                         </p>
                     </div>
 
@@ -133,7 +133,9 @@ const TravelPage: React.FC = () => {
                                     className={styles.legend}
                                 />
                                 <div className={styles.internationalContainer}>
-                                    <div className={styles.internationalWrapper}>
+                                    <div
+                                        className={styles.internationalWrapper}
+                                    >
                                         <img
                                             src="/travel/Group 912.png"
                                             alt="International"
@@ -142,7 +144,9 @@ const TravelPage: React.FC = () => {
                                         <img
                                             src="/travel/international popup.svg"
                                             alt="International Popup"
-                                            className={styles.internationalPopup}
+                                            className={
+                                                styles.internationalPopup
+                                            }
                                         />
                                     </div>
                                 </div>
