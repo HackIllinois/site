@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId } from "react";
+import React, { useId, useState } from "react";
 import { Box } from "@mui/material";
 
 type TrackPrizeProps = {
@@ -41,6 +41,7 @@ const TrackPrize: React.FC<TrackPrizeProps> = ({
     radiusX,
     radiusY
 }) => {
+    const [hovered, setHovered] = useState(false);
     const uid = useId();
     const topArcId = `topArc-${uid}`;
     const bottomArcId = `bottomArc-${uid}`;
@@ -70,7 +71,12 @@ const TrackPrize: React.FC<TrackPrizeProps> = ({
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "contain",
                 backgroundPosition: "center",
-                position: "relative"
+                position: "relative",
+
+                transition: "transform 200ms ease",
+                willChange: "transform",
+                transform: hovered ? "scale(1.04)" : "scale(1)",
+                transformOrigin: "center"
             }}
         >
             <svg
@@ -81,9 +87,21 @@ const TrackPrize: React.FC<TrackPrizeProps> = ({
                     position: "absolute",
                     inset: 0,
                     marginTop: `${centerOffsetY}px`,
-                    marginLeft: `${centerOffsetX}px`
+                    marginLeft: `${centerOffsetX}px`,
+                    pointerEvents: "none"
                 }}
             >
+                <ellipse
+                    cx="200"
+                    cy="200"
+                    rx={radiusX}
+                    ry={radiusY}
+                    fill="transparent"
+                    stroke="transparent"
+                    style={{ pointerEvents: "all", cursor: "pointer" }}
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
+                />
                 <defs>
                     <path
                         id={topArcId}

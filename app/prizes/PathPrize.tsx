@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId } from "react";
+import React, { useId, useState } from "react";
 import { Box, Tooltip, Typography } from "@mui/material";
 
 type PathPrizeProps = {
@@ -57,6 +57,7 @@ const PathPrize: React.FC<PathPrizeProps> = ({
     helpSize = 0,
     helpRotationDeg = 0
 }) => {
+    const [hovered, setHovered] = useState(false);
     const uid = useId();
     const topArcId = `topArc-${uid}`;
     const bottomArcId = `bottomArc-${uid}`;
@@ -102,7 +103,11 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "contain",
                 backgroundPosition: "center",
-                position: "relative"
+                position: "relative",
+
+                transition: "transform 200ms ease",
+                willChange: "transform",
+                transform: hovered ? "scale(1.04)" : "scale(1)"
             }}
         >
             <svg
@@ -113,9 +118,20 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                     position: "absolute",
                     inset: 0,
                     marginTop: `${centerOffsetY}px`,
-                    marginLeft: `${centerOffsetX}px`
+                    marginLeft: `${centerOffsetX}px`,
+                    pointerEvents: "none"
                 }}
             >
+                <circle
+                    cx="200"
+                    cy="200"
+                    r={radius * 1.2}
+                    fill="transparent"
+                    stroke="transparent"
+                    style={{ pointerEvents: "all", cursor: "pointer" }}
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
+                />
                 <defs>
                     {shouldGradient && (
                         <linearGradient
@@ -202,6 +218,9 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                         }
                     >
                         <g
+                            style={{ pointerEvents: "all" }}
+                            onMouseEnter={() => setHovered(true)}
+                            onMouseLeave={() => setHovered(false)}
                             transform={`
         translate(${200 + radius * 1.06 * Math.cos((helpAngleDeg * Math.PI) / 180)},
                     ${200 + radius * 1.06 * Math.sin((helpAngleDeg * Math.PI) / 180)})
