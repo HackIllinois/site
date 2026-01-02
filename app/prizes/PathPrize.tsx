@@ -82,8 +82,8 @@ const PathPrize: React.FC<PathPrizeProps> = ({
         xs: 0.6,
         sm: 0.51,
         md: 0.75,
-        lg: 1,
-        xl: 1
+        lg: 0.8,
+        xl: 0.8
     };
 
     const size = {

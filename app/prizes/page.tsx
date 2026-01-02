@@ -160,7 +160,7 @@ const Prizes: React.FC = () => {
                             sx={{
                                 textAlign: "center",
                                 fontFamily: "Montserrat",
-                                fontSize: "30px",
+                                fontSize: "35px",
                                 fontWeight: 700,
                                 pt: "60px"
                             }}
@@ -201,9 +201,11 @@ const Prizes: React.FC = () => {
                 <MotionBox
                     sx={{
                         display: "grid",
-                        gridTemplateColumns: { xs: "90vw", sm: "45vw 45vw" },
+                        gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
                         gap: "20px",
                         width: "90vw",
+                        maxWidth: "1200px",
+                        mx: "auto",
                         mt: "60px",
                         justifyItems: { xs: "center", sm: "center" },
 
@@ -461,11 +463,13 @@ const Prizes: React.FC = () => {
                 <MotionBox
                     sx={{
                         display: "grid",
-                        gridTemplateColumns: { xs: "85vw", sm: "1fr 1fr" },
+                        gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
                         gap: "20px",
-                        width: "90%",
+                        width: "90vw",
+                        maxWidth: "1200px",
+                        mx: "auto",
                         mt: "80px",
-                        justifyItems: "center",
+                        justifyItems: { xs: "center", sm: "center" },
 
                         "& > *": {
                             animation: `${bob} 1.8s ease-in-out infinite`,

@@ -50,8 +50,8 @@ const TrackPrize: React.FC<TrackPrizeProps> = ({
         xs: 0.6,
         sm: 0.53,
         md: 0.76,
-        lg: 1,
-        xl: 1
+        lg: 0.8,
+        xl: 0.8
     };
 
     const size = {
