@@ -21,7 +21,10 @@ import {
     StyledAccordionDetails,
     UserInfoBox
 } from "../components/Review";
-import { OTHER_SCHOOL_OPTION } from "../constants/registration";
+import {
+    MLH_CODE_OF_CONDUCT_URL,
+    OTHER_SCHOOL_OPTION
+} from "../constants/registration";
 
 interface ReviewProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
@@ -297,7 +300,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 <span style={{ color: "#fff" }}>
                                     I have read and agree to the{" "}
                                     <MuiLink
-                                        href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md"
+                                        href={MLH_CODE_OF_CONDUCT_URL}
                                         target="_blank"
                                         color="#ADED4A"
                                         sx={AckLinkStyle}
