@@ -26,7 +26,7 @@ const NAVBAR_ITEMS: NavbarItem[] = [
         link: "/prizes"
     },
     {
-        title: "Code of Conduct",
+        title: "Legal",
         link: MLH_CODE_OF_CONDUCT_URL
     }
 ];
