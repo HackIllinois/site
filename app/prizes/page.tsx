@@ -89,7 +89,7 @@ const Prizes: React.FC = () => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    pt: "200px",
+                    pt: "150px",
                     pb: "200px"
                 }}
             >
@@ -110,43 +110,6 @@ const Prizes: React.FC = () => {
                         animation: `${twinkle} 8s ease-in-out infinite`
                     }}
                 />
-
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                    style={{ width: "90%" }}
-                >
-                    <motion.div variants={itemVariants2}>
-                        <Typography
-                            sx={{
-                                color: "#FFF",
-                                textAlign: "center",
-                                textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                                fontFamily: "Tsukimi Rounded",
-                                fontSize: "48px",
-                                fontWeight: 700
-                            }}
-                        >
-                            PRIZES
-                        </Typography>
-                    </motion.div>
-
-                    <motion.div variants={itemVariants}>
-                        <Typography
-                            sx={{
-                                color: "#FFFFFF",
-                                textAlign: "center",
-                                fontFamily: "Montserrat",
-                                fontSize: "20px",
-                                fontWeight: 600,
-                                mt: "10px"
-                            }}
-                        >
-                            Earn merch, swag, and prize money in the thousands!
-                        </Typography>
-                    </motion.div>
-                </motion.div>
 
                 <motion.div
                     variants={containerVariants}
@@ -174,7 +137,10 @@ const Prizes: React.FC = () => {
                                     backgroundClip: "text",
                                     WebkitTextFillColor: "transparent",
                                     color: "transparent",
-                                    display: "inline-block"
+                                    display: "inline-block",
+                                    fontFamily: "Tsukimi Rounded",
+                                    fontSize: "48px",
+                                    fontWeight: 700
                                 }}
                             >
                                 PATH PRIZES
@@ -189,7 +155,7 @@ const Prizes: React.FC = () => {
                                 textAlign: "center",
                                 fontFamily: "Montserrat",
                                 fontSize: "20px",
-                                fontWeight: 400
+                                fontWeight: 600
                             }}
                         >
                             Prizes are for each member except Best Voyagers Hack
@@ -206,7 +172,7 @@ const Prizes: React.FC = () => {
                         width: "90vw",
                         maxWidth: "1200px",
                         mx: "auto",
-                        mt: "60px",
+                        mt: "20px",
                         justifyItems: { xs: "center", sm: "center" },
 
                         "& > *": {
@@ -220,7 +186,11 @@ const Prizes: React.FC = () => {
                         "& > *:nth-of-type(5)": { animationDelay: "0.60s" },
                         "& > *:nth-of-type(6)": { animationDelay: "0.75s" },
                         "& > *:nth-of-type(7)": { animationDelay: "0.90s" },
-                        "& > *:nth-of-type(8)": { animationDelay: "1.05s" }
+                        "& > *:nth-of-type(8)": { animationDelay: "1.05s" },
+                        "& > *:nth-of-type(9)": { animationDelay: "1.20s" },
+                        "& > *:nth-of-type(10)": { animationDelay: "1.35s" },
+                        "& > *:nth-of-type(11)": { animationDelay: "1.5s" },
+                        "& > *:nth-of-type(12)": { animationDelay: "1.65s" }
                     }}
                     variants={containerVariants}
                     initial="hidden"
@@ -409,6 +379,86 @@ const Prizes: React.FC = () => {
                             helpRotationDeg={15}
                         />
                     </MotionBox>
+
+                    <MotionBox
+                        variants={itemVariants}
+                        sx={{ mt: { xs: "-15px", sm: "0px" } }}
+                    >
+                        <PathPrize
+                            backgroundSrc="/prizes/path_prizes/prize9.svg"
+                            topText="Coming Soon"
+                            bottomText="? ? ?"
+                            radius={130}
+                            width={540}
+                            height={540}
+                            centerOffsetY={10}
+                            centerOffsetX={0}
+                            bottomTextSize={25}
+                            topTextOffset={50}
+                            bottomTextOffset={50}
+                            topTextSize={25}
+                        />
+                    </MotionBox>
+
+                    <MotionBox
+                        variants={itemVariants}
+                        sx={{ mt: { xs: "-23px", sm: "0px" } }}
+                    >
+                        <PathPrize
+                            backgroundSrc="/prizes/path_prizes/prize10.svg"
+                            topText="Coming Soon"
+                            bottomText="? ? ?"
+                            radius={130}
+                            width={540}
+                            height={540}
+                            centerOffsetY={10}
+                            centerOffsetX={0}
+                            bottomTextSize={25}
+                            topTextOffset={50}
+                            bottomTextOffset={50}
+                            topTextSize={25}
+                        />
+                    </MotionBox>
+
+                    <MotionBox
+                        variants={itemVariants}
+                        sx={{ mt: { xs: "-23px", sm: "0px" } }}
+                    >
+                        <PathPrize
+                            backgroundSrc="/prizes/path_prizes/prize11.svg"
+                            topText="Coming Soon"
+                            bottomText="? ? ?"
+                            radius={130}
+                            width={540}
+                            height={540}
+                            centerOffsetY={10}
+                            centerOffsetX={0}
+                            bottomTextSize={25}
+                            topTextOffset={50}
+                            bottomTextOffset={50}
+                            topTextSize={25}
+                        />
+                    </MotionBox>
+
+                    <MotionBox
+                        variants={itemVariants}
+                        sx={{ mt: { xs: "-23px", sm: "0px" } }}
+                    >
+                        <PathPrize
+                            backgroundSrc="/prizes/path_prizes/prize12.svg"
+                            topText="Coming Soon"
+                            bottomText="? ? ?"
+                            radius={130}
+                            width={540}
+                            height={540}
+                            centerOffsetY={10}
+                            centerOffsetX={0}
+                            bottomTextSize={25}
+                            topTextOffset={50}
+                            bottomTextOffset={50}
+                            topTextSize={25}
+                        />
+                    </MotionBox>
                 </MotionBox>
 
                 <motion.div
@@ -437,7 +487,10 @@ const Prizes: React.FC = () => {
                                     backgroundClip: "text",
                                     WebkitTextFillColor: "transparent",
                                     color: "transparent",
-                                    display: "inline-block"
+                                    display: "inline-block",
+                                    fontFamily: "Tsukimi Rounded",
+                                    fontSize: "48px",
+                                    fontWeight: 700
                                 }}
                             >
                                 TRACK PRIZES
@@ -452,11 +505,37 @@ const Prizes: React.FC = () => {
                                 textAlign: "center",
                                 fontFamily: "Montserrat",
                                 fontSize: "20px",
-                                fontWeight: 400
+                                fontWeight: 600
                             }}
                         >
                             Designed by our sponsors to provide a specialized
                             topic to center your project around.
+                        </Typography>
+                    </motion.div>
+
+                    <motion.div variants={itemVariants}>
+                        <Typography
+                            sx={{
+                                color: "#FFFFFF",
+                                textAlign: "center",
+                                fontFamily: "Montserrat",
+                                fontSize: "20px",
+                                fontWeight: 600
+                            }}
+                        >
+                            Each team can only compete in{" "}
+                            <span
+                                style={{
+                                    background:
+                                        "linear-gradient(180deg, #A315D6 -19.46%, #FDAB60 47.1%, #A315D6 109.92%)",
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                    fontWeight: 700
+                                }}
+                            >
+                                ONE
+                            </span>{" "}
+                            track.
                         </Typography>
                     </motion.div>
                 </motion.div>
@@ -489,42 +568,6 @@ const Prizes: React.FC = () => {
                     <MotionBox variants={itemVariants}>
                         <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track1.svg"
-                            topText="BEST USE OF CLOUDFLARE"
-                            bottomText="5k Cloudflare Credits"
-                            radiusX={200}
-                            radiusY={150}
-                            width={500}
-                            height={500}
-                            centerOffsetY={10}
-                            centerOffsetX={13}
-                            bottomTextSize={25}
-                            topTextOffset={50}
-                            bottomTextOffset={50}
-                            topTextSize={25}
-                        />
-                    </MotionBox>
-
-                    <MotionBox variants={itemVariants}>
-                        <TrackPrize
-                            backgroundSrc="/prizes/track_prizes/track2.svg"
-                            topText="BEST USE OF OPENAI"
-                            bottomText="5k OpenAI Credits"
-                            radiusX={200}
-                            radiusY={150}
-                            width={500}
-                            height={500}
-                            centerOffsetY={10}
-                            centerOffsetX={13}
-                            bottomTextSize={25}
-                            topTextOffset={50}
-                            bottomTextOffset={50}
-                            topTextSize={25}
-                        />
-                    </MotionBox>
-
-                    <MotionBox variants={itemVariants}>
-                        <TrackPrize
-                            backgroundSrc="/prizes/track_prizes/track3.svg"
                             topText="BEST HARDWARE HACK"
                             bottomText="Elegoo Hardware Starter Kit"
                             radiusX={200}
@@ -542,9 +585,9 @@ const Prizes: React.FC = () => {
 
                     <MotionBox variants={itemVariants}>
                         <TrackPrize
-                            backgroundSrc="/prizes/track_prizes/track4.svg"
-                            topText="BEST USE OF SUPERMEMORY"
-                            bottomText="[PRIZE]"
+                            backgroundSrc="/prizes/track_prizes/track2.svg"
+                            topText="Coming Soon"
+                            bottomText="? ? ?"
                             radiusX={200}
                             radiusY={150}
                             width={500}
@@ -558,7 +601,43 @@ const Prizes: React.FC = () => {
                         />
                     </MotionBox>
 
-                    <MotionBox
+                    <MotionBox variants={itemVariants}>
+                        <TrackPrize
+                            backgroundSrc="/prizes/track_prizes/track3.svg"
+                            topText="Coming Soon"
+                            bottomText="? ? ?"
+                            radiusX={200}
+                            radiusY={150}
+                            width={500}
+                            height={500}
+                            centerOffsetY={10}
+                            centerOffsetX={13}
+                            bottomTextSize={25}
+                            topTextOffset={50}
+                            bottomTextOffset={50}
+                            topTextSize={25}
+                        />
+                    </MotionBox>
+
+                    <MotionBox variants={itemVariants}>
+                        <TrackPrize
+                            backgroundSrc="/prizes/track_prizes/track4.svg"
+                            topText="Coming Soon"
+                            bottomText="? ? ?"
+                            radiusX={200}
+                            radiusY={150}
+                            width={500}
+                            height={500}
+                            centerOffsetY={10}
+                            centerOffsetX={13}
+                            bottomTextSize={25}
+                            topTextOffset={50}
+                            bottomTextOffset={50}
+                            topTextSize={25}
+                        />
+                    </MotionBox>
+
+                    {/* <MotionBox
                         variants={itemVariants}
                         sx={{
                             gridColumn: { sm: "1/-1" },
@@ -580,7 +659,7 @@ const Prizes: React.FC = () => {
                             bottomTextOffset={50}
                             topTextSize={25}
                         />
-                    </MotionBox>
+                    </MotionBox> */}
                 </MotionBox>
             </Box>
         </Box>
