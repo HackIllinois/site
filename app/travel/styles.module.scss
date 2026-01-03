@@ -1,7 +1,7 @@
 // Main container
 .main {
     width: 100vw;
-    min-height: 100vh;
+    min-height: auto;
     overflow-x: hidden;
     margin: 0;
     padding: 0;
@@ -12,7 +12,7 @@
 .travelSection {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    height: auto;
     display: flex;
     flex-direction: column;
     background: linear-gradient(
@@ -23,6 +23,7 @@
         #8b5fa8 100%
     );
     z-index: 1;
+    overflow: hidden;
 
     &::before {
         content: "";
@@ -759,7 +760,7 @@
     position: relative;
     max-width: 1600px;
     width: 100%;
-    padding: 4rem 2rem 53rem;
+    padding: 4rem 2rem 20rem;
     margin: 0 auto;
     text-align: center;
     z-index: 10;
@@ -771,7 +772,7 @@
     font-size: 3.5rem;
     font-weight: 700;
     text-align: center;
-    margin-top: 18rem;
+    margin-top: 15rem;
     color: white;
     text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
 
