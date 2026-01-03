@@ -98,7 +98,7 @@ const TrackPrize: React.FC<TrackPrizeProps> = ({
                     ry={radiusY}
                     fill="transparent"
                     stroke="transparent"
-                    style={{ pointerEvents: "all", cursor: "pointer" }}
+                    style={{ pointerEvents: "all" }}
                     onMouseEnter={() => setHovered(true)}
                     onMouseLeave={() => setHovered(false)}
                 />

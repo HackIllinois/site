@@ -128,7 +128,7 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                     r={radius * 1.2}
                     fill="transparent"
                     stroke="transparent"
-                    style={{ pointerEvents: "all", cursor: "pointer" }}
+                    style={{ pointerEvents: "all" }}
                     onMouseEnter={() => setHovered(true)}
                     onMouseLeave={() => setHovered(false)}
                 />

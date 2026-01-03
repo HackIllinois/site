@@ -10,7 +10,7 @@ const Prizes: React.FC = () => {
 
     const bob = keyframes`
         0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
+        50% { transform: translateY(-5px); }
     `;
 
     // 1. Container Variant: Controls the timing of the children
@@ -586,7 +586,7 @@ const Prizes: React.FC = () => {
                     <MotionBox variants={itemVariants}>
                         <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track2.svg"
-                            topText="Coming Soon"
+                            topText="? ? ?"
                             bottomText="? ? ?"
                             radiusX={200}
                             radiusY={150}
@@ -604,7 +604,7 @@ const Prizes: React.FC = () => {
                     <MotionBox variants={itemVariants}>
                         <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track3.svg"
-                            topText="Coming Soon"
+                            topText="? ? ?"
                             bottomText="? ? ?"
                             radiusX={200}
                             radiusY={150}
@@ -622,7 +622,7 @@ const Prizes: React.FC = () => {
                     <MotionBox variants={itemVariants}>
                         <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track4.svg"
-                            topText="Coming Soon"
+                            topText="? ? ?"
                             bottomText="? ? ?"
                             radiusX={200}
                             radiusY={150}
