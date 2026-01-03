@@ -758,10 +758,7 @@
 // Content wrapper - Over the ellipse
 .content {
     position: relative;
-    max-width: 1600px;
-    width: 100%;
-    padding: 4rem 2rem 20rem;
-    margin: 0 auto;
+    margin: 0;
     text-align: center;
     z-index: 10;
 }
@@ -787,7 +784,7 @@
     font-family: "Tsukimi Rounded", sans-serif;
     font-size: 1.8rem;
     font-weight: 600;
-    color: white;
+    color: #401a79;
     text-align: center;
     margin-bottom: 1rem;
     text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
@@ -800,7 +797,7 @@
 // Requirements section
 .requirementsSection {
     margin-bottom: 5rem;
-    margin-top: 10rem;
+    margin-top: 15rem;
     position: relative;
     z-index: 10;
 }
@@ -813,7 +810,7 @@
 }
 
 .contactSection {
-    margin-bottom: 8rem;
+    margin-bottom: 3rem;
     position: relative;
     z-index: 10;
 }
@@ -827,7 +824,7 @@
 .requirementText {
     font-family: "Montserrat", sans-serif;
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.95);
+    color: #401a79;
     line-height: 1.7;
     text-align: center;
     max-width: 700px;
@@ -840,16 +837,15 @@
 
 // Requirements grid
 .requirementsGrid {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
     gap: 3rem;
-    margin: 2rem 0;
-    flex-wrap: wrap;
+    margin: 2rem auto;
 }
 
 .requirementItem {
     text-align: center;
-    max-width: 220px;
 }
 
 .iconContainer {
@@ -872,13 +868,16 @@
 .disclaimerText {
     font-family: "Montserrat", sans-serif;
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: #401a79;
     line-height: 1.7;
     text-align: center;
     max-width: 1500px;
     margin: 0 auto 1rem;
 }
 
+.disclaimerText.italic {
+    font-style: italic;
+}
 // US Map
 .usMapContainer {
     position: relative;
@@ -887,12 +886,9 @@
     justify-content: center;
     align-items: flex-start;
     gap: 6rem;
-    flex-wrap: wrap;
 }
 
 .usMap {
-    width: 100%;
-    max-width: 1200px;
     height: auto;
     filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.2));
     flex-shrink: 0;
@@ -900,23 +896,27 @@
 
 // Interactive Map Container
 .mapContainer {
+    width: fit-content;
     position: relative;
-    width: 100%;
-    max-width: 1200px;
     margin: 0 auto;
     filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.2));
 }
 
 .composableMap {
-    width: 100%;
+    width: 75vw;
+    max-width: 1200px;
     height: auto;
+    @media (max-width: 900px) {
+        width: 90vw;
+    }
 }
 
 .legendWrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     gap: 5rem;
+    margin: auto 0;
 }
 
 .legend {
@@ -930,7 +930,7 @@
 // International label
 .internationalContainer {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
 }
 
@@ -946,8 +946,9 @@
 }
 
 .internationalIcon {
-    width: 190px;
-    height: 190px;
+    width: 20vw;
+    height: auto;
+    max-width: 200px;
     object-fit: contain;
     filter: drop-shadow(0 4px 10px rgba(255, 255, 255, 0.3));
 }
@@ -972,19 +973,19 @@
 .contactText {
     font-family: "Montserrat", sans-serif;
     font-size: 1.1rem;
-    color: white;
+    color: #401a79;
     text-align: center;
     margin: 0;
 }
 
 .contactLink {
-    color: #ffb3ff;
-    text-decoration: none;
-    font-weight: 600;
+    color: #1f93d1;
+    text-decoration: underline;
+    font-weight: 500;
     transition: color 0.3s ease;
 
     &:hover {
-        color: #ff99ff;
+        color: #1f93d1;
         text-decoration: underline;
     }
 }
@@ -1001,16 +1002,14 @@
 
 .bottomWaveImage {
     width: 100%;
-    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    object-position: top;
     display: block;
 }
 
 // Responsive adjustments
-@media (max-width: 768px) {
-    .content {
-        padding: 2rem 1rem 25rem;
-    }
-
+@media (max-width: 900px) {
     .requirementsSection {
         margin-top: 8rem;
     }
@@ -1027,10 +1026,6 @@
         gap: 2rem;
     }
 
-    .requirementItem {
-        max-width: 150px;
-    }
-
     .iconContainer {
         width: 70px;
         height: 70px;
@@ -1042,11 +1037,6 @@
 
     .usMap {
         max-width: 100%;
-    }
-
-    .internationalIcon {
-        width: 100px;
-        height: 100px;
     }
 
     .internationalPopup {

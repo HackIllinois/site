@@ -2,55 +2,31 @@
 import React from "react";
 import InteractiveMap from "./InteractiveMap";
 import styles from "./styles.module.scss";
+import { Box, Typography } from "@mui/material";
+import GradientText from "@/components/GradientText";
+import clsx from "clsx";
+import MouseIcon from "@mui/icons-material/Mouse";
+import MapLegend from "./MapLegend";
 
 const TravelPage: React.FC = () => {
     return (
         <main className={styles.main}>
             <div className={styles.travelSection}>
-                {/* Ellipse - Full width background */}
-                <div className={styles.ellipseSection}>
-                    <img
-                        src="/travel/ellipse.svg"
-                        alt="Ellipse"
-                        className={styles.ellipseImage}
-                    />
-                    <svg
-                        className={styles.ellipseTextSvg}
-                        viewBox="0 0 1512 2101"
-                        preserveAspectRatio="xMidYMid meet"
-                    >
-                        <defs>
-                            <path
-                                id="ellipseCurve"
-                                d="M 90,230 A 668,200 0 0,1 1412,230"
-                            />
-                        </defs>
-                        <text className={styles.ellipseTextPath}>
-                            <textPath
-                                href="#ellipseCurve"
-                                startOffset="50%"
-                                textAnchor="middle"
-                            >
-                                For HackIllinois 2026, we are excited to offer
-                                travel reimbursements to qualifying attendees!
-                            </textPath>
-                        </text>
-                    </svg>
-                </div>
+                <h1 className={styles.title}>TRAVEL DETAILS</h1>
 
-                {/* Content Over the Ellipse */}
-                <div className={styles.content}>
-                    <h1 className={styles.title}>TRAVEL DETAILS</h1>
-
-                    {/* Requirements Section */}
+                <Box
+                    sx={{
+                        backgroundColor: "#FAD0FF"
+                    }}
+                >
                     <div className={styles.requirementsSection}>
                         <h2 className={styles.sectionTitle}>
                             To be considered for reimbursement:
                         </h2>
                         <p className={styles.requirementText}>
                             Participants must opt-in during the registration
-                            process for HackIllinois and this will not impact
-                            their chances of being admitted to the event.
+                            process for HackIllinois and this will <b>not</b>{" "}
+                            impact their chances of being admitted to the event.
                         </p>
                     </div>
 
@@ -68,9 +44,9 @@ const TravelPage: React.FC = () => {
                                         className={styles.requirementIcon}
                                     />
                                 </div>
-                                <p className={styles.requirementText}>
+                                <GradientText>
                                     RSVP &quot;Yes&quot; to attend HackIllinois
-                                </p>
+                                </GradientText>
                             </div>
                             <div className={styles.requirementItem}>
                                 <div className={styles.iconContainer}>
@@ -80,9 +56,10 @@ const TravelPage: React.FC = () => {
                                         className={styles.requirementIcon}
                                     />
                                 </div>
-                                <p className={styles.requirementText}>
+
+                                <GradientText>
                                     Attend HackIllinois in person
-                                </p>
+                                </GradientText>
                             </div>
                             <div className={styles.requirementItem}>
                                 <div className={styles.iconContainer}>
@@ -92,16 +69,21 @@ const TravelPage: React.FC = () => {
                                         className={styles.requirementIcon}
                                     />
                                 </div>
-                                <p className={styles.requirementText}>
+                                <GradientText>
                                     Submit a qualifying project
-                                </p>
+                                </GradientText>
                             </div>
                         </div>
                     </div>
 
                     {/* Disclaimer Section */}
                     <div className={styles.disclaimerSection}>
-                        <p className={styles.disclaimerText}>
+                        <p
+                            className={clsx(
+                                styles.disclaimerText,
+                                styles.italic
+                            )}
+                        >
                             Please be aware that failing to meet any of these
                             requirements may result in disqualification from
                             receiving any reimbursement.
@@ -121,18 +103,59 @@ const TravelPage: React.FC = () => {
 
                     {/* Reimbursement Section */}
                     <div className={styles.reimbursementSection}>
-                        <h2 className={styles.sectionTitle}>
+                        <GradientText
+                            fontSize={"2rem"}
+                            fontFamily="Montserrat"
+                            fontWeight={600}
+                            sx={{
+                                width: "100%",
+                                textAlign: "center"
+                            }}
+                        >
                             REIMBURSEMENT CAPS:
-                        </h2>
-                        <div className={styles.usMapContainer}>
+                        </GradientText>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                gap: 1
+                            }}
+                        >
+                            <MouseIcon sx={{ color: "#401A79", mt: 3 }} />
+                            <Typography
+                                sx={{
+                                    color: "#401A79",
+                                    textAlign: "center",
+                                    mt: 3
+                                }}
+                            >
+                                Hover over a location to see its reimbursement
+                                cap.
+                            </Typography>
+                        </Box>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                flexDirection: {
+                                    xs: "column",
+                                    lg: "row"
+                                }
+                            }}
+                        >
                             <InteractiveMap className={styles.usMap} />
                             <div className={styles.legendWrapper}>
-                                <img
-                                    src="/travel/key.svg"
-                                    alt="Key"
-                                    className={styles.legend}
-                                />
-                                <div className={styles.internationalContainer}>
+                                <MapLegend />
+                                <Box
+                                    className={styles.internationalContainer}
+                                    sx={{
+                                        zIndex: 10,
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "center"
+                                    }}
+                                >
                                     <div
                                         className={styles.internationalWrapper}
                                     >
@@ -140,18 +163,14 @@ const TravelPage: React.FC = () => {
                                             src="/travel/Group 912.png"
                                             alt="International"
                                             className={styles.internationalIcon}
-                                        />
-                                        <img
-                                            src="/travel/international popup.svg"
-                                            alt="International Popup"
-                                            className={
-                                                styles.internationalPopup
-                                            }
+                                            style={{
+                                                height: "auto"
+                                            }}
                                         />
                                     </div>
-                                </div>
+                                </Box>
                             </div>
-                        </div>
+                        </Box>
                     </div>
 
                     {/* Contact Section */}
@@ -166,16 +185,13 @@ const TravelPage: React.FC = () => {
                             </a>
                         </p>
                     </div>
-                </div>
 
-                {/* Bottom Wave Footer - Over the ellipse at the bottom */}
-                <div className={styles.bottomWave}>
                     <img
                         src="/travel/bottom.svg"
                         alt="Bottom Wave"
                         className={styles.bottomWaveImage}
                     />
-                </div>
+                </Box>
             </div>
         </main>
     );
