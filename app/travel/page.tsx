@@ -1,14 +1,114 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import InteractiveMap from "./InteractiveMap";
 import styles from "./styles.module.scss";
-import { Box, Typography } from "@mui/material";
+import {
+    Box,
+    Dialog,
+    Tooltip,
+    Typography,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
 import GradientText from "@/components/GradientText";
 import clsx from "clsx";
 import MouseIcon from "@mui/icons-material/Mouse";
 import MapLegend from "./MapLegend";
+import { TouchApp } from "@mui/icons-material";
+
+const internationalData = [
+    {
+        location: "Waterloo (Canada)",
+        amount: "$350",
+        color: "#2AB7DA" // Light Blue
+    },
+    {
+        location: "Singapore",
+        amount: "$400",
+        color: "#2A4ECA" // Dark Blue
+    }
+];
+
+const InternationalPricingCard = () => {
+    return (
+        <Box
+            sx={{
+                backgroundColor: "#F3E5F5", // Matches the light purple background
+                borderRadius: "20px",
+                padding: "20px 30px",
+                boxShadow: "0px 4px 15px rgba(0,0,0,0.1)",
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
+                minWidth: "250px"
+            }}
+        >
+            {internationalData.map((item, index) => (
+                <Box
+                    key={index}
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 2
+                    }}
+                >
+                    <Box
+                        sx={{
+                            width: 28,
+                            height: 28,
+                            borderRadius: "50%",
+                            backgroundColor: item.color,
+                            flexShrink: 0
+                        }}
+                    />
+                    <Typography
+                        sx={{
+                            color: "#401A79",
+                            fontWeight: 700,
+                            fontSize: "1.2rem",
+                            fontFamily: "Montserrat",
+                            lineHeight: 1.2
+                        }}
+                    >
+                        {item.location}: {item.amount}
+                    </Typography>
+                </Box>
+            ))}
+        </Box>
+    );
+};
 
 const TravelPage: React.FC = () => {
+    const theme = useTheme();
+    // Use 'lg' to match the breakpoint where your layout shifts from column to row
+    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+    const [openMobileModal, setOpenMobileModal] = useState(false);
+
+    const handleMobileClick = () => {
+        if (isMobile) {
+            setOpenMobileModal(true);
+        }
+    };
+
+    const InternationalTrigger = (
+        <div
+            className={styles.internationalWrapper}
+            onClick={handleMobileClick}
+            style={{
+                cursor: isMobile ? "pointer" : "default"
+            }}
+        >
+            <img
+                src="/travel/Group 912.png"
+                alt="International"
+                className={styles.internationalIcon}
+                style={{
+                    height: "auto"
+                }}
+            />
+        </div>
+    );
+
     return (
         <main className={styles.main}>
             <div className={styles.travelSection}>
@@ -122,16 +222,45 @@ const TravelPage: React.FC = () => {
                                 gap: 1
                             }}
                         >
-                            <MouseIcon sx={{ color: "#401A79", mt: 3 }} />
-                            <Typography
+                            {/* Desktop View */}
+                            <Box
                                 sx={{
-                                    color: "#401A79",
-                                    mt: 3
+                                    display: { xs: "none", md: "flex" },
+                                    alignItems: "center",
+                                    gap: 1
                                 }}
                             >
-                                Hover over a location to see its reimbursement
-                                cap.
-                            </Typography>
+                                <MouseIcon sx={{ color: "#401A79", mt: 3 }} />
+                                <Typography
+                                    sx={{
+                                        color: "#401A79",
+                                        mt: 3
+                                    }}
+                                >
+                                    Hover over a location to see its
+                                    reimbursement cap.
+                                </Typography>
+                            </Box>
+
+                            {/* Mobile View */}
+                            <Box
+                                sx={{
+                                    display: { xs: "flex", md: "none" },
+                                    alignItems: "center",
+                                    gap: 1
+                                }}
+                            >
+                                <TouchApp sx={{ color: "#401A79", mt: 3 }} />
+                                <Typography
+                                    sx={{
+                                        color: "#401A79",
+                                        mt: 3
+                                    }}
+                                >
+                                    Click over a location to see its
+                                    reimbursement cap.
+                                </Typography>
+                            </Box>
                         </Box>
                         <Box
                             sx={{
@@ -179,18 +308,42 @@ const TravelPage: React.FC = () => {
                                         alignItems: "center"
                                     }}
                                 >
-                                    <div
-                                        className={styles.internationalWrapper}
-                                    >
-                                        <img
-                                            src="/travel/Group 912.png"
-                                            alt="International"
-                                            className={styles.internationalIcon}
-                                            style={{
-                                                height: "auto"
+                                    {!isMobile ? (
+                                        <Tooltip
+                                            title={<InternationalPricingCard />}
+                                            placement="left"
+                                            componentsProps={{
+                                                tooltip: {
+                                                    sx: {
+                                                        bgcolor: "transparent", // Remove default tooltip black box
+                                                        p: 0,
+                                                        maxWidth: "none"
+                                                    }
+                                                }
                                             }}
-                                        />
-                                    </div>
+                                        >
+                                            {InternationalTrigger}
+                                        </Tooltip>
+                                    ) : (
+                                        <>
+                                            {InternationalTrigger}
+                                            <Dialog
+                                                open={openMobileModal}
+                                                onClose={() =>
+                                                    setOpenMobileModal(false)
+                                                }
+                                                PaperProps={{
+                                                    style: {
+                                                        backgroundColor:
+                                                            "transparent",
+                                                        boxShadow: "none"
+                                                    }
+                                                }}
+                                            >
+                                                <InternationalPricingCard />
+                                            </Dialog>
+                                        </>
+                                    )}
                                 </Box>
                             </Box>
                         </Box>

@@ -18,7 +18,8 @@ const MapLegend = () => {
                 borderRadius: "24px",
                 padding: { xs: "16px 24px", md: "24px" }, // Slightly less padding on mobile
                 width: "fit-content",
-                boxShadow: 1,
+
+                boxShadow: "0px 4px 15px rgba(0,0,0,0.1)",
                 maxWidth: "100%"
             }}
         >

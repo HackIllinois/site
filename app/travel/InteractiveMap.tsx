@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { Typography, Box, Paper } from "@mui/material";
 import styles from "./styles.module.scss";
@@ -83,6 +83,15 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
         x: number;
         y: number;
     }>({ x: 0, y: 0 });
+    const [tooltipWidth, setTooltipWidth] = useState(0);
+    const [containerWidth, setContainerWidth] = useState(0);
+    const tooltipRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (tooltipRef.current) {
+            setTooltipWidth(tooltipRef.current.offsetWidth);
+        }
+    }, [hoveredState]);
 
     const handleMouseEnter = (geo: any) => {
         setHoveredState(geo.properties?.name || null);
@@ -94,6 +103,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
             x: e.clientX - rect.left,
             y: e.clientY - rect.top
         });
+        setContainerWidth(rect.width);
     };
 
     const handleMouseLeave = () => {
@@ -184,12 +194,16 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
             {/* Tooltip - State Name */}
             {hoveredState && (
                 <Paper
+                    ref={tooltipRef}
                     className={styles.mapTooltip}
                     elevation={8}
                     sx={{
                         position: "absolute",
                         top: mousePosition.y,
-                        left: mousePosition.x,
+                        left: Math.min(
+                            Math.max(mousePosition.x, tooltipWidth / 2),
+                            containerWidth - tooltipWidth / 2
+                        ),
                         transform: "translate(-50%, -150%)",
                         backgroundColor: "rgba(22, 19, 62, 0.95)",
                         color: "white",
