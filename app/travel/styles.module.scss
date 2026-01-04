@@ -715,53 +715,21 @@
     }
 }
 
-// Ellipse section - Full width, at the back
-.ellipseSection {
-    position: absolute;
-    top: 15%;
-    left: 0;
-    width: 100%;
-    height: auto;
-    z-index: 6;
-    pointer-events: none;
-}
-
-.ellipseImage {
-    width: 100%;
-    height: auto;
-    display: block;
-    opacity: 0.95;
-}
-
-.ellipseTextSvg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 6;
-    pointer-events: none;
-}
-
-.ellipseTextPath {
-    font-family: "Montserrat", sans-serif;
-    font-size: 28px;
-    font-weight: 600;
+.headerText {
+    font-family: "Tsukimi Rounded", sans-serif;
+    font-size: 40px;
+    font-weight: 700;
     fill: white;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-
+    text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
     @media (max-width: 768px) {
-        font-size: 18px;
+        font-size: 50px;
     }
 }
 
 // Content wrapper - Over the ellipse
 .content {
     position: relative;
-    max-width: 1600px;
-    width: 100%;
-    padding: 4rem 2rem 20rem;
-    margin: 0 auto;
+    margin: 0;
     text-align: center;
     z-index: 10;
 }
@@ -784,10 +752,9 @@
 
 // Section titles
 .sectionTitle {
-    font-family: "Tsukimi Rounded", sans-serif;
     font-size: 1.8rem;
     font-weight: 600;
-    color: white;
+    color: #401a79;
     text-align: center;
     margin-bottom: 1rem;
     text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
@@ -800,7 +767,6 @@
 // Requirements section
 .requirementsSection {
     margin-bottom: 5rem;
-    margin-top: 10rem;
     position: relative;
     z-index: 10;
 }
@@ -810,15 +776,18 @@
     margin-bottom: 3rem;
     position: relative;
     z-index: 10;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .contactSection {
-    margin-bottom: 8rem;
+    margin-bottom: 3rem;
     position: relative;
     z-index: 10;
 }
 
 .reimbursementSection {
+    margin-top: 4rem;
     margin-bottom: 6rem;
     position: relative;
     z-index: 10;
@@ -826,35 +795,38 @@
 
 .requirementText {
     font-family: "Montserrat", sans-serif;
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.95);
+    font-size: 18px;
+    color: #401a79;
     line-height: 1.7;
     text-align: center;
-    max-width: 700px;
+    max-width: 900px;
     margin: 0 auto;
 
     @media (max-width: 768px) {
-        font-size: 1rem;
+        font-size: 14px;
     }
 }
 
 // Requirements grid
 .requirementsGrid {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
     gap: 3rem;
-    margin: 2rem 0;
-    flex-wrap: wrap;
+    margin: 2rem auto;
+    @media (max-width: 700px) {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .requirementItem {
     text-align: center;
-    max-width: 220px;
 }
 
 .iconContainer {
-    width: 90px;
-    height: 90px;
+    width: 150px;
+    height: 150px;
     margin: 0 auto 1rem;
     display: flex;
     align-items: center;
@@ -871,14 +843,20 @@
 // Disclaimer
 .disclaimerText {
     font-family: "Montserrat", sans-serif;
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.9);
+    font-size: 18px;
+    color: #401a79;
     line-height: 1.7;
     text-align: center;
     max-width: 1500px;
     margin: 0 auto 1rem;
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
 }
 
+.disclaimerText.italic {
+    font-style: italic;
+}
 // US Map
 .usMapContainer {
     position: relative;
@@ -887,12 +865,9 @@
     justify-content: center;
     align-items: flex-start;
     gap: 6rem;
-    flex-wrap: wrap;
 }
 
 .usMap {
-    width: 100%;
-    max-width: 1200px;
     height: auto;
     filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.2));
     flex-shrink: 0;
@@ -900,9 +875,8 @@
 
 // Interactive Map Container
 .mapContainer {
+    width: fit-content;
     position: relative;
-    width: 100%;
-    max-width: 1200px;
     margin: 0 auto;
     filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.2));
 }
@@ -915,7 +889,7 @@
 .legendWrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     gap: 5rem;
 }
 
@@ -925,13 +899,6 @@
     max-width: 400px;
     object-fit: contain;
     flex-shrink: 0;
-}
-
-// International label
-.internationalContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .internationalWrapper {
@@ -946,8 +913,10 @@
 }
 
 .internationalIcon {
-    width: 190px;
-    height: 190px;
+    width: 20vw;
+    height: auto;
+    max-width: 200px;
+    min-width: 100px;
     object-fit: contain;
     filter: drop-shadow(0 4px 10px rgba(255, 255, 255, 0.3));
 }
@@ -971,20 +940,20 @@
 // Contact section
 .contactText {
     font-family: "Montserrat", sans-serif;
-    font-size: 1.1rem;
-    color: white;
+    font-size: 16px;
+    color: #401a79;
     text-align: center;
     margin: 0;
 }
 
 .contactLink {
-    color: #ffb3ff;
-    text-decoration: none;
-    font-weight: 600;
+    color: #1f93d1;
+    text-decoration: underline;
+    font-weight: 500;
     transition: color 0.3s ease;
 
     &:hover {
-        color: #ff99ff;
+        color: #1f93d1;
         text-decoration: underline;
     }
 }
@@ -1001,39 +970,21 @@
 
 .bottomWaveImage {
     width: 100%;
-    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    object-position: top;
     display: block;
+    background-color: #fad0ff;
 }
 
 // Responsive adjustments
-@media (max-width: 768px) {
-    .content {
-        padding: 2rem 1rem 25rem;
-    }
-
-    .requirementsSection {
-        margin-top: 8rem;
-    }
-
+@media (max-width: 900px) {
     .contactSection {
         margin-bottom: 5rem;
     }
 
-    .ellipseSection {
-        top: 10%;
-    }
-
     .requirementsGrid {
         gap: 2rem;
-    }
-
-    .requirementItem {
-        max-width: 150px;
-    }
-
-    .iconContainer {
-        width: 70px;
-        height: 70px;
     }
 
     .usMapContainer {
@@ -1042,11 +993,6 @@
 
     .usMap {
         max-width: 100%;
-    }
-
-    .internationalIcon {
-        width: 100px;
-        height: 100px;
     }
 
     .internationalPopup {
@@ -1058,18 +1004,26 @@
     .title {
         font-size: 2rem;
     }
-
-    .sectionTitle {
-        font-size: 1.2rem;
-    }
-
-    .requirementText,
-    .disclaimerText,
-    .contactText {
-        font-size: 0.9rem;
-    }
-
     .requirementsGrid {
         gap: 1.5rem;
+    }
+}
+
+.headerText {
+    font-family: "Tsukimi Rounded", sans-serif;
+}
+
+.contentContainer {
+    max-width: 1500px;
+    margin: 0 auto;
+    margin-top: -200px;
+    @media (max-width: 2100px) {
+        margin-top: -130px;
+    }
+    @media (max-width: 1700px) {
+        margin-top: -100px;
+    }
+    @media (max-width: 1400px) {
+        margin-top: 50px;
     }
 }

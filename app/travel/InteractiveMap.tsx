@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { Typography, Box, Paper } from "@mui/material";
 import styles from "./styles.module.scss";
@@ -49,6 +49,20 @@ const getReimbursementColor = (amount: number): string => {
     return colorMap[amount] ?? "#422F89";
 };
 
+// Lighter color mapping for text display (more visible on dark background)
+const getReimbursementTextColor = (amount: number): string => {
+    const colorMap: Record<number, string> = {
+        0: "#8B7EC8", // Default - lighter purple
+        100: "#D580FF", // Lighter purple
+        200: "#FF7FE8", // Lighter violet
+        250: "#FFB0B2", // Lighter red
+        275: "#FFD699", // Lighter yellow
+        300: "#A8E5A4", // Lighter green
+        350: "#6FD4FF" // Lighter sky blue
+    };
+    return colorMap[amount] ?? "#8B7EC8";
+};
+
 // Get dimmed version of color
 const dimColor = (color: string, isDimmed: boolean): string => {
     if (!isDimmed) return color;
@@ -56,7 +70,7 @@ const dimColor = (color: string, isDimmed: boolean): string => {
     const r = parseInt(color.slice(1, 3), 16);
     const g = parseInt(color.slice(3, 5), 16);
     const b = parseInt(color.slice(5, 7), 16);
-    return `rgba(${r}, ${g}, ${b}, 0.2)`;
+    return `rgba(${r}, ${g}, ${b}, 0.8)`;
 };
 
 interface InteractiveMapProps {
@@ -69,6 +83,15 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
         x: number;
         y: number;
     }>({ x: 0, y: 0 });
+    const [tooltipWidth, setTooltipWidth] = useState(0);
+    const [containerWidth, setContainerWidth] = useState(0);
+    const tooltipRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (tooltipRef.current) {
+            setTooltipWidth(tooltipRef.current.offsetWidth);
+        }
+    }, [hoveredState]);
 
     const handleMouseEnter = (geo: any) => {
         setHoveredState(geo.properties?.name || null);
@@ -80,167 +103,155 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
             x: e.clientX - rect.left,
             y: e.clientY - rect.top
         });
+        setContainerWidth(rect.width);
     };
 
     const handleMouseLeave = () => {
         setHoveredState(null);
     };
 
+    const reimbursement = hoveredState ? STATE_REIMBURSEMENT[hoveredState] : 0;
+    const textColor = getReimbursementTextColor(reimbursement);
+
     return (
-        <div className={className}>
-            <Box className={styles.mapContainer} onMouseMove={handleMouseMove}>
-                <ComposableMap
-                    projection="geoAlbersUsa"
-                    className={styles.composableMap}
-                >
-                    <Geographies geography="/us-atlas.json">
-                        {({ geographies }: { geographies: any[] }) => (
-                            <>
-                                {geographies.map((geo: any) => {
-                                    const stateName =
-                                        geo.properties?.name || "";
-                                    const reimbursement =
-                                        STATE_REIMBURSEMENT[stateName] ?? 0;
-                                    const baseColor =
-                                        getReimbursementColor(reimbursement);
-                                    const isHovered =
-                                        geo.properties?.name === hoveredState;
-                                    const isDimmed = Boolean(
-                                        hoveredState && !isHovered
-                                    );
+        <Box
+            onMouseMove={handleMouseMove}
+            sx={{
+                width: {
+                    xs: "100%",
+                    lg: "75vw"
+                },
+                maxWidth: {
+                    lg: "1200px"
+                },
+                mx: "auto",
+                position: "relative"
+            }}
+        >
+            <ComposableMap
+                projection="geoAlbersUsa"
+                className={styles.composableMap}
+            >
+                <Geographies geography="/us-atlas.json">
+                    {({ geographies }: { geographies: any[] }) => (
+                        <>
+                            {geographies.map((geo: any) => {
+                                const stateName = geo.properties?.name || "";
+                                const reimbursement =
+                                    STATE_REIMBURSEMENT[stateName] ?? 0;
+                                const baseColor =
+                                    getReimbursementColor(reimbursement);
+                                const isHovered =
+                                    geo.properties?.name === hoveredState;
+                                const isDimmed = Boolean(
+                                    hoveredState && !isHovered
+                                );
 
-                                    return (
-                                        <Geography
-                                            key={geo.rsmKey}
-                                            geography={geo}
-                                            onMouseEnter={() =>
-                                                handleMouseEnter(geo)
+                                return (
+                                    <Geography
+                                        key={geo.rsmKey}
+                                        geography={geo}
+                                        onMouseEnter={() =>
+                                            handleMouseEnter(geo)
+                                        }
+                                        onMouseLeave={handleMouseLeave}
+                                        style={{
+                                            default: {
+                                                fill: dimColor(
+                                                    baseColor,
+                                                    isDimmed
+                                                ),
+                                                stroke: "#fff",
+                                                strokeWidth: 1,
+                                                outline: "none",
+                                                transition:
+                                                    "all 100ms ease-in-out"
+                                            },
+                                            hover: {
+                                                fill: baseColor,
+                                                stroke: "#fff",
+                                                strokeWidth: 2,
+                                                outline: "none",
+                                                transition:
+                                                    "all 100ms ease-in-out"
+                                            },
+                                            pressed: {
+                                                fill: baseColor,
+                                                stroke: "#fff",
+                                                strokeWidth: 2,
+                                                outline: "none"
                                             }
-                                            onMouseLeave={handleMouseLeave}
-                                            style={{
-                                                default: {
-                                                    fill: dimColor(
-                                                        baseColor,
-                                                        isDimmed
-                                                    ),
-                                                    stroke: "#fff",
-                                                    strokeWidth: 1,
-                                                    outline: "none"
-                                                },
-                                                hover: {
-                                                    fill: baseColor,
-                                                    stroke: "#fff",
-                                                    strokeWidth: 2,
-                                                    outline: "none"
-                                                },
-                                                pressed: {
-                                                    fill: baseColor,
-                                                    stroke: "#fff",
-                                                    strokeWidth: 2,
-                                                    outline: "none"
-                                                }
-                                            }}
-                                        />
-                                    );
-                                })}
-                            </>
-                        )}
-                    </Geographies>
-                </ComposableMap>
+                                        }}
+                                    />
+                                );
+                            })}
+                        </>
+                    )}
+                </Geographies>
+            </ComposableMap>
 
-                {/* Tooltip - State Name */}
-                {hoveredState && (
-                    <Paper
-                        className={styles.mapTooltip}
-                        elevation={8}
+            {/* Tooltip - State Name */}
+            {hoveredState && (
+                <Paper
+                    ref={tooltipRef}
+                    className={styles.mapTooltip}
+                    elevation={8}
+                    sx={{
+                        position: "absolute",
+                        top: mousePosition.y,
+                        left: Math.min(
+                            Math.max(mousePosition.x, tooltipWidth / 2),
+                            containerWidth - tooltipWidth / 2
+                        ),
+                        transform: "translate(-50%, -150%)",
+                        backgroundColor: "rgba(22, 19, 62, 0.95)",
+                        color: "white",
+                        padding: "0.75rem 1.25rem",
+                        borderRadius: "12px",
+                        border: "2px solid rgba(255, 255, 255, 0.3)",
+                        pointerEvents: "none",
+                        zIndex: 1000,
+                        whiteSpace: "nowrap"
+                    }}
+                >
+                    <Typography
                         sx={{
-                            position: "absolute",
-                            top: mousePosition.y,
-                            left: mousePosition.x,
-                            transform: "translate(-50%, -150%)",
-                            backgroundColor: "rgba(22, 19, 62, 0.95)",
-                            color: "white",
-                            padding: "0.75rem 1.25rem",
-                            borderRadius: "12px",
-                            border: "2px solid rgba(255, 255, 255, 0.3)",
-                            pointerEvents: "none",
-                            zIndex: 1000,
-                            whiteSpace: "nowrap"
+                            fontFamily: "Montserrat",
+                            fontSize: "0.95rem",
+                            fontWeight: 600,
+                            textAlign: "center",
+                            color: "white"
                         }}
                     >
-                        <Typography
-                            sx={{
-                                fontFamily: "Montserrat",
-                                fontSize: "0.95rem",
-                                fontWeight: 600,
-                                textAlign: "center",
-                                color: "white"
-                            }}
-                        >
-                            {hoveredState}
-                        </Typography>
-                    </Paper>
-                )}
+                        {hoveredState}
+                    </Typography>
 
-                {/* Price Display */}
-                {hoveredState && (
-                    <Paper
-                        className={styles.priceDisplay}
-                        elevation={8}
+                    <Typography
                         sx={{
-                            position: "absolute",
-                            bottom: "20px",
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            backgroundColor: "rgba(22, 19, 62, 0.95)",
-                            color: "white",
-                            padding: "1rem 2rem",
-                            borderRadius: "12px",
-                            border: "2px solid rgba(255, 255, 255, 0.3)",
-                            pointerEvents: "none",
-                            zIndex: 1000
+                            fontFamily: "Tsukimi Rounded",
+                            fontSize: "1.5rem",
+                            fontWeight: 700,
+                            textAlign: "center",
+                            color: textColor
                         }}
                     >
-                        {(() => {
-                            const reimbursement =
-                                STATE_REIMBURSEMENT[hoveredState] ?? 0;
-                            const color = getReimbursementColor(reimbursement);
-
-                            return (
-                                <>
-                                    <Typography
-                                        sx={{
-                                            fontFamily: "Tsukimi Rounded",
-                                            fontSize: "1.5rem",
-                                            fontWeight: 700,
-                                            textAlign: "center",
-                                            color: color
-                                        }}
-                                    >
-                                        {reimbursement > 0
-                                            ? `$${reimbursement}`
-                                            : "No Reimbursement"}
-                                    </Typography>
-                                    <Typography
-                                        sx={{
-                                            fontFamily: "Montserrat",
-                                            fontSize: "0.85rem",
-                                            textAlign: "center",
-                                            color: "rgba(255, 255, 255, 0.8)",
-                                            mt: 0.5
-                                        }}
-                                    >
-                                        {reimbursement > 0
-                                            ? "reimbursement cap"
-                                            : "available"}
-                                    </Typography>
-                                </>
-                            );
-                        })()}
-                    </Paper>
-                )}
-            </Box>
-        </div>
+                        {reimbursement > 0
+                            ? `$${reimbursement}`
+                            : "No Reimbursement"}
+                    </Typography>
+                    <Typography
+                        sx={{
+                            fontFamily: "Montserrat",
+                            fontSize: "0.85rem",
+                            textAlign: "center",
+                            color: "rgba(255, 255, 255, 0.8)"
+                        }}
+                    >
+                        {reimbursement > 0 ? "reimbursement cap" : "available"}
+                    </Typography>
+                </Paper>
+            )}
+        </Box>
     );
 };
 

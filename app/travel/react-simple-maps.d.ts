@@ -9,18 +9,21 @@ declare module "react-simple-maps" {
                 stroke?: string;
                 strokeWidth?: number;
                 outline?: string;
+                transition?: string;
             };
             hover?: {
                 fill?: string;
                 stroke?: string;
                 strokeWidth?: number;
                 outline?: string;
+                transition?: string;
             };
             pressed?: {
                 fill?: string;
                 stroke?: string;
                 strokeWidth?: number;
                 outline?: string;
+                transition?: string;
             };
         };
     }
