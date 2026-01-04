@@ -41,3 +41,6 @@ export const page_slugs = [
 ] as const;
 
 export const OTHER_SCHOOL_OPTION = "Other - Not Listed";
+
+export const MLH_CODE_OF_CONDUCT_URL =
+    "https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md";
