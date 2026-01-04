@@ -16,6 +16,7 @@ import MouseIcon from "@mui/icons-material/Mouse";
 import MapLegend from "./MapLegend";
 import { TouchApp } from "@mui/icons-material";
 import { motion, Variants } from "framer-motion";
+import { EllipseHeader } from "./EllipseHeader";
 
 const internationalData = [
     {
@@ -138,7 +139,7 @@ const TravelPage: React.FC = () => {
                         width: "100%",
                         display: "flex",
                         justifyContent: "center",
-                        marginTop: "15rem",
+                        marginTop: "10rem",
                         marginBottom: {
                             xs: 0,
                             md: "-3rem"
@@ -175,140 +176,18 @@ const TravelPage: React.FC = () => {
                     </svg>
                 </Box>
 
-                <div className={styles.ellipseSection}>
-                    {/* <Box> */}
-                    <img
-                        src="/travel/ellipse.svg"
-                        alt="Ellipse"
-                        className={styles.ellipseImage}
-                    />
-                    {/* </Box> */}
-                    <svg
-                        className={clsx(styles.ellipseTextSvg)}
-                        viewBox="0 0 1512 2101"
-                        preserveAspectRatio="xMidYMid meet"
-                    >
-                        <defs>
-                            <path
-                                id="ellipseCurve"
-                                d="M 90,250 Q 756,-40 1412,250"
-                            />
-                            <linearGradient
-                                id="ellipseTextGradient"
-                                x1="100%"
-                                y1="0%"
-                                x2="0%"
-                                y2="0%"
-                            >
-                                <stop
-                                    offset="-19.46%"
-                                    style={{ stopColor: "#A315D6" }}
-                                />
-                                <stop
-                                    offset="47.1%"
-                                    style={{ stopColor: "#FDAB60" }}
-                                />
-                                <stop
-                                    offset="109.92%"
-                                    style={{ stopColor: "#A315D6" }}
-                                />
-                            </linearGradient>
-                        </defs>
-                        <text
-                            style={{
-                                fontFamily: "Montserrat, sans-serif",
-                                fontSize: "26px",
-                                fontWeight: 600,
-                                fill: "url(#ellipseTextGradient)"
-                            }}
-                        >
-                            <textPath
-                                href="#ellipseCurve"
-                                startOffset="50%"
-                                textAnchor="middle"
-                            >
-                                For HackIllinois 2026, we are excited to offer
-                                travel reimbursements to qualifying attendees!
-                            </textPath>
-                        </text>
-                    </svg>
-
-                    <svg
-                        className={styles.ellipseTextSvgMobile}
-                        viewBox="0 0 1512 2101"
-                        preserveAspectRatio="xMidYMid meet"
-                    >
-                        <defs>
-                            <path
-                                id="ellipseCurve1"
-                                d="M 90,220 Q 756,-40 1412,220"
-                            />
-                            <path
-                                id="ellipseCurve2"
-                                d="M 90,325 Q 756,55 1412,325"
-                            />
-                            <linearGradient
-                                id="ellipseTextGradient2"
-                                x1="100%"
-                                y1="0%"
-                                x2="0%"
-                                y2="0%"
-                            >
-                                <stop
-                                    offset="-19.46%"
-                                    style={{ stopColor: "#A315D6" }}
-                                />
-                                <stop
-                                    offset="47.1%"
-                                    style={{ stopColor: "#FDAB60" }}
-                                />
-                                <stop
-                                    offset="109.92%"
-                                    style={{ stopColor: "#A315D6" }}
-                                />
-                            </linearGradient>
-                        </defs>
-                        <text className={styles.ellipseTextPathMobile}>
-                            <textPath
-                                href="#ellipseCurve1"
-                                startOffset="50%"
-                                textAnchor="middle"
-                                style={{
-                                    fill: "url(#ellipseTextGradient2)"
-                                }}
-                            >
-                                For HackIllinois 2026, we are excited to offer
-                            </textPath>
-                        </text>
-                        <text className={styles.ellipseTextPathMobile}>
-                            <textPath
-                                href="#ellipseCurve2"
-                                startOffset="50%"
-                                textAnchor="middle"
-                                style={{
-                                    fill: "url(#ellipseTextGradient2)"
-                                }}
-                            >
-                                travel reimbursements to qualifying attendees!
-                            </textPath>
-                        </text>
-                    </svg>
-                </div>
+                <EllipseHeader />
                 <Box
                     sx={{
                         backgroundColor: "#FAD0FF",
                         px: {
                             xs: 2,
                             lg: 6
-                        }
+                        },
+                        zIndex: 7
                     }}
                 >
-                    <Box
-                        sx={{
-                            maxWidth: "1500px",
-                            margin: "0 auto"
-                        }}
-                    >
+                    <Box className={styles.contentContainer}>
                         <Box
                             component={motion.div}
                             variants={containerVariants}
