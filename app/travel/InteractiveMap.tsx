@@ -124,10 +124,6 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
                 maxWidth: {
                     lg: "1200px"
                 },
-                px: {
-                    xs: 2,
-                    lg: 0
-                },
                 mx: "auto",
                 position: "relative"
             }}

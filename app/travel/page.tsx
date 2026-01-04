@@ -167,7 +167,7 @@ const TravelPage: React.FC = () => {
                             <Typography
                                 variant="h2"
                                 sx={{
-                                    fontSize: { xs: "20px", md: "24px" },
+                                    fontSize: { xs: "18px", md: "24px" },
                                     fontWeight: 600,
                                     color: "#401a79",
                                     textAlign: "center",
@@ -191,7 +191,7 @@ const TravelPage: React.FC = () => {
                             <Typography
                                 variant="h2"
                                 sx={{
-                                    fontSize: { xs: "20px", md: "24px" },
+                                    fontSize: { xs: "18px", md: "24px" },
                                     margin: "0 auto 1rem",
                                     fontWeight: 600,
                                     color: "#401a79",
@@ -229,7 +229,7 @@ const TravelPage: React.FC = () => {
                                         fontWeight={600}
                                         sx={{
                                             fontSize: {
-                                                xs: "0.8rem",
+                                                xs: "16px",
                                                 md: "20px"
                                             }
                                         }}
@@ -264,7 +264,7 @@ const TravelPage: React.FC = () => {
                                         fontWeight={600}
                                         sx={{
                                             fontSize: {
-                                                xs: "0.8rem",
+                                                xs: "16px",
                                                 md: "20px"
                                             }
                                         }}
@@ -297,7 +297,7 @@ const TravelPage: React.FC = () => {
                                         fontWeight={600}
                                         sx={{
                                             fontSize: {
-                                                xs: "0.8rem",
+                                                xs: "16px",
                                                 md: "20px"
                                             }
                                         }}
@@ -343,7 +343,10 @@ const TravelPage: React.FC = () => {
                                 sx={{
                                     width: "100%",
                                     textAlign: "center",
-                                    fontSize: "30px"
+                                    fontSize: {
+                                        xs: "24px",
+                                        md: "30px"
+                                    }
                                 }}
                             >
                                 REIMBURSEMENT CAPS:
@@ -437,7 +440,6 @@ const TravelPage: React.FC = () => {
                                             xs: "space-between",
                                             lg: "center"
                                         },
-                                        px: 2,
                                         gap: {
                                             xs: 2,
                                             lg: 6
