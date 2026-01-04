@@ -17,17 +17,21 @@
         "@mui/material": "^7.3.4",
         "@mui/material-nextjs": "^7.3.5",
         "clsx": "^2.1.1",
+        "d3-geo": "^3.1.1",
         "formik": "^2.4.6",
         "motion": "^12.23.22",
         "next": "^15.1.11",
         "react": "^19.2.3",
         "react-confetti": "^6.4.0",
+        "react-curved-text": "^3.0.1",
         "react-dom": "^19.2.3",
+        "react-simple-maps": "^3.0.0",
         "yup": "^1.6.0"
     },
     "devDependencies": {
         "@types/node": "^18.7.16",
         "@types/react": "^19.2.3",
+        "@types/react-curved-text": "^2.0.3",
         "@types/react-dom": "^19.2.3",
         "eslint": "^8.57.1",
         "eslint-config-next": "^15.1.0",
@@ -38,5 +42,16 @@
         "sass": "^1.80.4",
         "sass-loader": "^16.0.2",
         "typescript": "~5.5.4"
+    },
+    "overrides": {
+        "react-simple-maps": {
+            "d3-zoom": "^3.0.0",
+            "d3-interpolate": "^3.0.1",
+            "d3-color": "^3.1.0",
+            "d3-geo": "^3.1.0",
+            "d3-selection": "^3.0.0",
+            "react": "^16.8.0 || 17.x || 18.x || 19.x",
+            "react-dom": "^16.8.0 || 17.x || 18.x || 19.x"
+        }
     }
 }
