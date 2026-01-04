@@ -712,6 +712,20 @@
         background-repeat: repeat;
         pointer-events: none;
         z-index: 0;
+        animation: twinkle 3s ease-in-out infinite;
+    }
+}
+
+@keyframes twinkle {
+    0%,
+    100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8))
+            drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+    }
+    50% {
+        opacity: 0.5;
+        filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
     }
 }
 
