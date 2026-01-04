@@ -825,7 +825,7 @@
 .requirementsGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    max-width: 1200px;
+    max-width: 1000px;
     gap: 3rem;
     margin: 2rem auto;
     @media (max-width: 700px) {
