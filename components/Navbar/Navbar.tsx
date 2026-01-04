@@ -9,7 +9,6 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { MLH_CODE_OF_CONDUCT_URL } from "@/app/register/general/constants/registration";
 
 type NavbarItem = {
     title: string;
@@ -24,10 +23,6 @@ const NAVBAR_ITEMS: NavbarItem[] = [
     {
         title: "Prizes",
         link: "/prizes"
-    },
-    {
-        title: "Legal",
-        link: MLH_CODE_OF_CONDUCT_URL
     }
 ];
 

@@ -55,6 +55,7 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
     onRocketClick
 }) => {
     const [mounted, setMounted] = useState(false);
+    const [isFooterVisible, setIsFooterVisible] = useState(false);
 
     const targetMs = useMemo(
         () =>
@@ -80,6 +81,27 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
 
         return () => window.clearInterval(id);
     }, [targetMs]);
+
+    // Observe footer visibility
+    useEffect(() => {
+        const footer = document.getElementById("site-footer");
+        if (!footer) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsFooterVisible(entry.isIntersecting);
+            },
+            {
+                threshold: 0.1
+            }
+        );
+
+        observer.observe(footer);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [mounted]);
 
     if (!mounted) {
         return null;
@@ -112,7 +134,13 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
                 background: "linear-gradient(135deg, #a68fc4, #8fa3d4)",
                 backdropFilter: "blur(12px)",
                 boxShadow: "0 12px 30px rgba(15, 23, 42, 0.35)",
-                width: "250px"
+                width: "250px",
+                opacity: isFooterVisible ? 0 : 1,
+                transform: isFooterVisible
+                    ? "translateY(20px)"
+                    : "translateY(0)",
+                transition: "opacity 0.3s ease, transform 0.3s ease",
+                pointerEvents: isFooterVisible ? "none" : "auto"
             }}
             aria-label={label}
             role="status"
