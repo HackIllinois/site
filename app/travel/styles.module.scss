@@ -806,7 +806,7 @@
     margin-bottom: 3rem;
     position: relative;
     z-index: 10;
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -825,15 +825,15 @@
 
 .requirementText {
     font-family: "Montserrat", sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     color: #401a79;
     line-height: 1.7;
     text-align: center;
-    max-width: 700px;
+    max-width: 900px;
     margin: 0 auto;
 
     @media (max-width: 768px) {
-        font-size: 12px;
+        font-size: 14px;
     }
 }
 
@@ -873,12 +873,15 @@
 // Disclaimer
 .disclaimerText {
     font-family: "Montserrat", sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     color: #401a79;
     line-height: 1.7;
     text-align: center;
     max-width: 1500px;
     margin: 0 auto 1rem;
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
 }
 
 .disclaimerText.italic {
@@ -967,7 +970,7 @@
 // Contact section
 .contactText {
     font-family: "Montserrat", sans-serif;
-    font-size: 1.1rem;
+    font-size: 16px;
     color: #401a79;
     text-align: center;
     margin: 0;
@@ -1031,13 +1034,6 @@
     .title {
         font-size: 2rem;
     }
-
-    .requirementText,
-    .disclaimerText,
-    .contactText {
-        font-size: 0.9rem;
-    }
-
     .requirementsGrid {
         gap: 1.5rem;
     }

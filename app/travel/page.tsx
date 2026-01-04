@@ -15,6 +15,7 @@ import clsx from "clsx";
 import MouseIcon from "@mui/icons-material/Mouse";
 import MapLegend from "./MapLegend";
 import { TouchApp } from "@mui/icons-material";
+import { motion, Variants } from "framer-motion";
 
 const internationalData = [
     {
@@ -90,6 +91,25 @@ const TravelPage: React.FC = () => {
         }
     };
 
+    const containerVariants: Variants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2
+            }
+        }
+    };
+
+    const itemVariants: Variants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.5, ease: "easeOut" }
+        }
+    };
+
     const InternationalTrigger = (
         <div
             className={styles.internationalWrapper}
@@ -159,52 +179,73 @@ const TravelPage: React.FC = () => {
                         }}
                     >
                         <Box
+                            component={motion.div}
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.3 }}
                             sx={{
                                 marginBottom: { xs: "2rem", lg: "5rem" },
                                 zIndex: 10
                             }}
                         >
-                            <Typography
-                                variant="h2"
-                                sx={{
-                                    fontSize: { xs: "18px", md: "24px" },
-                                    fontWeight: 600,
-                                    color: "#401a79",
-                                    textAlign: "center",
-                                    mb: 2,
-                                    textShadow:
-                                        "0 2px 10px rgba(255, 255, 255, 0.2)"
-                                }}
+                            <motion.div variants={itemVariants}>
+                                <Typography
+                                    variant="h2"
+                                    sx={{
+                                        fontSize: { xs: "18px", md: "24px" },
+                                        fontWeight: 600,
+                                        color: "#401a79",
+                                        textAlign: "center",
+                                        mb: 2,
+                                        textShadow:
+                                            "0 2px 10px rgba(255, 255, 255, 0.2)"
+                                    }}
+                                >
+                                    To be considered for reimbursement:
+                                </Typography>
+                            </motion.div>
+                            <motion.p
+                                className={styles.requirementText}
+                                variants={itemVariants}
                             >
-                                To be considered for reimbursement:
-                            </Typography>
-                            <p className={styles.requirementText}>
                                 Participants must opt-in during the registration
                                 process for HackIllinois and this will{" "}
                                 <b>not</b> impact your chances of being admitted
                                 to the event.
-                            </p>
+                            </motion.p>
                         </Box>
 
                         {/* Qualified Section */}
-                        <div className={styles.qualifiedSection}>
-                            <Typography
-                                variant="h2"
-                                sx={{
-                                    fontSize: { xs: "18px", md: "24px" },
-                                    margin: "0 auto 1rem",
-                                    fontWeight: 600,
-                                    color: "#401a79",
-                                    textAlign: "center",
-                                    mb: 2,
-                                    textShadow:
-                                        "0 2px 10px rgba(255, 255, 255, 0.2)"
-                                }}
-                            >
-                                To be qualified for reimbursement:
-                            </Typography>
+                        <motion.div
+                            className={styles.qualifiedSection}
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.3 }}
+                        >
+                            <motion.div variants={itemVariants}>
+                                <Typography
+                                    variant="h2"
+                                    sx={{
+                                        fontSize: { xs: "18px", md: "24px" },
+                                        margin: "0 auto 1rem",
+                                        fontWeight: 600,
+                                        color: "#401a79",
+                                        textAlign: "center",
+                                        mb: 2,
+                                        textShadow:
+                                            "0 2px 10px rgba(255, 255, 255, 0.2)"
+                                    }}
+                                >
+                                    To be qualified for reimbursement:
+                                </Typography>
+                            </motion.div>
                             <div className={styles.requirementsGrid}>
-                                <div className={styles.requirementItem}>
+                                <motion.div
+                                    className={styles.requirementItem}
+                                    variants={itemVariants}
+                                >
                                     <Box
                                         sx={{
                                             width: { xs: "125px", lg: "150px" },
@@ -230,15 +271,18 @@ const TravelPage: React.FC = () => {
                                         sx={{
                                             fontSize: {
                                                 xs: "16px",
-                                                md: "20px"
+                                                md: "22px"
                                             }
                                         }}
                                     >
                                         RSVP &quot;Yes&quot; to attend
                                         HackIllinois
                                     </GradientText>
-                                </div>
-                                <div className={styles.requirementItem}>
+                                </motion.div>
+                                <motion.div
+                                    className={styles.requirementItem}
+                                    variants={itemVariants}
+                                >
                                     <Box
                                         sx={{
                                             width: { xs: "125px", lg: "150px" },
@@ -265,14 +309,17 @@ const TravelPage: React.FC = () => {
                                         sx={{
                                             fontSize: {
                                                 xs: "16px",
-                                                md: "20px"
+                                                md: "22px"
                                             }
                                         }}
                                     >
                                         Attend HackIllinois in person
                                     </GradientText>
-                                </div>
-                                <div className={styles.requirementItem}>
+                                </motion.div>
+                                <motion.div
+                                    className={styles.requirementItem}
+                                    variants={itemVariants}
+                                >
                                     <Box
                                         sx={{
                                             width: { xs: "125px", lg: "150px" },
@@ -298,30 +345,40 @@ const TravelPage: React.FC = () => {
                                         sx={{
                                             fontSize: {
                                                 xs: "16px",
-                                                md: "20px"
+                                                md: "22px"
                                             }
                                         }}
                                     >
                                         Submit a qualifying project
                                     </GradientText>
-                                </div>
+                                </motion.div>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Disclaimer Section */}
-                        <div className={styles.disclaimerSection}>
-                            <p
+                        <motion.div
+                            className={styles.disclaimerSection}
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.3 }}
+                        >
+                            <motion.p
                                 className={clsx(
                                     styles.disclaimerText,
                                     styles.italic
                                 )}
+                                variants={itemVariants}
                             >
                                 Please be aware that failing to meet any of
                                 these requirements may result in
                                 disqualification from receiving any
                                 reimbursement.
-                            </p>
-                            <p className={styles.disclaimerText}>
+                            </motion.p>
+                            <motion.p
+                                className={styles.disclaimerText}
+                                variants={itemVariants}
+                            >
                                 The determination of reimbursement amounts is
                                 influenced by several factors, including but not
                                 limited to an applicant&apos;s geographic
@@ -332,182 +389,210 @@ const TravelPage: React.FC = () => {
                                 that this amount is not guaranteed and may be
                                 subject to adjustments based on the final review
                                 of eligibility criteria.
-                            </p>
-                        </div>
+                            </motion.p>
+                        </motion.div>
 
                         {/* Reimbursement Section */}
-                        <div className={styles.reimbursementSection}>
-                            <GradientText
-                                fontFamily="Montserrat"
-                                fontWeight={600}
-                                sx={{
-                                    width: "100%",
-                                    textAlign: "center",
-                                    fontSize: {
-                                        xs: "24px",
-                                        md: "30px"
-                                    }
-                                }}
-                            >
-                                REIMBURSEMENT CAPS:
-                            </GradientText>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    gap: 1
-                                }}
-                            >
-                                {/* Desktop View */}
-                                <Box
+                        <motion.div
+                            className={styles.reimbursementSection}
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.3 }}
+                        >
+                            <motion.div variants={itemVariants}>
+                                <GradientText
+                                    fontFamily="Montserrat"
+                                    fontWeight={600}
                                     sx={{
-                                        display: { xs: "none", md: "flex" },
-                                        alignItems: "center",
-                                        gap: 1
+                                        width: "100%",
+                                        textAlign: "center",
+                                        fontSize: {
+                                            xs: "24px",
+                                            md: "30px"
+                                        }
                                     }}
                                 >
-                                    <MouseIcon
-                                        sx={{ color: "#401A79", mt: 3 }}
-                                    />
-                                    <Typography
-                                        sx={{
-                                            color: "#401A79",
-                                            mt: 3,
-                                            fontSize: "16px"
-                                        }}
-                                    >
-                                        Hover over a location to see its
-                                        reimbursement cap.
-                                    </Typography>
-                                </Box>
-
-                                {/* Mobile View */}
-                                <Box
-                                    sx={{
-                                        display: { xs: "flex", md: "none" },
-                                        alignItems: "center",
-                                        gap: 1,
-                                        opacity: 0.7
-                                    }}
-                                >
-                                    <TouchApp
-                                        sx={{ color: "#401A79", mt: 3 }}
-                                    />
-                                    <Typography
-                                        sx={{
-                                            color: "#401A79",
-                                            mt: 3
-                                        }}
-                                    >
-                                        Click over a location to see its
-                                        reimbursement cap.
-                                    </Typography>
-                                </Box>
-                            </Box>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    flexDirection: {
-                                        xs: "column",
-                                        lg: "row"
-                                    }
-                                }}
-                            >
+                                    REIMBURSEMENT CAPS:
+                                </GradientText>
+                            </motion.div>
+                            <motion.div variants={itemVariants}>
                                 <Box
                                     sx={{
                                         display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        gap: 1
+                                    }}
+                                >
+                                    {/* Desktop View */}
+                                    <Box
+                                        sx={{
+                                            display: { xs: "none", md: "flex" },
+                                            alignItems: "center",
+                                            gap: 1
+                                        }}
+                                    >
+                                        <MouseIcon
+                                            sx={{ color: "#401A79", mt: 3 }}
+                                        />
+                                        <Typography
+                                            sx={{
+                                                color: "#401A79",
+                                                mt: 3,
+                                                fontSize: "16px"
+                                            }}
+                                        >
+                                            Hover over a location to see its
+                                            reimbursement cap.
+                                        </Typography>
+                                    </Box>
+
+                                    {/* Mobile View */}
+                                    <Box
+                                        sx={{
+                                            display: { xs: "flex", md: "none" },
+                                            alignItems: "center",
+                                            gap: 1,
+                                            opacity: 0.7
+                                        }}
+                                    >
+                                        <TouchApp
+                                            sx={{ color: "#401A79", mt: 3 }}
+                                        />
+                                        <Typography
+                                            sx={{
+                                                color: "#401A79",
+                                                mt: 3,
+                                                fontSize: {
+                                                    xs: "14px",
+                                                    md: "16px"
+                                                }
+                                            }}
+                                        >
+                                            Click over a location to see its
+                                            reimbursement cap.
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                            </motion.div>
+                            <motion.div variants={itemVariants}>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
                                         flexDirection: {
                                             xs: "column",
                                             lg: "row"
                                         }
                                     }}
                                 >
-                                    <InteractiveMap className={styles.usMap} />
-                                </Box>
-
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexWrap: "wrap-reverse",
-                                        flexDirection: {
-                                            xs: "row",
-                                            lg: "column"
-                                        },
-                                        alignItems: "center",
-                                        justifyContent: {
-                                            xs: "space-between",
-                                            lg: "center"
-                                        },
-                                        gap: {
-                                            xs: 2,
-                                            lg: 6
-                                        }
-                                    }}
-                                >
-                                    <MapLegend />
                                     <Box
-                                        className={
-                                            styles.internationalContainer
-                                        }
                                         sx={{
                                             display: "flex",
-                                            alignItems: "flex-end",
-                                            justifyContent: "center",
-                                            zIndex: 10,
-                                            flexDirection: "column"
+                                            flexDirection: {
+                                                xs: "column",
+                                                lg: "row"
+                                            }
                                         }}
                                     >
-                                        {!isMobile ? (
-                                            <Tooltip
-                                                title={
-                                                    <InternationalPricingCard />
-                                                }
-                                                placement="left"
-                                                componentsProps={{
-                                                    tooltip: {
-                                                        sx: {
-                                                            bgcolor:
-                                                                "transparent", // Remove default tooltip black box
-                                                            p: 0,
-                                                            maxWidth: "none"
-                                                        }
+                                        <InteractiveMap
+                                            className={styles.usMap}
+                                        />
+                                    </Box>
+
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexWrap: "wrap-reverse",
+                                            flexDirection: {
+                                                xs: "row",
+                                                lg: "column"
+                                            },
+                                            alignItems: "center",
+                                            justifyContent: {
+                                                xs: "space-between",
+                                                lg: "center"
+                                            },
+                                            gap: {
+                                                xs: 2,
+                                                lg: 6
+                                            }
+                                        }}
+                                    >
+                                        <MapLegend />
+                                        <Box
+                                            className={
+                                                styles.internationalContainer
+                                            }
+                                            sx={{
+                                                display: "flex",
+                                                alignItems: "flex-end",
+                                                justifyContent: "center",
+                                                zIndex: 10,
+                                                flexDirection: "column"
+                                            }}
+                                        >
+                                            {!isMobile ? (
+                                                <Tooltip
+                                                    title={
+                                                        <InternationalPricingCard />
                                                     }
-                                                }}
-                                            >
-                                                {InternationalTrigger}
-                                            </Tooltip>
-                                        ) : (
-                                            <>
-                                                {InternationalTrigger}
-                                                <Dialog
-                                                    open={openMobileModal}
-                                                    onClose={() =>
-                                                        setOpenMobileModal(
-                                                            false
-                                                        )
-                                                    }
-                                                    PaperProps={{
-                                                        style: {
-                                                            backgroundColor:
-                                                                "transparent",
-                                                            boxShadow: "none"
+                                                    placement="left"
+                                                    componentsProps={{
+                                                        tooltip: {
+                                                            sx: {
+                                                                bgcolor:
+                                                                    "transparent", // Remove default tooltip black box
+                                                                p: 0,
+                                                                maxWidth: "none"
+                                                            }
                                                         }
                                                     }}
                                                 >
-                                                    <InternationalPricingCard />
-                                                </Dialog>
-                                            </>
-                                        )}
+                                                    {InternationalTrigger}
+                                                </Tooltip>
+                                            ) : (
+                                                <>
+                                                    {InternationalTrigger}
+                                                    <Dialog
+                                                        open={openMobileModal}
+                                                        onClose={() =>
+                                                            setOpenMobileModal(
+                                                                false
+                                                            )
+                                                        }
+                                                        PaperProps={{
+                                                            style: {
+                                                                backgroundColor:
+                                                                    "transparent",
+                                                                boxShadow:
+                                                                    "none"
+                                                            }
+                                                        }}
+                                                    >
+                                                        <InternationalPricingCard />
+                                                    </Dialog>
+                                                </>
+                                            )}
+                                        </Box>
                                     </Box>
                                 </Box>
-                            </Box>
-                        </div>
+                            </motion.div>
+                        </motion.div>
 
                         {/* Contact Section */}
-                        <div className={styles.contactSection}>
-                            <p className={styles.contactText}>
+                        <motion.div
+                            className={styles.contactSection}
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.3 }}
+                        >
+                            <motion.p
+                                className={styles.contactText}
+                                variants={itemVariants}
+                            >
                                 For further questions, please contact{" "}
                                 <a
                                     href="mailto:travel@hackillinois.org"
@@ -515,8 +600,8 @@ const TravelPage: React.FC = () => {
                                 >
                                     travel@hackillinois.org
                                 </a>
-                            </p>
-                        </div>
+                            </motion.p>
+                        </motion.div>
                     </Box>
                 </Box>
             </div>
