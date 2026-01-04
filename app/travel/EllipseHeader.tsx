@@ -22,7 +22,7 @@ export function EllipseHeader() {
                 preserveAspectRatio="xMidYMid meet"
             >
                 <defs>
-                    <path id="ellipseCurve" d="M 90,250 Q 756,-40 1412,250" />
+                    <path id="ellipseCurve" d="M 100,250 Q 756,-40 1412,250" />
                     <linearGradient
                         id="ellipseTextGradient"
                         x1="100%"
@@ -66,11 +66,11 @@ export function EllipseHeader() {
                 <defs>
                     <path
                         id="ellipseCurve1"
-                        d={`M 90,${firstCurveY} Q 756,${firstCurveY - 260} 1412,${firstCurveY}`}
+                        d={`M 100,${firstCurveY} Q 756,${firstCurveY - 260} 1412,${firstCurveY}`}
                     />
                     <path
                         id="ellipseCurve2"
-                        d={`M 90,${secondCurveY} Q 756,${secondCurveY - 270} 1412,${secondCurveY}`}
+                        d={`M 100,${secondCurveY} Q 756,${secondCurveY - 270} 1412,${secondCurveY}`}
                     />
                     <linearGradient
                         id="ellipseTextGradient2"
@@ -124,15 +124,15 @@ export function EllipseHeader() {
                 <defs>
                     <path
                         id="ellipseCurve1Small"
-                        d={`M 90,${firstCurveY} Q 756,${firstCurveY - 260} 1412,${firstCurveY}`}
+                        d={`M 100,${firstCurveY} Q 756,${firstCurveY - 260} 1412,${firstCurveY}`}
                     />
                     <path
                         id="ellipseCurve2Small"
-                        d={`M 90,${firstCurveY + curveSpacingSmall} Q 756,${firstCurveY + curveSpacingSmall - 270} 1412,${firstCurveY + curveSpacingSmall}`}
+                        d={`M 100,${firstCurveY + curveSpacingSmall} Q 756,${firstCurveY + curveSpacingSmall - 270} 1412,${firstCurveY + curveSpacingSmall}`}
                     />
                     <path
                         id="ellipseCurve3Small"
-                        d={`M 90,${thirdCurveY} Q 756,${thirdCurveY - 280} 1412,${thirdCurveY}`}
+                        d={`M 100,${thirdCurveY} Q 756,${thirdCurveY - 280} 1412,${thirdCurveY}`}
                     />
                     <linearGradient
                         id="ellipseTextGradient3"
