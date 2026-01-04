@@ -23,6 +23,7 @@
         "next": "^15.1.11",
         "react": "^19.2.3",
         "react-confetti": "^6.4.0",
+        "react-curved-text": "^3.0.1",
         "react-dom": "^19.2.3",
         "react-simple-maps": "^3.0.0",
         "yup": "^1.6.0"
@@ -30,6 +31,7 @@
     "devDependencies": {
         "@types/node": "^18.7.16",
         "@types/react": "^19.2.3",
+        "@types/react-curved-text": "^2.0.3",
         "@types/react-dom": "^19.2.3",
         "eslint": "^8.57.1",
         "eslint-config-next": "^15.1.0",
