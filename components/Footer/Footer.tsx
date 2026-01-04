@@ -15,6 +15,7 @@ const Footer = () => {
                 color: "white",
                 py: 2.5,
                 px: 2,
+                pb: 4,
                 mt: "auto"
             }}
         >
@@ -25,7 +26,7 @@ const Footer = () => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: { xs: "flex-start", md: "center" },
-                    gap: 1.5
+                    gap: 2
                 }}
             >
                 <Box
@@ -34,9 +35,9 @@ const Footer = () => {
                         justifyContent: { xs: "flex-start", md: "center" },
                         alignItems: { xs: "flex-start", md: "center" },
                         flexDirection: { xs: "column", md: "row" },
-                        gap: { xs: 1, md: 3 },
+                        gap: { xs: 1.5, md: 3 },
                         flexWrap: "wrap",
-                        fontSize: { xs: "0.75rem", md: "0.875rem" },
+                        fontSize: "14px",
                         width: { xs: "100%", md: "auto" }
                     }}
                 >
@@ -46,8 +47,10 @@ const Footer = () => {
                         rel="noopener noreferrer"
                         sx={{
                             fontFamily: "Montserrat, sans-serif",
+                            fontSize: "14px",
                             color: "#a78bfa",
                             textDecoration: "none",
+                            py: 0.5,
                             "&:hover": {
                                 color: "#c4b5fd",
                                 textDecoration: "underline"
@@ -61,7 +64,8 @@ const Footer = () => {
                         component="span"
                         sx={{
                             display: { xs: "none", md: "inline" },
-                            color: "rgba(255, 255, 255, 0.4)"
+                            color: "rgba(255, 255, 255, 0.4)",
+                            fontSize: "14px"
                         }}
                     >
                         |
@@ -73,8 +77,10 @@ const Footer = () => {
                         rel="noopener noreferrer"
                         sx={{
                             fontFamily: "Montserrat, sans-serif",
+                            fontSize: "14px",
                             color: "#a78bfa",
                             textDecoration: "none",
+                            py: 0.5,
                             "&:hover": {
                                 color: "#c4b5fd",
                                 textDecoration: "underline"
@@ -88,7 +94,8 @@ const Footer = () => {
                         component="span"
                         sx={{
                             display: { xs: "none", md: "inline" },
-                            color: "rgba(255, 255, 255, 0.4)"
+                            color: "rgba(255, 255, 255, 0.4)",
+                            fontSize: "14px"
                         }}
                     >
                         |
@@ -106,8 +113,10 @@ const Footer = () => {
                             href="mailto:contact@hackillinois.org"
                             sx={{
                                 fontFamily: "Montserrat, sans-serif",
+                                fontSize: "14px",
                                 color: "#a78bfa",
                                 textDecoration: "none",
+                                py: 0.5,
                                 "&:hover": {
                                     color: "#c4b5fd",
                                     textDecoration: "underline"
@@ -124,7 +133,7 @@ const Footer = () => {
                     sx={{
                         display: "flex",
                         alignItems: "center",
-                        gap: 2,
+                        gap: 2.5,
                         flexWrap: "wrap",
                         justifyContent: { xs: "flex-start", md: "center" }
                     }}
@@ -132,7 +141,7 @@ const Footer = () => {
                     <Box
                         sx={{
                             display: "flex",
-                            gap: 1.5,
+                            gap: 2,
                             alignItems: "center"
                         }}
                     >
@@ -144,12 +153,13 @@ const Footer = () => {
                                 color: "#a78bfa",
                                 display: "flex",
                                 alignItems: "center",
+                                p: 0.5,
                                 "&:hover": {
                                     color: "#c4b5fd"
                                 }
                             }}
                         >
-                            <LinkedInIcon sx={{ fontSize: "1.25rem" }} />
+                            <LinkedInIcon sx={{ fontSize: "1.5rem" }} />
                         </MuiLink>
                         <MuiLink
                             href="https://x.com/HackIllinois"
@@ -159,19 +169,20 @@ const Footer = () => {
                                 color: "#a78bfa",
                                 display: "flex",
                                 alignItems: "center",
+                                p: 0.5,
                                 "&:hover": {
                                     color: "#c4b5fd"
                                 }
                             }}
                         >
-                            <TwitterIcon sx={{ fontSize: "1.25rem" }} />
+                            <TwitterIcon sx={{ fontSize: "1.5rem" }} />
                         </MuiLink>
                     </Box>
 
                     <Typography
                         sx={{
                             fontFamily: "Montserrat, sans-serif",
-                            fontSize: "0.75rem",
+                            fontSize: "14px",
                             color: "rgba(255, 255, 255, 0.6)"
                         }}
                     >
