@@ -903,12 +903,8 @@
 }
 
 .composableMap {
-    width: 75vw;
-    max-width: 1200px;
+    width: 100%;
     height: auto;
-    @media (max-width: 900px) {
-        width: 90vw;
-    }
 }
 
 .legendWrapper {
@@ -916,7 +912,6 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 5rem;
-    margin: auto 0;
 }
 
 .legend {
@@ -949,9 +944,14 @@
     width: 20vw;
     height: auto;
     max-width: 200px;
+    min-width: 100px;
     object-fit: contain;
     filter: drop-shadow(0 4px 10px rgba(255, 255, 255, 0.3));
 }
+
+// .internationalIcon.mobile {
+//     width: 14vw;
+// }
 
 .internationalPopup {
     position: absolute;

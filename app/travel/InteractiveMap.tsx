@@ -107,6 +107,15 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ className }) => {
         <Box
             onMouseMove={handleMouseMove}
             sx={{
+                width: {
+                    xs: "100%",
+                    lg: "75vw"
+                },
+                px: {
+                    xs: 2,
+                    lg: 0
+                },
+                mx: "auto",
                 position: "relative"
             }}
         >

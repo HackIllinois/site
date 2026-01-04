@@ -19,16 +19,21 @@ const MapLegend = () => {
                 padding: { xs: "16px 24px", md: "24px" }, // Slightly less padding on mobile
                 width: "fit-content",
                 boxShadow: 1,
-                maxWidth: "100%",
-                overflowX: "auto" // Allow scrolling if screen is too small on mobile
+                maxWidth: "100%"
             }}
         >
-            <Stack
-                // Switch direction based on breakpoint
-                direction={{ xs: "row", lg: "column" }}
-                spacing={{ xs: 2, md: 3 }}
-                alignItems="center"
-                justifyContent="center"
+            <Box
+                sx={{
+                    display: "grid",
+                    gridTemplateColumns: {
+                        xs: "repeat(2, 1fr)",
+                        sm: "repeat(3, 1fr)",
+                        lg: "1fr"
+                    },
+                    gap: { xs: 2, md: 3 },
+                    alignItems: "center",
+                    justifyItems: "start"
+                }}
             >
                 {PRICING_DATA.map(item => (
                     <Stack
@@ -56,14 +61,14 @@ const MapLegend = () => {
                                 fontWeight: 600,
                                 color: "#4527a0",
                                 fontFamily: "Montserrat, sans-serif",
-                                fontSize: { xs: "18px", md: "20px" } // Responsive font size
+                                fontSize: { xs: "16px", md: "20px" } // Responsive font size
                             }}
                         >
                             ${item.price}
                         </Typography>
                     </Stack>
                 ))}
-            </Stack>
+            </Box>
         </Box>
     );
 };

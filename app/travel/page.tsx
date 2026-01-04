@@ -126,7 +126,6 @@ const TravelPage: React.FC = () => {
                             <Typography
                                 sx={{
                                     color: "#401A79",
-                                    textAlign: "center",
                                     mt: 3
                                 }}
                             >
@@ -144,14 +143,38 @@ const TravelPage: React.FC = () => {
                                 }
                             }}
                         >
-                            <InteractiveMap className={styles.usMap} />
-                            <div className={styles.legendWrapper}>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: {
+                                        xs: "column",
+                                        lg: "row"
+                                    }
+                                }}
+                            >
+                                <InteractiveMap className={styles.usMap} />
+                            </Box>
+
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexWrap: "wrap-reverse",
+                                    flexDirection: { xs: "row", lg: "column" },
+                                    alignItems: "center",
+                                    justifyContent: {
+                                        xs: "space-between",
+                                        lg: "center"
+                                    },
+                                    px: 2,
+                                    gap: 2
+                                }}
+                            >
                                 <MapLegend />
                                 <Box
                                     className={styles.internationalContainer}
                                     sx={{
                                         zIndex: 10,
-                                        display: "flex",
+                                        // display: {xs: 'none', lg: "flex"},
                                         flexDirection: "column",
                                         alignItems: "center"
                                     }}
@@ -169,7 +192,7 @@ const TravelPage: React.FC = () => {
                                         />
                                     </div>
                                 </Box>
-                            </div>
+                            </Box>
                         </Box>
                     </div>
 
