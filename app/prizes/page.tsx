@@ -39,18 +39,6 @@ const Prizes: React.FC = () => {
         }
     };
 
-    const itemVariants2: Variants = {
-        hidden: { opacity: 0, y: -30 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.8,
-                ease: [0.25, 0.46, 0.45, 0.94] // Smooth ease-out
-            }
-        }
-    };
-
     const twinkle = keyframes`
         0% {
             opacity: 0.15;
@@ -89,7 +77,7 @@ const Prizes: React.FC = () => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    pt: "150px",
+                    pt: "100px",
                     pb: "200px"
                 }}
             >
@@ -114,7 +102,7 @@ const Prizes: React.FC = () => {
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
-                    whileInView="visible"
+                    animate="visible"
                     viewport={{ once: true, amount: 0.3 }}
                     style={{ width: "90%" }}
                 >
@@ -194,7 +182,7 @@ const Prizes: React.FC = () => {
                     }}
                     variants={containerVariants}
                     initial="hidden"
-                    whileInView="visible"
+                    animate="visible"
                     viewport={{ once: true, amount: 0.2 }}
                 >
                     <MotionBox variants={itemVariants}>
