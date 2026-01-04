@@ -715,18 +715,31 @@
     }
 }
 
+.headerText {
+    font-family: "Tsukimi Rounded", sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    fill: white;
+    text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+    @media (max-width: 768px) {
+        font-size: 50px;
+    }
+}
+
 // Ellipse section - Full width, at the back
 .ellipseSection {
     position: relative;
     width: 100%;
     height: auto;
-    margin-top: 10vh;
 }
 
 .ellipseImage {
-    width: 100%;
-    height: auto;
+    width: 105%;
+    margin-left: -2.5%;
     display: block;
+    object-fit: cover;
+    object-position: top;
+    margin-bottom: -2px;
 }
 
 .ellipseTextSvg {
@@ -741,6 +754,20 @@
     @media (min-width: 1200px) {
         top: -40px;
     }
+    @media (max-width: 900px) {
+        display: none;
+    }
+}
+.ellipseTextSvgMobile {
+    display: none;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    z-index: 6;
+    pointer-events: none;
+    @media (max-width: 900px) {
+        display: block;
+    }
 }
 
 .ellipseTextPath {
@@ -753,6 +780,15 @@
     }
     @media (min-width: 1700px) {
         font-size: 16px;
+    }
+}
+
+.ellipseTextPathMobile {
+    font-family: "Montserrat", sans-serif;
+    font-size: 45px;
+    font-weight: 600;
+    @media (max-width: 768px) {
+        font-size: 55px;
     }
 }
 
@@ -1037,4 +1073,8 @@
     .requirementsGrid {
         gap: 1.5rem;
     }
+}
+
+.headerText {
+    font-family: "Tsukimi Rounded", sans-serif;
 }

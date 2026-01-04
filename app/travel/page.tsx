@@ -132,16 +132,59 @@ const TravelPage: React.FC = () => {
     return (
         <main className={styles.main}>
             <div className={styles.travelSection}>
-                <h1 className={styles.title}>TRAVEL DETAILS</h1>
+                <Box
+                    sx={{
+                        position: "relative",
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        marginTop: "15rem",
+                        marginBottom: {
+                            xs: 0,
+                            md: "-3rem"
+                        }
+                    }}
+                >
+                    <svg
+                        viewBox="0 0 800 150"
+                        preserveAspectRatio="xMidYMid meet"
+                        style={{
+                            width: "100%",
+                            maxWidth: "800px",
+                            height: "auto"
+                        }}
+                    >
+                        <defs>
+                            <path
+                                id="travelDetailsCurve"
+                                d="M 50,100 Q 400,20 750,100"
+                            />
+                        </defs>
+                        <text className={styles.headerText}>
+                            <textPath
+                                style={{
+                                    fontFamily: "Tsukimi Rounded, sans-serif"
+                                }}
+                                href="#travelDetailsCurve"
+                                startOffset="50%"
+                                textAnchor="middle"
+                            >
+                                TRAVEL DETAILS
+                            </textPath>
+                        </text>
+                    </svg>
+                </Box>
 
                 <div className={styles.ellipseSection}>
+                    {/* <Box> */}
                     <img
                         src="/travel/ellipse.svg"
                         alt="Ellipse"
                         className={styles.ellipseImage}
                     />
+                    {/* </Box> */}
                     <svg
-                        className={styles.ellipseTextSvg}
+                        className={clsx(styles.ellipseTextSvg)}
                         viewBox="0 0 1512 2101"
                         preserveAspectRatio="xMidYMid meet"
                     >
@@ -150,14 +193,102 @@ const TravelPage: React.FC = () => {
                                 id="ellipseCurve"
                                 d="M 90,250 Q 756,-40 1412,250"
                             />
+                            <linearGradient
+                                id="ellipseTextGradient"
+                                x1="100%"
+                                y1="0%"
+                                x2="0%"
+                                y2="0%"
+                            >
+                                <stop
+                                    offset="-19.46%"
+                                    style={{ stopColor: "#A315D6" }}
+                                />
+                                <stop
+                                    offset="47.1%"
+                                    style={{ stopColor: "#FDAB60" }}
+                                />
+                                <stop
+                                    offset="109.92%"
+                                    style={{ stopColor: "#A315D6" }}
+                                />
+                            </linearGradient>
                         </defs>
-                        <text className={styles.ellipseTextPath}>
+                        <text
+                            style={{
+                                fontFamily: "Montserrat, sans-serif",
+                                fontSize: "26px",
+                                fontWeight: 600,
+                                fill: "url(#ellipseTextGradient)"
+                            }}
+                        >
                             <textPath
                                 href="#ellipseCurve"
                                 startOffset="50%"
                                 textAnchor="middle"
                             >
                                 For HackIllinois 2026, we are excited to offer
+                                travel reimbursements to qualifying attendees!
+                            </textPath>
+                        </text>
+                    </svg>
+
+                    <svg
+                        className={styles.ellipseTextSvgMobile}
+                        viewBox="0 0 1512 2101"
+                        preserveAspectRatio="xMidYMid meet"
+                    >
+                        <defs>
+                            <path
+                                id="ellipseCurve1"
+                                d="M 90,220 Q 756,-40 1412,220"
+                            />
+                            <path
+                                id="ellipseCurve2"
+                                d="M 90,325 Q 756,55 1412,325"
+                            />
+                            <linearGradient
+                                id="ellipseTextGradient2"
+                                x1="100%"
+                                y1="0%"
+                                x2="0%"
+                                y2="0%"
+                            >
+                                <stop
+                                    offset="-19.46%"
+                                    style={{ stopColor: "#A315D6" }}
+                                />
+                                <stop
+                                    offset="47.1%"
+                                    style={{ stopColor: "#FDAB60" }}
+                                />
+                                <stop
+                                    offset="109.92%"
+                                    style={{ stopColor: "#A315D6" }}
+                                />
+                            </linearGradient>
+                        </defs>
+                        <text className={styles.ellipseTextPathMobile}>
+                            <textPath
+                                href="#ellipseCurve1"
+                                startOffset="50%"
+                                textAnchor="middle"
+                                style={{
+                                    fill: "url(#ellipseTextGradient2)"
+                                }}
+                            >
+                                For HackIllinois 2026, we are excited to offer
+                            </textPath>
+                        </text>
+                        <text className={styles.ellipseTextPathMobile}>
+                            <textPath
+                                href="#ellipseCurve2"
+                                startOffset="50%"
+                                textAnchor="middle"
+                                style={{
+                                    fill: "url(#ellipseTextGradient2)"
+                                }}
+                            >
                                 travel reimbursements to qualifying attendees!
                             </textPath>
                         </text>
@@ -199,7 +330,11 @@ const TravelPage: React.FC = () => {
                                         textAlign: "center",
                                         mb: 2,
                                         textShadow:
-                                            "0 2px 10px rgba(255, 255, 255, 0.2)"
+                                            "0 2px 10px rgba(255, 255, 255, 0.2)",
+                                        mt: {
+                                            xs: "5rem",
+                                            md: "0"
+                                        }
                                     }}
                                 >
                                     To be considered for reimbursement:
