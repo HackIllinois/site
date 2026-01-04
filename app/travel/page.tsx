@@ -385,7 +385,7 @@ const TravelPage: React.FC = () => {
                                 variants={itemVariants}
                             >
                                 Please be aware that failing to meet any of
-                                these requirements may result in
+                                these requirements will result in
                                 disqualification from receiving any
                                 reimbursement.
                             </motion.p>
@@ -400,9 +400,9 @@ const TravelPage: React.FC = () => {
                                 of Illinois Urbana-Champaign campus. Although a
                                 preliminary reimbursement amount may be
                                 indicated upon acceptance, please understand
-                                that this amount is not guaranteed and may be
-                                subject to adjustments based on the final review
-                                of eligibility criteria.
+                                that this amount is <b>not guaranteed</b> and
+                                may be subject to adjustments based on the final
+                                review of eligibility criteria.
                             </motion.p>
                         </motion.div>
 
