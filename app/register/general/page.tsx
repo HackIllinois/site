@@ -209,9 +209,11 @@ const GeneralRegistration = () => {
                 abortEarly: false
             });
         } catch {
+            console.log("Schema validation failed.");
             setShowClickOffAlert(true);
             return;
         }
+        console.log("Schema validation succeeded.");
 
         setShowClickOffAlert(false);
 
@@ -275,6 +277,9 @@ const GeneralRegistration = () => {
         }
 
         if (currentStep === steps.length - 2) {
+            if (isSaving) {
+                return;
+            }
             // Final step before submission
             setShowClickOffAlert(false);
             setIsLoadingComponent(true);
@@ -324,7 +329,7 @@ const GeneralRegistration = () => {
     };
 
     useEffect(() => {
-        if (currentStep >= steps.length - 2) {
+        if (currentStep >= steps.length - 1) {
             setShowClickOffAlert(false);
             return;
         }
@@ -332,7 +337,7 @@ const GeneralRegistration = () => {
         // save modified values after a delay
         const timeout = setTimeout(() => {
             handleSave();
-        }, 10_000);
+        }, 1_000);
         saveTimeoutRef.current = timeout;
         return () => clearTimeout(timeout);
         // changing currentStep (i.e. changing section/subpage)
@@ -342,7 +347,7 @@ const GeneralRegistration = () => {
     useEffect(() => {
         // Don't autosave on the review info page and confirmation page.
         // This ensures that the user won't see an error when they submit.
-        if (currentStep >= steps.length - 2) return;
+        if (currentStep >= steps.length - 1) return;
         // we've just changed currentStep (section) -- autosave the values
         // immediately, then clear the 10-second-delay autosave so the user
         // doesn't see the popup twice
@@ -357,10 +362,11 @@ const GeneralRegistration = () => {
         handleLoadDraft();
     }, [registrationAuth.authenticated]);
 
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+    const handleBeforeUnload = useCallback((e: BeforeUnloadEvent) => {
         e.preventDefault();
         (e as any).returnValue = "";
-    };
+    }, []);
+
     useEffect(() => {
         if (!registrationAuth.authenticated) return;
         if (!showClickOffAlert) {
@@ -527,6 +533,7 @@ const GeneralRegistration = () => {
                                 pointRight={true}
                                 isMobile={isMobile}
                                 onClick={() => handleNextOrSubmit()}
+                                disabled={isSaving}
                                 type="button"
                             />
                         )}

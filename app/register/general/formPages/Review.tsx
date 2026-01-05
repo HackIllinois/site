@@ -9,7 +9,7 @@ import {
     Typography
 } from "@mui/material";
 import { FormikProps } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
     AccordionHeader,
     AckErrorStyle,
@@ -40,19 +40,6 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
         (_event: React.SyntheticEvent, isExpanded: boolean) => {
             setExpanded(isExpanded ? panel : false);
         };
-
-    useEffect(() => {
-        if (!formik.dirty || formik.isSubmitting) return;
-
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            e.preventDefault();
-            (e as any).returnValue = "";
-        };
-
-        window.addEventListener("beforeunload", handleBeforeUnload);
-        return () =>
-            window.removeEventListener("beforeunload", handleBeforeUnload);
-    }, [formik.dirty, formik.isSubmitting]);
 
     return (
         <>
