@@ -22,12 +22,32 @@ const internationalData = [
     {
         location: "Waterloo (Canada)",
         amount: "$350",
-        color: "#2AB7DA" // Light Blue
+        color: "#AC00EA" // Purple
     },
     {
         location: "Singapore",
-        amount: "$400",
-        color: "#2A4ECA" // Dark Blue
+        amount: "$500",
+        color: "#EB2FD4" // Violet/Magenta
+    },
+    {
+        location: "China",
+        amount: "$500",
+        color: "#FF7274" // Red/Pink
+    },
+    {
+        location: "India",
+        amount: "$500",
+        color: "#FFBA59" // Orange/Yellow
+    },
+    {
+        location: "UK",
+        amount: "$500",
+        color: "#76B373" // Green
+    },
+    {
+        location: "Not listed",
+        amount: "$350",
+        color: "#9f9f9fff" // Sky Blue
     }
 ];
 

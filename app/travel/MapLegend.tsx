@@ -2,12 +2,14 @@ import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 
 const PRICING_DATA = [
-    { id: 1, price: 100, color: "#A020F0" }, // Purple
-    { id: 2, price: 200, color: "#E040FB" }, // Pink/Magenta
-    { id: 3, price: 250, color: "#F08080" }, // Salmon/Coral
-    { id: 4, price: 275, color: "#F4C430" }, // Saffron/Yellow
-    { id: 5, price: 300, color: "#81C784" }, // Soft Green
-    { id: 6, price: 350, color: "#4FC3F7" } // Light Blue
+    { id: 1, price: 100, color: "#AC00EA" }, // Purple
+    { id: 2, price: 150, color: "#C94FED" }, // Light Purple
+    { id: 3, price: 200, color: "#EB2FD4" }, // Violet
+    { id: 4, price: 250, color: "#FF7274" }, // Red
+    { id: 5, price: 275, color: "#FFBA59" }, // Yellow
+    { id: 6, price: 300, color: "#76B373" }, // Green
+    { id: 7, price: 350, color: "#23ADDB" }, // Sky Blue
+    { id: 8, price: 500, color: "#1E88E5" } // Deep Blue
 ];
 
 const MapLegend = () => {
