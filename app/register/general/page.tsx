@@ -275,6 +275,10 @@ const GeneralRegistration = () => {
         }
 
         if (currentStep === steps.length - 2) {
+            if (isSaving) {
+                // This shouldn't happen. The submit button is disabled while saving.
+                return;
+            }
             // Final step before submission
             setShowClickOffAlert(false);
             setIsLoadingComponent(true);
@@ -324,7 +328,7 @@ const GeneralRegistration = () => {
     };
 
     useEffect(() => {
-        if (currentStep >= steps.length - 2) {
+        if (currentStep >= steps.length - 1) {
             setShowClickOffAlert(false);
             return;
         }
@@ -340,9 +344,9 @@ const GeneralRegistration = () => {
     }, [formik.values, registrationAuth.authenticated]);
 
     useEffect(() => {
-        // Don't autosave on the review info page and confirmation page.
+        // Don't autosave on the confirmation page.
         // This ensures that the user won't see an error when they submit.
-        if (currentStep >= steps.length - 2) return;
+        if (currentStep >= steps.length - 1) return;
         // we've just changed currentStep (section) -- autosave the values
         // immediately, then clear the 10-second-delay autosave so the user
         // doesn't see the popup twice
@@ -361,6 +365,7 @@ const GeneralRegistration = () => {
         e.preventDefault();
         (e as any).returnValue = "";
     };
+
     useEffect(() => {
         if (!registrationAuth.authenticated) return;
         if (!showClickOffAlert) {
@@ -527,6 +532,7 @@ const GeneralRegistration = () => {
                                 pointRight={true}
                                 isMobile={isMobile}
                                 onClick={() => handleNextOrSubmit()}
+                                disabled={isSaving}
                                 type="button"
                             />
                         )}
