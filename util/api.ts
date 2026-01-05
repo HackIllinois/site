@@ -87,16 +87,26 @@ export async function submitChallenge(file: File): Promise<ChallengeResponse> {
     const form = new FormData();
     form.append("solution", file);
 
-    const res = await fetch(APIv2 + "/registration/challenge/", {
+    const response = await fetch(APIv2 + "/registration/challenge/", {
         method: "POST",
         mode: "cors",
         credentials: "include",
         body: form
     });
 
-    const json = await res.json();
+    const responseJSON = await response.json();
 
-    return { status: res.status, body: json };
+    if (
+        responseJSON.error === "TokenInvalid" ||
+        responseJSON.error == "TokenExpired" ||
+        responseJSON.error == "NoToken"
+    ) {
+        sessionStorage.removeItem("token");
+        authenticate();
+        throw responseJSON;
+    }
+
+    return { status: response.status, body: responseJSON };
 }
 
 export async function subscribe(
