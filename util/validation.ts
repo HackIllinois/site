@@ -166,12 +166,9 @@ export const draftValidationSchemas = [
 
     // 4. Review (final acknowledgements)
     Yup.object({
-        reviewedAcknowledge: Yup.boolean()
-            .required("Please confirm you have reviewed your information")
-            .oneOf([true], "Please confirm you have reviewed your information"),
-        codeOfConductAcknowledge: Yup.boolean()
-            .required("You must accept the Code of Conduct")
-            .oneOf([true], "You must accept the Code of Conduct")
+        reviewedAcknowledge: Yup.boolean(),
+        codeOfConductAcknowledge: Yup.boolean(),
+        mlhDataSharingAcknowledge: Yup.boolean()
     }),
 
     // 5. Confirmation (no new inputs, keep for indexing purposes)

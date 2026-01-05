@@ -202,18 +202,24 @@ const GeneralRegistration = () => {
         if (currentStep === steps.length - 1) return;
         if (!loadedDraft || isSaving) return;
         // Ensure that the data is correctly formatted before autosaving.
+        console.log("Trigger save");
 
         const draftContent = valuesToDraftContent(formik.values);
+        console.log("Values", formik.values, draftContent);
         try {
             await draftValidationSchemas[currentStep].validate(draftContent, {
                 abortEarly: false
             });
-        } catch {
+        } catch (err: any) {
+            console.error(err, err.errors);
+            console.log("Draft invalid");
             setShowClickOffAlert(true);
             return;
         }
 
         setShowClickOffAlert(false);
+
+        console.log("Saving draft.");
 
         try {
             if (!registrationAuth.authenticated) {
@@ -242,12 +248,20 @@ const GeneralRegistration = () => {
         registrationAuth.authenticated
     ]);
 
+    useEffect(() => {
+        console.log("Show clickoff alert", showClickOffAlert);
+    }, [showClickOffAlert]);
+
     const handleNextOrSubmit = async () => {
+        console.log("Current step", currentStep);
         try {
+            console.log("Validate");
             await validationSchemas[currentStep].validate(formik.values, {
                 abortEarly: false
             });
+            console.log("Validated");
         } catch (error: unknown) {
+            console.error(error);
             if (error instanceof Yup.ValidationError) {
                 const touchedFields: any = {};
                 error.inner.forEach(err => {
@@ -340,9 +354,10 @@ const GeneralRegistration = () => {
     }, [formik.values, registrationAuth.authenticated]);
 
     useEffect(() => {
-        // Don't autosave on the review info page and confirmation page.
+        console.log("Current step", currentStep);
+        // Don't autosave on the confirmation page.
         // This ensures that the user won't see an error when they submit.
-        if (currentStep >= steps.length - 2) return;
+        if (currentStep >= steps.length - 1) return;
         // we've just changed currentStep (section) -- autosave the values
         // immediately, then clear the 10-second-delay autosave so the user
         // doesn't see the popup twice
@@ -362,11 +377,15 @@ const GeneralRegistration = () => {
         (e as any).returnValue = "";
     };
     useEffect(() => {
+        console.log("showClickOffAlert", showClickOffAlert);
         if (!registrationAuth.authenticated) return;
         if (!showClickOffAlert) {
+            console.log("Removed");
             window.removeEventListener("beforeunload", handleBeforeUnload);
             return;
         }
+
+        console.log("Added");
         window.addEventListener("beforeunload", handleBeforeUnload);
         return () =>
             window.removeEventListener("beforeunload", handleBeforeUnload);
