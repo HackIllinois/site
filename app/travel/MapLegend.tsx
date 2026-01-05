@@ -9,7 +9,7 @@ const PRICING_DATA = [
     { id: 5, price: 275, color: "#FFBA59" }, // Yellow
     { id: 6, price: 300, color: "#76B373" }, // Green
     { id: 7, price: 350, color: "#23ADDB" }, // Sky Blue
-    { id: 8, price: 500, color: "#1E88E5" } // Deep Blue
+    { id: 8, price: 400, color: "#1E88E5" } // Deep Blue
 ];
 
 const MapLegend = () => {
