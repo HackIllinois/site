@@ -7,7 +7,7 @@ import {
     ChallengeResponse
 } from "./types";
 
-const APIv2 = "https://adonix.hackillinois.org";
+const APIv2 = "http://localhost:3000";
 
 export const isAuthenticated = async (): Promise<boolean> => {
     return (await getAuthToken()) !== null;
