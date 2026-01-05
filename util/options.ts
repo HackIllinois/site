@@ -47,14 +47,22 @@ export const studyLevelOptions: string[] = [
     "Prefer not to answer"
 ];
 
-export const graduationYearOptions: string[] = [];
-graduationYearOptions.push("Spring 2026");
-for (let i = 2027; i <= 2030; i += 1) {
-    graduationYearOptions.push("Fall " + String(i));
-    graduationYearOptions.push("Winter " + String(i));
-    graduationYearOptions.push("Spring " + String(i));
-}
-graduationYearOptions.push("After Spring 2030");
+export const graduationYearOptions: string[] = [
+    "Spring 2026",
+    "Fall 2026",
+    "Winter 2026",
+    "Spring 2027",
+    "Fall 2027",
+    "Winter 2027",
+    "Spring 2028",
+    "Fall 2028",
+    "Winter 2028",
+    "Spring 2029",
+    "Fall 2029",
+    "Winter 2029",
+    "Spring 2030",
+    "After Spring 2030"
+];
 
 export const majorOptions: string[] = majors;
 
