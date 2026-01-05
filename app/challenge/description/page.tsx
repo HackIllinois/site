@@ -108,10 +108,14 @@ export default function ChallengeDescription() {
                 setUploadResult(body.message);
             } else if (status === 403) {
                 setUploadResult(body.message);
+            } else {
+                setUploadResult(
+                    "There was a problem with your submission. Please try again."
+                );
             }
         } catch (err) {
             setUploadResult(
-                "There was a problem uploading the image. Please try again."
+                "There was a problem uploading the image. Please refresh the page and try again."
             );
         }
     };

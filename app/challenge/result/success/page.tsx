@@ -15,25 +15,29 @@ import { useEffect, useState } from "react";
 export default function ChallengeResult() {
     const registrationAuth = useRegistrationAuth(true);
     const { width, height } = useWindowSize();
-    const [challengePassed, setChallengePassed] = useState(false);
-    const [challengeLoading, setChallengeLoading] = useState(true);
+
+    const [challengeStatus, setChallengeStatus] = useState<
+        "loading" | "passed" | "notPassed" | "error"
+    >("loading");
 
     useEffect(() => {
         async function load() {
             try {
                 const res = await getChallenge();
                 if (res.complete) {
-                    setChallengePassed(true);
+                    setChallengeStatus("passed");
+                } else {
+                    setChallengeStatus("notPassed");
                 }
-            } finally {
-                setChallengeLoading(false);
+            } catch (err: any) {
+                setChallengeStatus("error");
             }
         }
 
         load();
     }, []);
 
-    if (challengeLoading) {
+    if (challengeStatus === "loading") {
         return (
             <Loading
                 backgroundImage={"/challenge/backgrounds/success.svg"}
@@ -42,7 +46,7 @@ export default function ChallengeResult() {
         );
     }
 
-    if (!challengePassed) {
+    if (challengeStatus === "notPassed" || challengeStatus === "error") {
         return (
             <Box
                 sx={{
@@ -67,7 +71,9 @@ export default function ChallengeResult() {
                         mb: 2
                     }}
                 >
-                    You still must complete the Pro Challenge
+                    {challengeStatus === "notPassed"
+                        ? "You still must complete the Pro Challenge"
+                        : "There was an error retrieving your challenge status"}
                 </Typography>
 
                 <Typography
@@ -79,8 +85,9 @@ export default function ChallengeResult() {
                         fontFamily: "Montserrat"
                     }}
                 >
-                    Please return to the challenge page and complete the
-                    challenge.
+                    {challengeStatus === "notPassed"
+                        ? "Please return to the challenge page and complete the challenge."
+                        : "Please refresh the page or try again later."}
                 </Typography>
 
                 <GradientButton text="START CHALLENGE" link="/challenge/" />
