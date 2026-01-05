@@ -336,7 +336,7 @@ const GeneralRegistration = () => {
         // save modified values after a delay
         const timeout = setTimeout(() => {
             handleSave();
-        }, 1_000);
+        }, 10_000);
         saveTimeoutRef.current = timeout;
         return () => clearTimeout(timeout);
         // changing currentStep (i.e. changing section/subpage)
