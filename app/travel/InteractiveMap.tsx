@@ -4,76 +4,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { Typography, Box, Paper } from "@mui/material";
 import styles from "./styles.module.scss";
+import { STATE_REIMBURSEMENT } from "./constants";
 
-// Reimbursement tiers based on the correct mapping - using state names
-const STATE_REIMBURSEMENT: Record<string, number> = {
-    // --- $100 ---
-    Wisconsin: 100,
-    Illinois: 100,
-    Indiana: 100,
-
-    // --- $150 ---
-    Iowa: 150,
-
-    // --- $200 ---
-    Ohio: 200,
-    Minnesota: 200,
-    Missouri: 200,
-    Nebraska: 200,
-    Kansas: 200,
-    Kentucky: 200,
-
-    // --- $250 ---
-    Michigan: 250,
-    "New York": 250,
-    Pennsylvania: 250,
-    "New Jersey": 250,
-    Massachusetts: 250,
-    Virginia: 250,
-    Georgia: 250,
-    Florida: 250,
-    "North Dakota": 250,
-    "South Dakota": 250,
-    Connecticut: 250,
-    "Rhode Island": 250,
-    Delaware: 250,
-    DC: 250,
-    Maryland: 250,
-    Alabama: 250,
-    Mississippi: 250,
-    Tennessee: 250,
-    Arkansas: 250,
-    Oregon: 250,
-    "West Virginia": 250,
-    Oklahoma: 250,
-    Colorado: 250,
-    "North Carolina": 250,
-    "South Carolina": 250,
-
-    // --- $275 ---
-    Nevada: 275,
-    Idaho: 275,
-    Utah: 275,
-    Washington: 275,
-    Louisiana: 275,
-    Arizona: 275,
-
-    // --- $300 ---
-    Texas: 300,
-    "New Hampshire": 300,
-    Vermont: 300,
-    Wyoming: 300,
-    "New Mexico": 300,
-
-    // --- $350 ---
-    California: 350,
-    Maine: 350,
-    Montana: 350,
-
-    // --- $500 ---
-    Hawaii: 500,
-    Alaska: 500
-};
 // Color mapping for reimbursement amounts
 const getReimbursementColor = (amount: number): string => {
     const colorMap: Record<number, string> = {
@@ -85,7 +17,7 @@ const getReimbursementColor = (amount: number): string => {
         275: "#FFBA59", // Yellow
         300: "#76B373", // Green
         350: "#23ADDB", // Sky Blue
-        500: "#1E88E5" // Deep Blue
+        400: "#1E88E5" // Deep Blue
     };
     return colorMap[amount] ?? "#422F89";
 };
@@ -101,7 +33,7 @@ const getReimbursementTextColor = (amount: number): string => {
         275: "#FFD699", // Lighter yellow
         300: "#A8E5A4", // Lighter green
         350: "#6FD4FF", // Lighter sky blue
-        500: "#64B5F6" // Lighter deep blue
+        400: "#64B5F6" // Lighter deep blue
     };
     return colorMap[amount] ?? "#8B7EC8";
 };

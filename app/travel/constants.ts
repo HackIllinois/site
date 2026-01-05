@@ -1,0 +1,56 @@
+export const STATE_REIMBURSEMENT: Record<string, number> = {
+    // Midwest
+    Minnesota: 200,
+    Iowa: 150,
+    Missouri: 200,
+    "North Dakota": 250,
+    "South Dakota": 250,
+    Nebraska: 200,
+    Kansas: 200,
+    Michigan: 300,
+    Ohio: 200,
+    Illinois: 100,
+    Indiana: 100,
+    Wisconsin: 100,
+
+    // Northeast
+    Connecticut: 250,
+    "Rhode Island": 250,
+    "New Hampshire": 300,
+    Vermont: 300,
+    Maine: 350,
+    Delaware: 250,
+    DC: 250,
+    Maryland: 250,
+    Massachusetts: 250,
+    "New York": 250,
+    "New Jersey": 250,
+    Pennsylvania: 250,
+    Virginia: 250,
+
+    // South
+    Alabama: 250,
+    Mississippi: 250,
+    Louisiana: 275,
+    Tennessee: 250,
+    Kentucky: 200,
+    "South Carolina": 275,
+    "North Carolina": 275,
+    Arkansas: 250,
+    Georgia: 250,
+    Florida: 250,
+
+    // West
+    Texas: 300,
+    Washington: 275,
+    Oregon: 250,
+    Idaho: 300,
+    Montana: 350,
+    Wyoming: 300,
+    Utah: 300,
+    Nevada: 300,
+    California: 350,
+    "New Mexico": 300,
+    Hawaii: 400,
+    Alaska: 400
+};
