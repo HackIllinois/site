@@ -27,6 +27,7 @@ export const STATE_REIMBURSEMENT: Record<string, number> = {
     "New Jersey": 250,
     Pennsylvania: 250,
     Virginia: 250,
+    "West Virginia": 200,
 
     // South
     Alabama: 250,
@@ -41,8 +42,11 @@ export const STATE_REIMBURSEMENT: Record<string, number> = {
     Florida: 250,
 
     // West
+    Oklahoma: 250,
     Texas: 300,
     Washington: 275,
+    Colorado: 275,
+    Arizona: 300,
     Oregon: 250,
     Idaho: 300,
     Montana: 350,
