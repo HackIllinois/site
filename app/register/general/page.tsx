@@ -209,11 +209,9 @@ const GeneralRegistration = () => {
                 abortEarly: false
             });
         } catch {
-            console.log("Schema validation failed.");
             setShowClickOffAlert(true);
             return;
         }
-        console.log("Schema validation succeeded.");
 
         setShowClickOffAlert(false);
 
@@ -278,6 +276,7 @@ const GeneralRegistration = () => {
 
         if (currentStep === steps.length - 2) {
             if (isSaving) {
+                // This shouldn't happen. The submit button is disabled while saving.
                 return;
             }
             // Final step before submission
@@ -345,7 +344,7 @@ const GeneralRegistration = () => {
     }, [formik.values, registrationAuth.authenticated]);
 
     useEffect(() => {
-        // Don't autosave on the review info page and confirmation page.
+        // Don't autosave on the confirmation page.
         // This ensures that the user won't see an error when they submit.
         if (currentStep >= steps.length - 1) return;
         // we've just changed currentStep (section) -- autosave the values
@@ -362,10 +361,10 @@ const GeneralRegistration = () => {
         handleLoadDraft();
     }, [registrationAuth.authenticated]);
 
-    const handleBeforeUnload = useCallback((e: BeforeUnloadEvent) => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
         e.preventDefault();
         (e as any).returnValue = "";
-    }, []);
+    };
 
     useEffect(() => {
         if (!registrationAuth.authenticated) return;
