@@ -62,7 +62,7 @@ export async function requestv2(
     ) {
         sessionStorage.removeItem("token");
         authenticate();
-        return;
+        throw responseJSON;
     }
 
     if (!response.ok) {
