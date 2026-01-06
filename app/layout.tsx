@@ -1,13 +1,27 @@
-"use client";
-
-import { EventCountdownPill } from "@/components/EventCountdown/EventCountdown";
-import Navbar from "@/components/Navbar/Navbar";
-import Footer from "@/components/Footer/Footer";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "../theme";
+import type { Metadata } from "next";
 import { montserrat, tsukimi } from "../theme/fonts";
 import "./globals.scss";
+import ClientLayout from "./ClientLayout";
+
+export const metadata: Metadata = {
+    title: "HackIllinois 2026",
+    description:
+        "Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open.",
+    openGraph: {
+        title: "HackIllinois 2026",
+        description:
+            "Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open.",
+        images: [
+            {
+                url: "/og-image.jpg",
+                width: 1200,
+                height: 630,
+                alt: "HackIllinois 2026"
+            }
+        ],
+        type: "website"
+    }
+};
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -16,17 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 className={`${montserrat.variable} ${tsukimi.variable} 
                             ${montserrat.className}`} // compatibility
             >
-                <AppRouterCacheProvider>
-                    <ThemeProvider theme={theme}>
-                        <Navbar />
-                        {children}
-                        <Footer />
-                        <EventCountdownPill
-                            targetDateTime="2026-02-27T18:00:00-06:00"
-                            label="Countdown to HackIllinois 2026"
-                        />
-                    </ThemeProvider>
-                </AppRouterCacheProvider>
+                <ClientLayout>{children}</ClientLayout>
             </body>
         </html>
     );
