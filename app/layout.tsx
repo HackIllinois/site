@@ -12,6 +12,42 @@ import "./globals.scss";
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
+            <head>
+                <title>HackIllinois 2026</title>
+                <meta
+                    name="description"
+                    content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
+                />
+
+                {/* OpenGraph */}
+                <meta property="og:title" content="HackIllinois 2026" />
+                <meta
+                    property="og:description"
+                    content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="HackIllinois" />
+                <meta property="og:url" content="https://hackillinois.org" />
+                <meta
+                    property="og:image"
+                    content="https://hackillinois.org/og-image.jpg"
+                />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta property="og:image:alt" content="HackIllinois 2026" />
+
+                {/* Twitter */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="HackIllinois 2026" />
+                <meta
+                    name="twitter:description"
+                    content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
+                />
+                <meta
+                    name="twitter:image"
+                    content="https://hackillinois.org/og-image.jpg"
+                />
+            </head>
             <body
                 className={`${montserrat.variable} ${tsukimi.variable} 
                             ${montserrat.className}`} // compatibility
