@@ -393,26 +393,6 @@ const Prizes: React.FC = () => {
                         sx={{ mt: { xs: "-23px", sm: "0px" } }}
                     >
                         <PathPrize
-                            backgroundSrc="/prizes/path_prizes/prize10.svg"
-                            topText="Coming Soon"
-                            bottomText="? ? ?"
-                            radius={130}
-                            width={540}
-                            height={540}
-                            centerOffsetY={10}
-                            centerOffsetX={0}
-                            bottomTextSize={25}
-                            topTextOffset={50}
-                            bottomTextOffset={50}
-                            topTextSize={25}
-                        />
-                    </MotionBox>
-
-                    <MotionBox
-                        variants={itemVariants}
-                        sx={{ mt: { xs: "-23px", sm: "0px" } }}
-                    >
-                        <PathPrize
                             backgroundSrc="/prizes/path_prizes/prize11.svg"
                             topText="Coming Soon"
                             bottomText="? ? ?"
