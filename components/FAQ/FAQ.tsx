@@ -28,19 +28,16 @@ const faqItems = [
         answer: (
             <>
                 Yes! HackIllinois will offer only travel reimbursement this year
-                to attendees that submit a qualified project. Final amounts will
-                be announced closer to the event and will be organized by zones.
-                <br />
-                <br />
-                To stay updated, we encourage you to{" "}
+                to attendees that submit a qualified project. You can view
+                details on how to qualify for reimbursement and how much you may
+                be eligible for{" "}
                 <a
-                    href="#newsletter"
+                    href="/travel"
                     style={{ color: "inherit", textDecoration: "underline" }}
                 >
-                    sign up for our newsletter
+                    here
                 </a>
-                . You will receive an email as soon as the reimbursement details
-                are released.
+                .
             </>
         )
     },
@@ -55,7 +52,15 @@ const faqItems = [
                 <strong>Best UI/UX Design</strong>,{" "}
                 <strong>Most Popular</strong>, and more! Additionally, attendees
                 can earn points throughout the event and redeem them for items
-                in our point shop.
+                in our point shop. You can find more details about this
+                year&apos;s prizes{" "}
+                <a
+                    href="/prizes"
+                    style={{ color: "inherit", textDecoration: "underline" }}
+                >
+                    here
+                </a>
+                .
             </>
         )
     },
