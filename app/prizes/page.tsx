@@ -719,48 +719,6 @@ const Prizes: React.FC = () => {
                             topTextSize={25}
                         />
                     </MotionBox>
-
-                    <MotionBox variants={itemVariants}>
-                        <TrackPrize
-                            backgroundSrc="/prizes/track_prizes/track4.svg"
-                            topText="? ? ?"
-                            bottomText="$2500 + TBD"
-                            radiusX={200}
-                            radiusY={150}
-                            width={500}
-                            height={500}
-                            centerOffsetY={10}
-                            centerOffsetX={13}
-                            bottomTextSize={25}
-                            topTextOffset={50}
-                            bottomTextOffset={50}
-                            topTextSize={25}
-                        />
-                    </MotionBox>
-
-                    {/* <MotionBox
-                        variants={itemVariants}
-                        sx={{
-                            gridColumn: { sm: "1/-1" },
-                            justifySelf: "center"
-                        }}
-                    >
-                        <TrackPrize
-                            backgroundSrc="/prizes/track_prizes/track5.svg"
-                            topText="[TRACK NAME]"
-                            bottomText="[PRIZE]"
-                            radiusX={200}
-                            radiusY={150}
-                            width={500}
-                            height={500}
-                            centerOffsetY={10}
-                            centerOffsetX={13}
-                            bottomTextSize={25}
-                            topTextOffset={50}
-                            bottomTextOffset={50}
-                            topTextSize={25}
-                        />
-                    </MotionBox> */}
                 </MotionBox>
             </Box>
         </Box>
