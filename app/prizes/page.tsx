@@ -454,6 +454,26 @@ const Prizes: React.FC = () => {
                         sx={{ mt: { xs: "-15px", sm: "0px" } }}
                     >
                         <PathPrize
+                            backgroundSrc="/prizes/path_prizes/prize10.svg"
+                            topText="BEST USE OF OPENAI"
+                            bottomText="5k OpenAI API credits"
+                            radius={130}
+                            width={540}
+                            height={540}
+                            centerOffsetY={10}
+                            centerOffsetX={0}
+                            bottomTextSize={25}
+                            topTextOffset={50}
+                            bottomTextOffset={50}
+                            topTextSize={25}
+                        />
+                    </MotionBox>
+
+                    <MotionBox
+                        variants={itemVariants}
+                        sx={{ mt: { xs: "-15px", sm: "0px" } }}
+                    >
+                        <PathPrize
                             backgroundSrc="/prizes/path_prizes/prize9.svg"
                             topText="Coming Soon"
                             bottomText="? ? ?"
@@ -650,7 +670,7 @@ const Prizes: React.FC = () => {
                         <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track3.svg"
                             topText="BEST AI INFERENCE"
-                            bottomText="$2500 + TBD"
+                            bottomText="$2500+TBD"
                             radiusX={200}
                             radiusY={150}
                             width={500}
@@ -669,6 +689,24 @@ const Prizes: React.FC = () => {
                             backgroundSrc="/prizes/track_prizes/track1.svg"
                             topText="BEST HARDWARE HACK"
                             bottomText="$2500 + Elegoo hardware starter kit"
+                            radiusX={200}
+                            radiusY={150}
+                            width={500}
+                            height={500}
+                            centerOffsetY={10}
+                            centerOffsetX={13}
+                            bottomTextSize={25}
+                            topTextOffset={50}
+                            bottomTextOffset={50}
+                            topTextSize={25}
+                        />
+                    </MotionBox>
+
+                    <MotionBox variants={itemVariants}>
+                        <TrackPrize
+                            backgroundSrc="/prizes/track_prizes/track6.svg"
+                            topText="? ? ?"
+                            bottomText="$2500 + TBD"
                             radiusX={200}
                             radiusY={150}
                             width={500}
