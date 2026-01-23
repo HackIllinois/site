@@ -170,7 +170,7 @@ const Prizes: React.FC = () => {
                                                 }
                                             }}
                                         >
-                                            $30K+
+                                            $60K+
                                         </Box>{" "}
                                         in prizes!
                                     </Box>
@@ -475,8 +475,8 @@ const Prizes: React.FC = () => {
                     >
                         <PathPrize
                             backgroundSrc="/prizes/path_prizes/prize11.svg"
-                            topText="Coming Soon"
-                            bottomText="? ? ?"
+                            topText="BEST USE OF CLOUDFLARE"
+                            bottomText="5k Cloudflare Credits"
                             radius={130}
                             width={540}
                             height={540}
@@ -495,8 +495,8 @@ const Prizes: React.FC = () => {
                     >
                         <PathPrize
                             backgroundSrc="/prizes/path_prizes/prize12.svg"
-                            topText="Coming Soon"
-                            bottomText="? ? ?"
+                            topText="BEST USE OF"
+                            bottomText="SUPERMEMORY"
                             radius={130}
                             width={540}
                             height={540}
@@ -630,27 +630,9 @@ const Prizes: React.FC = () => {
                 >
                     <MotionBox variants={itemVariants}>
                         <TrackPrize
-                            backgroundSrc="/prizes/track_prizes/track1.svg"
-                            topText="BEST HARDWARE HACK"
-                            bottomText="Elegoo Hardware Starter Kit"
-                            radiusX={200}
-                            radiusY={150}
-                            width={500}
-                            height={500}
-                            centerOffsetY={10}
-                            centerOffsetX={13}
-                            bottomTextSize={25}
-                            topTextOffset={50}
-                            bottomTextOffset={50}
-                            topTextSize={25}
-                        />
-                    </MotionBox>
-
-                    <MotionBox variants={itemVariants}>
-                        <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track2.svg"
-                            topText="? ? ?"
-                            bottomText="? ? ?"
+                            topText="BEST EXPOSED API"
+                            bottomText="$2500 + TBD"
                             radiusX={200}
                             radiusY={150}
                             width={500}
@@ -667,8 +649,26 @@ const Prizes: React.FC = () => {
                     <MotionBox variants={itemVariants}>
                         <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track3.svg"
-                            topText="? ? ?"
-                            bottomText="? ? ?"
+                            topText="BEST AI INFERENCE"
+                            bottomText="$2500 + TBD"
+                            radiusX={200}
+                            radiusY={150}
+                            width={500}
+                            height={500}
+                            centerOffsetY={10}
+                            centerOffsetX={13}
+                            bottomTextSize={25}
+                            topTextOffset={50}
+                            bottomTextOffset={50}
+                            topTextSize={25}
+                        />
+                    </MotionBox>
+
+                    <MotionBox variants={itemVariants}>
+                        <TrackPrize
+                            backgroundSrc="/prizes/track_prizes/track1.svg"
+                            topText="BEST HARDWARE HACK"
+                            bottomText="$2500 + Elegoo hardware starter kit"
                             radiusX={200}
                             radiusY={150}
                             width={500}
@@ -686,7 +686,7 @@ const Prizes: React.FC = () => {
                         <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track4.svg"
                             topText="? ? ?"
-                            bottomText="? ? ?"
+                            bottomText="$2500 + TBD"
                             radiusX={200}
                             radiusY={150}
                             width={500}
