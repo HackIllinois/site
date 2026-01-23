@@ -670,7 +670,7 @@ const Prizes: React.FC = () => {
                         <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track3.svg"
                             topText="BEST AI INFERENCE"
-                            bottomText="TBD"
+                            bottomText="$2500+TBD"
                             radiusX={200}
                             radiusY={150}
                             width={500}
