@@ -3,6 +3,32 @@ export type WithId<Type> = Type & { id: string };
 export type MethodType = "GET" | "POST" | "PUT" | "DELETE";
 export type FileType = "resume" | "photo" | "blobstore";
 
+export type AttendeeProfile = {
+    userId: string;
+    displayName: string;
+    discordTag: string;
+    avatarUrl: string;
+    points: number;
+    pointsAccumulated: number;
+    foodWave: number;
+    dietaryRestrictions: string[];
+    shirtSize: string;
+};
+
+export type RSVPInfo = {
+    userId: string;
+    status: string;
+    admittedPro: boolean;
+    response: string;
+    emailSent: boolean;
+    reimbursementValue: number;
+    correctProChallenge: boolean;
+};
+
+export type UserAvatar = {
+    avatarId: string;
+};
+
 export type RegistrationApplicationSubmitted = {
     userId: string;
 
