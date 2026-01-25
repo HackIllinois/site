@@ -4,7 +4,10 @@ import {
     MethodType,
     RegistrationApplicationDraftBody,
     RegistrationApplicationSubmitted,
-    ChallengeResponse
+    ChallengeResponse,
+    AttendeeProfile,
+    RSVPInfo,
+    UserAvatar
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -139,4 +142,18 @@ export async function submitDraft(body: RegistrationApplicationDraftBody) {
 
 export async function loadSubmission(): Promise<RegistrationApplicationSubmitted> {
     return await requestv2("GET", "/registration");
+}
+
+export async function loadProfile(): Promise<AttendeeProfile> {
+    return await requestv2("GET", "/profile");
+}
+
+export async function updateProfile(
+    body: UserAvatar
+): Promise<AttendeeProfile> {
+    return await requestv2("PUT", "/profile", body);
+}
+
+export async function loadAdmissionRSVP(): Promise<RSVPInfo> {
+    return await requestv2("GET", "/admission/rsvp/");
 }
