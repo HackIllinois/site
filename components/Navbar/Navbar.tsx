@@ -217,7 +217,12 @@ const Navbar = () => {
                     />
                 </Link>
             </nav>
-            <nav className={styles.mobile}>
+            <nav
+                className={clsx(
+                    styles.mobile,
+                    showMobileNavbar && styles.navbarShown
+                )}
+            >
                 <div className={styles.mobileTop}>
                     <div className={styles.title}>
                         {pathname === "/" ? (
