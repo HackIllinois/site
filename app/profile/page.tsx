@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { loadProfile, loadAdmissionRSVP, updateProfile } from "@/util/api";
 import Loading from "@/components/Loading/Loading";
 import { AvatarCarousel, type AvatarItem } from "./AvatarCarousel";
+import { redirect } from "next/navigation";
 
 export default function Profile() {
     const base =
@@ -50,6 +51,8 @@ export default function Profile() {
     };
 
     useEffect(() => {
+        // TODO: Remove this redirect once the rest of RSVP is finished.
+        redirect("/");
         const loadData = async () => {
             try {
                 const profile = await loadProfile();

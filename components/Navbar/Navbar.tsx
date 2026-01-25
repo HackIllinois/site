@@ -9,8 +9,16 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { Menu, MenuItem } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 type NavbarItem = {
+    title: string;
+    link?: string;
+    dropdown?: DropdownItem[];
+};
+
+type DropdownItem = {
     title: string;
     link: string;
 };
@@ -27,6 +35,19 @@ const NAVBAR_ITEMS: NavbarItem[] = [
     {
         title: "Travel",
         link: "/travel"
+    },
+    {
+        title: "Resources",
+        dropdown: [
+            {
+                title: "Judge and Mentor Interest Form",
+                link: "https://go.hackillinois.org/judgementor-2026"
+            },
+            {
+                title: "Speaker Interest Form",
+                link: "https://go.hackillinois.org/speaker-2026"
+            }
+        ]
     }
 ];
 
@@ -34,11 +55,33 @@ const DARK_PAGES = ["/register/challenge"];
 
 const Navbar = () => {
     const [showMobileNavbar, setShowMobileNavbar] = useState<boolean>(false);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+    const [mobileDropdownOpen, setMobileDropdownOpen] = useState<string | null>(
+        null
+    );
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
 
     const isDark = DARK_PAGES.includes(pathname);
+
+    const handleDropdownOpen = (
+        event: React.MouseEvent<HTMLElement>,
+        title: string
+    ) => {
+        setAnchorEl(event.currentTarget);
+        setOpenDropdown(title);
+    };
+
+    const handleDropdownClose = () => {
+        setAnchorEl(null);
+        setOpenDropdown(null);
+    };
+
+    const toggleMobileDropdown = (title: string) => {
+        setMobileDropdownOpen(prev => (prev === title ? null : title));
+    };
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -86,17 +129,75 @@ const Navbar = () => {
                 <ul className={styles.navbarList}>
                     {NAVBAR_ITEMS.map(item => (
                         <li key={item.title}>
-                            <Link
-                                prefetch={false}
-                                href={item.link}
-                                className={
-                                    pathname.startsWith(item.link)
-                                        ? styles.active
-                                        : ""
-                                }
-                            >
-                                {item.title}
-                            </Link>
+                            {item.dropdown ? (
+                                <>
+                                    <div
+                                        onClick={e =>
+                                            handleDropdownOpen(e, item.title)
+                                        }
+                                        style={{
+                                            cursor: "pointer",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: "4px"
+                                        }}
+                                    >
+                                        <a>{item.title}</a>
+                                        <KeyboardArrowDownIcon
+                                            sx={{ fontSize: 20 }}
+                                        />
+                                    </div>
+                                    <Menu
+                                        anchorEl={anchorEl}
+                                        open={openDropdown === item.title}
+                                        onClose={handleDropdownClose}
+                                        MenuListProps={{
+                                            sx: {
+                                                backgroundColor: "#1a1a2e",
+                                                color: "white",
+                                                padding: "8px 0"
+                                            }
+                                        }}
+                                        PaperProps={{
+                                            sx: {
+                                                backgroundColor: "#1a1a2e",
+                                                marginTop: "8px"
+                                            }
+                                        }}
+                                    >
+                                        {item.dropdown.map(dropdownItem => (
+                                            <MenuItem
+                                                key={dropdownItem.title}
+                                                component={Link}
+                                                href={dropdownItem.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={handleDropdownClose}
+                                                sx={{
+                                                    "&:hover": {
+                                                        backgroundColor:
+                                                            "rgba(255, 255, 255, 0.1)"
+                                                    }
+                                                }}
+                                            >
+                                                {dropdownItem.title}
+                                            </MenuItem>
+                                        ))}
+                                    </Menu>
+                                </>
+                            ) : (
+                                <Link
+                                    prefetch={false}
+                                    href={item.link!}
+                                    className={
+                                        pathname.startsWith(item.link!)
+                                            ? styles.active
+                                            : ""
+                                    }
+                                >
+                                    {item.title}
+                                </Link>
+                            )}
                         </li>
                     ))}
                     <li>
@@ -174,16 +275,90 @@ const Navbar = () => {
                     ref={menuRef}
                 >
                     {NAVBAR_ITEMS.map(item => (
-                        <Link
-                            prefetch={false}
-                            href={item.link}
-                            key={item.title}
-                            className={styles.link}
-                        >
-                            {item.title}
-                        </Link>
+                        <div key={item.title}>
+                            {item.dropdown ? (
+                                <>
+                                    <div
+                                        onClick={() =>
+                                            toggleMobileDropdown(item.title)
+                                        }
+                                        className={styles.link}
+                                        style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "flex-start",
+                                            cursor: "pointer",
+                                            // Explicitly matching the font styles usually inherited by <a> tags
+                                            fontSize: "24px", // Adjusted to match typical mobile menu header size
+                                            fontWeight: 500, // Ensuring weight matches other links
+                                            paddingRight: "8px",
+                                            width: "100%"
+                                        }}
+                                    >
+                                        {item.title}
+                                        <KeyboardArrowDownIcon
+                                            sx={{
+                                                fontSize: 32, // Increased from 20 to match the text size
+                                                transform:
+                                                    mobileDropdownOpen ===
+                                                    item.title
+                                                        ? "rotate(180deg)"
+                                                        : "rotate(0deg)",
+                                                transition:
+                                                    "transform 0.3s ease"
+                                            }}
+                                        />
+                                    </div>
+                                    {mobileDropdownOpen === item.title && (
+                                        <div
+                                            style={{
+                                                paddingLeft: "20px",
+                                                marginTop: "15px",
+                                                marginBottom: "15px",
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                gap: "15px", // Space out the sub-items
+                                                borderLeft:
+                                                    "2px solid rgba(255, 255, 255, 0.2)" // Visual guide for hierarchy
+                                            }}
+                                        >
+                                            {item.dropdown.map(dropdownItem => (
+                                                <Link
+                                                    key={dropdownItem.title}
+                                                    href={dropdownItem.link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className={styles.link}
+                                                    style={{
+                                                        display: "block",
+                                                        width: "100%",
+                                                        fontSize: "18px", // Slightly smaller than parent but readable
+                                                        lineHeight: "1.4",
+                                                        opacity: 0.9
+                                                    }}
+                                                >
+                                                    {dropdownItem.title}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <Link
+                                    prefetch={false}
+                                    href={item.link!}
+                                    className={styles.link}
+                                    // Ensure standard links also fill width for consistent tap area
+                                    style={{ display: "block", width: "100%" }}
+                                >
+                                    {item.title}
+                                </Link>
+                            )}
+                        </div>
                     ))}
-                    <ProTrackButton />
+                    <div style={{ marginTop: "20px" }}>
+                        <ProTrackButton />
+                    </div>
                 </div>
             </nav>
         </>
