@@ -670,14 +670,32 @@ const Prizes: React.FC = () => {
                         <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track3.svg"
                             topText="BEST AI INFERENCE"
-                            bottomText="$2500 + TBD"
+                            bottomText={
+                                <ul style={{ margin: 0 }}>
+                                    <li>
+                                        <strong>1st place:</strong> $2000 for
+                                        the team, 5K in Modal Credits per
+                                        person, a visit to SF or NY Modal Office
+                                        with lunch with the Modal team
+                                    </li>
+                                    <li>
+                                        <strong>2nd place:</strong> $500 for the
+                                        team, $1K in Modal Credits and Airpods
+                                        for each team member
+                                    </li>
+                                    <li>
+                                        <strong>3rd place:</strong> $1K in Modal
+                                        Credits and Airpods for each team member
+                                    </li>
+                                </ul>
+                            }
                             radiusX={200}
                             radiusY={150}
                             width={500}
                             height={500}
                             centerOffsetY={10}
                             centerOffsetX={13}
-                            bottomTextSize={25}
+                            bottomTextSize={16}
                             topTextOffset={50}
                             bottomTextOffset={50}
                             topTextSize={25}

@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useId, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 type TrackPrizeProps = {
     backgroundSrc: string;
 
     topText: string;
-    bottomText: string;
+    bottomText: string | React.ReactNode;
     topTextOffset: number;
     bottomTextOffset: number;
 
@@ -23,6 +23,9 @@ type TrackPrizeProps = {
 
     radiusX: number;
     radiusY: number;
+
+    // Optional: Pass children if you want to inject the text dynamically from the parent
+    children?: React.ReactNode;
 };
 
 const TrackPrize: React.FC<TrackPrizeProps> = ({
@@ -39,7 +42,8 @@ const TrackPrize: React.FC<TrackPrizeProps> = ({
     topTextSize = 20,
     bottomLetterSpacing = 0,
     radiusX,
-    radiusY
+    radiusY,
+    children
 }) => {
     const [hovered, setHovered] = useState(false);
     const uid = useId();
@@ -65,95 +69,129 @@ const TrackPrize: React.FC<TrackPrizeProps> = ({
     return (
         <Box
             sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
                 width: size,
-                height: size,
-                backgroundImage: `url("${backgroundSrc}")`,
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "contain",
-                backgroundPosition: "center",
-                position: "relative",
-
-                transition: "transform 200ms ease",
-                willChange: "transform",
-                transform: hovered ? "scale(1.04)" : "scale(1)",
-                transformOrigin: "center"
+                height: "auto",
+                position: "relative"
             }}
         >
-            <svg
-                width="100%"
-                height="100%"
-                viewBox="0 0 400 400"
-                style={{
-                    position: "absolute",
-                    inset: 0,
-                    marginTop: `${centerOffsetY}px`,
-                    marginLeft: `${centerOffsetX}px`,
-                    pointerEvents: "none"
+            {/* 1. VISUAL CONTAINER (The Galaxy/SVG) */}
+            <Box
+                sx={{
+                    width: size,
+                    height: size, // Keeps the visual square/circular aspect ratio
+                    backgroundImage: `url("${backgroundSrc}")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    backgroundPosition: "center",
+                    position: "relative",
+                    flexShrink: 0, // Prevents image from squishing if flex gets weird
+
+                    transition: "transform 200ms ease",
+                    willChange: "transform",
+                    transform: hovered ? "scale(1.04)" : "scale(1)",
+                    transformOrigin: "center"
                 }}
             >
-                <ellipse
-                    cx="200"
-                    cy="200"
-                    rx={radiusX}
-                    ry={radiusY}
-                    fill="transparent"
-                    stroke="transparent"
-                    style={{ pointerEvents: "all" }}
-                    onMouseEnter={() => setHovered(true)}
-                    onMouseLeave={() => setHovered(false)}
-                />
-                <defs>
-                    <path
-                        id={topArcId}
-                        d={`
-                    M 200,200
-                    m -${radiusX},0
-                    a ${radiusX},${radiusY} 0 0 1 ${radiusX * 2},0
-                `}
-                    />
-
-                    <path
-                        id={bottomArcId}
-                        d={`
-                M 200,200
-                m -${radiusX},0
-                a ${radiusX},${radiusY} 0 0 0 ${radiusX * 2},0
-            `}
-                    />
-                </defs>
-
-                {/* top text */}
-                <text
-                    fill="#fff"
-                    fontFamily="Tsukimi Rounded"
-                    fontSize={topTextSize}
-                    fontWeight="700"
-                    textAnchor="middle"
+                <svg
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 400 400"
+                    style={{
+                        position: "absolute",
+                        inset: 0,
+                        marginTop: `${centerOffsetY}px`,
+                        marginLeft: `${centerOffsetX}px`,
+                        pointerEvents: "none"
+                    }}
                 >
-                    <textPath
-                        href={`#${topArcId}`}
-                        startOffset={`${topTextOffset}%`}
+                    <ellipse
+                        cx="200"
+                        cy="200"
+                        rx={radiusX}
+                        ry={radiusY}
+                        fill="transparent"
+                        stroke="transparent"
+                        style={{ pointerEvents: "all", cursor: "pointer" }}
+                        onMouseEnter={() => setHovered(true)}
+                        onMouseLeave={() => setHovered(false)}
+                    />
+                    <defs>
+                        <path
+                            id={topArcId}
+                            d={`
+                                M 200,200
+                                m -${radiusX},0
+                                a ${radiusX},${radiusY} 0 0 1 ${radiusX * 2},0
+                            `}
+                        />
+                        <path
+                            id={bottomArcId}
+                            d={`
+                                M 200,200
+                                m -${radiusX},0
+                                a ${radiusX},${radiusY} 0 0 0 ${radiusX * 2},0
+                            `}
+                        />
+                    </defs>
+
+                    {/* top text */}
+                    <text
+                        fill="#fff"
+                        fontFamily="Tsukimi Rounded"
+                        fontSize={topTextSize}
+                        fontWeight="700"
+                        textAnchor="middle"
                     >
-                        {topText}
-                    </textPath>
-                </text>
-                {/* bottom text */}
-                <text
-                    fill="#fff"
-                    fontFamily="Montserrat"
-                    fontSize={bottomTextSize}
-                    fontWeight="600"
-                    textAnchor="middle"
-                    style={{ letterSpacing: bottomLetterSpacing }}
-                >
-                    <textPath
-                        href={`#${bottomArcId}`}
-                        startOffset={`${bottomTextOffset}%`}
+                        <textPath
+                            href={`#${topArcId}`}
+                            startOffset={`${topTextOffset}%`}
+                        >
+                            {topText}
+                        </textPath>
+                    </text>
+                </svg>
+            </Box>
+
+            {/* 2. TEXT CONTAINER (Dynamic Height) */}
+            <Box
+                sx={{
+                    textAlign: "left",
+                    width: "100%",
+                    zIndex: 1,
+                    mt: -6,
+                    fontSize: bottomTextSize,
+                    color: "white",
+                    lineHeight: 1.5,
+                    "& ul": {
+                        margin: 0,
+                        paddingLeft: "20px",
+                        listStyleType: "disc"
+                    },
+                    "& li": {
+                        marginBottom: "8px"
+                    }
+                }}
+            >
+                {typeof bottomText === "string" ? (
+                    <Typography
+                        variant="body1"
+                        color="white"
+                        sx={{
+                            whiteSpace: "pre-line",
+                            lineHeight: 1.5,
+                            fontSize: bottomTextSize,
+                            textAlign: "center"
+                        }}
                     >
                         {bottomText}
-                    </textPath>
-                </text>
-            </svg>
+                    </Typography>
+                ) : (
+                    bottomText
+                )}
+            </Box>
         </Box>
     );
 };
