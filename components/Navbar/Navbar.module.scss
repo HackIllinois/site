@@ -91,6 +91,11 @@
     width: 100%;
     z-index: 1100;
 
+    &.navbarShown {
+        height: 100dvh;
+        overflow-y: auto;
+    }
+
     @media screen and (max-width: 960px) {
         display: flex;
         flex-direction: column;
