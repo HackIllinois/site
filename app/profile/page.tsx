@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useMemo } from "react";
 import { Box, Typography } from "@mui/material";
-import { loadProfile, loadAdmissionRSVP, upadateProfile } from "@/util/api";
+import { loadProfile, loadAdmissionRSVP, updateProfile } from "@/util/api";
 import Loading from "@/components/Loading/Loading";
 import { AvatarCarousel, type AvatarItem } from "./AvatarCarousel";
 
@@ -42,7 +42,7 @@ export default function Profile() {
         setLoading(true);
         setAvatarId(draftAvatarId);
 
-        upadateProfile({ avatarId: draftAvatarId }).finally(() => {
+        updateProfile({ avatarId: draftAvatarId }).finally(() => {
             setLoading(false);
         });
 
@@ -50,23 +50,24 @@ export default function Profile() {
     };
 
     useEffect(() => {
-        loadProfile()
-            .then(profile => {
+        const loadData = async () => {
+            try {
+                const profile = await loadProfile();
                 setAvatarId(
                     profile.avatarUrl.split("/").pop()!.replace(".png", "")
                 );
                 setName(profile.displayName);
 
-                return loadAdmissionRSVP();
-            })
-            .then(RSVPInfo => {
+                const RSVPInfo = await loadAdmissionRSVP();
                 setTrack(
                     RSVPInfo.admittedPro ? "HACKVOYAGER" : "GENERAL ATTENDEE"
                 );
-            })
-            .finally(() => {
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+
+        loadData();
     }, []);
 
     if (loading) return <Loading backgroundImage="/profile/background.jpg" />;
@@ -122,7 +123,10 @@ export default function Profile() {
                 <Box
                     sx={{
                         width: "100%",
-                        height: "550px",
+                        height: {
+                            xs: mode === "profile" ? "800px" : "550px",
+                            sm: "550px"
+                        },
                         borderTop: { xs: "none", sm: "2px solid #00FF2B" },
                         borderBottom: { xs: "none", sm: "2px solid #00FF2B" },
                         background: {
@@ -159,7 +163,11 @@ export default function Profile() {
                                 mt: "15px",
                                 height: "70%",
                                 display: "grid",
-                                gridTemplateColumns: "1fr 1fr",
+                                gridTemplateColumns: {
+                                    xs: "none",
+                                    sm: "1fr 1fr"
+                                },
+                                gridTemplateRows: { xs: "1fr 1fr", sm: "none" },
                                 gap: "5%"
                             }}
                         >

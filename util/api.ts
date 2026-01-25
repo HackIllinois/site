@@ -148,7 +148,7 @@ export async function loadProfile(): Promise<AttendeeProfile> {
     return await requestv2("GET", "/profile");
 }
 
-export async function upadateProfile(
+export async function updateProfile(
     body: UserAvatar
 ): Promise<AttendeeProfile> {
     return await requestv2("PUT", "/profile", body);
