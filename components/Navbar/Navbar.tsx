@@ -168,6 +168,10 @@ const Navbar = () => {
                                         {item.dropdown.map(dropdownItem => (
                                             <MenuItem
                                                 key={dropdownItem.title}
+                                                component={Link}
+                                                href={dropdownItem.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
                                                 onClick={handleDropdownClose}
                                                 sx={{
                                                     "&:hover": {
@@ -176,18 +180,7 @@ const Navbar = () => {
                                                     }
                                                 }}
                                             >
-                                                <Link
-                                                    href={dropdownItem.link}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    style={{
-                                                        color: "inherit",
-                                                        textDecoration: "none",
-                                                        width: "100%"
-                                                    }}
-                                                >
-                                                    {dropdownItem.title}
-                                                </Link>
+                                                {dropdownItem.title}
                                             </MenuItem>
                                         ))}
                                     </Menu>
