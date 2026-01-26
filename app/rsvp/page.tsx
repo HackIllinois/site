@@ -6,17 +6,18 @@ import NewsletterSubscription from "@/components/NewsletterSubscription/Newslett
 import { loadAdmissionRSVP, loadSubmission } from "@/util/api";
 import { RSVPInfo, RegistrationApplicationSubmitted } from "@/util/types";
 import {
+    Box,
+    Button,
+    Container,
     Dialog,
     DialogActions,
     DialogContent,
     DialogTitle,
-    Typography
+    Typography,
+    useMediaQuery
 } from "@mui/material";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import styles from "./page.module.scss";
-import clsx from "clsx";
 
 export default function RSVP() {
     const router = useRouter();
@@ -27,6 +28,7 @@ export default function RSVP() {
         useState<RegistrationApplicationSubmitted | null>(null);
     const [showDeclineDialog, setShowDeclineDialog] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const isVerySmallScreen = useMediaQuery("(max-width:300px)");
 
     const loadRSVPData = async () => {
         try {
@@ -112,147 +114,636 @@ export default function RSVP() {
 
     if (rsvpData?.response === "DECLINED") {
         return (
-            <main className={styles.main}>
-                <Image
+            <Box
+                component="main"
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: {
+                        xs: "flex-start",
+                        md: "center"
+                    },
+                    width: "100vw",
+                    minHeight: "100vh",
+                    overflowX: "hidden",
+                    margin: 0,
+                    padding: 0,
+                    position: "relative",
+                    background: "linear-gradient(to bottom, #16133e, #3a3069)"
+                }}
+            >
+                <img
                     src="/rsvp/post_decision_screen.svg"
                     alt="Background"
-                    fill
-                    className={styles.backgroundImage}
-                    priority
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: "center",
+                        zIndex: 1
+                    }}
                 />
-                <div className={styles.navbarSpacer} />
-                <div className={styles.declinedContent}>
-                    <Typography className={styles.declinedHeading}>
+                <Box
+                    sx={{ height: "80px", position: "relative", zIndex: 10 }}
+                />
+                <Container
+                    sx={{
+                        position: "relative",
+                        zIndex: 10,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        textAlign: "center",
+                        maxWidth: "900px",
+                        margin: "0 auto"
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            fontFamily: '"Tsukimi Rounded", sans-serif',
+                            fontSize: { xs: "42px", md: "55px" },
+                            fontWeight: 700,
+                            color: "white",
+                            textShadow: "0 4px 20px rgba(255, 255, 255, 0.3)",
+                            marginBottom: "1rem",
+                            animation: "fadeInDown 0.8s ease-out",
+                            "@keyframes fadeInDown": {
+                                from: {
+                                    opacity: 0,
+                                    transform: "translateY(-30px)"
+                                },
+                                to: {
+                                    opacity: 1,
+                                    transform: "translateY(0)"
+                                }
+                            }
+                        }}
+                    >
                         {"We're sorry to see you go!"}
                     </Typography>
-                    <Typography className={styles.declinedText}>
+                    <Typography
+                        sx={{
+                            fontFamily: '"Montserrat", sans-serif',
+                            fontSize: { xs: "16px", md: "20px" },
+                            color: "rgba(255, 255, 255, 0.95)",
+                            lineHeight: 1.8,
+                            maxWidth: "700px",
+                            marginBottom: "3rem",
+                            animation: "fadeInDown 0.8s ease-out 0.2s both",
+                            "@keyframes fadeInDown": {
+                                from: {
+                                    opacity: 0,
+                                    transform: "translateY(-30px)"
+                                },
+                                to: {
+                                    opacity: 1,
+                                    transform: "translateY(0)"
+                                }
+                            }
+                        }}
+                    >
                         If you would like to stay up to date with HackIllinois,
                         consider following our socials or subscribing to our
                         newsletter.
                     </Typography>
                     <SocialIconsRow />
-                    <div className={styles.newsletterSection}>
-                        <Typography className={styles.newsletterHeading}>
+                    <Box
+                        sx={{
+                            marginTop: "3rem",
+                            width: "100%",
+                            maxWidth: "700px"
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                fontFamily: '"Tsukimi Rounded", sans-serif',
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                color: "white",
+                                textAlign: "left",
+                                marginBottom: "1rem",
+                                paddingLeft: "1rem"
+                            }}
+                        >
                             Newsletter signup
                         </Typography>
                         <NewsletterSubscription />
-                    </div>
-                </div>
-            </main>
+                    </Box>
+                </Container>
+            </Box>
         );
     }
 
     return (
-        <main className={styles.main}>
-            <Image
+        <Box
+            component="main"
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+
+                justifyContent: {
+                    xs: "flex-start",
+                    md: "center"
+                },
+                width: "100vw",
+                minHeight: "100vh",
+                overflowX: "hidden",
+                margin: 0,
+                padding: 0,
+                position: "relative",
+                background: "linear-gradient(to bottom, #16133e, #3a3069)",
+                marginTop: {
+                    xs: "50px",
+                    md: "0px"
+                }
+            }}
+        >
+            <img
                 src="/rsvp/decision_screen.svg"
                 alt="Background"
-                fill
-                className={clsx(styles.backgroundImage, styles.darken)}
-                priority
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    zIndex: 1,
+                    filter: "brightness(0.7)"
+                }}
             />
-            <div className={styles.navbarSpacer} />
-            <div className={styles.content}>
-                <Typography className={styles.congratsHeading}>
-                    CONGRATULATIONS!
+            <Box sx={{ height: "80px", position: "relative", zIndex: 10 }} />
+            <Container
+                sx={{
+                    position: "relative",
+                    zIndex: 10,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    height: "100%",
+                    margin: "0 auto",
+                    padding: "0 2rem"
+                }}
+            >
+                <Typography
+                    sx={{
+                        fontFamily: '"Tsukimi Rounded", sans-serif',
+                        fontSize: { xs: "24px", sm: "48px", md: "50px" },
+                        fontWeight: 700,
+                        color: "white",
+                        textShadow: "0 4px 20px rgba(255, 255, 255, 0.3)",
+                        marginBottom: "1rem",
+                        animation: "fadeInDown 0.8s ease-out",
+                        "@keyframes fadeInDown": {
+                            from: {
+                                opacity: 0,
+                                transform: "translateY(-30px)"
+                            },
+                            to: {
+                                opacity: 1,
+                                transform: "translateY(0)"
+                            }
+                        }
+                    }}
+                >
+                    {isVerySmallScreen ? "CONGRATS!" : "CONGRATULATIONS!"}
                 </Typography>
                 <Typography
-                    className={
-                        rsvpData?.admittedPro
-                            ? styles.acceptedText
-                            : styles.acceptedTextGeneral
-                    }
+                    sx={{
+                        fontFamily: '"Montserrat", sans-serif',
+                        fontSize: { xs: "14x", sm: "22px", md: "23px" },
+                        fontWeight: 500,
+                        textWrap: "balance",
+                        color: "rgba(255, 255, 255, 0.95)",
+                        marginBottom: "1rem",
+                        animation: "fadeInDown 0.8s ease-out 0.2s both",
+                        "@keyframes fadeInDown": {
+                            from: {
+                                opacity: 0,
+                                transform: "translateY(-30px)"
+                            },
+                            to: {
+                                opacity: 1,
+                                transform: "translateY(0)"
+                            }
+                        }
+                    }}
                 >
-                    {rsvpData?.admittedPro
-                        ? "You've been accepted as a"
-                        : rsvpData?.correctProChallenge
-                          ? "While we unfortunately couldn't offer you a spot as a HackVoyager, you've been accepted as a"
-                          : "You've been accepted as a"}
+                    {rsvpData?.admittedPro ? (
+                        "You've been accepted as a"
+                    ) : rsvpData?.correctProChallenge ? (
+                        <>
+                            {
+                                "While we unfortunately couldn't offer you a spot as a HackVoyager, "
+                            }
+                            <br />
+                            {"you've been accepted as a"}
+                        </>
+                    ) : (
+                        "You've been accepted as a"
+                    )}
                 </Typography>
                 {rsvpData?.admittedPro ? (
-                    <Image
+                    <img
                         src="/rsvp/hackVoyager.svg"
                         alt="Hack Voyager"
-                        width={400}
-                        height={400}
-                        className={styles.hackVoyagerLogo}
-                        priority
+                        style={{
+                            maxWidth: "500px",
+                            width: "100%",
+                            height: "auto",
+                            marginBottom: "1rem",
+                            animation: "scaleIn 0.8s ease-out 0.4s both"
+                        }}
                     />
                 ) : (
-                    <Image
+                    <img
                         src="/rsvp/generalAttendee.svg"
                         alt="General Attendee"
-                        width={400}
-                        height={400}
-                        className={styles.hackVoyagerLogo}
-                        priority
+                        style={{
+                            maxWidth: "500px",
+                            width: "100%",
+                            height: "auto",
+                            marginBottom: "1rem",
+                            animation: "scaleIn 0.8s ease-out 0.4s both"
+                        }}
                     />
                 )}
                 {registrationData?.requestTravelReimbursement && (
-                    <Typography className={styles.reimbursementText}>
+                    <Typography
+                        sx={{
+                            fontFamily: '"Montserrat", sans-serif',
+                            fontSize: { xs: "18px", sm: "20px", md: "29px" },
+                            fontWeight: 600,
+                            color: "white",
+                            marginBottom: "1rem",
+                            textShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
+                            animation: "fadeInDown 0.8s ease-out 0.6s both",
+                            "@keyframes fadeInDown": {
+                                from: {
+                                    opacity: 0,
+                                    transform: "translateY(-30px)"
+                                },
+                                to: {
+                                    opacity: 1,
+                                    transform: "translateY(0)"
+                                }
+                            }
+                        }}
+                    >
                         with a reimbursement total of{" "}
-                        <span className={styles.reimbursementAmount}>
+                        <Box
+                            component="span"
+                            sx={{
+                                background:
+                                    "linear-gradient(135deg, #ffba9a 0%, #ee1eee 100%)",
+                                WebkitBackgroundClip: "text",
+                                WebkitTextFillColor: "transparent",
+                                backgroundClip: "text",
+                                fontWeight: 520
+                            }}
+                        >
                             ${rsvpData?.reimbursementValue || 200}
-                        </span>
+                        </Box>
                     </Typography>
                 )}
-                <Typography className={styles.description}>
-                    If you would like to attend HackIllinois 2026, click Next to
-                    finish RSVP process. If you won&apos;t be attending, please
-                    click Decline.{" "}
-                    <span className={styles.bold}>This cannot be reversed</span>
+                <Typography
+                    sx={{
+                        fontFamily: '"Montserrat", sans-serif',
+                        fontSize: { xs: "14px", sm: "16px", md: "21px" },
+                        color: "rgba(255, 255, 255, 0.9)",
+                        lineHeight: 1.7,
+                        maxWidth: "1000px",
+                        marginBottom: "1rem",
+                        animation: "fadeInDown 0.8s ease-out 0.8s both",
+                        textWrap: "balance",
+                        "@keyframes fadeInDown": {
+                            from: {
+                                opacity: 0,
+                                transform: "translateY(-30px)"
+                            },
+                            to: {
+                                opacity: 1,
+                                transform: "translateY(0)"
+                            }
+                        }
+                    }}
+                >
+                    If you would like to attend HackIllinois 2026, click{" "}
+                    <b>Next</b> to finish RSVP process.
                 </Typography>
-                <div className={styles.buttonContainer}>
-                    <button
-                        className={styles.confirmButton}
-                        onClick={handleAccept}
-                        disabled={submitting}
-                    >
-                        CONFIRM
-                    </button>
-                    <button
-                        className={styles.declineButton}
+                <Typography
+                    sx={{
+                        fontFamily: '"Montserrat", sans-serif',
+                        fontSize: { xs: "14px", sm: "16px", md: "21px" },
+                        color: "rgba(255, 255, 255, 0.9)",
+                        lineHeight: 1.7,
+                        maxWidth: "1000px",
+                        marginBottom: "1rem",
+                        textWrap: "balance",
+                        animation: "fadeInDown 0.8s ease-out 0.8s both",
+                        "@keyframes fadeInDown": {
+                            from: {
+                                opacity: 0,
+                                transform: "translateY(-30px)"
+                            },
+                            to: {
+                                opacity: 1,
+                                transform: "translateY(0)"
+                            }
+                        }
+                    }}
+                >
+                    If you won&apos;t be attending, please click{" "}
+                    <b>Decline.</b>{" "}
+                </Typography>
+                <Typography
+                    sx={{
+                        fontFamily: '"Montserrat", sans-serif',
+                        fontSize: { xs: "14px", sm: "16px", md: "21px" },
+                        color: "rgba(255, 255, 255, 0.9)",
+                        lineHeight: 1.7,
+                        maxWidth: "1000px",
+                        marginBottom: "2.5rem",
+                        animation: "fadeInDown 0.8s ease-out 0.8s both",
+                        "@keyframes fadeInDown": {
+                            from: {
+                                opacity: 0,
+                                transform: "translateY(-30px)"
+                            },
+                            to: {
+                                opacity: 1,
+                                transform: "translateY(0)"
+                            }
+                        }
+                    }}
+                >
+                    <Box component="span" sx={{ fontWeight: 700 }}>
+                        This cannot be reversed.
+                    </Box>
+                </Typography>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: { xs: "1rem", md: "2rem" },
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: { xs: "100%", md: "auto" },
+                        animation: "fadeInUp 0.8s ease-out 1s both",
+                        "@keyframes fadeInUp": {
+                            from: {
+                                opacity: 0,
+                                transform: "translateY(30px)"
+                            },
+                            to: {
+                                opacity: 1,
+                                transform: "translateY(0)"
+                            }
+                        }
+                    }}
+                >
+                    <Button
                         onClick={handleDeclineClick}
                         disabled={submitting}
+                        sx={{
+                            padding: {
+                                xs: "12px 32px",
+                                md: "18px 48px"
+                            },
+                            backgroundColor: "#F46D6D",
+                            border: "#FF0000 2px solid",
+                            borderRadius: "50px",
+                            color: "#0a1a0a",
+                            minWidth: {
+                                xs: "100px",
+                                md: "200px"
+                            },
+                            fontFamily: "Tsukimi Rounded, sans-serif",
+                            fontSize: {
+                                xs: "14px",
+                                md: "20px"
+                            },
+                            fontWeight: 700,
+                            cursor: "pointer",
+                            boxShadow: "0 4px 15px rgba(255, 107, 107, 0.4)",
+                            transition: "all 0.3s ease",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.05em",
+                            width: { xs: "100%", md: "auto" },
+                            maxWidth: { xs: "300px", md: "none" },
+                            "&:hover:not(:disabled)": {
+                                transform: "scale(1.03)",
+                                boxShadow: "0 6px 25px rgba(255, 107, 107, 0.6)"
+                            },
+                            "&:active:not(:disabled)": {
+                                transform: "translateY(0)"
+                            },
+                            "&:disabled": {
+                                opacity: 0.5,
+                                cursor: "not-allowed"
+                            }
+                        }}
                     >
                         DECLINE
-                    </button>
-                </div>
-            </div>
+                    </Button>
+                    <Button
+                        onClick={handleAccept}
+                        disabled={submitting}
+                        sx={{
+                            padding: {
+                                xs: "12px 32px",
+                                md: "18px 48px"
+                            },
+                            backgroundColor: "#8EDB91",
+                            border: "#2AFF00 2px solid",
+                            minWidth: {
+                                xs: "100px",
+                                md: "200px"
+                            },
+                            borderRadius: "50px",
+                            color: "#0a1a0a",
+                            fontFamily: "Tsukimi Rounded, sans-serif",
+                            fontSize: {
+                                xs: "14px",
+                                md: "20px"
+                            },
+                            fontWeight: 700,
+                            cursor: "pointer",
+                            boxShadow: "0 4px 15px rgba(0, 255, 43, 0.4)",
+                            transition: "all 0.3s ease",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.05em",
+                            width: { xs: "100%", md: "auto" },
+                            maxWidth: { xs: "300px", md: "none" },
+                            "&:hover:not(:disabled)": {
+                                transform: "scale(1.03)",
+                                boxShadow: "0 6px 25px rgba(0, 255, 43, 0.6)"
+                            },
+                            "&:active:not(:disabled)": {
+                                transform: "translateY(0)"
+                            },
+                            "&:disabled": {
+                                opacity: 0.5,
+                                cursor: "not-allowed"
+                            }
+                        }}
+                    >
+                        NEXT
+                    </Button>
+                </Box>
+            </Container>
             <Dialog
                 open={showDeclineDialog}
                 onClose={handleDeclineCancel}
                 maxWidth="sm"
                 fullWidth
                 PaperProps={{
-                    className: styles.dialogPaper
+                    sx: {
+                        background: "rgba(22, 19, 62, 0.95)",
+                        backdropFilter: "blur(20px)",
+                        border: "2px solid rgba(255, 255, 255, 0.2)",
+                        borderRadius: "20px",
+                        color: "white"
+                    }
                 }}
             >
-                <DialogTitle className={styles.dialogTitle}>
+                <DialogTitle
+                    sx={{
+                        fontFamily: '"Tsukimi Rounded", sans-serif',
+                        fontSize: { xs: "22px", md: "28px" },
+                        fontWeight: 700,
+                        color: "white",
+                        textAlign: "center",
+                        padding: {
+                            xs: "1.5rem 1.5rem 0.5rem",
+                            md: "2rem 2rem 1rem"
+                        }
+                    }}
+                >
                     Are you sure you want to decline?
                 </DialogTitle>
                 <DialogContent>
-                    <Typography className={styles.dialogText}>
+                    <Typography
+                        sx={{
+                            fontFamily: '"Montserrat", sans-serif',
+                            fontSize: { xs: "14px", md: "16px" },
+                            color: "rgba(255, 255, 255, 0.9)",
+                            lineHeight: 1.7,
+                            textAlign: "center",
+                            padding: { xs: "0.5rem 1.5rem", md: "1rem 2rem" }
+                        }}
+                    >
                         This action cannot be reversed. If you decline, you will
                         not be able to attend HackIllinois 2026.
                     </Typography>
                 </DialogContent>
-                <DialogActions className={styles.dialogActions}>
-                    <button
-                        className={styles.cancelButton}
+                <DialogActions
+                    sx={{
+                        display: "flex",
+                        flexDirection: { xs: "column", md: "row" },
+                        gap: { xs: "0.75rem", md: "1rem" },
+                        justifyContent: "center",
+                        padding: {
+                            xs: "0.5rem 1.5rem 1.5rem",
+                            md: "1rem 2rem 2rem"
+                        }
+                    }}
+                >
+                    <Button
                         onClick={handleDeclineCancel}
+                        sx={{
+                            padding: "12px 32px",
+                            background: "rgba(255, 255, 255, 0.1)",
+                            border: "2px solid rgba(255, 255, 255, 0.3)",
+                            borderRadius: "50px",
+                            color: "white",
+                            fontFamily: '"Montserrat", sans-serif',
+                            fontSize: "16px",
+                            fontWeight: 600,
+                            cursor: "pointer",
+                            transition: "all 0.3s ease",
+                            width: { xs: "100%", md: "auto" },
+                            "&:hover": {
+                                background: "rgba(255, 255, 255, 0.2)",
+                                borderColor: "rgba(255, 255, 255, 0.4)"
+                            }
+                        }}
                     >
                         CANCEL
-                    </button>
-                    <button
-                        className={styles.confirmDeclineButton}
+                    </Button>
+                    <Button
                         onClick={handleDeclineConfirm}
                         disabled={submitting}
+                        sx={{
+                            padding: "12px 32px",
+                            background:
+                                "linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%)",
+                            border: "none",
+                            borderRadius: "50px",
+                            color: "white",
+                            fontFamily: '"Montserrat", sans-serif',
+                            fontSize: "16px",
+                            fontWeight: 700,
+                            cursor: "pointer",
+                            boxShadow: "0 4px 15px rgba(255, 107, 107, 0.4)",
+                            transition: "all 0.3s ease",
+                            width: { xs: "100%", md: "auto" },
+                            "&:hover:not(:disabled)": {
+                                transform: "translateY(-2px)",
+                                boxShadow:
+                                    "0 6px 25px rgba(255, 107, 107, 0.6)",
+                                background:
+                                    "linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%)"
+                            },
+                            "&:disabled": {
+                                opacity: 0.5,
+                                cursor: "not-allowed"
+                            }
+                        }}
                     >
                         YES, DECLINE
-                    </button>
+                    </Button>
                 </DialogActions>
             </Dialog>
-        </main>
+            <style jsx global>{`
+                @keyframes fadeInDown {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                @keyframes scaleIn {
+                    from {
+                        opacity: 0;
+                        transform: scale(0.8);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: scale(1);
+                    }
+                }
+            `}</style>
+        </Box>
     );
 }
