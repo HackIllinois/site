@@ -3,7 +3,11 @@
 import { SocialIconsRow } from "@/components/GradientButton/GradientSocialButton";
 import Loading from "@/components/Loading/Loading";
 import NewsletterSubscription from "@/components/NewsletterSubscription/NewsletterSubscription";
-import { loadAdmissionRSVP, loadSubmission } from "@/util/api";
+import {
+    declineAdmissionRSVP,
+    loadAdmissionRSVP,
+    loadSubmission
+} from "@/util/api";
 import { RSVPInfo, RegistrationApplicationSubmitted } from "@/util/types";
 import {
     Box,
@@ -93,9 +97,8 @@ export default function RSVP() {
         if (submitting) return;
         setSubmitting(true);
         try {
-            setRsvpData((prev: RSVPInfo | null) =>
-                prev ? { ...prev, response: "DECLINED" } : null
-            );
+            await declineAdmissionRSVP();
+            await loadRSVPData();
             setShowDeclineDialog(false);
         } catch (error) {
             console.error("Error declining RSVP:", error);
@@ -145,7 +148,9 @@ export default function RSVP() {
                         height: "100%",
                         objectFit: "cover",
                         objectPosition: "center",
-                        zIndex: 1
+                        zIndex: 1,
+                        // Darken via brightness transformation
+                        filter: "brightness(0.7)"
                     }}
                 />
                 <Box
@@ -167,7 +172,7 @@ export default function RSVP() {
                     <Typography
                         sx={{
                             fontFamily: '"Tsukimi Rounded", sans-serif',
-                            fontSize: { xs: "42px", md: "55px" },
+                            fontSize: { xs: "32px", md: "50px" },
                             fontWeight: 700,
                             color: "white",
                             textShadow: "0 4px 20px rgba(255, 255, 255, 0.3)",
@@ -194,7 +199,7 @@ export default function RSVP() {
                             color: "rgba(255, 255, 255, 0.95)",
                             lineHeight: 1.8,
                             maxWidth: "700px",
-                            marginBottom: "3rem",
+                            marginBottom: { xs: "1rem", md: "3rem" },
                             animation: "fadeInDown 0.8s ease-out 0.2s both",
                             "@keyframes fadeInDown": {
                                 from: {
@@ -215,20 +220,21 @@ export default function RSVP() {
                     <SocialIconsRow />
                     <Box
                         sx={{
-                            marginTop: "3rem",
-                            width: "100%",
+                            marginTop: { xs: "1rem", md: "3rem" },
                             maxWidth: "700px"
                         }}
                     >
                         <Typography
                             sx={{
-                                fontFamily: '"Tsukimi Rounded", sans-serif',
-                                fontSize: "24px",
+                                fontFamily: '"Montserrat", sans-serif',
+                                fontSize: {
+                                    xs: "16px",
+                                    md: "24px"
+                                },
                                 fontWeight: 600,
                                 color: "white",
                                 textAlign: "left",
-                                marginBottom: "1rem",
-                                paddingLeft: "1rem"
+                                marginBottom: "0.5rem"
                             }}
                         >
                             Newsletter signup

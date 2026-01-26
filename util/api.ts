@@ -157,3 +157,7 @@ export async function updateProfile(
 export async function loadAdmissionRSVP(): Promise<RSVPInfo> {
     return await requestv2("GET", "/admission/rsvp/");
 }
+
+export async function declineAdmissionRSVP(): Promise<void> {
+    return await requestv2("PUT", "/admission/decline/");
+}
