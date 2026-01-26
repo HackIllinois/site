@@ -202,8 +202,8 @@ const Rsvp = () => {
                 <Box>
                     <AvatarCarousel
                         items={avatarItems}
-                        value={avatarId}
-                        onChange={setAvatarId}
+                        value={values.avatarId}
+                        onChange={value => setFieldValue("avatarId", value)}
                     />
                 </Box>
             </Box>
