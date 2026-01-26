@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import TextInput from "@/components/TextInputMUI";
 import { Box } from "@mui/material";
 import {
@@ -11,6 +12,9 @@ import RadioSelectGroup from "@/components/RadioSelectGroupMUI";
 import CheckboxGroup from "@/components/CheckboxGroupMUI";
 import { dietaryRestrictionsOptions } from "@/util/options";
 
+import { AvatarCarousel, type AvatarItem } from "../profile/AvatarCarousel";
+
+// different styling for registration form inputs
 const tabletFormInputSx = {
     text: {
         // override normal styling
@@ -44,8 +48,9 @@ const tabletFormInputSx = {
 };
 
 const Rsvp = () => {
-    // get initial values from profile endpoint, if they exist
+    const [avatarId, setAvatarId] = useState("");
 
+    // get initial values from profile endpoint, if they exist
     const formik = useFormik({
         initialValues: profileInitialValues,
         validationSchema: profileValidationSchema,
@@ -54,6 +59,20 @@ const Rsvp = () => {
         }
     });
     const { values, errors, touched, handleChange, setFieldValue } = formik;
+
+    const base =
+        "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/refs/heads/main/avatars";
+
+    const avatarItems: AvatarItem[] = useMemo(
+        () => [
+            { id: "character1", src: `${base}/character1.png` },
+            { id: "character2", src: `${base}/character2.png` },
+            { id: "character3", src: `${base}/character3.png` },
+            { id: "character4", src: `${base}/character4.png` },
+            { id: "character5", src: `${base}/character5.png` }
+        ],
+        [base]
+    );
 
     return (
         <Box
@@ -88,86 +107,105 @@ const Rsvp = () => {
                     gap: 6
                 }}
             >
-                {/* tablet panel */}
-                <TextInput
-                    name="displayName"
-                    label="Display Name"
-                    accentColor="#f0f0f0"
-                    sublabel="(This will be shown to other hackers, on the leaderboard, and in our mobile apps)"
-                    inputSx={tabletFormInputSx.text}
-                    required
-                    value={values.displayName}
-                    onChange={handleChange}
-                    error={!!touched.displayName && Boolean(errors.displayName)}
-                    helperText={!!touched.displayName ? errors.displayName : ""}
-                    inputProps={{ maxLength: 200 }}
-                />
-                <TextInput
-                    name="discordTag"
-                    label="Discord Tag"
-                    accentColor="#f0f0f0"
-                    inputSx={tabletFormInputSx.text}
-                    required
-                    value={values.discordTag}
-                    onChange={handleChange}
-                    error={!!touched.discordTag && Boolean(errors.discordTag)}
-                    helperText={!!touched.discordTag ? errors.discordTag : ""}
-                    inputProps={{ maxLength: 200 }}
-                />
-                <TextInput
-                    name="resume"
-                    label="Resume"
-                    accentColor="#f0f0f0"
-                    inputSx={tabletFormInputSx.text}
-                    multiline
-                    required
-                    minRows={4}
-                    value={values.resume}
-                    onChange={handleChange}
-                    error={!!touched.resume && Boolean(errors.resume)}
-                    helperText={!!touched.resume ? errors.resume : ""}
-                    inputProps={{ maxLength: 200 }}
-                />
-                <RadioSelectGroup
-                    name="shirtSize"
-                    label="Shirt Size"
-                    accentColor="#f0f0f0"
-                    inputSx={tabletFormInputSx.select}
-                    row
-                    required
-                    options={["XS", "S", "M", "L", "XL", "2XL"].map(option => ({
-                        label: option,
-                        value: option
-                    }))}
-                    value={values.shirtSize}
-                    onChange={value => setFieldValue("shirtSize", value)}
-                    error={!!touched.shirtSize && Boolean(errors.shirtSize)}
-                    helperText={!!touched.shirtSize ? errors.shirtSize : ""}
-                    booleanOptions
-                />
-                <CheckboxGroup
-                    name="dietaryRestrictions"
-                    label="How did you hear about HackIllinois?"
-                    accentColor={"#f0f0f0"}
-                    inputSx={tabletFormInputSx.select}
-                    options={dietaryRestrictionsOptions.map(option => ({
-                        label: option,
-                        value: option
-                    }))}
-                    value={Array.from(values.dietaryRestrictions) || []}
-                    onChange={value =>
-                        setFieldValue("dietaryRestrictions", value)
-                    }
-                    error={
-                        !!touched.dietaryRestrictions &&
-                        Boolean(errors.dietaryRestrictions)
-                    }
-                    helperText={
-                        !!touched.dietaryRestrictions
-                            ? String(errors.dietaryRestrictions || "")
-                            : ""
-                    }
-                />
+                <Box>
+                    {/* tablet panel */}
+                    <TextInput
+                        name="displayName"
+                        label="Display Name"
+                        accentColor="#f0f0f0"
+                        sublabel="(This will be shown to other hackers, on the leaderboard, and in our mobile apps)"
+                        inputSx={tabletFormInputSx.text}
+                        required
+                        value={values.displayName}
+                        onChange={handleChange}
+                        error={
+                            !!touched.displayName && Boolean(errors.displayName)
+                        }
+                        helperText={
+                            !!touched.displayName ? errors.displayName : ""
+                        }
+                        inputProps={{ maxLength: 200 }}
+                    />
+                    <TextInput
+                        name="discordTag"
+                        label="Discord Tag"
+                        accentColor="#f0f0f0"
+                        inputSx={tabletFormInputSx.text}
+                        required
+                        value={values.discordTag}
+                        onChange={handleChange}
+                        error={
+                            !!touched.discordTag && Boolean(errors.discordTag)
+                        }
+                        helperText={
+                            !!touched.discordTag ? errors.discordTag : ""
+                        }
+                        inputProps={{ maxLength: 200 }}
+                    />
+                    <TextInput
+                        name="resume"
+                        label="Resume"
+                        accentColor="#f0f0f0"
+                        inputSx={tabletFormInputSx.text}
+                        multiline
+                        required
+                        minRows={4}
+                        value={values.resume}
+                        onChange={handleChange}
+                        error={!!touched.resume && Boolean(errors.resume)}
+                        helperText={!!touched.resume ? errors.resume : ""}
+                        inputProps={{ maxLength: 200 }}
+                    />
+                    <RadioSelectGroup
+                        name="shirtSize"
+                        label="Shirt Size"
+                        accentColor="#f0f0f0"
+                        inputSx={tabletFormInputSx.select}
+                        row
+                        required
+                        options={["XS", "S", "M", "L", "XL", "2XL"].map(
+                            option => ({
+                                label: option,
+                                value: option
+                            })
+                        )}
+                        value={values.shirtSize}
+                        onChange={value => setFieldValue("shirtSize", value)}
+                        error={!!touched.shirtSize && Boolean(errors.shirtSize)}
+                        helperText={!!touched.shirtSize ? errors.shirtSize : ""}
+                        booleanOptions
+                    />
+                    <CheckboxGroup
+                        name="dietaryRestrictions"
+                        label="How did you hear about HackIllinois?"
+                        accentColor={"#f0f0f0"}
+                        inputSx={tabletFormInputSx.select}
+                        options={dietaryRestrictionsOptions.map(option => ({
+                            label: option,
+                            value: option
+                        }))}
+                        value={Array.from(values.dietaryRestrictions) || []}
+                        onChange={value =>
+                            setFieldValue("dietaryRestrictions", value)
+                        }
+                        error={
+                            !!touched.dietaryRestrictions &&
+                            Boolean(errors.dietaryRestrictions)
+                        }
+                        helperText={
+                            !!touched.dietaryRestrictions
+                                ? String(errors.dietaryRestrictions || "")
+                                : ""
+                        }
+                    />
+                </Box>
+                <Box>
+                    <AvatarCarousel
+                        items={avatarItems}
+                        value={avatarId}
+                        onChange={setAvatarId}
+                    />
+                </Box>
             </Box>
         </Box>
     );
