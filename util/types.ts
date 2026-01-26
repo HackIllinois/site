@@ -144,6 +144,15 @@ export type RegistrationData = {
 export type DecisionStatus = "TBD" | "ACCEPTED" | "REJECTED" | "WAITLISTED";
 export type DecisionResponse = "PENDING" | "ACCEPTED" | "DECLINED";
 
+export type ProfileFormInfo = {
+    displayName: string;
+    discordTag: string;
+    resume: string;
+    shirtSize: string;
+    dietaryRestrictions: string;
+    avatarId: string;
+};
+
 export type RSVPType = {
     userId: string;
     status: DecisionStatus;

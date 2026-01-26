@@ -91,3 +91,22 @@ export const eventInterestOptions: string[] = [
 ];
 
 export const travelReimbursementOptions: string[] = ["Yes", "No"];
+
+export const dietaryRestrictionsOptions: string[] = [
+    "Vegetarian",
+    "Vegan",
+    "Pescetarian",
+    "Gluten-Free",
+    "Kosher",
+    "Halal",
+    "Dairy-Free",
+    "No Beef",
+    "Peanuts",
+    "Treenuts",
+    "Eggs",
+    "Soy",
+    "Shellfish",
+    "Fish",
+    "Sesame",
+    "Other"
+];

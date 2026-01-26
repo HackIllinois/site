@@ -1,5 +1,8 @@
 import { OTHER_SCHOOL_OPTION } from "@/app/register/general/constants/registration";
-import { RegistrationApplicationDraftBodyForm } from "@/util/types";
+import {
+    ProfileFormInfo,
+    RegistrationApplicationDraftBodyForm
+} from "@/util/types";
 import * as Yup from "yup";
 
 /**
@@ -298,3 +301,26 @@ export const validationSchemas = [
     // 5. Confirmation (no new inputs, keep for indexing purposes)
     Yup.object({})
 ];
+
+export const profileValidationSchema = Yup.object({
+    displayName: Yup.string().required("Display name is required"),
+    discordTag: Yup.string().required("Discord tag is required"),
+    resume: Yup.string(),
+    shirtSize: Yup.string()
+        .required("Shirt size is required")
+        .oneOf(
+            ["XS", "S", "M", "L", "XL", "2XL"],
+            "Please select a valid shirt size"
+        ),
+    dietaryRestrictions: Yup.array().of(Yup.string()),
+    avatarId: Yup.string()
+});
+
+export const profileInitialValues: ProfileFormInfo = {
+    displayName: "",
+    discordTag: "",
+    resume: "",
+    shirtSize: "",
+    dietaryRestrictions: "",
+    avatarId: ""
+};
