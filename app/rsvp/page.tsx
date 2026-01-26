@@ -1,26 +1,22 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Image from "next/image";
-import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    Typography
-} from "@mui/material";
-import {
-    loadAdmissionRSVP,
-    acceptRSVP,
-    declineRSVP,
-    loadSubmission
-} from "@/util/api";
+import { SocialIconsRow } from "@/components/GradientButton/GradientSocialButton";
 import Loading from "@/components/Loading/Loading";
 import NewsletterSubscription from "@/components/NewsletterSubscription/NewsletterSubscription";
-import { SocialIconsRow } from "@/components/GradientButton/GradientSocialButton";
+import { loadAdmissionRSVP, loadSubmission } from "@/util/api";
 import { RSVPInfo, RegistrationApplicationSubmitted } from "@/util/types";
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Typography
+} from "@mui/material";
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import styles from "./page.module.scss";
+import clsx from "clsx";
 
 export default function RSVP() {
     const router = useRouter();
@@ -31,249 +27,57 @@ export default function RSVP() {
         useState<RegistrationApplicationSubmitted | null>(null);
     const [showDeclineDialog, setShowDeclineDialog] = useState(false);
     const [submitting, setSubmitting] = useState(false);
-    const testParam = searchParams.get("test");
-    const isTestMode = testParam === "true";
 
-    useEffect(() => {
-        if (isTestMode) {
+    const loadRSVPData = async () => {
+        try {
+            const [rsvpData, registrationData] = await Promise.all([
+                loadAdmissionRSVP(),
+                loadSubmission()
+            ]);
+
+            console.log(
+                "rsvpData",
+                rsvpData,
+                "registrationData",
+                registrationData
+            );
+
+            setRsvpData(rsvpData);
+            setRegistrationData(registrationData);
+
+            if (!rsvpData.emailSent) {
+                router.push("/register/general");
+                return;
+            }
+
+            if (rsvpData.status !== "ACCEPTED") {
+                router.push("/");
+            } else if (rsvpData.response === "ACCEPTED") {
+                router.push("/profile");
+            }
             setLoading(false);
-            const scenario = searchParams.get("scenario");
-
-            if (scenario === "pro") {
-                setRsvpData({
-                    userId: "test-user",
-                    status: "ACCEPTED",
-                    admittedPro: true,
-                    response: "PENDING",
-                    emailSent: false,
-                    reimbursementValue: 500,
-                    correctProChallenge: true
-                });
-                setRegistrationData({
-                    userId: "test-user",
-                    firstName: "Test",
-                    lastName: "User",
-                    age: "20",
-                    email: "test@test.com",
-                    gender: "Other",
-                    race: ["Other"],
-                    country: "USA",
-                    school: "Test University",
-                    education: "Undergraduate",
-                    graduate: "2026",
-                    major: "Computer Science",
-                    underrepresented: "No",
-                    hackathonsParticipated: "0",
-                    application1: "Test",
-                    application2: "Test",
-                    application3: "Test",
-                    attribution: [],
-                    eventInterest: [],
-                    requestTravelReimbursement: true
-                });
-            } else if (scenario === "general") {
-                setRsvpData({
-                    userId: "test-user",
-                    status: "ACCEPTED",
-                    admittedPro: false,
-                    response: "PENDING",
-                    emailSent: false,
-                    reimbursementValue: 200,
-                    correctProChallenge: false
-                });
-                setRegistrationData({
-                    userId: "test-user",
-                    firstName: "Test",
-                    lastName: "User",
-                    age: "20",
-                    email: "test@test.com",
-                    gender: "Other",
-                    race: ["Other"],
-                    country: "USA",
-                    school: "Test University",
-                    education: "Undergraduate",
-                    graduate: "2026",
-                    major: "Computer Science",
-                    underrepresented: "No",
-                    hackathonsParticipated: "0",
-                    application1: "Test",
-                    application2: "Test",
-                    application3: "Test",
-                    attribution: [],
-                    eventInterest: [],
-                    requestTravelReimbursement: true
-                });
-            } else if (scenario === "declined") {
-                setRsvpData({
-                    userId: "test-user",
-                    status: "ACCEPTED",
-                    admittedPro: true,
-                    response: "DECLINED",
-                    emailSent: false,
-                    reimbursementValue: 500,
-                    correctProChallenge: true
-                });
-                setRegistrationData({
-                    userId: "test-user",
-                    firstName: "Test",
-                    lastName: "User",
-                    age: "20",
-                    email: "test@test.com",
-                    gender: "Other",
-                    race: ["Other"],
-                    country: "USA",
-                    school: "Test University",
-                    education: "Undergraduate",
-                    graduate: "2026",
-                    major: "Computer Science",
-                    underrepresented: "No",
-                    hackathonsParticipated: "0",
-                    application1: "Test",
-                    application2: "Test",
-                    application3: "Test",
-                    attribution: [],
-                    eventInterest: [],
-                    requestTravelReimbursement: true
-                });
-            } else if (scenario === "general-from-pro") {
-                setRsvpData({
-                    userId: "test-user",
-                    status: "ACCEPTED",
-                    admittedPro: false,
-                    response: "PENDING",
-                    emailSent: false,
-                    reimbursementValue: 200,
-                    correctProChallenge: true
-                });
-                setRegistrationData({
-                    userId: "test-user",
-                    firstName: "Test",
-                    lastName: "User",
-                    age: "20",
-                    email: "test@test.com",
-                    gender: "Other",
-                    race: ["Other"],
-                    country: "USA",
-                    school: "Test University",
-                    education: "Undergraduate",
-                    graduate: "2026",
-                    major: "Computer Science",
-                    underrepresented: "No",
-                    hackathonsParticipated: "0",
-                    application1: "Test",
-                    application2: "Test",
-                    application3: "Test",
-                    attribution: [],
-                    eventInterest: [],
-                    requestTravelReimbursement: true
-                });
-            } else if (scenario === "no-reimbursement") {
-                setRsvpData({
-                    userId: "test-user",
-                    status: "ACCEPTED",
-                    admittedPro: true,
-                    response: "PENDING",
-                    emailSent: false,
-                    reimbursementValue: 0,
-                    correctProChallenge: true
-                });
-                setRegistrationData({
-                    userId: "test-user",
-                    firstName: "Test",
-                    lastName: "User",
-                    age: "20",
-                    email: "test@test.com",
-                    gender: "Other",
-                    race: ["Other"],
-                    country: "USA",
-                    school: "Test University",
-                    education: "Undergraduate",
-                    graduate: "2026",
-                    major: "Computer Science",
-                    underrepresented: "No",
-                    hackathonsParticipated: "0",
-                    application1: "Test",
-                    application2: "Test",
-                    application3: "Test",
-                    attribution: [],
-                    eventInterest: [],
-                    requestTravelReimbursement: false
-                });
+        } catch (error: any) {
+            if (
+                error?.status === 404 ||
+                error?.statusCode === 404 ||
+                error.error === "NotFound"
+            ) {
+                router.push("/register/general");
             } else {
-                setRsvpData({
-                    userId: "test-user",
-                    status: "ACCEPTED",
-                    admittedPro: true,
-                    response: "PENDING",
-                    emailSent: false,
-                    reimbursementValue: 500,
-                    correctProChallenge: true
-                });
-                setRegistrationData({
-                    userId: "test-user",
-                    firstName: "Test",
-                    lastName: "User",
-                    age: "20",
-                    email: "test@test.com",
-                    gender: "Other",
-                    race: ["Other"],
-                    country: "USA",
-                    school: "Test University",
-                    education: "Undergraduate",
-                    graduate: "2026",
-                    major: "Computer Science",
-                    underrepresented: "No",
-                    hackathonsParticipated: "0",
-                    application1: "Test",
-                    application2: "Test",
-                    application3: "Test",
-                    attribution: [],
-                    eventInterest: [],
-                    requestTravelReimbursement: true
-                });
+                console.error("Error loading RSVP data:", error);
+                router.push("/");
             }
-            return;
         }
-
-        const loadRSVPData = async () => {
-            try {
-                const [rsvpData, registrationData] = await Promise.all([
-                    loadAdmissionRSVP(),
-                    loadSubmission()
-                ]);
-                setRsvpData(rsvpData);
-                setRegistrationData(registrationData);
-
-                if (rsvpData.status !== "ACCEPTED") {
-                    router.push("/");
-                } else if (rsvpData.response === "ACCEPTED") {
-                    router.push("/profile");
-                }
-            } catch (error: any) {
-                if (error?.status === 404 || error?.statusCode === 404) {
-                    router.push("/register/general");
-                } else {
-                    console.error("Error loading RSVP data:", error);
-                    router.push("/");
-                }
-            } finally {
-                setLoading(false);
-            }
-        };
-
+    };
+    useEffect(() => {
         loadRSVPData();
-    }, [router, searchParams, isTestMode]);
+    }, [router, searchParams]);
 
     const handleAccept = async () => {
         if (submitting) return;
         setSubmitting(true);
         try {
-            if (isTestMode) {
-                router.push("/profile");
-            } else {
-                await acceptRSVP();
-                router.push("/profile");
-            }
+            router.push("/profile");
         } catch (error) {
             console.error("Error accepting RSVP:", error);
         } finally {
@@ -289,18 +93,10 @@ export default function RSVP() {
         if (submitting) return;
         setSubmitting(true);
         try {
-            if (isTestMode) {
-                setRsvpData((prev: RSVPInfo | null) =>
-                    prev ? { ...prev, response: "DECLINED" } : null
-                );
-                setShowDeclineDialog(false);
-            } else {
-                await declineRSVP();
-                setRsvpData((prev: RSVPInfo | null) =>
-                    prev ? { ...prev, response: "DECLINED" } : null
-                );
-                setShowDeclineDialog(false);
-            }
+            setRsvpData((prev: RSVPInfo | null) =>
+                prev ? { ...prev, response: "DECLINED" } : null
+            );
+            setShowDeclineDialog(false);
         } catch (error) {
             console.error("Error declining RSVP:", error);
         } finally {
@@ -317,35 +113,17 @@ export default function RSVP() {
     if (rsvpData?.response === "DECLINED") {
         return (
             <main className={styles.main}>
-                {isTestMode && (
-                    <div className={styles.testModeBanner}>
-                        TEST MODE - Scenario:{" "}
-                        {searchParams.get("scenario") === "no-reimbursement"
-                            ? "Pro (No Reimbursement)"
-                            : searchParams.get("scenario") ===
-                                "general-from-pro"
-                              ? "General Attendee (Applied Pro)"
-                              : searchParams.get("scenario") === "general"
-                                ? "General Attendee (Applied General)"
-                                : rsvpData?.admittedPro
-                                  ? "Pro (HackVoyager)"
-                                  : "General Attendee"}{" "}
-                        (Declined)
-                    </div>
-                )}
                 <Image
-                    src="/rsvp/postDecisionDeclined.svg"
+                    src="/rsvp/post_decision_screen.svg"
                     alt="Background"
                     fill
                     className={styles.backgroundImage}
                     priority
                 />
-                <div
-                    className={`${styles.navbarSpacer} ${isTestMode ? styles.testModeSpacer : ""}`}
-                />
+                <div className={styles.navbarSpacer} />
                 <div className={styles.declinedContent}>
                     <Typography className={styles.declinedHeading}>
-                        We're sorry to see you go!
+                        {"We're sorry to see you go!"}
                     </Typography>
                     <Typography className={styles.declinedText}>
                         If you would like to stay up to date with HackIllinois,
@@ -366,30 +144,14 @@ export default function RSVP() {
 
     return (
         <main className={styles.main}>
-            {isTestMode && (
-                <div className={styles.testModeBanner}>
-                    TEST MODE - Scenario:{" "}
-                    {searchParams.get("scenario") === "no-reimbursement"
-                        ? "Pro (No Reimbursement)"
-                        : searchParams.get("scenario") === "general-from-pro"
-                          ? "General Attendee (Applied Pro)"
-                          : searchParams.get("scenario") === "general"
-                            ? "General Attendee (Applied General)"
-                            : rsvpData?.admittedPro
-                              ? "Pro (HackVoyager)"
-                              : "General Attendee"}
-                </div>
-            )}
             <Image
-                src="/rsvp/decision screen v1.svg"
+                src="/rsvp/decision_screen.svg"
                 alt="Background"
                 fill
-                className={styles.backgroundImage}
+                className={clsx(styles.backgroundImage, styles.darken)}
                 priority
             />
-            <div
-                className={`${styles.navbarSpacer} ${isTestMode ? styles.testModeSpacer : ""}`}
-            />
+            <div className={styles.navbarSpacer} />
             <div className={styles.content}>
                 <Typography className={styles.congratsHeading}>
                     CONGRATULATIONS!

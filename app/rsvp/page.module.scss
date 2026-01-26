@@ -1,4 +1,7 @@
 .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 100vw;
     min-height: 100vh;
     overflow-x: hidden;
@@ -47,6 +50,9 @@
     object-fit: cover;
     object-position: center;
     z-index: 1;
+    &.darken {
+        filter: brightness(0.7);
+    }
 }
 
 .navbarSpacer {
@@ -68,6 +74,7 @@
     justify-content: center;
     text-align: center;
     max-width: 900px;
+    height: 100%;
     margin: 0 auto;
     padding: 2rem;
 }
