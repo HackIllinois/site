@@ -47,14 +47,12 @@ export default function RSVP() {
             setRsvpData(rsvpData);
             setRegistrationData(registrationData);
 
-            if (!rsvpData.emailSent) {
+            if (!rsvpData.emailSent || rsvpData.status !== "ACCEPTED") {
                 router.push("/register/general");
                 return;
             }
 
-            if (rsvpData.status !== "ACCEPTED") {
-                router.push("/");
-            } else if (rsvpData.response === "ACCEPTED") {
+            if (rsvpData.response === "ACCEPTED") {
                 router.push("/profile");
             }
             setLoading(false);
@@ -111,6 +109,10 @@ export default function RSVP() {
     };
 
     if (loading) return <Loading />;
+
+    if (rsvpData?.status !== "ACCEPTED") {
+        return <></>;
+    }
 
     if (rsvpData?.response === "DECLINED") {
         return (
@@ -289,13 +291,14 @@ export default function RSVP() {
                     textAlign: "center",
                     height: "100%",
                     margin: "0 auto",
-                    padding: "0 2rem"
+                    padding: "0 2rem",
+                    paddingBottom: "3rem"
                 }}
             >
                 <Typography
                     sx={{
                         fontFamily: '"Tsukimi Rounded", sans-serif',
-                        fontSize: { xs: "24px", sm: "48px", md: "50px" },
+                        fontSize: { xs: "24px", sm: "36px", md: "50px" },
                         fontWeight: 700,
                         color: "white",
                         textShadow: "0 4px 20px rgba(255, 255, 255, 0.3)",
@@ -337,7 +340,7 @@ export default function RSVP() {
                     }}
                 >
                     {rsvpData?.admittedPro ? (
-                        "You've been accepted as a"
+                        "Welcome on board as a"
                     ) : rsvpData?.correctProChallenge ? (
                         <>
                             {
@@ -347,7 +350,7 @@ export default function RSVP() {
                             {"you've been accepted as a"}
                         </>
                     ) : (
-                        "You've been accepted as a"
+                        "Welcome on board as a"
                     )}
                 </Typography>
                 {rsvpData?.admittedPro ? (
@@ -409,7 +412,7 @@ export default function RSVP() {
                                 fontWeight: 520
                             }}
                         >
-                            ${rsvpData?.reimbursementValue || 200}
+                            ${rsvpData?.reimbursementValue ?? 0}
                         </Box>
                     </Typography>
                 )}
@@ -491,7 +494,10 @@ export default function RSVP() {
                 <Box
                     sx={{
                         display: "flex",
-                        flexDirection: "row",
+                        flexDirection: {
+                            xs: "column",
+                            md: "row"
+                        },
                         gap: { xs: "1rem", md: "2rem" },
                         alignItems: "center",
                         justifyContent: "center",
