@@ -20,12 +20,11 @@ import {
     Typography,
     useMediaQuery
 } from "@mui/material";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function RSVP() {
     const router = useRouter();
-    const searchParams = useSearchParams();
     const [loading, setLoading] = useState(true);
     const [rsvpData, setRsvpData] = useState<RSVPInfo | null>(null);
     const [registrationData, setRegistrationData] =
@@ -75,7 +74,7 @@ export default function RSVP() {
     };
     useEffect(() => {
         loadRSVPData();
-    }, [router, searchParams]);
+    }, [router]);
 
     const handleAccept = async () => {
         if (submitting) return;
