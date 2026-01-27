@@ -67,7 +67,7 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
                 sx={{
                     color: "#ffffff",
                     mb: 1,
-                    fontWeight: 500
+                    fontWeight: 400
                 }}
             >
                 {label}

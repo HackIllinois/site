@@ -2,8 +2,9 @@
 import { useState, useEffect, useMemo } from "react";
 import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { loadAdmissionRSVP, loadProfile } from "@/util/api";
+import { loadAdmissionRSVP, loadProfile, updateProfile } from "@/util/api";
 import Loading from "@/components/Loading/Loading";
+import ErrorSnackbar from "@/components/ErrorSnackbar/ErrorSnackbar";
 import { AvatarCarousel, type AvatarItem } from "./AvatarCarousel";
 
 export default function Profile() {
@@ -28,6 +29,8 @@ export default function Profile() {
     const [name, setName] = useState("");
     const [track, setTrack] = useState("");
     const [loading, setLoading] = useState(true);
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const avatarUrl = `${base}/${avatarId}.png`;
 
@@ -40,15 +43,21 @@ export default function Profile() {
         setMode("profile");
     };
 
-    const confirmAvatarPicker = () => {
+    const confirmAvatarPicker = async () => {
         setLoading(true);
-        setAvatarId(draftAvatarId);
-
-        // updateProfile({ avatarId: draftAvatarId }).finally(() => {
-        //     setLoading(false);
-        // });
-
-        setMode("profile");
+        try {
+            setAvatarId(draftAvatarId);
+            await updateProfile({ avatarId: draftAvatarId });
+            setMode("profile");
+        } catch (error: any) {
+            console.error("Error updating avatar:", error);
+            setErrorMessage(
+                error?.message || "Failed to update avatar. Please try again."
+            );
+            setShowErrorAlert(true);
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -62,15 +71,30 @@ export default function Profile() {
                 );
                 setName(profile.displayName);
                 const RSVPInfo = await loadAdmissionRSVP();
+
+                if (
+                    RSVPInfo.response !== "ACCEPTED" ||
+                    RSVPInfo.status !== "ACCEPTED"
+                ) {
+                    router.push("/register/general");
+                    return;
+                }
+
                 setTrack(
                     RSVPInfo.admittedPro ? "HACKVOYAGER" : "GENERAL ATTENDEE"
                 );
-            } finally {
+                setLoading(false);
+            } catch (error: any) {
+                console.error("Error loading profile data:", error);
+                setErrorMessage(
+                    error?.message ||
+                        "Failed to load profile data. Please try again."
+                );
+                setShowErrorAlert(true);
                 setLoading(false);
             }
         };
         loadData();
-        setLoading(false);
     }, []);
 
     if (loading) return <Loading backgroundImage="/profile/background.jpg" />;
@@ -87,6 +111,11 @@ export default function Profile() {
                 px: { xs: 0, sm: 1 }
             }}
         >
+            <ErrorSnackbar
+                open={showErrorAlert}
+                onClose={() => setShowErrorAlert(false)}
+                message={errorMessage}
+            />
             {/* 3 column grid */}
             <Box
                 sx={{

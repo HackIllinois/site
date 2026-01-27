@@ -576,7 +576,7 @@ export default function RSVP() {
                     sx={{
                         display: "flex",
                         flexDirection: {
-                            xs: "column",
+                            xs: "column-reverse",
                             md: "row"
                         },
                         gap: { xs: "1rem", md: "2rem" },
@@ -734,7 +734,7 @@ export default function RSVP() {
                 <DialogActions
                     sx={{
                         display: "flex",
-                        flexDirection: { xs: "column", md: "row" },
+                        flexDirection: { xs: "column-reverse", md: "row" },
                         gap: { xs: "0.75rem", md: "1rem" },
                         justifyContent: "center",
                         padding: {
@@ -850,7 +850,7 @@ export default function RSVP() {
                 <DialogActions
                     sx={{
                         display: "flex",
-                        flexDirection: { xs: "column", md: "row" },
+                        flexDirection: { xs: "column-reverse", md: "row" },
                         gap: { xs: "0.75rem", md: "1rem" },
                         justifyContent: "space-between",
                         padding: {
@@ -859,6 +859,29 @@ export default function RSVP() {
                         }
                     }}
                 >
+                    <Button
+                        onClick={handleConfirmCancel}
+                        sx={{
+                            padding: "12px 32px",
+                            background: "rgba(255, 255, 255, 0.1)",
+                            border: "2px solid rgba(255, 255, 255, 0.3)",
+                            borderRadius: "50px",
+                            color: "white",
+                            fontFamily: '"Montserrat", sans-serif',
+                            fontSize: "14px",
+                            fontWeight: 600,
+                            cursor: "pointer",
+                            transition: "all 0.3s ease",
+                            width: { xs: "100%", md: "auto" },
+                            textTransform: "none",
+                            "&:hover": {
+                                background: "rgba(255, 255, 255, 0.2)",
+                                borderColor: "rgba(255, 255, 255, 0.4)"
+                            }
+                        }}
+                    >
+                        LET ME THINK AGAIN
+                    </Button>
                     <Button
                         onClick={handleConfirmConfirm}
                         disabled={submitting}
@@ -889,30 +912,7 @@ export default function RSVP() {
                             }
                         }}
                     >
-                        I confirm I can attend HackIllinois 2026
-                    </Button>
-                    <Button
-                        onClick={handleConfirmCancel}
-                        sx={{
-                            padding: "12px 32px",
-                            background: "rgba(255, 255, 255, 0.1)",
-                            border: "2px solid rgba(255, 255, 255, 0.3)",
-                            borderRadius: "50px",
-                            color: "white",
-                            fontFamily: '"Montserrat", sans-serif',
-                            fontSize: "14px",
-                            fontWeight: 600,
-                            cursor: "pointer",
-                            transition: "all 0.3s ease",
-                            width: { xs: "100%", md: "auto" },
-                            textTransform: "none",
-                            "&:hover": {
-                                background: "rgba(255, 255, 255, 0.2)",
-                                borderColor: "rgba(255, 255, 255, 0.4)"
-                            }
-                        }}
-                    >
-                        Let me think again
+                        I CONFIRM I CAN ATTEND
                     </Button>
                 </DialogActions>
             </Dialog>

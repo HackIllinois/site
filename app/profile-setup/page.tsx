@@ -8,9 +8,9 @@ import {
     profileInitialValues,
     profileValidationSchema
 } from "@/util/validation";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, FormLabel, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import ErrorSnackbar from "@/components/ErrorSnackbar/ErrorSnackbar";
 import Loading from "@/components/Loading/Loading";
@@ -60,6 +60,7 @@ const tabletFormInputSx = {
 
 const Rsvp = () => {
     const router = useRouter();
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
@@ -70,6 +71,63 @@ const Rsvp = () => {
     const [otherDietaryRestriction, setOtherDietaryRestriction] = useState("");
 
     const [rsvpData, setRsvpData] = useState<RSVPInfo | null>(null);
+
+    const mode = useMemo(() => {
+        // edit: Editing the profile, accept: Accepting the RSVP and creating the profile.
+        return rsvpData?.response === "ACCEPTED" ? "edit" : "accept";
+    }, [rsvpData]);
+    const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4MB
+
+    const handleFileSelect = useCallback(
+        (file: File | null) => {
+            if (!file) return;
+
+            const allowedTypes = [
+                "application/pdf",
+                "application/msword",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            ];
+
+            if (!allowedTypes.includes(file.type)) {
+                setResumeFile(null);
+                setResumeError(true);
+                setErrorMessage("Please upload a PDF or DOCX file.");
+                return;
+            }
+
+            if (file.size > MAX_FILE_SIZE) {
+                setResumeFile(null);
+                setResumeError(true);
+                setErrorMessage("File must be 4MB or smaller.");
+                return;
+            }
+
+            setResumeFile(file);
+            setResumeError(false);
+        },
+        [MAX_FILE_SIZE]
+    );
+
+    const handleFileInputChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const file = event.target.files?.[0] ?? null;
+        handleFileSelect(file);
+    };
+
+    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        const file = event.dataTransfer.files?.[0] ?? null;
+        handleFileSelect(file);
+    };
+
+    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault();
+    };
+
+    const handleDropzoneClick = () => {
+        fileInputRef.current?.click();
+    };
 
     // get initial values from profile endpoint, if they exist
     const formik = useFormik({
@@ -227,7 +285,7 @@ const Rsvp = () => {
 
             if (rsvpData.response === "ACCEPTED") {
                 const profile = await loadProfile();
-
+                console.log("profile", profile);
                 const allSelectedDietaryRestrictions =
                     profile.dietaryRestrictions;
 
@@ -296,11 +354,11 @@ const Rsvp = () => {
                 minHeight: "100vh",
                 width: "100vw",
                 height: "fit-content",
-                background: `url("/profile/background.jpg") center / cover no-repeat`,
+                background: `url("/profile/background.svg") center / cover no-repeat`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                py: { xs: 0, sm: 12 }
+                py: { xs: 14, sm: 20 }
             }}
         >
             <ErrorSnackbar
@@ -310,258 +368,446 @@ const Rsvp = () => {
             />
             <Box
                 sx={{
-                    maxWidth: "90vw",
-                    width: "80vw",
-                    height: "fit-content",
-                    // tablet coloring
-                    border: { xs: "none", sm: "2px solid #00FF2B" },
-                    background: {
-                        xs: "linear-gradient(0deg, rgba(0, 204, 3, .4) 0%, rgba(0, 229, 4, 0.40) 1.86%, rgba(0, 255, 4, 0.30) 3.73%, rgba(0, 153, 3, 0.15) 33.17%, rgba(0, 153, 3, 0.15) 70.67%, rgba(0, 255, 4, 0.30) 95.54%, rgba(0, 229, 4, 0.40) 99.12%)",
-                        sm: "linear-gradient(0deg, rgba(0, 204, 3, .01) 0%, rgba(0, 229, 4, 0.40) 1.86%, rgba(0, 255, 4, 0.30) 3.73%, rgba(0, 153, 3, 0.15) 33.17%, rgba(0, 153, 3, 0.15) 70.67%, rgba(0, 255, 4, 0.30) 95.54%, rgba(0, 229, 4, 0.40) 99.12%)"
-                    },
-                    backdropFilter: "blur(7.5px)",
-                    overflow: "hidden",
-                    py: 8,
-                    px: 4,
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 6
+                    maxWidth: "800px",
+                    width: "100%",
+                    position: "relative"
                 }}
             >
-                <Box>
-                    {/* tablet panel */}
-                    <TextInput
-                        name="displayName"
-                        label="Display Name"
-                        accentColor="#f0f0f0"
-                        sublabel="(This will be shown to other hackers, on the leaderboard, and in our mobile apps)"
-                        inputSx={tabletFormInputSx.text}
-                        required
-                        value={values.displayName}
-                        onChange={handleChange}
-                        error={
-                            !!touched.displayName && Boolean(errors.displayName)
+                {/* Top bar graphic overlay */}
+                <Box
+                    component="img"
+                    src="/profile/top-bar.svg"
+                    alt=""
+                    sx={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        marginLeft: "5px",
+                        maxWidth: "800px",
+                        height: "auto",
+                        pointerEvents: "none",
+                        zIndex: 4,
+                        transform: "scale(1.202)",
+                        display: {
+                            xs: "none",
+                            md: "block"
                         }
-                        helperText={
-                            !!touched.displayName ? errors.displayName : ""
-                        }
-                        inputProps={{ maxLength: 200 }}
-                    />
-                    <TextInput
-                        name="discordTag"
-                        label="Discord Tag"
-                        accentColor="#f0f0f0"
-                        inputSx={tabletFormInputSx.text}
-                        required
-                        value={values.discordTag}
-                        onChange={handleChange}
-                        error={
-                            !!touched.discordTag && Boolean(errors.discordTag)
-                        }
-                        helperText={
-                            !!touched.discordTag ? errors.discordTag : ""
-                        }
-                        inputProps={{ maxLength: 200 }}
-                    />
-                    <Box sx={{ mb: 3 }} name="resume-upload">
-                        <Typography
+                    }}
+                />
+                <Box
+                    sx={{
+                        position: "relative",
+                        width: "100%",
+                        height: "fit-content",
+                        // tablet coloring
+                        border: { xs: "none", sm: "2px solid #00FF2B" },
+                        borderTop: {
+                            xs: "2px solid #00ff2b",
+                            md: "none"
+                        },
+                        background: {
+                            xs: "linear-gradient(0deg, rgba(0, 204, 3, .4) 0%, rgba(0, 229, 4, 0.40) 1.86%, rgba(0, 255, 4, 0.30) 3.73%, rgba(0, 153, 3, 0.15) 33.17%, rgba(0, 153, 3, 0.15) 70.67%, rgba(0, 255, 4, 0.30) 95.54%, rgba(0, 229, 4, 0.40) 99.12%)",
+                            sm: "linear-gradient(0deg, rgba(0, 204, 3, .00) 0%, rgba(0, 153, 3, 0.15) 33.17%, rgba(0, 153, 3, 0.15) 70.67%, rgba(0, 255, 4, 0.30) 95.54%, rgba(0, 229, 4, 0.40) 99.12%)"
+                        },
+                        backdropFilter: "blur(5px)",
+                        overflow: "hidden",
+                        py: 5,
+                        px: {
+                            xs: 3,
+                            md: 4
+                        },
+                        pb: {
+                            xs: 5,
+                            md: 20
+                        },
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 6,
+                        zIndex: 1
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 3,
+                            pt: 0
+                        }}
+                    >
+                        <Box
                             sx={{
-                                color: "#ffffff",
-                                mb: 1,
-                                fontWeight: 500
-                            }}
-                        >
-                            {rsvpData?.response === "ACCEPTED"
-                                ? "Upload Updated Resume (your previous one is saved)"
-                                : "Resume"}
-                            {rsvpData?.response !== "ACCEPTED" && (
-                                <span
-                                    style={{
-                                        color: "#d32f2f",
-                                        position: "absolute",
-                                        fontWeight: 500,
-                                        marginLeft: "4px"
-                                    }}
-                                >
-                                    *
-                                </span>
-                            )}
-                        </Typography>
-                        <Button
-                            component="label"
-                            sx={{
-                                padding: "12px 24px",
-                                backgroundColor: "#00ff0015",
-                                border: resumeError
-                                    ? "2px solid #d32f2f"
-                                    : "2px solid #04ff00",
-                                boxShadow: resumeError
-                                    ? "inset 0 0 16px 0px #d32f2f"
-                                    : "inset 0 0 16px 0px #04ff00",
-                                borderRadius: "50px",
-                                color: "white",
-                                fontFamily: '"Montserrat", sans-serif',
-                                fontSize: "14px",
-                                fontWeight: 600,
-                                cursor: "pointer",
-                                transition: "all 0.3s ease",
-                                textTransform: "none",
-                                width: "100%",
-                                justifyContent: "flex-start",
-                                "&:hover": {
-                                    backgroundColor: "#00ff0025",
-                                    boxShadow: resumeError
-                                        ? "0 0 4px 2px #ffffff40, inset 0 0 16px 0px #d32f2f"
-                                        : "0 0 4px 2px #ffffff40, inset 0 0 16px 0px #04ff00"
+                                mb: {
+                                    xs: 2,
+                                    md: 12
                                 }
                             }}
                         >
-                            {resumeFile
-                                ? resumeFile.name
-                                : "Choose Resume File"}
-                            <input
-                                type="file"
-                                hidden
-                                accept=".pdf,.doc,.docx"
-                                onChange={e => {
-                                    const file = e.target.files?.[0];
-                                    if (file) {
-                                        setResumeFile(file);
-                                        setResumeError(false);
-                                    }
-                                }}
-                            />
-                        </Button>
-                        {resumeFile && (
                             <Typography
+                                variant="h5"
+                                fontFamily={"Tsukimi Rounded, sans-serif"}
                                 sx={{
-                                    color: "#04ff00",
-                                    mt: 1,
-                                    fontSize: "12px"
+                                    color: "white", // Bright mint/green base
+                                    fontWeight: 600,
+                                    textShadow:
+                                        "0 0 5px rgba(153, 255, 136, 0.8), 0 0 5px rgba(153, 255, 136, 0.4)",
+                                    letterSpacing: "0.02em"
                                 }}
                             >
-                                Selected: {resumeFile.name}
+                                {"We're excited to have you at HackIllinois!"}
                             </Typography>
-                        )}
-                        {resumeError && !resumeFile && (
+
                             <Typography
+                                fontFamily={"Montserrat"}
                                 sx={{
-                                    color: "#d32f2f",
-                                    mt: 1,
-                                    fontSize: "12px",
-                                    marginLeft: "14px"
+                                    color: "#CCFFCC", // Softer light green
+                                    fontWeight: 400,
+                                    fontSize: "1.1rem",
+                                    opacity: 0.9,
+                                    mt: 1
                                 }}
                             >
-                                Resume is required
+                                Please complete the following information to
+                                confirm your attendance:
                             </Typography>
-                        )}
-                    </Box>
-                    <RadioSelectGroup
-                        name="shirtSize"
-                        label="Shirt Size"
-                        accentColor="#26ed65"
-                        inputSx={tabletFormInputSx.select}
-                        row
-                        required
-                        options={["XS", "S", "M", "L", "XL", "2XL"].map(
-                            option => ({
-                                label: option,
-                                value: option
-                            })
-                        )}
-                        value={values.shirtSize}
-                        onChange={value => {
-                            console.log("Value", value);
-                            setFieldValue("shirtSize", value);
-                        }}
-                        error={!!touched.shirtSize && Boolean(errors.shirtSize)}
-                        helperText={!!touched.shirtSize ? errors.shirtSize : ""}
-                    />
-                    <CheckboxGroup
-                        name="dietaryRestrictions"
-                        label="Food Allergies/Dietary Restrictions"
-                        accentColor={"#f0f0f0"}
-                        inputSx={tabletFormInputSx.select}
-                        disabled={rsvpData.response === "ACCEPTED"}
-                        options={dietaryRestrictionsOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
-                        value={Array.from(values.dietaryRestrictions) || []}
-                        onChange={value =>
-                            setFieldValue("dietaryRestrictions", value)
-                        }
-                        error={
-                            !!touched.dietaryRestrictions &&
-                            Boolean(errors.dietaryRestrictions)
-                        }
-                        helperText={
-                            !!touched.dietaryRestrictions
-                                ? String(errors.dietaryRestrictions || "")
-                                : ""
-                        }
-                    />
-                    <Box sx={{ mt: 2 }}>
+                        </Box>
+
+                        {/* tablet panel */}
                         <TextInput
-                            name="otherDietaryRestriction"
-                            label=""
-                            disabled={rsvpData.response === "ACCEPTED"}
-                            placeholder='If you selected "other" or need to provide more info about your selection, please specify here...'
+                            name="displayName"
+                            label="Display Name"
+                            accentColor="#fff"
+                            sublabel="(This will be shown to other hackers, on the leaderboard, and in our mobile apps)"
+                            inputSx={tabletFormInputSx.text}
+                            required
+                            value={values.displayName}
+                            onChange={handleChange}
+                            error={
+                                !!touched.displayName &&
+                                Boolean(errors.displayName)
+                            }
+                            helperText={
+                                !!touched.displayName ? errors.displayName : ""
+                            }
+                            inputProps={{ maxLength: 200 }}
+                        />
+                        <TextInput
+                            name="discordTag"
+                            label="Discord Tag"
                             accentColor="#f0f0f0"
                             inputSx={tabletFormInputSx.text}
-                            multiline
-                            minRows={3}
-                            error={false}
-                            value={otherDietaryRestriction}
-                            onChange={e =>
-                                setOtherDietaryRestriction(e.target.value)
+                            required
+                            value={values.discordTag}
+                            onChange={handleChange}
+                            error={
+                                !!touched.discordTag &&
+                                Boolean(errors.discordTag)
                             }
-                            inputProps={{ maxLength: 500 }}
+                            helperText={
+                                !!touched.discordTag ? errors.discordTag : ""
+                            }
+                            inputProps={{ maxLength: 200 }}
+                        />
+                        <Box sx={{ mb: 3, name: "resume-upload" }}>
+                            <FormLabel
+                                sx={{
+                                    color: "#ffffff"
+                                }}
+                            >
+                                {rsvpData?.response === "ACCEPTED"
+                                    ? "Upload Updated Resume"
+                                    : "Resume"}
+                                {rsvpData?.response !== "ACCEPTED" && (
+                                    <span
+                                        style={{
+                                            color: "#d32f2f",
+                                            position: "absolute",
+                                            fontWeight: 500,
+                                            marginLeft: "4px"
+                                        }}
+                                    >
+                                        *
+                                    </span>
+                                )}
+                            </FormLabel>
+                            <Box
+                                onDrop={handleDrop}
+                                onDragOver={handleDragOver}
+                                onClick={handleDropzoneClick}
+                                sx={{
+                                    border: resumeError
+                                        ? "2px dashed #d32f2f"
+                                        : "2px dashed #04ff00",
+                                    borderRadius: "32px",
+                                    padding: "2rem",
+                                    textAlign: "center",
+                                    cursor: "pointer",
+                                    backgroundColor: "#00ff0015",
+                                    boxShadow: resumeError
+                                        ? "inset 0 0 16px 0px #d32f2f"
+                                        : "inset 0 0 16px 0px #04ff00",
+                                    transition: "all 0.3s ease",
+                                    "&:hover": {
+                                        backgroundColor: "#00ff0025",
+                                        boxShadow: resumeError
+                                            ? "0 0 4px 2px #ffffff40, inset 0 0 16px 0px #d32f2f"
+                                            : "0 0 4px 2px #ffffff40, inset 0 0 16px 0px #04ff00"
+                                    },
+                                    mt: 1
+                                }}
+                            >
+                                <input
+                                    ref={fileInputRef}
+                                    type="file"
+                                    accept=".pdf,.doc,.docx"
+                                    style={{ display: "none" }}
+                                    onChange={handleFileInputChange}
+                                />
+                                <Typography
+                                    variant="body1"
+                                    sx={{
+                                        color: "rgba(255, 255, 255, 0.9)",
+                                        fontFamily: "Montserrat",
+                                        mb: 1
+                                    }}
+                                >
+                                    Drag and drop PDF or DOCX file here, or
+                                    click to browse.
+                                </Typography>
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        color: "rgba(255, 255, 255, 0.7)",
+                                        fontFamily: "Montserrat"
+                                    }}
+                                >
+                                    Max file size: 4MB
+                                </Typography>
+                                {resumeFile && (
+                                    <Typography
+                                        variant="body2"
+                                        sx={{
+                                            color: "#04ff00",
+                                            mt: 2,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: 500
+                                        }}
+                                    >
+                                        Selected: {resumeFile.name}
+                                    </Typography>
+                                )}
+                            </Box>
+                            {resumeError && (
+                                <Typography
+                                    sx={{
+                                        color: "#d32f2f",
+                                        mt: 1,
+                                        fontSize: "12px",
+                                        marginLeft: "14px"
+                                    }}
+                                >
+                                    {rsvpData?.response !== "ACCEPTED"
+                                        ? "Resume is required"
+                                        : errorMessage || "Invalid file"}
+                                </Typography>
+                            )}
+                        </Box>
+                        <RadioSelectGroup
+                            name="shirtSize"
+                            label="Shirt Size"
+                            accentColor="#26ed65"
+                            inputSx={tabletFormInputSx.select}
+                            row
+                            required
+                            options={["XS", "S", "M", "L", "XL", "2XL"].map(
+                                option => ({
+                                    label: option,
+                                    value: option
+                                })
+                            )}
+                            value={values.shirtSize}
+                            onChange={value => {
+                                console.log("Value", value);
+                                setFieldValue("shirtSize", value);
+                            }}
+                            error={
+                                !!touched.shirtSize && Boolean(errors.shirtSize)
+                            }
+                            helperText={
+                                !!touched.shirtSize ? errors.shirtSize : ""
+                            }
+                        />
+                        <Box
+                            sx={{
+                                opacity: mode === "edit" ? 0.5 : 1,
+                                disabled: mode === "edit" ? "true" : "false",
+                                pointerEvents:
+                                    mode === "edit" ? "none" : undefined
+                            }}
+                        >
+                            <CheckboxGroup
+                                name="dietaryRestrictions"
+                                label="Food Allergies/Dietary Restrictions"
+                                accentColor={"#f0f0f0"}
+                                inputSx={tabletFormInputSx.select}
+                                options={dietaryRestrictionsOptions.map(
+                                    option => ({
+                                        label: option,
+                                        value: option
+                                    })
+                                )}
+                                value={
+                                    Array.from(values.dietaryRestrictions) || []
+                                }
+                                onChange={value =>
+                                    setFieldValue("dietaryRestrictions", value)
+                                }
+                                error={
+                                    !!touched.dietaryRestrictions &&
+                                    Boolean(errors.dietaryRestrictions)
+                                }
+                                helperText={
+                                    !!touched.dietaryRestrictions
+                                        ? String(
+                                              errors.dietaryRestrictions || ""
+                                          )
+                                        : ""
+                                }
+                            />
+                            <Box sx={{ mt: 2 }}>
+                                <TextInput
+                                    name="otherDietaryRestriction"
+                                    label=""
+                                    placeholder='If you selected "other" or need to provide more info about your selection, please specify here...'
+                                    accentColor="#f0f0f0"
+                                    inputSx={tabletFormInputSx.text}
+                                    multiline
+                                    minRows={3}
+                                    error={false}
+                                    value={otherDietaryRestriction}
+                                    onChange={e =>
+                                        setOtherDietaryRestriction(
+                                            e.target.value
+                                        )
+                                    }
+                                    inputProps={{ maxLength: 500 }}
+                                />
+                            </Box>
+                        </Box>
+                    </Box>
+                    <Box>
+                        <AvatarCarousel
+                            items={avatarItems}
+                            value={values.avatarId}
+                            onChange={value => setFieldValue("avatarId", value)}
                         />
                     </Box>
-                </Box>
-                <Box>
-                    <AvatarCarousel
-                        items={avatarItems}
-                        value={values.avatarId}
-                        onChange={value => setFieldValue("avatarId", value)}
-                    />
-                </Box>
-                <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-                    <Button
-                        onClick={handleSubmitWithValidation}
-                        disabled={submitting}
+                    <Box
                         sx={{
-                            padding: "16px 48px",
-                            background:
-                                "linear-gradient(135deg, #8EDB91 0%, #2AFF00 100%)",
-                            border: "2px solid #2AFF00",
-                            borderRadius: "50px",
-                            color: "#0a1a0a",
-                            fontFamily: '"Tsukimi Rounded", sans-serif',
-                            fontSize: "20px",
-                            fontWeight: 700,
-                            cursor: "pointer",
-                            boxShadow: "0 4px 15px rgba(42, 255, 0, 0.4)",
-                            transition: "all 0.3s ease",
-                            textTransform: "uppercase",
-                            letterSpacing: "0.05em",
-                            "&:hover:not(:disabled)": {
-                                transform: "scale(1.03)",
-                                boxShadow: "0 6px 25px rgba(42, 255, 0, 0.6)"
-                            },
-                            "&:active:not(:disabled)": {
-                                transform: "translateY(0)"
-                            },
-                            "&:disabled": {
-                                opacity: 0.5,
-                                cursor: "not-allowed"
-                            }
+                            display: "flex",
+                            flexDirection: { xs: "column-reverse", sm: "row" },
+                            justifyContent: "center",
+                            alignItems: "center",
+                            gap: 2,
+                            mt: 4
                         }}
                     >
-                        {submitting ? "Submitting..." : "Submit"}
-                    </Button>
+                        <Button
+                            onClick={() =>
+                                router.push(
+                                    rsvpData?.response === "ACCEPTED"
+                                        ? "/profile"
+                                        : "/rsvp"
+                                )
+                            }
+                            sx={{
+                                padding: "16px 48px",
+                                background: "transparent",
+                                border: "2px solid #ffffff",
+                                borderRadius: "50px",
+                                color: "#ffffff",
+                                fontFamily: '"Tsukimi Rounded", sans-serif',
+                                fontSize: "16px",
+                                fontWeight: 700,
+                                cursor: "pointer",
+                                transition: "all 0.3s ease",
+                                textTransform: "uppercase",
+                                letterSpacing: "0.05em",
+                                "&:hover": {
+                                    transform: "scale(1.03)",
+                                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                    boxShadow:
+                                        "0 4px 15px rgba(255, 255, 255, 0.3)"
+                                },
+                                "&:active": {
+                                    transform: "translateY(0)"
+                                }
+                            }}
+                        >
+                            Back
+                        </Button>
+                        <Button
+                            onClick={handleSubmitWithValidation}
+                            disabled={submitting}
+                            sx={{
+                                padding: "16px 48px",
+                                background:
+                                    "linear-gradient(135deg, #8EDB91 0%, #2AFF00 100%)",
+                                border: "2px solid #2AFF00",
+                                borderRadius: "50px",
+                                color: "#0a1a0a",
+                                fontFamily: '"Tsukimi Rounded", sans-serif',
+                                fontSize: "16px",
+                                fontWeight: 700,
+                                cursor: "pointer",
+                                boxShadow: "0 4px 15px rgba(42, 255, 0, 0.4)",
+                                transition: "all 0.3s ease",
+                                textTransform: "uppercase",
+                                letterSpacing: "0.05em",
+                                "&:hover:not(:disabled)": {
+                                    transform: "scale(1.03)",
+                                    boxShadow:
+                                        "0 6px 25px rgba(42, 255, 0, 0.6)"
+                                },
+                                "&:active:not(:disabled)": {
+                                    transform: "translateY(0)"
+                                },
+                                "&:disabled": {
+                                    opacity: 0.5,
+                                    cursor: "not-allowed"
+                                }
+                            }}
+                        >
+                            {submitting
+                                ? "Submitting..."
+                                : mode === "edit"
+                                  ? "Update"
+                                  : "Submit"}
+                        </Button>
+                    </Box>
                 </Box>
+                {/* Bottom bar graphic overlay */}
+                <Box
+                    component="img"
+                    src="/profile/bottom-bar.svg"
+                    alt=""
+                    sx={{
+                        position: "absolute",
+                        bottom: "-100px",
+                        left: 0,
+                        width: "100%",
+                        marginLeft: "5px",
+                        maxWidth: "800px",
+                        height: "auto",
+                        pointerEvents: "none",
+                        zIndex: 4,
+                        transform: "scale(1.202)",
+                        display: {
+                            xs: "none",
+                            md: "block"
+                        }
+                    }}
+                />
             </Box>
         </Box>
     );

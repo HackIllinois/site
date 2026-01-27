@@ -149,7 +149,7 @@ export async function loadProfile(): Promise<AttendeeProfile> {
 }
 
 export async function updateProfile(
-    body: AcceptAdmissionRSVPRequest
+    body: Partial<AcceptAdmissionRSVPRequest>
 ): Promise<AttendeeProfile> {
     return await requestv2("PUT", "/profile", body);
 }
