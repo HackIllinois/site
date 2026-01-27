@@ -161,3 +161,11 @@ export async function loadAdmissionRSVP(): Promise<RSVPInfo> {
 export async function declineAdmissionRSVP(): Promise<void> {
     return await requestv2("PUT", "/admission/decline/");
 }
+
+export async function registrationAlive(): Promise<boolean> {
+    const response = (await requestv2(
+        "GET",
+        "/registration/status/"
+    )) satisfies { alive: boolean };
+    return response.alive;
+}

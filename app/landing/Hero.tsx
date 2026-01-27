@@ -2,18 +2,41 @@
 
 import { GradientButton } from "@/components/GradientButton/GradientButton";
 import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
-import { Typography } from "@mui/material";
+import { Typography, Box, CircularProgress } from "@mui/material";
 import clsx from "clsx";
+import { motion, Variants } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { registrationAlive } from "@/util/api";
 import { START_END_DATES } from "./constants";
 import styles from "./Hero.module.scss";
-import { motion, Variants } from "framer-motion";
 
 // Create a motion-enabled version of the Next.js Image component
 const MotionImage = motion(Image);
 
 const Hero = () => {
     const { offsetY, ref } = useParallaxScrollY();
+    const [isRegistrationOpen, setIsRegistrationOpen] = useState<
+        boolean | null
+    >(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(false);
+
+    useEffect(() => {
+        const checkRegistration = async () => {
+            try {
+                const isAlive = await registrationAlive();
+                setIsRegistrationOpen(isAlive);
+                setIsLoading(false);
+            } catch (err) {
+                console.error("Error checking registration status:", err);
+                setError(true);
+                setIsLoading(false);
+            }
+        };
+
+        checkRegistration();
+    }, []);
 
     const parallaxStyle = {
         transform: `translateY(${offsetY * 0.05}px)`
@@ -159,10 +182,66 @@ const Hero = () => {
 
                 {/* 4th Item: CTA Button */}
                 <motion.div variants={itemVariants}>
-                    <GradientButton
-                        text="REGISTER NOW"
-                        link="/register/general"
-                    />
+                    {isLoading ? (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                py: 2
+                            }}
+                        >
+                            <CircularProgress
+                                sx={{ color: "#A315D6" }}
+                                size={40}
+                            />
+                        </Box>
+                    ) : error ? (
+                        <Box sx={{ textAlign: "center" }}>
+                            <GradientButton
+                                text="REGISTRATION INFO"
+                                link="/register/general"
+                            />
+                            <Typography
+                                sx={{
+                                    fontSize: { xs: "14px", md: "16px" },
+                                    fontFamily: "Montserrat",
+                                    color: "white",
+                                    mt: 1,
+                                    opacity: 0.9
+                                }}
+                            >
+                                Unable to check registration status
+                            </Typography>
+                        </Box>
+                    ) : (
+                        <Box sx={{ textAlign: "center" }}>
+                            {!isRegistrationOpen && (
+                                <Typography
+                                    sx={{
+                                        fontSize: { xs: "14px", md: "16px" },
+                                        fontFamily: "Montserrat",
+                                        color: "white",
+                                        my: 1,
+                                        opacity: 0.9
+                                    }}
+                                >
+                                    Registration is now closed.
+                                </Typography>
+                            )}
+                            <GradientButton
+                                text={
+                                    isRegistrationOpen
+                                        ? "REGISTER NOW"
+                                        : "MORE INFO"
+                                }
+                                link={
+                                    isRegistrationOpen
+                                        ? "/register/general"
+                                        : "/registration-closed"
+                                }
+                            />
+                        </Box>
+                    )}
                 </motion.div>
             </motion.div>
         </section>
