@@ -329,5 +329,5 @@ export const profileInitialValues: ProfileFormInfo = {
     shirtSize: "",
     dietaryRestrictions: [],
     otherDietaryRestrictions: "",
-    avatarId: ""
+    avatarId: "character1"
 };

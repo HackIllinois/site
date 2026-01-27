@@ -479,6 +479,7 @@ const Rsvp = () => {
                             accentColor="#fff"
                             sublabel="(This will be shown to other hackers, on the leaderboard, and in our mobile apps)"
                             inputSx={tabletFormInputSx.text}
+                            placeholderColor="rgba(255, 255, 255, 0.7)"
                             required
                             value={values.displayName}
                             onChange={handleChange}
@@ -496,6 +497,7 @@ const Rsvp = () => {
                             label="Discord Tag"
                             accentColor="#f0f0f0"
                             inputSx={tabletFormInputSx.text}
+                            placeholderColor="rgba(255, 255, 255, 0.7)"
                             required
                             value={values.discordTag}
                             onChange={handleChange}
@@ -678,6 +680,7 @@ const Rsvp = () => {
                                 <TextInput
                                     name="otherDietaryRestriction"
                                     label=""
+                                    placeholderColor="rgba(255, 255, 255, 0.7)"
                                     placeholder='If you selected "other" or need to provide more info about your selection, please specify here...'
                                     accentColor="#f0f0f0"
                                     inputSx={tabletFormInputSx.text}

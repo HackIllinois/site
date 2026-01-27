@@ -65,11 +65,6 @@ export default function Profile() {
         // redirect("/");
         const loadData = async () => {
             try {
-                const profile = await loadProfile();
-                setAvatarId(
-                    profile.avatarUrl.split("/").pop()!.replace(".png", "")
-                );
-                setName(profile.displayName);
                 const RSVPInfo = await loadAdmissionRSVP();
 
                 if (
@@ -79,6 +74,11 @@ export default function Profile() {
                     router.push("/register/general");
                     return;
                 }
+                const profile = await loadProfile();
+                setAvatarId(
+                    profile.avatarUrl.split("/").pop()!.replace(".png", "")
+                );
+                setName(profile.displayName);
 
                 setTrack(
                     RSVPInfo.admittedPro ? "HACKVOYAGER" : "GENERAL ATTENDEE"

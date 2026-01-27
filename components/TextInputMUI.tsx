@@ -19,6 +19,7 @@ interface TextInputProps {
     helperText?: string;
     // extra props
     accentColor?: string;
+    placeholderColor?: string;
     inputSx?: SxProps<Theme>;
     [key: string]: unknown;
 }
@@ -35,6 +36,7 @@ const TextInput: React.FC<TextInputProps> = ({
     error,
     helperText = "",
     accentColor = "#2c2540",
+    placeholderColor = "gray",
     inputSx = [],
     ...props
 }) => {
@@ -105,7 +107,7 @@ const TextInput: React.FC<TextInputProps> = ({
                     input: {
                         sx: {
                             "::placeholder": {
-                                color: "gray",
+                                color: placeholderColor,
                                 opacity: 0.8
                             },
                             "&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus":

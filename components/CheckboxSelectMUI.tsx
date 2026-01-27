@@ -53,8 +53,7 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
             <FormLabel
                 sx={{
                     color: "#ffffff",
-                    mb: 1,
-                    fontWeight: 500
+                    mb: 1
                 }}
             >
                 {label ? (
