@@ -20,7 +20,7 @@ const RegistrationClosed = () => {
                     setIsLoading(false);
                 }
             } catch (error) {
-                console.error("Error checking registration status:", error);
+                alert(`Error checking registration status: ${error}`);
                 setIsLoading(false);
             }
         };
