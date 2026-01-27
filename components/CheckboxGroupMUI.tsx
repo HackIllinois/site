@@ -30,6 +30,7 @@ interface CheckboxGroupInputProps {
     // extra props
     accentColor?: string;
     inputSx?: SxProps<Theme>;
+    disabled?: boolean;
     [key: string]: unknown;
 }
 
@@ -43,6 +44,7 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
     error,
     helperText = "",
     accentColor = "#2c2540",
+    disabled,
     inputSx = []
 }) => {
     // handle toggle manually so it works with Formik array fields
@@ -65,6 +67,7 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
             component="fieldset"
             error={error}
             sx={{ width: "100%", height: "100%" }}
+            disabled={disabled}
         >
             <FormLabel
                 sx={{

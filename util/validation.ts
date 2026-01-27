@@ -303,9 +303,12 @@ export const validationSchemas = [
 ];
 
 export const profileValidationSchema = Yup.object({
-    displayName: Yup.string().required("Display name is required"),
-    discordTag: Yup.string().required("Discord tag is required"),
-    resume: Yup.string(),
+    displayName: Yup.string()
+        .required("Display name is required")
+        .max(100, "Display name cannot exceed 100 characters"),
+    discordTag: Yup.string()
+        .required("Discord tag is required")
+        .max(64, "Discord tag cannot exceed 64 characters"),
     shirtSize: Yup.string()
         .required("Shirt size is required")
         .oneOf(
@@ -313,14 +316,18 @@ export const profileValidationSchema = Yup.object({
             "Please select a valid shirt size"
         ),
     dietaryRestrictions: Yup.array().of(Yup.string()),
+    otherDietaryRestrictions: Yup.string().max(
+        1000,
+        "Other dietary restrictions cannot exceed 1000 characters"
+    ),
     avatarId: Yup.string()
 });
 
 export const profileInitialValues: ProfileFormInfo = {
     displayName: "",
     discordTag: "",
-    resume: "",
     shirtSize: "",
-    dietaryRestrictions: "",
+    dietaryRestrictions: [],
+    otherDietaryRestrictions: "",
     avatarId: ""
 };

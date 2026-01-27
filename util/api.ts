@@ -1,13 +1,13 @@
 import { handleError } from "./helpers";
 import {
+    AcceptAdmissionRSVPRequest,
+    AttendeeProfile,
+    ChallengeResponse,
     ChallengeStatus,
     MethodType,
     RegistrationApplicationDraftBody,
     RegistrationApplicationSubmitted,
-    ChallengeResponse,
-    AttendeeProfile,
-    RSVPInfo,
-    UserAvatar
+    RSVPInfo
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -149,7 +149,7 @@ export async function loadProfile(): Promise<AttendeeProfile> {
 }
 
 export async function updateProfile(
-    body: UserAvatar
+    body: AcceptAdmissionRSVPRequest
 ): Promise<AttendeeProfile> {
     return await requestv2("PUT", "/profile", body);
 }
@@ -160,4 +160,30 @@ export async function loadAdmissionRSVP(): Promise<RSVPInfo> {
 
 export async function declineAdmissionRSVP(): Promise<void> {
     return await requestv2("PUT", "/admission/decline/");
+}
+
+export async function acceptAdmissionRSVP(
+    body: AcceptAdmissionRSVPRequest
+): Promise<RSVPInfo> {
+    return await requestv2("PUT", "/admission/accept/", body);
+}
+
+export async function uploadFile(file: File): Promise<unknown> {
+    const { url, fields } = await requestv2("GET", "/resume/upload");
+    const data = new FormData();
+    for (const key in fields) {
+        data.append(key, fields[key]);
+    }
+    data.append("file", file, file.name);
+    const res = await fetch(url, { method: "POST", body: data });
+
+    if (!res.ok) {
+        const errorBody = await res.text();
+        handleError({
+            message: errorBody,
+            status: res.status,
+            type: "upload_error"
+        });
+    }
+    return res;
 }
