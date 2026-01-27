@@ -34,11 +34,11 @@ import {
     submitDraft,
     subscribe
 } from "@/util/api";
+import { schoolOptions } from "@/util/options";
 import RegistrationStepper from "./components/RegistrationStepper";
 import { OTHER_SCHOOL_OPTION, steps } from "./constants/registration";
 import GithubAuthPage from "./formPages/GithubAuthPage";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
-import { schoolOptions } from "@/util/options";
 
 const GeneralRegistration = () => {
     const [showSaveAlert, setShowSaveAlert] = useState(false);
