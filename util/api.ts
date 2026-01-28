@@ -195,3 +195,7 @@ export async function registrationAlive(): Promise<boolean> {
     )) satisfies { alive: boolean };
     return response.alive;
 }
+
+export async function postAuthRefresh(): Promise<void> {
+    await requestv2("POST", "/auth/refresh", {});
+}

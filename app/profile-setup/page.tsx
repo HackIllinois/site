@@ -18,6 +18,7 @@ import {
     acceptAdmissionRSVP,
     loadAdmissionRSVP,
     loadProfile,
+    postAuthRefresh,
     updateProfile,
     uploadFile
 } from "@/util/api";
@@ -68,7 +69,6 @@ const Rsvp = () => {
     const [resumeError, setResumeError] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    const [otherDietaryRestriction, setOtherDietaryRestriction] = useState("");
 
     const [rsvpData, setRsvpData] = useState<RSVPInfo | null>(null);
 
@@ -160,20 +160,14 @@ const Rsvp = () => {
                     return;
                 }
 
-                console.log(
-                    "Dietary restrictions",
-                    values.dietaryRestrictions,
-                    otherDietaryRestriction
-                );
-
                 const body = {
                     displayName: values.displayName,
                     discordTag: values.discordTag,
                     avatarId: values.avatarId,
                     dietaryRestrictions: [
                         ...values.dietaryRestrictions,
-                        ...(otherDietaryRestriction
-                            ? [otherDietaryRestriction]
+                        ...(values.otherDietaryRestrictions
+                            ? [values.otherDietaryRestrictions]
                             : [])
                     ],
                     shirtSize: values.shirtSize
@@ -185,6 +179,8 @@ const Rsvp = () => {
                 } else {
                     // Accept the RSVP with the profile data
                     await acceptAdmissionRSVP(body);
+                    // Update the user's auth token
+                    await postAuthRefresh();
                 }
 
                 // Redirect to profile page after successful submission
@@ -285,7 +281,6 @@ const Rsvp = () => {
 
             if (rsvpData.response === "ACCEPTED") {
                 const profile = await loadProfile();
-                console.log("profile", profile);
                 const allSelectedDietaryRestrictions =
                     profile.dietaryRestrictions;
 
@@ -687,9 +682,10 @@ const Rsvp = () => {
                                     multiline
                                     minRows={3}
                                     error={false}
-                                    value={otherDietaryRestriction}
+                                    value={values.otherDietaryRestrictions}
                                     onChange={e =>
-                                        setOtherDietaryRestriction(
+                                        setFieldValue(
+                                            "otherDietaryRestrictions",
                                             e.target.value
                                         )
                                     }
