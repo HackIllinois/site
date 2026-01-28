@@ -4,7 +4,9 @@ import {
     Checkbox,
     FormControlLabel,
     FormGroup,
-    FormHelperText
+    FormHelperText,
+    SxProps,
+    Theme
 } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
@@ -27,6 +29,8 @@ interface CheckboxGroupInputProps {
     helperText?: string;
     // extra props
     accentColor?: string;
+    inputSx?: SxProps<Theme>;
+    disabled?: boolean;
     [key: string]: unknown;
 }
 
@@ -39,7 +43,9 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
     onChange,
     error,
     helperText = "",
-    accentColor = "#2c2540"
+    accentColor = "#2c2540",
+    disabled,
+    inputSx = []
 }) => {
     // handle toggle manually so it works with Formik array fields
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,12 +67,12 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
             component="fieldset"
             error={error}
             sx={{ width: "100%", height: "100%" }}
+            disabled={disabled}
         >
             <FormLabel
                 sx={{
                     color: "#ffffff",
-                    mb: 1,
-                    fontWeight: 500
+                    mb: 1
                 }}
             >
                 {label}
@@ -109,38 +115,43 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
                                 onChange={handleChange}
                                 value={opt.value}
                                 checkedIcon={<Check />}
-                                sx={{
-                                    width: "36px",
-                                    height: "36px",
-                                    padding: "0px", // override default
-                                    borderRadius: 2, // override default
-                                    backgroundColor: "#f0f0f0",
-                                    display: "flex",
-                                    flexShrink: 0,
+                                sx={[
+                                    {
+                                        width: "36px",
+                                        height: "36px",
+                                        padding: "0px", // override default
+                                        borderRadius: 2, // override default
+                                        backgroundColor: "#f0f0f0",
+                                        display: "flex",
+                                        flexShrink: 0,
 
-                                    "& .MuiSvgIcon-root": {
-                                        width: "100%",
-                                        height: "100%",
-                                        backgroundColor: "transparent",
-                                        color: "transparent" // unchecked icon color
-                                    },
-                                    "&.Mui-checked": {
-                                        color: accentColor, // this affects the animation
-                                        background: accentColor
-                                    },
-                                    "&.Mui-checked .MuiSvgIcon-root": {
-                                        color: "#ffffff" // checkmark color
-                                    },
+                                        "& .MuiSvgIcon-root": {
+                                            width: "100%",
+                                            height: "100%",
+                                            backgroundColor: "transparent",
+                                            color: "transparent" // unchecked icon color
+                                        },
+                                        "&.Mui-checked": {
+                                            color: accentColor, // this affects the animation
+                                            background: accentColor
+                                        },
+                                        "&.Mui-checked .MuiSvgIcon-root": {
+                                            color: "#ffffff" // checkmark color
+                                        },
 
-                                    "&:hover": {
-                                        backgroundColor: "#ffffff", // lighter on hover
-                                        boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
+                                        "&:hover": {
+                                            backgroundColor: "#ffffff", // lighter on hover
+                                            boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
+                                        },
+                                        "&.Mui-checked:hover": {
+                                            backgroundColor: accentColor, // don't lighten
+                                            boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
+                                        }
                                     },
-                                    "&.Mui-checked:hover": {
-                                        backgroundColor: accentColor, // don't lighten
-                                        boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
-                                    }
-                                }}
+                                    ...(Array.isArray(inputSx)
+                                        ? inputSx
+                                        : [inputSx])
+                                ]}
                             />
                         }
                         label={

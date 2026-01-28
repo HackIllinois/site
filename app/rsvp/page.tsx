@@ -1,5 +1,6 @@
 "use client";
 
+import ErrorSnackbar from "@/components/ErrorSnackbar/ErrorSnackbar";
 import { SocialIconsRow } from "@/components/GradientButton/GradientSocialButton";
 import Loading from "@/components/Loading/Loading";
 import NewsletterSubscription from "@/components/NewsletterSubscription/NewsletterSubscription";
@@ -9,6 +10,7 @@ import {
     loadSubmission
 } from "@/util/api";
 import { RSVPInfo, RegistrationApplicationSubmitted } from "@/util/types";
+import { WarningAmberRounded } from "@mui/icons-material";
 import {
     Box,
     Button,
@@ -30,7 +32,10 @@ export default function RSVP() {
     const [registrationData, setRegistrationData] =
         useState<RegistrationApplicationSubmitted | null>(null);
     const [showDeclineDialog, setShowDeclineDialog] = useState(false);
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
     const isVerySmallScreen = useMediaQuery("(max-width:300px)");
 
     const loadRSVPData = async () => {
@@ -68,7 +73,12 @@ export default function RSVP() {
                 router.push("/register/general");
             } else {
                 console.error("Error loading RSVP data:", error);
-                router.push("/");
+                setErrorMessage(
+                    error?.message ||
+                        "Failed to load RSVP data. Please try again."
+                );
+                setShowErrorAlert(true);
+                setLoading(false);
             }
         }
     };
@@ -78,13 +88,15 @@ export default function RSVP() {
 
     const handleAccept = async () => {
         if (submitting) return;
-        setSubmitting(true);
-        try {
-            router.push("/profile");
-        } catch (error) {
-            console.error("Error accepting RSVP:", error);
-        } finally {
-            setSubmitting(false);
+
+        const reimbursementAmount = rsvpData?.reimbursementValue ?? 0;
+
+        // If user has reimbursement > $0, show confirmation modal
+        if (reimbursementAmount > 0) {
+            setShowConfirmDialog(true);
+        } else {
+            // If no reimbursement, redirect directly to profile-setup
+            router.push("/profile-setup");
         }
     };
 
@@ -99,8 +111,12 @@ export default function RSVP() {
             await declineAdmissionRSVP();
             await loadRSVPData();
             setShowDeclineDialog(false);
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error declining RSVP:", error);
+            setErrorMessage(
+                error?.message || "Failed to decline RSVP. Please try again."
+            );
+            setShowErrorAlert(true);
         } finally {
             setSubmitting(false);
         }
@@ -110,10 +126,65 @@ export default function RSVP() {
         setShowDeclineDialog(false);
     };
 
+    const handleConfirmConfirm = async () => {
+        if (submitting) return;
+        setSubmitting(true);
+        router.push("/profile-setup");
+    };
+
+    const handleConfirmCancel = () => {
+        setShowConfirmDialog(false);
+    };
+
     if (loading) return <Loading />;
 
     if (rsvpData?.status !== "ACCEPTED") {
-        return <></>;
+        return (
+            <>
+                <Box
+                    component="main"
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: {
+                            xs: "flex-start",
+                            md: "center"
+                        },
+                        width: "100vw",
+                        minHeight: "100vh",
+                        overflowX: "hidden",
+                        margin: 0,
+                        padding: 0,
+                        position: "relative",
+                        background:
+                            "linear-gradient(to bottom, #16133e, #3a3069)"
+                    }}
+                >
+                    <img
+                        src="/rsvp/post_decision_screen.svg"
+                        alt="Background"
+                        style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            objectPosition: "center",
+                            zIndex: 1,
+                            // Darken via brightness transformation
+                            filter: "brightness(0.7)"
+                        }}
+                    />
+                </Box>
+                <ErrorSnackbar
+                    open={showErrorAlert}
+                    onClose={() => setShowErrorAlert(false)}
+                    message={errorMessage}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                />
+            </>
+        );
     }
 
     if (rsvpData?.response === "DECLINED") {
@@ -269,6 +340,12 @@ export default function RSVP() {
                 }
             }}
         >
+            <ErrorSnackbar
+                open={showErrorAlert}
+                onClose={() => setShowErrorAlert(false)}
+                message={errorMessage}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            />
             <img
                 src="/rsvp/decision_screen.svg"
                 alt="Background"
@@ -500,7 +577,7 @@ export default function RSVP() {
                     sx={{
                         display: "flex",
                         flexDirection: {
-                            xs: "column",
+                            xs: "column-reverse",
                             md: "row"
                         },
                         gap: { xs: "1rem", md: "2rem" },
@@ -617,73 +694,93 @@ export default function RSVP() {
                 fullWidth
                 PaperProps={{
                     sx: {
-                        background: "rgba(22, 19, 62, 0.95)",
-                        backdropFilter: "blur(20px)",
-                        border: "2px solid rgba(255, 255, 255, 0.2)",
-                        borderRadius: "20px",
-                        color: "white"
+                        background: "#111115", // Dark background
+                        border: "2px solid #FF6B6B", // Red alert border
+                        borderRadius: "24px",
+                        boxShadow: "0 0 40px rgba(255, 107, 107, 0.15)", // Subtle red glow
+                        color: "white",
+                        overflow: "hidden"
                     }
                 }}
             >
+                {/* System Alert Header */}
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: 1.5,
+                        pt: 2,
+                        pb: 1,
+                        color: "#FF6B6B",
+                        fontFamily: '"Tsukimi Rounded", sans-serif',
+                        fontWeight: 700,
+                        fontSize: "18px",
+                        letterSpacing: "1px"
+                    }}
+                >
+                    <WarningAmberRounded sx={{ fontSize: 28 }} />
+                    SYSTEM ALERT
+                    <WarningAmberRounded sx={{ fontSize: 28 }} />
+                </Box>
+
                 <DialogTitle
                     sx={{
-                        fontFamily: '"Tsukimi Rounded", sans-serif',
-                        fontSize: { xs: "22px", md: "28px" },
-                        fontWeight: 700,
+                        fontFamily: '"Montserrat", sans-serif',
+                        fontSize: { xs: "20px", md: "24px" },
+                        fontWeight: 600,
                         color: "white",
                         textAlign: "center",
-                        padding: {
-                            xs: "1.5rem 1.5rem 0.5rem",
-                            md: "2rem 2rem 1rem"
-                        }
+                        padding: "0.5rem 2rem"
                     }}
                 >
                     Are you sure you want to decline?
                 </DialogTitle>
+
                 <DialogContent>
                     <Typography
                         sx={{
                             fontFamily: '"Montserrat", sans-serif',
-                            fontSize: { xs: "14px", md: "16px" },
-                            color: "rgba(255, 255, 255, 0.9)",
-                            lineHeight: 1.7,
+                            fontSize: "14px",
+                            color: "#E0E0E0",
                             textAlign: "center",
-                            padding: { xs: "0.5rem 1.5rem", md: "1rem 2rem" }
+                            mt: 1
                         }}
                     >
-                        This action cannot be reversed. If you decline, you will
-                        not be able to attend HackIllinois 2026.
+                        This action cannot be reversed.
                     </Typography>
                 </DialogContent>
+
                 <DialogActions
                     sx={{
                         display: "flex",
-                        flexDirection: { xs: "column", md: "row" },
-                        gap: { xs: "0.75rem", md: "1rem" },
+                        flexDirection: {
+                            xs: "column-reverse",
+                            md: "row"
+                        },
                         justifyContent: "center",
-                        padding: {
-                            xs: "0.5rem 1.5rem 1.5rem",
-                            md: "1rem 2rem 2rem"
-                        }
+                        gap: 2,
+                        padding: "0 2rem 3rem",
+                        mt: 2,
+                        paddingBottom: 2
                     }}
                 >
                     <Button
                         onClick={handleDeclineCancel}
                         sx={{
-                            padding: "12px 32px",
-                            background: "rgba(255, 255, 255, 0.1)",
-                            border: "2px solid rgba(255, 255, 255, 0.3)",
+                            padding: "10px 32px",
+                            background: "transparent",
+                            border: "2px solid #FF6B6B",
+                            minWidth: "150px",
                             borderRadius: "50px",
-                            color: "white",
-                            fontFamily: '"Montserrat", sans-serif',
-                            fontSize: "16px",
+                            color: "#FF6B6B",
+                            fontFamily: '"Tsukimi Rounded", sans-serif',
+                            fontSize: "14px",
                             fontWeight: 600,
-                            cursor: "pointer",
-                            transition: "all 0.3s ease",
-                            width: { xs: "100%", md: "auto" },
+                            transition: "all 0.2s ease",
                             "&:hover": {
-                                background: "rgba(255, 255, 255, 0.2)",
-                                borderColor: "rgba(255, 255, 255, 0.4)"
+                                background: "rgba(255, 107, 107, 0.1)",
+                                borderColor: "#FF4F4F"
                             }
                         }}
                     >
@@ -693,29 +790,24 @@ export default function RSVP() {
                         onClick={handleDeclineConfirm}
                         disabled={submitting}
                         sx={{
-                            padding: "12px 32px",
-                            background:
-                                "linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%)",
-                            border: "none",
+                            padding: "10px 32px",
+                            background: "transparent",
+                            border: "2px solid #FF6B6B",
                             borderRadius: "50px",
-                            color: "white",
-                            fontFamily: '"Montserrat", sans-serif',
-                            fontSize: "16px",
-                            fontWeight: 700,
-                            cursor: "pointer",
-                            boxShadow: "0 4px 15px rgba(255, 107, 107, 0.4)",
-                            transition: "all 0.3s ease",
-                            width: { xs: "100%", md: "auto" },
-                            "&:hover:not(:disabled)": {
-                                transform: "translateY(-2px)",
-                                boxShadow:
-                                    "0 6px 25px rgba(255, 107, 107, 0.6)",
-                                background:
-                                    "linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%)"
+                            minWidth: "150px",
+                            color: "#FF6B6B",
+                            fontFamily: '"Tsukimi Rounded", sans-serif',
+                            fontSize: "14px",
+                            fontWeight: 600,
+                            transition: "all 0.2s ease",
+                            "&:hover": {
+                                background: "rgba(255, 107, 107, 0.1)",
+                                borderColor: "#FF4F4F"
                             },
                             "&:disabled": {
                                 opacity: 0.5,
-                                cursor: "not-allowed"
+                                borderColor: "#555",
+                                color: "#777"
                             }
                         }}
                     >
@@ -723,6 +815,142 @@ export default function RSVP() {
                     </Button>
                 </DialogActions>
             </Dialog>
+            <Dialog
+                open={showConfirmDialog}
+                onClose={handleConfirmCancel}
+                maxWidth="sm"
+                fullWidth
+                PaperProps={{
+                    sx: {
+                        background: "#111115", // Dark background
+                        border: "1px solid #2AFF00", // Neon Green border
+                        borderRadius: "24px",
+                        boxShadow: "0 0 40px rgba(42, 255, 0, 0.15)", // Green glow
+                        color: "white",
+                        overflow: "hidden"
+                    }
+                }}
+            >
+                {/* System Confirmation Header */}
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: 1.5,
+                        pt: 3,
+                        pb: 1,
+                        color: "#2AFF00",
+                        fontFamily: '"Tsukimi Rounded", sans-serif',
+                        fontWeight: 700,
+                        fontSize: "18px",
+                        letterSpacing: "1px",
+                        textAlign: "center"
+                    }}
+                >
+                    SYSTEM NOTICE
+                </Box>
+
+                <DialogTitle
+                    sx={{
+                        fontFamily: '"Montserrat", sans-serif',
+                        fontSize: { xs: "20px", md: "24px" },
+                        fontWeight: 600,
+                        color: "white",
+                        textAlign: "center",
+                        padding: "0.5rem 2rem"
+                    }}
+                >
+                    Are you sure you would like to confirm?
+                </DialogTitle>
+
+                <DialogContent>
+                    <Typography
+                        sx={{
+                            fontFamily: '"Montserrat", sans-serif',
+                            fontSize: "14px",
+                            color: "#E0E0E0",
+                            textAlign: "center",
+                            lineHeight: 1.7,
+                            mt: 1
+                        }}
+                    >
+                        Because capacity and reimbursements are limited,
+                        confirming your spot reserves space and funding that
+                        cannot be reassigned later.
+                        <br />
+                        <br />
+                        Please only confirm if you genuinely believe you can
+                        attend.
+                    </Typography>
+                </DialogContent>
+
+                <DialogActions
+                    sx={{
+                        display: "flex",
+                        flexDirection: { xs: "column-reverse", md: "row" },
+                        justifyContent: "center",
+                        gap: 2,
+                        padding: "0 2rem 3rem",
+                        paddingBottom: 3,
+                        mt: 2
+                    }}
+                >
+                    <Button
+                        onClick={handleConfirmCancel}
+                        sx={{
+                            padding: "10px 24px",
+                            background: "transparent",
+                            border: "1px solid #2AFF00",
+                            borderRadius: "50px",
+                            color: "#2AFF00",
+                            fontFamily: '"Tsukimi Rounded", sans-serif',
+                            fontSize: "13px",
+                            fontWeight: 600,
+                            transition: "all 0.2s ease",
+                            width: { xs: "100%", md: "auto" },
+                            whiteSpace: "nowrap",
+                            "&:hover": {
+                                background: "rgba(42, 255, 0, 0.1)",
+                                borderColor: "#2AFF00",
+                                boxShadow: "0 0 15px rgba(42, 255, 0, 0.2)"
+                            }
+                        }}
+                    >
+                        LET ME THINK AGAIN
+                    </Button>
+                    <Button
+                        onClick={handleConfirmConfirm}
+                        disabled={submitting}
+                        sx={{
+                            padding: "10px 24px",
+                            background: "transparent",
+                            border: "1px solid #2AFF00",
+                            borderRadius: "50px",
+                            color: "#2AFF00",
+                            fontFamily: '"Tsukimi Rounded", sans-serif',
+                            fontSize: "13px",
+                            fontWeight: 600,
+                            transition: "all 0.2s ease",
+                            width: { xs: "100%", md: "auto" },
+                            whiteSpace: "nowrap",
+                            "&:hover": {
+                                background: "rgba(42, 255, 0, 0.1)",
+                                borderColor: "#2AFF00",
+                                boxShadow: "0 0 15px rgba(42, 255, 0, 0.2)"
+                            },
+                            "&:disabled": {
+                                opacity: 0.5,
+                                borderColor: "#555",
+                                color: "#777"
+                            }
+                        }}
+                    >
+                        I CONFIRM I CAN ATTEND
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
             <style jsx global>{`
                 @keyframes fadeInDown {
                     from {

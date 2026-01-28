@@ -28,6 +28,14 @@ export type RSVPInfo = {
     correctProChallenge: boolean;
 };
 
+export type AcceptAdmissionRSVPRequest = {
+    displayName: string;
+    discordTag: string;
+    avatarId: string;
+    dietaryRestrictions: string[];
+    shirtSize: string;
+};
+
 export type UserAvatar = {
     avatarId: string;
 };
@@ -142,6 +150,15 @@ export type RegistrationData = {
     requestedTravelReimbursement: string[];
     travelAcknowledge: string[];
     reviewedInformationAcknowledge: string[];
+};
+
+export type ProfileFormInfo = {
+    displayName: string;
+    discordTag: string;
+    shirtSize: string;
+    dietaryRestrictions: string[];
+    otherDietaryRestrictions: string;
+    avatarId: string;
 };
 
 export type ChallengeStatus = {

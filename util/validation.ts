@@ -1,5 +1,8 @@
 import { OTHER_SCHOOL_OPTION } from "@/app/register/general/constants/registration";
-import { RegistrationApplicationDraftBodyForm } from "@/util/types";
+import {
+    ProfileFormInfo,
+    RegistrationApplicationDraftBodyForm
+} from "@/util/types";
 import * as Yup from "yup";
 
 /**
@@ -298,3 +301,33 @@ export const validationSchemas = [
     // 5. Confirmation (no new inputs, keep for indexing purposes)
     Yup.object({})
 ];
+
+export const profileValidationSchema = Yup.object({
+    displayName: Yup.string()
+        .required("Display name is required")
+        .max(100, "Display name cannot exceed 100 characters"),
+    discordTag: Yup.string()
+        .required("Discord tag is required")
+        .max(64, "Discord tag cannot exceed 64 characters"),
+    shirtSize: Yup.string()
+        .required("Shirt size is required")
+        .oneOf(
+            ["XS", "S", "M", "L", "XL", "2XL"],
+            "Please select a valid shirt size"
+        ),
+    dietaryRestrictions: Yup.array().of(Yup.string()),
+    otherDietaryRestrictions: Yup.string().max(
+        1000,
+        "Other dietary restrictions cannot exceed 1000 characters"
+    ),
+    avatarId: Yup.string()
+});
+
+export const profileInitialValues: ProfileFormInfo = {
+    displayName: "",
+    discordTag: "",
+    shirtSize: "",
+    dietaryRestrictions: [],
+    otherDietaryRestrictions: "",
+    avatarId: "character1"
+};

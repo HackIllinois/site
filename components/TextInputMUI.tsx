@@ -1,5 +1,5 @@
 // import { RegistrationData } from "@/util/types";
-import { FormHelperText } from "@mui/material";
+import { FormHelperText, SxProps, Theme } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import InputBase from "@mui/material/InputBase";
@@ -19,6 +19,8 @@ interface TextInputProps {
     helperText?: string;
     // extra props
     accentColor?: string;
+    placeholderColor?: string;
+    inputSx?: SxProps<Theme>;
     [key: string]: unknown;
 }
 
@@ -33,7 +35,9 @@ const TextInput: React.FC<TextInputProps> = ({
     onChange,
     error,
     helperText = "",
-    accentColor = "2c2540",
+    accentColor = "#2c2540",
+    placeholderColor = "gray",
+    inputSx = [],
     ...props
 }) => {
     return (
@@ -79,28 +83,31 @@ const TextInput: React.FC<TextInputProps> = ({
                 multiline={multiline}
                 placeholder={placeholder}
                 {...props}
-                sx={theme => ({
-                    backgroundColor: "#f0f0f0",
-                    borderRadius: 6,
-                    px: multiline ? 2.5 : 3,
-                    py: multiline ? 2 : 0.5,
-                    color: accentColor,
-                    border: "2px solid #f0f0f0",
-                    "&.Mui-focused": {
-                        // Mui props needed because of the MUI component structure... the focus is on the input _inside_ this div
-                        backgroundColor: "#ffffff", // lighter on focus
-                        boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
-                    },
-                    "&.Mui-error": {
-                        borderColor: theme.palette.error.main
-                    }
-                })}
+                sx={[
+                    theme => ({
+                        backgroundColor: "#f0f0f0",
+                        borderRadius: 6,
+                        px: multiline ? 2.5 : 3,
+                        py: multiline ? 2 : 0.5,
+                        color: accentColor,
+                        border: "2px solid #f0f0f0",
+                        "&.Mui-focused": {
+                            // Mui props needed because of the MUI component structure... the focus is on the input _inside_ this div
+                            backgroundColor: "#ffffff", // lighter on focus
+                            boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
+                        },
+                        "&.Mui-error": {
+                            borderColor: theme.palette.error.main
+                        }
+                    }),
+                    ...(Array.isArray(inputSx) ? inputSx : [inputSx])
+                ]}
                 slotProps={{
                     // for some reason you can't access the placeholder from general sx, hit the input slot directly
                     input: {
                         sx: {
                             "::placeholder": {
-                                color: "gray",
+                                color: placeholderColor,
                                 opacity: 0.8
                             },
                             "&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus":
