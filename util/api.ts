@@ -7,7 +7,8 @@ import {
     ChallengeResponse,
     AttendeeProfile,
     RSVPInfo,
-    UserAvatar
+    UserAvatar,
+    EventType
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -156,4 +157,9 @@ export async function updateProfile(
 
 export async function loadAdmissionRSVP(): Promise<RSVPInfo> {
     return await requestv2("GET", "/admission/rsvp/");
+}
+
+export async function getEvents(): Promise<EventType[]> {
+    const res = await requestv2("GET", "/event").catch(handleError);
+    return res.events as EventType[];
 }
