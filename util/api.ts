@@ -187,3 +187,11 @@ export async function uploadFile(file: File): Promise<unknown> {
     }
     return res;
 }
+
+export async function registrationAlive(): Promise<boolean> {
+    const response = (await requestv2(
+        "GET",
+        "/registration/status/"
+    )) satisfies { alive: boolean };
+    return response.alive;
+}

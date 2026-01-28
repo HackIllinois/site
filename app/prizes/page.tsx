@@ -517,6 +517,16 @@ const Prizes: React.FC = () => {
                             backgroundSrc="/prizes/path_prizes/prize12.svg"
                             topText="BEST USE OF"
                             bottomText="SUPERMEMORY"
+                            bottomBottomText={
+                                <li
+                                    style={{
+                                        marginTop: "10px"
+                                    }}
+                                >
+                                    Pair of <b>Meta Raybans</b> for each winning
+                                    team member
+                                </li>
+                            }
                             radius={130}
                             width={540}
                             height={540}
