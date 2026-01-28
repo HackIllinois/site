@@ -752,6 +752,7 @@ export default function RSVP() {
                 </DialogContent>
 
                 <DialogActions
+                    disableSpacing
                     sx={{
                         display: "flex",
                         flexDirection: {
@@ -794,7 +795,6 @@ export default function RSVP() {
                             background: "transparent",
                             border: "2px solid #FF6B6B",
                             borderRadius: "50px",
-                            minWidth: "150px",
                             color: "#FF6B6B",
                             fontFamily: '"Tsukimi Rounded", sans-serif',
                             fontSize: "14px",
