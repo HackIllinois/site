@@ -752,6 +752,7 @@ export default function RSVP() {
                 </DialogContent>
 
                 <DialogActions
+                    disableSpacing
                     sx={{
                         display: "flex",
                         flexDirection: {
