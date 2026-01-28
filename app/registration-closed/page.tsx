@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { Box, Typography, CircularProgress } from "@mui/material";
+import { GradientButton } from "@/components/GradientButton/GradientButton";
 import { registrationAlive } from "@/util/api";
+import { Box, CircularProgress, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const RegistrationClosed = () => {
     const router = useRouter();
@@ -103,30 +104,20 @@ const RegistrationClosed = () => {
                         maxWidth: "800px",
                         borderRadius: "40px",
                         px: { xs: 3, md: 5 },
-                        py: { xs: 4, md: 5 },
-                        background:
-                            "linear-gradient(135deg, rgba(163,21,214,0.3) 0%, rgba(253,171,96,0.3) 50%, rgba(163,21,214,0.3) 100%)",
-                        backdropFilter: "blur(10px)",
-                        border: "2px solid rgba(163,21,214,0.5)",
-                        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)"
+                        py: { xs: 4, md: 5 }
                     }}
                 >
                     <Typography
-                        variant="h4"
+                        variant="h2"
+                        component="h1"
                         sx={{
                             mb: 3,
                             color: "white",
-                            fontFamily: "Montserrat",
-                            fontWeight: 700,
-                            fontSize: {
-                                xs: "24px",
-                                sm: "28px",
-                                md: "32px"
-                            },
+                            fontFamily: "Tsukimi Rounded",
                             lineHeight: 1.3
                         }}
                     >
-                        Registration Closed
+                        REGISTRATION CLOSED
                     </Typography>
 
                     <Typography
@@ -135,7 +126,6 @@ const RegistrationClosed = () => {
                             color: "white",
                             opacity: 0.95,
                             fontFamily: "Montserrat",
-                            fontWeight: 500,
                             fontSize: {
                                 xs: "16px",
                                 sm: "18px",
@@ -143,13 +133,16 @@ const RegistrationClosed = () => {
                             },
                             lineHeight: 1.6,
                             maxWidth: "700px",
-                            mx: "auto"
+                            mx: "auto",
+                            mb: 4
                         }}
                     >
                         Registration for HackIllinois 2026 is now closed. If you
                         applied, look out for an email from us on the status of
                         your application.
                     </Typography>
+
+                    <GradientButton text="BACK TO HOMEPAGE" link="/" />
                 </Box>
             </Box>
         </Box>
