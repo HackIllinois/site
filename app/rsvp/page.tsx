@@ -505,33 +505,9 @@ export default function RSVP() {
                         color: "rgba(255, 255, 255, 0.9)",
                         lineHeight: 1.7,
                         maxWidth: "1000px",
-                        animation: "fadeInDown 0.8s ease-out 0.8s both",
-                        textWrap: "balance",
-                        "@keyframes fadeInDown": {
-                            from: {
-                                opacity: 0,
-                                transform: "translateY(-30px)"
-                            },
-                            to: {
-                                opacity: 1,
-                                transform: "translateY(0)"
-                            }
-                        }
-                    }}
-                >
-                    If you would like to attend HackIllinois 2026, click Next to
-                    finish the RSVP process.
-                </Typography>
-                <Typography
-                    sx={{
-                        fontFamily: '"Montserrat", sans-serif',
-                        fontSize: { xs: "14px", sm: "16px", md: "21px" },
-                        color: "rgba(255, 255, 255, 0.9)",
-                        lineHeight: 1.7,
-                        maxWidth: "1000px",
                         marginBottom: "3rem",
-                        textWrap: "balance",
                         animation: "fadeInDown 0.8s ease-out 0.8s both",
+                        textWrap: "balance",
                         "@keyframes fadeInDown": {
                             from: {
                                 opacity: 0,
@@ -544,7 +520,8 @@ export default function RSVP() {
                         }
                     }}
                 >
-                    If you won&apos;t be attending, please click Decline.{" "}
+                    If you would like to attend HackIllinois 2026, click{" "}
+                    <b>Next</b> to finish the RSVP process.
                 </Typography>
                 <Box
                     sx={{

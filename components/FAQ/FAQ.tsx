@@ -25,7 +25,7 @@ const faqItems = [
     },
     {
         question: "Will overnight hacking space be provided?",
-        answer: "Yes! HackIllinois will provide overnight hacking space for attendees this year. This dedicated space allows you to work on your project throughout the night and get some rest without leaving the venue."
+        answer: "Yes! HackIllinois will provide overnight hacking space for attendees this year. This dedicated space allows you to work on your project throughout the night in a safe environment."
     },
     {
         question: "Will there be reimbursement?",
