@@ -45,13 +45,6 @@ export default function RSVP() {
                 loadSubmission()
             ]);
 
-            console.log(
-                "rsvpData",
-                rsvpData,
-                "registrationData",
-                registrationData
-            );
-
             setRsvpData(rsvpData);
             setRegistrationData(registrationData);
 
@@ -88,16 +81,7 @@ export default function RSVP() {
 
     const handleAccept = async () => {
         if (submitting) return;
-
-        const reimbursementAmount = rsvpData?.reimbursementValue ?? 0;
-
-        // If user has reimbursement > $0, show confirmation modal
-        if (reimbursementAmount > 0) {
-            setShowConfirmDialog(true);
-        } else {
-            // If no reimbursement, redirect directly to profile-setup
-            router.push("/profile-setup");
-        }
+        router.push("/profile-setup");
     };
 
     const handleDeclineClick = () => {
@@ -124,16 +108,6 @@ export default function RSVP() {
 
     const handleDeclineCancel = () => {
         setShowDeclineDialog(false);
-    };
-
-    const handleConfirmConfirm = async () => {
-        if (submitting) return;
-        setSubmitting(true);
-        router.push("/profile-setup");
-    };
-
-    const handleConfirmCancel = () => {
-        setShowConfirmDialog(false);
     };
 
     if (loading) return <Loading />;
@@ -505,7 +479,6 @@ export default function RSVP() {
                         color: "rgba(255, 255, 255, 0.9)",
                         lineHeight: 1.7,
                         maxWidth: "1000px",
-                        marginBottom: "1rem",
                         animation: "fadeInDown 0.8s ease-out 0.8s both",
                         textWrap: "balance",
                         "@keyframes fadeInDown": {
@@ -521,7 +494,7 @@ export default function RSVP() {
                     }}
                 >
                     If you would like to attend HackIllinois 2026, click{" "}
-                    <b>Next</b> to finish RSVP process.
+                    <b>Next</b> to finish the RSVP process.
                 </Typography>
                 <Typography
                     sx={{
@@ -530,7 +503,7 @@ export default function RSVP() {
                         color: "rgba(255, 255, 255, 0.9)",
                         lineHeight: 1.7,
                         maxWidth: "1000px",
-                        marginBottom: "1rem",
+                        marginBottom: "2rem",
                         textWrap: "balance",
                         animation: "fadeInDown 0.8s ease-out 0.8s both",
                         "@keyframes fadeInDown": {
@@ -545,33 +518,7 @@ export default function RSVP() {
                         }
                     }}
                 >
-                    If you won&apos;t be attending, please click{" "}
-                    <b>Decline.</b>{" "}
-                </Typography>
-                <Typography
-                    sx={{
-                        fontFamily: '"Montserrat", sans-serif',
-                        fontSize: { xs: "14px", sm: "16px", md: "21px" },
-                        color: "rgba(255, 255, 255, 0.9)",
-                        lineHeight: 1.7,
-                        maxWidth: "1000px",
-                        marginBottom: "2.5rem",
-                        animation: "fadeInDown 0.8s ease-out 0.8s both",
-                        "@keyframes fadeInDown": {
-                            from: {
-                                opacity: 0,
-                                transform: "translateY(-30px)"
-                            },
-                            to: {
-                                opacity: 1,
-                                transform: "translateY(0)"
-                            }
-                        }
-                    }}
-                >
-                    <Box component="span" sx={{ fontWeight: 700 }}>
-                        This cannot be reversed.
-                    </Box>
+                    If you won&apos;t be attending, please click Decline.{" "}
                 </Typography>
                 <Box
                     sx={{
@@ -741,7 +688,8 @@ export default function RSVP() {
                     <Typography
                         sx={{
                             fontFamily: '"Montserrat", sans-serif',
-                            fontSize: "14px",
+                            fontSize: "16px",
+                            fontWeight: 700,
                             color: "#E0E0E0",
                             textAlign: "center",
                             mt: 1
@@ -813,141 +761,6 @@ export default function RSVP() {
                         }}
                     >
                         YES, DECLINE
-                    </Button>
-                </DialogActions>
-            </Dialog>
-            <Dialog
-                open={showConfirmDialog}
-                onClose={handleConfirmCancel}
-                maxWidth="sm"
-                fullWidth
-                PaperProps={{
-                    sx: {
-                        background: "#111115", // Dark background
-                        border: "1px solid #2AFF00", // Neon Green border
-                        borderRadius: "24px",
-                        boxShadow: "0 0 40px rgba(42, 255, 0, 0.15)", // Green glow
-                        color: "white",
-                        overflow: "hidden"
-                    }
-                }}
-            >
-                {/* System Confirmation Header */}
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: 1.5,
-                        pt: 3,
-                        pb: 1,
-                        color: "#2AFF00",
-                        fontFamily: '"Tsukimi Rounded", sans-serif',
-                        fontWeight: 700,
-                        fontSize: "18px",
-                        letterSpacing: "1px",
-                        textAlign: "center"
-                    }}
-                >
-                    SYSTEM NOTICE
-                </Box>
-
-                <DialogTitle
-                    sx={{
-                        fontFamily: '"Montserrat", sans-serif',
-                        fontSize: { xs: "20px", md: "24px" },
-                        fontWeight: 600,
-                        color: "white",
-                        textAlign: "center",
-                        padding: "0.5rem 2rem"
-                    }}
-                >
-                    Are you sure you would like to confirm?
-                </DialogTitle>
-
-                <DialogContent>
-                    <Typography
-                        sx={{
-                            fontFamily: '"Montserrat", sans-serif',
-                            fontSize: "14px",
-                            color: "#E0E0E0",
-                            textAlign: "center",
-                            lineHeight: 1.7,
-                            mt: 1
-                        }}
-                    >
-                        Because capacity and reimbursements are limited,
-                        confirming your spot reserves space and funding that
-                        cannot be reassigned later.
-                        <br />
-                        <br />
-                        Please only confirm if you genuinely believe you can
-                        attend.
-                    </Typography>
-                </DialogContent>
-
-                <DialogActions
-                    sx={{
-                        display: "flex",
-                        flexDirection: { xs: "column-reverse", md: "row" },
-                        justifyContent: "center",
-                        gap: 2,
-                        padding: "0 2rem 3rem",
-                        paddingBottom: 3,
-                        mt: 2
-                    }}
-                >
-                    <Button
-                        onClick={handleConfirmCancel}
-                        sx={{
-                            padding: "10px 24px",
-                            background: "transparent",
-                            border: "1px solid #2AFF00",
-                            borderRadius: "50px",
-                            color: "#2AFF00",
-                            fontFamily: '"Tsukimi Rounded", sans-serif',
-                            fontSize: "13px",
-                            fontWeight: 600,
-                            transition: "all 0.2s ease",
-                            width: { xs: "100%", md: "auto" },
-                            whiteSpace: "nowrap",
-                            "&:hover": {
-                                background: "rgba(42, 255, 0, 0.1)",
-                                borderColor: "#2AFF00",
-                                boxShadow: "0 0 15px rgba(42, 255, 0, 0.2)"
-                            }
-                        }}
-                    >
-                        LET ME THINK AGAIN
-                    </Button>
-                    <Button
-                        onClick={handleConfirmConfirm}
-                        disabled={submitting}
-                        sx={{
-                            padding: "10px 24px",
-                            background: "transparent",
-                            border: "1px solid #2AFF00",
-                            borderRadius: "50px",
-                            color: "#2AFF00",
-                            fontFamily: '"Tsukimi Rounded", sans-serif',
-                            fontSize: "13px",
-                            fontWeight: 600,
-                            transition: "all 0.2s ease",
-                            width: { xs: "100%", md: "auto" },
-                            whiteSpace: "nowrap",
-                            "&:hover": {
-                                background: "rgba(42, 255, 0, 0.1)",
-                                borderColor: "#2AFF00",
-                                boxShadow: "0 0 15px rgba(42, 255, 0, 0.2)"
-                            },
-                            "&:disabled": {
-                                opacity: 0.5,
-                                borderColor: "#555",
-                                color: "#777"
-                            }
-                        }}
-                    >
-                        I CONFIRM I CAN ATTEND
                     </Button>
                 </DialogActions>
             </Dialog>
