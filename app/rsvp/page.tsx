@@ -519,8 +519,8 @@ export default function RSVP() {
                         }
                     }}
                 >
-                    If you would like to attend HackIllinois 2026, click{" "}
-                    <b>Next</b> to finish the RSVP process.
+                    If you would like to attend HackIllinois 2026, click Next to
+                    finish the RSVP process.
                 </Typography>
                 <Typography
                     sx={{

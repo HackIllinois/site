@@ -659,7 +659,6 @@ const Rsvp = () => {
                                 )}
                                 value={values.shirtSize}
                                 onChange={value => {
-                                    console.log("Value", value);
                                     setFieldValue("shirtSize", value);
                                 }}
                                 error={
