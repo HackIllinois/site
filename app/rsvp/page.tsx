@@ -441,7 +441,6 @@ export default function RSVP() {
                             fontSize: { xs: "18px", sm: "20px", md: "29px" },
                             fontWeight: 600,
                             color: "white",
-                            marginBottom: "1rem",
                             textShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
                             animation: "fadeInDown 0.8s ease-out 0.6s both",
                             "@keyframes fadeInDown": {
@@ -476,6 +475,33 @@ export default function RSVP() {
                     sx={{
                         fontFamily: '"Montserrat", sans-serif',
                         fontSize: { xs: "14px", sm: "16px", md: "21px" },
+                        fontStyle: "italic",
+                        color: "rgba(255, 255, 255, 0.9)",
+                        lineHeight: 1.7,
+                        marginTop: "0.5rem",
+                        marginBottom: "2rem",
+                        maxWidth: "1000px",
+                        animation: "fadeInDown 0.8s ease-out 0.8s both",
+                        textWrap: "balance",
+                        "@keyframes fadeInDown": {
+                            from: {
+                                opacity: 0,
+                                transform: "translateY(-30px)"
+                            },
+                            to: {
+                                opacity: 1,
+                                transform: "translateY(0)"
+                            }
+                        }
+                    }}
+                >
+                    Note: Overnight hacking space will be provided this year.
+                </Typography>
+
+                <Typography
+                    sx={{
+                        fontFamily: '"Montserrat", sans-serif',
+                        fontSize: { xs: "14px", sm: "16px", md: "21px" },
                         color: "rgba(255, 255, 255, 0.9)",
                         lineHeight: 1.7,
                         maxWidth: "1000px",
@@ -503,7 +529,7 @@ export default function RSVP() {
                         color: "rgba(255, 255, 255, 0.9)",
                         lineHeight: 1.7,
                         maxWidth: "1000px",
-                        marginBottom: "2rem",
+                        marginBottom: "3rem",
                         textWrap: "balance",
                         animation: "fadeInDown 0.8s ease-out 0.8s both",
                         "@keyframes fadeInDown": {
