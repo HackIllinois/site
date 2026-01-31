@@ -457,17 +457,50 @@ export default function RSVP() {
                     >
                         with a reimbursement total of{" "}
                         <Box
-                            component="span"
                             sx={{
-                                background:
-                                    "linear-gradient(135deg, #ffba9a 0%, #ee1eee 100%)",
-                                WebkitBackgroundClip: "text",
-                                WebkitTextFillColor: "transparent",
-                                backgroundClip: "text",
-                                fontWeight: 520
+                                width: "fit-content",
+                                display: "inline-block",
+                                backgroundColor: {
+                                    xs: "rgba(0,0,0,0)",
+                                    md: "rgb(19, 19, 19)"
+                                },
+                                border: {
+                                    xs: "rgba(0,0,0,0)",
+                                    md: "1px solid rgba(255, 255, 255, 0.1)"
+                                },
+                                boxShadow: {
+                                    xs: "rgba(0,0,0,0)",
+                                    md: "0 4px 30px rgba(0, 0, 0, 0.5)"
+                                },
+                                ml: {
+                                    xs: 0,
+                                    md: 0.5
+                                },
+                                px: {
+                                    xs: 0,
+                                    md: 2
+                                },
+                                py: {
+                                    xs: 0,
+                                    md: 1
+                                },
+                                borderRadius: "12px"
                             }}
                         >
-                            ${rsvpData?.reimbursementValue ?? 0}
+                            <Box
+                                component="span"
+                                sx={{
+                                    background:
+                                        "linear-gradient(135deg, #ffba9a 0%, #ee1eee 100%)",
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                    backgroundClip: "text",
+                                    fontWeight: 600,
+                                    letterSpacing: "0.5px"
+                                }}
+                            >
+                                ${rsvpData.reimbursementValue}
+                            </Box>
                         </Box>
                     </Typography>
                 )}
