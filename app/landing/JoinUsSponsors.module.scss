@@ -1,11 +1,10 @@
-/* Bobbing animation */
 @keyframes bob {
     0%,
     100% {
-        transform: translateY(0);
+        margin-top: 0;
     }
     50% {
-        transform: translateY(-8px);
+        margin-top: -8px;
     }
 }
 
@@ -156,66 +155,175 @@
  */
 .aliensContainer {
     position: absolute;
-    top: 52%; // start of beam
+    top: 48%;
     left: 50%;
-    transform: translateX(-55%);
-    width: 45%; // matches beam width
-    height: 55%; // height of beam
+    transform: translateX(-50%);
+    width: 85%;
+    height: 60%;
     pointer-events: none;
     z-index: 2;
 
     @media (max-width: 600px) {
-        top: 45%;
-        left: 52%;
-        width: 60%;
-        height: 50%;
+        top: 42%;
+        left: 50%;
+        width: 90%;
+        height: 55%;
     }
 }
 
-.alienImage {
+.alienWrapper {
     position: absolute;
-    width: clamp(40px, 10vw, 120px);
-    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     animation: bob 1.8s ease-in-out infinite;
 }
 
-/* Individual alien positions (approximate your mockup) */
-.alien0 {
-    // top middle
-    top: 8%;
-    left: 17%;
+.alienImage {
+    width: clamp(30px, 6vw, 80px);
+    height: auto;
+
+    &.title {
+        width: clamp(50px, 10vw, 200px);
+    }
+
+    &.gold {
+        width: clamp(40px, 8vw, 100px);
+    }
+
+    &.silver {
+        width: clamp(35px, 7vw, 90px);
+    }
+
+    &.prize {
+        width: clamp(32px, 6.5vw, 85px);
+    }
+
+    &.other {
+        width: clamp(30px, 6vw, 80px);
+    }
+}
+
+.sponsorLogo {
+    position: absolute;
+    width: 70%;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+
+    &.title {
+        width: 130%;
+        filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 255, 255, 0.7));
+    }
+
+    &.gold {
+        width: 90%;
+        filter: brightness(1.05) drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
+    }
+
+    &.silver {
+        width: 75%;
+        filter: brightness(1);
+    }
+
+    &.prize {
+        width: 68%;
+        filter: brightness(0.95);
+    }
+
+    &.other {
+        width: 62%;
+        filter: brightness(0.9);
+    }
+}
+
+.alienWrapper.alien0 {
+    top: 2%;
+    left: 50%;
     transform: translateX(-50%);
 }
 
-.alien1 {
-    // mid-left
-    top: 0%;
-    left: 40%;
+.alienWrapper.alien1 {
+    top: 3%;
+    left: 5%;
 }
 
-.alien2 {
-    // mid-right
-    top: 6%;
-    left: 65%;
+.alienWrapper.alien2 {
+    top: 3%;
+    left: 90%;
 }
 
-.alien3 {
-    // bottom-left
-    top: 30%;
+.alienWrapper.alien3 {
+    top: 10%;
+    left: 25%;
+}
+
+.alienWrapper.alien4 {
+    top: 9%;
+    left: 69%;
+}
+
+.alienWrapper.alien5 {
+    top: 17%;
     left: 15%;
 }
 
-.alien4 {
-    // big center bottom
-    top: 32%;
-    left: 42%;
+.alienWrapper.alien6 {
+    top: 27%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.alien5 {
-    // bottom-right
-    top: 35%;
+.alienWrapper.alien7 {
+    top: 18%;
+    left: 79%;
+}
+
+.alienWrapper.alien8 {
+    top: 27%;
+    left: 1%;
+}
+
+.alienWrapper.alien9 {
+    top: 25%;
+    left: 35%;
+}
+
+.alienWrapper.alien10 {
+    top: 28%;
     left: 65%;
-    transform: scale(1.5);
+    transform: translateX(-50%);
+}
+
+.alienWrapper.alien11 {
+    top: 26%;
+    left: 98%;
+}
+
+.alienWrapper.alien12 {
+    top: 33%;
+    left: 18%;
+}
+
+.alienWrapper.alien13 {
+    top: 43%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.alienWrapper.alien14 {
+    top: 38%;
+    left: 82%;
+}
+
+.alienWrapper.alien15 {
+    top: 48%;
+    left: 22%;
+}
+
+.alienWrapper.alien16 {
+    top: 46%;
+    left: 67%;
 }
 
 /* Optionally tweak for very small screens */

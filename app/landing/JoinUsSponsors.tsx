@@ -17,7 +17,123 @@ const alienAssets = [
     "/landing/sponsors/aliens/alien3.svg",
     "/landing/sponsors/aliens/alien4.svg",
     "/landing/sponsors/aliens/alien5.svg",
-    "/landing/sponsors/aliens/alien6.svg"
+    "/landing/sponsors/aliens/alien6.svg",
+    "/landing/sponsors/aliens/alien1.svg",
+    "/landing/sponsors/aliens/alien2.svg",
+    "/landing/sponsors/aliens/alien3.svg",
+    "/landing/sponsors/aliens/alien4.svg",
+    "/landing/sponsors/aliens/alien5.svg",
+    "/landing/sponsors/aliens/alien6.svg",
+    "/landing/sponsors/aliens/alien1.svg",
+    "/landing/sponsors/aliens/alien2.svg",
+    "/landing/sponsors/aliens/alien3.svg",
+    "/landing/sponsors/aliens/alien4.svg",
+    "/landing/sponsors/aliens/alien5.svg"
+];
+
+const sponsors = [
+    {
+        name: "FulcrumGT",
+        tier: "title",
+        image: "/sponsor_icons/fgt_logo - rodney louie.svg",
+        alienIndex: 0
+    },
+    {
+        name: "John Deere",
+        tier: "gold",
+        image: "/sponsor_icons/john_deere-logo_brandlogos.net_xbq4y-512x512 - Cedric Vargas.png",
+        alienIndex: 1
+    },
+    {
+        name: "Caterpillar",
+        tier: "gold",
+        image: "/sponsor_icons/Caterpillar Logo - Angela Middleton.png",
+        alienIndex: 2
+    },
+    {
+        name: "Stripe",
+        tier: "gold",
+        image: "/sponsor_icons/Stripe wordmark - Blurple - Bethany Adams.svg",
+        alienIndex: 3
+    },
+    {
+        name: "Supermemory",
+        tier: "silver",
+        image: "/sponsor_icons/Supermemory Wordmark in Dark - Shardul Mane.svg",
+        alienIndex: 4
+    },
+    {
+        name: "Modal",
+        tier: "silver",
+        image: "/sponsor_icons/Primary-Modal-Wordmark-Dark - Felicia Chang.svg",
+        alienIndex: 5
+    },
+    {
+        name: "T-Mobile",
+        tier: "silver",
+        image: "/sponsor_icons/T-Badge_Icon_PRI_RGB_on-W_2025-03-06 - Akul Sharma.png",
+        alienIndex: 6
+    },
+    {
+        name: "IMC",
+        tier: "silver",
+        image: "/sponsor_icons/Logo-IMC-FC (1) - Cara Norris.png",
+        alienIndex: 7
+    },
+    {
+        name: "Capital One",
+        tier: "silver",
+        image: "/sponsor_icons/C1_Core_NG_RGB_R - Reshmi Ranjith.png",
+        alienIndex: 8
+    },
+    {
+        name: "Solana",
+        tier: "silver",
+        image: "/sponsor_icons/solanaLogo - Gui Bibeau-Laviolette.svg",
+        alienIndex: 9
+    },
+    {
+        name: "OpenAI",
+        tier: "prize",
+        image: "/sponsor_icons/openAI.png",
+        alienIndex: 10
+    },
+    {
+        name: "Aedify AI",
+        tier: "prize",
+        image: "/sponsor_icons/AedifyAI.png",
+        alienIndex: 11
+    },
+    {
+        name: "Cloudflare",
+        tier: "prize",
+        image: "/sponsor_icons/cloudflare logo.png",
+        alienIndex: 12
+    },
+    {
+        name: "Actian",
+        tier: "other",
+        image: "/sponsor_icons/Actian.png",
+        alienIndex: 13
+    },
+    {
+        name: "Nora",
+        tier: "other",
+        image: "/sponsor_icons/Nora.png",
+        alienIndex: 14
+    },
+    {
+        name: "Melius",
+        tier: "other",
+        image: "/sponsor_icons/Melius.png",
+        alienIndex: 15
+    },
+    {
+        name: "Exa",
+        tier: "other",
+        image: "/sponsor_icons/exa-logo (2) - Stacey Tara.svg",
+        alienIndex: 16
+    }
 ];
 
 const MotionImage = motion(Image);
@@ -289,33 +405,34 @@ const JoinUsSponsors = () => {
                             SPONSORS
                         </Typography>
                     </motion.div>
-
-                    <motion.div variants={itemVariants}>
-                        <Typography
-                            variant="h5"
-                            component="h2"
-                            sx={{
-                                color: "#ccc",
-                                textAlign: "center",
-                                fontFamily: "Montserrat"
-                            }}
-                        >
-                            To be announced soon!
-                        </Typography>
-                    </motion.div>
                 </motion.div>
 
                 <div className={styles.aliensContainer}>
-                    {alienAssets.map((src, index) => (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                            key={index}
-                            src={src}
-                            alt={`Alien ${index + 1}`}
-                            className={`${styles.alienImage} ${styles[`alien${index}`]}`}
-                            style={{ animationDelay: `${index * 0.15}s` }}
-                        />
-                    ))}
+                    {alienAssets.map((src, index) => {
+                        const sponsor = sponsors.find(
+                            s => s.alienIndex === index
+                        );
+                        return (
+                            <div
+                                key={index}
+                                className={`${styles.alienWrapper} ${styles[`alien${index}`]}`}
+                                style={{ animationDelay: `${index * 0.15}s` }}
+                            >
+                                <img
+                                    src={src}
+                                    alt={`Alien ${index + 1}`}
+                                    className={`${styles.alienImage} ${sponsor ? styles[sponsor.tier] : ""}`}
+                                />
+                                {sponsor && (
+                                    <img
+                                        src={sponsor.image}
+                                        alt={sponsor.name}
+                                        className={`${styles.sponsorLogo} ${styles[sponsor.tier]}`}
+                                    />
+                                )}
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </div>
