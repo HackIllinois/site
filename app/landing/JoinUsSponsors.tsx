@@ -113,7 +113,7 @@ const sponsors = [
     {
         name: "Actian",
         tier: "other",
-        image: "/sponsor_icons/Actian.png",
+        image: "/sponsor_icons/Actian-Logo-RGB_Horizontal.svg",
         alienIndex: 13
     },
     {
