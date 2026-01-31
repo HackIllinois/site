@@ -457,17 +457,32 @@ export default function RSVP() {
                     >
                         with a reimbursement total of{" "}
                         <Box
-                            component="span"
                             sx={{
-                                background:
-                                    "linear-gradient(135deg, #ffba9a 0%, #ee1eee 100%)",
-                                WebkitBackgroundClip: "text",
-                                WebkitTextFillColor: "transparent",
-                                backgroundClip: "text",
-                                fontWeight: 520
+                                width: "fit-content",
+                                display: "inline-block",
+                                backgroundColor: "rgb(19, 19, 19)",
+                                border: "1px solid rgba(255, 255, 255, 0.1)",
+                                boxShadow: "0 4px 30px rgba(0, 0, 0, 0.5)",
+                                ml: 0.5,
+                                px: 2,
+                                py: 1,
+                                borderRadius: "12px"
                             }}
                         >
-                            ${rsvpData?.reimbursementValue ?? 0}
+                            <Box
+                                component="span"
+                                sx={{
+                                    background:
+                                        "linear-gradient(135deg, #ffba9a 0%, #ee1eee 100%)",
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                    backgroundClip: "text",
+                                    fontWeight: 600,
+                                    letterSpacing: "0.5px"
+                                }}
+                            >
+                                ${rsvpData.reimbursementValue}
+                            </Box>
                         </Box>
                     </Typography>
                 )}
