@@ -434,76 +434,128 @@ export default function RSVP() {
                         }}
                     />
                 )}
-                {registrationData?.requestTravelReimbursement && (
-                    <Typography
-                        sx={{
-                            fontFamily: '"Montserrat", sans-serif',
-                            fontSize: { xs: "18px", sm: "20px", md: "29px" },
-                            fontWeight: 600,
-                            color: "white",
-                            textShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
-                            animation: "fadeInDown 0.8s ease-out 0.6s both",
-                            "@keyframes fadeInDown": {
-                                from: {
-                                    opacity: 0,
-                                    transform: "translateY(-30px)"
+                {registrationData?.requestTravelReimbursement &&
+                    (rsvpData.reimbursementValue ? (
+                        <Typography
+                            sx={{
+                                fontFamily: '"Montserrat", sans-serif',
+                                fontSize: {
+                                    xs: "18px",
+                                    sm: "20px",
+                                    md: "29px"
                                 },
-                                to: {
-                                    opacity: 1,
-                                    transform: "translateY(0)"
+                                fontWeight: 600,
+                                color: "white",
+                                textShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
+                                animation: "fadeInDown 0.8s ease-out 0.6s both",
+                                "@keyframes fadeInDown": {
+                                    from: {
+                                        opacity: 0,
+                                        transform: "translateY(-30px)"
+                                    },
+                                    to: {
+                                        opacity: 1,
+                                        transform: "translateY(0)"
+                                    }
                                 }
-                            }
-                        }}
-                    >
-                        with a reimbursement total of{" "}
+                            }}
+                        >
+                            with a reimbursement total of{" "}
+                            <Box
+                                sx={{
+                                    width: "fit-content",
+                                    display: "inline-block",
+                                    backgroundColor: {
+                                        xs: "rgba(0,0,0,0)",
+                                        md: "rgb(19, 19, 19)"
+                                    },
+                                    border: {
+                                        xs: "rgba(0,0,0,0)",
+                                        md: "1px solid rgba(255, 255, 255, 0.1)"
+                                    },
+                                    boxShadow: {
+                                        xs: "rgba(0,0,0,0)",
+                                        md: "0 4px 30px rgba(0, 0, 0, 0.5)"
+                                    },
+                                    ml: {
+                                        xs: 0,
+                                        md: 0.5
+                                    },
+                                    px: {
+                                        xs: 0,
+                                        md: 2
+                                    },
+                                    py: {
+                                        xs: 0,
+                                        md: 1
+                                    },
+                                    borderRadius: "12px"
+                                }}
+                            >
+                                <Box
+                                    component="span"
+                                    sx={{
+                                        background:
+                                            "linear-gradient(135deg, #ffba9a 0%, #ee1eee 100%)",
+                                        WebkitBackgroundClip: "text",
+                                        WebkitTextFillColor: "transparent",
+                                        backgroundClip: "text",
+                                        fontWeight: 600,
+                                        letterSpacing: "0.5px"
+                                    }}
+                                >
+                                    ${rsvpData.reimbursementValue}
+                                </Box>
+                            </Box>
+                        </Typography>
+                    ) : (
                         <Box
                             sx={{
                                 width: "fit-content",
                                 display: "inline-block",
-                                backgroundColor: {
-                                    xs: "rgba(0,0,0,0)",
-                                    md: "rgb(19, 19, 19)"
-                                },
-                                border: {
-                                    xs: "rgba(0,0,0,0)",
-                                    md: "1px solid rgba(255, 255, 255, 0.1)"
-                                },
-                                boxShadow: {
-                                    xs: "rgba(0,0,0,0)",
-                                    md: "0 4px 30px rgba(0, 0, 0, 0.5)"
-                                },
-                                ml: {
-                                    xs: 0,
-                                    md: 0.5
-                                },
-                                px: {
-                                    xs: 0,
-                                    md: 2
-                                },
-                                py: {
-                                    xs: 0,
-                                    md: 1
-                                },
-                                borderRadius: "12px"
+                                backgroundColor: "rgba(19, 19, 19, 0.8)",
+                                border: "1px solid rgba(255, 255, 255, 0.1)",
+                                boxShadow: "0 4px 30px rgba(0, 0, 0, 0.5)",
+                                ml: 0.5,
+                                mb: 2,
+                                px: 2,
+                                py: 2,
+                                borderRadius: "12px",
+                                animation: "fadeInDown 0.8s ease-out 0.6s both",
+                                "@keyframes fadeInDown": {
+                                    from: {
+                                        opacity: 0,
+                                        transform: "translateY(-30px)"
+                                    },
+                                    to: {
+                                        opacity: 1,
+                                        transform: "translateY(0)"
+                                    }
+                                }
                             }}
                         >
-                            <Box
-                                component="span"
+                            <Typography
                                 sx={{
-                                    background:
-                                        "linear-gradient(135deg, #ffba9a 0%, #ee1eee 100%)",
-                                    WebkitBackgroundClip: "text",
-                                    WebkitTextFillColor: "transparent",
-                                    backgroundClip: "text",
-                                    fontWeight: 600,
-                                    letterSpacing: "0.5px"
+                                    fontFamily: '"Montserrat", sans-serif',
+                                    fontSize: {
+                                        xs: "12px",
+                                        sm: "16px",
+                                        md: "18px"
+                                    },
+                                    fontWeight: 500,
+                                    color: "rgba(255, 255, 255, 0.9)",
+                                    lineHeight: 1.6,
+                                    maxWidth: "900px",
+                                    textWrap: "balance"
                                 }}
                             >
-                                ${rsvpData.reimbursementValue}
-                            </Box>
+                                At this time, we are unable to provide travel
+                                reimbursement. However, we have added you to a
+                                reimbursement waitlist and will notify you if
+                                additional funding becomes available.
+                            </Typography>
                         </Box>
-                    </Typography>
-                )}
+                    ))}
                 <Typography
                     sx={{
                         fontFamily: '"Montserrat", sans-serif',
