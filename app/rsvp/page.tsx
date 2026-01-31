@@ -460,12 +460,30 @@ export default function RSVP() {
                             sx={{
                                 width: "fit-content",
                                 display: "inline-block",
-                                backgroundColor: "rgb(19, 19, 19)",
-                                border: "1px solid rgba(255, 255, 255, 0.1)",
-                                boxShadow: "0 4px 30px rgba(0, 0, 0, 0.5)",
-                                ml: 0.5,
-                                px: 2,
-                                py: 1,
+                                backgroundColor: {
+                                    xs: "rgba(0,0,0,0)",
+                                    md: "rgb(19, 19, 19)"
+                                },
+                                border: {
+                                    xs: "rgba(0,0,0,0)",
+                                    md: "1px solid rgba(255, 255, 255, 0.1)"
+                                },
+                                boxShadow: {
+                                    xs: "rgba(0,0,0,0)",
+                                    md: "0 4px 30px rgba(0, 0, 0, 0.5)"
+                                },
+                                ml: {
+                                    xs: 0,
+                                    md: 0.5
+                                },
+                                px: {
+                                    xs: 0,
+                                    md: 2
+                                },
+                                py: {
+                                    xs: 0,
+                                    md: 1
+                                },
                                 borderRadius: "12px"
                             }}
                         >
