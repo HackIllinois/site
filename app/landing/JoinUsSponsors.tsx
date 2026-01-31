@@ -101,7 +101,7 @@ const sponsors = [
     {
         name: "Aedify AI",
         tier: "prize",
-        image: "/sponsor_icons/AedifyAI.png",
+        image: "/sponsor_icons/SVG2 - Charlie Wan.svg",
         alienIndex: 11
     },
     {
@@ -119,7 +119,7 @@ const sponsors = [
     {
         name: "Nora",
         tier: "other",
-        image: "/sponsor_icons/Nora.png",
+        image: "/sponsor_icons/logocolor - Aryan Bahl.svg",
         alienIndex: 14
     },
     {
