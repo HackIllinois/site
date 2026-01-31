@@ -158,16 +158,16 @@
     top: 48%;
     left: 50%;
     transform: translateX(-50%);
-    width: 85%;
-    height: 60%;
+    width: 60%;
+    height: 55%;
     pointer-events: none;
     z-index: 2;
 
     @media (max-width: 600px) {
         top: 42%;
         left: 50%;
-        width: 90%;
-        height: 55%;
+        width: 80%;
+        height: 50%;
     }
 }
 
@@ -180,150 +180,124 @@
 }
 
 .alienImage {
-    width: clamp(30px, 6vw, 80px);
+    width: clamp(60px, 10vw, 140px);
     height: auto;
 
     &.title {
-        width: clamp(50px, 10vw, 200px);
+        width: clamp(80px, 14vw, 200px);
     }
 
     &.gold {
-        width: clamp(40px, 8vw, 100px);
+        width: clamp(70px, 12vw, 160px);
     }
 
     &.silver {
-        width: clamp(35px, 7vw, 90px);
-    }
-
-    &.prize {
-        width: clamp(32px, 6.5vw, 85px);
-    }
-
-    &.other {
-        width: clamp(30px, 6vw, 80px);
+        width: clamp(65px, 11vw, 150px);
     }
 }
 
 .sponsorLogo {
     position: absolute;
-    width: 70%;
+    width: 80%;
     height: auto;
     object-fit: contain;
     filter: brightness(0) invert(1);
 
     &.title {
-        width: 130%;
+        width: 140%;
         filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 255, 255, 0.7));
     }
 
     &.gold {
-        width: 90%;
+        width: 110%;
         filter: brightness(1.05) drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
     }
 
     &.silver {
-        width: 75%;
+        width: 100%;
         filter: brightness(1);
-    }
-
-    &.prize {
-        width: 68%;
-        filter: brightness(0.95);
-    }
-
-    &.other {
-        width: 62%;
-        filter: brightness(0.9);
     }
 }
 
 .alienWrapper.alien0 {
-    top: 2%;
+    top: 5%;
     left: 50%;
     transform: translateX(-50%);
 }
 
 .alienWrapper.alien1 {
-    top: 3%;
-    left: 5%;
+    top: 12%;
+    left: 20%;
 }
 
 .alienWrapper.alien2 {
-    top: 3%;
-    left: 90%;
+    top: 10%;
+    left: 80%;
 }
 
 .alienWrapper.alien3 {
-    top: 10%;
-    left: 25%;
+    top: 25%;
+    left: 30%;
 }
 
 .alienWrapper.alien4 {
-    top: 9%;
-    left: 69%;
+    top: 23%;
+    left: 70%;
 }
 
 .alienWrapper.alien5 {
-    top: 17%;
-    left: 15%;
-}
-
-.alienWrapper.alien6 {
-    top: 27%;
+    top: 40%;
     left: 50%;
     transform: translateX(-50%);
 }
 
-.alienWrapper.alien7 {
-    top: 18%;
-    left: 79%;
-}
-
-.alienWrapper.alien8 {
-    top: 27%;
-    left: 1%;
-}
-
-.alienWrapper.alien9 {
-    top: 25%;
-    left: 35%;
-}
-
-.alienWrapper.alien10 {
-    top: 28%;
-    left: 65%;
-    transform: translateX(-50%);
-}
-
-.alienWrapper.alien11 {
-    top: 26%;
-    left: 98%;
-}
-
-.alienWrapper.alien12 {
-    top: 33%;
-    left: 18%;
-}
-
-.alienWrapper.alien13 {
-    top: 43%;
+.bottomSponsorsContainer {
+    position: absolute;
+    bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
+    width: 80%;
+    z-index: 3;
+
+    @media (max-width: 600px) {
+        bottom: 3%;
+        width: 90%;
+    }
 }
 
-.alienWrapper.alien14 {
-    top: 38%;
-    left: 82%;
+.bottomSponsorsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    align-items: center;
+    justify-items: center;
+    padding: 20px;
+
+    @media (max-width: 600px) {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
 }
 
-.alienWrapper.alien15 {
-    top: 48%;
-    left: 22%;
-}
+.bottomSponsorLogo {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    max-height: 60px;
+    transition:
+        filter 0.3s ease,
+        transform 0.3s ease;
 
-.alienWrapper.alien16 {
-    top: 46%;
-    left: 67%;
+    &:hover {
+        filter: brightness(1.1) invert(1);
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+        max-height: 45px;
+    }
 }
 
 /* Optionally tweak for very small screens */

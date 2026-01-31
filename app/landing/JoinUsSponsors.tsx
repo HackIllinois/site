@@ -17,21 +17,10 @@ const alienAssets = [
     "/landing/sponsors/aliens/alien3.svg",
     "/landing/sponsors/aliens/alien4.svg",
     "/landing/sponsors/aliens/alien5.svg",
-    "/landing/sponsors/aliens/alien6.svg",
-    "/landing/sponsors/aliens/alien1.svg",
-    "/landing/sponsors/aliens/alien2.svg",
-    "/landing/sponsors/aliens/alien3.svg",
-    "/landing/sponsors/aliens/alien4.svg",
-    "/landing/sponsors/aliens/alien5.svg",
-    "/landing/sponsors/aliens/alien6.svg",
-    "/landing/sponsors/aliens/alien1.svg",
-    "/landing/sponsors/aliens/alien2.svg",
-    "/landing/sponsors/aliens/alien3.svg",
-    "/landing/sponsors/aliens/alien4.svg",
-    "/landing/sponsors/aliens/alien5.svg"
+    "/landing/sponsors/aliens/alien6.svg"
 ];
 
-const sponsors = [
+const alienSponsors = [
     {
         name: "FulcrumGT",
         tier: "title",
@@ -67,72 +56,53 @@ const sponsors = [
         tier: "silver",
         image: "/sponsor_icons/Primary-Modal-Wordmark-Dark - Felicia Chang.svg",
         alienIndex: 5
-    },
+    }
+];
+
+const bottomSponsors = [
     {
         name: "T-Mobile",
-        tier: "silver",
-        image: "/sponsor_icons/T-Badge_Icon_PRI_RGB_on-W_2025-03-06 - Akul Sharma.png",
-        alienIndex: 6
+        image: "/sponsor_icons/T-Badge_Icon_PRI_RGB_on-W_2025-03-06 - Akul Sharma.png"
     },
     {
         name: "IMC",
-        tier: "silver",
-        image: "/sponsor_icons/Logo-IMC-FC (1) - Cara Norris.png",
-        alienIndex: 7
+        image: "/sponsor_icons/Logo-IMC-FC (1) - Cara Norris.png"
     },
     {
         name: "Capital One",
-        tier: "silver",
-        image: "/sponsor_icons/C1_Core_NG_RGB_R - Reshmi Ranjith.png",
-        alienIndex: 8
+        image: "/sponsor_icons/C1_Core_NG_RGB_R - Reshmi Ranjith.png"
     },
     {
         name: "Solana",
-        tier: "silver",
-        image: "/sponsor_icons/solanaLogo - Gui Bibeau-Laviolette.svg",
-        alienIndex: 9
+        image: "/sponsor_icons/solanaLogo - Gui Bibeau-Laviolette.svg"
     },
     {
         name: "OpenAI",
-        tier: "prize",
-        image: "/sponsor_icons/openAI.png",
-        alienIndex: 10
+        image: "/sponsor_icons/openAI.png"
     },
     {
         name: "Aedify AI",
-        tier: "prize",
-        image: "/sponsor_icons/SVG2 - Charlie Wan.svg",
-        alienIndex: 11
+        image: "/sponsor_icons/SVG2 - Charlie Wan.svg"
     },
     {
         name: "Cloudflare",
-        tier: "prize",
-        image: "/sponsor_icons/cloudflare logo.png",
-        alienIndex: 12
+        image: "/sponsor_icons/cloudflare logo.png"
     },
     {
         name: "Actian",
-        tier: "other",
-        image: "/sponsor_icons/Actian-Logo-RGB_Horizontal.svg",
-        alienIndex: 13
+        image: "/sponsor_icons/Actian-Logo-RGB_Horizontal.svg"
     },
     {
         name: "Nora",
-        tier: "other",
-        image: "/sponsor_icons/logocolor - Aryan Bahl.svg",
-        alienIndex: 14
+        image: "/sponsor_icons/logocolor - Aryan Bahl.svg"
     },
     {
         name: "Melius",
-        tier: "other",
-        image: "/sponsor_icons/Melius.png",
-        alienIndex: 15
+        image: "/sponsor_icons/Melius.png"
     },
     {
         name: "Exa",
-        tier: "other",
-        image: "/sponsor_icons/exa-logo (2) - Stacey Tara.svg",
-        alienIndex: 16
+        image: "/sponsor_icons/exa-logo (2) - Stacey Tara.svg"
     }
 ];
 
@@ -409,7 +379,7 @@ const JoinUsSponsors = () => {
 
                 <div className={styles.aliensContainer}>
                     {alienAssets.map((src, index) => {
-                        const sponsor = sponsors.find(
+                        const sponsor = alienSponsors.find(
                             s => s.alienIndex === index
                         );
                         return (
@@ -433,6 +403,19 @@ const JoinUsSponsors = () => {
                             </div>
                         );
                     })}
+                </div>
+
+                <div className={styles.bottomSponsorsContainer}>
+                    <div className={styles.bottomSponsorsGrid}>
+                        {bottomSponsors.map((sponsor, index) => (
+                            <img
+                                key={index}
+                                src={sponsor.image}
+                                alt={sponsor.name}
+                                className={styles.bottomSponsorLogo}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
