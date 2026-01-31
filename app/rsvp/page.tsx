@@ -534,8 +534,8 @@ export default function RSVP() {
                             >
                                 At this time, we are unable to provide travel
                                 reimbursement. However, we have added you to a
-                                waitlist and will notify you if additional
-                                funding becomes available.
+                                reimbursement waitlist and will notify you if
+                                additional funding becomes available.
                             </Typography>
                         </Box>
                     ))}
