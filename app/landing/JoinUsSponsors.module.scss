@@ -252,15 +252,20 @@
 
 .bottomSponsorsGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
     gap: 30px;
     align-items: center;
     justify-items: center;
     padding: 20px;
 
+    @media (max-width: 900px) {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
     @media (max-width: 600px) {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 20px;
+        gap: 15px;
         padding: 15px;
     }
 }
@@ -284,6 +289,18 @@
 
         &:hover {
             filter: brightness(1.1);
+        }
+    }
+
+    &.shiftRight {
+        margin-left: 80px;
+
+        @media (max-width: 900px) {
+            margin-left: 40px;
+        }
+
+        @media (max-width: 600px) {
+            margin-left: 20px;
         }
     }
 

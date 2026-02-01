@@ -86,21 +86,25 @@ const bottomSponsors = [
     },
     {
         name: "Exa",
-        image: "/sponsor_icons/exa white logo.svg"
+        image: "/sponsor_icons/exa white logo.svg",
+        shiftRight: true
     },
     {
         name: "Actian",
-        image: "/sponsor_icons/Actian-Logo-RGB_Horizontal-White.svg"
+        image: "/sponsor_icons/Actian-Logo-RGB_Horizontal-White.svg",
+        shiftRight: true
     },
     {
         name: "Nora",
         image: "/sponsor_icons/logocolor - Aryan Bahl.svg",
-        invertToWhite: true
+        invertToWhite: true,
+        shiftRight: true
     },
     {
         name: "Aedify AI",
         image: "/sponsor_icons/SVG2 - Charlie Wan.svg",
-        invertToWhite: true
+        invertToWhite: true,
+        shiftRight: true
     }
 ];
 
@@ -410,7 +414,7 @@ const JoinUsSponsors = () => {
                                 key={index}
                                 src={sponsor.image}
                                 alt={sponsor.name}
-                                className={`${styles.bottomSponsorLogo} ${sponsor.invertToWhite ? styles.invertWhite : ""}`}
+                                className={`${styles.bottomSponsorLogo} ${sponsor.invertToWhite ? styles.invertWhite : ""} ${sponsor.shiftRight ? styles.shiftRight : ""}`}
                             />
                         ))}
                     </div>
