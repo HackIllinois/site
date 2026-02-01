@@ -55,7 +55,8 @@ const alienSponsors = [
         name: "Supermemory",
         tier: "gold",
         image: "/sponsor_icons/supermemory white logo.svg",
-        alienIndex: 5
+        alienIndex: 5,
+        larger: true
     }
 ];
 
@@ -399,7 +400,7 @@ const JoinUsSponsors = () => {
                                     <img
                                         src={sponsor.image}
                                         alt={sponsor.name}
-                                        className={`${styles.sponsorLogo} ${styles[sponsor.tier]}`}
+                                        className={`${styles.sponsorLogo} ${styles[sponsor.tier]} ${sponsor.larger ? styles.larger : ""}`}
                                     />
                                 )}
                             </div>
