@@ -7,39 +7,38 @@ import { EVENT_TIMEZONE } from "@/util/config";
 import { Box, IconButton, Typography } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
-import { TagsList } from "@/app/schedule/Tags";
+import { Tag, TagsList } from "@/app/schedule/Tags";
 import DateSelector from "@/app/schedule/DateSelector";
 import FilterPopup from "@/app/schedule/FilterPopup";
-
-type ScheduleItemProps = {
-    event: EventType;
-};
 
 function timeToHourMinute(time: number) {
     const date = moment(time * 1000).tz(EVENT_TIMEZONE);
     return date.format("h:mm A");
 }
 
-export type tag = {
-    name: string;
+function getEventTags(event: EventType): Tag[] {
+    const tags: Tag[] = [];
+
+    if (event.eventType) {
+        tags.push({ id: event.eventType, label: event.eventType });
+    }
+
+    if (event.points) {
+        const pts = `${event.points} pts`;
+        tags.push({ id: pts, label: pts });
+    }
+
+    // TODO: add more tags as needed
+
+    return tags;
+}
+
+type ScheduleItemProps = {
+    event: EventType;
 };
 
 const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
-    const tags = useMemo(() => {
-        const newTags: tag[] = [];
-
-        if (event.eventType) {
-            newTags.push({ name: event.eventType });
-        }
-
-        if (event.points) {
-            newTags.push({ name: `${event.points} pts` });
-        }
-
-        // TODO: add more tags as needed
-
-        return newTags;
-    }, [event]);
+    const eventTags = getEventTags(event);
 
     const locations = event.locations
         .map(location => location.description)
@@ -79,8 +78,8 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                     {event.name}
                 </Typography>
 
-                {/* Tags */}
-                <TagsList tags={tags} />
+                {/* Event's tags */}
+                <TagsList tags={eventTags} />
             </Box>
 
             {/* Time */}
@@ -147,10 +146,19 @@ export interface DateOption {
 const Schedule = () => {
     const [events, setEvents] = useState<EventsWithDay[]>([]);
     const [selectedDay, setSelectedDay] = useState<string | undefined>();
+
+    // Filter popup
     const [filterOpen, setFilterOpen] = useState(false);
+    const [selectedTagIds, setSelectedTagIds] = useState<Set<string>>(
+        new Set()
+    );
+    const [timeFilter, setTimeFilter] = useState<{
+        from?: moment.Moment;
+        to?: moment.Moment;
+    }>({});
+
     const [loading, setLoading] = useState(false);
     const eventRef = useRef<HTMLDivElement>(null);
-
     const contentRef = useRef<HTMLDivElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -179,17 +187,74 @@ const Schedule = () => {
         return Array.from(seen.values());
     }, [events]);
 
+    const allTags: Tag[] = useMemo(() => {
+        const tagsSet = new Set<string>();
+        events.forEach(event => {
+            if (event.eventType) tagsSet.add(event.eventType);
+            if (event.points) tagsSet.add(`${event.points} pts`);
+            // TODO: add more tag types if needed
+        });
+
+        const tagsArray = Array.from(tagsSet).map(t => ({ id: t, label: t }));
+
+        // sort alphabetically
+        tagsArray.sort((a, b) => a.label.localeCompare(b.label));
+        return tagsArray;
+    }, [events]);
+
     const displayedEvents = useMemo(() => {
         if (!selectedDay) return [];
+
         return events
             .filter(event => {
                 const eventId = moment(event.startTime * 1000)
                     .tz(EVENT_TIMEZONE)
                     .format("YYYY-MM-DD");
-                return eventId === selectedDay;
+                if (eventId !== selectedDay) return false;
+
+                // tag filter
+                const eventTags = new Set<string>();
+                if (event.eventType) eventTags.add(event.eventType);
+                if (event.points) eventTags.add(`${event.points} pts`);
+
+                const tagMatch = [...eventTags].some(tag =>
+                    selectedTagIds.has(tag)
+                );
+                if (!tagMatch) return false;
+
+                // time filter
+                const start = moment(event.startTime * 1000).tz(EVENT_TIMEZONE);
+                const end = moment(event.endTime * 1000).tz(EVENT_TIMEZONE);
+
+                if (timeFilter.from) {
+                    const from = moment(timeFilter.from).tz(EVENT_TIMEZONE);
+                    if (
+                        start.hours() < from.hours() ||
+                        (start.hours() === from.hours() &&
+                            start.minutes() < from.minutes())
+                    )
+                        return false;
+                }
+
+                if (timeFilter.to) {
+                    const to = moment(timeFilter.to).tz(EVENT_TIMEZONE);
+
+                    const toMinutes =
+                        to.hours() === 0 && to.minutes() === 0
+                            ? 24 * 60
+                            : to.hours() * 60 + to.minutes();
+                    const endMinutes =
+                        end.hours() === 0 && end.minutes() === 0
+                            ? 24 * 60
+                            : end.hours() * 60 + end.minutes();
+
+                    if (endMinutes > toMinutes) return false;
+                }
+
+                return true;
             })
             .sort((a, b) => a.startTime - b.startTime);
-    }, [events, selectedDay]);
+    }, [events, selectedDay, selectedTagIds]);
 
     const handleLoadEvents = async () => {
         setLoading(true);
@@ -229,6 +294,10 @@ const Schedule = () => {
             );
         }
     }, [availableDays, selectedDay]);
+
+    useEffect(() => {
+        setSelectedTagIds(new Set(allTags.map(t => t.id)));
+    }, [allTags]);
 
     return (
         <Box
@@ -406,6 +475,22 @@ const Schedule = () => {
                                 </Typography>
                             )}
 
+                            {!loading && displayedEvents.length === 0 && (
+                                <Typography
+                                    sx={{
+                                        textAlign: "center",
+                                        mt: 4,
+                                        color: "#FFF",
+                                        fontFamily:
+                                            "'Tsukimi Rounded', sans-serif",
+                                        fontWeight: "medium",
+                                        fontSize: 16
+                                    }}
+                                >
+                                    No events match your filters.
+                                </Typography>
+                            )}
+
                             {/* Events list */}
                             <Box
                                 ref={contentRef}
@@ -431,14 +516,16 @@ const Schedule = () => {
                     {/* Filters popup */}
                     {filterOpen && (
                         <FilterPopup
-                            tags={[
-                                { name: "Workshop" },
-                                { name: "Food" },
-                                { name: "Main Event" }
-                            ]}
+                            tags={allTags}
+                            selectedTagIds={selectedTagIds}
+                            selectedTime={timeFilter}
                             onClose={() => setFilterOpen(false)}
-                            onUpdate={() => {
-                                // TODO: apply filters
+                            onUpdate={(
+                                updatedIds: Set<string>,
+                                updatedTimeFilter
+                            ) => {
+                                setSelectedTagIds(updatedIds);
+                                setTimeFilter(updatedTimeFilter);
                                 setFilterOpen(false);
                             }}
                         />

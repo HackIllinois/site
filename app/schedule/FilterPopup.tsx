@@ -1,6 +1,8 @@
 "use client";
-import { useState } from "react";
-import { TagsList } from "@/app/schedule/Tags";
+import { useEffect, useState } from "react";
+import moment from "moment-timezone";
+import { EVENT_TIMEZONE } from "@/util/config";
+
 import {
     Box,
     Button,
@@ -11,28 +13,64 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import { tag } from "@/app/schedule/page";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Tag, TagsToggleList } from "@/app/schedule/Tags";
 
 interface FilterPopupProps {
-    tags: tag[];
+    tags: Tag[];
+    selectedTagIds: Set<string>;
+    selectedTime: { from?: moment.Moment; to?: moment.Moment };
     onClose: () => void;
-    onUpdate: () => void;
+    onUpdate: (
+        newSelected: Set<string>,
+        timeFilter: { from?: moment.Moment; to?: moment.Moment }
+    ) => void;
 }
 
-const TimeFilterBox = ({ label }: { label: string }) => {
-    const [hour, setHour] = useState<string>("12");
-    const [minute, setMinute] = useState<string>("00");
+interface TimeFilterBoxProps {
+    label: string;
+    value?: moment.Moment;
+    onChange: (newTime?: moment.Moment) => void;
+}
+
+const TimeFilterBox: React.FC<TimeFilterBoxProps> = ({
+    label,
+    value,
+    onChange
+}) => {
+    const [hour, setHour] = useState("12");
+    const [minute, setMinute] = useState("00");
     const [amPm, setAmPm] = useState<"AM" | "PM">("AM");
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const menuOpen = Boolean(anchorEl);
 
-    const incHour = () =>
-        setHour(h =>
-            String(
-                (Number(h) % 12 || 12) + 1 > 12 ? 1 : Number(h) + 1
-            ).padStart(2, "0")
+    useEffect(() => {
+        if (value) {
+            const h = value.format("hh");
+            const m = value.format("mm");
+            const ap = value.format("A") as "AM" | "PM";
+            setHour(h);
+            setMinute(m);
+            setAmPm(ap);
+        } else {
+            // clear time filter
+            setHour("12");
+            setMinute("00");
+            setAmPm("AM");
+        }
+    }, [value]);
+
+    useEffect(() => {
+        const newMoment = moment(`${hour}:${minute} ${amPm}`, "h:mm A").tz(
+            EVENT_TIMEZONE
         );
+        onChange(newMoment);
+    }, [hour, minute, amPm]);
+
+    const incHour = () =>
+        setHour(h => String((Number(h) % 12) + 1).padStart(2, "0"));
 
     const decHour = () =>
         setHour(h =>
@@ -54,26 +92,30 @@ const TimeFilterBox = ({ label }: { label: string }) => {
         onClick: () => void;
         direction: "up" | "down";
     }) => (
-        <Box sx={{ paddingTop: 1 }}>
+        <Box>
             <IconButton
                 onClick={onClick}
                 sx={{
                     width: 28,
                     height: 28,
                     backgroundColor: "#11031B",
+                    mb: direction === "up" ? 0.5 : 0,
+                    mt: direction === "down" ? 1 : 0,
                     color: "#F7EDFF",
                     "&:hover": { backgroundColor: "#11031B" }
                 }}
             >
-                <Typography sx={{ fontSize: 16, lineHeight: 1 }}>
-                    {direction === "up" ? "^" : "v"}
-                </Typography>
+                {direction === "up" ? (
+                    <KeyboardArrowUpIcon fontSize="medium" />
+                ) : (
+                    <KeyboardArrowDownIcon fontSize="medium" />
+                )}
             </IconButton>
         </Box>
     );
 
     return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+        <Box sx={{ display: "flex", flexDirection: "column", flex: 1, gap: 1 }}>
             <Typography
                 sx={{
                     color: "#454545",
@@ -93,7 +135,7 @@ const TimeFilterBox = ({ label }: { label: string }) => {
                     p: 1,
                     display: "flex",
                     alignItems: "center",
-                    gap: 2
+                    gap: 1.5
                 }}
             >
                 {/* Hour */}
@@ -104,8 +146,7 @@ const TimeFilterBox = ({ label }: { label: string }) => {
                         alignItems: "center"
                     }}
                 >
-                    <ArrowButton direction="up" onClick={() => incHour()} />
-
+                    <ArrowButton direction="up" onClick={incHour} />
                     <TextField
                         value={hour}
                         onChange={e =>
@@ -113,22 +154,22 @@ const TimeFilterBox = ({ label }: { label: string }) => {
                                 e.target.value.replace(/\D/g, "").slice(0, 2)
                             )
                         }
-                        inputProps={{
-                            style: {
+                        sx={{
+                            width: 36,
+                            "& input": {
                                 textAlign: "center",
                                 fontFamily: "Montserrat",
                                 fontSize: 18,
                                 color: "#454545",
-                                padding: 4,
-                                width: 36
+                                padding: "4px 0"
                             }
                         }}
                         variant="standard"
                     />
-
-                    <ArrowButton direction="down" onClick={() => decHour()} />
+                    <ArrowButton direction="down" onClick={decHour} />
                 </Box>
 
+                {/* Separator */}
                 <Typography
                     sx={{
                         fontFamily: "Montserrat",
@@ -147,8 +188,7 @@ const TimeFilterBox = ({ label }: { label: string }) => {
                         alignItems: "center"
                     }}
                 >
-                    <ArrowButton direction="up" onClick={() => incMinute()} />
-
+                    <ArrowButton direction="up" onClick={incMinute} />
                     <TextField
                         value={minute}
                         onChange={e =>
@@ -156,34 +196,37 @@ const TimeFilterBox = ({ label }: { label: string }) => {
                                 e.target.value.replace(/\D/g, "").slice(0, 2)
                             )
                         }
-                        inputProps={{
-                            style: {
+                        sx={{
+                            width: 36,
+                            "& input": {
                                 textAlign: "center",
                                 fontFamily: "Montserrat",
                                 fontSize: 18,
                                 color: "#454545",
-                                padding: 4,
-                                width: 36
+                                padding: "4px 0"
                             }
                         }}
                         variant="standard"
                     />
-
-                    <ArrowButton direction="down" onClick={() => decMinute()} />
+                    <ArrowButton direction="down" onClick={decMinute} />
                 </Box>
 
-                {/* AM/PM */}
-                <Box sx={{ position: "relative" }}>
+                {/* AM/PM button */}
+                <Box
+                    sx={{ flex: 1, display: "flex", justifyContent: "center" }}
+                >
                     <Button
-                        onClick={() => setAmPm("AM")}
+                        onClick={e => setAnchorEl(e.currentTarget)}
                         sx={{
-                            width: "100%",
+                            width: 36,
                             height: 36,
                             borderRadius: "50%",
                             backgroundColor: "#ffffff",
                             fontFamily: "Montserrat, sans-serif",
                             fontSize: 16,
                             color: "#454545",
+                            minWidth: 0,
+                            padding: 0,
                             "&:hover": { backgroundColor: "#ffffff" }
                         }}
                     >
@@ -194,24 +237,27 @@ const TimeFilterBox = ({ label }: { label: string }) => {
                         anchorEl={anchorEl}
                         open={menuOpen}
                         onClose={() => setAnchorEl(null)}
+                        anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "center"
+                        }}
+                        transformOrigin={{
+                            vertical: "top",
+                            horizontal: "center"
+                        }}
                     >
-                        <MenuItem
-                            onClick={() => {
-                                setAmPm("AM");
-                                setAnchorEl(null);
-                            }}
-                        >
-                            AM
-                        </MenuItem>
-                        <Divider />
-                        <MenuItem
-                            onClick={() => {
-                                setAmPm("PM");
-                                setAnchorEl(null);
-                            }}
-                        >
-                            PM
-                        </MenuItem>
+                        {["AM", "PM"].map(option => (
+                            <MenuItem
+                                key={option}
+                                selected={amPm === option}
+                                onClick={() => {
+                                    setAmPm(option as "AM" | "PM");
+                                    setAnchorEl(null);
+                                }}
+                            >
+                                {option}
+                            </MenuItem>
+                        ))}
                     </Menu>
                 </Box>
             </Box>
@@ -221,9 +267,57 @@ const TimeFilterBox = ({ label }: { label: string }) => {
 
 const FilterPopup: React.FC<FilterPopupProps> = ({
     tags,
+    selectedTagIds,
+    selectedTime,
     onClose,
     onUpdate
 }) => {
+    const [localSelected, setLocalSelected] = useState<Set<string>>(
+        new Set(selectedTagIds)
+    );
+    const [localTime, setLocalTime] = useState<{
+        from?: moment.Moment;
+        to?: moment.Moment;
+    }>(selectedTime);
+    const [timeError, setTimeError] = useState<string | null>(null);
+
+    useEffect(() => {
+        setLocalSelected(new Set(selectedTagIds));
+        setLocalTime(selectedTime);
+    }, [selectedTagIds, selectedTime]);
+
+    useEffect(() => {
+        setLocalTime(prev => ({
+            from: prev.from ?? undefined,
+            to: prev.to ?? undefined
+        }));
+    }, []);
+
+    useEffect(() => {
+        if (localTime.from && localTime.to) {
+            const from = localTime.from.clone();
+            const to = localTime.to.clone();
+            const fromMinutes = from.hours() * 60 + from.minutes();
+            let toMinutes = to.hours() * 60 + to.minutes();
+            if (to.hours() === 0 && to.minutes() === 0) toMinutes = 24 * 60;
+
+            if (fromMinutes > toMinutes) {
+                setTimeError("Start time cannot be after end time");
+            } else {
+                setTimeError(null);
+            }
+        }
+    }, [localTime.from, localTime.to]);
+
+    const handleToggleTag = (tagId: string) => {
+        setLocalSelected(prev => {
+            const next = new Set(prev);
+            if (next.has(tagId)) next.delete(tagId);
+            else next.add(tagId);
+            return next;
+        });
+    };
+
     return (
         <Box
             sx={{
@@ -233,32 +327,76 @@ const FilterPopup: React.FC<FilterPopupProps> = ({
                 width: 500,
                 backgroundColor: "#ffffff",
                 boxShadow: 24,
-                p: 4,
+                p: 2,
                 borderRadius: 2,
                 display: "flex",
                 flexDirection: "column",
-                gap: 3,
+                gap: 1.5,
                 zIndex: 20
             }}
         >
             {/* Tags filter */}
-            <Box>
-                <TagsList tags={tags} />
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 1,
+                    alignItems: "flex-start"
+                }}
+            >
+                <TagsToggleList
+                    tags={tags}
+                    selectedTagIds={[...localSelected]}
+                    onToggleTag={handleToggleTag}
+                />
+                <Button
+                    onClick={() => onUpdate(localSelected, localTime)}
+                    sx={{ alignSelf: "flex-start" }}
+                >
+                    Update
+                </Button>
             </Box>
 
             <Divider variant="middle" />
 
-            {/* Time filter */}
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "space-around",
-                    alignItems: "center"
-                }}
-            >
-                <TimeFilterBox label="From:" />
-                <TimeFilterBox label="To:" />
+            {/* Time filters */}
+            <Box sx={{ display: "flex", gap: 2, alignItems: "flex-end" }}>
+                <TimeFilterBox
+                    label="From:"
+                    value={localTime.from}
+                    onChange={m => setLocalTime(prev => ({ ...prev, from: m }))}
+                />
+                <TimeFilterBox
+                    label="To:"
+                    value={localTime.to}
+                    onChange={m => setLocalTime(prev => ({ ...prev, to: m }))}
+                />
+
+                {/* Clear time filter button */}
+                <Button
+                    onClick={() =>
+                        setLocalTime({ from: undefined, to: undefined })
+                    }
+                    sx={{
+                        height: 36,
+                        minWidth: 0,
+                        px: 2,
+                        color: "#454545",
+                        fontFamily: "'Tsukimi Rounded', sans-serif",
+                        fontSize: 12,
+                        backgroundColor: "#EEE",
+                        "&:hover": { backgroundColor: "#DDD" }
+                    }}
+                >
+                    Clear
+                </Button>
             </Box>
+
+            {timeError && (
+                <Typography sx={{ color: "red", fontSize: 12 }}>
+                    {timeError}
+                </Typography>
+            )}
 
             <Divider variant="middle" />
 
@@ -273,7 +411,7 @@ const FilterPopup: React.FC<FilterPopupProps> = ({
                 <Button
                     onClick={onClose}
                     sx={{
-                        color: "#000",
+                        color: "#2B1350",
                         fontFamily: "'Tsukimi Rounded', sans-serif",
                         fontWeight: "bold",
                         fontSize: 15
@@ -285,10 +423,17 @@ const FilterPopup: React.FC<FilterPopupProps> = ({
                 <Divider orientation="vertical" flexItem />
 
                 <Button
-                    onClick={onUpdate}
+                    onClick={() => onUpdate(localSelected, localTime)}
                     sx={{
-                        color: "#000"
+                        color: "#2B1350",
+                        fontFamily: "'Tsukimi Rounded', sans-serif",
+                        fontWeight: "bold",
+                        fontSize: 15,
+                        "&.Mui-disabled": {
+                            color: "rgba(43, 19, 80, 0.5)"
+                        }
                     }}
+                    disabled={!!timeError} // disable button if error exists
                 >
                     Update
                 </Button>
