@@ -28,9 +28,9 @@ const alienSponsors = [
         alienIndex: 0
     },
     {
-        name: "Modal",
+        name: "John Deere",
         tier: "gold",
-        image: "/sponsor_icons/logo Modal white.svg",
+        image: "/sponsor_icons/white johnd deere logo.svg",
         alienIndex: 1
     },
     {
@@ -40,9 +40,9 @@ const alienSponsors = [
         alienIndex: 2
     },
     {
-        name: "Cloudflare",
+        name: "Stripe",
         tier: "gold",
-        image: "/sponsor_icons/cloudflare white logo.svg",
+        image: "/sponsor_icons/stripe white logo.svg",
         alienIndex: 3
     },
     {
@@ -77,12 +77,12 @@ const bottomSponsors = [
         image: "/sponsor_icons/solana white logo.svg"
     },
     {
-        name: "Stripe",
-        image: "/sponsor_icons/stripe white logo.svg"
+        name: "Cloudflare",
+        image: "/sponsor_icons/cloudflare white logo.svg"
     },
     {
-        name: "John Deere",
-        image: "/sponsor_icons/white johnd deere logo.svg"
+        name: "Modal",
+        image: "/sponsor_icons/logo Modal white.svg"
     },
     {
         name: "Exa",
