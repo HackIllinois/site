@@ -90,19 +90,17 @@ const bottomSponsors = [
     },
     {
         name: "Actian",
-        image: "/sponsor_icons/Actian-Logo-RGB_Horizontal.svg"
+        image: "/sponsor_icons/Actian-Logo-RGB_Horizontal-White.svg"
     },
     {
         name: "Nora",
-        image: "/sponsor_icons/logocolor - Aryan Bahl.svg"
-    },
-    {
-        name: "Melius",
-        image: "/sponsor_icons/Melius.png"
+        image: "/sponsor_icons/logocolor - Aryan Bahl.svg",
+        invertToWhite: true
     },
     {
         name: "Aedify AI",
-        image: "/sponsor_icons/SVG2 - Charlie Wan.svg"
+        image: "/sponsor_icons/SVG2 - Charlie Wan.svg",
+        invertToWhite: true
     }
 ];
 
@@ -412,7 +410,7 @@ const JoinUsSponsors = () => {
                                 key={index}
                                 src={sponsor.image}
                                 alt={sponsor.name}
-                                className={styles.bottomSponsorLogo}
+                                className={`${styles.bottomSponsorLogo} ${sponsor.invertToWhite ? styles.invertWhite : ""}`}
                             />
                         ))}
                     </div>
