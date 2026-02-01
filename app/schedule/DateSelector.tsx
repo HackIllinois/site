@@ -6,7 +6,7 @@ interface DateSelectorProps {
     day: string;
     active?: boolean;
     rotation?: number; // degrees
-    offsetY?: number;
+    offsetX?: number;
     onClick: () => void;
 }
 
@@ -15,7 +15,7 @@ const DateSelector: React.FC<DateSelectorProps> = ({
     day,
     active = false,
     rotation = 0,
-    offsetY = 0,
+    offsetX = 0,
     onClick
 }) => {
     return (
@@ -27,30 +27,42 @@ const DateSelector: React.FC<DateSelectorProps> = ({
                 all: "unset",
                 cursor: "pointer",
 
-                minWidth: 96,
-                px: 2.5,
-                py: 1.5,
-
-                display: "flex",
+                position: "relative",
+                display: "inline-flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
 
-                borderRadius: "10px",
-                background:
-                    "linear-gradient(90deg, #A315D6 0%, #FDAB60 50%, #A315D6 100%)",
+                width: "140px",
+                px: 3,
+                py: 2,
 
-                color: "#fff",
+                color: "#000",
                 textAlign: "center",
 
                 transform: `
-            translateY(${offsetY}px)
-            rotate(${rotation}deg)
-            scale(${active ? 1.05 : 1})
-            `,
+                    translateX(${offsetX}px)
+                    rotate(${rotation}deg)
+                    scale(${active ? 1.05 : 1})`,
+                transformOrigin: "center",
 
                 opacity: active ? 1 : 0.7,
                 transition: "transform 0.2s ease, opacity 0.2s ease",
+
+                "&::before": {
+                    content: '""',
+                    position: "absolute",
+                    inset: "6px 10px",
+                    backgroundImage: "url(/schedule/date_selector.svg)",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    backgroundSize: "100% 100%",
+                    filter: active
+                        ? "drop-shadow(0px 4px 4px rgba(0,0,0,0.25)) drop-shadow(0px 4px 4px rgba(248,157,78,0.4))"
+                        : "drop-shadow(0px 4px 4px rgba(0,0,0,0.25))",
+                    zIndex: -1,
+                    pointerEvents: "none"
+                },
 
                 "&:hover": {
                     opacity: 1
@@ -59,9 +71,13 @@ const DateSelector: React.FC<DateSelectorProps> = ({
         >
             <Typography
                 sx={{
-                    fontSize: "0.875rem",
+                    fontFamily: "Montserrat",
+                    fontSize: "30px",
                     fontWeight: 700,
-                    letterSpacing: "0.08em"
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)"
                 }}
             >
                 {label}
@@ -69,9 +85,10 @@ const DateSelector: React.FC<DateSelectorProps> = ({
 
             <Typography
                 sx={{
-                    fontSize: "0.75rem",
-                    fontWeight: 500,
-                    opacity: 0.9
+                    fontFamily: "Montserrat",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    mt: 7
                 }}
             >
                 {day}

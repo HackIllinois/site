@@ -1,12 +1,15 @@
 "use client";
-import Tags from "@/app/schedule/Tags";
-import DateSelector from "@/app/schedule/DateSelector";
 import { getEvents } from "@/util/api";
 import { EventType } from "@/util/types";
 import { useEffect, useMemo, useRef, useState } from "react";
 import moment from "moment-timezone";
 import { EVENT_TIMEZONE } from "@/util/config";
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
+import FilterListIcon from "@mui/icons-material/FilterList";
+
+import { TagsList } from "@/app/schedule/Tags";
+import DateSelector from "@/app/schedule/DateSelector";
+import FilterPopup from "@/app/schedule/FilterPopup";
 
 type ScheduleItemProps = {
     event: EventType;
@@ -48,30 +51,37 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                 backgroundColor: "#2B1350",
                 borderRadius: "20px",
                 p: 4,
-                width: "100%",
-                maxWidth: 800,
+                width: 600,
                 display: "flex",
                 flexDirection: "column",
                 gap: 2
             }}
         >
-            {/* Event title */}
-            <Typography
+            <Box
                 sx={{
-                    fontFamily: "'Tsukimi Rounded', sans-serif",
-                    fontWeight: "bold",
-                    fontSize: "40px",
-                    background:
-                        "linear-gradient(90deg, #A315D6, #FDAB60, #A315D6)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent"
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between"
                 }}
             >
-                {event.name}
-            </Typography>
+                {/* Event title */}
+                <Typography
+                    sx={{
+                        fontFamily: "'Tsukimi Rounded', sans-serif",
+                        fontWeight: "bold",
+                        fontSize: 30,
+                        background:
+                            "linear-gradient(90deg, #A315D6, #FDAB60, #A315D6)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent"
+                    }}
+                >
+                    {event.name}
+                </Typography>
 
-            {/* Tags */}
-            <Tags tags={tags} />
+                {/* Tags */}
+                <TagsList tags={tags} />
+            </Box>
 
             {/* Time */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -79,7 +89,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                     sx={{
                         fontFamily: "Montserrat, sans-serif",
                         fontWeight: 600,
-                        fontSize: 26,
+                        fontSize: 20,
                         color: "#EDDBFF"
                     }}
                 >
@@ -96,7 +106,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                         sx={{
                             fontFamily: "Montserrat, sans-serif",
                             fontWeight: 600,
-                            fontSize: 26,
+                            fontSize: 20,
                             color: "#EDDBFF"
                         }}
                     >
@@ -111,7 +121,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                     sx={{
                         fontFamily: "Montserrat, sans-serif",
                         fontWeight: 500,
-                        fontSize: 16,
+                        fontSize: 14,
                         color: "#EDDBFF"
                     }}
                 >
@@ -127,6 +137,7 @@ export interface EventsWithDay extends EventType {
     date: string; // ex. "2/27"
 }
 
+// for DateSelector filters
 export interface DateOption {
     id: string; // ex. "2026-02-27"
     label: string; // ex. "FRI"
@@ -136,8 +147,12 @@ export interface DateOption {
 const Schedule = () => {
     const [events, setEvents] = useState<EventsWithDay[]>([]);
     const [selectedDay, setSelectedDay] = useState<string | undefined>();
+    const [filterOpen, setFilterOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const eventRef = useRef<HTMLDivElement>(null);
+
+    const contentRef = useRef<HTMLDivElement>(null);
+    const scrollRef = useRef<HTMLDivElement>(null);
 
     const handleSelectDay = (day: string) => {
         setSelectedDay(day);
@@ -152,7 +167,7 @@ const Schedule = () => {
             const dateMoment = moment(event.startTime * 1000).tz(
                 EVENT_TIMEZONE
             );
-            const id = dateMoment.format("YYYY-MM-DD"); // stable unique key
+            const id = dateMoment.format("YYYY-MM-DD");
             if (!seen.has(id)) {
                 seen.set(id, {
                     id,
@@ -175,24 +190,6 @@ const Schedule = () => {
             })
             .sort((a, b) => a.startTime - b.startTime);
     }, [events, selectedDay]);
-
-    // const handleLoadEvents = async () => {
-    //     try {
-    //         const newEvents = await getEvents();
-    //         setEvents(
-    //             newEvents.map(event => {
-    //                 return {
-    //                     ...event,
-    //                     day: moment(event.startTime * 1000)
-    //                         .tz(EVENT_TIMEZONE)
-    //                         .format("dddd, MMMM D")
-    //                 };
-    //             })
-    //         );
-    //     } catch {
-    //         setLoading(false);
-    //     }
-    // };
 
     const handleLoadEvents = async () => {
         setLoading(true);
@@ -223,19 +220,6 @@ const Schedule = () => {
         handleLoadEvents();
     }, []);
 
-    // useEffect(() => {
-    //     if (availableDays.length > 0 && !selectedDay) {
-    //         const currentDay = moment(new Date())
-    //             .tz(EVENT_TIMEZONE)
-    //             .format("dddd, MMMM D");
-    //         setSelectedDay(
-    //             availableDays.includes(currentDay)
-    //                 ? currentDay
-    //                 : availableDays[0]
-    //         );
-    //     }
-    // }, [availableDays]);
-
     useEffect(() => {
         if (!selectedDay && availableDays.length > 0) {
             const todayId = moment().tz(EVENT_TIMEZONE).format("YYYY-MM-DD");
@@ -250,78 +234,215 @@ const Schedule = () => {
         <Box
             sx={{
                 width: "100%",
-                minHeight: "100vh",
-                bgcolor: "#020316"
+                height: "135vh",
+                position: "relative",
+                overflow: "hidden",
+                backgroundImage: 'url("/schedule/desktop_bkgd.svg")',
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "bottom",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                gap: 8,
+                pt: "80px",
+                px: "100px"
             }}
         >
+            {/* Orange planet */}
+            <Box
+                component="img"
+                src="/schedule/orange_planet.svg"
+                sx={{
+                    position: "absolute",
+                    top: 150,
+                    right: 0,
+                    width: 100,
+                    zIndex: 2,
+                    pointerEvents: "none",
+                    objectFit: "contain",
+                    filter: "drop-shadow(0px 0px 8px rgba(255,165,89,1))"
+                }}
+            />
+
+            {/* Pink planet */}
+            <Box
+                component="img"
+                src="/schedule/pink_planet.svg"
+                sx={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 50,
+                    width: 200,
+                    zIndex: 1,
+                    pointerEvents: "none",
+                    objectFit: "contain",
+                    filter: "drop-shadow(0px 0px 8px rgba(238,130,205,1))"
+                }}
+            />
+
+            {/* DATE SELECTORS */}
             <Box
                 sx={{
-                    width: "100%",
-                    minHeight: "100vh",
-                    position: "relative",
-                    overflow: "hidden",
-                    backgroundImage: {
-                        xs: 'url("/schedule/desktop_bkgd.svg")'
-                    },
-                    backgroundRepeat: "no-repeat",
-                    // backgroundSize: "cover",
-                    backgroundPosition: "center",
                     display: "flex",
-                    flexDirection: "row",
-                    gap: 8,
-                    pt: "100px",
-                    pb: "200px",
-                    px: "100px"
+                    flexDirection: "column",
+                    gap: "30px",
+                    overflowX: "visible",
+                    overflowY: "visible",
+                    paddingTop: "120px"
                 }}
             >
-                {/* DATE SELECTORS */}
+                {availableDays.map((date, index) => (
+                    <DateSelector
+                        key={date.id}
+                        label={date.label}
+                        day={date.day}
+                        active={selectedDay === date.id}
+                        rotation={10 * (index % 2 === 0 ? 1 : -1)}
+                        offsetX={index % 2 === 0 ? -10 : 10}
+                        onClick={() => handleSelectDay(date.id)}
+                    />
+                ))}
+            </Box>
+
+            {/* EVENTS */}
+            <Box
+                sx={{
+                    flex: 1,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "flex-start"
+                }}
+            >
+                {/* Notepad wrapper */}
                 <Box
                     sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 2,
-                        minWidth: 120,
-                        overflowY: "auto",
-                        pr: 1
+                        position: "relative",
+                        width: "100%",
+                        maxWidth: "800px", // notepad image size
+                        aspectRatio: "5/6"
                     }}
                 >
-                    {availableDays.map((date, index) => (
-                        <DateSelector
-                            key={date.id}
-                            label={date.label}
-                            day={date.day}
-                            active={selectedDay === date.id}
-                            rotation={((index * 7) % 10) - 5}
-                            offsetY={((index * 11) % 8) - 4}
-                            onClick={() => setSelectedDay(date.id)}
-                        />
-                    ))}
-                </Box>
+                    {/* Notepad image */}
+                    <Box
+                        component="img"
+                        src="/schedule/notepad.svg"
+                        sx={{
+                            position: "absolute",
+                            bottom: 100,
+                            right: 0,
+                            width: "100%",
+                            height: "100%",
+                            zIndex: 1,
+                            pointerEvents: "none",
+                            objectFit: "contain"
+                        }}
+                    />
 
-                {/* EVENTS */}
-                <Box
-                    sx={{
-                        flex: 1,
-                        overflowY: "auto",
-                        pr: 2
-                    }}
-                >
-                    {loading && <Typography>Loading...</Typography>}
-
+                    {/* Scroll area + filters header */}
                     <Box
                         sx={{
+                            position: "absolute",
+                            top: 200,
+                            bottom: 325,
+                            left: "10%",
+                            right: "8%",
+                            zIndex: 2,
+                            transform: "rotate(1.67deg)",
                             display: "flex",
                             flexDirection: "column",
-                            gap: 3
+                            gap: 1
                         }}
                     >
-                        {displayedEvents.map((event, index) => (
-                            <ScheduleItem
-                                key={`event-${index}`}
-                                event={event}
-                            />
-                        ))}
+                        {/* Filters button */}
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "flex-end"
+                            }}
+                        >
+                            <IconButton
+                                onClick={() => setFilterOpen(true)}
+                                sx={{
+                                    color: "#000",
+                                    backgroundColor: "transparent",
+                                    "&:hover": {
+                                        backgroundColor: "rgba(255,255,255,0.5)"
+                                    }
+                                }}
+                            >
+                                <FilterListIcon />
+                            </IconButton>
+                        </Box>
+
+                        {/* Scroll area */}
+                        <Box
+                            ref={scrollRef}
+                            sx={{
+                                flex: 1,
+                                overflowY: "auto",
+                                overflowX: "hidden",
+
+                                "&::-webkit-scrollbar": { width: "6px" },
+                                "&::-webkit-scrollbar-thumb": {
+                                    backgroundColor: "rgba(0,0,0,0.1)",
+                                    borderRadius: "10px"
+                                },
+
+                                // fade top/bottom edges
+                                WebkitMaskImage:
+                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
+                                WebkitMaskRepeat: "no-repeat",
+                                WebkitMaskSize: "100% 100%",
+                                maskImage:
+                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
+                                maskRepeat: "no-repeat",
+                                maskSize: "100% 100%"
+                            }}
+                        >
+                            {loading && (
+                                <Typography sx={{ color: "black" }}>
+                                    Loading...
+                                </Typography>
+                            )}
+
+                            {/* Events list */}
+                            <Box
+                                ref={contentRef}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 3,
+                                    width: "100%",
+                                    boxSizing: "border-box",
+                                    pr: 2
+                                }}
+                            >
+                                {displayedEvents.map((event, index) => (
+                                    <ScheduleItem
+                                        key={`event-${index}`}
+                                        event={event}
+                                    />
+                                ))}
+                            </Box>
+                        </Box>
                     </Box>
+
+                    {/* Filters popup */}
+                    {filterOpen && (
+                        <FilterPopup
+                            tags={[
+                                { name: "Workshop" },
+                                { name: "Food" },
+                                { name: "Main Event" }
+                            ]}
+                            onClose={() => setFilterOpen(false)}
+                            onUpdate={() => {
+                                // TODO: apply filters
+                                setFilterOpen(false);
+                            }}
+                        />
+                    )}
                 </Box>
             </Box>
         </Box>
