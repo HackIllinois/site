@@ -20,6 +20,94 @@ const alienAssets = [
     "/landing/sponsors/aliens/alien6.svg"
 ];
 
+const alienSponsors = [
+    {
+        name: "FulcrumGT",
+        tier: "title",
+        image: "/sponsor_icons/logo_fulcrum_white 1.svg",
+        alienIndex: 0
+    },
+    {
+        name: "John Deere",
+        tier: "gold",
+        image: "/sponsor_icons/white johnd deere logo.svg",
+        alienIndex: 1
+    },
+    {
+        name: "Caterpillar",
+        tier: "gold",
+        image: "/sponsor_icons/caterpillar-white-logo-png-701751694710431ny49iscpsd-removebg-preview 1.svg",
+        alienIndex: 2
+    },
+    {
+        name: "Stripe",
+        tier: "gold",
+        image: "/sponsor_icons/stripe white logo.svg",
+        alienIndex: 3
+    },
+    {
+        name: "OpenAI",
+        tier: "title",
+        image: "/sponsor_icons/openai-white-lockup 1.svg",
+        alienIndex: 4
+    },
+    {
+        name: "Supermemory",
+        tier: "gold",
+        image: "/sponsor_icons/supermemory white logo.svg",
+        alienIndex: 5
+    }
+];
+
+const bottomSponsors = [
+    {
+        name: "IMC",
+        image: "/sponsor_icons/imc 1 logo white.svg"
+    },
+    {
+        name: "Capital One",
+        image: "/sponsor_icons/Capital-One 1 white logo.svg"
+    },
+    {
+        name: "T-Mobile",
+        image: "/sponsor_icons/tmobile 1 white logo.svg"
+    },
+    {
+        name: "Solana",
+        image: "/sponsor_icons/solana white logo.svg"
+    },
+    {
+        name: "Cloudflare",
+        image: "/sponsor_icons/cloudflare white logo.svg"
+    },
+    {
+        name: "Modal",
+        image: "/sponsor_icons/logo Modal white.svg"
+    },
+    {
+        name: "Exa",
+        image: "/sponsor_icons/exa white logo.svg",
+        shiftRight: true
+    },
+    {
+        name: "Actian",
+        image: "/sponsor_icons/Actian-Logo-RGB_Horizontal-White.svg",
+        shiftRight: true
+    },
+    {
+        name: "Nora",
+        image: "/sponsor_icons/logocolor - Aryan Bahl.svg",
+        invertToWhite: true,
+        shiftRight: true
+    },
+    {
+        name: "Aedify AI",
+        image: "/sponsor_icons/SVG2 - Charlie Wan.svg",
+        invertToWhite: true,
+        shiftRight: true
+    }
+];
+
 const MotionImage = motion(Image);
 
 const JoinUsSponsors = () => {
@@ -289,33 +377,47 @@ const JoinUsSponsors = () => {
                             SPONSORS
                         </Typography>
                     </motion.div>
-
-                    <motion.div variants={itemVariants}>
-                        <Typography
-                            variant="h5"
-                            component="h2"
-                            sx={{
-                                color: "#ccc",
-                                textAlign: "center",
-                                fontFamily: "Montserrat"
-                            }}
-                        >
-                            To be announced soon!
-                        </Typography>
-                    </motion.div>
                 </motion.div>
 
                 <div className={styles.aliensContainer}>
-                    {alienAssets.map((src, index) => (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                            key={index}
-                            src={src}
-                            alt={`Alien ${index + 1}`}
-                            className={`${styles.alienImage} ${styles[`alien${index}`]}`}
-                            style={{ animationDelay: `${index * 0.15}s` }}
-                        />
-                    ))}
+                    {alienAssets.map((src, index) => {
+                        const sponsor = alienSponsors.find(
+                            s => s.alienIndex === index
+                        );
+                        return (
+                            <div
+                                key={index}
+                                className={`${styles.alienWrapper} ${styles[`alien${index}`]}`}
+                                style={{ animationDelay: `${index * 0.15}s` }}
+                            >
+                                <img
+                                    src={src}
+                                    alt={`Alien ${index + 1}`}
+                                    className={`${styles.alienImage} ${sponsor ? styles[sponsor.tier] : ""}`}
+                                />
+                                {sponsor && (
+                                    <img
+                                        src={sponsor.image}
+                                        alt={sponsor.name}
+                                        className={`${styles.sponsorLogo} ${styles[sponsor.tier]}`}
+                                    />
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+
+                <div className={styles.bottomSponsorsContainer}>
+                    <div className={styles.bottomSponsorsGrid}>
+                        {bottomSponsors.map((sponsor, index) => (
+                            <img
+                                key={index}
+                                src={sponsor.image}
+                                alt={sponsor.name}
+                                className={`${styles.bottomSponsorLogo} ${sponsor.invertToWhite ? styles.invertWhite : ""} ${sponsor.shiftRight ? styles.shiftRight : ""}`}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
