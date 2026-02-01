@@ -28,9 +28,9 @@ const alienSponsors = [
         alienIndex: 0
     },
     {
-        name: "John Deere",
+        name: "Modal",
         tier: "gold",
-        image: "/sponsor_icons/john_deere-logo_brandlogos.net_xbq4y-512x512 - Cedric Vargas.png",
+        image: "/sponsor_icons/Primary-Modal-Wordmark-Dark - Felicia Chang.svg",
         alienIndex: 1
     },
     {
@@ -40,26 +40,34 @@ const alienSponsors = [
         alienIndex: 2
     },
     {
-        name: "Stripe",
+        name: "Cloudflare",
         tier: "gold",
-        image: "/sponsor_icons/Stripe wordmark - Blurple - Bethany Adams.svg",
+        image: "/sponsor_icons/cloudflare logo.png",
         alienIndex: 3
     },
     {
         name: "Supermemory",
-        tier: "silver",
+        tier: "gold",
         image: "/sponsor_icons/Supermemory Wordmark in Dark - Shardul Mane.svg",
         alienIndex: 4
     },
     {
-        name: "Modal",
-        tier: "silver",
-        image: "/sponsor_icons/Primary-Modal-Wordmark-Dark - Felicia Chang.svg",
+        name: "OpenAI",
+        tier: "gold",
+        image: "/sponsor_icons/openAI.png",
         alienIndex: 5
     }
 ];
 
 const bottomSponsors = [
+    {
+        name: "John Deere",
+        image: "/sponsor_icons/john_deere-logo_brandlogos.net_xbq4y-512x512 - Cedric Vargas.png"
+    },
+    {
+        name: "Stripe",
+        image: "/sponsor_icons/Stripe wordmark - Blurple - Bethany Adams.svg"
+    },
     {
         name: "T-Mobile",
         image: "/sponsor_icons/T-Badge_Icon_PRI_RGB_on-W_2025-03-06 - Akul Sharma.png"
@@ -77,16 +85,8 @@ const bottomSponsors = [
         image: "/sponsor_icons/solanaLogo - Gui Bibeau-Laviolette.svg"
     },
     {
-        name: "OpenAI",
-        image: "/sponsor_icons/openAI.png"
-    },
-    {
         name: "Aedify AI",
         image: "/sponsor_icons/SVG2 - Charlie Wan.svg"
-    },
-    {
-        name: "Cloudflare",
-        image: "/sponsor_icons/cloudflare logo.png"
     },
     {
         name: "Actian",
