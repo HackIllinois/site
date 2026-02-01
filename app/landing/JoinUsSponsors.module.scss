@@ -180,75 +180,60 @@
 }
 
 .alienImage {
-    width: clamp(60px, 10vw, 140px);
+    width: clamp(100px, 14vw, 180px);
     height: auto;
 
     &.title {
-        width: clamp(80px, 14vw, 200px);
-    }
-
-    &.gold {
-        width: clamp(70px, 12vw, 160px);
-    }
-
-    &.silver {
-        width: clamp(65px, 11vw, 150px);
+        width: clamp(120px, 17vw, 220px);
     }
 }
 
 .sponsorLogo {
     position: absolute;
-    width: 80%;
+    width: 90%;
     height: auto;
     object-fit: contain;
-    filter: brightness(0) invert(1);
 
     &.title {
-        width: 140%;
-        filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 255, 255, 0.7));
+        width: 120%;
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
     }
 
     &.gold {
-        width: 110%;
-        filter: brightness(1.05) drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
-    }
-
-    &.silver {
         width: 100%;
-        filter: brightness(1);
     }
 }
 
 .alienWrapper.alien0 {
-    top: 2%;
+    top: 5%;
     left: 50%;
     transform: translateX(-50%);
 }
 
 .alienWrapper.alien1 {
-    top: 12%;
-    left: 10%;
+    top: 15%;
+    left: 25%;
 }
 
 .alienWrapper.alien2 {
-    top: 10%;
-    left: 80%;
+    top: 15%;
+    left: 75%;
 }
 
 .alienWrapper.alien3 {
-    top: 40%;
-    left: -10%;
+    top: 35%;
+    left: 15%;
 }
 
 .alienWrapper.alien4 {
-    top: 45%;
-    left: 80%;
+    top: 38%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .alienWrapper.alien5 {
-    top: 40%;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 35%;
+    left: 85%;
 }
 
 .bottomSponsorsContainer {
@@ -284,14 +269,13 @@
     max-width: 100%;
     height: auto;
     object-fit: contain;
-    filter: brightness(0) invert(1);
     max-height: 60px;
     transition:
         filter 0.3s ease,
         transform 0.3s ease;
 
     &:hover {
-        filter: brightness(1.1) invert(1);
+        filter: brightness(1.1);
         transform: scale(1.05);
     }
 

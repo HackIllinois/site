@@ -24,69 +24,69 @@ const alienSponsors = [
     {
         name: "FulcrumGT",
         tier: "title",
-        image: "/sponsor_icons/fgt_logo - rodney louie.svg",
+        image: "/sponsor_icons/logo_fulcrum_white 1.svg",
         alienIndex: 0
     },
     {
         name: "Modal",
         tier: "gold",
-        image: "/sponsor_icons/Primary-Modal-Wordmark-Dark - Felicia Chang.svg",
+        image: "/sponsor_icons/logo Modal white.svg",
         alienIndex: 1
     },
     {
         name: "Caterpillar",
         tier: "gold",
-        image: "/sponsor_icons/Caterpillar Logo - Angela Middleton.png",
+        image: "/sponsor_icons/caterpillar-white-logo-png-701751694710431ny49iscpsd-removebg-preview 1.svg",
         alienIndex: 2
     },
     {
         name: "Cloudflare",
         tier: "gold",
-        image: "/sponsor_icons/cloudflare logo.png",
+        image: "/sponsor_icons/cloudflare white logo.svg",
         alienIndex: 3
+    },
+    {
+        name: "OpenAI",
+        tier: "title",
+        image: "/sponsor_icons/openai-white-lockup 1.svg",
+        alienIndex: 4
     },
     {
         name: "Supermemory",
         tier: "gold",
-        image: "/sponsor_icons/Supermemory Wordmark in Dark - Shardul Mane.svg",
-        alienIndex: 4
-    },
-    {
-        name: "OpenAI",
-        tier: "gold",
-        image: "/sponsor_icons/openAI.png",
+        image: "/sponsor_icons/supermemory white logo.svg",
         alienIndex: 5
     }
 ];
 
 const bottomSponsors = [
     {
-        name: "John Deere",
-        image: "/sponsor_icons/john_deere-logo_brandlogos.net_xbq4y-512x512 - Cedric Vargas.png"
-    },
-    {
-        name: "Stripe",
-        image: "/sponsor_icons/Stripe wordmark - Blurple - Bethany Adams.svg"
-    },
-    {
-        name: "T-Mobile",
-        image: "/sponsor_icons/T-Badge_Icon_PRI_RGB_on-W_2025-03-06 - Akul Sharma.png"
-    },
-    {
         name: "IMC",
-        image: "/sponsor_icons/Logo-IMC-FC (1) - Cara Norris.png"
+        image: "/sponsor_icons/imc 1 logo white.svg"
     },
     {
         name: "Capital One",
-        image: "/sponsor_icons/C1_Core_NG_RGB_R - Reshmi Ranjith.png"
+        image: "/sponsor_icons/Capital-One 1 white logo.svg"
+    },
+    {
+        name: "T-Mobile",
+        image: "/sponsor_icons/tmobile 1 white logo.svg"
     },
     {
         name: "Solana",
-        image: "/sponsor_icons/solanaLogo - Gui Bibeau-Laviolette.svg"
+        image: "/sponsor_icons/solana white logo.svg"
     },
     {
-        name: "Aedify AI",
-        image: "/sponsor_icons/SVG2 - Charlie Wan.svg"
+        name: "Stripe",
+        image: "/sponsor_icons/stripe white logo.svg"
+    },
+    {
+        name: "John Deere",
+        image: "/sponsor_icons/white johnd deere logo.svg"
+    },
+    {
+        name: "Exa",
+        image: "/sponsor_icons/exa white logo.svg"
     },
     {
         name: "Actian",
@@ -101,8 +101,8 @@ const bottomSponsors = [
         image: "/sponsor_icons/Melius.png"
     },
     {
-        name: "Exa",
-        image: "/sponsor_icons/exa-logo (2) - Stacey Tara.svg"
+        name: "Aedify AI",
+        image: "/sponsor_icons/SVG2 - Charlie Wan.svg"
     }
 ];
 
