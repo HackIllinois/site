@@ -38,26 +38,26 @@ const alienSponsors = [
         tier: "gold",
         image: "/sponsor_icons/caterpillar-white-logo-png-701751694710431ny49iscpsd-removebg-preview 1.svg",
         alienIndex: 2
-    },
-    {
-        name: "Stripe",
-        tier: "gold",
-        image: "/sponsor_icons/stripe white logo.svg",
-        alienIndex: 3
-    },
-    {
-        name: "OpenAI",
-        tier: "title",
-        image: "/sponsor_icons/openai-white-lockup 1.svg",
-        alienIndex: 4
-    },
-    {
-        name: "Supermemory",
-        tier: "gold",
-        image: "/sponsor_icons/supermemory white logo.svg",
-        alienIndex: 5,
-        larger: true
     }
+    // {
+    //     name: "Stripe",
+    //     tier: "gold",
+    //     image: "/sponsor_icons/stripe white logo.svg",
+    //     alienIndex: 3
+    // },
+    // {
+    //     name: "OpenAI",
+    //     tier: 'silver',
+    //     image: "/sponsor_icons/openai-white-lockup 1.svg",
+    //     alienIndex: 4
+    // },
+    // {
+    //     name: "Supermemory",
+    //     tier: 'silver',
+    //     image: "/sponsor_icons/supermemory white logo.svg",
+    //     alienIndex: 5,
+    //     larger: true
+    // }
 ];
 
 const bottomSponsors = [

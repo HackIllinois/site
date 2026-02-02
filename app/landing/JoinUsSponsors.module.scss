@@ -236,14 +236,19 @@
     width: 90%;
     height: auto;
     object-fit: contain;
+    padding: 3px;
 
     &.title {
         width: 120%;
         filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        background-color: #51c8ff74;
+        border-radius: 5px;
     }
 
     &.gold {
         width: 100%;
+        background-color: #efb45c74;
+        border-radius: 5px;
     }
 
     &.gold.larger {
