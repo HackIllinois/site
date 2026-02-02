@@ -518,14 +518,16 @@ const Prizes: React.FC = () => {
                             topText="BEST USE OF"
                             bottomText="SUPERMEMORY"
                             bottomBottomText={
-                                <li
+                                <p
                                     style={{
-                                        marginTop: "10px"
+                                        marginTop: "10px",
+                                        textWrap: "balance",
+                                        textAlign: "center"
                                     }}
                                 >
                                     Pair of <b>Meta Raybans</b> for each winning
                                     team member
-                                </li>
+                                </p>
                             }
                             radius={130}
                             width={540}
