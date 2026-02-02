@@ -11,6 +11,7 @@ const Mentors = () => {
     return (
         <Box
             sx={{
+                // position not specified - debris overlay attaches to the page
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
@@ -21,13 +22,34 @@ const Mentors = () => {
                 width: "100%",
                 pt: "80px",
                 pb: "50px",
-                backgroundColor:
+                backgroundColor: "#512D83",
+                backgroundImage:
                     "linear-gradient(0deg, #14123D 0%, #7059A6 60%, #533085 86%, #512D83 100%)",
 
-                backgroundImage: "url(/mentors/debris.svg)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                backgroundPosition: "center"
+                // Image (debris) overlay layer
+                "&::before": {
+                    content: '""',
+                    position: "absolute",
+                    inset: 0,
+                    backgroundImage: "url(/mentors/debris.svg)",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+
+                    // Fade debris at top and bottom
+                    maskImage:
+                        "linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 90%)",
+                    WebkitMaskImage:
+                        "linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 90%)",
+
+                    pointerEvents: "none",
+                    zIndex: 0
+                },
+                // Ensure content sits above everything
+                "& > *": {
+                    position: "relative",
+                    zIndex: 1
+                }
             }}
         >
             <Container>
@@ -46,6 +68,7 @@ const Mentors = () => {
                         <Grid size={{ xs: 6, md: 3 }} key={mentor.name}>
                             <Image
                                 src={"/mentors/assets/astronaut.svg"}
+                                width={200}
                                 height={200}
                                 alt={"Icon of an astronaut"}
                             />
