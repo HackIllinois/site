@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Chip } from "@mui/material";
 
 export type Tag = {
     id: string;
@@ -44,6 +44,70 @@ export const Tag: React.FC<TagProps> = ({ tag }) => {
         >
             {tag.label}
         </Box>
+    );
+};
+
+type TagMobileProps = {
+    points: string;
+    eventType: string;
+};
+
+export const TagMobile: React.FC<TagMobileProps> = ({ points, eventType }) => {
+    return (
+        <Chip
+            label={
+                <Box
+                    sx={{
+                        display: "flex",
+                        borderRadius: "16px",
+                        overflow: "hidden"
+                    }}
+                >
+                    {/* Left side: points */}
+                    <span
+                        style={{
+                            backgroundColor: "#EDDBFF",
+                            color: "black",
+                            padding: "0.2em 0.7em",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontFamily: "'SF Pro Text', sans-serif",
+                            fontWeight: "medium",
+                            fontSize: "2.5vw"
+                        }}
+                    >
+                        + {points}Pt
+                    </span>
+
+                    {/* Right side: event type */}
+                    <span
+                        style={{
+                            backgroundColor: "#7551D1",
+                            color: "white",
+                            padding: "0.2em 0.7em",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontFamily: "'SF Pro Text', sans-serif",
+                            fontWeight: "medium",
+                            fontSize: "2.5vw"
+                        }}
+                    >
+                        {eventType}
+                    </span>
+                </Box>
+            }
+            sx={{
+                height: "auto",
+                borderRadius: "16px",
+                pr: "2vw",
+                backgroundColor: "transparent",
+                "& .MuiChip-label": {
+                    padding: 0
+                }
+            }}
+        />
     );
 };
 

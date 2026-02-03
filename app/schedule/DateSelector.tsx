@@ -10,7 +10,7 @@ interface DateSelectorProps {
     onClick: () => void;
 }
 
-const DateSelector: React.FC<DateSelectorProps> = ({
+export const DateSelector: React.FC<DateSelectorProps> = ({
     label,
     day,
     active = false,
@@ -97,4 +97,46 @@ const DateSelector: React.FC<DateSelectorProps> = ({
     );
 };
 
-export default DateSelector;
+export const DateSelectorMobile: React.FC<DateSelectorProps> = ({
+    label,
+    day,
+    active = false,
+    onClick
+}) => {
+    return (
+        <Box
+            component="button"
+            type="button"
+            onClick={onClick}
+            sx={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                px: 2,
+                py: 1,
+                minWidth: "60px",
+                borderRadius: "20px",
+                cursor: "pointer",
+                border: active ? "none" : "0.5px solid #FFFFFF",
+                backgroundColor: active ? "#7551D1" : "transparent",
+                transition: "all 0.2s ease",
+                textAlign: "center",
+                "&:hover": {
+                    opacity: 0.8
+                }
+            }}
+        >
+            <Typography
+                sx={{
+                    color: "#FFFFFF",
+                    fontFamily: "'SF Pro Text', sans-serif",
+                    fontWeight: "bold",
+                    fontSize: 12,
+                    userSelect: "none"
+                }}
+            >
+                {label} {day}
+            </Typography>
+        </Box>
+    );
+};

@@ -4,132 +4,22 @@ import { EventType } from "@/util/types";
 import { useEffect, useMemo, useRef, useState } from "react";
 import moment from "moment-timezone";
 import { EVENT_TIMEZONE } from "@/util/config";
-import { Box, IconButton, Typography } from "@mui/material";
+import {
+    Box,
+    IconButton,
+    Typography,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
-import { Tag, TagsList } from "@/app/schedule/Tags";
-import DateSelector from "@/app/schedule/DateSelector";
+import { Tag } from "@/app/schedule/Tags";
+import {
+    ScheduleItem,
+    ScheduleItemMobileWithPopup
+} from "@/app/schedule/ScheduleItem";
+import { DateSelector, DateSelectorMobile } from "@/app/schedule/DateSelector";
 import FilterPopup from "@/app/schedule/FilterPopup";
-
-function timeToHourMinute(time: number) {
-    const date = moment(time * 1000).tz(EVENT_TIMEZONE);
-    return date.format("h:mm A");
-}
-
-function getEventTags(event: EventType): Tag[] {
-    const tags: Tag[] = [];
-
-    if (event.eventType) {
-        tags.push({ id: event.eventType, label: event.eventType });
-    }
-
-    if (event.points) {
-        const pts = `${event.points} pts`;
-        tags.push({ id: pts, label: pts });
-    }
-
-    // TODO: add more tags as needed
-
-    return tags;
-}
-
-type ScheduleItemProps = {
-    event: EventType;
-};
-
-const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
-    const eventTags = getEventTags(event);
-
-    const locations = event.locations
-        .map(location => location.description)
-        .join(", ");
-
-    return (
-        <Box
-            sx={{
-                backgroundColor: "#2B1350",
-                borderRadius: "20px",
-                p: 4,
-                width: 600,
-                display: "flex",
-                flexDirection: "column",
-                gap: 2
-            }}
-        >
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between"
-                }}
-            >
-                {/* Event title */}
-                <Typography
-                    sx={{
-                        fontFamily: "'Tsukimi Rounded', sans-serif",
-                        fontWeight: "bold",
-                        fontSize: 30,
-                        background:
-                            "linear-gradient(90deg, #A315D6, #FDAB60, #A315D6)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent"
-                    }}
-                >
-                    {event.name}
-                </Typography>
-
-                {/* Event's tags */}
-                <TagsList tags={eventTags} />
-            </Box>
-
-            {/* Time */}
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Typography
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        fontWeight: 600,
-                        fontSize: 20,
-                        color: "#EDDBFF"
-                    }}
-                >
-                    {event.startTime === event.endTime
-                        ? timeToHourMinute(event.startTime)
-                        : `${timeToHourMinute(event.startTime)} - ${timeToHourMinute(event.endTime)}`}
-                </Typography>
-            </Box>
-
-            {/* Locations */}
-            {locations.length > 0 && (
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                    <Typography
-                        sx={{
-                            fontFamily: "Montserrat, sans-serif",
-                            fontWeight: 600,
-                            fontSize: 20,
-                            color: "#EDDBFF"
-                        }}
-                    >
-                        {locations}
-                    </Typography>
-                </Box>
-            )}
-
-            {/* Description */}
-            {event.description && (
-                <Typography
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        fontWeight: 500,
-                        fontSize: 14,
-                        color: "#EDDBFF"
-                    }}
-                >
-                    {event.description}
-                </Typography>
-            )}
-        </Box>
-    );
-};
 
 export interface EventsWithDay extends EventType {
     weekday: string; // ex. "Friday"
@@ -161,6 +51,9 @@ const Schedule = () => {
     const eventRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
+
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const handleSelectDay = (day: string) => {
         setSelectedDay(day);
@@ -299,6 +192,121 @@ const Schedule = () => {
         setSelectedTagIds(new Set(allTags.map(t => t.id)));
     }, [allTags]);
 
+    // Mobile layout
+    if (isMobile) {
+        return (
+            <Box
+                sx={{
+                    width: "100%",
+                    minHeight: "100vh",
+                    position: "relative",
+                    overflow: "hidden",
+                    backgroundImage: 'url("/schedule/mobile/background.svg")',
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    display: "flex",
+                    flexDirection: "column",
+                    pt: "120px",
+                    gap: 3
+                }}
+            >
+                {/* DATE SELECTORS */}
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-around",
+                        overflowX: "visible",
+                        px: "8%"
+                    }}
+                >
+                    {availableDays.map((date, index) => (
+                        <DateSelectorMobile
+                            key={date.id}
+                            label={date.label}
+                            day={date.day}
+                            active={selectedDay === date.id}
+                            onClick={() => handleSelectDay(date.id)}
+                        />
+                    ))}
+                </Box>
+
+                {/* EVENTS */}
+                <Box
+                    sx={{
+                        position: "relative",
+                        flex: 1,
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        alignItems: "stretch",
+                        px: 0
+                    }}
+                >
+                    {/* Scroll area + filters header */}
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            width: "100%",
+                            top: 0,
+                            bottom: "2%",
+                            zIndex: 2,
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 1
+                        }}
+                    >
+                        {/* Scroll area */}
+                        <Box
+                            ref={scrollRef}
+                            sx={{
+                                flex: 1,
+                                overflowY: "auto",
+                                overflowX: "hidden",
+
+                                "&::-webkit-scrollbar": { width: "6px" },
+                                "&::-webkit-scrollbar-thumb": {
+                                    backgroundColor: "rgba(0,0,0,0.1)",
+                                    borderRadius: "10px"
+                                },
+
+                                // fade top/bottom edges
+                                WebkitMaskImage:
+                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
+                                WebkitMaskRepeat: "no-repeat",
+                                WebkitMaskSize: "100% 100%",
+                                maskImage:
+                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
+                                maskRepeat: "no-repeat",
+                                maskSize: "100% 100%"
+                            }}
+                        >
+                            {/* Events list */}
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 2,
+                                    width: "100%",
+                                    boxSizing: "border-box",
+                                    px: 0
+                                }}
+                            >
+                                {displayedEvents.map((event, index) => (
+                                    <ScheduleItemMobileWithPopup
+                                        key={`event-${index}`}
+                                        event={event}
+                                    />
+                                ))}
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
+        );
+    }
+
+    // Desktop/tablet layout
     return (
         <Box
             sx={{
@@ -306,7 +314,7 @@ const Schedule = () => {
                 height: "135vh",
                 position: "relative",
                 overflow: "hidden",
-                backgroundImage: 'url("/schedule/desktop_bkgd.svg")',
+                backgroundImage: 'url("/schedule/background.svg")',
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
                 backgroundPosition: "bottom",
@@ -470,7 +478,17 @@ const Schedule = () => {
                             }}
                         >
                             {loading && (
-                                <Typography sx={{ color: "black" }}>
+                                <Typography
+                                    sx={{
+                                        textAlign: "center",
+                                        mt: 4,
+                                        color: "#FFF",
+                                        fontFamily:
+                                            "'Tsukimi Rounded', sans-serif",
+                                        fontWeight: "medium",
+                                        fontSize: 16
+                                    }}
+                                >
                                     Loading...
                                 </Typography>
                             )}
