@@ -223,7 +223,7 @@ const ScheduleItemMobile: React.FC<ScheduleItemProps> = ({ event }) => {
                         sx={{
                             fontFamily: "'SF Pro Text', sans-serif",
                             fontWeight: "medium",
-                            fontSize: "4vw"
+                            fontSize: "3.5vw"
                         }}
                     >
                         {locations}
@@ -329,11 +329,10 @@ export const ScheduleItemInfoMobile: React.FC<ScheduleItemProps> = ({
                     sx={{
                         fontFamily: "'SF Pro Text', sans-serif",
                         fontWeight: "bold",
-                        fontSize: "4.5vw",
+                        fontSize: "5vw",
                         mb: 1,
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis"
+                        lineHeight: 1.2,
+                        wordBreak: "break-word"
                     }}
                 >
                     {event.name}

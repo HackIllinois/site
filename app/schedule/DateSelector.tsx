@@ -135,7 +135,7 @@ export const DateSelectorMobile: React.FC<DateSelectorProps> = ({
                     userSelect: "none"
                 }}
             >
-                {label} {day}
+                {day.split("/")[1].padStart(2, "0")} - {label}
             </Typography>
         </Box>
     );
