@@ -24,19 +24,19 @@ const alienSponsors = [
     {
         name: "FulcrumGT",
         tier: "title",
-        image: "/sponsor_icons/logo_fulcrum_white 1.svg",
+        image: "/sponsor_icons/multi-color/fulcrum-gt.svg",
         alienIndex: 0
     },
     {
         name: "John Deere",
         tier: "gold",
-        image: "/sponsor_icons/white johnd deere logo.svg",
+        image: "/sponsor_icons/multi-color/john-deere.png",
         alienIndex: 1
     },
     {
         name: "Caterpillar",
         tier: "gold",
-        image: "/sponsor_icons/caterpillar-white-logo-png-701751694710431ny49iscpsd-removebg-preview 1.svg",
+        image: "/sponsor_icons/multi-color/caterpillar.png",
         alienIndex: 2
     }
 
@@ -62,52 +62,50 @@ const alienSponsors = [
 ];
 
 const bottomSponsors = [
-    // {
-    //     name: "IMC",
-    //     image: "/sponsor_icons/imc 1 logo white.svg"
-    // },
-    // {
-    //     name: "Capital One",
-    //     image: "/sponsor_icons/Capital-One 1 white logo.svg"
-    // },
-    // {
-    //     name: "T-Mobile",
-    //     image: "/sponsor_icons/tmobile 1 white logo.svg"
-    // },
-    // {
-    //     name: "Solana",
-    //     image: "/sponsor_icons/solana white logo.svg"
-    // },
-    // {
-    //     name: "Cloudflare",
-    //     image: "/sponsor_icons/cloudflare white logo.svg"
-    // },
-    // {
-    //     name: "Modal",
-    //     image: "/sponsor_icons/logo Modal white.svg"
-    // },
-    // {
-    //     name: "Exa",
-    //     image: "/sponsor_icons/exa white logo.svg",
-    //     shiftRight: true
-    // },
-    // {
-    //     name: "Actian",
-    //     image: "/sponsor_icons/Actian-Logo-RGB_Horizontal-White.svg",
-    //     shiftRight: true
-    // },
-    // {
-    //     name: "Nora",
-    //     image: "/sponsor_icons/logocolor - Aryan Bahl.svg",
-    //     invertToWhite: true,
-    //     shiftRight: true
-    // },
-    // {
-    //     name: "Aedify AI",
-    //     image: "/sponsor_icons/SVG2 - Charlie Wan.svg",
-    //     invertToWhite: true,
-    //     shiftRight: true
-    // }
+    {
+        name: "IMC",
+        image: "/sponsor_icons/multi-color/imc.png"
+    },
+    {
+        name: "Capital One",
+        image: "/sponsor_icons/multi-color/capital-one.png"
+    },
+    {
+        name: "T-Mobile",
+        image: "/sponsor_icons/multi-color/tmobile.png"
+    },
+    {
+        name: "Cloudflare",
+        image: "/sponsor_icons/multi-color/cloudflare.png"
+    },
+    {
+        name: "Modal",
+        image: "/sponsor_icons/multi-color/modal.svg"
+    },
+    {
+        name: "Exa",
+        image: "/sponsor_icons/multi-color/exa.svg",
+        shiftRight: true
+    },
+    {
+        name: "Actian",
+        image: "/sponsor_icons/multi-color/actian.svg",
+        shiftRight: true
+    },
+    {
+        name: "Nora",
+        image: "/sponsor_icons/multi-color/nora.png",
+        shiftRight: true
+    },
+    {
+        name: "Aedify AI",
+        image: "/sponsor_icons/multi-color/aedify-ai.svg",
+        shiftRight: true
+    },
+    {
+        name: "Melius",
+        image: "/sponsor_icons/multi-color/melius.png"
+    }
 ];
 
 const MotionImage = motion(Image);

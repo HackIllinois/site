@@ -210,8 +210,12 @@
         width: clamp(140px, 24vw, 180px);
     }
 
+    @media (max-width: 500px) {
+        width: clamp(110px, 22vw, 150px);
+    }
+
     @media (max-width: 400px) {
-        width: clamp(120px, 28vw, 160px);
+        width: clamp(100px, 24vw, 140px);
     }
 
     &.title {
@@ -225,8 +229,12 @@
             width: clamp(170px, 30vw, 220px);
         }
 
+        @media (max-width: 500px) {
+            width: clamp(140px, 28vw, 180px);
+        }
+
         @media (max-width: 400px) {
-            width: clamp(150px, 35vw, 200px);
+            width: clamp(120px, 30vw, 170px);
         }
     }
 }
@@ -344,6 +352,28 @@
     }
 }
 
+@media (max-width: 500px) {
+    .alienWrapper.alien1 {
+        top: 12%;
+        left: -5%;
+    }
+
+    .alienWrapper.alien2 {
+        top: 12%;
+        left: 78%;
+    }
+
+    .alienWrapper.alien3 {
+        top: 45%;
+        left: -5%;
+    }
+
+    .alienWrapper.alien5 {
+        top: 48%;
+        left: 78%;
+    }
+}
+
 @media (max-width: 400px) {
     .alienWrapper.alien0 {
         top: 22%;
@@ -351,26 +381,26 @@
 
     .alienWrapper.alien1 {
         top: 30%;
-        left: 15%;
+        left: 0%;
     }
 
     .alienWrapper.alien2 {
         top: 30%;
-        left: 65%;
+        left: 73%;
     }
 
     .alienWrapper.alien3 {
-        top: 58%;
-        left: 15%;
+        top: 60%;
+        left: 5%;
     }
 
     .alienWrapper.alien4 {
-        top: 60%;
-        left: 50%;
+        top: 55%;
+        left: 40%;
     }
 
     .alienWrapper.alien5 {
-        top: 58%;
+        top: 64%;
         left: 70%;
     }
 }
