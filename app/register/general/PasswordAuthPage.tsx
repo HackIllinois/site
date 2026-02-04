@@ -86,7 +86,9 @@ const PasswordAuthPage = ({ onAuthenticated }: PasswordAuthPageProps) => {
                         paddingRight: 6
                     }}
                 >
-                    Please enter the late registration password.
+                    Only Mechathon registration is open.
+                    <br />
+                    Please type in the password.
                 </Typography>
 
                 <Box
