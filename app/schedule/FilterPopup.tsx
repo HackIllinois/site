@@ -340,7 +340,7 @@ const FilterPopup: React.FC<FilterPopupProps> = ({
                 sx={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: 1,
+                    gap: 0,
                     alignItems: "flex-start"
                 }}
             >
@@ -404,17 +404,18 @@ const FilterPopup: React.FC<FilterPopupProps> = ({
             <Box
                 sx={{
                     display: "flex",
-                    justifyContent: "space-around",
-                    alignItems: "center"
+                    alignItems: "stretch"
                 }}
             >
                 <Button
                     onClick={onClose}
                     sx={{
+                        flex: 1,
                         color: "#2B1350",
                         fontFamily: "'Tsukimi Rounded', sans-serif",
                         fontWeight: "bold",
-                        fontSize: 15
+                        fontSize: 15,
+                        borderRadius: 0
                     }}
                 >
                     Cancel
@@ -425,10 +426,12 @@ const FilterPopup: React.FC<FilterPopupProps> = ({
                 <Button
                     onClick={() => onUpdate(localSelected, localTime)}
                     sx={{
+                        flex: 1,
                         color: "#2B1350",
                         fontFamily: "'Tsukimi Rounded', sans-serif",
                         fontWeight: "bold",
                         fontSize: 15,
+                        borderRadius: 0,
                         "&.Mui-disabled": {
                             color: "rgba(43, 19, 80, 0.5)"
                         }

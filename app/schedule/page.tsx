@@ -54,6 +54,9 @@ const Schedule = () => {
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const isBetweenSmAndMd = useMediaQuery(
+        theme.breakpoints.between("sm", "md")
+    );
 
     const handleSelectDay = (day: string) => {
         setSelectedDay(day);
@@ -311,19 +314,20 @@ const Schedule = () => {
         <Box
             sx={{
                 width: "100%",
-                height: "135vh",
+                height: "130vh",
                 position: "relative",
                 overflow: "hidden",
                 backgroundImage: 'url("/schedule/background.svg")',
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
-                backgroundPosition: "bottom",
+                backgroundPosition: "center",
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: { sm: "column", md: "row" },
+                alignItems: "center",
                 justifyContent: "space-between",
-                gap: 8,
-                pt: "80px",
-                px: "100px"
+                px: "80px",
+                pt: "0px",
+                boxSizing: "border-box"
             }}
         >
             {/* Orange planet */}
@@ -351,7 +355,7 @@ const Schedule = () => {
                     bottom: 0,
                     left: 50,
                     width: 200,
-                    zIndex: 1,
+                    zIndex: 0,
                     pointerEvents: "none",
                     objectFit: "contain",
                     filter: "drop-shadow(0px 0px 8px rgba(238,130,205,1))"
@@ -362,193 +366,232 @@ const Schedule = () => {
             <Box
                 sx={{
                     display: "flex",
-                    flexDirection: "column",
+                    flexDirection: { sm: "row", md: "column" },
                     gap: "30px",
                     overflowX: "visible",
                     overflowY: "visible",
-                    paddingTop: "120px"
+                    paddingTop: "120px",
+                    mt: "-80px"
                 }}
             >
-                {availableDays.map((date, index) => (
-                    <DateSelector
-                        key={date.id}
-                        label={date.label}
-                        day={date.day}
-                        active={selectedDay === date.id}
-                        rotation={10 * (index % 2 === 0 ? 1 : -1)}
-                        offsetX={index % 2 === 0 ? -10 : 10}
-                        onClick={() => handleSelectDay(date.id)}
-                    />
-                ))}
+                {availableDays.map((date, index) => {
+                    const finalRotation = isBetweenSmAndMd
+                        ? 0
+                        : 10 * (index % 2 === 0 ? 1 : -1);
+                    const finalOffsetX = isBetweenSmAndMd
+                        ? 0
+                        : index % 2 === 0
+                          ? -10
+                          : 10;
+
+                    return (
+                        <DateSelector
+                            key={date.id}
+                            label={date.label}
+                            day={date.day}
+                            active={selectedDay === date.id}
+                            rotation={finalRotation}
+                            offsetX={finalOffsetX}
+                            onClick={() => handleSelectDay(date.id)}
+                        />
+                    );
+                })}
             </Box>
 
             {/* EVENTS */}
             <Box
                 sx={{
-                    flex: 1,
+                    position: "absolute",
+                    bottom: -150,
+                    right: { sm: "20px", md: "150px" },
+                    height: { sm: "100%", md: "120%" },
+                    width: { sm: "auto", md: "60%" },
+                    maxWidth: "900px",
+                    aspectRatio: "5/6",
+                    zIndex: 2,
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "flex-start"
+                    flexDirection: "column",
+                    alignItems: "center"
                 }}
             >
-                {/* Notepad wrapper */}
+                {/* Notepad image */}
+                <Box
+                    component="img"
+                    src="/schedule/notepad.svg"
+                    sx={{
+                        position: "absolute",
+                        bottom: 0,
+                        right: 0,
+                        width: "100%",
+                        height: "100%",
+                        zIndex: 1,
+                        pointerEvents: "none",
+                        objectFit: "contain"
+                    }}
+                />
+
+                {/* Scroll area + filters header */}
                 <Box
                     sx={{
-                        position: "relative",
-                        width: "100%",
-                        maxWidth: "800px", // notepad image size
-                        aspectRatio: "5/6"
+                        position: "absolute",
+                        top: "27%",
+                        bottom: "28%",
+                        left: "10%",
+                        right: "10%",
+                        zIndex: 2,
+                        transform: "rotate(1.67deg)",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 1
                     }}
                 >
-                    {/* Notepad image */}
-                    <Box
-                        component="img"
-                        src="/schedule/notepad.svg"
-                        sx={{
-                            position: "absolute",
-                            bottom: 100,
-                            right: 0,
-                            width: "100%",
-                            height: "100%",
-                            zIndex: 1,
-                            pointerEvents: "none",
-                            objectFit: "contain"
-                        }}
-                    />
-
-                    {/* Scroll area + filters header */}
+                    {/* Filters button */}
                     <Box
                         sx={{
-                            position: "absolute",
-                            top: 200,
-                            bottom: 325,
-                            left: "10%",
-                            right: "8%",
-                            zIndex: 2,
-                            transform: "rotate(1.67deg)",
                             display: "flex",
-                            flexDirection: "column",
-                            gap: 1
+                            justifyContent: "flex-end"
                         }}
                     >
-                        {/* Filters button */}
-                        <Box
+                        <IconButton
+                            onClick={() => setFilterOpen(true)}
                             sx={{
-                                display: "flex",
-                                justifyContent: "flex-end"
+                                color: "#000",
+                                backgroundColor: "transparent",
+                                "&:hover": {
+                                    backgroundColor: "rgba(255,255,255,0.5)"
+                                }
                             }}
                         >
-                            <IconButton
-                                onClick={() => setFilterOpen(true)}
-                                sx={{
-                                    color: "#000",
-                                    backgroundColor: "transparent",
-                                    "&:hover": {
-                                        backgroundColor: "rgba(255,255,255,0.5)"
-                                    }
-                                }}
-                            >
-                                <FilterListIcon />
-                            </IconButton>
-                        </Box>
-
-                        {/* Scroll area */}
-                        <Box
-                            ref={scrollRef}
-                            sx={{
-                                flex: 1,
-                                overflowY: "auto",
-                                overflowX: "hidden",
-
-                                "&::-webkit-scrollbar": { width: "6px" },
-                                "&::-webkit-scrollbar-thumb": {
-                                    backgroundColor: "rgba(0,0,0,0.1)",
-                                    borderRadius: "10px"
-                                },
-
-                                // fade top/bottom edges
-                                WebkitMaskImage:
-                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
-                                WebkitMaskRepeat: "no-repeat",
-                                WebkitMaskSize: "100% 100%",
-                                maskImage:
-                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
-                                maskRepeat: "no-repeat",
-                                maskSize: "100% 100%"
-                            }}
-                        >
-                            {loading && (
-                                <Typography
-                                    sx={{
-                                        textAlign: "center",
-                                        mt: 4,
-                                        color: "#FFF",
-                                        fontFamily:
-                                            "'Tsukimi Rounded', sans-serif",
-                                        fontWeight: "medium",
-                                        fontSize: 16
-                                    }}
-                                >
-                                    Loading...
-                                </Typography>
-                            )}
-
-                            {!loading && displayedEvents.length === 0 && (
-                                <Typography
-                                    sx={{
-                                        textAlign: "center",
-                                        mt: 4,
-                                        color: "#FFF",
-                                        fontFamily:
-                                            "'Tsukimi Rounded', sans-serif",
-                                        fontWeight: "medium",
-                                        fontSize: 16
-                                    }}
-                                >
-                                    No events match your filters.
-                                </Typography>
-                            )}
-
-                            {/* Events list */}
-                            <Box
-                                ref={contentRef}
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: 3,
-                                    width: "100%",
-                                    boxSizing: "border-box",
-                                    pr: 2
-                                }}
-                            >
-                                {displayedEvents.map((event, index) => (
-                                    <ScheduleItem
-                                        key={`event-${index}`}
-                                        event={event}
-                                    />
-                                ))}
-                            </Box>
-                        </Box>
+                            <FilterListIcon />
+                        </IconButton>
                     </Box>
 
-                    {/* Filters popup */}
-                    {filterOpen && (
-                        <FilterPopup
-                            tags={allTags}
-                            selectedTagIds={selectedTagIds}
-                            selectedTime={timeFilter}
-                            onClose={() => setFilterOpen(false)}
-                            onUpdate={(
-                                updatedIds: Set<string>,
-                                updatedTimeFilter
-                            ) => {
-                                setSelectedTagIds(updatedIds);
-                                setTimeFilter(updatedTimeFilter);
-                                setFilterOpen(false);
+                    {/* Scroll area */}
+                    <Box
+                        ref={scrollRef}
+                        sx={{
+                            flex: 1,
+                            overflowY: "auto",
+                            overflowX: "hidden",
+
+                            "&::-webkit-scrollbar": { width: "6px" },
+                            "&::-webkit-scrollbar-thumb": {
+                                backgroundColor: "rgba(0,0,0,0.1)",
+                                borderRadius: "10px"
+                            },
+
+                            // fade top/bottom edges
+                            WebkitMaskImage:
+                                "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
+                            WebkitMaskRepeat: "no-repeat",
+                            WebkitMaskSize: "100% 100%",
+                            maskImage:
+                                "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
+                            maskRepeat: "no-repeat",
+                            maskSize: "100% 100%"
+                        }}
+                    >
+                        {loading && (
+                            <Typography
+                                sx={{
+                                    textAlign: "center",
+                                    mt: 4,
+                                    color: "#FFF",
+                                    fontFamily: "'Tsukimi Rounded', sans-serif",
+                                    fontWeight: "medium",
+                                    fontSize: 16
+                                }}
+                            >
+                                Loading...
+                            </Typography>
+                        )}
+
+                        {!loading && displayedEvents.length === 0 && (
+                            <Typography
+                                sx={{
+                                    textAlign: "center",
+                                    mt: 4,
+                                    color: "#FFF",
+                                    fontFamily: "'Tsukimi Rounded', sans-serif",
+                                    fontWeight: "medium",
+                                    fontSize: 16
+                                }}
+                            >
+                                No events match your filters.
+                            </Typography>
+                        )}
+
+                        {/* Events list */}
+                        <Box
+                            ref={contentRef}
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: 3,
+                                width: "70%",
+                                boxSizing: "border-box",
+                                pr: 2
                             }}
-                        />
-                    )}
+                        >
+                            {displayedEvents.map((event, index) => (
+                                <ScheduleItem
+                                    key={`event-${index}`}
+                                    event={event}
+                                />
+                            ))}
+                        </Box>
+                    </Box>
                 </Box>
+
+                {/* Filters popup */}
+                {filterOpen && (
+                    <Box
+                        onClick={() => setFilterOpen(false)}
+                        sx={{
+                            position: "fixed",
+                            top: 0,
+                            left: 0,
+                            width: "100vw",
+                            height: "100vh",
+                            backgroundColor: "rgba(0, 0, 0, 0.6)",
+                            backdropFilter: "blur(4px)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            zIndex: 9999
+                        }}
+                    >
+                        <Box
+                            onClick={e => e.stopPropagation()}
+                            sx={{
+                                position: "relative",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                "& > *": {
+                                    position: "relative !important",
+                                    top: "auto !important",
+                                    right: "auto !important",
+                                    left: "auto !important",
+                                    bottom: "auto !important",
+                                    transform: "none !important"
+                                }
+                            }}
+                        >
+                            <FilterPopup
+                                tags={allTags}
+                                selectedTagIds={selectedTagIds}
+                                selectedTime={timeFilter}
+                                onClose={() => setFilterOpen(false)}
+                                onUpdate={(updatedIds, updatedTimeFilter) => {
+                                    setSelectedTagIds(updatedIds);
+                                    setTimeFilter(updatedTimeFilter);
+                                    setFilterOpen(false);
+                                }}
+                            />
+                        </Box>
+                    </Box>
+                )}
             </Box>
         </Box>
     );

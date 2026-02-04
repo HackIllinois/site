@@ -46,10 +46,10 @@ export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                 backgroundColor: "#2B1350",
                 borderRadius: "20px",
                 p: { xs: 2, sm: 3, md: 4 },
-                width: { xs: "100%", sm: 500, md: 600 },
+                width: "140%",
                 display: "flex",
                 flexDirection: "column",
-                gap: 2
+                gap: 1
             }}
         >
             <Box
@@ -64,7 +64,7 @@ export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                     sx={{
                         fontFamily: "'Tsukimi Rounded', sans-serif",
                         fontWeight: "bold",
-                        fontSize: { xs: 20, sm: 24, md: 30 },
+                        fontSize: { xs: 20, sm: 24, md: 26 },
                         background:
                             "linear-gradient(90deg, #A315D6, #FDAB60, #A315D6)",
                         WebkitBackgroundClip: "text",
@@ -84,7 +84,7 @@ export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                     sx={{
                         fontFamily: "Montserrat, sans-serif",
                         fontWeight: 600,
-                        fontSize: { xs: 14, sm: 16, md: 20 },
+                        fontSize: { xs: 14, sm: 16, md: 18 },
                         color: "#EDDBFF"
                     }}
                 >
@@ -101,7 +101,7 @@ export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                         sx={{
                             fontFamily: "Montserrat, sans-serif",
                             fontWeight: 600,
-                            fontSize: { xs: 14, sm: 16, md: 20 },
+                            fontSize: { xs: 14, sm: 16, md: 18 },
                             color: "#EDDBFF"
                         }}
                     >

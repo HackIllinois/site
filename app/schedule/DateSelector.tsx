@@ -33,9 +33,9 @@ export const DateSelector: React.FC<DateSelectorProps> = ({
                 alignItems: "center",
                 justifyContent: "center",
 
-                width: "140px",
+                width: { sm: "100px", md: "120px" },
                 px: 3,
-                py: 2,
+                py: { sm: 8, md: 2 },
 
                 color: "#000",
                 textAlign: "center",
@@ -72,7 +72,7 @@ export const DateSelector: React.FC<DateSelectorProps> = ({
             <Typography
                 sx={{
                     fontFamily: "Montserrat",
-                    fontSize: "30px",
+                    fontSize: { sm: "20px", md: "30px" },
                     fontWeight: 700,
                     position: "absolute",
                     top: "50%",
@@ -88,7 +88,7 @@ export const DateSelector: React.FC<DateSelectorProps> = ({
                     fontFamily: "Montserrat",
                     fontSize: "12px",
                     fontWeight: 700,
-                    mt: 7
+                    mt: { sm: 5, md: 7 }
                 }}
             >
                 {day}

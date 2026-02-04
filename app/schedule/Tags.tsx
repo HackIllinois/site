@@ -15,7 +15,7 @@ export const Tag: React.FC<TagProps> = ({ tag }) => {
             sx={{
                 position: "relative",
                 borderRadius: "132px",
-                px: 3,
+                px: 2,
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -38,7 +38,7 @@ export const Tag: React.FC<TagProps> = ({ tag }) => {
                 color: "#FFFFFF",
                 fontFamily: "'Tsukimi Rounded', sans-serif",
                 fontWeight: "bold",
-                fontSize: 16,
+                fontSize: 14,
                 whiteSpace: "nowrap"
             }}
         >
