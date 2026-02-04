@@ -1,8 +1,25 @@
 import { authenticate } from "@/util/api";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import { useState } from "react";
+
+const REGISTRATION_PASSWORD = "hackillinois2026";
 
 const GithubAuthPage = () => {
+    const [password, setPassword] = useState("");
+    const [isAuthorized, setIsAuthorized] = useState(false);
+    const [error, setError] = useState("");
+
+    const handlePasswordSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (password === REGISTRATION_PASSWORD) {
+            setIsAuthorized(true);
+            setError("");
+        } else {
+            setError("Incorrect password");
+        }
+    };
+
     const handleAuthenticate = async () => {
         await authenticate();
     };
@@ -71,7 +88,9 @@ const GithubAuthPage = () => {
                         paddingRight: 6
                     }}
                 >
-                    Sign in with your GitHub account to get started
+                    {isAuthorized
+                        ? "Sign in with your GitHub account to get started"
+                        : "Enter your registration password to continue"}
                 </Typography>
 
                 {/* Priority and final deadline boxes */}
@@ -181,56 +200,132 @@ const GithubAuthPage = () => {
                     </Box>
                 </Box>
 
-                <Box
-                    sx={{
-                        borderRadius: "999px",
-                        padding: "5px",
-                        background:
-                            "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
-                        display: "inline-flex"
-                    }}
-                >
-                    <Button
-                        variant="contained"
-                        size="large"
-                        startIcon={<GitHubIcon />}
-                        onClick={handleAuthenticate}
+                {isAuthorized ? (
+                    <Box
                         sx={{
-                            backgroundColor: "#24292f",
-                            color: "#ffffff",
-                            padding: "10px 20px",
-                            fontSize: {
-                                xs: "16px",
-                                sm: "18px",
-                                md: "20px"
-                            },
-                            fontWeight: 600,
                             borderRadius: "999px",
-                            textTransform: "none",
-                            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 1,
-                            "& .MuiButton-startIcon": {
-                                marginRight: 1,
-                                "& svg": {
-                                    fontSize: "1.3rem"
-                                }
-                            },
-                            "&:hover": {
-                                backgroundColor: "#1b1f23",
-                                boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
-                            },
-                            "&:active": {
-                                backgroundColor: "#0f1113",
-                                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
-                            },
-                            fontFamily: "Montserrat"
+                            padding: "5px",
+                            background:
+                                "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
+                            display: "inline-flex"
                         }}
                     >
-                        Sign in with GitHub
-                    </Button>
-                </Box>
+                        <Button
+                            variant="contained"
+                            size="large"
+                            startIcon={<GitHubIcon />}
+                            onClick={handleAuthenticate}
+                            sx={{
+                                backgroundColor: "#24292f",
+                                color: "#ffffff",
+                                padding: "10px 20px",
+                                fontSize: {
+                                    xs: "16px",
+                                    sm: "18px",
+                                    md: "20px"
+                                },
+                                fontWeight: 600,
+                                borderRadius: "999px",
+                                textTransform: "none",
+                                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 1,
+                                "& .MuiButton-startIcon": {
+                                    marginRight: 1,
+                                    "& svg": {
+                                        fontSize: "1.3rem"
+                                    }
+                                },
+                                "&:hover": {
+                                    backgroundColor: "#1b1f23",
+                                    boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
+                                },
+                                "&:active": {
+                                    backgroundColor: "#0f1113",
+                                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
+                                },
+                                fontFamily: "Montserrat"
+                            }}
+                        >
+                            Sign in with GitHub
+                        </Button>
+                    </Box>
+                ) : (
+                    <Box
+                        component="form"
+                        onSubmit={handlePasswordSubmit}
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            gap: 2
+                        }}
+                    >
+                        <TextField
+                            type="password"
+                            placeholder="Enter registration password"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            sx={{
+                                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                borderRadius: "8px",
+                                "& .MuiInputBase-root": {
+                                    color: "white",
+                                    fontFamily: "Montserrat"
+                                },
+                                "& .MuiInputBase-input": {
+                                    padding: "12px 16px",
+                                    "&::placeholder": {
+                                        color: "rgba(255, 255, 255, 0.6)"
+                                    }
+                                },
+                                "& .MuiOutlinedInput-notchedOutline": {
+                                    borderColor: "rgba(163, 21, 214, 0.8)"
+                                },
+                                "&:hover .MuiOutlinedInput-notchedOutline": {
+                                    borderColor: "#A315D6"
+                                },
+                                "&.Mui-focused .MuiOutlinedInput-notchedOutline":
+                                    {
+                                        borderColor: "#A315D6"
+                                    }
+                            }}
+                        />
+                        {error && (
+                            <Typography
+                                sx={{
+                                    color: "#ff6b6b",
+                                    fontFamily: "Montserrat",
+                                    fontSize: "14px"
+                                }}
+                            >
+                                {error}
+                            </Typography>
+                        )}
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            sx={{
+                                background:
+                                    "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
+                                color: "white",
+                                padding: "10px 30px",
+                                fontSize: "16px",
+                                fontWeight: 600,
+                                borderRadius: "999px",
+                                textTransform: "none",
+                                fontFamily: "Montserrat",
+                                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+                                "&:hover": {
+                                    boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
+                                }
+                            }}
+                        >
+                            Continue
+                        </Button>
+                    </Box>
+                )}
             </Box>
         </Box>
     );
