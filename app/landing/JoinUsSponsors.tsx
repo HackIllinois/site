@@ -20,6 +20,123 @@ const alienAssets = [
     "/landing/sponsors/aliens/alien6.svg"
 ];
 
+const alienSponsors = [
+    {
+        name: "FulcrumGT",
+        tier: "title",
+        image: "/sponsor_icons/multi-color/fulcrum-gt.svg",
+        alienIndex: 0
+    },
+    {
+        name: "John Deere",
+        tier: "gold",
+        image: "/sponsor_icons/multi-color/john-deere.png",
+        alienIndex: 1
+    },
+    {
+        name: "Stripe",
+        tier: "gold",
+        image: "/sponsor_icons/multi-color/stripe.svg",
+        alienIndex: 2
+    },
+    {
+        name: "Caterpillar",
+        tier: "silver",
+        image: "/sponsor_icons/multi-color/caterpillar.png",
+        alienIndex: 3
+    },
+    {
+        name: "Supermemory",
+        tier: "silver",
+        image: "/sponsor_icons/multi-color/supermemory.svg",
+        alienIndex: 4
+    },
+    {
+        name: "IMC",
+        tier: "silver",
+        image: "/sponsor_icons/multi-color/imc.png",
+        alienIndex: 5
+    }
+];
+
+const bottomSponsorsRows: Array<
+    Array<{
+        name: string;
+        image: string;
+        tier: string;
+        invertToWhite?: boolean;
+        shiftRight?: boolean;
+    }>
+> = [
+    // Silver tier - Row 1
+    [
+        {
+            name: "OpenAI",
+            image: "/sponsor_icons/multi-color/openai.png",
+            tier: "silver"
+        },
+        {
+            name: "Capital One",
+            image: "/sponsor_icons/multi-color/capital-one.png",
+            tier: "silver"
+        },
+        {
+            name: "T-Mobile",
+            image: "/sponsor_icons/multi-color/tmobile.png",
+            tier: "silver"
+        }
+    ],
+    // Silver tier - Row 2
+    [
+        {
+            name: "Solana Foundation",
+            image: "/sponsor_icons/multi-color/solana.svg",
+            tier: "silver"
+        },
+        {
+            name: "Modal",
+            image: "/sponsor_icons/multi-color/modal.svg",
+            tier: "silver"
+        },
+        {
+            name: "Melius",
+            image: "/sponsor_icons/multi-color/melius.png",
+            tier: "silver"
+        }
+    ],
+    // Bronze tier - Row 3
+    [
+        {
+            name: "Exa",
+            image: "/sponsor_icons/multi-color/exa.svg",
+            tier: "bronze"
+        },
+        {
+            name: "Actian",
+            image: "/sponsor_icons/multi-color/actian.svg",
+            tier: "bronze"
+        }
+    ],
+    // Prize tier - Row 4
+    [
+        {
+            name: "Cloudflare",
+            image: "/sponsor_icons/multi-color/cloudflare.png",
+            tier: "prize"
+        },
+        {
+            name: "Aedify AI",
+            image: "/sponsor_icons/multi-color/aedify-ai.svg",
+            tier: "prize"
+        },
+        {
+            name: "Nora",
+            image: "/sponsor_icons/multi-color/nora.png",
+            tier: "prize"
+        }
+    ]
+];
+
 const MotionImage = motion(Image);
 
 const JoinUsSponsors = () => {
@@ -107,6 +224,25 @@ const JoinUsSponsors = () => {
             opacity: 1,
             y: 0,
             transition: { duration: 0.6, ease: "easeOut" }
+        }
+    };
+
+    const getTierColor = (tier: string) => {
+        switch (tier) {
+            case "title":
+                return "rgba(0, 255, 255, 0.3)"; // Semi-transparent cyan
+            case "gold":
+                return "rgba(255, 215, 0, 0.3)"; // Semi-transparent gold
+            case "silver":
+                return "rgba(192, 192, 192, 0.35)"; // Semi-transparent silver
+            case "bronze":
+                return "rgba(205, 127, 50, 0.3)"; // Semi-transparent bronze
+            case "prize":
+                return "rgba(155, 89, 182, 0.3)"; // Semi-transparent purple
+            case "tbd":
+                return "rgba(149, 165, 166, 0.3)"; // Semi-transparent gray
+            default:
+                return "rgba(192, 192, 192, 0.3)"; // Default semi-transparent
         }
     };
 
@@ -289,33 +425,87 @@ const JoinUsSponsors = () => {
                             SPONSORS
                         </Typography>
                     </motion.div>
-
-                    <motion.div variants={itemVariants}>
-                        <Typography
-                            variant="h5"
-                            component="h2"
-                            sx={{
-                                color: "#ccc",
-                                textAlign: "center",
-                                fontFamily: "Montserrat"
-                            }}
-                        >
-                            To be announced soon!
-                        </Typography>
-                    </motion.div>
                 </motion.div>
 
                 <div className={styles.aliensContainer}>
-                    {alienAssets.map((src, index) => (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                            key={index}
-                            src={src}
-                            alt={`Alien ${index + 1}`}
-                            className={`${styles.alienImage} ${styles[`alien${index}`]}`}
-                            style={{ animationDelay: `${index * 0.15}s` }}
-                        />
-                    ))}
+                    {alienAssets.map((src, index) => {
+                        const sponsor = alienSponsors.find(
+                            s => s.alienIndex === index
+                        );
+                        return (
+                            <div
+                                key={index}
+                                className={`${styles.alienWrapper} ${styles[`alien${index}`]}`}
+                                style={{ animationDelay: `${index * 0.15}s` }}
+                            >
+                                <img
+                                    src={src}
+                                    alt={`Alien ${index + 1}`}
+                                    className={`${styles.alienImage} ${sponsor ? styles[sponsor.tier] : ""}`}
+                                />
+                                {sponsor && (
+                                    <Box
+                                        className={`${styles.sponsorLogo} ${styles[sponsor.tier]}`}
+                                        sx={{
+                                            backgroundColor: getTierColor(
+                                                sponsor.tier
+                                            ),
+                                            p: 3,
+                                            borderRadius: "16px"
+                                            // height: "90px",
+                                        }}
+                                    >
+                                        <img
+                                            src={sponsor.image}
+                                            alt={sponsor.name}
+                                            style={{
+                                                height: "100%",
+                                                objectFit: "contain"
+                                            }}
+                                        />
+                                    </Box>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+
+                <div className={styles.bottomSponsorsContainer}>
+                    <div className={styles.bottomSponsorsGrid}>
+                        {bottomSponsorsRows.map((row, rowIndex) => (
+                            <div
+                                key={rowIndex}
+                                className={styles.bottomSponsorsRow}
+                            >
+                                {row.map((sponsor, index) => (
+                                    <Box
+                                        key={`${rowIndex}-${index}`}
+                                        className={`${styles.bottomSponsorLogo} ${sponsor.invertToWhite ? styles.invertWhite : ""}`}
+                                        sx={{
+                                            backgroundColor: getTierColor(
+                                                sponsor.tier || "tbd"
+                                            ),
+                                            p: 2,
+                                            borderRadius: "12px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center"
+                                        }}
+                                    >
+                                        <img
+                                            src={sponsor.image}
+                                            alt={sponsor.name}
+                                            style={{
+                                                width: "100%",
+                                                height: "100%",
+                                                objectFit: "contain"
+                                            }}
+                                        />
+                                    </Box>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

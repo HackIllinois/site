@@ -1,11 +1,10 @@
-/* Bobbing animation */
 @keyframes bob {
     0%,
     100% {
-        transform: translateY(0);
+        margin-top: 0;
     }
     50% {
-        transform: translateY(-8px);
+        margin-top: -8px;
     }
 }
 
@@ -29,7 +28,7 @@
 }
 
 .ufoImage {
-    width: 100%;
+    width: 80%;
     height: auto;
     @media (max-width: 900px) {
         display: none;
@@ -49,7 +48,7 @@
 
 .joinUsContentContainer {
     position: absolute;
-    top: 12%;
+    top: 7%;
     width: 100%;
     height: 27%;
     display: flex;
@@ -144,10 +143,18 @@
 
 .sponsorSectionContentContainer {
     position: absolute;
-    top: 45%;
+    top: 40%;
     width: 100%;
     height: 50%;
     z-index: 3;
+
+    @media (max-width: 600px) {
+        top: 42%;
+    }
+
+    @media (max-width: 400px) {
+        top: 40%;
+    }
 }
 
 /**
@@ -156,66 +163,422 @@
  */
 .aliensContainer {
     position: absolute;
-    top: 52%; // start of beam
+    top: 48%;
     left: 50%;
-    transform: translateX(-55%);
-    width: 45%; // matches beam width
-    height: 55%; // height of beam
+    transform: translateX(-50%);
+    width: 60%;
+    height: 55%;
     pointer-events: none;
     z-index: 2;
 
-    @media (max-width: 600px) {
-        top: 45%;
-        left: 52%;
-        width: 60%;
+    @media (min-width: 901px) {
+        top: 40%;
+        height: 58%;
+    }
+
+    @media (max-width: 900px) {
+        top: 46%;
+        width: 62%;
         height: 50%;
+    }
+
+    @media (max-width: 600px) {
+        top: 50%;
+        width: 85%;
+        height: 45%;
+    }
+
+    @media (max-width: 400px) {
+        top: 38%;
+        width: 90%;
+        height: 42%;
     }
 }
 
-.alienImage {
+.alienWrapper {
     position: absolute;
-    width: clamp(40px, 10vw, 120px);
-    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     animation: bob 1.8s ease-in-out infinite;
 }
 
-/* Individual alien positions (approximate your mockup) */
-.alien0 {
-    // top middle
-    top: 8%;
-    left: 17%;
+.alienImage {
+    width: clamp(100px, 14vw, 180px);
+    height: auto;
+
+    @media (max-width: 900px) {
+        width: clamp(130px, 20vw, 200px);
+    }
+
+    @media (max-width: 600px) {
+        width: clamp(140px, 24vw, 180px);
+    }
+
+    @media (max-width: 500px) {
+        width: clamp(110px, 22vw, 150px);
+    }
+
+    @media (max-width: 400px) {
+        width: clamp(100px, 24vw, 140px);
+    }
+
+    &.title {
+        width: clamp(120px, 17vw, 220px);
+
+        @media (max-width: 900px) {
+            width: clamp(160px, 24vw, 240px);
+        }
+
+        @media (max-width: 600px) {
+            width: clamp(170px, 30vw, 220px);
+        }
+
+        @media (max-width: 500px) {
+            width: clamp(140px, 28vw, 180px);
+        }
+
+        @media (max-width: 400px) {
+            width: clamp(120px, 30vw, 170px);
+        }
+    }
+}
+
+.sponsorLogo {
+    position: absolute;
+    // width: 90%;
+    // width: auto;
+    // padding: 3px;
+    height: 75px;
+    min-width: 90%;
+    // max-height: 80px;
+    // object-fit: contain;
+
+    &.title {
+        height: 100px;
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    }
+
+    &.gold {
+        display: flex;
+        justify-content: center;
+        height: 85px;
+        width: 250px;
+        // width: 100%;
+    }
+
+    &.gold {
+        // width: 100%;
+    }
+}
+
+.alienWrapper.alien0 {
+    top: 0%;
+    left: 50%;
     transform: translateX(-50%);
 }
 
-.alien1 {
-    // mid-left
-    top: 0%;
-    left: 40%;
+.alienWrapper.alien1 {
+    top: 10%;
+    left: 5%;
+    // transform: scale(0.9);
 }
 
-.alien2 {
-    // mid-right
-    top: 6%;
-    left: 65%;
+.alienWrapper.alien2 {
+    top: 10%;
+    left: 75%;
+    // transform: scale(0.9);
 }
 
-.alien3 {
-    // bottom-left
+.alienWrapper.alien3 {
+    top: 42%;
+    left: -5%;
+    // transform: scale(0.9);
+}
+
+.alienWrapper.alien4 {
     top: 30%;
-    left: 15%;
+    left: 38%;
+    transform: translateX(-50%);
+    // transform: scale(1.3);
 }
 
-.alien4 {
-    // big center bottom
-    top: 32%;
-    left: 42%;
+.alienWrapper.alien5 {
+    top: 43%;
+    left: 75%;
+    // transform: scale(0.9);
 }
 
-.alien5 {
-    // bottom-right
-    top: 35%;
-    left: 65%;
-    transform: scale(1.5);
+@media (min-width: 901px) {
+    .alienWrapper.alien0 {
+        top: 6%;
+    }
+
+    .alienWrapper.alien1 {
+        top: 11%;
+    }
+
+    .alienWrapper.alien2 {
+        top: 11%;
+    }
+
+    .alienWrapper.alien3 {
+        top: 36%;
+        left: 10%;
+    }
+
+    .alienWrapper.alien4 {
+        top: 28%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .alienWrapper.alien4 .alienImage {
+        transform: scale(1.35);
+    }
+
+    .alienWrapper.alien5 {
+        top: 36%;
+        left: 68%;
+    }
+}
+
+@media (max-width: 900px) {
+    .alienWrapper.alien1 {
+        top: 10%;
+        left: -10%;
+    }
+
+    .alienWrapper.alien2 {
+        top: 10%;
+        left: 80%;
+    }
+    .alienWrapper.alien3 {
+        top: 35%;
+        left: -8%;
+    }
+    .alienWrapper.alien4 {
+        top: 25%;
+        left: 38%;
+    }
+    .alienWrapper.alien5 {
+        top: 36%;
+        left: 75%;
+    }
+}
+
+@media (max-width: 600px) {
+    .alienWrapper.alien0 {
+        top: 0%;
+        left: 50%;
+    }
+
+    .alienWrapper.alien1 {
+        top: 12%;
+        left: 0%;
+    }
+
+    .alienWrapper.alien2 {
+        top: 12%;
+        left: 73%;
+    }
+
+    .alienWrapper.alien3 {
+        top: 45%;
+        left: 0%;
+    }
+
+    .alienWrapper.alien4 {
+        top: 35%;
+        left: 38%;
+    }
+
+    .alienWrapper.alien5 {
+        top: 48%;
+        left: 73%;
+    }
+}
+
+@media (max-width: 500px) {
+    .alienWrapper.alien1 {
+        top: 12%;
+        left: -5%;
+    }
+
+    .alienWrapper.alien2 {
+        top: 12%;
+        left: 78%;
+    }
+
+    .alienWrapper.alien3 {
+        top: 45%;
+        left: -5%;
+    }
+
+    .alienWrapper.alien5 {
+        top: 48%;
+        left: 78%;
+    }
+}
+
+@media (max-width: 400px) {
+    .alienWrapper.alien0 {
+        top: 22%;
+    }
+
+    .alienWrapper.alien1 {
+        top: 30%;
+        left: 0%;
+    }
+
+    .alienWrapper.alien2 {
+        top: 30%;
+        left: 73%;
+    }
+
+    .alienWrapper.alien3 {
+        top: 60%;
+        left: 5%;
+    }
+
+    .alienWrapper.alien4 {
+        top: 55%;
+        left: 40%;
+    }
+
+    .alienWrapper.alien5 {
+        top: 64%;
+        left: 70%;
+    }
+}
+
+.bottomSponsorsContainer {
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    z-index: 3;
+
+    @media (min-width: 901px) {
+        bottom: 8%;
+    }
+
+    @media (max-width: 900px) {
+        bottom: 0%;
+        width: 85%;
+    }
+
+    @media (max-width: 600px) {
+        bottom: 0%;
+        width: 92%;
+    }
+
+    @media (max-width: 400px) {
+        bottom: 0%;
+        width: 95%;
+    }
+}
+
+.bottomSponsorsGrid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 20px;
+
+    @media (max-width: 900px) {
+        gap: 12px;
+        padding: 10px;
+    }
+
+    @media (max-width: 600px) {
+        gap: 10px;
+        padding: 8px;
+    }
+
+    @media (max-width: 400px) {
+        gap: 10px;
+        padding: 8px;
+    }
+}
+
+.bottomSponsorsRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    @media (max-width: 900px) {
+        gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+        gap: 10px;
+    }
+
+    @media (max-width: 400px) {
+        gap: 10px;
+    }
+}
+
+.bottomSponsorLogo {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    max-height: 100px;
+    max-width: 140px;
+    transition:
+        filter 0.3s ease,
+        transform 0.3s ease;
+
+    /* Laptop (900px+): tiered sizes — silver > bronze > prize; larger overall */
+    @media (min-width: 901px) {
+        &.silverTier {
+            max-height: 140px;
+            max-width: 200px;
+        }
+
+        &.bronzeTier {
+            max-height: 120px;
+            max-width: 175px;
+        }
+
+        &.prizeTier {
+            max-height: 105px;
+            max-width: 155px;
+        }
+    }
+
+    &:hover {
+        filter: brightness(1.1);
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 900px) {
+        max-height: 50px;
+        max-width: 120px;
+    }
+
+    @media (max-width: 600px) {
+        max-height: 45px;
+        max-width: 110px;
+    }
+
+    @media (max-width: 400px) {
+        max-height: 40px;
+        max-width: 100px;
+    }
+
+    &.invertWhite {
+        filter: brightness(0) invert(1);
+
+        &:hover {
+            filter: brightness(0) invert(1) brightness(1.1);
+            transform: scale(1.05);
+        }
+    }
 }
 
 /* Optionally tweak for very small screens */
@@ -259,7 +622,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 150%;
     object-fit: contain;
     z-index: 2;
     // Make the foreground bottom align with the actual bottom

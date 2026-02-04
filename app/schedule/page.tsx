@@ -4,14 +4,7 @@ import { EventType } from "@/util/types";
 import { useEffect, useMemo, useRef, useState } from "react";
 import moment from "moment-timezone";
 import { EVENT_TIMEZONE } from "@/util/config";
-import {
-    Box,
-    IconButton,
-    Typography,
-    useMediaQuery,
-    useTheme
-} from "@mui/material";
-import FilterListIcon from "@mui/icons-material/FilterList";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 import { Tag } from "@/app/schedule/Tags";
 import {
@@ -314,7 +307,7 @@ const Schedule = () => {
         <Box
             sx={{
                 width: "100%",
-                height: "130vh",
+                height: "100vh",
                 position: "relative",
                 overflow: "hidden",
                 backgroundImage: 'url("/schedule/background.svg")',
@@ -401,145 +394,76 @@ const Schedule = () => {
             {/* EVENTS */}
             <Box
                 sx={{
-                    position: "absolute",
-                    bottom: -150,
-                    right: { sm: "20px", md: "150px" },
-                    height: { sm: "100%", md: "120%" },
                     width: { sm: "auto", md: "60%" },
                     maxWidth: "900px",
-                    aspectRatio: "5/6",
+                    height: "70vh",
+                    overflowY: "auto",
                     zIndex: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center"
+                    background:
+                        "linear-gradient(180deg, #FCADF8 0%, #BA80D5 100%)",
+                    borderRadius: "30px",
+                    py: 4,
+                    px: 6,
+                    transform: "rotate(1.67deg)"
                 }}
             >
                 {/* Notepad image */}
+                {/* Scroll area */}
                 <Box
-                    component="img"
-                    src="/schedule/notepad.svg"
+                    ref={scrollRef}
                     sx={{
-                        position: "absolute",
-                        bottom: 0,
-                        right: 0,
+                        flex: 1,
+                        // maxHeight: "90%",
                         width: "100%",
-                        height: "100%",
-                        zIndex: 1,
-                        pointerEvents: "none",
-                        objectFit: "contain"
-                    }}
-                />
-
-                {/* Scroll area + filters header */}
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "27%",
-                        bottom: "28%",
-                        left: "10%",
-                        right: "10%",
-                        zIndex: 2,
-                        transform: "rotate(1.67deg)",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 1
+                        py: 5
                     }}
                 >
-                    {/* Filters button */}
+                    {loading && (
+                        <Typography
+                            sx={{
+                                textAlign: "center",
+                                mt: 4,
+                                color: "#FFF",
+                                fontFamily: "'Tsukimi Rounded', sans-serif",
+                                fontWeight: "medium",
+                                fontSize: 16
+                            }}
+                        >
+                            Loading...
+                        </Typography>
+                    )}
+
+                    {!loading && displayedEvents.length === 0 && (
+                        <Typography
+                            sx={{
+                                textAlign: "center",
+                                mt: 4,
+                                color: "#FFF",
+                                fontFamily: "'Tsukimi Rounded', sans-serif",
+                                fontWeight: "medium",
+                                fontSize: 16
+                            }}
+                        >
+                            No events match your filters.
+                        </Typography>
+                    )}
+
+                    {/* Events list */}
                     <Box
+                        ref={contentRef}
                         sx={{
                             display: "flex",
-                            justifyContent: "flex-end"
+                            flexDirection: "column",
+                            gap: 3,
+                            width: "100%"
                         }}
                     >
-                        <IconButton
-                            onClick={() => setFilterOpen(true)}
-                            sx={{
-                                color: "#000",
-                                backgroundColor: "transparent",
-                                "&:hover": {
-                                    backgroundColor: "rgba(255,255,255,0.5)"
-                                }
-                            }}
-                        >
-                            <FilterListIcon />
-                        </IconButton>
-                    </Box>
-
-                    {/* Scroll area */}
-                    <Box
-                        ref={scrollRef}
-                        sx={{
-                            flex: 1,
-                            overflowY: "auto",
-                            overflowX: "hidden",
-
-                            "&::-webkit-scrollbar": { width: "6px" },
-                            "&::-webkit-scrollbar-thumb": {
-                                backgroundColor: "rgba(0,0,0,0.1)",
-                                borderRadius: "10px"
-                            },
-
-                            // fade top/bottom edges
-                            WebkitMaskImage:
-                                "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
-                            WebkitMaskRepeat: "no-repeat",
-                            WebkitMaskSize: "100% 100%",
-                            maskImage:
-                                "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
-                            maskRepeat: "no-repeat",
-                            maskSize: "100% 100%"
-                        }}
-                    >
-                        {loading && (
-                            <Typography
-                                sx={{
-                                    textAlign: "center",
-                                    mt: 4,
-                                    color: "#FFF",
-                                    fontFamily: "'Tsukimi Rounded', sans-serif",
-                                    fontWeight: "medium",
-                                    fontSize: 16
-                                }}
-                            >
-                                Loading...
-                            </Typography>
-                        )}
-
-                        {!loading && displayedEvents.length === 0 && (
-                            <Typography
-                                sx={{
-                                    textAlign: "center",
-                                    mt: 4,
-                                    color: "#FFF",
-                                    fontFamily: "'Tsukimi Rounded', sans-serif",
-                                    fontWeight: "medium",
-                                    fontSize: 16
-                                }}
-                            >
-                                No events match your filters.
-                            </Typography>
-                        )}
-
-                        {/* Events list */}
-                        <Box
-                            ref={contentRef}
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: 3,
-                                width: "70%",
-                                boxSizing: "border-box",
-                                pr: 2
-                            }}
-                        >
-                            {displayedEvents.map((event, index) => (
-                                <ScheduleItem
-                                    key={`event-${index}`}
-                                    event={event}
-                                />
-                            ))}
-                        </Box>
+                        {displayedEvents.map((event, index) => (
+                            <ScheduleItem
+                                key={`event-${index}`}
+                                event={event}
+                            />
+                        ))}
                     </Box>
                 </Box>
 
