@@ -171,6 +171,11 @@
     pointer-events: none;
     z-index: 2;
 
+    @media (min-width: 901px) {
+        top: 40%;
+        height: 58%;
+    }
+
     @media (max-width: 900px) {
         top: 46%;
         width: 62%;
@@ -259,11 +264,6 @@
         justify-content: center;
         height: 85px;
         width: 250px;
-        // width: 100%;
-    }
-
-    &.gold {
-        // width: 100%;
     }
 }
 
@@ -302,6 +302,40 @@
     top: 43%;
     left: 75%;
     // transform: scale(0.9);
+}
+
+@media (min-width: 901px) {
+    .alienWrapper.alien0 {
+        top: 6%;
+    }
+
+    .alienWrapper.alien1 {
+        top: 11%;
+    }
+
+    .alienWrapper.alien2 {
+        top: 11%;
+    }
+
+    .alienWrapper.alien3 {
+        top: 36%;
+        left: 10%;
+    }
+
+    .alienWrapper.alien4 {
+        top: 28%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .alienWrapper.alien4 .alienImage {
+        transform: scale(1.35);
+    }
+
+    .alienWrapper.alien5 {
+        top: 36%;
+        left: 68%;
+    }
 }
 
 @media (max-width: 900px) {
@@ -421,6 +455,10 @@
     width: 80%;
     z-index: 3;
 
+    @media (min-width: 901px) {
+        bottom: 8%;
+    }
+
     @media (max-width: 900px) {
         bottom: 0%;
         width: 85%;
@@ -490,24 +528,63 @@
         filter 0.3s ease,
         transform 0.3s ease;
 
+    /* Laptop (900px+): unified height for balance; same max-width */
+    @media (min-width: 901px) {
+        height: 120px;
+        min-height: 120px;
+        max-height: 120px;
+        max-width: 160px;
+
+        &.squareBox {
+            aspect-ratio: 1;
+            width: 120px;
+            min-width: 120px;
+            max-width: 120px;
+        }
+    }
+
     &:hover {
         filter: brightness(1.1);
         transform: scale(1.05);
     }
 
     @media (max-width: 900px) {
+        height: 50px;
+        min-height: 50px;
         max-height: 50px;
-        max-width: 120px;
+        max-width: 90px;
+
+        &.squareBox {
+            width: 50px;
+            min-width: 50px;
+            max-width: 50px;
+        }
     }
 
     @media (max-width: 600px) {
+        height: 45px;
+        min-height: 45px;
         max-height: 45px;
-        max-width: 110px;
+        max-width: 80px;
+
+        &.squareBox {
+            width: 45px;
+            min-width: 45px;
+            max-width: 45px;
+        }
     }
 
     @media (max-width: 400px) {
+        height: 40px;
+        min-height: 40px;
         max-height: 40px;
-        max-width: 100px;
+        max-width: 72px;
+
+        &.squareBox {
+            width: 40px;
+            min-width: 40px;
+            max-width: 40px;
+        }
     }
 
     &.invertWhite {

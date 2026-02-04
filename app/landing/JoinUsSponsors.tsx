@@ -66,9 +66,10 @@ const bottomSponsorsRows: Array<
         tier: string;
         invertToWhite?: boolean;
         shiftRight?: boolean;
+        boxShape?: "square";
     }>
 > = [
-    // Silver tier - Row 1
+    // Row 1: silver tier (5 sponsors)
     [
         {
             name: "OpenAI",
@@ -83,11 +84,9 @@ const bottomSponsorsRows: Array<
         {
             name: "T-Mobile",
             image: "/sponsor_icons/multi-color/tmobile.png",
-            tier: "silver"
-        }
-    ],
-    // Silver tier - Row 2
-    [
+            tier: "silver",
+            boxShape: "square"
+        },
         {
             name: "Solana Foundation",
             image: "/sponsor_icons/multi-color/solana.svg",
@@ -97,14 +96,9 @@ const bottomSponsorsRows: Array<
             name: "Modal",
             image: "/sponsor_icons/multi-color/modal.svg",
             tier: "silver"
-        },
-        {
-            name: "Melius",
-            image: "/sponsor_icons/multi-color/melius.png",
-            tier: "silver"
         }
     ],
-    // Bronze tier - Row 3
+    // Row 2: bronze + prize (5 sponsors)
     [
         {
             name: "Exa",
@@ -115,13 +109,10 @@ const bottomSponsorsRows: Array<
             name: "Actian",
             image: "/sponsor_icons/multi-color/actian.svg",
             tier: "bronze"
-        }
-    ],
-    // Prize tier - Row 4
-    [
+        },
         {
             name: "Cloudflare",
-            image: "/sponsor_icons/multi-color/cloudflare.png",
+            image: "/sponsor_icons/multi-color/cloudflare.svg",
             tier: "prize"
         },
         {
@@ -230,19 +221,19 @@ const JoinUsSponsors = () => {
     const getTierColor = (tier: string) => {
         switch (tier) {
             case "title":
-                return "rgba(0, 255, 255, 0.3)"; // Semi-transparent cyan
+                return "rgba(0, 255, 255, 0.7)"; // Frosted cyan
             case "gold":
-                return "rgba(255, 215, 0, 0.3)"; // Semi-transparent gold
+                return "rgba(255, 215, 0, 0.7)"; // Frosted gold
             case "silver":
-                return "rgba(192, 192, 192, 0.35)"; // Semi-transparent silver
+                return "rgba(192, 192, 192, 0.7)"; // Frosted silver
             case "bronze":
-                return "rgba(205, 127, 50, 0.3)"; // Semi-transparent bronze
+                return "rgba(212, 118, 24, 0.7)"; // Frosted bronze
             case "prize":
-                return "rgba(155, 89, 182, 0.3)"; // Semi-transparent purple
+                return "rgba(172, 100, 201, 0.7)"; // Frosted purple
             case "tbd":
-                return "rgba(149, 165, 166, 0.3)"; // Semi-transparent gray
+                return "rgba(149, 165, 166, 0.5)"; // Frosted gray
             default:
-                return "rgba(192, 192, 192, 0.3)"; // Default semi-transparent
+                return "rgba(192, 192, 192, 0.5)"; // Default frosted
         }
     };
 
@@ -480,7 +471,7 @@ const JoinUsSponsors = () => {
                                 {row.map((sponsor, index) => (
                                     <Box
                                         key={`${rowIndex}-${index}`}
-                                        className={`${styles.bottomSponsorLogo} ${sponsor.invertToWhite ? styles.invertWhite : ""}`}
+                                        className={`${styles.bottomSponsorLogo} ${styles[`${sponsor.tier}Tier`]} ${sponsor.boxShape === "square" ? styles.squareBox : ""} ${sponsor.invertToWhite ? styles.invertWhite : ""}`}
                                         sx={{
                                             backgroundColor: getTierColor(
                                                 sponsor.tier || "tbd"
