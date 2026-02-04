@@ -32,7 +32,6 @@ export default function RSVP() {
     const [registrationData, setRegistrationData] =
         useState<RegistrationApplicationSubmitted | null>(null);
     const [showDeclineDialog, setShowDeclineDialog] = useState(false);
-    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");

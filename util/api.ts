@@ -1,3 +1,4 @@
+import { FORCE_REGISTRATION_CLOSED } from "@/app/register/constants";
 import { handleError } from "./helpers";
 import {
     AcceptAdmissionRSVPRequest,
@@ -33,7 +34,10 @@ export async function getAuthToken(): Promise<string | null> {
 }
 
 export function authenticate(): void {
-    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/register/general`;
+    const callbackUrl = FORCE_REGISTRATION_CLOSED
+        ? "/register/late"
+        : "/register/general";
+    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/${callbackUrl}`;
     window.location.replace(authUrl);
 }
 

@@ -39,8 +39,18 @@ import RegistrationStepper from "./components/RegistrationStepper";
 import { OTHER_SCHOOL_OPTION, steps } from "./constants/registration";
 import GithubAuthPage from "./formPages/GithubAuthPage";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
+import { FORCE_REGISTRATION_CLOSED } from "../constants";
 
-const GeneralRegistration = () => {
+export const GeneralRegistration = ({
+    hardStatus
+}: {
+    /**
+     * Not specified (default): follow backend state.
+     * open: regardless of backend state, registration is open.
+     * closed: regardless of backend state, registration is closed.
+     */
+    hardStatus?: "open" | "closed";
+}) => {
     const [showSaveAlert, setShowSaveAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [showClickOffAlert, setShowClickOffAlert] = useState(false);
@@ -49,7 +59,11 @@ const GeneralRegistration = () => {
     const saveTimeoutRef = useRef<NodeJS.Timeout>(null); // stores ten-second-delay autosave
     const [isLoadingComponent, setIsLoadingComponent] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const registrationAuth = useRegistrationAuth();
+    const registrationAuth = useRegistrationAuth({
+        isClosed: hardStatus === "closed",
+        isProtected: hardStatus ? false : true,
+        shouldLoadSubmission: false
+    });
 
     const {
         maxStep,
@@ -543,4 +557,12 @@ const GeneralRegistration = () => {
     );
 };
 
-export default GeneralRegistration;
+const GeneralRegistrationWrapper = () => {
+    return (
+        <GeneralRegistration
+            hardStatus={FORCE_REGISTRATION_CLOSED ? "closed" : undefined}
+        />
+    );
+};
+
+export default GeneralRegistrationWrapper;

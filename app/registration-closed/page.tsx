@@ -1,50 +1,9 @@
 "use client";
 
 import { GradientButton } from "@/components/GradientButton/GradientButton";
-import { registrationAlive } from "@/util/api";
-import { Box, CircularProgress, Typography } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
 
 const RegistrationClosed = () => {
-    const router = useRouter();
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        const checkRegistrationStatus = async () => {
-            try {
-                const isAlive = await registrationAlive();
-                if (isAlive) {
-                    // Registration is still open, redirect to homepage
-                    router.push("/");
-                } else {
-                    setIsLoading(false);
-                }
-            } catch (error) {
-                alert(`Error checking registration status: ${error}`);
-                setIsLoading(false);
-            }
-        };
-
-        checkRegistrationStatus();
-    }, [router]);
-
-    if (isLoading) {
-        return (
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    minHeight: "100vh",
-                    backgroundColor: "#0a0a1a"
-                }}
-            >
-                <CircularProgress sx={{ color: "#A315D6" }} />
-            </Box>
-        );
-    }
-
     return (
         <Box
             sx={{
