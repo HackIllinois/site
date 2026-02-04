@@ -15,14 +15,25 @@ export type AttendeeProfile = {
     shirtSize: string;
 };
 
+export type DecisionStatus = "TBD" | "ACCEPTED" | "REJECTED" | "WAITLISTED";
+export type DecisionResponse = "PENDING" | "ACCEPTED" | "DECLINED";
+
 export type RSVPInfo = {
     userId: string;
-    status: string;
+    status: DecisionStatus;
     admittedPro: boolean;
-    response: string;
+    response: DecisionResponse;
     emailSent: boolean;
     reimbursementValue: number;
     correctProChallenge: boolean;
+};
+
+export type AcceptAdmissionRSVPRequest = {
+    displayName: string;
+    discordTag: string;
+    avatarId: string;
+    dietaryRestrictions: string[];
+    shirtSize: string;
 };
 
 export type UserAvatar = {
@@ -141,55 +152,13 @@ export type RegistrationData = {
     reviewedInformationAcknowledge: string[];
 };
 
-export type DecisionStatus = "TBD" | "ACCEPTED" | "REJECTED" | "WAITLISTED";
-export type DecisionResponse = "PENDING" | "ACCEPTED" | "DECLINED";
-
-export type RSVPType = {
-    userId: string;
-    status: DecisionStatus;
-    response: DecisionResponse;
-    admittedPro: boolean;
-    reimbursementValue: number;
-};
-
-export type UserType = {
-    _id: string;
-    userId: string;
-    email: string | null;
-    name: string;
-};
-
-export type ProfileBodyType = {
+export type ProfileFormInfo = {
     displayName: string;
     discordTag: string;
+    shirtSize: string;
+    dietaryRestrictions: string[];
+    otherDietaryRestrictions: string;
     avatarId: string;
-};
-
-export type ProfileType = {
-    userId: string;
-    displayName: string;
-    discordTag: string;
-    avatarUrl: string;
-    points: number;
-    coins: number;
-};
-
-export type AuthRoles = {
-    id: string;
-    roles: string[];
-};
-
-export type RSVPDecisionType = {
-    userId: string;
-    user: string;
-    reviewer: string;
-    whether: boolean;
-};
-
-export type RegistrationRole = "attendee" | "mentor";
-
-export type RegistrationStatus = {
-    alive: boolean;
 };
 
 export type ChallengeStatus = {

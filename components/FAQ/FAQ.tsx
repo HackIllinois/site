@@ -24,6 +24,10 @@ const faqItems = [
         answer: "HackIllinois 2026 will be held in the University of Illinois Urbana-Champaign. We'll provide more detailed location and parking information closer to the event date."
     },
     {
+        question: "Will overnight hacking space be provided?",
+        answer: "Yes! HackIllinois will provide overnight hacking space for attendees this year. This dedicated space allows you to work on your project throughout the night in a safe environment."
+    },
+    {
         question: "Will there be reimbursement?",
         answer: (
             <>

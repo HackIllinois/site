@@ -1,12 +1,14 @@
 "use client";
 import { useState, useEffect, useMemo } from "react";
 import { Box, Typography } from "@mui/material";
-import { loadProfile, loadAdmissionRSVP, updateProfile } from "@/util/api";
+import { useRouter } from "next/navigation";
+import { loadAdmissionRSVP, loadProfile, updateProfile } from "@/util/api";
 import Loading from "@/components/Loading/Loading";
+import ErrorSnackbar from "@/components/ErrorSnackbar/ErrorSnackbar";
 import { AvatarCarousel, type AvatarItem } from "./AvatarCarousel";
-import { redirect } from "next/navigation";
 
 export default function Profile() {
+    const router = useRouter();
     const base =
         "https://raw.githubusercontent.com/HackIllinois/adonix-metadata/refs/heads/main/avatars";
 
@@ -27,6 +29,8 @@ export default function Profile() {
     const [name, setName] = useState("");
     const [track, setTrack] = useState("");
     const [loading, setLoading] = useState(true);
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const avatarUrl = `${base}/${avatarId}.png`;
 
@@ -39,37 +43,57 @@ export default function Profile() {
         setMode("profile");
     };
 
-    const confirmAvatarPicker = () => {
+    const confirmAvatarPicker = async () => {
         setLoading(true);
-        setAvatarId(draftAvatarId);
-
-        updateProfile({ avatarId: draftAvatarId }).finally(() => {
+        try {
+            setAvatarId(draftAvatarId);
+            await updateProfile({ avatarId: draftAvatarId });
+            setMode("profile");
+        } catch (error: any) {
+            console.error("Error updating avatar:", error);
+            setErrorMessage(
+                error?.message || "Failed to update avatar. Please try again."
+            );
+            setShowErrorAlert(true);
+        } finally {
             setLoading(false);
-        });
-
-        setMode("profile");
+        }
     };
 
     useEffect(() => {
         // TODO: Remove this redirect once the rest of RSVP is finished.
-        redirect("/");
+        // redirect("/");
         const loadData = async () => {
             try {
+                const RSVPInfo = await loadAdmissionRSVP();
+
+                if (
+                    RSVPInfo.response !== "ACCEPTED" ||
+                    RSVPInfo.status !== "ACCEPTED"
+                ) {
+                    router.push("/register/general");
+                    return;
+                }
                 const profile = await loadProfile();
                 setAvatarId(
                     profile.avatarUrl.split("/").pop()!.replace(".png", "")
                 );
                 setName(profile.displayName);
 
-                const RSVPInfo = await loadAdmissionRSVP();
                 setTrack(
                     RSVPInfo.admittedPro ? "HACKVOYAGER" : "GENERAL ATTENDEE"
                 );
-            } finally {
+                setLoading(false);
+            } catch (error: any) {
+                console.error("Error loading profile data:", error);
+                setErrorMessage(
+                    error?.message ||
+                        "Failed to load profile data. Please try again."
+                );
+                setShowErrorAlert(true);
                 setLoading(false);
             }
         };
-
         loadData();
     }, []);
 
@@ -87,6 +111,11 @@ export default function Profile() {
                 px: { xs: 0, sm: 1 }
             }}
         >
+            <ErrorSnackbar
+                open={showErrorAlert}
+                onClose={() => setShowErrorAlert(false)}
+                message={errorMessage}
+            />
             {/* 3 column grid */}
             <Box
                 sx={{
@@ -246,9 +275,46 @@ export default function Profile() {
                                     border: "1px solid rgba(149, 255, 130, 0.50)",
                                     boxShadow:
                                         "0 0 20px 0 rgba(0, 0, 0, 0.25) inset",
-                                    padding: "30px"
+                                    padding: "30px",
+                                    position: "relative"
                                 }}
                             >
+                                <Box
+                                    component="button"
+                                    onClick={() =>
+                                        router.push("/profile-setup")
+                                    }
+                                    aria-label="Edit profile"
+                                    sx={{
+                                        all: "unset",
+                                        position: "absolute",
+                                        top: 0,
+                                        right: 0,
+                                        width: 45,
+                                        height: 45,
+                                        border: "2px solid #1F0",
+                                        background: "rgba(4, 255, 0, 0.15)",
+                                        boxShadow:
+                                            "0 0 10px 3px rgba(30, 255, 0, 0.75) inset",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        cursor: "pointer"
+                                    }}
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="29"
+                                        height="29"
+                                        viewBox="0 0 29 29"
+                                        fill="none"
+                                    >
+                                        <path
+                                            d="M27.2163 3.33799L25.0649 1.18661C23.4813 -0.396961 20.722 -0.394112 19.1472 1.18661L16.9986 3.33514C16.9986 3.33514 16.9958 3.33657 16.9944 3.338C16.9929 3.33942 16.9929 3.34085 16.9915 3.34228L9.5585 10.7753C8.90508 11.4287 8.39008 12.1891 8.02485 13.038L5.85776 18.0927C5.30993 19.3766 5.59241 20.8404 6.57536 21.8219C7.22878 22.4768 8.0876 22.8206 8.96643 22.8206C9.41726 22.8206 9.87379 22.7293 10.3075 22.5424L15.3651 20.3753C16.214 20.013 16.9758 19.4979 17.6278 18.8431L27.2163 9.25454C28.847 7.62389 28.847 4.96755 27.2163 3.33683L27.2163 3.33799ZM16.0142 17.2307C15.5662 17.6787 15.0469 18.0296 14.4662 18.2779L9.40716 20.445C8.99201 20.6247 8.51123 20.5334 8.19024 20.211C7.86924 19.89 7.77794 19.4121 7.95627 18.9927L10.1234 13.9394C10.373 13.3588 10.7254 12.8366 11.1719 12.3887L17.8 5.76058L22.6421 10.6027L16.0142 17.2307ZM25.6027 7.64361L24.2574 8.98894L19.4153 4.14682L20.7606 2.80148C21.4811 2.08389 22.7308 2.08389 23.4513 2.80148L25.6026 4.95286C26.3431 5.69328 26.3431 6.90173 25.6027 7.64361ZM25.1091 20.8V23.8431C25.1091 26.1514 23.233 28.0274 20.9247 28.0274L4.18436 28.0289C1.87604 28.0289 0 26.1528 0 23.8445V7.0541C0 5.92275 0.443673 4.86419 1.24976 4.07096C2.05438 3.27773 3.10867 2.87829 4.25573 2.86971L7.24884 2.91821C7.87943 2.9282 8.38161 3.44749 8.37018 4.07809C8.3602 4.70152 7.85087 5.20086 7.22886 5.20086H7.20889L4.21577 5.15235C3.7293 5.14522 3.21711 5.33781 2.85046 5.69734C2.48524 6.05828 2.28265 6.53907 2.28265 7.05264V23.843C2.28265 24.8916 3.13577 25.7448 4.18437 25.7448H20.9233C21.9719 25.7448 22.825 24.8916 22.825 23.843V20.8C22.825 20.1694 23.3357 19.6587 23.9663 19.6587C24.5969 19.6587 25.1076 20.1694 25.1076 20.8L25.1091 20.8Z"
+                                            fill="white"
+                                        />
+                                    </svg>
+                                </Box>
                                 <Typography
                                     sx={{
                                         color: "#FFF",
