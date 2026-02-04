@@ -9,9 +9,14 @@ import GithubAuthPage from "../register/general/formPages/GithubAuthPage";
 import NotProTrackPage from "../register/general/formPages/NotProTrackPage";
 import { getChallenge } from "@/util/api";
 import { useEffect } from "react";
+import { FORCE_REGISTRATION_CLOSED } from "../register/constants";
 
 const ProChallenge: React.FC = () => {
-    const registrationAuth = useRegistrationAuth(true);
+    const registrationAuth = useRegistrationAuth({
+        isClosed: FORCE_REGISTRATION_CLOSED,
+        isProtected: !FORCE_REGISTRATION_CLOSED,
+        shouldLoadSubmission: true
+    });
 
     async function handleLoadChallengeStatus() {
         try {

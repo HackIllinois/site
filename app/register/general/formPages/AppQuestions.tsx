@@ -3,6 +3,7 @@ import TextInput from "@/components/TextInputMUI";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Box, Container, Grid, Link, Typography } from "@mui/material";
 import { FormikProps } from "formik";
+import { FORCE_REGISTRATION_CLOSED } from "../../constants";
 interface AppQuestionsProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     accentColor?: string;
@@ -106,54 +107,64 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                         inputProps={{ maxLength: 1400 }}
                     />
                 </Grid>
+
                 <Grid size={12}>
-                    <CheckboxSelect
-                        name="pro"
-                        label="Would you like to be considered for HackVoyagers Path?"
-                        sublabelContent={
-                            <Box sx={{ display: "flex", alignItems: "center" }}>
-                                <Typography
-                                    component="p"
-                                    variant="body2"
-                                    sx={{ opacity: "0.8" }}
+                    {FORCE_REGISTRATION_CLOSED ? (
+                        <></>
+                    ) : (
+                        <CheckboxSelect
+                            name="pro"
+                            label="Would you like to be considered for HackVoyagers Path?"
+                            sublabelContent={
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center"
+                                    }}
                                 >
-                                    {
-                                        "You will have to complete a coding challenge to be eligible for the Path. Learn more about HackVoyagers"
-                                    }
-                                    <Link
-                                        href="/challenge/landing-page"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        sx={{
-                                            fontSize: "16px",
-                                            alignItems: "center",
-                                            padding: "2px 5px",
-                                            borderRadius: "5px",
-                                            color: "#ADED4A",
-                                            fontWeight: "500",
-                                            textDecorationColor: "#ADED4A",
-                                            textDecorationThickness: "2px",
-                                            "&:hover": {
-                                                color: "#fff",
-                                                textDecorationColor: "#fff",
-                                                textDecoration: "underline"
-                                            }
-                                        }}
+                                    <Typography
+                                        component="p"
+                                        variant="body2"
+                                        sx={{ opacity: "0.8" }}
                                     >
-                                        here
-                                    </Link>
-                                </Typography>
-                            </Box>
-                        }
-                        optionLabel="Yes"
-                        accentColor={accentColor}
-                        value={values.pro}
-                        onChange={val => {
-                            setFieldValue("pro", val);
-                        }}
-                        error={!!touched.pro && Boolean(errors.pro)}
-                        helperText={!!touched.pro ? errors.pro : ""}
-                    />
+                                        {
+                                            "You will have to complete a coding challenge to be eligible for the Path. Learn more about HackVoyagers"
+                                        }
+                                        <Link
+                                            href="/challenge/landing-page"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            sx={{
+                                                fontSize: "16px",
+                                                alignItems: "center",
+                                                padding: "2px 5px",
+                                                borderRadius: "5px",
+                                                color: "#ADED4A",
+                                                fontWeight: "500",
+                                                textDecorationColor: "#ADED4A",
+                                                textDecorationThickness: "2px",
+                                                "&:hover": {
+                                                    color: "#fff",
+                                                    textDecorationColor: "#fff",
+                                                    textDecoration: "underline"
+                                                }
+                                            }}
+                                        >
+                                            here
+                                        </Link>
+                                    </Typography>
+                                </Box>
+                            }
+                            optionLabel="Yes"
+                            accentColor={accentColor}
+                            value={values.pro}
+                            onChange={val => {
+                                setFieldValue("pro", val);
+                            }}
+                            error={!!touched.pro && Boolean(errors.pro)}
+                            helperText={!!touched.pro ? errors.pro : ""}
+                        />
+                    )}
                 </Grid>
             </Grid>
         </Container>
