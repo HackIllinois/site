@@ -6,7 +6,7 @@ import Footer from "@/components/Footer/Footer";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
-import { montserrat, tsukimi } from "../theme/fonts";
+import { montserrat, tsukimi, jersey } from "../theme/fonts";
 import "./globals.scss";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -49,7 +49,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 />
             </head>
             <body
-                className={`${montserrat.variable} ${tsukimi.variable} 
+                className={`${montserrat.variable} ${tsukimi.variable} ${jersey.variable} 
                             ${montserrat.className}`} // compatibility
             >
                 <AppRouterCacheProvider>

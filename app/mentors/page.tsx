@@ -1,10 +1,40 @@
 "use client";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import Image from "next/image";
+import { StaffInfoPopup } from "./StaffInfoPopup";
 
 const mentorData: { name: string; desc: string }[] = [
-    { name: "first", desc: "eaofiohfeoifhPEsf" },
-    { name: "ofoiehafe", desc: "kenfoaeihfaoipwehfapewihf" }
+    {
+        name: "first efaefae",
+        desc: "This is a place to write the bio of the potential mentors and sponsors. "
+    },
+    {
+        name: "ofoiehafe aef efaefaewfa",
+        desc: "This is a place to write the bio of the potential mentors and sponsors. "
+    },
+    {
+        name: "eafewf aefefdfdsf",
+        desc: "This is a place to write the bio of the potential mentors and sponsors. "
+    },
+    {
+        name: "ofaefaefoiehafe aefdsfadsf",
+        desc: "This is a place to write the bio of the potential mentors and sponsors. "
+    },
+    {
+        name: "firaefst aefsdfsa",
+        desc: "This is a place to write the bio of the potential mentors and sponsors. "
+    },
+    {
+        name: "aefaef aefafsdfdaf",
+        desc: "This is a place to write the bio of the potential mentors and sponsors. "
+    },
+    {
+        name: "aefefaewf aewfewfewfasdfewfdfadfsdf",
+        desc: "This is a place to write the bio of the potential mentors and sponsors. "
+    },
+    {
+        name: "aefefefefefe-afefsfas eafsdfadfsa",
+        desc: "This is a place to write the bio of the potential mentors and sponsors. "
+    }
 ];
 
 const Mentors = () => {
@@ -65,14 +95,11 @@ const Mentors = () => {
                 </Typography>
                 <Grid container columnSpacing={2} rowSpacing={{ xs: 3, md: 6 }}>
                     {mentorData.map(mentor => (
-                        <Grid size={{ xs: 6, md: 3 }} key={mentor.name}>
-                            <Image
-                                src={"/mentors/assets/astronaut.svg"}
-                                width={200}
-                                height={200}
-                                alt={"Icon of an astronaut"}
-                            />
-                        </Grid>
+                        <StaffInfoPopup
+                            key={mentor.name}
+                            name={mentor.name}
+                            description={mentor.desc}
+                        />
                     ))}
                 </Grid>
             </Container>
