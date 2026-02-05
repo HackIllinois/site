@@ -256,7 +256,6 @@
 
     &.title {
         height: 100px;
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
     }
 
     &.gold {
@@ -563,8 +562,6 @@
 
     @media (max-width: 600px) {
         height: 45px;
-        min-height: 45px;
-        max-height: 45px;
         max-width: 80px;
 
         &.squareBox {
