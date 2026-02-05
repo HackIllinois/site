@@ -96,7 +96,7 @@ const GithubAuthPage = ({
                     <Box
                         sx={{
                             minHeight: { xs: "auto", md: "103px" },
-                            borderRadius: "67px",
+                            borderRadius: { xs: "15px", md: "67px" },
                             px: { xs: 3, md: 4 },
                             py: 3,
                             display: "flex",
@@ -120,6 +120,7 @@ const GithubAuthPage = ({
                                         },
                                         lineHeight: "100%",
                                         textAlign: "center",
+                                        textWrap: "balance",
                                         mb: "12px",
                                         color: "white"
                                     }}
