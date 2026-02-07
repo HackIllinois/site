@@ -661,7 +661,7 @@ const Prizes: React.FC = () => {
                     <MotionBox variants={itemVariants}>
                         <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track2.svg"
-                            topText="BEST EXPOSED API"
+                            topText="BEST API"
                             bottomText="$2500 + TBD"
                             radiusX={200}
                             radiusY={150}
@@ -733,15 +733,37 @@ const Prizes: React.FC = () => {
                     <MotionBox variants={itemVariants}>
                         <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track6.svg"
-                            topText="? ? ?"
-                            bottomText="$2500 + TBD"
+                            topText="BEST AI INSPECTION"
+                            bottomText={
+                                <ul style={{ margin: 0 }}>
+                                    <li>
+                                        <strong>1st place:</strong> $1500 for
+                                        the team, Ray-Ban Meta AI glasses for
+                                        each member, Cat swag and a pitch
+                                        presentation to a Caterpillar Executive
+                                        team member
+                                    </li>
+                                    <li>
+                                        <strong>2nd place:</strong> $700 for the
+                                        team, gaming keyboard for each member,
+                                        Cat swag and a pitch presentation to a
+                                        Caterpillar Executive team member
+                                    </li>
+                                    <li>
+                                        <strong>3rd place:</strong> $300 for the
+                                        team, gaming keyboard for each member,
+                                        Cat swag and sharing the hack with a
+                                        Caterpillar Executive team member
+                                    </li>
+                                </ul>
+                            }
                             radiusX={200}
                             radiusY={150}
                             width={500}
                             height={500}
                             centerOffsetY={10}
                             centerOffsetX={13}
-                            bottomTextSize={25}
+                            bottomTextSize={16}
                             topTextOffset={50}
                             bottomTextOffset={50}
                             topTextSize={25}
