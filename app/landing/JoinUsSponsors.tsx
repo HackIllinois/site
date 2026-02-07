@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Link, Typography } from "@mui/material";
+import { Box, Link, Typography, useMediaQuery } from "@mui/material";
 import styles from "./JoinUsSponsors.module.scss";
 import Image from "next/image";
 import { tsukimi } from "@/theme/fonts";
@@ -9,7 +9,7 @@ import { GradientButtonInstagram } from "@/components/GradientButton/GradientBut
 import clsx from "clsx";
 import { motion, useAnimation, Variants, useInView } from "framer-motion"; // Added useInView
 import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
-import { useEffect, useRef } from "react"; // Added hooks
+import { useEffect, useMemo, useRef } from "react"; // Added hooks
 
 const alienAssets = [
     "/landing/sponsors/aliens/alien1.svg",
@@ -19,6 +19,136 @@ const alienAssets = [
     "/landing/sponsors/aliens/alien5.svg",
     "/landing/sponsors/aliens/alien6.svg"
 ];
+
+// tier may be inaccurate in alienSponsors. It's only for styling.
+const alienSponsors = [
+    {
+        name: "FulcrumGT",
+        tier: "title",
+        image: "/sponsor_icons/multi-color/fulcrum-gt.svg",
+        alienIndex: 0
+    },
+    {
+        name: "John Deere",
+        tier: "gold",
+        image: "/sponsor_icons/multi-color/john-deere.png",
+        alienIndex: 1
+    },
+    {
+        name: "Stripe",
+        tier: "gold",
+        image: "/sponsor_icons/multi-color/stripe.svg",
+        alienIndex: 2
+    },
+    {
+        name: "IMC",
+        tier: "gold",
+        image: "/sponsor_icons/multi-color/imc.png",
+        alienIndex: 3
+    },
+
+    {
+        name: "Modal",
+        image: "/sponsor_icons/multi-color/modal.svg",
+        tier: "gold",
+        alienIndex: 4
+    },
+    {
+        name: "Capital One",
+        tier: "gold",
+        image: "/sponsor_icons/multi-color/capital-one.png",
+        alienIndex: 5
+    }
+];
+
+const bottomSponsorsRows: Array<{
+    name: string;
+    image: string;
+    tier: string;
+    squareBox?: boolean;
+    invertToWhite?: boolean;
+    shiftRight?: boolean;
+    isPlaceholder?: boolean;
+}> = [
+    // Row 1: silver tier (6 sponsors)
+    {
+        name: "Supermemory",
+        tier: "silver",
+        image: "/sponsor_icons/multi-color/supermemory.svg"
+    },
+    {
+        name: "T-Mobile",
+        image: "/sponsor_icons/multi-color/tmobile.png",
+        tier: "silver",
+        squareBox: true
+    },
+    {
+        name: "Solana Foundation",
+        image: "/sponsor_icons/multi-color/solana.svg",
+        tier: "silver"
+    },
+    {
+        name: "Caterpillar",
+        tier: "silver",
+        image: "/sponsor_icons/multi-color/caterpillar.png"
+    },
+    {
+        name: "Endeavor",
+        image: "/sponsor_icons/multi-color/endeavor.svg",
+        tier: "silver"
+    },
+    // Row 2: bronze + prize (5 sponsors)
+    {
+        name: "Exa",
+        image: "/sponsor_icons/multi-color/exa.svg",
+        tier: "bronze"
+    },
+    {
+        name: "Actian",
+        image: "/sponsor_icons/multi-color/actian.svg",
+        tier: "bronze"
+    },
+    {
+        name: "HRT",
+        image: "/sponsor_icons/multi-color/hrt.svg",
+        tier: "bronze",
+        squareBox: true
+    },
+    {
+        name: "Mechanize",
+        image: "/sponsor_icons/multi-color/mechanize.svg",
+        tier: "bronze",
+        squareBox: true
+    },
+    {
+        name: "Cloudflare",
+        image: "/sponsor_icons/multi-color/cloudflare.svg",
+        tier: "prize"
+    },
+    {
+        name: "OpenAI",
+        image: "/sponsor_icons/multi-color/openai.png",
+        tier: "prize"
+    },
+    {
+        name: "Aedify AI",
+        image: "/sponsor_icons/multi-color/aedify-ai.svg",
+        tier: "prize"
+    },
+    {
+        name: "Nora",
+        image: "/sponsor_icons/multi-color/nora.png",
+        tier: "prize"
+    },
+    {
+        name: "Coming Soon",
+        image: "",
+        tier: "prize",
+        isPlaceholder: true
+    }
+];
+
+const sponsorBackgroundColor = "rgba(193, 193, 193, 0.8)";
 
 const MotionImage = motion(Image);
 
@@ -113,6 +243,16 @@ const JoinUsSponsors = () => {
     const parallaxStyle = {
         transform: `translateY(${offsetY * 0.1}px)`
     };
+
+    const smViewport = useMediaQuery("(max-width:700px)");
+
+    const bottomRowCount = useMemo(() => {
+        console.log("smViewport", smViewport);
+        if (smViewport) {
+            return 2;
+        }
+        return 3;
+    }, [smViewport]);
 
     return (
         <div className={styles.joinUsSection} ref={ref}>
@@ -289,34 +429,133 @@ const JoinUsSponsors = () => {
                             SPONSORS
                         </Typography>
                     </motion.div>
-
-                    <motion.div variants={itemVariants}>
-                        <Typography
-                            variant="h5"
-                            component="h2"
-                            sx={{
-                                color: "#ccc",
-                                textAlign: "center",
-                                fontFamily: "Montserrat"
-                            }}
-                        >
-                            To be announced soon!
-                        </Typography>
-                    </motion.div>
                 </motion.div>
 
-                <div className={styles.aliensContainer}>
-                    {alienAssets.map((src, index) => (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                            key={index}
-                            src={src}
-                            alt={`Alien ${index + 1}`}
-                            className={`${styles.alienImage} ${styles[`alien${index}`]}`}
-                            style={{ animationDelay: `${index * 0.15}s` }}
-                        />
-                    ))}
-                </div>
+                <Box
+                    sx={{
+                        width: "100%"
+                    }}
+                >
+                    <div className={styles.aliensContainer}>
+                        {alienAssets.map((src, index) => {
+                            const sponsor = alienSponsors.find(
+                                s => s.alienIndex === index
+                            );
+                            return (
+                                <div
+                                    key={index}
+                                    className={`${styles.alienWrapper} ${styles[`alien${index}`]}`}
+                                    style={{
+                                        animationDelay: `${index * 0.15}s`
+                                    }}
+                                >
+                                    <img
+                                        src={src}
+                                        alt={`Alien ${index + 1}`}
+                                        className={`${styles.alienImage} ${sponsor ? styles[sponsor.tier] : ""}`}
+                                    />
+                                    {sponsor && (
+                                        <Box
+                                            className={`${styles.sponsorLogo} ${styles[sponsor.tier]}`}
+                                            sx={{
+                                                backgroundColor:
+                                                    sponsorBackgroundColor,
+                                                borderRadius: "999px"
+                                            }}
+                                        >
+                                            <img
+                                                src={sponsor.image}
+                                                alt={sponsor.name}
+                                                style={{
+                                                    height: "100%",
+                                                    objectFit: "contain"
+                                                }}
+                                            />
+                                        </Box>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <div className={styles.bottomSponsorsContainer}>
+                        <div
+                            className={styles.bottomSponsorsGrid}
+                            style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "24px"
+                            }}
+                        >
+                            {Array.from({
+                                length: Math.ceil(
+                                    bottomSponsorsRows.length / bottomRowCount
+                                )
+                            }).map((_, i) => (
+                                <Box
+                                    key={`sponsor-row-${i}`}
+                                    style={{
+                                        width: "100%",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        gap: "24px",
+                                        flexWrap: "wrap"
+                                    }}
+                                >
+                                    {bottomSponsorsRows
+                                        .slice(
+                                            i * bottomRowCount,
+                                            i * bottomRowCount + bottomRowCount
+                                        )
+                                        .map((sponsor, index) => (
+                                            <Box
+                                                key={`${i}-${index}-bottom-sponsor`}
+                                                className={`${styles.bottomSponsorLogo} ${styles[`${sponsor.tier}Tier`]} ${sponsor.squareBox ? styles.squareBox : ""}`}
+                                                sx={{
+                                                    backgroundColor:
+                                                        sponsorBackgroundColor,
+                                                    borderRadius: "9999px",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    flex: "0 1 auto" // Allows box to size based on content/width
+                                                }}
+                                            >
+                                                {sponsor.isPlaceholder ? (
+                                                    <Typography
+                                                        sx={{
+                                                            fontFamily:
+                                                                "Montserrat",
+                                                            fontWeight: 700,
+                                                            color: "#3F2B75",
+                                                            fontSize: {
+                                                                xs: "12px",
+                                                                md: "16px"
+                                                            },
+                                                            textAlign: "center"
+                                                        }}
+                                                    >
+                                                        MORE COMING SOON...
+                                                    </Typography>
+                                                ) : (
+                                                    <img
+                                                        src={sponsor.image}
+                                                        alt={sponsor.name}
+                                                        style={{
+                                                            width: "100%",
+                                                            height: "100%",
+                                                            objectFit: "contain"
+                                                        }}
+                                                    />
+                                                )}
+                                            </Box>
+                                        ))}
+                                </Box>
+                            ))}
+                        </div>
+                    </div>
+                </Box>
             </div>
         </div>
     );
