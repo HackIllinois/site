@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Link, Typography } from "@mui/material";
+import { Box, Link, Typography, useMediaQuery } from "@mui/material";
 import styles from "./JoinUsSponsors.module.scss";
 import Image from "next/image";
 import { tsukimi } from "@/theme/fonts";
@@ -9,7 +9,7 @@ import { GradientButtonInstagram } from "@/components/GradientButton/GradientBut
 import clsx from "clsx";
 import { motion, useAnimation, Variants, useInView } from "framer-motion"; // Added useInView
 import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
-import { useEffect, useRef } from "react"; // Added hooks
+import { useEffect, useMemo, useRef } from "react"; // Added hooks
 
 const alienAssets = [
     "/landing/sponsors/aliens/alien1.svg",
@@ -218,6 +218,16 @@ const JoinUsSponsors = () => {
     const parallaxStyle = {
         transform: `translateY(${offsetY * 0.1}px)`
     };
+
+    const smViewport = useMediaQuery("(max-width:700px)");
+
+    const bottomRowCount = useMemo(() => {
+        console.log("smViewport", smViewport);
+        if (smViewport) {
+            return 2;
+        }
+        return 3;
+    }, [smViewport]);
 
     return (
         <div className={styles.joinUsSection} ref={ref}>
@@ -454,7 +464,9 @@ const JoinUsSponsors = () => {
                             }}
                         >
                             {Array.from({
-                                length: Math.ceil(bottomSponsorsRows.length / 4)
+                                length: Math.ceil(
+                                    bottomSponsorsRows.length / bottomRowCount
+                                )
                             }).map((_, i) => (
                                 <Box
                                     key={`sponsor-row-${i}`}
@@ -468,7 +480,10 @@ const JoinUsSponsors = () => {
                                     }}
                                 >
                                     {bottomSponsorsRows
-                                        .slice(i * 4, i * 4 + 4)
+                                        .slice(
+                                            i * bottomRowCount,
+                                            i * bottomRowCount + bottomRowCount
+                                        )
                                         .map((sponsor, index) => (
                                             <Box
                                                 key={`${i}-${index}-bottom-sponsor`}
