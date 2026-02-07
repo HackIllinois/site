@@ -70,7 +70,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                     <SelectTextInput
                         name="school"
                         label="School"
-                        sublabel="School not listed? Select 'Other - Not Listed'"
+                        sublabel="John Deere Mechathon is only open to UIUC students."
                         accentColor={accentColor}
                         required
                         options={schoolOptions.map(option => ({
@@ -142,6 +142,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                     <SelectTextInput
                         name="major"
                         label="Major/Field of Study"
+                        sublabel="John Deere Mechathon is only open to non-CS majors."
                         accentColor={accentColor}
                         required
                         options={majorOptions.map(option => ({

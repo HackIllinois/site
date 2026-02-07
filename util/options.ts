@@ -37,7 +37,7 @@ export const countryOptions: string[] = countries.concat("N/A");
 
 export const stateOptions: string[] = states.concat("N/A");
 
-export const schoolOptions: string[] = schools.concat("N/A");
+export const schoolOptions: string[] = schools;
 
 export const studyLevelOptions: string[] = [
     "Undergraduate University (2 year - community college or similar)",
