@@ -40,21 +40,22 @@ const alienSponsors = [
         alienIndex: 2
     },
     {
-        name: "Caterpillar",
-        tier: "silver",
-        image: "/sponsor_icons/multi-color/caterpillar.png",
+        name: "IMC",
+        tier: "gold",
+        image: "/sponsor_icons/multi-color/imc.png",
         alienIndex: 3
     },
+
     {
-        name: "Supermemory",
-        tier: "silver",
-        image: "/sponsor_icons/multi-color/supermemory.svg",
+        name: "Modal",
+        image: "/sponsor_icons/multi-color/modal.svg",
+        tier: "gold",
         alienIndex: 4
     },
     {
-        name: "IMC",
-        tier: "silver",
-        image: "/sponsor_icons/multi-color/imc.png",
+        name: "Capital One",
+        tier: "gold",
+        image: "/sponsor_icons/multi-color/capital-one.png",
         alienIndex: 5
     }
 ];
@@ -63,24 +64,21 @@ const bottomSponsorsRows: Array<{
     name: string;
     image: string;
     tier: string;
+    squareBox?: boolean;
     invertToWhite?: boolean;
     shiftRight?: boolean;
 }> = [
     // Row 1: silver tier (6 sponsors)
     {
-        name: "OpenAI",
-        image: "/sponsor_icons/multi-color/openai.png",
-        tier: "silver"
-    },
-    {
-        name: "Capital One",
-        image: "/sponsor_icons/multi-color/capital-one.png",
-        tier: "silver"
+        name: "Supermemory",
+        tier: "silver",
+        image: "/sponsor_icons/multi-color/supermemory.svg"
     },
     {
         name: "T-Mobile",
         image: "/sponsor_icons/multi-color/tmobile.png",
-        tier: "silver"
+        tier: "silver",
+        squareBox: true
     },
     {
         name: "Solana Foundation",
@@ -88,14 +86,9 @@ const bottomSponsorsRows: Array<{
         tier: "silver"
     },
     {
-        name: "Modal",
-        image: "/sponsor_icons/multi-color/modal.svg",
-        tier: "silver"
-    },
-    {
-        name: "Melius",
-        image: "/sponsor_icons/multi-color/melius.png",
-        tier: "silver"
+        name: "Caterpillar",
+        tier: "gold",
+        image: "/sponsor_icons/multi-color/caterpillar.png"
     },
     // Row 2: bronze + prize (5 sponsors)
     {
@@ -114,6 +107,11 @@ const bottomSponsorsRows: Array<{
         tier: "prize"
     },
     {
+        name: "OpenAI",
+        image: "/sponsor_icons/multi-color/openai.png",
+        tier: "prize"
+    },
+    {
         name: "Aedify AI",
         image: "/sponsor_icons/multi-color/aedify-ai.svg",
         tier: "prize"
@@ -124,6 +122,8 @@ const bottomSponsorsRows: Array<{
         tier: "prize"
     }
 ];
+
+const sponsorBackgroundColor = "rgba(193, 193, 193, 0.7)";
 
 const MotionImage = motion(Image);
 
@@ -396,7 +396,11 @@ const JoinUsSponsors = () => {
                     </motion.div>
                 </motion.div>
 
-                <Box>
+                <Box
+                    sx={{
+                        width: "100%"
+                    }}
+                >
                     <div className={styles.aliensContainer}>
                         {alienAssets.map((src, index) => {
                             const sponsor = alienSponsors.find(
@@ -420,10 +424,9 @@ const JoinUsSponsors = () => {
                                             className={`${styles.sponsorLogo} ${styles[sponsor.tier]}`}
                                             sx={{
                                                 backgroundColor:
-                                                    "rgba(192, 192, 192, 0.35)",
+                                                    sponsorBackgroundColor,
                                                 p: 3,
-                                                borderRadius: "16px"
-                                                // height: "90px",
+                                                borderRadius: "999px"
                                             }}
                                         >
                                             <img
@@ -469,12 +472,11 @@ const JoinUsSponsors = () => {
                                         .map((sponsor, index) => (
                                             <Box
                                                 key={`${i}-${index}-bottom-sponsor`}
-                                                className={`${styles.bottomSponsorLogo} ${styles[`${sponsor.tier}Tier`]} ${sponsor.invertToWhite ? styles.invertWhite : ""}`}
+                                                className={`${styles.bottomSponsorLogo} ${styles[`${sponsor.tier}Tier`]} ${sponsor.squareBox ? styles.squareBox : ""}`}
                                                 sx={{
                                                     backgroundColor:
-                                                        "rgba(192, 192, 192, 0.35)",
-                                                    p: 2,
-                                                    borderRadius: "12px",
+                                                        sponsorBackgroundColor,
+                                                    borderRadius: "9999px",
                                                     display: "flex",
                                                     alignItems: "center",
                                                     justifyContent: "center",
