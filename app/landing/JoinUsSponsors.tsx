@@ -20,6 +20,7 @@ const alienAssets = [
     "/landing/sponsors/aliens/alien6.svg"
 ];
 
+// tier may be inaccurate in alienSponsors. It's only for styling.
 const alienSponsors = [
     {
         name: "FulcrumGT",
@@ -67,6 +68,7 @@ const bottomSponsorsRows: Array<{
     squareBox?: boolean;
     invertToWhite?: boolean;
     shiftRight?: boolean;
+    isPlaceholder?: boolean;
 }> = [
     // Row 1: silver tier (6 sponsors)
     {
@@ -87,8 +89,13 @@ const bottomSponsorsRows: Array<{
     },
     {
         name: "Caterpillar",
-        tier: "gold",
+        tier: "silver",
         image: "/sponsor_icons/multi-color/caterpillar.png"
+    },
+    {
+        name: "Endeavor",
+        image: "/sponsor_icons/multi-color/endeavor.svg",
+        tier: "silver"
     },
     // Row 2: bronze + prize (5 sponsors)
     {
@@ -100,6 +107,18 @@ const bottomSponsorsRows: Array<{
         name: "Actian",
         image: "/sponsor_icons/multi-color/actian.svg",
         tier: "bronze"
+    },
+    {
+        name: "HRT",
+        image: "/sponsor_icons/multi-color/hrt.svg",
+        tier: "bronze",
+        squareBox: true
+    },
+    {
+        name: "Mechanize",
+        image: "/sponsor_icons/multi-color/mechanize.svg",
+        tier: "bronze",
+        squareBox: true
     },
     {
         name: "Cloudflare",
@@ -120,10 +139,16 @@ const bottomSponsorsRows: Array<{
         name: "Nora",
         image: "/sponsor_icons/multi-color/nora.png",
         tier: "prize"
+    },
+    {
+        name: "Coming Soon",
+        image: "",
+        tier: "prize",
+        isPlaceholder: true
     }
 ];
 
-const sponsorBackgroundColor = "rgba(193, 193, 193, 0.7)";
+const sponsorBackgroundColor = "rgba(193, 193, 193, 0.8)";
 
 const MotionImage = motion(Image);
 
@@ -435,7 +460,6 @@ const JoinUsSponsors = () => {
                                             sx={{
                                                 backgroundColor:
                                                     sponsorBackgroundColor,
-                                                p: 3,
                                                 borderRadius: "999px"
                                             }}
                                         >
@@ -498,15 +522,33 @@ const JoinUsSponsors = () => {
                                                     flex: "0 1 auto" // Allows box to size based on content/width
                                                 }}
                                             >
-                                                <img
-                                                    src={sponsor.image}
-                                                    alt={sponsor.name}
-                                                    style={{
-                                                        width: "100%",
-                                                        height: "100%",
-                                                        objectFit: "contain"
-                                                    }}
-                                                />
+                                                {sponsor.isPlaceholder ? (
+                                                    <Typography
+                                                        sx={{
+                                                            fontFamily:
+                                                                "Montserrat",
+                                                            fontWeight: 700,
+                                                            color: "#3F2B75",
+                                                            fontSize: {
+                                                                xs: "12px",
+                                                                md: "16px"
+                                                            },
+                                                            textAlign: "center"
+                                                        }}
+                                                    >
+                                                        MORE COMING SOON...
+                                                    </Typography>
+                                                ) : (
+                                                    <img
+                                                        src={sponsor.image}
+                                                        alt={sponsor.name}
+                                                        style={{
+                                                            width: "100%",
+                                                            height: "100%",
+                                                            objectFit: "contain"
+                                                        }}
+                                                    />
+                                                )}
                                             </Box>
                                         ))}
                                 </Box>

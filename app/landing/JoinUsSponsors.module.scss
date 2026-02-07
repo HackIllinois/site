@@ -59,14 +59,14 @@
     justify-content: center;
     padding: 2rem;
     @media (max-width: 900px) {
-        top: 15%;
+        top: 5%;
         height: auto;
     }
     @media (max-width: 600px) {
-        top: 8%;
+        top: 5%;
     }
-    @media (max-width: 400px) {
-        top: 10%;
+    @media (max-width: 500px) {
+        top: 5%;
     }
 }
 
@@ -151,11 +151,7 @@
     z-index: 3;
 
     @media (max-width: 600px) {
-        top: 42%;
-    }
-
-    @media (max-width: 400px) {
-        top: 40%;
+        top: 30%;
     }
 }
 
@@ -180,13 +176,13 @@
     }
 
     @media (max-width: 600px) {
-        top: 50%;
+        top: 34%;
         width: 85%;
         height: 45%;
     }
 
-    @media (max-width: 400px) {
-        top: 38%;
+    @media (max-width: 420px) {
+        top: 28%;
         width: 90%;
         height: 42%;
     }
@@ -247,9 +243,10 @@
     // width: auto;
     // padding: 3px;
     height: 75px;
-    min-width: 90%;
+    padding: 24px;
     // max-height: 80px;
     // object-fit: contain;
+    box-sizing: border-box;
 
     &.title {
         height: 100px;
@@ -260,6 +257,32 @@
         justify-content: center;
         height: 85px;
         width: 250px;
+    }
+
+    @media (max-width: 600px) {
+        &.title {
+            height: 80px;
+        }
+        &.gold {
+            display: flex;
+            justify-content: center;
+            height: 80px;
+            width: 200px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        padding: 18px;
+        &.title {
+            height: 60px;
+            width: 150px;
+        }
+        &.gold {
+            display: flex;
+            justify-content: center;
+            height: 60px;
+            width: 150px;
+        }
     }
 }
 
@@ -365,108 +388,87 @@
     }
 
     .alienWrapper.alien1 {
-        top: 12%;
-        left: 0%;
+        top: 15%;
+        left: 3%;
     }
 
     .alienWrapper.alien2 {
-        top: 12%;
-        left: 73%;
+        top: 14%;
+        left: 63%;
     }
 
     .alienWrapper.alien3 {
-        top: 45%;
-        left: 0%;
+        top: 47%;
+        left: 3%;
     }
 
     .alienWrapper.alien4 {
         top: 35%;
-        left: 38%;
+        left: 50%;
     }
 
     .alienWrapper.alien5 {
         top: 48%;
-        left: 73%;
+        left: 63%;
     }
 }
 
-@media (max-width: 500px) {
-    .alienWrapper.alien1 {
-        top: 12%;
-        left: -5%;
-    }
-
-    .alienWrapper.alien2 {
-        top: 12%;
-        left: 78%;
-    }
-
-    .alienWrapper.alien3 {
-        top: 45%;
-        left: -5%;
-    }
-
-    .alienWrapper.alien5 {
-        top: 48%;
-        left: 78%;
-    }
-}
-
-@media (max-width: 400px) {
+@media (max-width: 420px) {
     .alienWrapper.alien0 {
-        top: 22%;
+        top: 18%;
     }
 
     .alienWrapper.alien1 {
         top: 30%;
-        left: 0%;
+        left: 5%;
     }
 
     .alienWrapper.alien2 {
-        top: 30%;
-        left: 73%;
+        top: 33%;
+        left: 65%;
     }
 
     .alienWrapper.alien3 {
-        top: 60%;
+        top: 67%;
         left: 5%;
     }
 
     .alienWrapper.alien4 {
-        top: 55%;
-        left: 40%;
+        top: 53%;
+        left: 50%;
     }
 
     .alienWrapper.alien5 {
-        top: 64%;
-        left: 70%;
+        top: 63%;
+        left: 65%;
     }
 }
 
 .bottomSponsorsContainer {
-    margin-bottom: 20vh;
+    margin-bottom: 5vh;
     width: 100%;
     z-index: 3;
-    @media (max-width: 1000px) {
-        margin-bottom: 5vh;
+    @media (max-width: 1050px) {
+        margin-bottom: 0vh;
     }
-
     @media (max-width: 900px) {
         margin-bottom: 15vh;
     }
-
     @media (max-width: 700px) {
-        margin-bottom: 20vh;
+        margin-bottom: 10vh;
     }
 
     @media (max-width: 600px) {
-        bottom: 0%;
         width: 92%;
     }
 
-    @media (max-width: 400px) {
-        bottom: 0%;
+    @media (max-width: 420px) {
         width: 95%;
+        margin-bottom: 5vh;
+    }
+    @media (max-width: 350px) {
+        width: 95%;
+        margin-bottom: 0vh;
     }
 }
 
@@ -522,51 +524,52 @@
     transition:
         filter 0.3s ease,
         transform 0.3s ease;
-    padding: 30px;
 
-    height: 100px;
-    &.squareBox {
-        padding: 10px !important;
+    box-sizing: border-box;
+    img {
+        padding: 30px !important;
     }
 
-    &:hover {
-        filter: brightness(1.1);
-        transform: scale(1.05);
+    height: 100px;
+    &.squareBox img {
+        padding: 20px !important;
     }
 
     @media (max-width: 900px) {
         height: 90px;
         width: 200px;
-        padding: 20px;
+        img {
+            padding: 20px;
+        }
 
-        &.squareBox {
-            padding: 5px !important;
+        &.squareBox img {
+            padding: 15px !important;
         }
     }
 
     @media (max-width: 600px) {
-        height: 45px;
-        max-width: 80px;
+        display: flex;
+        height: 70px;
+        // width: 100%;
+        width: unset !important;
+        flex: 1 !important;
+        img {
+            padding: 20px !important;
+        }
 
-        &.squareBox {
-            width: 45px;
-            min-width: 45px;
-            max-width: 45px;
+        &.squareBox img {
+            padding: 10px !important;
         }
     }
 
-    @media (max-width: 400px) {
-        height: 40px;
-        min-height: 40px;
-        max-height: 40px;
-        max-width: 72px;
+    // @media (max-width: 400px) {
+    //     height: 60px;
+    //     max-width: 72px;
 
-        &.squareBox {
-            width: 40px;
-            min-width: 40px;
-            max-width: 40px;
-        }
-    }
+    //     &.squareBox {
+    //         padding: 5px !important;
+    //     }
+    // }
 
     &.invertWhite {
         filter: brightness(0) invert(1);
