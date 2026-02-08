@@ -4,7 +4,15 @@ import { EventType } from "@/util/types";
 import { useEffect, useMemo, useRef, useState } from "react";
 import moment from "moment-timezone";
 import { EVENT_TIMEZONE } from "@/util/config";
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+    Badge,
+    Box,
+    IconButton,
+    Typography,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
+import FilterListIcon from "@mui/icons-material/FilterList";
 
 import { Tag } from "@/app/schedule/Tags";
 import {
@@ -30,7 +38,7 @@ const Schedule = () => {
     const [events, setEvents] = useState<EventsWithDay[]>([]);
     const [selectedDay, setSelectedDay] = useState<string | undefined>();
 
-    // Filter popup
+    // Filter
     const [filterOpen, setFilterOpen] = useState(false);
     const [selectedTagIds, setSelectedTagIds] = useState<Set<string>>(
         new Set()
@@ -44,6 +52,7 @@ const Schedule = () => {
     const eventRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
+    const eventsBoxRef = useRef<HTMLDivElement>(null);
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -90,6 +99,12 @@ const Schedule = () => {
         tagsArray.sort((a, b) => a.label.localeCompare(b.label));
         return tagsArray;
     }, [events]);
+
+    const numFiltersApplied = useMemo(() => {
+        const tagsChanged = selectedTagIds.size !== allTags.length ? 1 : 0;
+        const timeChanged = !!timeFilter.from || !!timeFilter.to ? 1 : 0;
+        return tagsChanged + timeChanged;
+    }, [selectedTagIds.size, allTags.length, timeFilter.from, timeFilter.to]);
 
     const displayedEvents = useMemo(() => {
         if (!selectedDay) return [];
@@ -307,7 +322,7 @@ const Schedule = () => {
         <Box
             sx={{
                 width: "100%",
-                height: "100vh",
+                height: "100dvh",
                 position: "relative",
                 overflow: "hidden",
                 backgroundImage: 'url("/schedule/background.svg")',
@@ -316,8 +331,7 @@ const Schedule = () => {
                 backgroundPosition: "center",
                 display: "flex",
                 flexDirection: { sm: "column", md: "row" },
-                alignItems: "center",
-                justifyContent: "space-between",
+                justifyContent: "space-around",
                 px: "80px",
                 pt: "0px",
                 boxSizing: "border-box"
@@ -360,10 +374,12 @@ const Schedule = () => {
                 sx={{
                     display: "flex",
                     flexDirection: { sm: "row", md: "column" },
+                    flexShrink: 0,
+                    alignSelf: "center",
                     gap: "30px",
                     overflowX: "visible",
                     overflowY: "visible",
-                    paddingTop: "120px",
+                    paddingTop: { sm: "150px", md: "120px" },
                     mt: "-80px"
                 }}
             >
@@ -394,111 +410,201 @@ const Schedule = () => {
             {/* EVENTS */}
             <Box
                 sx={{
-                    width: { sm: "auto", md: "60%" },
-                    maxWidth: "900px",
-                    height: "70vh",
-                    overflowY: "auto",
-                    zIndex: 2,
-                    background:
-                        "linear-gradient(180deg, #FCADF8 0%, #BA80D5 100%)",
-                    borderRadius: "30px",
-                    py: 4,
-                    px: 6,
-                    transform: "rotate(1.67deg)"
+                    flexGrow: 1,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignSelf: "flex-end",
+                    width: "100%"
                 }}
             >
-                {/* Notepad image */}
-                {/* Scroll area */}
+                {/* NOTEPAD ANCHOR */}
                 <Box
-                    ref={scrollRef}
                     sx={{
-                        flex: 1,
-                        // maxHeight: "90%",
-                        width: "100%",
-                        py: 5
+                        position: "relative",
+                        width: { sm: "100%", md: "90%" },
+                        display: "flex",
+                        justifyContent: "center"
                     }}
                 >
-                    {loading && (
-                        <Typography
-                            sx={{
-                                textAlign: "center",
-                                mt: 4,
-                                color: "#FFF",
-                                fontFamily: "'Tsukimi Rounded', sans-serif",
-                                fontWeight: "medium",
-                                fontSize: 16
-                            }}
-                        >
-                            Loading...
-                        </Typography>
-                    )}
-
-                    {!loading && displayedEvents.length === 0 && (
-                        <Typography
-                            sx={{
-                                textAlign: "center",
-                                mt: 4,
-                                color: "#FFF",
-                                fontFamily: "'Tsukimi Rounded', sans-serif",
-                                fontWeight: "medium",
-                                fontSize: 16
-                            }}
-                        >
-                            No events match your filters.
-                        </Typography>
-                    )}
-
-                    {/* Events list */}
-                    <Box
-                        ref={contentRef}
+                    {/* Alien image */}
+                    {/* <Box
+                        component="img"
+                        src="/schedule/alien.svg"
                         sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 3,
-                            width: "100%"
+                            position: "relative",
+                            zIndex: 3,
+                            pointerEvents: "none"
                         }}
-                    >
-                        {displayedEvents.map((event, index) => (
-                            <ScheduleItem
-                                key={`event-${index}`}
-                                event={event}
-                            />
-                        ))}
-                    </Box>
-                </Box>
+                    /> */}
 
-                {/* Filters popup */}
-                {filterOpen && (
+                    {/* Notepad spiral image */}
                     <Box
-                        onClick={() => setFilterOpen(false)}
+                        component="img"
+                        src="/schedule/notepad_spiral.svg"
                         sx={{
-                            position: "fixed",
+                            position: "absolute",
+                            top: "-14%",
+                            left: "50%",
+                            width: "40%",
+                            zIndex: 10,
+                            pointerEvents: "none"
+                        }}
+                    />
+
+                    {/* Notepad background rectangle */}
+                    {/* <Box
+                        sx={{
+                            position: "absolute",
+                            width: { sm: "auto", md: "80%" },
+                            maxWidth: { sm: "600px", md: "700px" },
                             top: 0,
                             left: 0,
-                            width: "100vw",
-                            height: "100vh",
-                            backgroundColor: "rgba(0, 0, 0, 0.6)",
-                            backdropFilter: "blur(4px)",
+                            right: 0,
+                            bottom: 0,
+                            backgroundColor: "#6A4B8D",
+                            borderRadius: "10px",
+                            transform: "rotate(3.36 deg)",
+                            zIndex: 1,
+                            pointerEvents: "none",
+                            transformOrigin: "top right"
+                        }}
+                    /> */}
+
+                    {/* Filter button and Events list */}
+                    <Box
+                        ref={eventsBoxRef}
+                        sx={{
+                            width: "80%",
+                            height: { xs: "50vh", md: "70vh" },
+                            position: "relative",
+                            overflowY: "auto",
+                            zIndex: 2,
+                            background:
+                                "linear-gradient(180deg, #FCADF8 0%, #BA80D5 100%)",
+                            borderRadius: "10px",
+                            py: 4,
+                            px: 4,
+                            transform: "rotate(1.67deg)",
+                            transformOrigin: "top right",
+
                             display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            zIndex: 9999
+                            flexDirection: "column"
                         }}
                     >
+                        {/* Filters button */}
                         <Box
-                            onClick={e => e.stopPropagation()}
                             sx={{
-                                position: "relative",
                                 display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
+                                justifyContent: "flex-end"
+                            }}
+                        >
+                            <IconButton
+                                onClick={() => setFilterOpen(true)}
+                                sx={{
+                                    color: numFiltersApplied ? "#FFF" : "#000",
+                                    backgroundColor: numFiltersApplied
+                                        ? "rgba(0,0,0,0.4)"
+                                        : "transparent",
+                                    "&:hover": {
+                                        backgroundColor: numFiltersApplied
+                                            ? "rgba(0,0,0,0.6)"
+                                            : "rgba(255,255,255,0.5)"
+                                    },
+                                    transition: "all 0.2s ease-in-out"
+                                }}
+                            >
+                                <Badge
+                                    invisible={!numFiltersApplied}
+                                    color="primary"
+                                    variant="dot"
+                                >
+                                    <FilterListIcon />
+                                </Badge>
+                            </IconButton>
+                        </Box>
+
+                        {/* Scroll area */}
+                        <Box
+                            ref={scrollRef}
+                            sx={{
+                                flex: 1,
+                                width: "100%",
+                                py: 5,
+                                px: 3,
+                                overflowY: "auto",
+
+                                "&::-webkit-scrollbar": { width: "6px" },
+                                "&::-webkit-scrollbar-thumb": {
+                                    backgroundColor: "rgba(0,0,0,0.3)",
+                                    borderRadius: "10px"
+                                }
+                            }}
+                        >
+                            {loading && (
+                                <Typography
+                                    sx={{
+                                        textAlign: "center",
+                                        mt: 4,
+                                        color: "#FFF",
+                                        fontFamily:
+                                            "'Tsukimi Rounded', sans-serif",
+                                        fontWeight: "medium",
+                                        fontSize: 16
+                                    }}
+                                >
+                                    Loading...
+                                </Typography>
+                            )}
+
+                            {!loading && displayedEvents.length === 0 && (
+                                <Typography
+                                    sx={{
+                                        textAlign: "center",
+                                        mt: 4,
+                                        color: "#FFF",
+                                        fontFamily:
+                                            "'Tsukimi Rounded', sans-serif",
+                                        fontWeight: "medium",
+                                        fontSize: 16
+                                    }}
+                                >
+                                    No events match your filters.
+                                </Typography>
+                            )}
+
+                            {/* Events list */}
+                            <Box
+                                ref={contentRef}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 3,
+                                    width: "100%"
+                                }}
+                            >
+                                {displayedEvents.map((event, index) => (
+                                    <ScheduleItem
+                                        key={`event-${index}`}
+                                        event={event}
+                                    />
+                                ))}
+                            </Box>
+                        </Box>
+                    </Box>
+
+                    {/* Filter popup */}
+                    {filterOpen && (
+                        <Box
+                            sx={{
+                                position: "absolute",
+                                zIndex: 9999,
+                                mt: 2,
+                                bottom: "5%",
                                 "& > *": {
                                     position: "relative !important",
+                                    transform: "none !important",
                                     top: "auto !important",
-                                    right: "auto !important",
-                                    left: "auto !important",
-                                    bottom: "auto !important",
-                                    transform: "none !important"
+                                    bottom: "auto !important"
                                 }
                             }}
                         >
@@ -514,8 +620,8 @@ const Schedule = () => {
                                 }}
                             />
                         </Box>
-                    </Box>
-                )}
+                    )}
+                </Box>
             </Box>
         </Box>
     );
