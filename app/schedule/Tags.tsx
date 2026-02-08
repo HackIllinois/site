@@ -174,7 +174,14 @@ export const TagsList: React.FC<TagsListProps> = ({ tags }) => {
     if (!tags.length) return null;
 
     return (
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+        <Box
+            sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 1,
+                justifyContent: "flex-end"
+            }}
+        >
             {tags.map(t => (
                 <Tag key={t.id} tag={t} />
             ))}

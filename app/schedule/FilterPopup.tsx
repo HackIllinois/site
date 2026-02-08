@@ -33,7 +33,6 @@ interface TimeFilterBoxProps {
     value?: moment.Moment;
     onChange: (newTime?: moment.Moment) => void;
 }
-
 const TimeFilterBox: React.FC<TimeFilterBoxProps> = ({
     label,
     value,
@@ -62,11 +61,18 @@ const TimeFilterBox: React.FC<TimeFilterBoxProps> = ({
         }
     }, [value]);
 
+    // one-second debounce
     useEffect(() => {
-        const newMoment = moment(`${hour}:${minute} ${amPm}`, "h:mm A").tz(
-            EVENT_TIMEZONE
-        );
-        onChange(newMoment);
+        const handler = setTimeout(() => {
+            const newMoment = moment(`${hour}:${minute} ${amPm}`, "h:mm A").tz(
+                EVENT_TIMEZONE
+            );
+            onChange(newMoment);
+        }, 900);
+
+        return () => {
+            clearTimeout(handler);
+        };
     }, [hour, minute, amPm]);
 
     const incHour = () =>
@@ -149,11 +155,16 @@ const TimeFilterBox: React.FC<TimeFilterBoxProps> = ({
                     <ArrowButton direction="up" onClick={incHour} />
                     <TextField
                         value={hour}
-                        onChange={e =>
-                            setHour(
-                                e.target.value.replace(/\D/g, "").slice(0, 2)
-                            )
-                        }
+                        onChange={e => {
+                            const val = e.target.value.replace(/\D/g, "");
+                            const num = parseInt(val, 10);
+
+                            if (num <= 12 && num >= 1) {
+                                setHour(val.slice(0, 2));
+                            } else if (val === "") {
+                                setHour("");
+                            }
+                        }}
                         sx={{
                             width: 36,
                             "& input": {
@@ -191,11 +202,16 @@ const TimeFilterBox: React.FC<TimeFilterBoxProps> = ({
                     <ArrowButton direction="up" onClick={incMinute} />
                     <TextField
                         value={minute}
-                        onChange={e =>
-                            setMinute(
-                                e.target.value.replace(/\D/g, "").slice(0, 2)
-                            )
-                        }
+                        onChange={e => {
+                            const val = e.target.value.replace(/\D/g, "");
+                            const num = parseInt(val, 10);
+
+                            if (val === "") {
+                                setMinute("");
+                            } else if (num <= 59) {
+                                setMinute(val.slice(0, 2));
+                            }
+                        }}
                         sx={{
                             width: 36,
                             "& input": {
@@ -244,6 +260,10 @@ const TimeFilterBox: React.FC<TimeFilterBoxProps> = ({
                         transformOrigin={{
                             vertical: "top",
                             horizontal: "center"
+                        }}
+                        slotProps={{
+                            root: { sx: { zIndex: 9999 } },
+                            paper: { sx: { zIndex: 9999 } }
                         }}
                     >
                         {["AM", "PM"].map(option => (
