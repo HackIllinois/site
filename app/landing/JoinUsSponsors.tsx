@@ -46,17 +46,16 @@ const alienSponsors = [
         image: "/sponsor_icons/multi-color/imc.png",
         alienIndex: 3
     },
-
+    {
+        name: "Caterpillar",
+        tier: "gold",
+        image: "/sponsor_icons/multi-color/caterpillar.png",
+        alienIndex: 4
+    },
     {
         name: "Modal",
         image: "/sponsor_icons/multi-color/modal.svg",
         tier: "gold",
-        alienIndex: 4
-    },
-    {
-        name: "Capital One",
-        tier: "gold",
-        image: "/sponsor_icons/multi-color/capital-one.png",
         alienIndex: 5
     }
 ];
@@ -71,6 +70,12 @@ const bottomSponsorsRows: Array<{
     isPlaceholder?: boolean;
 }> = [
     // Row 1: silver tier (6 sponsors)
+
+    {
+        name: "Capital One",
+        tier: "silver",
+        image: "/sponsor_icons/multi-color/capital-one.png"
+    },
     {
         name: "Supermemory",
         tier: "silver",
@@ -79,18 +84,12 @@ const bottomSponsorsRows: Array<{
     {
         name: "T-Mobile",
         image: "/sponsor_icons/multi-color/tmobile.png",
-        tier: "silver",
-        squareBox: true
+        tier: "silver"
     },
     {
         name: "Solana Foundation",
         image: "/sponsor_icons/multi-color/solana.svg",
         tier: "silver"
-    },
-    {
-        name: "Caterpillar",
-        tier: "silver",
-        image: "/sponsor_icons/multi-color/caterpillar.png"
     },
     {
         name: "Endeavor",
@@ -113,6 +112,11 @@ const bottomSponsorsRows: Array<{
         image: "/sponsor_icons/multi-color/hrt.svg",
         tier: "bronze",
         squareBox: true
+    },
+    {
+        name: "DE Shaw",
+        image: "/sponsor_icons/multi-color/deshaw.png",
+        tier: "bronze"
     },
     {
         name: "Mechanize",
