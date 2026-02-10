@@ -50,8 +50,6 @@ const Schedule = () => {
 
     const [loading, setLoading] = useState(false);
     const eventRef = useRef<HTMLDivElement>(null);
-    const contentRef = useRef<HTMLDivElement>(null);
-    const scrollRef = useRef<HTMLDivElement>(null);
     const eventsBoxRef = useRef<HTMLDivElement>(null);
 
     const theme = useTheme();
@@ -62,8 +60,13 @@ const Schedule = () => {
 
     const handleSelectDay = (day: string) => {
         setSelectedDay(day);
-        if (eventRef.current) {
-            eventRef.current.scrollTop = 0;
+
+        const scrollContainer = eventRef.current || eventsBoxRef.current;
+        if (scrollContainer) {
+            scrollContainer.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
         }
     };
 
@@ -90,7 +93,6 @@ const Schedule = () => {
         events.forEach(event => {
             if (event.eventType) tagsSet.add(event.eventType);
             if (event.points) tagsSet.add(`${event.points} pts`);
-            // TODO: add more tag types if needed
         });
 
         const tagsArray = Array.from(tagsSet).map(t => ({ id: t, label: t }));
@@ -203,6 +205,18 @@ const Schedule = () => {
         setSelectedTagIds(new Set(allTags.map(t => t.id)));
     }, [allTags]);
 
+    // lock scroll when filter is open
+    useEffect(() => {
+        if (filterOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [filterOpen]);
+
     // Mobile layout
     if (isMobile) {
         return (
@@ -269,7 +283,6 @@ const Schedule = () => {
                     >
                         {/* Scroll area */}
                         <Box
-                            ref={scrollRef}
                             sx={{
                                 flex: 1,
                                 overflowY: "auto",
@@ -322,7 +335,7 @@ const Schedule = () => {
         <Box
             sx={{
                 width: "100%",
-                height: "100dvh",
+                height: { sm: "100dvh", md: "110dvh" },
                 position: "relative",
                 overflow: "hidden",
                 backgroundImage: 'url("/schedule/background.svg")',
@@ -331,7 +344,7 @@ const Schedule = () => {
                 backgroundPosition: "center",
                 display: "flex",
                 flexDirection: { sm: "column", md: "row" },
-                justifyContent: "space-around",
+                justifyContent: { sm: "flex-end", md: "space-around" },
                 px: "80px",
                 pt: "0px",
                 boxSizing: "border-box"
@@ -423,19 +436,24 @@ const Schedule = () => {
                         position: "relative",
                         width: { sm: "100%", md: "90%" },
                         display: "flex",
-                        justifyContent: "center"
+                        justifyContent: "center",
+                        transform: "rotate(1.67deg)"
                     }}
                 >
                     {/* Alien image */}
-                    {/* <Box
+                    <Box
                         component="img"
                         src="/schedule/alien.svg"
                         sx={{
-                            position: "relative",
-                            zIndex: 3,
-                            pointerEvents: "none"
+                            position: "absolute",
+                            top: 0,
+                            left: "10%",
+                            width: "20%",
+                            maxWidth: "150px",
+                            zIndex: 10,
+                            transform: "translate(-23%, -60%)"
                         }}
-                    /> */}
+                    />
 
                     {/* Notepad spiral image */}
                     <Box
@@ -443,32 +461,31 @@ const Schedule = () => {
                         src="/schedule/notepad_spiral.svg"
                         sx={{
                             position: "absolute",
-                            top: "-14%",
+                            top: 0,
                             left: "50%",
                             width: "40%",
+                            maxWidth: "400px",
                             zIndex: 10,
-                            pointerEvents: "none"
+                            transform: "translate(-50%, -50%)"
                         }}
                     />
 
                     {/* Notepad background rectangle */}
-                    {/* <Box
+                    <Box
                         sx={{
                             position: "absolute",
-                            width: { sm: "auto", md: "80%" },
-                            maxWidth: { sm: "600px", md: "700px" },
+                            width: "80%",
+                            right: "10%",
                             top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
+                            height: { sm: "55dvh", md: "80dvh" },
                             backgroundColor: "#6A4B8D",
                             borderRadius: "10px",
-                            transform: "rotate(3.36 deg)",
+                            transform: "rotate(-5deg)",
+                            transformOrigin: "top right",
                             zIndex: 1,
-                            pointerEvents: "none",
-                            transformOrigin: "top right"
+                            pointerEvents: "none"
                         }}
-                    /> */}
+                    />
 
                     {/* Filter button and Events list */}
                     <Box
@@ -484,9 +501,7 @@ const Schedule = () => {
                             borderRadius: "10px",
                             py: 4,
                             px: 4,
-                            transform: "rotate(1.67deg)",
-                            transformOrigin: "top right",
-
+                            mb: 2,
                             display: "flex",
                             flexDirection: "column"
                         }}
@@ -525,7 +540,7 @@ const Schedule = () => {
 
                         {/* Scroll area */}
                         <Box
-                            ref={scrollRef}
+                            ref={eventRef}
                             sx={{
                                 flex: 1,
                                 width: "100%",
@@ -536,8 +551,20 @@ const Schedule = () => {
                                 "&::-webkit-scrollbar": { width: "6px" },
                                 "&::-webkit-scrollbar-thumb": {
                                     backgroundColor: "rgba(0,0,0,0.3)",
-                                    borderRadius: "10px"
-                                }
+                                    borderRadius: "10px",
+                                    "&:hover": {
+                                        backgroundColor: "rgba(0,0,0,0.4)"
+                                    }
+                                },
+
+                                WebkitMaskImage:
+                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
+                                WebkitMaskRepeat: "no-repeat",
+                                WebkitMaskSize: "100% 100%",
+                                maskImage:
+                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
+                                maskRepeat: "no-repeat",
+                                maskSize: "100% 100%"
                             }}
                         >
                             {loading && (
@@ -574,7 +601,6 @@ const Schedule = () => {
 
                             {/* Events list */}
                             <Box
-                                ref={contentRef}
                                 sx={{
                                     display: "flex",
                                     flexDirection: "column",
@@ -594,32 +620,58 @@ const Schedule = () => {
 
                     {/* Filter popup */}
                     {filterOpen && (
-                        <Box
-                            sx={{
-                                position: "absolute",
-                                zIndex: 9999,
-                                mt: 2,
-                                bottom: "5%",
-                                "& > *": {
-                                    position: "relative !important",
-                                    transform: "none !important",
-                                    top: "auto !important",
-                                    bottom: "auto !important"
-                                }
-                            }}
-                        >
-                            <FilterPopup
-                                tags={allTags}
-                                selectedTagIds={selectedTagIds}
-                                selectedTime={timeFilter}
-                                onClose={() => setFilterOpen(false)}
-                                onUpdate={(updatedIds, updatedTimeFilter) => {
-                                    setSelectedTagIds(updatedIds);
-                                    setTimeFilter(updatedTimeFilter);
-                                    setFilterOpen(false);
+                        <>
+                            {/* Backdrop */}
+                            <Box
+                                onClick={() => setFilterOpen(false)}
+                                sx={{
+                                    position: "fixed",
+                                    top: "-100vh",
+                                    left: "-100vw",
+                                    width: "300vw",
+                                    height: "300vh",
+                                    zIndex: 9998,
+                                    backgroundColor: "rgba(0,0,0,0.1)",
+                                    cursor: "default",
+                                    transform: "rotate(-1.67deg)"
                                 }}
                             />
-                        </Box>
+
+                            <Box
+                                sx={{
+                                    position: "absolute",
+                                    zIndex: 10000,
+                                    top: "50%",
+                                    left: "50%",
+                                    width: "fit-content",
+                                    maxWidth: "90%",
+                                    minWidth: "280px",
+                                    maxHeight: "70dvh",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    overflow: "hidden",
+                                    transform:
+                                        "translate(-50%, -50%) rotate(-1.67deg)",
+                                    "& > *": {
+                                        overflowY: "auto"
+                                    }
+                                }}
+                            >
+                                <FilterPopup
+                                    tags={allTags}
+                                    selectedTagIds={selectedTagIds}
+                                    selectedTime={timeFilter}
+                                    onClose={() => setFilterOpen(false)}
+                                    onUpdate={(
+                                        updatedIds,
+                                        updatedTimeFilter
+                                    ) => {
+                                        setSelectedTagIds(new Set(updatedIds));
+                                        setTimeFilter({ ...updatedTimeFilter });
+                                    }}
+                                />
+                            </Box>
+                        </>
                     )}
                 </Box>
             </Box>
