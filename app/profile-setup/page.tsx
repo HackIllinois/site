@@ -303,7 +303,7 @@ const Rsvp = () => {
             setRsvpData(rsvpData);
 
             if (!rsvpData.emailSent || rsvpData.status !== "ACCEPTED") {
-                router.push("/register/general");
+                router.push("/rsvp-unavailable");
                 return;
             }
 
@@ -348,7 +348,7 @@ const Rsvp = () => {
                 error?.statusCode === 404 ||
                 error.error === "NotFound"
             ) {
-                router.push("/register/general");
+                router.push("/rsvp-unavailable");
             } else {
                 console.error("Error loading RSVP data:", error);
                 setErrorMessage(
