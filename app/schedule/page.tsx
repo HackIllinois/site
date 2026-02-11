@@ -335,7 +335,7 @@ const Schedule = () => {
         <Box
             sx={{
                 width: "100%",
-                height: { sm: "100dvh", md: "110dvh" },
+                height: "100dvh",
                 position: "relative",
                 overflow: "hidden",
                 backgroundImage: 'url("/schedule/background.svg")',
@@ -344,28 +344,12 @@ const Schedule = () => {
                 backgroundPosition: "center",
                 display: "flex",
                 flexDirection: { sm: "column", md: "row" },
-                justifyContent: { sm: "flex-end", md: "space-around" },
+                justifyContent: { sm: "center", md: "space-around" },
+                alignItems: { sm: "center", md: "auto" },
                 px: "80px",
-                pt: "0px",
                 boxSizing: "border-box"
             }}
         >
-            {/* Orange planet */}
-            <Box
-                component="img"
-                src="/schedule/orange_planet.svg"
-                sx={{
-                    position: "absolute",
-                    top: 150,
-                    right: 0,
-                    width: 100,
-                    zIndex: 2,
-                    pointerEvents: "none",
-                    objectFit: "contain",
-                    filter: "drop-shadow(0px 0px 8px rgba(255,165,89,1))"
-                }}
-            />
-
             {/* Pink planet */}
             <Box
                 component="img"
@@ -374,8 +358,11 @@ const Schedule = () => {
                     position: "absolute",
                     bottom: 0,
                     left: 50,
-                    width: 200,
-                    zIndex: 0,
+                    width: {
+                        sm: "20vw",
+                        md: "15vw"
+                    },
+                    zIndex: 11,
                     pointerEvents: "none",
                     objectFit: "contain",
                     filter: "drop-shadow(0px 0px 8px rgba(238,130,205,1))"
@@ -393,7 +380,8 @@ const Schedule = () => {
                     overflowX: "visible",
                     overflowY: "visible",
                     paddingTop: { sm: "150px", md: "120px" },
-                    mt: "-80px"
+                    mt: "-80px",
+                    zIndex: 12
                 }}
             >
                 {availableDays.map((date, index) => {
@@ -423,11 +411,12 @@ const Schedule = () => {
             {/* EVENTS */}
             <Box
                 sx={{
-                    flexGrow: 1,
+                    width: "100%",
                     display: "flex",
                     justifyContent: "center",
-                    alignSelf: "flex-end",
-                    width: "100%"
+                    flexGrow: 1,
+                    alignSelf: { sm: "center", md: "flex-end" },
+                    mt: { sm: "60px", md: "0px" }
                 }}
             >
                 {/* NOTEPAD ANCHOR */}
@@ -440,6 +429,31 @@ const Schedule = () => {
                         transform: "rotate(1.67deg)"
                     }}
                 >
+                    {/* Orange planet */}
+                    <Box
+                        component="img"
+                        src="/schedule/orange_planet.svg"
+                        sx={{
+                            position: "absolute",
+                            top: { sm: "-40px", md: "-60px" },
+                            right: {
+                                sm: "calc(-1 * (100vw - 95%) / 2)",
+                                md: "calc(-5vw - 80px)"
+                            },
+                            width: {
+                                sm: "15vw",
+                                md: "12vw"
+                            },
+                            minWidth: "150px",
+                            zIndex: 11,
+                            pointerEvents: "none",
+                            objectFit: "contain",
+                            objectPosition: "right",
+                            filter: "drop-shadow(0px 0px 8px rgba(255,165,89,1))",
+                            transform: "rotate(-1.67deg)"
+                        }}
+                    />
+
                     {/* Alien image */}
                     <Box
                         component="img"
@@ -449,7 +463,6 @@ const Schedule = () => {
                             top: 0,
                             left: "10%",
                             width: "20%",
-                            maxWidth: "150px",
                             zIndex: 10,
                             transform: "translate(-23%, -60%)"
                         }}
@@ -477,7 +490,7 @@ const Schedule = () => {
                             width: "80%",
                             right: "10%",
                             top: 0,
-                            height: { sm: "55dvh", md: "80dvh" },
+                            height: { sm: "65dvh", md: "80dvh" },
                             backgroundColor: "#6A4B8D",
                             borderRadius: "10px",
                             transform: "rotate(-5deg)",
@@ -492,7 +505,7 @@ const Schedule = () => {
                         ref={eventsBoxRef}
                         sx={{
                             width: "80%",
-                            height: { xs: "50vh", md: "70vh" },
+                            height: { xs: "60vh", md: "70vh" },
                             position: "relative",
                             overflowY: "auto",
                             zIndex: 2,
