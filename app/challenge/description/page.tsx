@@ -9,9 +9,14 @@ import { ChallengeStatus } from "@/util/types";
 import CHALLENGE_DESCRIPTION_BACKGROUND from "@/public/registration/backgrounds/challenge_background.svg";
 import { Box, Button, Snackbar, Typography } from "@mui/material";
 import React, { useCallback, useRef, useState, useEffect } from "react";
+import { FORCE_REGISTRATION_CLOSED } from "@/app/register/constants";
 
 export default function ChallengeDescription() {
-    const registrationAuth = useRegistrationAuth(true);
+    const registrationAuth = useRegistrationAuth({
+        isClosed: FORCE_REGISTRATION_CLOSED,
+        isProtected: !FORCE_REGISTRATION_CLOSED,
+        shouldLoadSubmission: true
+    });
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null);

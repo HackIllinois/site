@@ -29,6 +29,8 @@
 
 .ufoImage {
     width: 80%;
+    max-width: 900px;
+
     height: auto;
     @media (max-width: 900px) {
         display: none;
@@ -48,7 +50,7 @@
 
 .joinUsContentContainer {
     position: absolute;
-    top: 7%;
+    top: 0%;
     width: 100%;
     height: 27%;
     display: flex;
@@ -57,14 +59,14 @@
     justify-content: center;
     padding: 2rem;
     @media (max-width: 900px) {
-        top: 15%;
+        top: 5%;
         height: auto;
     }
     @media (max-width: 600px) {
-        top: 8%;
+        top: 5%;
     }
-    @media (max-width: 400px) {
-        top: 10%;
+    @media (max-width: 500px) {
+        top: 5%;
     }
 }
 
@@ -143,17 +145,13 @@
 
 .sponsorSectionContentContainer {
     position: absolute;
-    top: 40%;
+    top: 30%;
     width: 100%;
     height: 50%;
     z-index: 3;
 
     @media (max-width: 600px) {
-        top: 42%;
-    }
-
-    @media (max-width: 400px) {
-        top: 40%;
+        top: 30%;
     }
 }
 
@@ -163,33 +161,28 @@
  */
 .aliensContainer {
     position: absolute;
-    top: 48%;
+    top: 33%;
     left: 50%;
     transform: translateX(-50%);
     width: 60%;
-    height: 55%;
+    height: 58%;
     pointer-events: none;
     z-index: 2;
 
-    @media (min-width: 901px) {
-        top: 40%;
-        height: 58%;
-    }
-
     @media (max-width: 900px) {
-        top: 46%;
+        top: 37%;
         width: 62%;
         height: 50%;
     }
 
     @media (max-width: 600px) {
-        top: 50%;
+        top: 34%;
         width: 85%;
         height: 45%;
     }
 
-    @media (max-width: 400px) {
-        top: 38%;
+    @media (max-width: 420px) {
+        top: 28%;
         width: 90%;
         height: 42%;
     }
@@ -250,13 +243,13 @@
     // width: auto;
     // padding: 3px;
     height: 75px;
-    min-width: 90%;
+    padding: 24px;
     // max-height: 80px;
     // object-fit: contain;
+    box-sizing: border-box;
 
     &.title {
         height: 100px;
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
     }
 
     &.gold {
@@ -264,11 +257,32 @@
         justify-content: center;
         height: 85px;
         width: 250px;
-        // width: 100%;
     }
 
-    &.gold {
-        // width: 100%;
+    @media (max-width: 600px) {
+        &.title {
+            height: 80px;
+        }
+        &.gold {
+            display: flex;
+            justify-content: center;
+            height: 80px;
+            width: 200px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        padding: 18px;
+        &.title {
+            height: 60px;
+            width: 150px;
+        }
+        &.gold {
+            display: flex;
+            justify-content: center;
+            height: 60px;
+            width: 150px;
+        }
     }
 }
 
@@ -279,13 +293,13 @@
 }
 
 .alienWrapper.alien1 {
-    top: 10%;
+    top: 15%;
     left: 5%;
     // transform: scale(0.9);
 }
 
 .alienWrapper.alien2 {
-    top: 10%;
+    top: 15%;
     left: 75%;
     // transform: scale(0.9);
 }
@@ -315,20 +329,20 @@
     }
 
     .alienWrapper.alien1 {
-        top: 11%;
+        top: 15%;
     }
 
     .alienWrapper.alien2 {
-        top: 11%;
+        top: 15%;
     }
 
     .alienWrapper.alien3 {
-        top: 36%;
+        top: 40%;
         left: 10%;
     }
 
     .alienWrapper.alien4 {
-        top: 28%;
+        top: 32%;
         left: 50%;
         transform: translateX(-50%);
     }
@@ -338,7 +352,7 @@
     }
 
     .alienWrapper.alien5 {
-        top: 36%;
+        top: 40%;
         left: 68%;
     }
 }
@@ -358,8 +372,8 @@
         left: -8%;
     }
     .alienWrapper.alien4 {
-        top: 25%;
-        left: 38%;
+        top: 27%;
+        left: 52%;
     }
     .alienWrapper.alien5 {
         top: 36%;
@@ -374,113 +388,93 @@
     }
 
     .alienWrapper.alien1 {
-        top: 12%;
-        left: 0%;
+        top: 15%;
+        left: 3%;
     }
 
     .alienWrapper.alien2 {
-        top: 12%;
-        left: 73%;
+        top: 14%;
+        left: 63%;
     }
 
     .alienWrapper.alien3 {
-        top: 45%;
-        left: 0%;
+        top: 43%;
+        left: 3%;
     }
 
     .alienWrapper.alien4 {
-        top: 35%;
-        left: 38%;
+        top: 34%;
+        left: 50%;
     }
 
     .alienWrapper.alien5 {
-        top: 48%;
-        left: 73%;
+        top: 43%;
+        left: 63%;
     }
 }
 
-@media (max-width: 500px) {
-    .alienWrapper.alien1 {
-        top: 12%;
-        left: -5%;
-    }
-
-    .alienWrapper.alien2 {
-        top: 12%;
-        left: 78%;
-    }
-
-    .alienWrapper.alien3 {
-        top: 45%;
-        left: -5%;
-    }
-
-    .alienWrapper.alien5 {
-        top: 48%;
-        left: 78%;
-    }
-}
-
-@media (max-width: 400px) {
+@media (max-width: 420px) {
     .alienWrapper.alien0 {
-        top: 22%;
+        top: 18%;
     }
 
     .alienWrapper.alien1 {
         top: 30%;
-        left: 0%;
+        left: 5%;
     }
 
     .alienWrapper.alien2 {
-        top: 30%;
-        left: 73%;
+        top: 33%;
+        left: 65%;
     }
 
     .alienWrapper.alien3 {
-        top: 60%;
+        top: 67%;
         left: 5%;
     }
 
     .alienWrapper.alien4 {
-        top: 55%;
-        left: 40%;
+        top: 53%;
+        left: 50%;
     }
 
     .alienWrapper.alien5 {
-        top: 64%;
-        left: 70%;
+        top: 63%;
+        left: 65%;
     }
 }
 
 .bottomSponsorsContainer {
-    position: absolute;
-    bottom: 0%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
+    margin-bottom: 5vh;
+    width: 100%;
     z-index: 3;
-
-    @media (min-width: 901px) {
-        bottom: 8%;
+    @media (max-width: 1050px) {
+        margin-bottom: 0vh;
     }
-
     @media (max-width: 900px) {
-        bottom: 0%;
-        width: 85%;
+        margin-bottom: 15vh;
+    }
+    @media (max-width: 700px) {
+        margin-bottom: 0vh;
     }
 
     @media (max-width: 600px) {
-        bottom: 0%;
         width: 92%;
+        margin-bottom: 0vh;
     }
 
-    @media (max-width: 400px) {
-        bottom: 0%;
+    @media (max-width: 420px) {
         width: 95%;
+        margin-bottom: 5vh;
+    }
+    @media (max-width: 350px) {
+        width: 95%;
+        margin-bottom: 0vh;
     }
 }
 
 .bottomSponsorsGrid {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -527,49 +521,56 @@
     width: 100%;
     height: auto;
     object-fit: contain;
-    max-height: 100px;
-    max-width: 140px;
+    width: 220px;
     transition:
         filter 0.3s ease,
         transform 0.3s ease;
 
-    /* Laptop (900px+): tiered sizes — silver > bronze > prize; larger overall */
-    @media (min-width: 901px) {
-        &.silverTier {
-            max-height: 140px;
-            max-width: 200px;
-        }
-
-        &.bronzeTier {
-            max-height: 120px;
-            max-width: 175px;
-        }
-
-        &.prizeTier {
-            max-height: 105px;
-            max-width: 155px;
-        }
+    box-sizing: border-box;
+    img {
+        padding: 30px !important;
     }
 
-    &:hover {
-        filter: brightness(1.1);
-        transform: scale(1.05);
+    height: 100px;
+    &.squareBox img {
+        padding: 20px !important;
     }
 
     @media (max-width: 900px) {
-        max-height: 50px;
-        max-width: 120px;
+        height: 90px;
+        width: 200px;
+        img {
+            padding: 20px;
+        }
+
+        &.squareBox img {
+            padding: 15px !important;
+        }
     }
 
     @media (max-width: 600px) {
-        max-height: 45px;
-        max-width: 110px;
+        display: flex;
+        height: 70px;
+        // width: 100%;
+        width: unset !important;
+        flex: 1 !important;
+        img {
+            padding: 20px !important;
+        }
+
+        &.squareBox img {
+            padding: 10px !important;
+        }
     }
 
-    @media (max-width: 400px) {
-        max-height: 40px;
-        max-width: 100px;
-    }
+    // @media (max-width: 400px) {
+    //     height: 60px;
+    //     max-width: 72px;
+
+    //     &.squareBox {
+    //         padding: 5px !important;
+    //     }
+    // }
 
     &.invertWhite {
         filter: brightness(0) invert(1);

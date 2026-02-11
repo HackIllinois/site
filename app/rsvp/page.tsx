@@ -32,7 +32,6 @@ export default function RSVP() {
     const [registrationData, setRegistrationData] =
         useState<RegistrationApplicationSubmitted | null>(null);
     const [showDeclineDialog, setShowDeclineDialog] = useState(false);
-    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -49,7 +48,7 @@ export default function RSVP() {
             setRegistrationData(registrationData);
 
             if (!rsvpData.emailSent || rsvpData.status !== "ACCEPTED") {
-                router.push("/register/general");
+                router.push("/rsvp-unavailable");
                 return;
             }
 
@@ -63,7 +62,7 @@ export default function RSVP() {
                 error?.statusCode === 404 ||
                 error.error === "NotFound"
             ) {
-                router.push("/register/general");
+                router.push("/rsvp-unavailable");
             } else {
                 console.error("Error loading RSVP data:", error);
                 setErrorMessage(

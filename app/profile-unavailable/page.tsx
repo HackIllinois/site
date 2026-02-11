@@ -3,7 +3,7 @@
 import { GradientButton } from "@/components/GradientButton/GradientButton";
 import { Box, Typography } from "@mui/material";
 
-const RegistrationClosed = () => {
+const RSVPUnavailable = () => {
     return (
         <Box
             sx={{
@@ -76,7 +76,7 @@ const RegistrationClosed = () => {
                             lineHeight: 1.3
                         }}
                     >
-                        REGISTRATION CLOSED
+                        Page Unavailable
                     </Typography>
 
                     <Typography
@@ -92,13 +92,13 @@ const RegistrationClosed = () => {
                             },
                             lineHeight: 1.6,
                             maxWidth: "700px",
+                            textWrap: "balance",
                             mx: "auto",
                             mb: 4
                         }}
                     >
-                        Registration for HackIllinois 2026 is now closed. If you
-                        applied, look out for an email from us on the status of
-                        your application.
+                        You cannot access this page since you do not have a
+                        profile yet.
                     </Typography>
 
                     <GradientButton text="BACK TO HOMEPAGE" link="/" />
@@ -108,4 +108,4 @@ const RegistrationClosed = () => {
     );
 };
 
-export default RegistrationClosed;
+export default RSVPUnavailable;

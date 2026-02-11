@@ -2,7 +2,11 @@ import { authenticate } from "@/util/api";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { Box, Button, Typography } from "@mui/material";
 
-const GithubAuthPage = () => {
+const GithubAuthPage = ({
+    mechathonMessage = false
+}: {
+    mechathonMessage?: boolean;
+}) => {
     const handleAuthenticate = async () => {
         await authenticate();
     };
@@ -92,9 +96,9 @@ const GithubAuthPage = () => {
                     <Box
                         sx={{
                             minHeight: { xs: "auto", md: "103px" },
-                            borderRadius: "67px",
+                            borderRadius: { xs: "15px", md: "67px" },
                             px: { xs: 3, md: 4 },
-                            py: { xs: 2, md: 0 },
+                            py: 3,
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "center",
@@ -103,82 +107,143 @@ const GithubAuthPage = () => {
                                 "linear-gradient(90deg, rgba(163,21,214,0.6) 0%, rgba(253,171,96,0.6) 51.44%, rgba(163,21,214,0.6) 100%)"
                         }}
                     >
-                        <Typography
-                            sx={{
-                                fontFamily: "Montserrat",
-                                fontWeight: 700,
-                                fontSize: {
-                                    xs: "14px",
-                                    sm: "16px",
-                                    md: "20px"
-                                },
-                                lineHeight: "100%",
-                                textAlign: "center",
-                                mb: "12px",
-                                color: "white"
-                            }}
-                        >
-                            PRIORITY DEADLINE: Jan 4th, 2026
-                        </Typography>
+                        {mechathonMessage ? (
+                            <>
+                                <Typography
+                                    sx={{
+                                        fontFamily: "Montserrat",
+                                        fontWeight: 700,
+                                        fontSize: {
+                                            xs: "14px",
+                                            sm: "16px",
+                                            md: "20px"
+                                        },
+                                        lineHeight: "100%",
+                                        textAlign: "center",
+                                        textWrap: "balance",
+                                        mb: "12px",
+                                        color: "white"
+                                    }}
+                                >
+                                    ONLY MECHATHON* REGISTRATION IS OPEN
+                                </Typography>
 
-                        <Typography
+                                <Typography
+                                    sx={{
+                                        fontFamily: "Montserrat",
+                                        fontWeight: 700,
+                                        fontSize: {
+                                            xs: "14px",
+                                            sm: "16px",
+                                            md: "20px"
+                                        },
+                                        lineHeight: "100%",
+                                        textAlign: "center",
+                                        mb: "12px",
+                                        color: "white"
+                                    }}
+                                >
+                                    PRIORITY DEADLINE: Feb 10th, 2026
+                                </Typography>
+
+                                <Typography
+                                    sx={{
+                                        fontFamily: "Montserrat",
+                                        fontWeight: 500,
+                                        fontStyle: "italic",
+                                        fontSize: { xs: "14px", md: "16px" },
+                                        lineHeight: "100%",
+                                        textAlign: "center",
+                                        color: "white"
+                                    }}
+                                >
+                                    *Mechathon is the HackIllinois hardware
+                                    track hosted by John Deere.
+                                </Typography>
+                            </>
+                        ) : (
+                            <>
+                                <Typography
+                                    sx={{
+                                        fontFamily: "Montserrat",
+                                        fontWeight: 700,
+                                        fontSize: {
+                                            xs: "14px",
+                                            sm: "16px",
+                                            md: "20px"
+                                        },
+                                        lineHeight: "100%",
+                                        textAlign: "center",
+                                        mb: "12px",
+                                        color: "white"
+                                    }}
+                                >
+                                    PRIORITY DEADLINE: Jan 4th, 2026
+                                </Typography>
+
+                                <Typography
+                                    sx={{
+                                        fontFamily: "Montserrat",
+                                        fontWeight: 500,
+                                        fontStyle: "italic",
+                                        fontSize: { xs: "14px", md: "16px" },
+                                        lineHeight: "100%",
+                                        textAlign: "center",
+                                        color: "white"
+                                    }}
+                                >
+                                    Those who register by this deadline will be
+                                    entered in a raffle to win an{" "}
+                                    <Box
+                                        component="span"
+                                        sx={{
+                                            fontWeight: 600,
+                                            fontStyle: "italic"
+                                        }}
+                                    >
+                                        iPad
+                                    </Box>
+                                    !
+                                </Typography>
+                            </>
+                        )}
+                    </Box>
+                    {!mechathonMessage ? (
+                        <Box
                             sx={{
-                                fontFamily: "Montserrat",
-                                fontWeight: 500,
-                                fontStyle: "italic",
-                                fontSize: { xs: "14px", md: "16px" },
-                                lineHeight: "100%",
-                                textAlign: "center",
-                                color: "white"
+                                minHeight: {
+                                    xs: "auto",
+                                    md: "67px"
+                                },
+                                borderRadius: "67px",
+                                px: { xs: 3, md: 4 },
+                                py: { xs: 2, md: 0 },
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor: "rgba(64, 26, 121, 0.6)"
                             }}
                         >
-                            Those who register by this deadline will be entered
-                            in a raffle to win an{" "}
-                            <Box
-                                component="span"
+                            <Typography
                                 sx={{
-                                    fontWeight: 600,
-                                    fontStyle: "italic"
+                                    fontFamily: "Montserrat",
+                                    fontWeight: 700,
+                                    fontSize: {
+                                        xs: "14px",
+                                        sm: "16px",
+                                        md: "20px"
+                                    },
+                                    lineHeight: "100%",
+                                    textAlign: "center",
+                                    color: "white"
                                 }}
                             >
-                                iPad
-                            </Box>
-                            !
-                        </Typography>
-                    </Box>
-
-                    <Box
-                        sx={{
-                            minHeight: {
-                                xs: "auto",
-                                md: "67px"
-                            },
-                            borderRadius: "67px",
-                            px: { xs: 3, md: 4 },
-                            py: { xs: 2, md: 0 },
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            backgroundColor: "rgba(64, 26, 121, 0.6)"
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                fontFamily: "Montserrat",
-                                fontWeight: 700,
-                                fontSize: {
-                                    xs: "14px",
-                                    sm: "16px",
-                                    md: "20px"
-                                },
-                                lineHeight: "100%",
-                                textAlign: "center",
-                                color: "white"
-                            }}
-                        >
-                            FINAL DEADLINE: Jan 27th, 2026
-                        </Typography>
-                    </Box>
+                                FINAL DEADLINE: Jan 27th, 2026
+                            </Typography>
+                        </Box>
+                    ) : (
+                        <></>
+                    )}
                 </Box>
 
                 <Box

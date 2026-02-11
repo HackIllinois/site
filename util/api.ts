@@ -34,7 +34,10 @@ export async function getAuthToken(): Promise<string | null> {
 }
 
 export function authenticate(): void {
-    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/register/general`;
+    // Get the current URL
+    const callbackUrl = window.location.pathname;
+
+    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/${callbackUrl}`;
     window.location.replace(authUrl);
 }
 
