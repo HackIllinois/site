@@ -71,7 +71,7 @@ export default function Profile() {
                     RSVPInfo.response !== "ACCEPTED" ||
                     RSVPInfo.status !== "ACCEPTED"
                 ) {
-                    router.push("/register/general");
+                    router.push("/profile-unavailable");
                     return;
                 }
                 const profile = await loadProfile();
@@ -197,9 +197,12 @@ export default function Profile() {
                                 display: "grid",
                                 gridTemplateColumns: {
                                     xs: "none",
-                                    sm: "1fr 1fr"
+                                    sm: "minmax(0, 1fr) minmax(0, 1fr)"
                                 },
-                                gridTemplateRows: { xs: "1fr 1fr", sm: "none" },
+                                gridTemplateRows: {
+                                    xs: "minmax(0, 1fr) minmax(0, 1fr)",
+                                    sm: "none"
+                                },
                                 gap: "5%"
                             }}
                         >
@@ -330,8 +333,17 @@ export default function Profile() {
                                     sx={{
                                         color: "#FFF",
                                         fontFamily: "Montserrat",
-                                        fontSize: { xs: "24px", sm: "28px" },
-                                        fontWeight: 600
+                                        fontSize: { xs: "20px", sm: "28px" },
+                                        fontWeight: 600,
+                                        overflow: "hidden",
+                                        wordBreak: {
+                                            xs: "break-word",
+                                            sm: "normal"
+                                        },
+                                        overflowWrap: {
+                                            xs: "break-word",
+                                            sm: "normal"
+                                        }
                                     }}
                                 >
                                     {name}
@@ -353,7 +365,7 @@ export default function Profile() {
                                     sx={{
                                         color: "#FFF",
                                         fontFamily: "Montserrat",
-                                        fontSize: { xs: "24px", sm: "28px" },
+                                        fontSize: { xs: "20px", sm: "28px" },
                                         fontWeight: 600
                                     }}
                                 >

@@ -48,7 +48,7 @@ export default function RSVP() {
             setRegistrationData(registrationData);
 
             if (!rsvpData.emailSent || rsvpData.status !== "ACCEPTED") {
-                router.push("/register/general");
+                router.push("/rsvp-unavailable");
                 return;
             }
 
@@ -62,7 +62,7 @@ export default function RSVP() {
                 error?.statusCode === 404 ||
                 error.error === "NotFound"
             ) {
-                router.push("/register/general");
+                router.push("/rsvp-unavailable");
             } else {
                 console.error("Error loading RSVP data:", error);
                 setErrorMessage(

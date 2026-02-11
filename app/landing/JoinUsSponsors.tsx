@@ -114,6 +114,11 @@ const bottomSponsorsRows: Array<{
         squareBox: true
     },
     {
+        name: "Jump",
+        image: "/sponsor_icons/multi-color/jump.svg",
+        tier: "prize"
+    },
+    {
         name: "DE Shaw",
         image: "/sponsor_icons/multi-color/deshaw.png",
         tier: "bronze"
@@ -132,11 +137,6 @@ const bottomSponsorsRows: Array<{
     {
         name: "OpenAI",
         image: "/sponsor_icons/multi-color/openai.png",
-        tier: "prize"
-    },
-    {
-        name: "Aedify AI",
-        image: "/sponsor_icons/multi-color/aedify-ai.svg",
         tier: "prize"
     },
     {
