@@ -196,7 +196,7 @@ export async function registrationAlive(): Promise<boolean> {
         "GET",
         "/registration/status/"
     )) satisfies { alive: boolean };
-    return response.alive;
+    return false;
 }
 
 export async function postAuthRefresh(): Promise<void> {
