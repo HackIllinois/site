@@ -52,7 +52,6 @@ export const GeneralRegistration = () => {
     const [isLoadingComponent, setIsLoadingComponent] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const registrationAuth = useRegistrationAuth({
-        isProtected: false,
         shouldLoadSubmission: false
     });
 
