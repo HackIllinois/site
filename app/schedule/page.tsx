@@ -163,21 +163,28 @@ const Schedule = () => {
     }, [events, selectedDay, selectedTagIds]);
 
     const handleLoadEvents = async () => {
+        const EVENT_DAYS = ["2/27", "2/28", "3/1"];
+
         setLoading(true);
         try {
             const newEvents = await getEvents();
 
-            const eventsWithDay: EventsWithDay[] = newEvents.map(event => {
-                const startMoment = moment(event.startTime * 1000).tz(
-                    EVENT_TIMEZONE
-                );
-                return {
-                    ...event,
-                    weekday: startMoment.format("ddd").toUpperCase(), // "FRI"
-                    date: startMoment.format("M/D"), // "2/27"
-                    id: event.id
-                };
-            });
+            const eventsWithDay: EventsWithDay[] = newEvents
+                .filter(event => event.eventType !== "MEETING")
+                .map(event => {
+                    const startMoment = moment(event.startTime * 1000).tz(
+                        EVENT_TIMEZONE
+                    );
+                    return {
+                        ...event,
+                        weekday: startMoment.format("ddd").toUpperCase(), // "FRI"
+                        date: startMoment.format("M/D"), // "2/27"
+                        id: event.id
+                    };
+                })
+                .filter(event => EVENT_DAYS.includes(event.date));
+
+            console.log("eventsWithDay", eventsWithDay);
 
             setEvents(eventsWithDay);
         } catch (err) {
@@ -263,7 +270,7 @@ const Schedule = () => {
                         position: "relative",
                         flex: 1,
                         display: "flex",
-                        justifyContent: "flex-start",
+                        justifyContent: "center",
                         alignItems: "stretch",
                         px: 0
                     }}
