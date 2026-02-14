@@ -718,14 +718,32 @@ const Prizes: React.FC = () => {
                         <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track1.svg"
                             topText="BEST HARDWARE HACK"
-                            bottomText="$2500 + Elegoo hardware starter kit"
+                            bottomText={
+                                <ul style={{ margin: 0 }}>
+                                    <li>
+                                        <strong>$2500 prize</strong>
+                                    </li>
+                                    <li>
+                                        <strong>Ride Along</strong> at{" "}
+                                        <strong>
+                                            Coal Valley Ranch Demo Site
+                                        </strong>{" "}
+                                        on May 15th
+                                    </li>
+                                    <li>
+                                        <strong>Conference call</strong>{" "}
+                                        <strong>with leadership</strong> (on
+                                        coordinated date)
+                                    </li>
+                                </ul>
+                            }
                             radiusX={200}
                             radiusY={150}
                             width={500}
                             height={500}
                             centerOffsetY={10}
                             centerOffsetX={13}
-                            bottomTextSize={25}
+                            bottomTextSize={16}
                             topTextOffset={50}
                             bottomTextOffset={50}
                             topTextSize={25}
