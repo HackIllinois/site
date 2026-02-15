@@ -248,7 +248,7 @@ const JoinUsSponsors = () => {
         transform: `translateY(${offsetY * 0.1}px)`
     };
 
-    const smViewport = useMediaQuery("(max-width:700px)");
+    const smViewport = useMediaQuery("(max-width:710px)");
 
     const bottomRowCount = useMemo(() => {
         console.log("smViewport", smViewport);
