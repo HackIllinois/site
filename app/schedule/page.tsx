@@ -13,13 +13,11 @@ import {
     useTheme
 } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import { motion } from "framer-motion";
 
 import { Tag } from "@/app/schedule/Tags";
-import {
-    ScheduleItem,
-    ScheduleItemMobileWithPopup
-} from "@/app/schedule/ScheduleItem";
-import { DateSelector, DateSelectorMobile } from "@/app/schedule/DateSelector";
+import { ScheduleItem } from "@/app/schedule/ScheduleItem";
+import { DateSelector } from "@/app/schedule/DateSelector";
 import FilterPopup from "@/app/schedule/FilterPopup";
 
 export interface EventsWithDay extends EventType {
@@ -34,9 +32,71 @@ export interface DateOption {
     day: string; // ex. "2/27"
 }
 
+const TwinklingStar = ({
+    size,
+    top,
+    left,
+    delay,
+    duration
+}: {
+    size: number;
+    top: string;
+    left: string;
+    delay: number;
+    duration: number;
+}) => (
+    <Box
+        component={motion.div}
+        animate={{
+            opacity: [0.2, 0.8, 0.2],
+            scale: [1, 1.2, 1]
+        }}
+        transition={{
+            duration: duration,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: delay
+        }}
+        sx={{
+            position: "absolute",
+            top,
+            left,
+            width: size,
+            height: size,
+            backgroundColor: "#FFF",
+            borderRadius: "50%",
+            zIndex: 0,
+            boxShadow: "0px 0px 4px 1px rgba(255, 255, 255, 0.6)"
+        }}
+    />
+);
+
 const Schedule = () => {
     const [events, setEvents] = useState<EventsWithDay[]>([]);
     const [selectedDay, setSelectedDay] = useState<string | undefined>();
+
+    const [stars, setStars] = useState<
+        {
+            id: number;
+            size: number;
+            top: string;
+            left: string;
+            delay: number;
+            duration: number;
+        }[]
+    >([]);
+
+    useEffect(() => {
+        const generatedStars = Array.from({ length: 80 }).map((_, i) => ({
+            id: i,
+            size: Math.random() * 3 + 1,
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            delay: Math.random() * 5,
+            duration: 2 + Math.random() * 2
+        }));
+        setStars(generatedStars);
+    }, []);
 
     // Filter
     const [filterOpen, setFilterOpen] = useState(false);
@@ -53,9 +113,8 @@ const Schedule = () => {
     const eventsBoxRef = useRef<HTMLDivElement>(null);
 
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-    const isBetweenSmAndMd = useMediaQuery(
-        theme.breakpoints.between("sm", "md")
+    const isBetweenXsAndMd = useMediaQuery(
+        theme.breakpoints.between("xs", "md")
     );
 
     const handleSelectDay = (day: string) => {
@@ -224,120 +283,6 @@ const Schedule = () => {
         };
     }, [filterOpen]);
 
-    // Mobile layout
-    if (isMobile) {
-        return (
-            <Box
-                sx={{
-                    width: "100%",
-                    minHeight: "100vh",
-                    position: "relative",
-                    overflow: "hidden",
-                    backgroundImage: 'url("/schedule/mobile/background.svg")',
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    display: "flex",
-                    flexDirection: "column",
-                    pt: "120px",
-                    gap: 3
-                }}
-            >
-                {/* DATE SELECTORS */}
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-around",
-                        overflowX: "visible",
-                        px: "8%"
-                    }}
-                >
-                    {availableDays.map((date, index) => (
-                        <DateSelectorMobile
-                            key={date.id}
-                            label={date.label}
-                            day={date.day}
-                            active={selectedDay === date.id}
-                            onClick={() => handleSelectDay(date.id)}
-                        />
-                    ))}
-                </Box>
-
-                {/* EVENTS */}
-                <Box
-                    sx={{
-                        position: "relative",
-                        flex: 1,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "stretch",
-                        px: 0
-                    }}
-                >
-                    {/* Scroll area + filters header */}
-                    <Box
-                        sx={{
-                            position: "absolute",
-                            width: "100%",
-                            top: 0,
-                            bottom: "2%",
-                            zIndex: 2,
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 1
-                        }}
-                    >
-                        {/* Scroll area */}
-                        <Box
-                            sx={{
-                                flex: 1,
-                                overflowY: "auto",
-                                overflowX: "hidden",
-
-                                "&::-webkit-scrollbar": { width: "6px" },
-                                "&::-webkit-scrollbar-thumb": {
-                                    backgroundColor: "rgba(0,0,0,0.1)",
-                                    borderRadius: "10px"
-                                },
-
-                                // fade top/bottom edges
-                                WebkitMaskImage:
-                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
-                                WebkitMaskRepeat: "no-repeat",
-                                WebkitMaskSize: "100% 100%",
-                                maskImage:
-                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
-                                maskRepeat: "no-repeat",
-                                maskSize: "100% 100%"
-                            }}
-                        >
-                            {/* Events list */}
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: 2,
-                                    width: "100%",
-                                    boxSizing: "border-box",
-                                    px: 0
-                                }}
-                            >
-                                {displayedEvents.map((event, index) => (
-                                    <ScheduleItemMobileWithPopup
-                                        key={`event-${index}`}
-                                        event={event}
-                                    />
-                                ))}
-                            </Box>
-                        </Box>
-                    </Box>
-                </Box>
-            </Box>
-        );
-    }
-
-    // Desktop/tablet layout
     return (
         <Box
             sx={{
@@ -350,23 +295,37 @@ const Schedule = () => {
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 display: "flex",
-                flexDirection: { sm: "column", md: "row" },
-                justifyContent: { sm: "center", md: "space-around" },
-                alignItems: { sm: "center", md: "auto" },
-                px: "80px",
+                flexDirection: { xs: "column", md: "row" },
+                justifyContent: { xs: "center", md: "space-around" },
+                alignItems: { xs: "center", md: "auto" },
+                px: { xs: "10px", sm: "80px" },
                 boxSizing: "border-box"
             }}
         >
+            {/* Background twinkling stars */}
+            {stars.map(star => (
+                <TwinklingStar key={star.id} {...star} />
+            ))}
+
             {/* Pink planet */}
             <Box
-                component="img"
+                component={motion.img}
                 src="/schedule/pink_planet.svg"
+                animate={{
+                    y: [0, 10, 0]
+                }}
+                transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                }}
                 sx={{
                     position: "absolute",
-                    bottom: 0,
-                    left: 50,
+                    bottom: { xs: "-4%", lg: "-7%" },
+                    left: { xs: 10, md: 50 },
                     width: {
-                        sm: "20vw",
+                        xs: "20vw",
+                        sm: "15vw",
                         md: "15vw"
                     },
                     zIndex: 11,
@@ -380,37 +339,73 @@ const Schedule = () => {
             <Box
                 sx={{
                     display: "flex",
-                    flexDirection: { sm: "row", md: "column" },
+                    flexDirection: { xs: "row", md: "column" },
                     flexShrink: 0,
                     alignSelf: "center",
-                    gap: "30px",
+                    gap: { xs: "10px", sm: "30px", xl: "60px" },
+                    width: "auto",
                     overflowX: "visible",
                     overflowY: "visible",
-                    paddingTop: { sm: "150px", md: "120px" },
+                    paddingTop: { xs: "175px", md: "120px" },
                     mt: "-80px",
                     zIndex: 12
                 }}
             >
                 {availableDays.map((date, index) => {
-                    const finalRotation = isBetweenSmAndMd
+                    const finalRotation = isBetweenXsAndMd
                         ? 0
                         : 10 * (index % 2 === 0 ? 1 : -1);
-                    const finalOffsetX = isBetweenSmAndMd
+                    const finalOffsetX = isBetweenXsAndMd
                         ? 0
                         : index % 2 === 0
                           ? -10
                           : 10;
 
                     return (
-                        <DateSelector
+                        <motion.div
                             key={date.id}
-                            label={date.label}
-                            day={date.day}
-                            active={selectedDay === date.id}
-                            rotation={finalRotation}
-                            offsetX={finalOffsetX}
-                            onClick={() => handleSelectDay(date.id)}
-                        />
+                            animate={
+                                !isBetweenXsAndMd
+                                    ? {
+                                          x: [-8, 8, -8]
+                                      }
+                                    : {}
+                            }
+                            whileHover={
+                                !isBetweenXsAndMd
+                                    ? {
+                                          rotate: [0, -2, 2, -1, 0]
+                                      }
+                                    : {}
+                            }
+                            transition={{
+                                x: {
+                                    duration: 5,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                    delay: index * 0.4
+                                },
+                                rotate: {
+                                    duration: 0.5,
+                                    ease: "easeInOut"
+                                }
+                            }}
+                            style={{
+                                width: "fit-content",
+                                cursor: !isBetweenXsAndMd
+                                    ? "pointer"
+                                    : "default"
+                            }}
+                        >
+                            <DateSelector
+                                label={date.label}
+                                day={date.day}
+                                active={selectedDay === date.id}
+                                rotation={finalRotation}
+                                offsetX={finalOffsetX}
+                                onClick={() => handleSelectDay(date.id)}
+                            />
+                        </motion.div>
                     );
                 })}
             </Box>
@@ -419,45 +414,57 @@ const Schedule = () => {
             <Box
                 sx={{
                     width: "100%",
+                    maxWidth: "1440px",
                     display: "flex",
-                    justifyContent: "center",
+                    justifyContent: { xs: "center", md: "flex-end" },
                     flexGrow: 1,
-                    alignSelf: { sm: "center", md: "flex-end" },
-                    mt: { sm: "60px", md: "0px" }
+                    alignSelf: { xs: "center", md: "flex-end" },
+                    mt: { xs: "60px", md: "0px" },
+                    pr: { md: "5vw", lg: "8vw" }
                 }}
             >
                 {/* NOTEPAD ANCHOR */}
                 <Box
                     sx={{
                         position: "relative",
-                        width: { sm: "100%", md: "90%" },
+                        width: { xs: "100%", md: "90%" },
                         display: "flex",
                         justifyContent: "center",
-                        transform: "rotate(1.67deg)"
+                        transform: { sm: "rotate(1.67deg)" }
                     }}
                 >
                     {/* Orange planet */}
                     <Box
-                        component="img"
+                        component={motion.img}
                         src="/schedule/orange_planet.svg"
+                        animate={{
+                            y: [0, 10, 0]
+                        }}
+                        transition={{
+                            duration: 4,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: 0.5
+                        }}
                         sx={{
                             position: "absolute",
-                            top: { sm: "-40px", md: "-60px" },
-                            right: {
-                                sm: "calc(-1 * (100vw - 95%) / 2)",
-                                md: "calc(-5vw - 80px)"
+                            right: -10,
+                            top: "-60px",
+                            transform: {
+                                xs: "translateX(20%)"
                             },
                             width: {
+                                xs: "15vw",
                                 sm: "15vw",
-                                md: "12vw"
+                                md: "15vw"
                             },
-                            minWidth: "150px",
+                            minWidth: "120px",
+                            maxWidth: "220px",
                             zIndex: 11,
                             pointerEvents: "none",
                             objectFit: "contain",
                             objectPosition: "right",
-                            filter: "drop-shadow(0px 0px 8px rgba(255,165,89,1))",
-                            transform: "rotate(-1.67deg)"
+                            filter: "drop-shadow(0px 0px 8px rgba(255,165,89,1))"
                         }}
                     />
 
@@ -469,9 +476,10 @@ const Schedule = () => {
                             position: "absolute",
                             top: 0,
                             left: "10%",
-                            width: "20%",
+                            width: { xs: "23dvw", sm: "18dvw", md: "12dvw" },
                             zIndex: 10,
-                            transform: "translate(-23%, -60%)"
+                            transform: "translate(-23%, -60%)",
+                            pointerEvents: "none"
                         }}
                     />
 
@@ -486,7 +494,8 @@ const Schedule = () => {
                             width: "40%",
                             maxWidth: "400px",
                             zIndex: 10,
-                            transform: "translate(-50%, -50%)"
+                            transform: "translate(-50%, -50%)",
+                            pointerEvents: "none"
                         }}
                     />
 
@@ -497,7 +506,7 @@ const Schedule = () => {
                             width: "80%",
                             right: "10%",
                             top: 0,
-                            height: { sm: "65dvh", md: "80dvh" },
+                            height: { xs: "65dvh", md: "80dvh" },
                             backgroundColor: "#6A4B8D",
                             borderRadius: "10px",
                             transform: "rotate(-5deg)",
@@ -512,15 +521,15 @@ const Schedule = () => {
                         ref={eventsBoxRef}
                         sx={{
                             width: "80%",
-                            height: { xs: "60vh", md: "70vh" },
+                            height: { xs: "70vh", md: "70vh" },
                             position: "relative",
                             overflowY: "auto",
                             zIndex: 2,
                             background:
                                 "linear-gradient(180deg, #FCADF8 0%, #BA80D5 100%)",
                             borderRadius: "10px",
+                            px: { xs: 1, lg: 2 },
                             py: 4,
-                            px: 4,
                             mb: 2,
                             display: "flex",
                             flexDirection: "column"
@@ -530,7 +539,7 @@ const Schedule = () => {
                         <Box
                             sx={{
                                 display: "flex",
-                                justifyContent: "flex-end"
+                                justifyContent: "flex-start"
                             }}
                         >
                             <IconButton
@@ -666,12 +675,14 @@ const Schedule = () => {
                                     width: "fit-content",
                                     maxWidth: "90%",
                                     minWidth: "280px",
-                                    maxHeight: "70dvh",
+                                    maxHeight: { xs: "60dvh", md: "70dvh" },
                                     display: "flex",
                                     flexDirection: "column",
                                     overflow: "hidden",
-                                    transform:
-                                        "translate(-50%, -50%) rotate(-1.67deg)",
+                                    transform: {
+                                        xs: "translate(-50%, -50%)",
+                                        sm: "translate(-50%, -50%) rotate(-1.67deg)"
+                                    },
                                     "& > *": {
                                         overflowY: "auto"
                                     }
