@@ -20,6 +20,7 @@
         "clsx": "^2.1.1",
         "d3-geo": "^3.1.1",
         "formik": "^2.4.6",
+        "moment-timezone": "^0.6.0",
         "motion": "^12.23.22",
         "next": "^15.1.11",
         "react": "^19.2.3",
@@ -30,6 +31,7 @@
         "yup": "^1.6.0"
     },
     "devDependencies": {
+        "@types/moment-timezone": "^0.5.13",
         "@types/node": "^18.7.16",
         "@types/react": "^19.2.3",
         "@types/react-curved-text": "^2.0.3",
