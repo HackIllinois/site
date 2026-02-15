@@ -77,9 +77,9 @@ const bottomSponsorsRows: Array<{
         image: "/sponsor_icons/multi-color/capital-one.png"
     },
     {
-        name: "Supermemory",
-        tier: "silver",
-        image: "/sponsor_icons/multi-color/supermemory.svg"
+        name: "Solana Foundation",
+        image: "/sponsor_icons/multi-color/solana.svg",
+        tier: "silver"
     },
     {
         name: "T-Mobile",
@@ -87,9 +87,9 @@ const bottomSponsorsRows: Array<{
         tier: "silver"
     },
     {
-        name: "Solana Foundation",
-        image: "/sponsor_icons/multi-color/solana.svg",
-        tier: "silver"
+        name: "Supermemory",
+        tier: "silver",
+        image: "/sponsor_icons/multi-color/supermemory.svg"
     },
     {
         name: "Endeavor",
@@ -98,13 +98,8 @@ const bottomSponsorsRows: Array<{
     },
     // Row 2: bronze + prize (5 sponsors)
     {
-        name: "Exa",
-        image: "/sponsor_icons/multi-color/exa.svg",
-        tier: "bronze"
-    },
-    {
-        name: "Actian",
-        image: "/sponsor_icons/multi-color/actian.svg",
+        name: "Jump",
+        image: "/sponsor_icons/multi-color/jump.svg",
         tier: "bronze"
     },
     {
@@ -114,8 +109,13 @@ const bottomSponsorsRows: Array<{
         squareBox: true
     },
     {
-        name: "Jump",
-        image: "/sponsor_icons/multi-color/jump.svg",
+        name: "Actian",
+        image: "/sponsor_icons/multi-color/actian.svg",
+        tier: "bronze"
+    },
+    {
+        name: "Exa",
+        image: "/sponsor_icons/multi-color/exa.svg",
         tier: "prize"
     },
     {
@@ -124,15 +124,15 @@ const bottomSponsorsRows: Array<{
         tier: "bronze"
     },
     {
-        name: "Mechanize",
-        image: "/sponsor_icons/multi-color/mechanize.svg",
-        tier: "bronze",
-        squareBox: true
-    },
-    {
         name: "Cloudflare",
         image: "/sponsor_icons/multi-color/cloudflare.svg",
-        tier: "prize"
+        tier: "bronze"
+    },
+    {
+        name: "Mechanize",
+        image: "/sponsor_icons/multi-color/mechanize.svg",
+        tier: "prize",
+        squareBox: true
     },
     {
         name: "OpenAI",
