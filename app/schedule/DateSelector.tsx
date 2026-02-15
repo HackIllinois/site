@@ -33,9 +33,9 @@ export const DateSelector: React.FC<DateSelectorProps> = ({
                 alignItems: "center",
                 justifyContent: "center",
 
-                width: { sm: "100px", md: "120px" },
+                width: { xs: "15dvw", sm: "100px", md: "120px", xl: "160px" },
                 px: 3,
-                py: { sm: 8, md: 2 },
+                py: { xs: 8, md: 2 },
 
                 color: "#000",
                 textAlign: "center",
@@ -72,7 +72,12 @@ export const DateSelector: React.FC<DateSelectorProps> = ({
             <Typography
                 sx={{
                     fontFamily: "Montserrat",
-                    fontSize: { sm: "20px", md: "30px" },
+                    fontSize: {
+                        xs: "18px",
+                        sm: "20px",
+                        md: "30px",
+                        xl: "35px"
+                    },
                     fontWeight: 700,
                     position: "absolute",
                     top: "50%",
@@ -86,56 +91,12 @@ export const DateSelector: React.FC<DateSelectorProps> = ({
             <Typography
                 sx={{
                     fontFamily: "Montserrat",
-                    fontSize: "12px",
+                    fontSize: { xs: "10px", sm: "12px", md: "14px" },
                     fontWeight: 700,
-                    mt: { sm: 5, md: 7 }
+                    mt: { xs: 3.5, sm: 5, md: 6 }
                 }}
             >
                 {day}
-            </Typography>
-        </Box>
-    );
-};
-
-export const DateSelectorMobile: React.FC<DateSelectorProps> = ({
-    label,
-    day,
-    active = false,
-    onClick
-}) => {
-    return (
-        <Box
-            component="button"
-            type="button"
-            onClick={onClick}
-            sx={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                px: 2,
-                py: 1,
-                minWidth: "60px",
-                borderRadius: "20px",
-                cursor: "pointer",
-                border: active ? "none" : "0.5px solid #FFFFFF",
-                backgroundColor: active ? "#7551D1" : "transparent",
-                transition: "all 0.2s ease",
-                textAlign: "center",
-                "&:hover": {
-                    opacity: 0.8
-                }
-            }}
-        >
-            <Typography
-                sx={{
-                    color: "#FFFFFF",
-                    fontFamily: "'SF Pro Text', sans-serif",
-                    fontWeight: "bold",
-                    fontSize: 12,
-                    userSelect: "none"
-                }}
-            >
-                {day.split("/")[1].padStart(2, "0")} - {label}
             </Typography>
         </Box>
     );
