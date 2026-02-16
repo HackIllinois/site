@@ -537,7 +537,7 @@ const Schedule = () => {
                         }}
                         sx={{
                             position: "absolute",
-                            right: -10,
+                            right: -20,
                             top: "-60px",
                             transform: {
                                 xs: "translateX(20%)"
