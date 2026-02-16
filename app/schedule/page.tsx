@@ -71,6 +71,95 @@ const TwinklingStar = ({
     />
 );
 
+const BlinkingAlien = () => {
+    const [isLookingRight, setIsLookingRight] = useState(false);
+    const [isBlinking, setIsBlinking] = useState(false);
+
+    useEffect(() => {
+        let timeoutId: NodeJS.Timeout;
+
+        const performAction = () => {
+            // start the blink
+            setIsBlinking(true);
+
+            // during the blink, decide whether to change direction
+            setTimeout(() => {
+                if (Math.random() > 0.5) {
+                    setIsLookingRight(prev => !prev);
+                }
+            }, 100);
+
+            // end the blink
+            setTimeout(() => {
+                setIsBlinking(false);
+                const nextInterval = 2000 + Math.random() * 3000;
+                timeoutId = setTimeout(performAction, nextInterval);
+            }, 200);
+        };
+
+        timeoutId = setTimeout(performAction, 1000);
+        return () => clearTimeout(timeoutId);
+    }, []);
+
+    return (
+        <Box
+            sx={{
+                position: "absolute",
+                top: 0,
+                left: "10%",
+                width: { xs: "23dvw", sm: "18dvw", md: "12dvw" },
+                zIndex: 10,
+                transform: "translate(-23%, -60%)",
+                pointerEvents: "none"
+            }}
+        >
+            {/* Base image (centered eyes) */}
+            <Box
+                component="img"
+                src="/schedule/alien.svg"
+                sx={{ width: "100%", display: "block" }}
+            />
+
+            {/* Looking right overlay */}
+            <Box
+                component={motion.img}
+                src="/schedule/alien_looking_right.svg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isLookingRight ? 1 : 0 }}
+                transition={{ duration: 0 }}
+                sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    zIndex: 1
+                }}
+            />
+
+            {/* Closed eyes overlay */}
+            <Box
+                component={motion.img}
+                src="/schedule/alien_eye_closed.svg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isBlinking ? 1 : 0 }}
+                transition={{
+                    duration: 0.05,
+                    ease: "linear"
+                }}
+                sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    zIndex: 2
+                }}
+            />
+        </Box>
+    );
+};
+
 const Schedule = () => {
     const [events, setEvents] = useState<EventsWithDay[]>([]);
     const [selectedDay, setSelectedDay] = useState<string | undefined>();
@@ -469,19 +558,7 @@ const Schedule = () => {
                     />
 
                     {/* Alien image */}
-                    <Box
-                        component="img"
-                        src="/schedule/alien.svg"
-                        sx={{
-                            position: "absolute",
-                            top: 0,
-                            left: "10%",
-                            width: { xs: "23dvw", sm: "18dvw", md: "12dvw" },
-                            zIndex: 10,
-                            transform: "translate(-23%, -60%)",
-                            pointerEvents: "none"
-                        }}
-                    />
+                    <BlinkingAlien />
 
                     {/* Notepad spiral image */}
                     <Box
