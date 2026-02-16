@@ -336,6 +336,7 @@ export default function Profile() {
                                         fontSize: { xs: "20px", sm: "28px" },
                                         fontWeight: 600,
                                         overflow: "hidden",
+                                        textOverflow: "ellipsis",
                                         wordBreak: {
                                             xs: "break-word",
                                             sm: "normal"
@@ -343,7 +344,12 @@ export default function Profile() {
                                         overflowWrap: {
                                             xs: "break-word",
                                             sm: "normal"
-                                        }
+                                        },
+                                        whiteSpace: {
+                                            xs: "normal",
+                                            sm: "nowrap"
+                                        },
+                                        maxWidth: "100%"
                                     }}
                                 >
                                     {name}
