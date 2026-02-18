@@ -244,6 +244,25 @@ const JoinUsSponsors = () => {
         }
     };
 
+    const getTierColor = (tier: string) => {
+        switch (tier) {
+            case "title":
+                return "rgba(0, 255, 255, 0.3)"; // Semi-transparent cyan
+            case "gold":
+                return "rgba(255, 215, 0, 0.3)"; // Semi-transparent gold
+            case "silver":
+                return "rgba(192, 192, 192, 0.35)"; // Semi-transparent silver
+            case "bronze":
+                return "rgba(205, 127, 50, 0.3)"; // Semi-transparent bronze
+            case "prize":
+                return "rgba(155, 89, 182, 0.3)"; // Semi-transparent purple
+            case "tbd":
+                return "rgba(149, 165, 166, 0.3)"; // Semi-transparent gray
+            default:
+                return "rgba(192, 192, 192, 0.3)"; // Default semi-transparent
+        }
+    };
+
     const parallaxStyle = {
         transform: `translateY(${offsetY * 0.1}px)`
     };
