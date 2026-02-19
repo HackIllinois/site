@@ -475,8 +475,20 @@ const Prizes: React.FC = () => {
                     >
                         <PathPrize
                             backgroundSrc="/prizes/path_prizes/prize9.svg"
-                            topText="Coming Soon"
-                            bottomText="? ? ?"
+                            topText="BEST USE OF NESSIE"
+                            bottomText="$300 gift card/person"
+                            bottomBottomText={
+                                <p
+                                    style={{
+                                        marginTop: "10px",
+                                        textWrap: "balance",
+                                        textAlign: "center"
+                                    }}
+                                >
+                                    Winners receive a <b>$300</b> gift card per
+                                    person on their team
+                                </p>
+                            }
                             radius={130}
                             width={540}
                             height={540}
@@ -664,14 +676,37 @@ const Prizes: React.FC = () => {
                         <TrackPrize
                             backgroundSrc="/prizes/track_prizes/track2.svg"
                             topText="BEST API"
-                            bottomText="$2500 + TBD"
+                            bottomText={
+                                <ul style={{ margin: 0 }}>
+                                    <li>
+                                        <strong>1st place:</strong> $2000 for
+                                        the team,{" "}
+                                        <a
+                                            href="https://www.jbl.com/JBLTOURONEM2BAM.html"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            style={{
+                                                color: "#73b0ff"
+                                            }}
+                                        >
+                                            JBL Tour One M2 Headphones
+                                        </a>{" "}
+                                        for each team member
+                                    </li>
+                                    <li>
+                                        <strong>Honorable Mention:</strong> $500
+                                        for the team, $100 Amazon gift card for
+                                        each team member
+                                    </li>
+                                </ul>
+                            }
                             radiusX={200}
                             radiusY={150}
                             width={500}
                             height={500}
                             centerOffsetY={10}
                             centerOffsetX={13}
-                            bottomTextSize={25}
+                            bottomTextSize={16}
                             topTextOffset={50}
                             bottomTextOffset={50}
                             topTextSize={25}
