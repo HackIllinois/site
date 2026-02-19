@@ -667,7 +667,11 @@ export default function Profile() {
                                 justifyContent: "center"
                             }}
                         >
-                            <QRCodeSVG value={qrInfo} size={"100%"} />
+                            <QRCodeSVG
+                                value={qrInfo}
+                                size={256}
+                                style={{ width: "100%", height: "auto" }}
+                            />
                         </Box>
                     )}
                 </DialogContent>
