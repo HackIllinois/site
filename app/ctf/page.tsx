@@ -20,6 +20,15 @@ export default function CTF() {
             }
         };
 
+        (window as any).$SECRET_FLAG$ = {
+            get: () => atob("ZmxhZ3tmbGFnLTl9")
+        };
+        (window as any).$HIDDEN_FLAG$ = {
+            unlock: () => {
+                console.log("flag{flag-10}");
+            }
+        };
+
         (window as any).$HINT_1$ = {
             hint: "Elements"
         };
@@ -42,6 +51,22 @@ export default function CTF() {
 
         (window as any).$HINT_6$ = {
             hint: 'Console -> fetch("/ctf/miniapi/unlock?secret=xxx") -> Network -> Response'
+        };
+
+        (window as any).$HINT_7$ = {
+            hint: "Elements -> id=VISIBILITY-FLAG -> Change visibility: hidden to visible"
+        };
+
+        (window as any).$HINT_8$ = {
+            hint: "Elements -> id=OPACITY-FLAG -> Change opacity: 0 to 1"
+        };
+
+        (window as any).$HINT_9$ = {
+            hint: "Console -> window -> $SECRET_FLAG$.get()"
+        };
+
+        (window as any).$HINT_10$ = {
+            hint: "Console -> window -> $HIDDEN_FLAG$ -> $HIDDEN_FLAG$.unlock()"
         };
 
         return () => clearTimeout(t);
@@ -188,6 +213,28 @@ export default function CTF() {
                     >
                         Find flags in increasing difficulty.
                     </Typography>
+                    {/* FLAG 7 — Elements (visibility hidden) inside objective box */}
+                    <Box
+                        id="VISIBILITY-FLAG"
+                        sx={{
+                            mt: 1,
+                            px: 3,
+                            py: 2,
+                            borderRadius: "16px",
+                            backgroundColor: "rgba(19, 19, 19, 0.65)",
+                            border: "1px solid rgba(255, 255, 255, 0.10)",
+                            boxShadow: "0 10px 40px rgba(0, 0, 0, 0.45)",
+                            visibility: "hidden",
+                            "&::after": {
+                                content: '"flag{flag-7}"',
+                                color: "rgba(255, 255, 255, 0.9)",
+                                fontFamily: '"Montserrat", sans-serif',
+                                fontSize: "16px",
+                                fontWeight: 700,
+                                display: "block"
+                            }
+                        }}
+                    />
                 </Box>
 
                 {/* FLAG 2 — “unhide me” via DevTools */}
@@ -259,6 +306,28 @@ export default function CTF() {
                     >
                         Pong?
                     </Button>
+                    {/* FLAG 8 — Elements (opacity 0) under Pong button */}
+                    <Box
+                        id="OPACITY-FLAG"
+                        sx={{
+                            mt: 1,
+                            px: 3,
+                            py: 2,
+                            borderRadius: "16px",
+                            backgroundColor: "rgba(19, 19, 19, 0.65)",
+                            border: "1px solid rgba(255, 255, 255, 0.10)",
+                            boxShadow: "0 10px 40px rgba(0, 0, 0, 0.45)",
+                            opacity: 0,
+                            "&::after": {
+                                content: '"flag{flag-8}"',
+                                color: "rgba(255, 255, 255, 0.9)",
+                                fontFamily: '"Montserrat", sans-serif',
+                                fontSize: "16px",
+                                fontWeight: 700,
+                                display: "block"
+                            }
+                        }}
+                    />
                 </Box>
 
                 <style jsx global>{`
