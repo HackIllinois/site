@@ -84,7 +84,7 @@ const PathPrize: React.FC<PathPrizeProps> = ({
     }
 
     const scaleFinal = {
-        xs: 0.6,
+        xs: 0.55,
         sm: 0.51,
         md: 0.75,
         lg: 0.8,
@@ -106,6 +106,7 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                 flexDirection: "column",
                 alignItems: "center",
                 width: size,
+                maxWidth: { xs: "75vw", sm: "unset" },
                 height: "auto",
                 position: "relative"
             }}
@@ -114,7 +115,9 @@ const PathPrize: React.FC<PathPrizeProps> = ({
             <Box
                 sx={{
                     width: size,
+                    maxWidth: { xs: "75vw", sm: "unset" },
                     height: size,
+                    maxHeight: { xs: "75vw", sm: "unset" },
                     backgroundImage: `url("${backgroundSrc}")`,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
