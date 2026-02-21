@@ -26,7 +26,7 @@ const PathPrizesSection: React.FC = () => {
                     maxWidth: "1200px",
                     mx: "auto",
                     mt: "50px",
-                    justifyItems: { xs: "center", sm: "center" },
+                    justifyItems: "center",
                     "& > *": {
                         animation: `${bob} 1.8s ease-in-out infinite`,
                         willChange: "transform"
@@ -63,7 +63,7 @@ const PathPrizesSection: React.FC = () => {
 
                 <MotionBox
                     variants={itemVariants}
-                    sx={{ mt: { xs: "-100px", sm: "0px" } }}
+                    sx={{ mt: { xs: "-40px", sm: "0px" } }}
                 >
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize2.svg"

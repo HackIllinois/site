@@ -5,6 +5,8 @@ import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { containerVariants, itemVariants } from "./animations";
 
+const MotionBox = motion(Box);
+
 type SectionHeaderProps = {
     title: string;
     subtitles?: React.ReactNode[];
@@ -17,12 +19,17 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     pt = "20px"
 }) => {
     return (
-        <motion.div
+        <MotionBox
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            style={{ width: "90%" }}
+            sx={{
+                width: "90vw",
+                maxWidth: "1200px",
+                mx: "auto",
+                pb: "30px"
+            }}
         >
             <motion.div variants={itemVariants}>
                 <Typography
@@ -45,7 +52,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                             color: "transparent",
                             display: "inline-block",
                             fontFamily: "Tsukimi Rounded",
-                            fontSize: "48px",
+                            fontSize: { xs: "32px", sm: "48px" },
                             fontWeight: 700
                         }}
                     >
@@ -62,7 +69,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                             textAlign: "center",
                             textWrap: "balance",
                             fontFamily: "Montserrat",
-                            fontSize: "18px",
+                            fontSize: { xs: "15px", sm: "18px" },
                             fontWeight: 500,
                             lineHeight: 1.6,
                             maxWidth: "1000px",
@@ -74,7 +81,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                     </Typography>
                 </motion.div>
             ))}
-        </motion.div>
+        </MotionBox>
     );
 };
 

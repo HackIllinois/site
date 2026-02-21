@@ -14,7 +14,7 @@ const TrackPrizesSection: React.FC = () => {
         <>
             <SectionHeader
                 title="TRACK PRIZES"
-                pt="60px"
+                pt="120px"
                 subtitles={[
                     <span
                         key="desc"
@@ -65,7 +65,7 @@ const TrackPrizesSection: React.FC = () => {
                     maxWidth: "1200px",
                     mx: "auto",
                     mt: "50px",
-                    justifyItems: { xs: "center", sm: "center" },
+                    justifyItems: "center",
                     "& > *": {
                         animation: `${bob} 1.8s ease-in-out infinite`,
                         willChange: "transform"

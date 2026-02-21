@@ -13,8 +13,8 @@ const ExtraPathPrizesSection: React.FC = () => {
     return (
         <>
             <SectionHeader
-                title="EXTRA PATH PRIZES"
-                pt="60px"
+                title="EXTRA PRIZES"
+                pt="120px"
                 subtitles={["Prizes are for each member."]}
             />
 
@@ -27,7 +27,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                     maxWidth: "1200px",
                     mx: "auto",
                     mt: "50px",
-                    justifyItems: { xs: "center", sm: "center" },
+                    justifyItems: "center",
                     "& > *": {
                         animation: `${bob} 1.8s ease-in-out infinite`,
                         willChange: "transform"
@@ -50,7 +50,7 @@ const ExtraPathPrizesSection: React.FC = () => {
             >
                 <MotionBox
                     variants={itemVariants}
-                    sx={{ mt: { xs: "-25px", sm: "0px" } }}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
                 >
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize3.svg"
@@ -75,7 +75,7 @@ const ExtraPathPrizesSection: React.FC = () => {
 
                 <MotionBox
                     variants={itemVariants}
-                    sx={{ mt: { xs: "25px", sm: "0px" } }}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
                 >
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize4.svg"
@@ -95,7 +95,7 @@ const ExtraPathPrizesSection: React.FC = () => {
 
                 <MotionBox
                     variants={itemVariants}
-                    sx={{ mt: { xs: "-15px", sm: "0px" } }}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
                 >
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize5.svg"
@@ -121,7 +121,7 @@ const ExtraPathPrizesSection: React.FC = () => {
 
                 <MotionBox
                     variants={itemVariants}
-                    sx={{ mt: { xs: "-55px", sm: "10px" } }}
+                    sx={{ mt: { xs: "0px", sm: "10px" } }}
                 >
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize6.svg"
@@ -146,7 +146,7 @@ const ExtraPathPrizesSection: React.FC = () => {
 
                 <MotionBox
                     variants={itemVariants}
-                    sx={{ mt: { xs: "-15px", sm: "0px" } }}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
                 >
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize7.svg"
@@ -166,7 +166,7 @@ const ExtraPathPrizesSection: React.FC = () => {
 
                 <MotionBox
                     variants={itemVariants}
-                    sx={{ mt: { xs: "30px", sm: "0px" } }}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
                 >
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize8.svg"
@@ -191,7 +191,7 @@ const ExtraPathPrizesSection: React.FC = () => {
 
                 <MotionBox
                     variants={itemVariants}
-                    sx={{ mt: { xs: "-15px", sm: "0px" } }}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
                 >
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize10.svg"
@@ -211,7 +211,7 @@ const ExtraPathPrizesSection: React.FC = () => {
 
                 <MotionBox
                     variants={itemVariants}
-                    sx={{ mt: { xs: "-15px", sm: "0px" } }}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
                 >
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize9.svg"
@@ -243,7 +243,7 @@ const ExtraPathPrizesSection: React.FC = () => {
 
                 <MotionBox
                     variants={itemVariants}
-                    sx={{ mt: { xs: "-23px", sm: "0px" } }}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
                 >
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize11.svg"
@@ -263,7 +263,7 @@ const ExtraPathPrizesSection: React.FC = () => {
 
                 <MotionBox
                     variants={itemVariants}
-                    sx={{ mt: { xs: "-23px", sm: "0px" } }}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
                 >
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize12.svg"

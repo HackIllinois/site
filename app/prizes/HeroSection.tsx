@@ -66,7 +66,7 @@ const HeroSection: React.FC = () => {
                                         }
                                     }}
                                 >
-                                    This year{" "}
+                                    This year,{" "}
                                 </Box>
                                 HackIllinois has{" "}
                                 <Box
