@@ -13,7 +13,7 @@ const ExtraPathPrizesSection: React.FC = () => {
     return (
         <>
             <SectionHeader
-                title="EXTRA PRIZES"
+                title="EXTRA PATH PRIZES"
                 pt="120px"
                 subtitles={["Prizes are for each member."]}
             />
