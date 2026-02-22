@@ -7,7 +7,7 @@ import { EVENT_TIMEZONE } from "@/util/config";
 import {
     Badge,
     Box,
-    IconButton,
+    Button,
     Typography,
     useMediaQuery,
     useTheme
@@ -538,7 +538,7 @@ const Schedule = () => {
                         sx={{
                             position: "absolute",
                             right: -20,
-                            top: "-60px",
+                            top: "-80px",
                             transform: {
                                 xs: "translateX(20%)"
                             },
@@ -619,7 +619,7 @@ const Schedule = () => {
                                 justifyContent: "flex-start"
                             }}
                         >
-                            <IconButton
+                            <Button
                                 onClick={() => setFilterOpen(true)}
                                 sx={{
                                     color: numFiltersApplied ? "#FFF" : "#000",
@@ -634,6 +634,20 @@ const Schedule = () => {
                                     transition: "all 0.2s ease-in-out"
                                 }}
                             >
+                                <Typography
+                                    sx={{
+                                        color: numFiltersApplied
+                                            ? "#FFF"
+                                            : "#000",
+                                        fontFamily:
+                                            "'Tsukimi Rounded', sans-serif",
+                                        fontWeight: "medium",
+                                        fontSize: { xs: 12, sm: 13, md: 15 }
+                                    }}
+                                >
+                                    {"Filters   "}
+                                </Typography>
+
                                 <Badge
                                     invisible={!numFiltersApplied}
                                     color="primary"
@@ -641,7 +655,7 @@ const Schedule = () => {
                                 >
                                     <FilterListIcon />
                                 </Badge>
-                            </IconButton>
+                            </Button>
                         </Box>
 
                         {/* Scroll area */}
