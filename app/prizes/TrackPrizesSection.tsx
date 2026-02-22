@@ -128,7 +128,7 @@ const TrackPrizesSection: React.FC = () => {
                             <ul style={{ margin: 0 }}>
                                 <li>
                                     <strong>1st place:</strong> $2000 for the
-                                    team, 5K in Modal Credits per person, a
+                                    team, $5K in Modal Credits per person, a
                                     visit to SF or NY Modal Office with lunch
                                     with the Modal team
                                 </li>
