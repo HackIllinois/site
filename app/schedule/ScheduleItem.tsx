@@ -43,10 +43,6 @@ type ScheduleItemProps = {
 export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
     const eventTags = getEventTags(event);
 
-    const locations = event.locations
-        .map(location => location.description)
-        .join(", ");
-
     return (
         <Box
             sx={{
