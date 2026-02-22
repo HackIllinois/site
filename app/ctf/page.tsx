@@ -3,6 +3,7 @@
 import ErrorSnackbar from "@/components/ErrorSnackbar/ErrorSnackbar";
 import Loading from "@/components/Loading/Loading";
 import { Box, Button, Container, Typography, TextField } from "@mui/material";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { GradientButton } from "@/components/GradientButton/GradientButton";
@@ -123,7 +124,13 @@ const FloatingDebris = ({
             maxWidth: "150px",
             zIndex: 5,
             pointerEvents: "none",
-            filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.3))"
+            opacity: { xs: 0.4, sm: 0.6, md: 0.8, lg: 1 },
+            filter: {
+                xs: "brightness(0.5) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3))",
+                sm: "brightness(0.7) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3))",
+                md: "brightness(0.8) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3))",
+                lg: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.3))"
+            }
         }}
     />
 );
@@ -311,7 +318,13 @@ export default function CTF() {
                     zIndex: 11,
                     pointerEvents: "none",
                     objectFit: "contain",
-                    filter: "drop-shadow(0px 0px 30px rgba(238,130,205,0.8))"
+                    opacity: { xs: 0.5, sm: 0.7, md: 0.8, lg: 1 },
+                    filter: {
+                        xs: "brightness(0.5) drop-shadow(0px 0px 30px rgba(238,130,205,0.8))",
+                        sm: "brightness(0.7) drop-shadow(0px 0px 30px rgba(238,130,205,0.8))",
+                        md: "brightness(0.8) drop-shadow(0px 0px 30px rgba(238,130,205,0.8))",
+                        lg: "drop-shadow(0px 0px 30px rgba(238,130,205,0.8))"
+                    }
                 }}
             />
 
@@ -342,7 +355,13 @@ export default function CTF() {
                     zIndex: 11,
                     pointerEvents: "none",
                     objectFit: "contain",
-                    filter: "drop-shadow(0px 0px 30px rgba(255,165,89,0.8))"
+                    opacity: { xs: 0.5, sm: 0.7, md: 0.8, lg: 1 },
+                    filter: {
+                        xs: "brightness(0.5) drop-shadow(0px 0px 30px rgba(255,165,89,0.8))",
+                        sm: "brightness(0.7) drop-shadow(0px 0px 30px rgba(255,165,89,0.8))",
+                        md: "brightness(0.8) drop-shadow(0px 0px 30px rgba(255,165,89,0.8))",
+                        lg: "drop-shadow(0px 0px 30px rgba(255,165,89,0.8))"
+                    }
                 }}
             />
 
@@ -392,7 +411,13 @@ export default function CTF() {
                     maxWidth: "none",
                     zIndex: 9,
                     pointerEvents: "none",
-                    opacity: 0.8
+                    opacity: { xs: 0.3, sm: 0.5, md: 0.7, lg: 0.8 },
+                    filter: {
+                        xs: "brightness(0.4)",
+                        sm: "brightness(0.6)",
+                        md: "brightness(0.8)",
+                        lg: "none"
+                    }
                 }}
             />
 
@@ -421,7 +446,13 @@ export default function CTF() {
                     maxWidth: "none",
                     zIndex: 7,
                     pointerEvents: "none",
-                    opacity: 0.5
+                    opacity: { xs: 0.2, sm: 0.35, md: 0.5, lg: 0.6 },
+                    filter: {
+                        xs: "brightness(0.4)",
+                        sm: "brightness(0.6)",
+                        md: "brightness(0.8)",
+                        lg: "none"
+                    }
                 }}
             />
 
@@ -546,7 +577,13 @@ export default function CTF() {
                     maxWidth: "none",
                     zIndex: 6,
                     pointerEvents: "none",
-                    opacity: 0.4
+                    opacity: { xs: 0.2, sm: 0.3, md: 0.4, lg: 0.5 },
+                    filter: {
+                        xs: "brightness(0.4)",
+                        sm: "brightness(0.6)",
+                        md: "brightness(0.8)",
+                        lg: "none"
+                    }
                 }}
             />
 
@@ -575,7 +612,13 @@ export default function CTF() {
                     maxWidth: "none",
                     zIndex: 7,
                     pointerEvents: "none",
-                    opacity: 0.5
+                    opacity: { xs: 0.2, sm: 0.35, md: 0.5, lg: 0.6 },
+                    filter: {
+                        xs: "brightness(0.4)",
+                        sm: "brightness(0.6)",
+                        md: "brightness(0.8)",
+                        lg: "none"
+                    }
                 }}
             />
 
@@ -926,8 +969,9 @@ export default function CTF() {
                     <motion.div variants={itemVariants}>
                         <Box sx={{ mt: 4, mb: 2 }}>
                             <GradientButton
-                                text="SUBMIT FLAGS"
+                                text="Go to flag submission page"
                                 link="/ctf/submit"
+                                target="_blank"
                             />
                         </Box>
                     </motion.div>

@@ -101,7 +101,7 @@ const FloatingPlanet = ({
     top: string;
     left?: string;
     right?: string;
-    size: string;
+    size: string | { xs: string; md: string };
     delay: number;
     duration: number;
 }) => (
@@ -124,11 +124,19 @@ const FloatingPlanet = ({
             top,
             left,
             right,
-            width: size,
+            width: typeof size === "string" ? size : undefined,
             maxWidth: "none",
             zIndex: 5,
             pointerEvents: "none",
-            objectFit: "contain"
+            objectFit: "contain",
+            opacity: { xs: 0.4, sm: 0.6, md: 0.8, lg: 1 },
+            filter: {
+                xs: "brightness(0.5)",
+                sm: "brightness(0.7)",
+                md: "brightness(0.8)",
+                lg: "none"
+            },
+            ...(typeof size !== "string" && { width: size })
         }}
     />
 );
@@ -198,9 +206,9 @@ export default function CTFSubmit() {
     }, []);
 
     const validateFlags = (flags: string[]) => {
-        const newStatus = flags.map(flag => {
+        const newStatus = flags.map((flag, index) => {
             if (!flag) return null;
-            const isCorrect = CORRECT_FLAGS.includes(flag.trim());
+            const isCorrect = flag.trim() === CORRECT_FLAGS[index];
             return isCorrect;
         });
         setFlagStatus(newStatus);
@@ -214,9 +222,9 @@ export default function CTFSubmit() {
         localStorage.setItem("ctf_flags", JSON.stringify(newInputs));
         validateFlags(newInputs);
 
-        const allCorrect =
-            newInputs.filter(f => f && CORRECT_FLAGS.includes(f.trim()))
-                .length === CORRECT_FLAGS.length;
+        const allCorrect = newInputs.every((flag, index) => {
+            return flag && flag.trim() === CORRECT_FLAGS[index];
+        });
         setShowSuccess(allCorrect);
     };
 
@@ -246,7 +254,7 @@ export default function CTFSubmit() {
                 src="/schedule/pink_planet.svg"
                 top="5%"
                 left="-5%"
-                size="28vw"
+                size={{ xs: "40vw", md: "28vw" }}
                 delay={0}
                 duration={7}
             />
@@ -255,7 +263,7 @@ export default function CTFSubmit() {
                 src="/schedule/orange_planet.svg"
                 top="12%"
                 right="-8%"
-                size="24vw"
+                size={{ xs: "38vw", md: "24vw" }}
                 delay={0.5}
                 duration={6}
             />
@@ -285,7 +293,13 @@ export default function CTFSubmit() {
                     maxWidth: "none",
                     zIndex: 6,
                     pointerEvents: "none",
-                    opacity: 0.6
+                    opacity: { xs: 0.3, sm: 0.4, md: 0.5, lg: 0.6 },
+                    filter: {
+                        xs: "brightness(0.4)",
+                        sm: "brightness(0.6)",
+                        md: "brightness(0.8)",
+                        lg: "none"
+                    }
                 }}
             />
 
@@ -314,7 +328,13 @@ export default function CTFSubmit() {
                     maxWidth: "none",
                     zIndex: 7,
                     pointerEvents: "none",
-                    opacity: 0.7
+                    opacity: { xs: 0.3, sm: 0.5, md: 0.6, lg: 0.7 },
+                    filter: {
+                        xs: "brightness(0.4)",
+                        sm: "brightness(0.6)",
+                        md: "brightness(0.8)",
+                        lg: "none"
+                    }
                 }}
             />
 
@@ -343,7 +363,13 @@ export default function CTFSubmit() {
                     maxWidth: "none",
                     zIndex: 5,
                     pointerEvents: "none",
-                    opacity: 0.5
+                    opacity: { xs: 0.2, sm: 0.35, md: 0.4, lg: 0.5 },
+                    filter: {
+                        xs: "brightness(0.4)",
+                        sm: "brightness(0.6)",
+                        md: "brightness(0.8)",
+                        lg: "none"
+                    }
                 }}
             />
 
@@ -479,6 +505,7 @@ export default function CTFSubmit() {
                                 }}
                             >
                                 Congratulations! You've found all the flags!
+                                Show a staff member to redeem your points.
                             </Alert>
                         </motion.div>
                     )}
@@ -564,9 +591,10 @@ export default function CTFSubmit() {
                                             }}
                                         >
                                             FLAG {index + 1}
-                                            {flagStatus[index] === true && " ✓"}
+                                            {flagStatus[index] === true &&
+                                                " (correct)"}
                                             {flagStatus[index] === false &&
-                                                " ✗"}
+                                                " (incorrect)"}
                                         </Typography>
                                         <TextField
                                             fullWidth
