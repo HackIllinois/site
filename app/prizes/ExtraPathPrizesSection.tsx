@@ -15,7 +15,7 @@ const ExtraPathPrizesSection: React.FC = () => {
             <SectionHeader
                 title="EXTRA PATH PRIZES"
                 pt="120px"
-                subtitles={["Prizes are for each member."]}
+                subtitles={["Awarded to each member of the winning team."]}
             />
 
             <MotionBox
@@ -26,7 +26,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                     width: "90vw",
                     maxWidth: "1200px",
                     mx: "auto",
-                    mt: "50px",
+                    mt: "20px",
                     justifyItems: "center",
                     "& > *": {
                         animation: `${bob} 1.8s ease-in-out infinite`,

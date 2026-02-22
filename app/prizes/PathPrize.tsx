@@ -111,53 +111,6 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                 position: "relative"
             }}
         >
-            {/* Mobile: flat title (≤ 600px) */}
-            <Box
-                sx={{
-                    display: "none",
-                    "@media (max-width: 600px)": {
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: "6px",
-                        mb: 1
-                    }
-                }}
-            >
-                <Typography
-                    sx={{
-                        color: "#fff",
-                        fontFamily: "Tsukimi Rounded",
-                        fontWeight: 700,
-                        fontSize: "18px",
-                        textAlign: "center"
-                    }}
-                >
-                    {topText}
-                </Typography>
-                {showHelpIcon && helpTooltip && (
-                    <Tooltip
-                        title={
-                            <Typography
-                                sx={{
-                                    fontFamily: "Montserrat",
-                                    fontSize: "16px"
-                                }}
-                            >
-                                {helpTooltip}
-                            </Typography>
-                        }
-                    >
-                        <Box
-                            component="img"
-                            src="/prizes/path_prizes/question.svg"
-                            alt="help"
-                            sx={{ width: 20, height: 20 }}
-                        />
-                    </Tooltip>
-                )}
-            </Box>
-
             {/* 1. VISUAL CONTAINER (The Path/SVG) */}
             <Box
                 sx={{
@@ -181,10 +134,7 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                 <Box
                     sx={{
                         position: "absolute",
-                        inset: 0,
-                        "@media (max-width: 600px)": {
-                            display: "none"
-                        }
+                        inset: 0
                     }}
                 >
                     <svg
@@ -359,41 +309,6 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                         )}
                     </svg>
                 </Box>
-            </Box>
-
-            {/* Mobile: flat description (≤ 600px) */}
-            <Box
-                sx={{
-                    display: "none",
-                    "@media (max-width: 600px)": {
-                        display: "block",
-                        textAlign: "center",
-                        mt: 1
-                    }
-                }}
-            >
-                {secondText && (
-                    <Typography
-                        sx={{
-                            color: "#fff",
-                            fontFamily: "Montserrat",
-                            fontWeight: 600,
-                            fontSize: "14px"
-                        }}
-                    >
-                        {secondText}
-                    </Typography>
-                )}
-                <Typography
-                    sx={{
-                        color: "#fff",
-                        fontFamily: "Montserrat",
-                        fontWeight: 600,
-                        fontSize: "14px"
-                    }}
-                >
-                    {bottomText}
-                </Typography>
             </Box>
 
             {/* 2. TEXT CONTAINER (Dynamic Height) */}

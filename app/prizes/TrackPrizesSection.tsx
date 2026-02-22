@@ -64,7 +64,7 @@ const TrackPrizesSection: React.FC = () => {
                     width: "90vw",
                     maxWidth: "1200px",
                     mx: "auto",
-                    mt: "50px",
+                    mt: "20px",
                     justifyItems: "center",
                     "& > *": {
                         animation: `${bob} 1.8s ease-in-out infinite`,

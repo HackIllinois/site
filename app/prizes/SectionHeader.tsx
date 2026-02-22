@@ -28,7 +28,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                 width: "90vw",
                 maxWidth: "1200px",
                 mx: "auto",
-                pb: "30px"
+                pb: "10px"
             }}
         >
             <motion.div variants={itemVariants}>
