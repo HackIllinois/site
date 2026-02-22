@@ -10,7 +10,7 @@ import styles from "./page.module.scss";
 const Home: React.FC = () => {
     return (
         <main className={styles.main}>
-            {/* Hero Section - Hackastra */}
+            {/* Hero Section - HackAstra */}
             <Hero />
 
             {/* About Section */}
