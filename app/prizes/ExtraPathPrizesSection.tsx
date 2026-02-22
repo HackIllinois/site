@@ -48,155 +48,29 @@ const ExtraPathPrizesSection: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
             >
+                {/* ADD: Solana */}
+
+                {/* Supermemory prize */}
                 <MotionBox
                     variants={itemVariants}
                     sx={{ mt: { xs: "0px", sm: "0px" } }}
                 >
                     <PathPrize
-                        backgroundSrc="/prizes/path_prizes/prize3.svg"
-                        topText="BEST BEGINNER HACK"
-                        bottomText="EPOMAKER Mechanical Keyboard"
-                        radius={165}
-                        width={410}
-                        height={410}
-                        centerOffsetY={8}
-                        centerOffsetX={0}
-                        bottomTextSize={30}
-                        topTextOffset={50}
-                        bottomTextOffset={50}
-                        topTextSize={30}
-                        showHelpIcon
-                        helpAngleDeg={338}
-                        helpSize={30}
-                        helpRotationDeg={19}
-                        helpTooltip="At least half of the members are first time hackers."
-                    />
-                </MotionBox>
-
-                <MotionBox
-                    variants={itemVariants}
-                    sx={{ mt: { xs: "0px", sm: "0px" } }}
-                >
-                    <PathPrize
-                        backgroundSrc="/prizes/path_prizes/prize4.svg"
-                        topText="BEST UI/UX DESIGN"
-                        bottomText="FUJIFILM Camera Package"
-                        radius={160}
-                        width={430}
-                        height={430}
-                        centerOffsetY={12}
-                        centerOffsetX={0}
-                        bottomTextSize={30}
-                        topTextOffset={50}
-                        bottomTextOffset={50}
-                        topTextSize={30}
-                    />
-                </MotionBox>
-
-                <MotionBox
-                    variants={itemVariants}
-                    sx={{ mt: { xs: "0px", sm: "0px" } }}
-                >
-                    <PathPrize
-                        backgroundSrc="/prizes/path_prizes/prize5.svg"
-                        topText="BEST SOCIAL IMPACT"
-                        secondText="MARSHALL Speaker +"
-                        bottomText="$50 Donation to charity of choice"
-                        radius={120}
-                        width={580}
-                        height={580}
-                        centerOffsetY={10}
-                        centerOffsetX={10}
-                        bottomTextSize={20}
-                        topTextOffset={40}
-                        bottomTextOffset={56}
-                        topTextSize={20}
-                        showHelpIcon
-                        helpAngleDeg={313}
-                        helpSize={21}
-                        helpRotationDeg={5}
-                        helpTooltip="Recognizes the project that has the potential to create the most significant positive change or address a pressing societal issue. Whether through addressing environmental concerns, improving accessibility, or tackling social injustices, among many other possibilities, this category highlights projects that aim to make a tangible difference in the world."
-                    />
-                </MotionBox>
-
-                <MotionBox
-                    variants={itemVariants}
-                    sx={{ mt: { xs: "0px", sm: "10px" } }}
-                >
-                    <PathPrize
-                        backgroundSrc="/prizes/path_prizes/prize6.svg"
-                        topText="MOST POPULAR"
-                        bottomText="SONY Headphones"
-                        radius={125}
-                        width={590}
-                        height={590}
-                        centerOffsetY={8}
-                        centerOffsetX={-6}
-                        bottomTextSize={20}
-                        topTextOffset={58}
-                        bottomTextOffset={40}
-                        topTextSize={20}
-                        showHelpIcon
-                        helpAngleDeg={330}
-                        helpSize={20}
-                        helpRotationDeg={15}
-                        helpTooltip="Determined by attendee votes."
-                    />
-                </MotionBox>
-
-                <MotionBox
-                    variants={itemVariants}
-                    sx={{ mt: { xs: "0px", sm: "0px" } }}
-                >
-                    <PathPrize
-                        backgroundSrc="/prizes/path_prizes/prize7.svg"
-                        topText="MOST CREATIVE"
-                        bottomText="NINJA Coffee Machine"
-                        radius={165}
-                        width={410}
-                        height={410}
-                        centerOffsetY={10}
-                        centerOffsetX={0}
-                        bottomTextSize={30}
-                        topTextOffset={45}
-                        bottomTextOffset={50}
-                        topTextSize={30}
-                    />
-                </MotionBox>
-
-                <MotionBox
-                    variants={itemVariants}
-                    sx={{ mt: { xs: "0px", sm: "0px" } }}
-                >
-                    <PathPrize
-                        backgroundSrc="/prizes/path_prizes/prize8.svg"
-                        topText="MOST USELESS"
-                        bottomText="NERF gun + Walkie-Talkie"
-                        radius={150}
-                        width={470}
-                        height={470}
-                        centerOffsetY={-2}
-                        centerOffsetX={9}
-                        bottomTextSize={25}
-                        topTextOffset={60}
-                        bottomTextOffset={50}
-                        topTextSize={25}
-                        showHelpIcon
-                        helpTooltip="Celebrates projects that are delightfully impractical — but still well-designed and fully functional. We're not looking for broken demos or unfinished apps, but thoughtfully built projects that explore fun, novel, or whimsical ideas rather than serious real-world problems."
-                        helpAngleDeg={333}
-                        helpSize={28}
-                        helpRotationDeg={15}
-                    />
-                </MotionBox>
-
-                <MotionBox
-                    variants={itemVariants}
-                    sx={{ mt: { xs: "0px", sm: "0px" } }}
-                >
-                    <PathPrize
-                        backgroundSrc="/prizes/path_prizes/prize10.svg"
-                        topText="BEST USE OF OPENAI"
-                        bottomText="5k OpenAI API credits"
+                        backgroundSrc="/prizes/path_prizes/prize12.svg"
+                        topText="BEST USE OF"
+                        bottomText="SUPERMEMORY"
+                        bottomBottomText={
+                            <p
+                                style={{
+                                    marginTop: "10px",
+                                    textWrap: "balance",
+                                    textAlign: "center"
+                                }}
+                            >
+                                Pair of <b>Meta Raybans</b> for each winning
+                                team member
+                            </p>
+                        }
                         radius={130}
                         width={540}
                         height={540}
@@ -209,6 +83,28 @@ const ExtraPathPrizesSection: React.FC = () => {
                     />
                 </MotionBox>
 
+                {/* OpenAI prize */}
+                <MotionBox
+                    variants={itemVariants}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
+                >
+                    <PathPrize
+                        backgroundSrc="/prizes/path_prizes/prize10.svg"
+                        topText="BEST USE OF OPENAI"
+                        bottomText="$5k of OpenAI API credits"
+                        radius={130}
+                        width={540}
+                        height={540}
+                        centerOffsetY={10}
+                        centerOffsetX={0}
+                        bottomTextSize={25}
+                        topTextOffset={50}
+                        bottomTextOffset={50}
+                        topTextSize={25}
+                    />
+                </MotionBox>
+
+                {/* Nessie (Capital One) prize */}
                 <MotionBox
                     variants={itemVariants}
                     sx={{ mt: { xs: "0px", sm: "0px" } }}
@@ -241,6 +137,9 @@ const ExtraPathPrizesSection: React.FC = () => {
                     />
                 </MotionBox>
 
+                {/* ADD: Actian */}
+
+                {/* Cloudflare prize */}
                 <MotionBox
                     variants={itemVariants}
                     sx={{ mt: { xs: "0px", sm: "0px" } }}
@@ -261,35 +160,150 @@ const ExtraPathPrizesSection: React.FC = () => {
                     />
                 </MotionBox>
 
+                {/* HackIllinois prize */}
                 <MotionBox
                     variants={itemVariants}
                     sx={{ mt: { xs: "0px", sm: "0px" } }}
                 >
                     <PathPrize
-                        backgroundSrc="/prizes/path_prizes/prize12.svg"
-                        topText="BEST USE OF"
-                        bottomText="SUPERMEMORY"
-                        bottomBottomText={
-                            <p
-                                style={{
-                                    marginTop: "10px",
-                                    textWrap: "balance",
-                                    textAlign: "center"
-                                }}
-                            >
-                                Pair of <b>Meta Raybans</b> for each winning
-                                team member
-                            </p>
-                        }
-                        radius={130}
-                        width={540}
-                        height={540}
-                        centerOffsetY={10}
+                        backgroundSrc="/prizes/path_prizes/prize3.svg"
+                        topText="BEST BEGINNER HACK"
+                        bottomText="EPOMAKER Mechanical Keyboard"
+                        radius={165}
+                        width={410}
+                        height={410}
+                        centerOffsetY={8}
                         centerOffsetX={0}
-                        bottomTextSize={25}
+                        bottomTextSize={30}
                         topTextOffset={50}
                         bottomTextOffset={50}
+                        topTextSize={30}
+                        showHelpIcon
+                        helpAngleDeg={338}
+                        helpSize={30}
+                        helpRotationDeg={19}
+                        helpTooltip="At least half of the members are first time hackers."
+                    />
+                </MotionBox>
+
+                {/* HackIllinois prize */}
+                <MotionBox
+                    variants={itemVariants}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
+                >
+                    <PathPrize
+                        backgroundSrc="/prizes/path_prizes/prize4.svg"
+                        topText="BEST UI/UX DESIGN"
+                        bottomText="FUJIFILM Camera Package"
+                        radius={160}
+                        width={430}
+                        height={430}
+                        centerOffsetY={12}
+                        centerOffsetX={0}
+                        bottomTextSize={30}
+                        topTextOffset={50}
+                        bottomTextOffset={50}
+                        topTextSize={30}
+                    />
+                </MotionBox>
+
+                {/* HackIllinois prize */}
+                <MotionBox
+                    variants={itemVariants}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
+                >
+                    <PathPrize
+                        backgroundSrc="/prizes/path_prizes/prize5.svg"
+                        topText="BEST SOCIAL IMPACT"
+                        secondText="MARSHALL Speaker +"
+                        bottomText="$50 Donation to charity of choice"
+                        radius={120}
+                        width={580}
+                        height={580}
+                        centerOffsetY={10}
+                        centerOffsetX={10}
+                        bottomTextSize={20}
+                        topTextOffset={40}
+                        bottomTextOffset={56}
+                        topTextSize={20}
+                        showHelpIcon
+                        helpAngleDeg={313}
+                        helpSize={21}
+                        helpRotationDeg={5}
+                        helpTooltip="Recognizes the project that has the potential to create the most significant positive change or address a pressing societal issue. Whether through addressing environmental concerns, improving accessibility, or tackling social injustices, among many other possibilities, this category highlights projects that aim to make a tangible difference in the world."
+                    />
+                </MotionBox>
+
+                {/* HackIllinois prize */}
+                <MotionBox
+                    variants={itemVariants}
+                    sx={{ mt: { xs: "0px", sm: "10px" } }}
+                >
+                    <PathPrize
+                        backgroundSrc="/prizes/path_prizes/prize6.svg"
+                        topText="MOST POPULAR"
+                        bottomText="SONY Headphones"
+                        radius={125}
+                        width={590}
+                        height={590}
+                        centerOffsetY={8}
+                        centerOffsetX={-6}
+                        bottomTextSize={20}
+                        topTextOffset={58}
+                        bottomTextOffset={40}
+                        topTextSize={20}
+                        showHelpIcon
+                        helpAngleDeg={330}
+                        helpSize={20}
+                        helpRotationDeg={15}
+                        helpTooltip="Determined by attendee votes."
+                    />
+                </MotionBox>
+
+                {/* HackIllinois prize */}
+                <MotionBox
+                    variants={itemVariants}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
+                >
+                    <PathPrize
+                        backgroundSrc="/prizes/path_prizes/prize7.svg"
+                        topText="MOST CREATIVE"
+                        bottomText="NINJA Coffee Machine"
+                        radius={165}
+                        width={410}
+                        height={410}
+                        centerOffsetY={10}
+                        centerOffsetX={0}
+                        bottomTextSize={30}
+                        topTextOffset={45}
+                        bottomTextOffset={50}
+                        topTextSize={30}
+                    />
+                </MotionBox>
+
+                {/* HackIllinois prize */}
+                <MotionBox
+                    variants={itemVariants}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
+                >
+                    <PathPrize
+                        backgroundSrc="/prizes/path_prizes/prize8.svg"
+                        topText="MOST USELESS"
+                        bottomText="NERF gun + Walkie-Talkie"
+                        radius={150}
+                        width={470}
+                        height={470}
+                        centerOffsetY={-2}
+                        centerOffsetX={9}
+                        bottomTextSize={25}
+                        topTextOffset={60}
+                        bottomTextOffset={50}
                         topTextSize={25}
+                        showHelpIcon
+                        helpTooltip="Celebrates projects that are delightfully impractical — but still well-designed and fully functional. We're not looking for broken demos or unfinished apps, but thoughtfully built projects that explore fun, novel, or whimsical ideas rather than serious real-world problems."
+                        helpAngleDeg={333}
+                        helpSize={28}
+                        helpRotationDeg={15}
                     />
                 </MotionBox>
             </MotionBox>
