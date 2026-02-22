@@ -2,7 +2,7 @@
 import { EventType } from "@/util/types";
 import moment from "moment-timezone";
 import { EVENT_TIMEZONE } from "@/util/config";
-import { Box, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 
 import { Tag, TagsList } from "@/app/schedule/Tags";
 
@@ -27,6 +27,14 @@ function getEventTags(event: EventType): Tag[] {
 
     return tags;
 }
+
+const LOCATION_LINKS: Record<string, string> = {
+    "Siebel Center for Computer Science":
+        "https://maps.app.goo.gl/hcCozcrtpUJPK6X66",
+    "Sidney Lu Mechanical Engineering Building":
+        "https://maps.app.goo.gl/EXAfjtuG95Kggvbs7",
+    "Siebel Center for Design": "https://maps.app.goo.gl/MxsiqKW77PQctJBK7"
+};
 
 type ScheduleItemProps = {
     event: EventType;
@@ -97,7 +105,7 @@ export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
             </Box>
 
             {/* Locations */}
-            {locations.length > 0 && (
+            {event.locations && event.locations.length > 0 && (
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                     <Typography
                         sx={{
@@ -107,7 +115,45 @@ export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                             color: "#EDDBFF"
                         }}
                     >
-                        {locations}
+                        {event.locations.map((loc, index) => {
+                            const fullDesc = loc.description;
+
+                            const buildingKey = Object.keys(
+                                LOCATION_LINKS
+                            ).find(key => fullDesc.includes(key));
+
+                            if (buildingKey) {
+                                const url = LOCATION_LINKS[buildingKey];
+                                const parts = fullDesc.split(buildingKey);
+
+                                return (
+                                    <span key={`${fullDesc}-${index}`}>
+                                        <Link
+                                            href={url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            sx={{
+                                                color: "#FDAB60",
+                                                textDecoration: "underline",
+                                                "&:hover": { color: "#A315D6" }
+                                            }}
+                                        >
+                                            {buildingKey}
+                                        </Link>
+                                        {parts[1]}
+                                        {index < event.locations.length - 1 &&
+                                            ", "}
+                                    </span>
+                                );
+                            }
+
+                            return (
+                                <span key={`${fullDesc}-${index}`}>
+                                    {fullDesc}
+                                    {index < event.locations.length - 1 && ", "}
+                                </span>
+                            );
+                        })}
                     </Typography>
                 </Box>
             )}
