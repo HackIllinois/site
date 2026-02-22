@@ -51,7 +51,7 @@ const TrackPrize: React.FC<TrackPrizeProps> = ({
     const bottomArcId = `bottomArc-${uid}`;
 
     const scaleFinal = {
-        xs: 0.6,
+        xs: 0.55,
         sm: 0.53,
         md: 0.76,
         lg: 0.8,
@@ -73,6 +73,7 @@ const TrackPrize: React.FC<TrackPrizeProps> = ({
                 flexDirection: "column",
                 alignItems: "center",
                 width: size,
+                maxWidth: { xs: "75vw", sm: "unset" },
                 height: "auto",
                 position: "relative"
             }}
@@ -81,7 +82,9 @@ const TrackPrize: React.FC<TrackPrizeProps> = ({
             <Box
                 sx={{
                     width: size,
-                    height: size, // Keeps the visual square/circular aspect ratio
+                    maxWidth: { xs: "75vw", sm: "unset" },
+                    height: size,
+                    maxHeight: { xs: "75vw", sm: "unset" },
                     backgroundImage: `url("${backgroundSrc}")`,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
