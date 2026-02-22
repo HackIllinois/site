@@ -14,7 +14,9 @@ const PathPrizesSection: React.FC = () => {
         <>
             <SectionHeader
                 title="PATH PRIZES"
-                subtitles={["Awarded for the entire winning team."]}
+                subtitles={[
+                    "Awarded to the entire winning team, not per member."
+                ]}
             />
 
             <MotionBox
