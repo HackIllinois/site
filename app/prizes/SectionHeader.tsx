@@ -5,7 +5,7 @@ import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { containerVariants, itemVariants } from "./animations";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 type SectionHeaderProps = {
     title: string;

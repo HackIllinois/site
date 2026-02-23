@@ -7,7 +7,7 @@ import PathPrize from "./PathPrize";
 import SectionHeader from "./SectionHeader";
 import { bob, containerVariants, itemVariants } from "./animations";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 const PathPrizesSection: React.FC = () => {
     return (
@@ -47,14 +47,9 @@ const PathPrizesSection: React.FC = () => {
                         topText="BEST VOYAGER HACK"
                         bottomText="$5000"
                         radius={100}
-                        // width={550}
                         height={580}
-                        // centerOffsetY={10}
-                        // topTextSize={30}
-                        // bottomTextSize={40}
                         topTextOffset={-2}
                         bottomTextOffset={-2}
-                        // bottomLetterSpacing={4}
                         topGradientWord="VOYAGER"
                         topGradient={{
                             from: "#A315D6",
@@ -73,15 +68,7 @@ const PathPrizesSection: React.FC = () => {
                         topText="BEST GENERAL HACK"
                         bottomText="$2500"
                         radius={110}
-                        // width={550}
                         height={550}
-                        // topTextSize={30}
-                        // centerOffsetY={10}
-                        // centerOffsetX={-10}
-                        // bottomTextSize={40}
-                        // topTextOffset={60}
-                        // bottomTextOffset={40}
-                        // bottomLetterSpacing={4}
                     />
                 </MotionBox>
             </MotionBox>

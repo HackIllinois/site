@@ -11,27 +11,18 @@ type PathPrizeProps = {
     topTextOffset?: number;
     bottomTextOffset?: number;
 
-    // bottomTextSize: number;
-    // topTextSize?: number;
-
-    // width: number;
     height: number;
 
     centerOffsetY?: number;
     centerOffsetX?: number;
-    // bottomLetterSpacing?: number;
 
     radius: number;
 
     topGradientWord?: string;
     topGradient?: { from: string; mid?: string; to: string };
-    // secondText?: string;
 
     helpTooltip?: string;
     showHelpIcon?: boolean;
-    // helpAngleDeg?: number;
-    // helpSize?: number;
-    // helpRotationDeg?: number;
 
     bottomBottomText?: string | React.ReactNode;
     bottomBottomTextSize?: number;
@@ -45,33 +36,20 @@ const PathPrize: React.FC<PathPrizeProps> = ({
     bottomText,
     topTextOffset,
     bottomTextOffset = -1,
-    // bottomTextSize,
-    // width,
     height,
     centerOffsetX = 0,
     centerOffsetY = 0,
-    // topTextSize = 20,
-    // bottomLetterSpacing = 0,
     radius,
     topGradientWord,
     topGradient,
-    // secondText,
     helpTooltip,
     showHelpIcon,
-    // helpAngleDeg = 0,
-    // helpSize = 0,
-    // helpRotationDeg = 0,
     bottomBottomText,
     bottomBottomTextSize = 16,
     topSecondRow,
     bottomBottomTextOffset
 }) => {
     const [hovered, setHovered] = useState(false);
-    // const uid = useId();
-    // const topArcId = `topArc-${uid}`;
-    // const bottomArcId = `bottomArc-${uid}`;
-    // const topGradId = `topGrad-${uid}`;
-    // const secondId = `secondArc-${uid}`;
 
     const shouldGradient =
         !!topGradientWord && topText.includes(topGradientWord) && !!topGradient;
@@ -111,23 +89,6 @@ const PathPrize: React.FC<PathPrizeProps> = ({
         xl: "32px"
     };
 
-    //     const titleRef = useRef<HTMLHeadingElement>(null);
-    // const [titleLines, setTitleLines] = useState(1);
-
-    // useEffect(() => {
-    //   const el = titleRef.current;
-    //   if (!el) return;
-
-    //   const style = window.getComputedStyle(el);
-    //   let lineHeight = parseFloat(style.lineHeight);
-    //   if (isNaN(lineHeight)) {
-    //     lineHeight = parseFloat(style.fontSize) * 1.2;
-    //   }
-
-    //   const lines = Math.round(el.scrollHeight / lineHeight);
-    //   setTitleLines(lines);
-    // }, []);
-
     return (
         <Box
             sx={{
@@ -154,10 +115,7 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                 }}
             >
                 {/* title block */}
-                <Box
-                    // ref={titleRef}
-                    sx={{ textAlign: "center", mb: topTextOffset }}
-                >
+                <Box sx={{ textAlign: "center", mb: topTextOffset }}>
                     {shouldGradient ? (
                         <>
                             <span style={{ color: "#fff" }}>{topBefore}</span>
@@ -183,8 +141,6 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                     {topSecondRow ? <br /> : null}
                     {topSecondRow}
                 </Box>
-
-                {/* CHANGE: Tooltip trigger is now valid HTML (no <g>) */}
                 {showHelpIcon && helpTooltip && (
                     <Tooltip
                         title={
@@ -218,7 +174,6 @@ const PathPrize: React.FC<PathPrizeProps> = ({
 
             <Box
                 sx={{
-                    // marginTop: titleLines >= 2 ? "40px" : "0px",
                     mt: -1,
                     width: size,
                     height: size,
@@ -240,9 +195,6 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                     sx={{
                         position: "relative",
                         inset: 0
-                        // display:"flex",
-                        // justifyContent:"center",
-                        // alignItems:"center"
                     }}
                 >
                     <svg
@@ -265,176 +217,9 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                             onMouseEnter={() => setHovered(true)}
                             onMouseLeave={() => setHovered(false)}
                         />
-                        {/* <defs>
-                            {shouldGradient && (
-                                <linearGradient
-                                    id={topGradId}
-                                    x1="0%"
-                                    y1="0%"
-                                    x2="100%"
-                                    y2="0%"
-                                >
-                                    <stop
-                                        offset="0%"
-                                        stopColor={topGradient!.from}
-                                    />
-                                    <stop
-                                        offset="50%"
-                                        stopColor={
-                                            topGradient!.mid ?? topGradient!.to
-                                        }
-                                    />
-                                    <stop
-                                        offset="100%"
-                                        stopColor={topGradient!.to}
-                                    />
-                                </linearGradient>
-                            )}
-
-                            <path
-                                id={topArcId}
-                                d={`
-              M 200,200
-              m -${radius},0
-              a ${radius},${radius} 0 0 1 ${radius * 2},0
-            `}
-                            />
-
-                            <path
-                                id={bottomArcId}
-                                d={`
-              M 200,200
-              m -${radius},0
-              a ${radius},${radius} 0 0 0 ${radius * 2},0
-            `}
-                            />
-                            {secondText && (
-                                <path
-                                    id={secondId}
-                                    d={`
-              M 200,200
-              m -${radius - 25},0
-              a ${radius - 25},${radius - 25} 0 0 0 ${radius * 2 - 50},0
-            `}
-                                />
-                            )}
-                        </defs> */}
-
-                        {/* top text */}
-                        {/* <text
-                            fontFamily="Tsukimi Rounded"
-                            fontSize={topTextSize}
-                            fontWeight="700"
-                            textAnchor="middle"
-                        >
-                            <textPath
-                                href={`#${topArcId}`}
-                                startOffset={`${topTextOffset}%`}
-                            >
-                                {shouldGradient ? (
-                                    <>
-                                        <tspan fill="#fff">{topBefore}</tspan>
-                                        <tspan fill={`url(#${topGradId})`}>
-                                            {topMid}
-                                        </tspan>
-                                        <tspan fill="#fff">{topAfter}</tspan>
-                                    </>
-                                ) : (
-                                    <tspan fill="#fff">{topText}</tspan>
-                                )}
-                            </textPath>
-                        </text>
-
-                        {showHelpIcon && helpTooltip && (
-                            <Tooltip
-                                title={
-                                    <Typography
-                                        sx={{
-                                            fontFamily: "Montserrat",
-                                            fontSize: "16px"
-                                        }}
-                                    >
-                                        {helpTooltip}
-                                    </Typography>
-                                }
-                            >
-                                <g
-                                    style={{ pointerEvents: "all" }}
-                                    onMouseEnter={() => setHovered(true)}
-                                    onMouseLeave={() => setHovered(false)}
-                                    transform={`
-        translate(${200 + radius * 1.06 * Math.cos((helpAngleDeg * Math.PI) / 180)},
-                    ${200 + radius * 1.06 * Math.sin((helpAngleDeg * Math.PI) / 180)})
-        rotate(${helpRotationDeg})
-        translate(${-helpSize / 2}, ${-helpSize / 2})
-        `}
-                                >
-                                    <title>{helpTooltip}</title>
-
-                                    <image
-                                        href="/prizes/path_prizes/question.svg"
-                                        width={helpSize}
-                                        height={helpSize}
-                                        preserveAspectRatio="xMidYMid meet"
-                                    />
-                                </g>
-                            </Tooltip>
-                        )} */}
-
-                        {/* bottom text */}
-                        {/* <text
-                            fill="#fff"
-                            fontFamily="Montserrat"
-                            fontSize={bottomTextSize}
-                            fontWeight="600"
-                            textAnchor="middle"
-                            style={{ letterSpacing: bottomLetterSpacing }}
-                        >
-                            <textPath
-                                href={`#${bottomArcId}`}
-                                startOffset={`${bottomTextOffset}%`}
-                            >
-                                {bottomText}
-                            </textPath>
-                        </text>
-
-                        {secondText && (
-                            <text
-                                fill="#fff"
-                                fontFamily="Montserrat"
-                                fontSize={bottomTextSize}
-                                fontWeight="600"
-                                textAnchor="middle"
-                                style={{ letterSpacing: bottomLetterSpacing }}
-                            >
-                                <textPath
-                                    href={`#${secondId}`}
-                                    startOffset={`${bottomTextOffset}%`}
-                                >
-                                    {secondText}
-                                </textPath>
-                            </text> */}
-                        {/* )} */}
                     </svg>
                 </Box>
             </Box>
-            {/* <Box
-                      sx={{
-                      position: "absolute",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      width: "100%",
-                      textAlign: "center",
-                      fontWeight: 700,
-                      pointerEvents: "none",
-                      color: "white",
-                      fontSize,
-                    //   mt:"-40px"
-                    top:"95%"
-                      }}
-                  >
-                      {bottomText}
-                  </Box> */}
 
             {bottomText && (
                 <Box
@@ -458,7 +243,6 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                         textAlign: "left",
                         width: "100%",
                         zIndex: 1,
-                        // mt: 3,
                         fontSize: bottomBottomTextSize,
                         color: "white",
                         lineHeight: 1.5,

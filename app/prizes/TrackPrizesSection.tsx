@@ -7,7 +7,7 @@ import TrackPrize from "./TrackPrize";
 import SectionHeader from "./SectionHeader";
 import { bob, containerVariants, itemVariants } from "./animations";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 const TrackPrizesSection: React.FC = () => {
     return (
