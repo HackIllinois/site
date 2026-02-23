@@ -629,10 +629,10 @@ const TravelPage: React.FC = () => {
                             >
                                 For further questions, please contact{" "}
                                 <a
-                                    href="mailto:travel@hackillinois.org"
+                                    href="mailto:contact@hackillinois.org"
                                     className={styles.contactLink}
                                 >
-                                    travel@hackillinois.org
+                                    contact@hackillinois.org
                                 </a>
                             </motion.p>
                         </motion.div>
