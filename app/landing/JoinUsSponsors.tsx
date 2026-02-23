@@ -191,7 +191,7 @@ const JoinUsSponsors = () => {
             }
         },
         float: {
-            y: ["-20px", "20px"],
+            y: ["-10px", "10px"],
             rotate: ["-1deg", "1deg"],
             transition: {
                 duration: 4,
@@ -268,6 +268,7 @@ const JoinUsSponsors = () => {
     };
 
     const smViewport = useMediaQuery("(max-width:710px)");
+    const xsViewport = useMediaQuery("(max-width:449px)");
 
     const bottomRowCount = useMemo(() => {
         console.log("smViewport", smViewport);
@@ -276,6 +277,16 @@ const JoinUsSponsors = () => {
         }
         return 3;
     }, [smViewport]);
+
+    const allSponsorsForGrid = useMemo(() => {
+        if (!xsViewport) return bottomSponsorsRows;
+        const alienSponsorsAsGrid = alienSponsors.map(s => ({
+            name: s.name,
+            image: s.image,
+            tier: s.tier
+        }));
+        return [...alienSponsorsAsGrid, ...bottomSponsorsRows];
+    }, [xsViewport]);
 
     return (
         <div className={styles.joinUsSection} ref={ref}>
@@ -319,7 +330,11 @@ const JoinUsSponsors = () => {
                 />
 
                 <motion.img
-                    src="/landing/sponsors/desktop/ufo.svg"
+                    src={
+                        xsViewport
+                            ? "/landing/sponsors/mobile/ufo.svg"
+                            : "/landing/sponsors/desktop/ufo.svg"
+                    }
                     alt="UFO"
                     className={clsx(styles.ufoImage, styles.mobile)}
                     variants={ufoVariants}
@@ -459,49 +474,65 @@ const JoinUsSponsors = () => {
                         width: "100%"
                     }}
                 >
-                    <div className={styles.aliensContainer}>
-                        {alienAssets.map((src, index) => {
-                            const sponsor = alienSponsors.find(
-                                s => s.alienIndex === index
-                            );
-                            return (
-                                <div
-                                    key={index}
-                                    className={`${styles.alienWrapper} ${styles[`alien${index}`]}`}
-                                    style={{
-                                        animationDelay: `${index * 0.15}s`
-                                    }}
-                                >
-                                    <img
-                                        src={src}
-                                        alt={`Alien ${index + 1}`}
-                                        className={`${styles.alienImage} ${sponsor ? styles[sponsor.tier] : ""}`}
-                                    />
-                                    {sponsor && (
-                                        <Box
-                                            className={`${styles.sponsorLogo} ${styles[sponsor.tier]}`}
-                                            sx={{
-                                                backgroundColor:
-                                                    sponsorBackgroundColor,
-                                                borderRadius: "999px"
-                                            }}
-                                        >
-                                            <img
-                                                src={sponsor.image}
-                                                alt={sponsor.name}
-                                                style={{
-                                                    height: "100%",
-                                                    objectFit: "contain"
+                    {!xsViewport && (
+                        <div className={styles.aliensContainer}>
+                            {alienAssets.map((src, index) => {
+                                const sponsor = alienSponsors.find(
+                                    s => s.alienIndex === index
+                                );
+                                return (
+                                    <div
+                                        key={index}
+                                        className={`${styles.alienWrapper} ${styles[`alien${index}`]}`}
+                                        style={{
+                                            animationDelay: `${index * 0.15}s`
+                                        }}
+                                    >
+                                        <img
+                                            src={src}
+                                            alt={`Alien ${index + 1}`}
+                                            className={`${styles.alienImage} ${sponsor ? styles[sponsor.tier] : ""}`}
+                                        />
+                                        {sponsor && (
+                                            <Box
+                                                className={`${styles.sponsorLogo} ${styles[sponsor.tier]}`}
+                                                sx={{
+                                                    backgroundColor:
+                                                        sponsorBackgroundColor,
+                                                    borderRadius: "999px"
                                                 }}
-                                            />
-                                        </Box>
-                                    )}
-                                </div>
-                            );
-                        })}
-                    </div>
+                                            >
+                                                <img
+                                                    src={sponsor.image}
+                                                    alt={sponsor.name}
+                                                    style={{
+                                                        height: "100%",
+                                                        objectFit: "contain"
+                                                    }}
+                                                />
+                                            </Box>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
 
                     <div className={styles.bottomSponsorsContainer}>
+                        {xsViewport && (
+                            <Typography
+                                variant="h2"
+                                sx={{
+                                    color: "white",
+                                    textAlign: "center",
+                                    fontFamily: tsukimi.style.fontFamily,
+                                    fontWeight: 700,
+                                    mb: "16px"
+                                }}
+                            >
+                                SPONSORS
+                            </Typography>
+                        )}
                         <div
                             className={styles.bottomSponsorsGrid}
                             style={{
@@ -512,7 +543,7 @@ const JoinUsSponsors = () => {
                         >
                             {Array.from({
                                 length: Math.ceil(
-                                    bottomSponsorsRows.length / bottomRowCount
+                                    allSponsorsForGrid.length / bottomRowCount
                                 )
                             }).map((_, i) => (
                                 <Box
@@ -526,7 +557,7 @@ const JoinUsSponsors = () => {
                                         flexWrap: "wrap"
                                     }}
                                 >
-                                    {bottomSponsorsRows
+                                    {allSponsorsForGrid
                                         .slice(
                                             i * bottomRowCount,
                                             i * bottomRowCount + bottomRowCount
