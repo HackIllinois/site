@@ -3,7 +3,6 @@
 import { Box, Container, Typography, TextField, Alert } from "@mui/material";
 import { useState, useEffect } from "react";
 import { motion, Variants } from "framer-motion";
-import { GradientButton } from "@/components/GradientButton/GradientButton";
 import Link from "next/link";
 import styles from "./submit.module.scss";
 
@@ -101,7 +100,7 @@ const FloatingPlanet = ({
     top: string;
     left?: string;
     right?: string;
-    size: string | { xs: string; md: string };
+    size: string | { xs?: string; sm?: string; md?: string; lg?: string };
     delay: number;
     duration: number;
 }) => (
@@ -254,7 +253,7 @@ export default function CTFSubmit() {
                 src="/schedule/pink_planet.svg"
                 top="5%"
                 left="-5%"
-                size={{ xs: "40vw", md: "28vw" }}
+                size={{ xs: "24vw", sm: "20vw", md: "18vw", lg: "20vw" }}
                 delay={0}
                 duration={7}
             />
@@ -266,41 +265,6 @@ export default function CTFSubmit() {
                 size={{ xs: "38vw", md: "24vw" }}
                 delay={0.5}
                 duration={6}
-            />
-
-            <Box
-                component={motion.img}
-                src="/challenge/backgrounds/desktop/debris.svg"
-                animate={{
-                    y: [0, -12, 0],
-                    rotate: [0, 10, 0]
-                }}
-                transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1
-                }}
-                sx={{
-                    position: "absolute",
-                    top: { xs: "35%", md: "40%" },
-                    left: { xs: "-5%", md: "-3%" },
-                    width: {
-                        xs: "25vw",
-                        sm: "20vw",
-                        md: "16vw"
-                    },
-                    maxWidth: "none",
-                    zIndex: 6,
-                    pointerEvents: "none",
-                    opacity: { xs: 0.3, sm: 0.4, md: 0.5, lg: 0.6 },
-                    filter: {
-                        xs: "brightness(0.4)",
-                        sm: "brightness(0.6)",
-                        md: "brightness(0.8)",
-                        lg: "none"
-                    }
-                }}
             />
 
             <Box
@@ -453,7 +417,12 @@ export default function CTFSubmit() {
                         <Typography
                             sx={{
                                 fontFamily: "Tsukimi Rounded",
-                                fontSize: { xs: "40px", md: "58px" },
+                                fontSize: {
+                                    xs: "28px",
+                                    sm: "36px",
+                                    md: "48px",
+                                    lg: "56px"
+                                },
                                 fontWeight: 700,
                                 background:
                                     "linear-gradient(90deg, #A315D6 0%, #FDAB60 50%, #A315D6 100%)",
@@ -481,8 +450,8 @@ export default function CTFSubmit() {
                                 mx: "auto"
                             }}
                         >
-                            Enter the flags you've discovered. Your progress
-                            will be automatically saved. Good luck!
+                            Enter the flags you&apos;ve discovered. Your
+                            progress will be automatically saved. Good luck!
                         </Typography>
                     </motion.div>
 
@@ -504,8 +473,9 @@ export default function CTFSubmit() {
                                     fontFamily: "Montserrat"
                                 }}
                             >
-                                Congratulations! You've found all the flags!
-                                Show a staff member to redeem your points.
+                                Congratulations! You&apos;ve found all the
+                                flags! Show a staff member to redeem your
+                                points.
                             </Alert>
                         </motion.div>
                     )}

@@ -2,13 +2,10 @@
 
 import ErrorSnackbar from "@/components/ErrorSnackbar/ErrorSnackbar";
 import Loading from "@/components/Loading/Loading";
-import { Box, Button, Container, Typography, TextField } from "@mui/material";
-import Link from "next/link";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { GradientButton } from "@/components/GradientButton/GradientButton";
-import Image from "next/image";
-import styles from "./page.module.scss";
 
 const TwinklingStar = ({
     size,
@@ -310,9 +307,10 @@ export default function CTF() {
                     top: { xs: "5%", md: "3%" },
                     left: { xs: "-5%", md: "-8%" },
                     width: {
-                        xs: "35vw",
-                        sm: "28vw",
-                        md: "25vw"
+                        xs: "26vw",
+                        sm: "22vw",
+                        md: "20vw",
+                        lg: "22vw"
                     },
                     maxWidth: "none",
                     zIndex: 11,
@@ -363,16 +361,6 @@ export default function CTF() {
                         lg: "drop-shadow(0px 0px 30px rgba(255,165,89,0.8))"
                     }
                 }}
-            />
-
-            <FloatingDebris
-                src="/challenge/backgrounds/desktop/debris.svg"
-                top="30%"
-                left="10%"
-                size="60px"
-                delay={0}
-                duration={6}
-                rotation={15}
             />
 
             <FloatingDebris
@@ -657,7 +645,12 @@ export default function CTF() {
                         <Typography
                             sx={{
                                 fontFamily: "Tsukimi Rounded",
-                                fontSize: { xs: "42px", md: "72px" },
+                                fontSize: {
+                                    xs: "30px",
+                                    sm: "40px",
+                                    md: "56px",
+                                    lg: "68px"
+                                },
                                 fontWeight: 700,
                                 background:
                                     "linear-gradient(90deg, #A315D6 0%, #FDAB60 50%, #A315D6 100%)",
@@ -685,9 +678,10 @@ export default function CTF() {
                             }}
                         >
                             Explore, discover, and uncover hidden secrets
-                            embedded in this page. Use your browser's developer
-                            tools and keen observation skills to find all flags.
-                            Every flag you find brings you closer to victory!
+                            embedded in this page. Use your browser&apos;s
+                            developer tools and keen observation skills to find
+                            all flags. Every flag you find brings you closer to
+                            victory!
                         </Typography>
                     </motion.div>
 
