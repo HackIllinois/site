@@ -1,40 +1,41 @@
 "use client";
 
-import React, { useId, useState } from "react";
+import React, { useState } from "react";
 import { Box, Tooltip, Typography } from "@mui/material";
 
 type PathPrizeProps = {
     backgroundSrc: string;
 
     topText: string;
-    bottomText: string;
-    topTextOffset: number;
-    bottomTextOffset: number;
+    bottomText?: string;
+    topTextOffset?: number;
+    bottomTextOffset?: number;
 
-    bottomTextSize: number;
-    topTextSize?: number;
+    // bottomTextSize: number;
+    // topTextSize?: number;
 
-    width: number;
+    // width: number;
     height: number;
 
     centerOffsetY?: number;
     centerOffsetX?: number;
-    bottomLetterSpacing?: number;
+    // bottomLetterSpacing?: number;
 
     radius: number;
 
     topGradientWord?: string;
     topGradient?: { from: string; mid?: string; to: string };
-    secondText?: string;
+    // secondText?: string;
 
     helpTooltip?: string;
     showHelpIcon?: boolean;
-    helpAngleDeg?: number;
-    helpSize?: number;
-    helpRotationDeg?: number;
+    // helpAngleDeg?: number;
+    // helpSize?: number;
+    // helpRotationDeg?: number;
 
     bottomBottomText?: string | React.ReactNode;
     bottomBottomTextSize?: number;
+    topSecondRow?: string;
 };
 
 const PathPrize: React.FC<PathPrizeProps> = ({
@@ -42,32 +43,33 @@ const PathPrize: React.FC<PathPrizeProps> = ({
     topText,
     bottomText,
     topTextOffset,
-    bottomTextOffset,
-    bottomTextSize,
-    width,
+    bottomTextOffset = -1,
+    // bottomTextSize,
+    // width,
     height,
     centerOffsetX = 0,
     centerOffsetY = 0,
-    topTextSize = 20,
-    bottomLetterSpacing = 0,
+    // topTextSize = 20,
+    // bottomLetterSpacing = 0,
     radius,
     topGradientWord,
     topGradient,
-    secondText,
+    // secondText,
     helpTooltip,
     showHelpIcon,
-    helpAngleDeg = 0,
-    helpSize = 0,
-    helpRotationDeg = 0,
+    // helpAngleDeg = 0,
+    // helpSize = 0,
+    // helpRotationDeg = 0,
     bottomBottomText,
-    bottomBottomTextSize = 16
+    bottomBottomTextSize = 16,
+    topSecondRow
 }) => {
     const [hovered, setHovered] = useState(false);
-    const uid = useId();
-    const topArcId = `topArc-${uid}`;
-    const bottomArcId = `bottomArc-${uid}`;
-    const topGradId = `topGrad-${uid}`;
-    const secondId = `secondArc-${uid}`;
+    // const uid = useId();
+    // const topArcId = `topArc-${uid}`;
+    // const bottomArcId = `bottomArc-${uid}`;
+    // const topGradId = `topGrad-${uid}`;
+    // const secondId = `secondArc-${uid}`;
 
     const shouldGradient =
         !!topGradientWord && topText.includes(topGradientWord) && !!topGradient;
@@ -99,6 +101,31 @@ const PathPrize: React.FC<PathPrizeProps> = ({
         xl: Math.round(height * scaleFinal.xl)
     };
 
+    const fontSize = {
+        xs: "25px",
+        sm: "21px",
+        md: "30px",
+        lg: "32px",
+        xl: "32px"
+    };
+
+    //     const titleRef = useRef<HTMLHeadingElement>(null);
+    // const [titleLines, setTitleLines] = useState(1);
+
+    // useEffect(() => {
+    //   const el = titleRef.current;
+    //   if (!el) return;
+
+    //   const style = window.getComputedStyle(el);
+    //   let lineHeight = parseFloat(style.lineHeight);
+    //   if (isNaN(lineHeight)) {
+    //     lineHeight = parseFloat(style.fontSize) * 1.2;
+    //   }
+
+    //   const lines = Math.round(el.scrollHeight / lineHeight);
+    //   setTitleLines(lines);
+    // }, []);
+
     return (
         <Box
             sx={{
@@ -113,6 +140,84 @@ const PathPrize: React.FC<PathPrizeProps> = ({
             {/* 1. VISUAL CONTAINER (The Path/SVG) */}
             <Box
                 sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                    color: "white",
+                    fontWeight: 700,
+                    fontSize,
+                    flexDirection: "column"
+                }}
+            >
+                {/* title block */}
+                <Box
+                    // ref={titleRef}
+                    sx={{ textAlign: "center", mb: topTextOffset }}
+                >
+                    {shouldGradient ? (
+                        <>
+                            <span style={{ color: "#fff" }}>{topBefore}</span>
+                            <span
+                                style={{
+                                    background: topGradient!.mid
+                                        ? `linear-gradient(90deg, ${topGradient!.from}, ${topGradient!.mid}, ${topGradient!.to})`
+                                        : `linear-gradient(90deg, ${topGradient!.from}, ${topGradient!.to})`,
+                                    WebkitBackgroundClip: "text",
+                                    backgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                    color: "transparent"
+                                }}
+                            >
+                                {topMid}
+                            </span>
+                            <span style={{ color: "#fff" }}>{topAfter}</span>
+                        </>
+                    ) : (
+                        <span style={{ color: "#fff" }}>{topText}</span>
+                    )}
+
+                    {topSecondRow ? <br /> : null}
+                    {topSecondRow}
+                </Box>
+
+                {/* CHANGE: Tooltip trigger is now valid HTML (no <g>) */}
+                {showHelpIcon && helpTooltip && (
+                    <Tooltip
+                        title={
+                            <Typography
+                                sx={{
+                                    fontFamily: "Montserrat",
+                                    fontSize: "16px"
+                                }}
+                            >
+                                {helpTooltip}
+                            </Typography>
+                        }
+                    >
+                        <Box
+                            component="span"
+                            role="button"
+                            sx={{
+                                cursor: "pointer",
+                                fontWeight: 400,
+                                fontSize: ".7em",
+                                pointerEvents: "auto",
+                                zIndex: 999,
+                                color: "#90D5FF"
+                            }}
+                        >
+                            Show more
+                        </Box>
+                    </Tooltip>
+                )}
+            </Box>
+
+            <Box
+                sx={{
+                    // marginTop: titleLines >= 2 ? "40px" : "0px",
+                    mt: -1,
                     width: size,
                     height: size,
                     backgroundImage: `url("${backgroundSrc}")`,
@@ -125,13 +230,17 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                     transition: "transform 200ms ease",
                     willChange: "transform",
                     transform: hovered ? "scale(1.04)" : "scale(1)",
-                    transformOrigin: "center"
+                    transformOrigin: "center",
+                    zIndex: 1
                 }}
             >
                 <Box
                     sx={{
-                        position: "absolute",
+                        position: "relative",
                         inset: 0
+                        // display:"flex",
+                        // justifyContent:"center",
+                        // alignItems:"center"
                     }}
                 >
                     <svg
@@ -154,7 +263,7 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                             onMouseEnter={() => setHovered(true)}
                             onMouseLeave={() => setHovered(false)}
                         />
-                        <defs>
+                        {/* <defs>
                             {shouldGradient && (
                                 <linearGradient
                                     id={topGradId}
@@ -207,10 +316,10 @@ const PathPrize: React.FC<PathPrizeProps> = ({
             `}
                                 />
                             )}
-                        </defs>
+                        </defs> */}
 
                         {/* top text */}
-                        <text
+                        {/* <text
                             fontFamily="Tsukimi Rounded"
                             fontSize={topTextSize}
                             fontWeight="700"
@@ -268,10 +377,10 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                                     />
                                 </g>
                             </Tooltip>
-                        )}
+                        )} */}
 
                         {/* bottom text */}
-                        <text
+                        {/* <text
                             fill="#fff"
                             fontFamily="Montserrat"
                             fontSize={bottomTextSize}
@@ -302,12 +411,43 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                                 >
                                     {secondText}
                                 </textPath>
-                            </text>
-                        )}
+                            </text> */}
+                        {/* )} */}
                     </svg>
                 </Box>
             </Box>
+            {/* <Box
+                      sx={{
+                      position: "absolute",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      width: "100%",
+                      textAlign: "center",
+                      fontWeight: 700,
+                      pointerEvents: "none",
+                      color: "white",
+                      fontSize,
+                    //   mt:"-40px"
+                    top:"95%"
+                      }}
+                  >
+                      {bottomText}
+                  </Box> */}
 
+            {bottomText && (
+                <Box
+                    sx={{
+                        mt: bottomTextOffset,
+                        width: "100%",
+                        textAlign: "center",
+                        fontWeight: 700,
+                        color: "white",
+                        fontSize
+                    }}
+                >
+                    {bottomText}
+                </Box>
+            )}
             {/* 2. TEXT CONTAINER (Dynamic Height) */}
             {bottomBottomText && (
                 <Box
@@ -315,7 +455,7 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                         textAlign: "left",
                         width: "100%",
                         zIndex: 1,
-                        mt: -3,
+                        mt: 3,
                         fontSize: bottomBottomTextSize,
                         color: "white",
                         lineHeight: 1.5,

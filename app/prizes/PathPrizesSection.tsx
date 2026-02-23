@@ -23,11 +23,11 @@ const PathPrizesSection: React.FC = () => {
                 sx={{
                     display: "grid",
                     gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
-                    gap: "20px",
+                    gap: "100px",
                     width: "90vw",
                     maxWidth: "1200px",
                     mx: "auto",
-                    mt: "20px",
+                    mt: "60px",
                     justifyItems: "center",
                     "& > *": {
                         animation: `${bob} 1.8s ease-in-out infinite`,
@@ -47,13 +47,14 @@ const PathPrizesSection: React.FC = () => {
                         topText="BEST VOYAGERS HACK"
                         bottomText="$5000"
                         radius={100}
-                        width={600}
-                        height={600}
-                        centerOffsetY={10}
-                        bottomTextSize={40}
-                        topTextOffset={40}
-                        bottomTextOffset={65}
-                        bottomLetterSpacing={4}
+                        // width={550}
+                        height={580}
+                        // centerOffsetY={10}
+                        // topTextSize={30}
+                        // bottomTextSize={40}
+                        topTextOffset={-2}
+                        bottomTextOffset={-2}
+                        // bottomLetterSpacing={4}
                         topGradientWord="VOYAGERS"
                         topGradient={{
                             from: "#A315D6",
@@ -72,14 +73,15 @@ const PathPrizesSection: React.FC = () => {
                         topText="BEST GENERAL HACK"
                         bottomText="$2500"
                         radius={110}
-                        width={580}
-                        height={580}
-                        centerOffsetY={10}
-                        centerOffsetX={-10}
-                        bottomTextSize={40}
-                        topTextOffset={60}
-                        bottomTextOffset={40}
-                        bottomLetterSpacing={4}
+                        // width={550}
+                        height={550}
+                        // topTextSize={30}
+                        // centerOffsetY={10}
+                        // centerOffsetX={-10}
+                        // bottomTextSize={40}
+                        // topTextOffset={60}
+                        // bottomTextOffset={40}
+                        // bottomLetterSpacing={4}
                     />
                 </MotionBox>
             </MotionBox>
