@@ -11,6 +11,9 @@ type CountdownProps = {
      */
     targetDateTime: string | Date;
 
+    /** Date/time after which the pill is completely hidden. */
+    endDateTime?: string | Date;
+
     /** Optional label for tooltip / accessibility. */
     label?: string;
 
@@ -50,12 +53,14 @@ function diffToParts(targetMs: number, nowMs: number): TimeParts {
 
 export const EventCountdownPill: React.FC<CountdownProps> = ({
     targetDateTime,
+    endDateTime,
     label = "Time until launch",
     hideWhenZero = false,
     onRocketClick
 }) => {
     const [mounted, setMounted] = useState(false);
     const [isFooterVisible, setIsFooterVisible] = useState(false);
+    const [hidden, setHidden] = useState(false);
 
     const targetMs = useMemo(
         () =>
@@ -63,6 +68,16 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
                 ? Date.parse(targetDateTime)
                 : targetDateTime.getTime(),
         [targetDateTime]
+    );
+
+    const endMs = useMemo(
+        () =>
+            endDateTime
+                ? typeof endDateTime === "string"
+                    ? Date.parse(endDateTime)
+                    : endDateTime.getTime()
+                : null,
+        [endDateTime]
     );
 
     const [parts, setParts] = useState<TimeParts>(() =>
@@ -74,13 +89,19 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
     }, []);
 
     useEffect(() => {
-        const update = () => setParts(diffToParts(targetMs, Date.now()));
+        const update = () => {
+            const now = Date.now();
+            setParts(diffToParts(targetMs, now));
+            if (endMs && now >= endMs) {
+                setHidden(true);
+            }
+        };
 
         update(); // initial sync
         const id = window.setInterval(update, 1000);
 
         return () => window.clearInterval(id);
-    }, [targetMs]);
+    }, [targetMs, endMs]);
 
     // Observe footer visibility
     useEffect(() => {
@@ -103,13 +124,15 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
         };
     }, [mounted]);
 
-    if (!mounted) {
+    if (!mounted || hidden) {
         return null;
     }
 
     if (hideWhenZero && parts.sign === 0) {
         return null;
     }
+
+    const hasStarted = parts.sign < 0;
 
     const signChar = parts.sign < 0 ? "-" : "";
 
@@ -134,7 +157,7 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
                 background: "linear-gradient(135deg, #a68fc4, #8fa3d4)",
                 backdropFilter: "blur(12px)",
                 boxShadow: "0 12px 30px rgba(15, 23, 42, 0.35)",
-                width: "250px",
+                width: hasStarted ? "auto" : "250px",
                 opacity: isFooterVisible ? 0 : 1,
                 transform: isFooterVisible
                     ? "translateY(20px)"
@@ -150,7 +173,7 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
                     fontFamily: "Montserrat",
 
                     fontWeight: 600,
-                    fontSize: "20px",
+                    fontSize: hasStarted ? "16px" : "20px",
                     letterSpacing: "0.05em",
                     color: "#ffffff",
                     userSelect: "none",
@@ -158,7 +181,9 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
                     paddingLeft: "16px"
                 }}
             >
-                {`${formatted.map(chunk => `${signChar}${chunk}`).join(" : ")}`}
+                {hasStarted
+                    ? "HackIllinois has started!"
+                    : `${formatted.map(chunk => `${signChar}${chunk}`).join(" : ")}`}
             </Typography>
 
             <Tooltip
