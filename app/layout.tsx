@@ -18,6 +18,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     name="description"
                     content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
                 />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, viewport-fit=cover"
+                />
 
                 {/* OpenGraph */}
                 <meta property="og:title" content="HackIllinois 2026" />

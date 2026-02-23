@@ -106,8 +106,8 @@ const BlinkingAlien = () => {
             sx={{
                 position: "absolute",
                 top: 0,
-                left: "10%",
-                width: { xs: "23dvw", sm: "18dvw", md: "12dvw" },
+                left: { xs: "5%", md: "10%" },
+                width: { xs: "18dvw", md: "12dvw" },
                 zIndex: 10,
                 transform: "translate(-23%, -60%)",
                 pointerEvents: "none"
@@ -205,6 +205,8 @@ const Schedule = () => {
     const isBetweenXsAndMd = useMediaQuery(
         theme.breakpoints.between("xs", "md")
     );
+    const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+    const isShortScreen = useMediaQuery("(max-height: 700px)");
 
     const handleSelectDay = (day: string) => {
         setSelectedDay(day);
@@ -376,18 +378,25 @@ const Schedule = () => {
         <Box
             sx={{
                 width: "100%",
-                height: "100dvh",
+                height: { xs: "unset", md: "auto" },
+                minHeight: { md: "100dvh" },
                 position: "relative",
                 overflow: "hidden",
                 backgroundImage: 'url("/schedule/background.svg")',
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
-                backgroundPosition: "center",
+                backgroundPosition: "bottom",
                 display: "flex",
                 flexDirection: { xs: "column", md: "row" },
-                justifyContent: { xs: "center", md: "space-around" },
-                alignItems: { xs: "center", md: "auto" },
-                px: { xs: "10px", sm: "80px" },
+                alignItems: { xs: "center", md: "flex-start" },
+                justifyContent: { xs: "center", md: "flex-start" },
+                px: { xs: "1px", md: "80px" },
+                pt: {
+                    xs: "calc(60px + env(safe-area-inset-top))",
+                    md: "calc(180px + env(safe-area-inset-top))",
+                    lg: "calc(200px + env(safe-area-inset-top))"
+                },
+                pb: isBetweenXsAndMd || isShortScreen ? 2 : 0,
                 boxSizing: "border-box"
             }}
         >
@@ -397,46 +406,47 @@ const Schedule = () => {
             ))}
 
             {/* Pink planet */}
-            <Box
-                component={motion.img}
-                src="/schedule/pink_planet.svg"
-                animate={{
-                    y: [0, 10, 0]
-                }}
-                transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                }}
-                sx={{
-                    position: "absolute",
-                    bottom: { xs: "-4%", lg: "-7%" },
-                    left: { xs: 10, md: 50 },
-                    width: {
-                        xs: "20vw",
-                        sm: "15vw",
-                        md: "15vw"
-                    },
-                    zIndex: 11,
-                    pointerEvents: "none",
-                    objectFit: "contain",
-                    filter: "drop-shadow(0px 0px 8px rgba(238,130,205,1))"
-                }}
-            />
+            {!isBetweenXsAndMd && (
+                <Box
+                    component={motion.img}
+                    src="/schedule/pink_planet.svg"
+                    animate={{
+                        y: [0, 10, 0]
+                    }}
+                    transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                    sx={{
+                        position: "absolute",
+                        bottom: { xs: "-4%", lg: "-7%" },
+                        left: { xs: 10, md: 50 },
+                        width: {
+                            xs: "20vw",
+                            sm: "15vw",
+                            md: "15vw"
+                        },
+                        zIndex: 11,
+                        pointerEvents: "none",
+                        objectFit: "contain",
+                        filter: "drop-shadow(0px 0px 8px rgba(238,130,205,1))"
+                    }}
+                />
+            )}
 
             {/* DATE SELECTORS */}
             <Box
                 sx={{
                     display: "flex",
                     flexDirection: { xs: "row", md: "column" },
+                    justifyContent: "space-around",
                     flexShrink: 0,
-                    alignSelf: "center",
+                    alignSelf: { xs: "center", md: "flex-start" },
                     gap: { xs: "10px", sm: "30px", xl: "60px" },
                     width: "auto",
                     overflowX: "visible",
                     overflowY: "visible",
-                    paddingTop: { xs: "175px", md: "120px" },
-                    mt: "-80px",
                     zIndex: 12
                 }}
             >
@@ -504,58 +514,57 @@ const Schedule = () => {
                 sx={{
                     width: "100%",
                     maxWidth: "1440px",
+                    maxHeight: isMdUp && !isShortScreen ? "60dvh" : "none",
                     display: "flex",
                     justifyContent: { xs: "center", md: "flex-end" },
                     flexGrow: 1,
-                    alignSelf: { xs: "center", md: "flex-end" },
-                    mt: { xs: "60px", md: "0px" },
-                    pr: { md: "5vw", lg: "8vw" }
+                    alignSelf: { xs: "center", md: "auto" },
+                    pr: { xs: 0, md: "5vw", lg: "8vw" }
                 }}
             >
                 {/* NOTEPAD ANCHOR */}
                 <Box
                     sx={{
                         position: "relative",
-                        width: { xs: "100%", md: "90%" },
+                        width: { xs: "100%", md: "90dvw" },
                         display: "flex",
                         justifyContent: "center",
-                        transform: { sm: "rotate(1.67deg)" }
+                        alignItems: "stretch",
+                        transform:
+                            !isBetweenXsAndMd && !isShortScreen
+                                ? "rotate(1.67deg)"
+                                : "none"
                     }}
                 >
                     {/* Orange planet */}
-                    <Box
-                        component={motion.img}
-                        src="/schedule/orange_planet.svg"
-                        animate={{
-                            y: [0, 10, 0]
-                        }}
-                        transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: 0.5
-                        }}
-                        sx={{
-                            position: "absolute",
-                            right: -20,
-                            top: "-80px",
-                            transform: {
-                                xs: "translateX(20%)"
-                            },
-                            width: {
-                                xs: "15vw",
-                                sm: "15vw",
-                                md: "15vw"
-                            },
-                            minWidth: "120px",
-                            maxWidth: "220px",
-                            zIndex: 11,
-                            pointerEvents: "none",
-                            objectFit: "contain",
-                            objectPosition: "right",
-                            filter: "drop-shadow(0px 0px 8px rgba(255,165,89,1))"
-                        }}
-                    />
+                    {!isBetweenXsAndMd && (
+                        <Box
+                            component={motion.img}
+                            src="/schedule/orange_planet.svg"
+                            animate={{
+                                y: [0, 10, 0]
+                            }}
+                            transition={{
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: 0.5
+                            }}
+                            sx={{
+                                position: "absolute",
+                                right: -10,
+                                top: "-120px",
+                                width: "15vw",
+                                minWidth: "120px",
+                                maxWidth: "220px",
+                                zIndex: 11,
+                                pointerEvents: "none",
+                                objectFit: "contain",
+                                objectPosition: "right",
+                                filter: "drop-shadow(0px 0px 8px rgba(255,165,89,1))"
+                            }}
+                        />
+                    )}
 
                     {/* Alien image */}
                     <BlinkingAlien />
@@ -577,37 +586,43 @@ const Schedule = () => {
                     />
 
                     {/* Notepad background rectangle */}
-                    <Box
-                        sx={{
-                            position: "absolute",
-                            width: "80%",
-                            right: "10%",
-                            top: 0,
-                            height: { xs: "65dvh", md: "80dvh" },
-                            backgroundColor: "#6A4B8D",
-                            borderRadius: "10px",
-                            transform: "rotate(-5deg)",
-                            transformOrigin: "top right",
-                            zIndex: 1,
-                            pointerEvents: "none"
-                        }}
-                    />
+                    {!isBetweenXsAndMd && !isShortScreen && (
+                        <Box
+                            sx={{
+                                position: "absolute",
+                                top: 0,
+                                // bottom: 0,
+                                width: "80%",
+                                right: "10%",
+                                height: { md: "90dvh" },
+                                backgroundColor: "#6A4B8D",
+                                borderRadius: "10px",
+                                transform: "rotate(-5deg)",
+                                transformOrigin: "top right",
+                                zIndex: 1,
+                                pointerEvents: "none"
+                            }}
+                        />
+                    )}
 
                     {/* Filter button and Events list */}
                     <Box
                         ref={eventsBoxRef}
                         sx={{
-                            width: "80%",
-                            height: { xs: "70vh", md: "70vh" },
+                            width: { xs: "90%", md: "80%" },
                             position: "relative",
-                            overflowY: "auto",
+                            height: isMdUp && !isShortScreen ? "80vh" : "auto",
+                            minHeight:
+                                isMdUp && !isShortScreen ? "600px" : "auto",
+                            overflowY:
+                                isMdUp && !isShortScreen ? "auto" : "visible",
                             zIndex: 2,
                             background:
                                 "linear-gradient(180deg, #FCADF8 0%, #BA80D5 100%)",
                             borderRadius: "10px",
                             px: { xs: 1, lg: 2 },
-                            py: 4,
-                            mb: 2,
+                            pt: { xs: 2, md: 4 },
+                            pb: 4,
                             display: "flex",
                             flexDirection: "column"
                         }}
@@ -664,9 +679,9 @@ const Schedule = () => {
                             sx={{
                                 flex: 1,
                                 width: "100%",
-                                py: 5,
-                                px: 3,
-                                overflowY: "auto",
+                                py: { xs: 1, md: 2 },
+                                px: { xs: 2, md: 3 },
+                                overflowY: "scroll",
 
                                 "&::-webkit-scrollbar": { width: "6px" },
                                 "&::-webkit-scrollbar-thumb": {
@@ -678,13 +693,32 @@ const Schedule = () => {
                                 },
 
                                 WebkitMaskImage:
-                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
-                                WebkitMaskRepeat: "no-repeat",
-                                WebkitMaskSize: "100% 100%",
+                                    isMdUp && !isShortScreen
+                                        ? "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)"
+                                        : "none",
+
+                                WebkitMaskRepeat:
+                                    isMdUp && !isShortScreen
+                                        ? "no-repeat"
+                                        : "unset",
+                                WebkitMaskSize:
+                                    isMdUp && !isShortScreen
+                                        ? "100% 100%"
+                                        : "unset",
+
                                 maskImage:
-                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
-                                maskRepeat: "no-repeat",
-                                maskSize: "100% 100%"
+                                    isMdUp && !isShortScreen
+                                        ? "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)"
+                                        : "none",
+
+                                maskRepeat:
+                                    isMdUp && !isShortScreen
+                                        ? "no-repeat"
+                                        : "unset",
+                                maskSize:
+                                    isMdUp && !isShortScreen
+                                        ? "100% 100%"
+                                        : "unset"
                             }}
                         >
                             {loading && (
@@ -751,7 +785,7 @@ const Schedule = () => {
                                     width: "300vw",
                                     height: "300vh",
                                     zIndex: 9998,
-                                    backgroundColor: "rgba(0,0,0,0.1)",
+                                    backgroundColor: "rgba(0,0,0,0.2)",
                                     cursor: "default",
                                     transform: "rotate(-1.67deg)"
                                 }}
@@ -761,18 +795,18 @@ const Schedule = () => {
                                 sx={{
                                     position: "absolute",
                                     zIndex: 10000,
-                                    top: "50%",
+                                    top: { xs: "200px", md: "50%" },
                                     left: "50%",
-                                    width: "fit-content",
+                                    width: { xs: "80%", md: "60%" },
                                     maxWidth: "90%",
                                     minWidth: "280px",
-                                    maxHeight: { xs: "60dvh", md: "70dvh" },
+                                    maxHeight: { xs: "70dvh", md: "70dvh" },
                                     display: "flex",
                                     flexDirection: "column",
                                     overflow: "hidden",
                                     transform: {
                                         xs: "translate(-50%, -50%)",
-                                        sm: "translate(-50%, -50%) rotate(-1.67deg)"
+                                        md: "translate(-50%, -50%) rotate(-1.67deg)"
                                     },
                                     "& > *": {
                                         overflowY: "auto"
