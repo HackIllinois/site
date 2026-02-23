@@ -84,7 +84,7 @@ const TrackPrizesSection: React.FC = () => {
                 <MotionBox variants={itemVariants}>
                     <TrackPrize
                         backgroundSrc="/prizes/track_prizes/track2.svg"
-                        topText="BEST API"
+                        topText="BEST WEB API"
                         bottomText={
                             <ul style={{ margin: 0 }}>
                                 <li>

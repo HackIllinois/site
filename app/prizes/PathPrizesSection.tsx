@@ -44,7 +44,7 @@ const PathPrizesSection: React.FC = () => {
                 <MotionBox variants={itemVariants}>
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize1.svg"
-                        topText="BEST VOYAGERS HACK"
+                        topText="BEST VOYAGER HACK"
                         bottomText="$5000"
                         radius={100}
                         // width={550}
@@ -55,7 +55,7 @@ const PathPrizesSection: React.FC = () => {
                         topTextOffset={-2}
                         bottomTextOffset={-2}
                         // bottomLetterSpacing={4}
-                        topGradientWord="VOYAGERS"
+                        topGradientWord="VOYAGER"
                         topGradient={{
                             from: "#A315D6",
                             mid: "#FDAB60",

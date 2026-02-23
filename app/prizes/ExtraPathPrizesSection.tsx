@@ -22,7 +22,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                 sx={{
                     display: "grid",
                     gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
-                    gap: "150px",
+                    gap: "100px",
                     width: "90vw",
                     maxWidth: "1200px",
                     mx: "auto",
@@ -41,14 +41,48 @@ const ExtraPathPrizesSection: React.FC = () => {
                     "& > *:nth-of-type(7)": { animationDelay: "0.90s" },
                     "& > *:nth-of-type(8)": { animationDelay: "1.05s" },
                     "& > *:nth-of-type(9)": { animationDelay: "1.20s" },
-                    "& > *:nth-of-type(10)": { animationDelay: "1.35s" }
+                    "& > *:nth-of-type(10)": { animationDelay: "1.35s" },
+                    "& > *:nth-of-type(11)": { animationDelay: "1.5s" },
+                    "& > *:nth-of-type(12)": { animationDelay: "1.65s" }
                 }}
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
                 // viewport={{ once: true, amount: 0.2 }}
             >
-                {/* ADD: Solana */}
+                {/* Solana prize */}
+                <MotionBox
+                    variants={itemVariants}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
+                >
+                    <PathPrize
+                        backgroundSrc="/prizes/path_prizes/prize13.svg"
+                        topText="BEST USE OF"
+                        topSecondRow="SOLANA"
+                        bottomText="$5K in Crypto for the team"
+                        // bottomBottomText={
+                        //     <p
+                        //         style={{
+                        //             marginTop: "10px",
+                        //             textWrap: "balance",
+                        //             textAlign: "center"
+                        //         }}
+                        //     >
+                        //         Pair of <b>Meta Raybans</b> for each winning
+                        //         team member
+                        //     </p>
+                        // }
+                        radius={130}
+                        // width={540}
+                        height={540}
+                        centerOffsetY={10}
+                        centerOffsetX={0}
+                        // bottomTextSize={25}
+                        // topTextOffset={50}
+                        // bottomTextOffset={50}
+                        // topTextSize={25}
+                    />
+                </MotionBox>
 
                 {/* Supermemory prize */}
                 <MotionBox
@@ -58,7 +92,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize12.svg"
                         topText="BEST USE OF SUPERMEMORY"
-                        bottomText="Pair of Meta Raybans/person"
+                        bottomText="Pair of Meta Raybans for each member"
                         // bottomBottomText={
                         //     <p
                         //         style={{
@@ -91,8 +125,8 @@ const ExtraPathPrizesSection: React.FC = () => {
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize10.svg"
                         topText="BEST USE OF"
-                        topSecondRow="OPENAI"
-                        bottomText="$5k of OpenAI API credits"
+                        topSecondRow="OPENAI API"
+                        bottomText="$5k of OpenAI API credits for each member"
                         radius={130}
                         // width={540}
                         height={540}
@@ -113,8 +147,8 @@ const ExtraPathPrizesSection: React.FC = () => {
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize9.svg"
                         topText="BEST USE OF"
-                        topSecondRow="NESSIE"
-                        bottomText="$300 gift card/person"
+                        topSecondRow="CAPITAL ONE NESSIE (HACKATHON API)"
+                        bottomText="$300 gift card for each member"
                         // bottomBottomText={
                         //     <p
                         //         style={{
@@ -139,7 +173,42 @@ const ExtraPathPrizesSection: React.FC = () => {
                     />
                 </MotionBox>
 
-                {/* ADD: Actian */}
+                {/* Actian prize */}
+                <MotionBox
+                    variants={itemVariants}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
+                >
+                    <PathPrize
+                        backgroundSrc="/prizes/path_prizes/prize14.svg"
+                        topText="BEST USE OF ACTIAN VectorAI DB"
+                        // bottomText="$5K Cloudflare credits for each member"
+                        radius={130}
+                        // width={540}
+                        height={540}
+                        centerOffsetY={10}
+                        centerOffsetX={0}
+                        bottomBottomText={
+                            <ul style={{ margin: 0 }}>
+                                <li>
+                                    <strong>1st place:</strong> $300 in prepaid
+                                    AmEx gift cards for the team
+                                </li>
+                                <li>
+                                    <strong>2nd place:</strong> $120 in prepaid
+                                    AmEx gift cards for the team
+                                </li>
+                                <li>
+                                    <strong>3rd place:</strong> Anker USB-C Hubs
+                                    for each team member
+                                </li>
+                            </ul>
+                        }
+                        // bottomTextSize={25}
+                        // topTextOffset={50}
+                        // bottomTextOffset={50}
+                        // topTextSize={25}
+                    />
+                </MotionBox>
 
                 {/* Cloudflare prize */}
                 <MotionBox
@@ -148,8 +217,8 @@ const ExtraPathPrizesSection: React.FC = () => {
                 >
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize11.svg"
-                        topText="BEST USE OF CLOUDFLARE"
-                        bottomText="5k Cloudflare Credits"
+                        topText="BEST USE OF CLOUDFLARE DEVELOPER PLATFORM"
+                        bottomText="$5K Cloudflare credits for each member"
                         radius={130}
                         // width={540}
                         height={540}

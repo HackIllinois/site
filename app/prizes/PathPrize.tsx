@@ -36,6 +36,7 @@ type PathPrizeProps = {
     bottomBottomText?: string | React.ReactNode;
     bottomBottomTextSize?: number;
     topSecondRow?: string;
+    bottomBottomTextOffset?: number;
 };
 
 const PathPrize: React.FC<PathPrizeProps> = ({
@@ -62,7 +63,8 @@ const PathPrize: React.FC<PathPrizeProps> = ({
     // helpRotationDeg = 0,
     bottomBottomText,
     bottomBottomTextSize = 16,
-    topSecondRow
+    topSecondRow,
+    bottomBottomTextOffset
 }) => {
     const [hovered, setHovered] = useState(false);
     // const uid = useId();
@@ -452,10 +454,11 @@ const PathPrize: React.FC<PathPrizeProps> = ({
             {bottomBottomText && (
                 <Box
                     sx={{
+                        mt: bottomBottomTextOffset,
                         textAlign: "left",
                         width: "100%",
                         zIndex: 1,
-                        mt: 3,
+                        // mt: 3,
                         fontSize: bottomBottomTextSize,
                         color: "white",
                         lineHeight: 1.5,
