@@ -519,7 +519,7 @@ const Schedule = () => {
                     justifyContent: { xs: "center", md: "flex-end" },
                     flexGrow: 1,
                     alignSelf: { xs: "center", md: "auto" },
-                    pr: { xs: 0, md: "5vw", lg: "8vw" }
+                    pr: { xs: 0, md: "5vw", lg: "8vw", xl: "0vw" }
                 }}
             >
                 {/* NOTEPAD ANCHOR */}
