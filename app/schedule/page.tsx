@@ -209,35 +209,39 @@ const Schedule = () => {
     const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
     const isShortScreen = useMediaQuery("(max-height: 550px)");
 
-    const handleSelectDay = useCallback((day: string) => {
-        setSelectedDay(day);
+    const handleSelectDay = useCallback(
+        (day: string) => {
+            setSelectedDay(day);
 
-        const scrollContainer = eventRef.current || eventsBoxRef.current;
-        if (scrollContainer) {
-            scrollContainer.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        }
-
-        // Auto-scroll the date selector to the clicked date on mobile
-        const container = dateSelectorContainerRef.current;
-        if (container) {
-            const target = container.querySelector(
-                `[data-date-id="${day}"]`
-            ) as HTMLElement | null;
-            if (target) {
-                const scrollLeft =
-                    target.offsetLeft -
-                    container.offsetWidth / 2 +
-                    target.offsetWidth / 2;
-                container.scrollTo({
-                    left: scrollLeft,
+            const scrollContainer = eventRef.current || eventsBoxRef.current;
+            if (scrollContainer) {
+                scrollContainer.scrollTo({
+                    top: 0,
                     behavior: "smooth"
                 });
             }
-        }
-    }, []);
+
+            // Auto-scroll the date selector to the clicked date on mobile
+            // Only when dates are in a horizontal row (xs–sm viewports)
+            const container = dateSelectorContainerRef.current;
+            if (container && isBetweenXsAndMd) {
+                const target = container.querySelector(
+                    `[data-date-id="${day}"]`
+                ) as HTMLElement | null;
+                if (target) {
+                    const scrollLeft =
+                        target.offsetLeft -
+                        container.offsetWidth / 2 +
+                        target.offsetWidth / 2;
+                    container.scrollTo({
+                        left: scrollLeft,
+                        behavior: "smooth"
+                    });
+                }
+            }
+        },
+        [isBetweenXsAndMd]
+    );
 
     const availableDays: DateOption[] = useMemo(() => {
         const seen = new Map<string, DateOption>();
@@ -469,7 +473,7 @@ const Schedule = () => {
                     gap: { xs: "10px", sm: "30px", xl: "60px" },
                     width: { xs: "100%", sm: "auto" },
                     overflowX: { xs: "auto", md: "visible" },
-                    overflowY: "hidden",
+                    overflowY: { xs: "hidden", md: "visible" },
                     zIndex: 12,
                     px: { xs: 2, sm: 0 },
                     "&::-webkit-scrollbar": { display: "none" },
