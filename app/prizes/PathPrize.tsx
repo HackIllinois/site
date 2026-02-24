@@ -71,23 +71,26 @@ const PathPrize: React.FC<PathPrizeProps> = ({
 
     const scaleFinal = {
         xs: 0.6,
-        sm: 0.51,
-        md: 0.75,
+        sm: 0.4,
+        md: 0.65,
         lg: 0.8,
         xl: 0.8
     };
 
+    const smPx = Math.round(height * scaleFinal.sm);
+    const mdPx = Math.round(height * scaleFinal.md);
+
     const size = {
-        xs: Math.round(height * scaleFinal.xs),
-        sm: Math.round(height * scaleFinal.sm),
-        md: Math.round(height * scaleFinal.md),
-        lg: Math.round(height * scaleFinal.lg),
-        xl: Math.round(height * scaleFinal.xl)
+        xs: `min(${Math.round(height * scaleFinal.xs)}px, calc(100vw - 40px))`,
+        sm: `clamp(${smPx}px, calc(${smPx}px + (${mdPx - smPx}) * ((100vw - 600px) / 300)), ${mdPx}px)`,
+        md: `${mdPx}px`,
+        lg: `${Math.round(height * scaleFinal.lg)}px`,
+        xl: `${Math.round(height * scaleFinal.xl)}px`
     };
 
     const fontSize = {
-        xs: "25px",
-        sm: "21px",
+        xs: "clamp(18px, 6vw, 25px)",
+        sm: "clamp(18px, 8vw, 25px)",
         md: "30px",
         lg: "32px",
         xl: "32px"
@@ -100,6 +103,7 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                 flexDirection: "column",
                 alignItems: "center",
                 width: size,
+                maxWidth: "100%",
                 height: "auto",
                 position: "relative"
             }}

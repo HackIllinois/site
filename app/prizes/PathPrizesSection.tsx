@@ -57,7 +57,7 @@ const PathPrizesSection: React.FC = () => {
                             to: "#A315D6"
                         }}
                         bottomTextFontSize={{
-                            xs: "25px",
+                            xs: "clamp(18px, 7vw, 24px)",
                             sm: "21px",
                             md: "30px",
                             lg: "32px",
@@ -77,7 +77,7 @@ const PathPrizesSection: React.FC = () => {
                         radius={110}
                         height={550}
                         bottomTextFontSize={{
-                            xs: "25px",
+                            xs: "clamp(18px, 7vw, 24px)",
                             sm: "21px",
                             md: "30px",
                             lg: "32px",

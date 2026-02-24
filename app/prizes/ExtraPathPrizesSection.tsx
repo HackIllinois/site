@@ -22,7 +22,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                 sx={{
                     display: "grid",
                     gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
-                    gap: "100px",
+                    gap: { xs: "60px", sm: "100px" },
                     width: "90vw",
                     maxWidth: "1200px",
                     mx: "auto",
