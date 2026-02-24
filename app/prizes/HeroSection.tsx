@@ -119,7 +119,7 @@ const HeroSection: React.FC = () => {
                 <motion.div variants={itemVariants}>
                     <Box
                         component="a"
-                        href="https://go.hackillinois.org/"
+                        href="https://go.hackillinois.org/prizes"
                         target="_blank"
                         rel="noopener noreferrer"
                         sx={{
