@@ -1,7 +1,7 @@
 "use client";
 import { getEvents } from "@/util/api";
 import { EventType } from "@/util/types";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import moment from "moment-timezone";
 import { EVENT_TIMEZONE } from "@/util/config";
 import {
@@ -200,6 +200,7 @@ const Schedule = () => {
     const [loading, setLoading] = useState(false);
     const eventRef = useRef<HTMLDivElement>(null);
     const eventsBoxRef = useRef<HTMLDivElement>(null);
+    const dateSelectorContainerRef = useRef<HTMLDivElement>(null);
 
     const theme = useTheme();
     const isBetweenXsAndMd = useMediaQuery(
@@ -208,7 +209,7 @@ const Schedule = () => {
     const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
     const isShortScreen = useMediaQuery("(max-height: 550px)");
 
-    const handleSelectDay = (day: string) => {
+    const handleSelectDay = useCallback((day: string) => {
         setSelectedDay(day);
 
         const scrollContainer = eventRef.current || eventsBoxRef.current;
@@ -218,7 +219,25 @@ const Schedule = () => {
                 behavior: "smooth"
             });
         }
-    };
+
+        // Auto-scroll the date selector to the clicked date on mobile
+        const container = dateSelectorContainerRef.current;
+        if (container) {
+            const target = container.querySelector(
+                `[data-date-id="${day}"]`
+            ) as HTMLElement | null;
+            if (target) {
+                const scrollLeft =
+                    target.offsetLeft -
+                    container.offsetWidth / 2 +
+                    target.offsetWidth / 2;
+                container.scrollTo({
+                    left: scrollLeft,
+                    behavior: "smooth"
+                });
+            }
+        }
+    }, []);
 
     const availableDays: DateOption[] = useMemo(() => {
         const seen = new Map<string, DateOption>();
@@ -440,6 +459,7 @@ const Schedule = () => {
 
             {/* DATE SELECTORS */}
             <Box
+                ref={dateSelectorContainerRef}
                 sx={{
                     display: "flex",
                     flexDirection: { xs: "row", md: "column" },
@@ -479,6 +499,7 @@ const Schedule = () => {
                     return (
                         <motion.div
                             key={date.id}
+                            data-date-id={date.id}
                             animate={
                                 !isBetweenXsAndMd
                                     ? {

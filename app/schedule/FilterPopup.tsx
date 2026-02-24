@@ -293,6 +293,7 @@ const TimeFilterBox: React.FC<TimeFilterBoxProps> = ({
                             vertical: "top",
                             horizontal: "center"
                         }}
+                        sx={{ zIndex: 10001 }}
                     >
                         {["AM", "PM"].map(option => (
                             <MenuItem
