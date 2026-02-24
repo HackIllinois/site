@@ -3,6 +3,7 @@
 import { EventCountdownPill } from "@/components/EventCountdown/EventCountdown";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import { ResourcesButton } from "@/components/ResourcesButton/ResourcesButton";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
@@ -56,6 +57,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <ThemeProvider theme={theme}>
                         <Navbar />
                         {children}
+                        <ResourcesButton />
                         <Footer />
                         <EventCountdownPill
                             targetDateTime="2026-02-27T18:00:00-06:00"
