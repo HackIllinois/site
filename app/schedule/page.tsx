@@ -813,7 +813,7 @@ const Schedule = () => {
                             width: "100vw",
                             height: "100vh",
                             zIndex: 9998,
-                            backgroundColor: "rgba(0,0,0,0.2)",
+                            backgroundColor: "transparent",
                             cursor: "default",
                             opacity: filterOpen ? 1 : 0,
                             pointerEvents: filterOpen ? "auto" : "none",
@@ -830,10 +830,8 @@ const Schedule = () => {
                             width: { xs: "90%", md: "500px" },
                             maxWidth: "90vw",
                             maxHeight: "80dvh",
-                            minWidth: "280px",
                             display: "flex",
                             flexDirection: "column",
-                            overflow: "hidden",
                             transform: {
                                 xs: "translate(-50%, -50%)",
                                 md: "translate(-50%, -50%) rotate(-0.5deg)"

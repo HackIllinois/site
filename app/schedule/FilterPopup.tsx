@@ -167,7 +167,7 @@ const TimeFilterBox: React.FC<TimeFilterBoxProps> = ({
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                width: "170px",
+                // width: { xs: "140px", sm: "170px" },
                 gap: 1
             }}
         >
@@ -385,7 +385,7 @@ const FilterPopup: React.FC<FilterPopupProps> = ({
                 gap: 1.5,
                 zIndex: 20,
 
-                overflowY: { xs: "visible", md: "auto" },
+                overflowY: "auto",
                 "&::-webkit-scrollbar": {
                     width: "8px"
                 },
