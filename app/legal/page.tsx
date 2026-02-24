@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Box, Typography, Tabs, Tab, Link as MuiLink } from "@mui/material";
 
-function CodeOfConductContent() {
+function CodeOfConductContent({ setTab }: { setTab: (tab: number) => void }) {
     return (
         <Box>
             <Typography
@@ -106,8 +106,26 @@ function CodeOfConductContent() {
                 Consequences will be determined on a case-by-case basis, and may
                 include immediate removal from the event and notification of the
                 appropriate university authorities. Further details on the
-                consequences can be found in the Alignment with UIUC Siebel
-                School of Computing Code of Conduct section.
+                consequences can be found in the{" "}
+                <MuiLink
+                    component="a"
+                    href="#alignment-uiuc"
+                    onClick={(e: { preventDefault: () => void }) => {
+                        e.preventDefault();
+                        document
+                            .getElementById("alignment-uiuc")
+                            ?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    sx={{
+                        color: "#a78bfa",
+                        fontWeight: 700,
+                        cursor: "pointer"
+                    }}
+                >
+                    Alignment with UIUC Siebel School of Computing Code of
+                    Conduct
+                </MuiLink>{" "}
+                section.
             </Typography>
 
             <Typography
@@ -320,18 +338,37 @@ function CodeOfConductContent() {
                 , which is monitored 24/7 during HackIllinois business hours.
                 All reports will be reviewed by a Code of Conduct Committee,
                 which includes trained leadership and event staff. For a full
-                description of our process for handling complaints, please see
-                the Complaint Procedures tab.
+                description of our process for handling complaints, please see{" "}
+                <MuiLink
+                    component="button"
+                    onClick={() => {
+                        setTab(1);
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    sx={{
+                        color: "#a78bfa",
+                        fontWeight: 700,
+                        cursor: "pointer",
+                        verticalAlign: "baseline",
+                        fontSize: "inherit",
+                        fontFamily: "inherit"
+                    }}
+                >
+                    Complaint Procedures
+                </MuiLink>{" "}
+                .
             </Typography>
 
             <Typography
+                id="alignment-uiuc"
                 variant="h5"
                 component="h2"
                 sx={{
                     fontFamily: "Montserrat, sans-serif",
                     fontWeight: 700,
                     mb: 1.5,
-                    mt: 3
+                    mt: 3,
+                    scrollMarginTop: "80px"
                 }}
             >
                 Alignment with UIUC Siebel School of Computing Code of Conduct
@@ -930,7 +967,7 @@ const Legal: React.FC = () => {
                 <Tab label="Code of Conduct" />
                 <Tab label="Complaint Procedures" />
             </Tabs>
-            {tab === 0 && <CodeOfConductContent />}
+            {tab === 0 && <CodeOfConductContent setTab={setTab} />}
             {tab === 1 && <ComplaintProceduresContent />}
         </Box>
     );
