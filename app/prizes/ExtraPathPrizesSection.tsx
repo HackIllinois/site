@@ -12,11 +12,7 @@ const MotionBox = motion.create(Box);
 const ExtraPathPrizesSection: React.FC = () => {
     return (
         <>
-            <SectionHeader
-                title="EXTRA PATH PRIZES"
-                pt="120px"
-                subtitles={["Awarded to each member of the winning team."]}
-            />
+            <SectionHeader title="EXTRA PATH PRIZES" pt="120px" />
 
             <MotionBox
                 sx={{
