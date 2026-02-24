@@ -412,7 +412,7 @@ const Schedule = () => {
                 display: "flex",
                 flexDirection: { xs: "column", md: "row" },
                 alignItems: { xs: "center", md: "flex-start" },
-                justifyContent: { xs: "center", md: "flex-start" },
+                justifyContent: { xs: "center", md: "space-between" },
                 px: { xs: "1px", md: "80px" },
                 pt: {
                     xs:
