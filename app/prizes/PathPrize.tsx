@@ -54,6 +54,7 @@ const PathPrize: React.FC<PathPrizeProps> = ({
     bottomTextFontSize
 }) => {
     const [hovered, setHovered] = useState(false);
+    const [tooltipOpen, setTooltipOpen] = useState(false);
 
     const shouldGradient =
         !!topGradientWord && topText.includes(topGradientWord) && !!topGradient;
@@ -162,17 +163,26 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                                 {helpTooltip}
                             </Typography>
                         }
+                        open={tooltipOpen}
+                        disableHoverListener
+                        disableFocusListener
+                        disableTouchListener
                     >
                         <Box
                             component="span"
                             role="button"
+                            onClick={() => setTooltipOpen(prev => !prev)}
+                            onMouseEnter={() => setTooltipOpen(true)}
+                            onMouseLeave={() => setTooltipOpen(false)}
                             sx={{
                                 cursor: "pointer",
                                 fontWeight: 400,
                                 fontSize: ".7em",
                                 pointerEvents: "auto",
-                                zIndex: 999,
-                                color: "#90D5FF"
+                                position: "relative",
+                                zIndex: 10,
+                                color: "#90D5FF",
+                                padding: "8px 24px"
                             }}
                         >
                             More info
