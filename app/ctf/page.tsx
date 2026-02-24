@@ -11,6 +11,7 @@ import {
     AccordionDetails,
     AccordionSummary
 } from "@mui/material";
+import { ExpandMore } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { GradientButton } from "@/components/GradientButton/GradientButton";
@@ -772,6 +773,9 @@ export default function CTF() {
                                 }}
                             >
                                 <AccordionSummary
+                                    expandIcon={
+                                        <ExpandMore sx={{ color: "#FDAB60" }} />
+                                    }
                                     sx={{
                                         fontFamily: "Tsukimi Rounded",
                                         fontWeight: 600,
