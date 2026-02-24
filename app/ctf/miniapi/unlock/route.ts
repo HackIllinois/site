@@ -35,9 +35,10 @@ export async function GET(req: Request) {
     let param = secret ? secret : signal;
     let hiddenFlag = secret
         ? "hackctf{flag8-4p1m4573r}"
-        : "hackctf{c0ngr475y0ub3477h3c7f}";
+        : "hackctf{flag9-c0ngr475y0ub3477h3c7f}";
 
     const expected = await sha256(hiddenFlag + SERVER_SECRET);
+    console.log(expected);
 
     if (param !== expected) {
         return NextResponse.json(
