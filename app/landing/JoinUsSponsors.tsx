@@ -20,8 +20,19 @@ const alienAssets = [
     "/landing/sponsors/aliens/alien6.svg"
 ];
 
+type Sponsor = {
+    name: string;
+    image: string;
+    tier: string;
+    alienIndex?: number;
+    squareBox?: boolean;
+    invertToWhite?: boolean;
+    shiftRight?: boolean;
+    isPlaceholder?: boolean;
+};
+
 // tier may be inaccurate in alienSponsors. It's only for styling.
-const alienSponsors = [
+const alienSponsors: Array<Sponsor> = [
     {
         name: "FulcrumGT",
         tier: "title",
@@ -60,15 +71,7 @@ const alienSponsors = [
     }
 ];
 
-const bottomSponsorsRows: Array<{
-    name: string;
-    image: string;
-    tier: string;
-    squareBox?: boolean;
-    invertToWhite?: boolean;
-    shiftRight?: boolean;
-    isPlaceholder?: boolean;
-}> = [
+const bottomSponsorsRows: Array<Sponsor> = [
     // Row 1: silver tier (6 sponsors)
 
     {
