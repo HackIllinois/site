@@ -225,7 +225,7 @@ export default function CTF() {
         };
 
         (window as any).$HINT_4$ = {
-            hint: "There might be more than hints stored in the console..."
+            hint: "There might be more than hints stored in the console.. Try entering \'window\'"
         };
 
         (window as any).$HINT_5$ = {
