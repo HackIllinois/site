@@ -203,6 +203,7 @@ export interface EventType {
     name: string;
     description: string;
     isAsync?: boolean;
+    isPrivate?: boolean;
     startTime: number;
     endTime: number;
     locations: {

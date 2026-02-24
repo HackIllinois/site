@@ -318,7 +318,15 @@ const Schedule = () => {
             const newEvents = await getEvents();
 
             const eventsWithDay: EventsWithDay[] = newEvents
-                .filter(event => event.eventType !== "MEETING")
+                .filter(event => {
+                    if (event.eventType === "MEETING") {
+                        return false;
+                    }
+                    if (event.isPrivate) {
+                        return false;
+                    }
+                    return true;
+                })
                 .map(event => {
                     const startMoment = moment(event.startTime * 1000).tz(
                         EVENT_TIMEZONE
