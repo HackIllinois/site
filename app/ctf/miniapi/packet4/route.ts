@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     return NextResponse.json({
-        fragment: "28aa3a60",
+        fragment: "b0b4e856121957afd0eeb",
+        param: "signal",
         meta: {
             processedAt: 1700000200,
             serverId: "node-9e1f",

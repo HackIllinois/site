@@ -16,16 +16,34 @@ const SERVER_SECRET = "top-secret-key";
 export async function GET(req: Request) {
     const url = new URL(req.url);
     const secret = url.searchParams.get("secret");
+    const signal = url.searchParams.get("signal");
 
-    if (!secret) {
-        return NextResponse.json({ error: "Missing secret" }, { status: 400 });
+    if (!secret && !signal) {
+        return NextResponse.json(
+            { error: "Missing query parameter" },
+            { status: 400 }
+        );
     }
 
-    const hiddenFlag = "flag{flag-6}";
+    if (secret && signal) {
+        return NextResponse.json(
+            { error: "Only one query parameter allowed" },
+            { status: 400 }
+        );
+    }
+
+    let param = secret ? secret : signal;
+    let hiddenFlag = secret
+        ? "hackctf{flag8-4p1m4573r}"
+        : "hackctf{c0ngr475y0ub3477h3c7f}";
+
     const expected = await sha256(hiddenFlag + SERVER_SECRET);
 
-    if (secret !== expected) {
-        return NextResponse.json({ error: "Invalid secret" }, { status: 400 });
+    if (param !== expected) {
+        return NextResponse.json(
+            { error: "Parameter value is incorrect" },
+            { status: 400 }
+        );
     }
 
     return NextResponse.json({

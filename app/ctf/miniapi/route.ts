@@ -14,8 +14,8 @@ async function sha256(text: string) {
 const SERVER_SECRET = "top-secret-key";
 
 export async function GET() {
-    const flag = "flag{flag-5}";
-    const hiddenFlag = "flag{flag-6}";
+    const flag = "hackctf{flag7-m1n14p1}";
+    const hiddenFlag = "hackctf{flag8-4p1m4573r}";
 
     const secret = await sha256(hiddenFlag + SERVER_SECRET);
 

@@ -2,7 +2,15 @@
 
 import ErrorSnackbar from "@/components/ErrorSnackbar/ErrorSnackbar";
 import Loading from "@/components/Loading/Loading";
-import { Box, Button, Container, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    Container,
+    Typography,
+    Accordion,
+    AccordionDetails,
+    AccordionSummary
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { GradientButton } from "@/components/GradientButton/GradientButton";
@@ -183,60 +191,60 @@ export default function CTF() {
         }));
         setStars(generatedStars);
 
-        (window as any).$FETCH_FLAG$ = {
-            reward: "flag{flag-3}",
+        (window as any).$SECRET$ = {
+            flag: "hackctf{flag4-c0n501353cr37}",
             reveal: () => {
-                console.log("flag{flag-4}");
+                console.log("hackctf{flag5-c41170pr1n7}");
+            },
+            password: (password: number) => {
+                if (password === 64) {
+                    console.log("aGFja2N0ZntmbGFnNi1kM2MwZDNtM30=");
+                } else {
+                    console.log(
+                        "Authentication failed. What's the magic number?"
+                    );
+                }
             }
         };
 
-        (window as any).$SECRET_FLAG$ = {
-            get: () => atob("ZmxhZ3tmbGFnLTl9")
-        };
-        (window as any).$HIDDEN_FLAG$ = {
-            unlock: () => {
-                console.log("flag{flag-10}");
-            }
+        (window as any).$MAGIC_NUMBER$ = {
+            number: 64
         };
 
         (window as any).$HINT_1$ = {
-            hint: "Elements"
+            hint: "I'm in Elements!"
         };
 
         (window as any).$HINT_2$ = {
-            hint: "Elements -> id=UNLOCK-ME -> Uncheck display: none"
+            hint: "You might need to REVEAL-ME by checking out the CSS"
         };
 
         (window as any).$HINT_3$ = {
-            hint: "Console -> window -> $FETCH_FLAG$"
+            hint: "Check your comms, you received a message! You might need to FIND-ME in the DOM"
         };
 
         (window as any).$HINT_4$ = {
-            hint: "Console -> window -> $FETCH_FLAG$ -> $FETCH_FLAG$.reveal()"
+            hint: "There might be more than hints stored in the console..."
         };
 
         (window as any).$HINT_5$ = {
-            hint: 'Console -> fetch("/ctf/miniapi/") -> Network -> Response'
+            hint: "f is for function!"
         };
 
         (window as any).$HINT_6$ = {
-            hint: 'Console -> fetch("/ctf/miniapi/unlock?secret=xxx") -> Network -> Response'
+            hint: "Your browser knows how to decode me"
         };
 
         (window as any).$HINT_7$ = {
-            hint: "Elements -> id=VISIBILITY-FLAG -> Change visibility: hidden to visible"
+            hint: "Psst.. I heard there’s a secret API. Maybe you can ping it from your comms"
         };
 
         (window as any).$HINT_8$ = {
-            hint: "Elements -> id=OPACITY-FLAG -> Change opacity: 0 to 1"
+            hint: "A new endpoint! This one requires a secret..."
         };
 
         (window as any).$HINT_9$ = {
-            hint: "Console -> window -> $SECRET_FLAG$.get()"
-        };
-
-        (window as any).$HINT_10$ = {
-            hint: "Console -> window -> $HIDDEN_FLAG$ -> $HIDDEN_FLAG$.unlock()"
+            hint: "A signal has been scrambled across multiple transmissions. The truth is in the timing"
         };
 
         return () => clearTimeout(t);
@@ -260,21 +268,16 @@ export default function CTF() {
         }
     };
 
-    const beamMiniApi = async () => {
-        try {
-            await fetch("/ctf/miniapi/beam");
-        } catch (e: any) {
-            setErrorMessage(e?.message || "Failed to beam.");
-            setShowErrorAlert(true);
-        }
-    };
-
     const decryptSignal = async () => {
         try {
-            fetch("/ctf/miniapi/decrypt/stepA");
-            fetch("/ctf/miniapi/decrypt/stepB");
-            fetch("/ctf/miniapi/decrypt/stepC");
-            fetch("/ctf/miniapi/decrypt/stepD");
+            const steps = ["packet1", "packet2", "packet3", "packet4"];
+            for (let i = steps.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [steps[i], steps[j]] = [steps[j], steps[i]];
+            }
+            steps.map(step => {
+                fetch(`/ctf/miniapi/${step}`);
+            });
         } catch (e: any) {
             setErrorMessage(e?.message || "Failed to decrypt.");
             setShowErrorAlert(true);
@@ -641,7 +644,7 @@ export default function CTF() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    justifyContent: "center",
+                    justifyContent: "flex-start",
                     textAlign: "center",
                     py: 6
                 }}
@@ -749,35 +752,50 @@ export default function CTF() {
                                     fontFamily: "Montserrat",
                                     fontSize: { xs: "14px", md: "16px" },
                                     color: "rgba(255, 255, 255, 0.85)",
-                                    lineHeight: 1.7
+                                    lineHeight: 1.7,
+                                    mb: 2
                                 }}
                             >
-                                Find all 10 hidden flags scattered throughout
-                                this page. Each flag is hidden using different
-                                techniques — from inspecting elements to
-                                exploring network requests and console commands.
+                                Find all 9 hidden flags scattered throughout
+                                this page. To get started, right-click anywhere
+                                on the page and select <b>Inspect</b>.
                             </Typography>
-
-                            <Box
-                                id="VISIBILITY-FLAG"
-                                data-ctf-flag="flag{flag-7}"
+                            <Accordion
+                                disableGutters
+                                elevation={0}
                                 sx={{
                                     mt: 3,
-                                    visibility: "hidden",
-                                    px: 2,
-                                    py: 1.5,
+                                    background: "rgba(255,255,255,0.04)",
+                                    border: "1px solid rgba(255,255,255,0.1)",
                                     borderRadius: "12px",
-                                    background: "rgba(255, 255, 255, 0.05)",
-                                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                                    "&::after": {
-                                        content: '"flag{flag-7}"',
-                                        color: "#A315D6",
-                                        fontFamily: "Montserrat",
-                                        fontSize: "14px",
-                                        fontWeight: 700
-                                    }
+                                    "&:before": { display: "none" }
                                 }}
-                            />
+                            >
+                                <AccordionSummary
+                                    sx={{
+                                        fontFamily: "Tsukimi Rounded",
+                                        fontWeight: 600,
+                                        color: "#FDAB60"
+                                    }}
+                                >
+                                    Need hints?
+                                </AccordionSummary>
+
+                                <AccordionDetails
+                                    sx={{
+                                        fontFamily: "Montserrat",
+                                        color: "rgba(255,255,255,0.85)",
+                                        lineHeight: 1.6,
+                                        textAlign: "left"
+                                    }}
+                                >
+                                    Luckily, your mission commander has left you
+                                    some clues. In your browser&apos;s Developer
+                                    Tools, navigate to the <b>Console</b> tab.
+                                    Type <b>$HINT_1$</b> and press Enter to
+                                    reveal the hint. This works for all 9 hints!
+                                </AccordionDetails>
+                            </Accordion>
                         </Box>
                     </motion.div>
 
@@ -813,229 +831,183 @@ export default function CTF() {
                                     mb: 2
                                 }}
                             >
-                                PRO TIPS
+                                COMMS
                             </Typography>
                             <Box
                                 sx={{
                                     display: "flex",
                                     flexDirection: "column",
                                     gap: 2,
-                                    textAlign: "left"
+                                    textAlign: "center"
                                 }}
                             >
-                                <Typography
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: { xs: "13px", md: "15px" },
-                                        color: "rgba(255, 255, 255, 0.8)"
-                                    }}
-                                >
-                                    • Use Developer Tools (F12 or right-click →
-                                    Inspect)
-                                </Typography>
-                                <Typography
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: { xs: "13px", md: "15px" },
-                                        color: "rgba(255, 255, 255, 0.8)"
-                                    }}
-                                >
-                                    • Check Console tab for special window
-                                    objects
-                                </Typography>
-                                <Typography
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: { xs: "13px", md: "15px" },
-                                        color: "rgba(255, 255, 255, 0.8)"
-                                    }}
-                                >
-                                    • Monitor Network tab for API responses
-                                </Typography>
-                                <Typography
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: { xs: "13px", md: "15px" },
-                                        color: "rgba(255, 255, 255, 0.8)"
-                                    }}
-                                >
-                                    • Look for hidden elements with display:
-                                    none
-                                </Typography>
+                                YOU HAVE 1 MESSAGE
                             </Box>
+                            <Box
+                                id="FIND-ME"
+                                sx={{
+                                    mt: 2,
+                                    px: 2,
+                                    py: 1.5,
+                                    borderRadius: "12px",
+                                    background: "rgba(255, 255, 255, 0.05)",
+                                    border: "1px solid rgba(255, 255, 255, 0.1)"
+                                }}
+                            >
+                                <Box
+                                    data-ctf-flag="flag3"
+                                    sx={{
+                                        opacity: 0,
+                                        fontFamily: "Montserrat",
+                                        fontSize: "14px",
+                                        fontWeight: 700,
+                                        color: "#FDAB60"
+                                    }}
+                                >
+                                    {"hackctf{flag3-53cr37m3554g3}"}
+                                </Box>
+                            </Box>
+
+                            <motion.div variants={itemVariants}>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: {
+                                            xs: "column",
+                                            md: "row"
+                                        },
+                                        gap: 3,
+                                        mt: 3,
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        mb: 1
+                                    }}
+                                >
+                                    <motion.div
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <Button
+                                            variant="contained"
+                                            onClick={pingMiniApi}
+                                            sx={{
+                                                background:
+                                                    "linear-gradient(90deg, #A315D6, #FDAB60)",
+                                                borderRadius: "50px",
+                                                fontFamily: "Montserrat",
+                                                fontWeight: 700,
+                                                textTransform: "none",
+                                                px: 3,
+                                                py: 1.5,
+                                                fontSize: {
+                                                    xs: "14px",
+                                                    md: "16px"
+                                                },
+                                                transition: "all 0.3s ease",
+                                                "&:hover": {
+                                                    boxShadow:
+                                                        "0 0 35px rgba(163, 21, 214, 0.8)"
+                                                }
+                                            }}
+                                        >
+                                            ?
+                                        </Button>
+                                    </motion.div>
+                                    <motion.div
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <Button
+                                            variant="contained"
+                                            onClick={pingMiniApiAgain}
+                                            sx={{
+                                                background:
+                                                    "linear-gradient(90deg, #FDAB60, #A315D6)",
+                                                borderRadius: "50px",
+                                                fontFamily: "Montserrat",
+                                                fontWeight: 700,
+                                                textTransform: "none",
+                                                px: 3,
+                                                py: 1.5,
+                                                fontSize: {
+                                                    xs: "14px",
+                                                    md: "16px"
+                                                },
+                                                transition: "all 0.3s ease",
+                                                "&:hover": {
+                                                    boxShadow:
+                                                        "0 0 35px rgba(253, 171, 96, 0.8)"
+                                                }
+                                            }}
+                                        >
+                                            ??
+                                        </Button>
+                                    </motion.div>
+                                    <motion.div
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        transition={{ duration: 0.2 }}
+                                    ></motion.div>
+                                    <motion.div
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <Button
+                                            variant="contained"
+                                            onClick={decryptSignal}
+                                            sx={{
+                                                background:
+                                                    "linear-gradient(90deg, #16133e, #A315D6)",
+                                                borderRadius: "50px",
+                                                fontFamily: "Montserrat",
+                                                fontWeight: 700,
+                                                textTransform: "none",
+                                                px: 3,
+                                                py: 1.5,
+                                                fontSize: {
+                                                    xs: "14px",
+                                                    md: "16px"
+                                                },
+                                                transition: "all 0.3s ease",
+                                                "&:hover": {
+                                                    boxShadow:
+                                                        "0 0 35px rgba(163, 21, 214, 0.8)"
+                                                }
+                                            }}
+                                        >
+                                            !!!
+                                        </Button>
+                                    </motion.div>
+                                </Box>
+                            </motion.div>
                         </Box>
                     </motion.div>
 
-                    <motion.div variants={itemVariants}>
-                        <Box
-                            id="UNLOCK-ME"
-                            data-ctf-flag="flag{flag-2}"
-                            sx={{
-                                background: "rgba(163, 21, 214, 0.2)",
-                                border: "2px solid #A315D6",
-                                borderRadius: "16px",
-                                p: { xs: 2.5, md: 3 },
-                                maxWidth: "400px",
-                                mx: "auto",
-                                display: "none",
-                                "&::after": {
-                                    content: '"You found flag{flag-2}!"',
-                                    color: "#FDAB60",
-                                    fontFamily: "Montserrat",
-                                    fontSize: "16px",
-                                    fontWeight: 700,
-                                    display: "block"
-                                }
-                            }}
-                        />
-                    </motion.div>
-
-                    <motion.div variants={itemVariants}>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: { xs: "column", md: "row" },
-                                gap: 3,
-                                justifyContent: "center",
-                                alignItems: "center",
-                                mb: 4
-                            }}
-                        >
-                            <motion.div
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.95 }}
-                                transition={{ duration: 0.2 }}
-                            >
-                                <Button
-                                    variant="contained"
-                                    onClick={pingMiniApi}
-                                    sx={{
-                                        background:
-                                            "linear-gradient(90deg, #A315D6, #FDAB60)",
-                                        borderRadius: "50px",
-                                        fontFamily: "Montserrat",
-                                        fontWeight: 700,
-                                        textTransform: "none",
-                                        px: 3,
-                                        py: 1.5,
-                                        fontSize: { xs: "14px", md: "16px" },
-                                        transition: "all 0.3s ease",
-                                        "&:hover": {
-                                            boxShadow:
-                                                "0 0 35px rgba(163, 21, 214, 0.8)"
-                                        }
-                                    }}
-                                >
-                                    Ping!
-                                </Button>
-                            </motion.div>
-                            <motion.div
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.95 }}
-                                transition={{ duration: 0.2 }}
-                            >
-                                <Button
-                                    variant="contained"
-                                    onClick={pingMiniApiAgain}
-                                    sx={{
-                                        background:
-                                            "linear-gradient(90deg, #FDAB60, #A315D6)",
-                                        borderRadius: "50px",
-                                        fontFamily: "Montserrat",
-                                        fontWeight: 700,
-                                        textTransform: "none",
-                                        px: 3,
-                                        py: 1.5,
-                                        fontSize: { xs: "14px", md: "16px" },
-                                        transition: "all 0.3s ease",
-                                        "&:hover": {
-                                            boxShadow:
-                                                "0 0 35px rgba(253, 171, 96, 0.8)"
-                                        }
-                                    }}
-                                >
-                                    Pong?
-                                </Button>
-                            </motion.div>
-                            <motion.div
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.95 }}
-                                transition={{ duration: 0.2 }}
-                            >
-                                <Button
-                                    variant="contained"
-                                    onClick={beamMiniApi}
-                                    sx={{
-                                        background:
-                                            "linear-gradient(90deg, #A315D6, #16133e)",
-                                        borderRadius: "50px",
-                                        fontFamily: "Montserrat",
-                                        fontWeight: 700,
-                                        textTransform: "none",
-                                        px: 3,
-                                        py: 1.5,
-                                        fontSize: { xs: "14px", md: "16px" },
-                                        transition: "all 0.3s ease",
-                                        "&:hover": {
-                                            boxShadow:
-                                                "0 0 35px rgba(163, 21, 214, 0.8)"
-                                        }
-                                    }}
-                                >
-                                    Beam!
-                                </Button>
-                            </motion.div>
-                            <motion.div
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.95 }}
-                                transition={{ duration: 0.2 }}
-                            >
-                                <Button
-                                    variant="contained"
-                                    onClick={decryptSignal}
-                                    sx={{
-                                        background:
-                                            "linear-gradient(90deg, #16133e, #A315D6)",
-                                        borderRadius: "50px",
-                                        fontFamily: "Montserrat",
-                                        fontWeight: 700,
-                                        textTransform: "none",
-                                        px: 3,
-                                        py: 1.5,
-                                        fontSize: { xs: "14px", md: "16px" },
-                                        transition: "all 0.3s ease",
-                                        "&:hover": {
-                                            boxShadow:
-                                                "0 0 35px rgba(163, 21, 214, 0.8)"
-                                        }
-                                    }}
-                                >
-                                    Decrypt Signal
-                                </Button>
-                            </motion.div>
-                        </Box>
-
-                        <Box
-                            id="OPACITY-FLAG"
-                            data-ctf-flag="flag{flag-8}"
-                            sx={{
-                                mt: 2,
-                                opacity: 0,
-                                px: 2,
-                                py: 1.5,
-                                borderRadius: "12px",
-                                background: "rgba(255, 255, 255, 0.05)",
-                                border: "1px solid rgba(255, 255, 255, 0.1)",
-                                "&::after": {
-                                    content: '"flag{flag-8}"',
-                                    color: "#FDAB60",
-                                    fontFamily: "Montserrat",
-                                    fontSize: "14px",
-                                    fontWeight: 700
-                                }
-                            }}
-                        />
-                    </motion.div>
+                    <Box
+                        id="REVEAL-ME"
+                        data-ctf-flag="flag2"
+                        sx={{
+                            background: "rgba(163, 21, 214, 0.2)",
+                            border: "2px solid #A315D6",
+                            borderRadius: "16px",
+                            p: { xs: 2.5, md: 3 },
+                            maxWidth: "400px",
+                            mx: "auto",
+                            display: "none",
+                            "&::after": {
+                                content:
+                                    '"You found a flag: hackctf{flag2-1nv151b13}"',
+                                color: "#FDAB60",
+                                fontFamily: "Montserrat",
+                                fontSize: "16px",
+                                fontWeight: 700,
+                                display: "block"
+                            }
+                        }}
+                    />
 
                     <motion.div variants={itemVariants}>
                         <Box sx={{ mt: 4, mb: 2 }}>
@@ -1046,12 +1018,12 @@ export default function CTF() {
                             />
                         </Box>
                     </motion.div>
+
+                    <Box data-ctf-flag="flag1" sx={{ display: "none" }}>
+                        {"YOUR FIRST FLAG HERE: hackctf{flag1-p141n51gh7}"}
+                    </Box>
                 </motion.div>
             </Container>
-
-            <Box data-ctf-flag="flag{flag-1}" sx={{ display: "none" }}>
-                {"flag{flag-1}"}
-            </Box>
         </Box>
     );
 }
