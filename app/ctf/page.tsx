@@ -260,6 +260,27 @@ export default function CTF() {
         }
     };
 
+    const beamMiniApi = async () => {
+        try {
+            await fetch("/ctf/miniapi/beam");
+        } catch (e: any) {
+            setErrorMessage(e?.message || "Failed to beam.");
+            setShowErrorAlert(true);
+        }
+    };
+
+    const decryptSignal = async () => {
+        try {
+            fetch("/ctf/miniapi/decrypt/stepA");
+            fetch("/ctf/miniapi/decrypt/stepB");
+            fetch("/ctf/miniapi/decrypt/stepC");
+            fetch("/ctf/miniapi/decrypt/stepD");
+        } catch (e: any) {
+            setErrorMessage(e?.message || "Failed to decrypt.");
+            setShowErrorAlert(true);
+        }
+    };
+
     if (loading) return <Loading />;
 
     return (
@@ -934,6 +955,62 @@ export default function CTF() {
                                     }}
                                 >
                                     Pong?
+                                </Button>
+                            </motion.div>
+                            <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                <Button
+                                    variant="contained"
+                                    onClick={beamMiniApi}
+                                    sx={{
+                                        background:
+                                            "linear-gradient(90deg, #A315D6, #16133e)",
+                                        borderRadius: "50px",
+                                        fontFamily: "Montserrat",
+                                        fontWeight: 700,
+                                        textTransform: "none",
+                                        px: 3,
+                                        py: 1.5,
+                                        fontSize: { xs: "14px", md: "16px" },
+                                        transition: "all 0.3s ease",
+                                        "&:hover": {
+                                            boxShadow:
+                                                "0 0 35px rgba(163, 21, 214, 0.8)"
+                                        }
+                                    }}
+                                >
+                                    Beam!
+                                </Button>
+                            </motion.div>
+                            <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                <Button
+                                    variant="contained"
+                                    onClick={decryptSignal}
+                                    sx={{
+                                        background:
+                                            "linear-gradient(90deg, #16133e, #A315D6)",
+                                        borderRadius: "50px",
+                                        fontFamily: "Montserrat",
+                                        fontWeight: 700,
+                                        textTransform: "none",
+                                        px: 3,
+                                        py: 1.5,
+                                        fontSize: { xs: "14px", md: "16px" },
+                                        transition: "all 0.3s ease",
+                                        "&:hover": {
+                                            boxShadow:
+                                                "0 0 35px rgba(163, 21, 214, 0.8)"
+                                        }
+                                    }}
+                                >
+                                    Decrypt Signal
                                 </Button>
                             </motion.div>
                         </Box>
