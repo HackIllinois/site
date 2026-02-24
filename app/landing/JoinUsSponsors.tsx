@@ -69,7 +69,7 @@ const alienSponsors: Array<Sponsor> = [
         tier: "gold",
         alienIndex: 5
     }
-];
+] satisfies Array<Sponsor>;
 
 const bottomSponsorsRows: Array<Sponsor> = [
     // Row 1: silver tier (6 sponsors)
@@ -282,7 +282,7 @@ const JoinUsSponsors = () => {
         return 3;
     }, [smViewport]);
 
-    const allSponsorsForGrid = useMemo(() => {
+    const allSponsorsForGrid: Array<Sponsor> = useMemo(() => {
         if (!xsViewport) return bottomSponsorsRows;
         const alienSponsorsAsGrid = alienSponsors.map(s => ({
             name: s.name,
