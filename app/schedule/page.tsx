@@ -107,7 +107,7 @@ const BlinkingAlien = () => {
                 position: "absolute",
                 top: 0,
                 left: { xs: "5%", md: "10%" },
-                width: { xs: "18dvw", md: "12dvw" },
+                width: { xs: "18dvw", md: "10dvw" },
                 zIndex: 10,
                 transform: "translate(-23%, -60%)",
                 pointerEvents: "none"
@@ -206,7 +206,7 @@ const Schedule = () => {
         theme.breakpoints.between("xs", "md")
     );
     const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
-    const isShortScreen = useMediaQuery("(max-height: 700px)");
+    const isShortScreen = useMediaQuery("(max-height: 550px)");
 
     const handleSelectDay = (day: string) => {
         setSelectedDay(day);
@@ -393,8 +393,8 @@ const Schedule = () => {
                 px: { xs: "1px", md: "80px" },
                 pt: {
                     xs: "calc(60px + env(safe-area-inset-top))",
-                    md: "calc(180px + env(safe-area-inset-top))",
-                    lg: "calc(200px + env(safe-area-inset-top))"
+                    md: "150px",
+                    lg: "180px"
                 },
                 pb: isBetweenXsAndMd || isShortScreen ? 2 : 0,
                 boxSizing: "border-box"
@@ -514,7 +514,7 @@ const Schedule = () => {
                 sx={{
                     width: "100%",
                     maxWidth: "1440px",
-                    maxHeight: isMdUp && !isShortScreen ? "60dvh" : "none",
+                    maxHeight: isMdUp && !isShortScreen ? "70dvh" : "none",
                     display: "flex",
                     justifyContent: { xs: "center", md: "flex-end" },
                     flexGrow: 1,
@@ -527,6 +527,8 @@ const Schedule = () => {
                     sx={{
                         position: "relative",
                         width: { xs: "100%", md: "90dvw" },
+                        minHeight: "70dvh",
+                        bottom: 0,
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "stretch",
@@ -591,7 +593,6 @@ const Schedule = () => {
                             sx={{
                                 position: "absolute",
                                 top: 0,
-                                // bottom: 0,
                                 width: "80%",
                                 right: "10%",
                                 height: { md: "90dvh" },
@@ -611,9 +612,14 @@ const Schedule = () => {
                         sx={{
                             width: { xs: "90%", md: "80%" },
                             position: "relative",
-                            height: isMdUp && !isShortScreen ? "80vh" : "auto",
-                            minHeight:
-                                isMdUp && !isShortScreen ? "600px" : "auto",
+                            height:
+                                isMdUp && !isShortScreen
+                                    ? {
+                                          md: "calc(100dvh - 150px)",
+                                          lg: "calc(100dvh - 180px)",
+                                          xl: "calc(100dvh - 200px)"
+                                      }
+                                    : "auto",
                             overflowY:
                                 isMdUp && !isShortScreen ? "auto" : "visible",
                             zIndex: 2,
@@ -681,9 +687,16 @@ const Schedule = () => {
                                 width: "100%",
                                 py: { xs: 1, md: 2 },
                                 px: { xs: 2, md: 3 },
-                                overflowY: "scroll",
+                                overflowY:
+                                    isMdUp && !isShortScreen
+                                        ? "auto"
+                                        : "visible",
 
                                 "&::-webkit-scrollbar": { width: "6px" },
+                                "&::-webkit-scrollbar-track": {
+                                    backgroundColor: "rgba(0,0,0,0.15)",
+                                    borderRadius: "10px"
+                                },
                                 "&::-webkit-scrollbar-thumb": {
                                     backgroundColor: "rgba(0,0,0,0.3)",
                                     borderRadius: "10px",

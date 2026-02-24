@@ -48,7 +48,7 @@ export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
             sx={{
                 backgroundColor: "#2B1350",
                 borderRadius: "20px",
-                p: { xs: 2, sm: 3, md: 4 },
+                p: { xs: 2, sm: 3 },
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-start",
