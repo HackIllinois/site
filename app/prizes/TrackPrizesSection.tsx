@@ -7,7 +7,7 @@ import TrackPrize from "./TrackPrize";
 import SectionHeader from "./SectionHeader";
 import { bob, containerVariants, itemVariants } from "./animations";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 const TrackPrizesSection: React.FC = () => {
     return (
@@ -84,7 +84,7 @@ const TrackPrizesSection: React.FC = () => {
                 <MotionBox variants={itemVariants}>
                     <TrackPrize
                         backgroundSrc="/prizes/track_prizes/track2.svg"
-                        topText="BEST API"
+                        topText="BEST WEB API"
                         bottomText={
                             <ul style={{ margin: 0 }}>
                                 <li>

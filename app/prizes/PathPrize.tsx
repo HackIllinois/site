@@ -1,40 +1,35 @@
 "use client";
 
-import React, { useId, useState } from "react";
+import React, { useState } from "react";
 import { Box, Tooltip, Typography } from "@mui/material";
 
 type PathPrizeProps = {
     backgroundSrc: string;
 
     topText: string;
-    bottomText: string;
-    topTextOffset: number;
-    bottomTextOffset: number;
+    bottomText?: string;
+    topTextOffset?: number;
+    bottomTextOffset?: number;
 
-    bottomTextSize: number;
-    topTextSize?: number;
-
-    width: number;
     height: number;
 
     centerOffsetY?: number;
     centerOffsetX?: number;
-    bottomLetterSpacing?: number;
 
     radius: number;
 
     topGradientWord?: string;
     topGradient?: { from: string; mid?: string; to: string };
-    secondText?: string;
 
     helpTooltip?: string;
     showHelpIcon?: boolean;
-    helpAngleDeg?: number;
-    helpSize?: number;
-    helpRotationDeg?: number;
 
     bottomBottomText?: string | React.ReactNode;
     bottomBottomTextSize?: number;
+    topSecondRow?: string | React.ReactNode;
+    bottomBottomTextOffset?: number;
+    titleMinHeight?: number;
+    bottomTextFontSize?: Record<string, string>;
 };
 
 const PathPrize: React.FC<PathPrizeProps> = ({
@@ -42,32 +37,24 @@ const PathPrize: React.FC<PathPrizeProps> = ({
     topText,
     bottomText,
     topTextOffset,
-    bottomTextOffset,
-    bottomTextSize,
-    width,
+    bottomTextOffset = -1,
     height,
     centerOffsetX = 0,
     centerOffsetY = 0,
-    topTextSize = 20,
-    bottomLetterSpacing = 0,
     radius,
     topGradientWord,
     topGradient,
-    secondText,
     helpTooltip,
     showHelpIcon,
-    helpAngleDeg = 0,
-    helpSize = 0,
-    helpRotationDeg = 0,
     bottomBottomText,
-    bottomBottomTextSize = 16
+    bottomBottomTextSize = 16,
+    topSecondRow,
+    bottomBottomTextOffset,
+    titleMinHeight,
+    bottomTextFontSize
 }) => {
     const [hovered, setHovered] = useState(false);
-    const uid = useId();
-    const topArcId = `topArc-${uid}`;
-    const bottomArcId = `bottomArc-${uid}`;
-    const topGradId = `topGrad-${uid}`;
-    const secondId = `secondArc-${uid}`;
+    const [tooltipOpen, setTooltipOpen] = useState(false);
 
     const shouldGradient =
         !!topGradientWord && topText.includes(topGradientWord) && !!topGradient;
@@ -85,18 +72,29 @@ const PathPrize: React.FC<PathPrizeProps> = ({
 
     const scaleFinal = {
         xs: 0.6,
-        sm: 0.51,
-        md: 0.75,
+        sm: 0.4,
+        md: 0.65,
         lg: 0.8,
         xl: 0.8
     };
 
+    const smPx = Math.round(height * scaleFinal.sm);
+    const mdPx = Math.round(height * scaleFinal.md);
+
     const size = {
-        xs: Math.round(height * scaleFinal.xs),
-        sm: Math.round(height * scaleFinal.sm),
-        md: Math.round(height * scaleFinal.md),
-        lg: Math.round(height * scaleFinal.lg),
-        xl: Math.round(height * scaleFinal.xl)
+        xs: `min(${Math.round(height * scaleFinal.xs)}px, calc(100vw - 40px))`,
+        sm: `clamp(${smPx}px, calc(${smPx}px + (${mdPx - smPx}) * ((100vw - 600px) / 300)), ${mdPx}px)`,
+        md: `${mdPx}px`,
+        lg: `${Math.round(height * scaleFinal.lg)}px`,
+        xl: `${Math.round(height * scaleFinal.xl)}px`
+    };
+
+    const fontSize = {
+        xs: "clamp(18px, 6vw, 25px)",
+        sm: "clamp(18px, 8vw, 25px)",
+        md: "30px",
+        lg: "32px",
+        xl: "32px"
     };
 
     return (
@@ -106,6 +104,7 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                 flexDirection: "column",
                 alignItems: "center",
                 width: size,
+                maxWidth: "100%",
                 height: "auto",
                 position: "relative"
             }}
@@ -113,6 +112,88 @@ const PathPrize: React.FC<PathPrizeProps> = ({
             {/* 1. VISUAL CONTAINER (The Path/SVG) */}
             <Box
                 sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                    color: "white",
+                    fontWeight: 700,
+                    fontSize,
+                    flexDirection: "column",
+                    ...(titleMinHeight ? { minHeight: titleMinHeight } : {})
+                }}
+            >
+                {/* title block */}
+                <Box sx={{ textAlign: "center", mb: topTextOffset }}>
+                    {shouldGradient ? (
+                        <>
+                            <span style={{ color: "#fff" }}>{topBefore}</span>
+                            <span
+                                style={{
+                                    background: topGradient!.mid
+                                        ? `linear-gradient(90deg, ${topGradient!.from}, ${topGradient!.mid}, ${topGradient!.to})`
+                                        : `linear-gradient(90deg, ${topGradient!.from}, ${topGradient!.to})`,
+                                    WebkitBackgroundClip: "text",
+                                    backgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                    color: "transparent"
+                                }}
+                            >
+                                {topMid}
+                            </span>
+                            <span style={{ color: "#fff" }}>{topAfter}</span>
+                        </>
+                    ) : (
+                        <span style={{ color: "#fff" }}>{topText}</span>
+                    )}
+
+                    {topSecondRow ? <br /> : null}
+                    {topSecondRow}
+                </Box>
+                {showHelpIcon && helpTooltip && (
+                    <Tooltip
+                        title={
+                            <Typography
+                                sx={{
+                                    fontFamily: "Montserrat",
+                                    fontSize: "16px"
+                                }}
+                            >
+                                {helpTooltip}
+                            </Typography>
+                        }
+                        open={tooltipOpen}
+                        disableHoverListener
+                        disableFocusListener
+                        disableTouchListener
+                    >
+                        <Box
+                            component="span"
+                            role="button"
+                            onClick={() => setTooltipOpen(prev => !prev)}
+                            onMouseEnter={() => setTooltipOpen(true)}
+                            onMouseLeave={() => setTooltipOpen(false)}
+                            sx={{
+                                cursor: "pointer",
+                                fontWeight: 400,
+                                fontSize: ".7em",
+                                pointerEvents: "auto",
+                                position: "relative",
+                                zIndex: 10,
+                                color: "#90D5FF",
+                                padding: "8px 24px"
+                            }}
+                        >
+                            More info
+                        </Box>
+                    </Tooltip>
+                )}
+            </Box>
+
+            <Box
+                sx={{
+                    mt: -1,
                     width: size,
                     height: size,
                     backgroundImage: `url("${backgroundSrc}")`,
@@ -125,12 +206,13 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                     transition: "transform 200ms ease",
                     willChange: "transform",
                     transform: hovered ? "scale(1.04)" : "scale(1)",
-                    transformOrigin: "center"
+                    transformOrigin: "center",
+                    zIndex: 1
                 }}
             >
                 <Box
                     sx={{
-                        position: "absolute",
+                        position: "relative",
                         inset: 0
                     }}
                 >
@@ -154,168 +236,38 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                             onMouseEnter={() => setHovered(true)}
                             onMouseLeave={() => setHovered(false)}
                         />
-                        <defs>
-                            {shouldGradient && (
-                                <linearGradient
-                                    id={topGradId}
-                                    x1="0%"
-                                    y1="0%"
-                                    x2="100%"
-                                    y2="0%"
-                                >
-                                    <stop
-                                        offset="0%"
-                                        stopColor={topGradient!.from}
-                                    />
-                                    <stop
-                                        offset="50%"
-                                        stopColor={
-                                            topGradient!.mid ?? topGradient!.to
-                                        }
-                                    />
-                                    <stop
-                                        offset="100%"
-                                        stopColor={topGradient!.to}
-                                    />
-                                </linearGradient>
-                            )}
-
-                            <path
-                                id={topArcId}
-                                d={`
-              M 200,200
-              m -${radius},0
-              a ${radius},${radius} 0 0 1 ${radius * 2},0
-            `}
-                            />
-
-                            <path
-                                id={bottomArcId}
-                                d={`
-              M 200,200
-              m -${radius},0
-              a ${radius},${radius} 0 0 0 ${radius * 2},0
-            `}
-                            />
-                            {secondText && (
-                                <path
-                                    id={secondId}
-                                    d={`
-              M 200,200
-              m -${radius - 25},0
-              a ${radius - 25},${radius - 25} 0 0 0 ${radius * 2 - 50},0
-            `}
-                                />
-                            )}
-                        </defs>
-
-                        {/* top text */}
-                        <text
-                            fontFamily="Tsukimi Rounded"
-                            fontSize={topTextSize}
-                            fontWeight="700"
-                            textAnchor="middle"
-                        >
-                            <textPath
-                                href={`#${topArcId}`}
-                                startOffset={`${topTextOffset}%`}
-                            >
-                                {shouldGradient ? (
-                                    <>
-                                        <tspan fill="#fff">{topBefore}</tspan>
-                                        <tspan fill={`url(#${topGradId})`}>
-                                            {topMid}
-                                        </tspan>
-                                        <tspan fill="#fff">{topAfter}</tspan>
-                                    </>
-                                ) : (
-                                    <tspan fill="#fff">{topText}</tspan>
-                                )}
-                            </textPath>
-                        </text>
-
-                        {showHelpIcon && helpTooltip && (
-                            <Tooltip
-                                title={
-                                    <Typography
-                                        sx={{
-                                            fontFamily: "Montserrat",
-                                            fontSize: "16px"
-                                        }}
-                                    >
-                                        {helpTooltip}
-                                    </Typography>
-                                }
-                            >
-                                <g
-                                    style={{ pointerEvents: "all" }}
-                                    onMouseEnter={() => setHovered(true)}
-                                    onMouseLeave={() => setHovered(false)}
-                                    transform={`
-        translate(${200 + radius * 1.06 * Math.cos((helpAngleDeg * Math.PI) / 180)},
-                    ${200 + radius * 1.06 * Math.sin((helpAngleDeg * Math.PI) / 180)})
-        rotate(${helpRotationDeg})
-        translate(${-helpSize / 2}, ${-helpSize / 2})
-        `}
-                                >
-                                    <title>{helpTooltip}</title>
-
-                                    <image
-                                        href="/prizes/path_prizes/question.svg"
-                                        width={helpSize}
-                                        height={helpSize}
-                                        preserveAspectRatio="xMidYMid meet"
-                                    />
-                                </g>
-                            </Tooltip>
-                        )}
-
-                        {/* bottom text */}
-                        <text
-                            fill="#fff"
-                            fontFamily="Montserrat"
-                            fontSize={bottomTextSize}
-                            fontWeight="600"
-                            textAnchor="middle"
-                            style={{ letterSpacing: bottomLetterSpacing }}
-                        >
-                            <textPath
-                                href={`#${bottomArcId}`}
-                                startOffset={`${bottomTextOffset}%`}
-                            >
-                                {bottomText}
-                            </textPath>
-                        </text>
-
-                        {secondText && (
-                            <text
-                                fill="#fff"
-                                fontFamily="Montserrat"
-                                fontSize={bottomTextSize}
-                                fontWeight="600"
-                                textAnchor="middle"
-                                style={{ letterSpacing: bottomLetterSpacing }}
-                            >
-                                <textPath
-                                    href={`#${secondId}`}
-                                    startOffset={`${bottomTextOffset}%`}
-                                >
-                                    {secondText}
-                                </textPath>
-                            </text>
-                        )}
                     </svg>
                 </Box>
             </Box>
 
+            {bottomText && (
+                <Box
+                    sx={{
+                        mt: bottomTextOffset,
+                        width: "100%",
+                        textAlign: "center",
+                        fontWeight: 700,
+                        color: "white",
+                        fontSize: bottomTextFontSize ?? {
+                            xs: "18px",
+                            sm: "16px",
+                            md: "22px",
+                            lg: "24px",
+                            xl: "24px"
+                        }
+                    }}
+                >
+                    {bottomText}
+                </Box>
+            )}
             {/* 2. TEXT CONTAINER (Dynamic Height) */}
             {bottomBottomText && (
                 <Box
                     sx={{
+                        mt: bottomBottomTextOffset,
                         textAlign: "left",
                         width: "100%",
                         zIndex: 1,
-                        mt: -3,
                         fontSize: bottomBottomTextSize,
                         color: "white",
                         lineHeight: 1.5,

@@ -7,7 +7,7 @@ import PathPrize from "./PathPrize";
 import SectionHeader from "./SectionHeader";
 import { bob, containerVariants, itemVariants } from "./animations";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 const PathPrizesSection: React.FC = () => {
     return (
@@ -23,11 +23,11 @@ const PathPrizesSection: React.FC = () => {
                 sx={{
                     display: "grid",
                     gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
-                    gap: "20px",
+                    gap: "100px",
                     width: "90vw",
                     maxWidth: "1200px",
                     mx: "auto",
-                    mt: "20px",
+                    mt: "60px",
                     justifyItems: "center",
                     "& > *": {
                         animation: `${bob} 1.8s ease-in-out infinite`,
@@ -44,21 +44,24 @@ const PathPrizesSection: React.FC = () => {
                 <MotionBox variants={itemVariants}>
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize1.svg"
-                        topText="BEST VOYAGERS HACK"
+                        topText="BEST VOYAGER HACK"
                         bottomText="$5000"
                         radius={100}
-                        width={600}
-                        height={600}
-                        centerOffsetY={10}
-                        bottomTextSize={40}
-                        topTextOffset={40}
-                        bottomTextOffset={65}
-                        bottomLetterSpacing={4}
-                        topGradientWord="VOYAGERS"
+                        height={580}
+                        topTextOffset={-2}
+                        bottomTextOffset={-2}
+                        topGradientWord="VOYAGER"
                         topGradient={{
                             from: "#A315D6",
                             mid: "#FDAB60",
                             to: "#A315D6"
+                        }}
+                        bottomTextFontSize={{
+                            xs: "clamp(18px, 7vw, 24px)",
+                            sm: "21px",
+                            md: "30px",
+                            lg: "32px",
+                            xl: "32px"
                         }}
                     />
                 </MotionBox>
@@ -72,14 +75,14 @@ const PathPrizesSection: React.FC = () => {
                         topText="BEST GENERAL HACK"
                         bottomText="$2500"
                         radius={110}
-                        width={580}
-                        height={580}
-                        centerOffsetY={10}
-                        centerOffsetX={-10}
-                        bottomTextSize={40}
-                        topTextOffset={60}
-                        bottomTextOffset={40}
-                        bottomLetterSpacing={4}
+                        height={550}
+                        bottomTextFontSize={{
+                            xs: "clamp(18px, 7vw, 24px)",
+                            sm: "21px",
+                            md: "30px",
+                            lg: "32px",
+                            xl: "32px"
+                        }}
                     />
                 </MotionBox>
             </MotionBox>
