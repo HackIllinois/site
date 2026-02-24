@@ -26,8 +26,9 @@ type PathPrizeProps = {
 
     bottomBottomText?: string | React.ReactNode;
     bottomBottomTextSize?: number;
-    topSecondRow?: string;
+    topSecondRow?: string | React.ReactNode;
     bottomBottomTextOffset?: number;
+    titleMinHeight?: number;
 };
 
 const PathPrize: React.FC<PathPrizeProps> = ({
@@ -47,7 +48,8 @@ const PathPrize: React.FC<PathPrizeProps> = ({
     bottomBottomText,
     bottomBottomTextSize = 16,
     topSecondRow,
-    bottomBottomTextOffset
+    bottomBottomTextOffset,
+    titleMinHeight
 }) => {
     const [hovered, setHovered] = useState(false);
 
@@ -111,7 +113,8 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                     color: "white",
                     fontWeight: 700,
                     fontSize,
-                    flexDirection: "column"
+                    flexDirection: "column",
+                    ...(titleMinHeight ? { minHeight: titleMinHeight } : {})
                 }}
             >
                 {/* title block */}
@@ -166,7 +169,7 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                                 color: "#90D5FF"
                             }}
                         >
-                            Show more
+                            More info
                         </Box>
                     </Tooltip>
                 )}
@@ -229,7 +232,13 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                         textAlign: "center",
                         fontWeight: 700,
                         color: "white",
-                        fontSize
+                        fontSize: {
+                            xs: "18px",
+                            sm: "16px",
+                            md: "22px",
+                            lg: "24px",
+                            xl: "24px"
+                        }
                     }}
                 >
                     {bottomText}

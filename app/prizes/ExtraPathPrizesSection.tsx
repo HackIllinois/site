@@ -96,6 +96,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                         height={540}
                         centerOffsetY={10}
                         centerOffsetX={0}
+                        titleMinHeight={130}
                     />
                 </MotionBox>
 
@@ -107,12 +108,25 @@ const ExtraPathPrizesSection: React.FC = () => {
                     <PathPrize
                         backgroundSrc="/prizes/path_prizes/prize9.svg"
                         topText="BEST USE OF"
-                        topSecondRow="CAPITAL ONE NESSIE (HACKATHON API)"
+                        topSecondRow={
+                            <>
+                                CAPITAL ONE NESSIE{" "}
+                                <span
+                                    style={{
+                                        fontWeight: 400,
+                                        fontSize: "0.7em"
+                                    }}
+                                >
+                                    (HACKATHON API)
+                                </span>
+                            </>
+                        }
                         bottomText="$300 gift card for each member"
                         radius={130}
                         height={540}
                         centerOffsetY={10}
                         centerOffsetX={0}
+                        titleMinHeight={130}
                     />
                 </MotionBox>
 
@@ -128,6 +142,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                         height={540}
                         centerOffsetY={10}
                         centerOffsetX={0}
+                        titleMinHeight={120}
                         bottomBottomText={
                             <ul style={{ margin: 0 }}>
                                 <li>
@@ -160,6 +175,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                         height={540}
                         centerOffsetY={10}
                         centerOffsetX={0}
+                        titleMinHeight={120}
                     />
                 </MotionBox>
 
@@ -178,6 +194,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                         centerOffsetX={0}
                         showHelpIcon
                         helpTooltip="At least half of the members are first time hackers."
+                        titleMinHeight={75}
                     />
                 </MotionBox>
 
@@ -194,6 +211,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                         height={540}
                         centerOffsetY={12}
                         centerOffsetX={0}
+                        titleMinHeight={75}
                     />
                 </MotionBox>
 
@@ -246,6 +264,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                         height={540}
                         centerOffsetY={10}
                         centerOffsetX={0}
+                        titleMinHeight={75}
                     />
                 </MotionBox>
 
@@ -262,6 +281,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                         height={540}
                         centerOffsetY={-2}
                         centerOffsetX={9}
+                        titleMinHeight={75}
                         showHelpIcon
                         helpTooltip="Celebrates projects that are delightfully impractical — but still well-designed and fully functional. We're not looking for broken demos or unfinished apps, but thoughtfully built projects that explore fun, novel, or whimsical ideas rather than serious real-world problems."
                     />
