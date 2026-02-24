@@ -453,7 +453,17 @@ const Schedule = () => {
                     zIndex: 12,
                     px: { xs: 2, sm: 0 },
                     "&::-webkit-scrollbar": { display: "none" },
-                    scrollbarWidth: "none"
+                    scrollbarWidth: "none",
+
+                    // Right-edge fade to hint at horizontal scroll
+                    maskImage: {
+                        xs: "linear-gradient(to right, black 80%, transparent 100%)",
+                        sm: "none"
+                    },
+                    WebkitMaskImage: {
+                        xs: "linear-gradient(to right, black 80%, transparent 100%)",
+                        sm: "none"
+                    }
                 }}
             >
                 {availableDays.map((date, index) => {
@@ -798,10 +808,10 @@ const Schedule = () => {
                         onClick={() => setFilterOpen(false)}
                         sx={{
                             position: "fixed",
-                            top: "-100vh",
-                            left: "-100vw",
-                            width: "300vw",
-                            height: "300vh",
+                            top: 0,
+                            left: 0,
+                            width: "100vw",
+                            height: "100vh",
                             zIndex: 9998,
                             backgroundColor: "rgba(0,0,0,0.2)",
                             cursor: "default",
@@ -813,14 +823,14 @@ const Schedule = () => {
 
                     <Box
                         sx={{
-                            position: "absolute",
+                            position: "fixed",
                             zIndex: 10000,
-                            top: { xs: "200px", md: "50%" },
+                            top: "50%",
                             left: "50%",
-                            width: { xs: "80%", md: "60%" },
-                            maxWidth: "90%",
+                            width: { xs: "90%", md: "500px" },
+                            maxWidth: "90vw",
+                            maxHeight: "80dvh",
                             minWidth: "280px",
-                            // maxHeight: { xs: "70dvh", md: "70dvh" },
                             display: "flex",
                             flexDirection: "column",
                             overflow: "hidden",
