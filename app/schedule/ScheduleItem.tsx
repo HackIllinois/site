@@ -3,6 +3,8 @@ import { EventType } from "@/util/types";
 import moment from "moment-timezone";
 import { EVENT_TIMEZONE } from "@/util/config";
 import { Box, Link, Typography } from "@mui/material";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 import { Tag, TagsList } from "@/app/schedule/Tags";
 
@@ -86,6 +88,12 @@ export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
 
             {/* Time */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <AccessTimeIcon
+                    sx={{
+                        color: "#EDDBFF",
+                        fontSize: { xs: 16, sm: 18, md: 20 }
+                    }}
+                />
                 <Typography
                     sx={{
                         fontFamily: "Montserrat, sans-serif",
@@ -103,6 +111,12 @@ export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
             {/* Locations */}
             {event.locations && event.locations.length > 0 && (
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    <LocationOnIcon
+                        sx={{
+                            color: "#EDDBFF",
+                            fontSize: { xs: 16, sm: 18, md: 20 }
+                        }}
+                    />
                     <Typography
                         sx={{
                             fontFamily: "Montserrat, sans-serif",
@@ -130,7 +144,7 @@ export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                                             rel="noopener noreferrer"
                                             sx={{
                                                 color: "#FDAB60",
-                                                textDecoration: "underline",
+                                                textDecoration: "none",
                                                 "&:hover": { color: "#A315D6" }
                                             }}
                                         >

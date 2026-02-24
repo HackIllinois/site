@@ -379,7 +379,7 @@ const Schedule = () => {
             sx={{
                 width: "100%",
                 height: { xs: "unset", md: "auto" },
-                minHeight: { md: "100dvh" },
+                minHeight: "100dvh",
                 position: "relative",
                 overflow: "hidden",
                 backgroundImage: 'url("/schedule/background.svg")',
@@ -392,7 +392,10 @@ const Schedule = () => {
                 justifyContent: { xs: "center", md: "flex-start" },
                 px: { xs: "1px", md: "80px" },
                 pt: {
-                    xs: "calc(60px + env(safe-area-inset-top))",
+                    xs:
+                        events.length > 0
+                            ? "calc(60px + env(safe-area-inset-top))"
+                            : "150px",
                     md: "150px",
                     lg: "180px"
                 },
@@ -440,14 +443,17 @@ const Schedule = () => {
                 sx={{
                     display: "flex",
                     flexDirection: { xs: "row", md: "column" },
-                    justifyContent: "space-around",
+                    justifyContent: { xs: "flex-start", sm: "space-around" },
                     flexShrink: 0,
                     alignSelf: { xs: "center", md: "flex-start" },
                     gap: { xs: "10px", sm: "30px", xl: "60px" },
-                    width: "auto",
-                    overflowX: "visible",
-                    overflowY: "visible",
-                    zIndex: 12
+                    width: { xs: "100%", sm: "auto" },
+                    overflowX: { xs: "auto", md: "visible" },
+                    overflowY: "hidden",
+                    zIndex: 12,
+                    px: { xs: 2, sm: 0 },
+                    "&::-webkit-scrollbar": { display: "none" },
+                    scrollbarWidth: "none"
                 }}
             >
                 {availableDays.map((date, index) => {
@@ -491,9 +497,8 @@ const Schedule = () => {
                             }}
                             style={{
                                 width: "fit-content",
-                                cursor: !isBetweenXsAndMd
-                                    ? "pointer"
-                                    : "default"
+                                flexShrink: 0,
+                                cursor: "pointer"
                             }}
                         >
                             <DateSelector
@@ -534,7 +539,7 @@ const Schedule = () => {
                         alignItems: "stretch",
                         transform:
                             !isBetweenXsAndMd && !isShortScreen
-                                ? "rotate(1.67deg)"
+                                ? "rotate(0.5deg)"
                                 : "none"
                     }}
                 >
@@ -637,7 +642,8 @@ const Schedule = () => {
                         <Box
                             sx={{
                                 display: "flex",
-                                justifyContent: "flex-start"
+                                justifyContent: "flex-start",
+                                pl: { xs: 1, md: 2 }
                             }}
                         >
                             <Button
@@ -772,7 +778,8 @@ const Schedule = () => {
                                     display: "flex",
                                     flexDirection: "column",
                                     gap: 3,
-                                    width: "100%"
+                                    width: "100%",
+                                    pb: { xs: 2, md: 6 }
                                 }}
                             >
                                 {displayedEvents.map((event, index) => (
@@ -786,62 +793,61 @@ const Schedule = () => {
                     </Box>
 
                     {/* Filter popup */}
-                    {filterOpen && (
-                        <>
-                            {/* Backdrop */}
-                            <Box
-                                onClick={() => setFilterOpen(false)}
-                                sx={{
-                                    position: "fixed",
-                                    top: "-100vh",
-                                    left: "-100vw",
-                                    width: "300vw",
-                                    height: "300vh",
-                                    zIndex: 9998,
-                                    backgroundColor: "rgba(0,0,0,0.2)",
-                                    cursor: "default",
-                                    transform: "rotate(-1.67deg)"
-                                }}
-                            />
+                    {/* Backdrop */}
+                    <Box
+                        onClick={() => setFilterOpen(false)}
+                        sx={{
+                            position: "fixed",
+                            top: "-100vh",
+                            left: "-100vw",
+                            width: "300vw",
+                            height: "300vh",
+                            zIndex: 9998,
+                            backgroundColor: "rgba(0,0,0,0.2)",
+                            cursor: "default",
+                            opacity: filterOpen ? 1 : 0,
+                            pointerEvents: filterOpen ? "auto" : "none",
+                            transition: "opacity 0.2s ease-in-out"
+                        }}
+                    />
 
-                            <Box
-                                sx={{
-                                    position: "absolute",
-                                    zIndex: 10000,
-                                    top: { xs: "200px", md: "50%" },
-                                    left: "50%",
-                                    width: { xs: "80%", md: "60%" },
-                                    maxWidth: "90%",
-                                    minWidth: "280px",
-                                    maxHeight: { xs: "70dvh", md: "70dvh" },
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    overflow: "hidden",
-                                    transform: {
-                                        xs: "translate(-50%, -50%)",
-                                        md: "translate(-50%, -50%) rotate(-1.67deg)"
-                                    },
-                                    "& > *": {
-                                        overflowY: "auto"
-                                    }
-                                }}
-                            >
-                                <FilterPopup
-                                    tags={allTags}
-                                    selectedTagIds={selectedTagIds}
-                                    selectedTime={timeFilter}
-                                    onClose={() => setFilterOpen(false)}
-                                    onUpdate={(
-                                        updatedIds,
-                                        updatedTimeFilter
-                                    ) => {
-                                        setSelectedTagIds(new Set(updatedIds));
-                                        setTimeFilter({ ...updatedTimeFilter });
-                                    }}
-                                />
-                            </Box>
-                        </>
-                    )}
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            zIndex: 10000,
+                            top: { xs: "200px", md: "50%" },
+                            left: "50%",
+                            width: { xs: "80%", md: "60%" },
+                            maxWidth: "90%",
+                            minWidth: "280px",
+                            // maxHeight: { xs: "70dvh", md: "70dvh" },
+                            display: "flex",
+                            flexDirection: "column",
+                            overflow: "hidden",
+                            transform: {
+                                xs: "translate(-50%, -50%)",
+                                md: "translate(-50%, -50%) rotate(-0.5deg)"
+                            },
+                            "& > *": {
+                                overflowY: "auto"
+                            },
+                            opacity: filterOpen ? 1 : 0,
+                            pointerEvents: filterOpen ? "auto" : "none",
+                            transition: "opacity 0.2s ease-in-out"
+                        }}
+                    >
+                        <FilterPopup
+                            tags={allTags}
+                            selectedTagIds={selectedTagIds}
+                            selectedTime={timeFilter}
+                            isOpen={filterOpen}
+                            onClose={() => setFilterOpen(false)}
+                            onUpdate={(updatedIds, updatedTimeFilter) => {
+                                setSelectedTagIds(new Set(updatedIds));
+                                setTimeFilter({ ...updatedTimeFilter });
+                            }}
+                        />
+                    </Box>
                 </Box>
             </Box>
         </Box>
