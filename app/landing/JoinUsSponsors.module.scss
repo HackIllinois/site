@@ -515,6 +515,11 @@
         gap: 10px;
         padding: 8px;
     }
+
+    @media (max-width: 300px) {
+        gap: 6px;
+        padding: 4px;
+    }
 }
 
 .bottomSponsorsRow {
@@ -583,14 +588,16 @@
         }
     }
 
-    // @media (max-width: 400px) {
-    //     height: 60px;
-    //     max-width: 72px;
+    @media (max-width: 300px) {
+        height: 55px;
+        img {
+            padding: 14px !important;
+        }
 
-    //     &.squareBox {
-    //         padding: 5px !important;
-    //     }
-    // }
+        &.squareBox img {
+            padding: 8px !important;
+        }
+    }
 
     &.invertWhite {
         filter: brightness(0) invert(1);

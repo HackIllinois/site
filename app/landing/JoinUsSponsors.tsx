@@ -269,6 +269,7 @@ const JoinUsSponsors = () => {
 
     const smViewport = useMediaQuery("(max-width:710px)");
     const xsViewport = useMediaQuery("(max-width:449px)");
+    const xxsViewport = useMediaQuery("(max-width:300px)");
 
     const bottomRowCount = useMemo(() => {
         console.log("smViewport", smViewport);
@@ -538,7 +539,7 @@ const JoinUsSponsors = () => {
                             style={{
                                 display: "flex",
                                 flexDirection: "column",
-                                gap: "24px"
+                                gap: xxsViewport ? "10px" : "24px"
                             }}
                         >
                             {Array.from({
@@ -553,7 +554,7 @@ const JoinUsSponsors = () => {
                                         display: "flex",
                                         justifyContent: "center",
                                         alignItems: "center",
-                                        gap: "24px",
+                                        gap: xxsViewport ? "10px" : "24px",
                                         flexWrap: "wrap"
                                     }}
                                 >
