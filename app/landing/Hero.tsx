@@ -214,30 +214,17 @@ const Hero = () => {
                             </Typography>
                         </Box>
                     ) : (
-                        <Box sx={{ textAlign: "center" }}>
-                            {!isRegistrationOpen && (
-                                <Typography
-                                    sx={{
-                                        fontSize: { xs: "14px", md: "16px" },
-                                        fontFamily: "Montserrat",
-                                        color: "white",
-                                        my: 1,
-                                        opacity: 0.9
-                                    }}
-                                >
-                                    Registration is now closed.
-                                </Typography>
-                            )}
+                        <Box sx={{ textAlign: "center", mt: 4 }}>
                             <GradientButton
                                 text={
                                     isRegistrationOpen
                                         ? "REGISTER NOW"
-                                        : "MORE INFO"
+                                        : "ATTENDEE GUIDE"
                                 }
                                 link={
                                     isRegistrationOpen
                                         ? "/register/general"
-                                        : "/registration-closed"
+                                        : "/faq"
                                 }
                             />
                         </Box>
