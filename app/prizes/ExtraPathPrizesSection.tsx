@@ -171,6 +171,33 @@ const ExtraPathPrizesSection: React.FC = () => {
                         titleMinHeight={120}
                     />
                 </MotionBox>
+
+                {/* Aedify prize */}
+                <MotionBox
+                    variants={itemVariants}
+                    sx={{ mt: { xs: "0px", sm: "0px" } }}
+                >
+                    <PathPrize
+                        backgroundSrc="/prizes/path_prizes/prize15.svg"
+                        topText="BEST DEPLOYED ON AEDIFY"
+                        radius={130}
+                        height={540}
+                        centerOffsetY={10}
+                        centerOffsetX={0}
+                        titleMinHeight={120}
+                        bottomBottomText={
+                            <ul>
+                                <li>
+                                    <b>$300</b> in platform credits per member
+                                </li>
+                                <li>
+                                    <b>5 months free of OpenClaw</b> ($100
+                                    value) per member
+                                </li>
+                            </ul>
+                        }
+                    />
+                </MotionBox>
             </MotionBox>
 
             {/* ── EXTRA HACK PRIZES ── */}
