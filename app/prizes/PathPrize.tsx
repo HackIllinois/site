@@ -29,6 +29,7 @@ type PathPrizeProps = {
     topSecondRow?: string | React.ReactNode;
     bottomBottomTextOffset?: number;
     titleMinHeight?: number;
+    bottomTextFontSize?: Record<string, string>;
 };
 
 const PathPrize: React.FC<PathPrizeProps> = ({
@@ -49,7 +50,8 @@ const PathPrize: React.FC<PathPrizeProps> = ({
     bottomBottomTextSize = 16,
     topSecondRow,
     bottomBottomTextOffset,
-    titleMinHeight
+    titleMinHeight,
+    bottomTextFontSize
 }) => {
     const [hovered, setHovered] = useState(false);
 
@@ -232,7 +234,7 @@ const PathPrize: React.FC<PathPrizeProps> = ({
                         textAlign: "center",
                         fontWeight: 700,
                         color: "white",
-                        fontSize: {
+                        fontSize: bottomTextFontSize ?? {
                             xs: "18px",
                             sm: "16px",
                             md: "22px",

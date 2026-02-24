@@ -56,6 +56,13 @@ const PathPrizesSection: React.FC = () => {
                             mid: "#FDAB60",
                             to: "#A315D6"
                         }}
+                        bottomTextFontSize={{
+                            xs: "25px",
+                            sm: "21px",
+                            md: "30px",
+                            lg: "32px",
+                            xl: "32px"
+                        }}
                     />
                 </MotionBox>
 
@@ -69,6 +76,13 @@ const PathPrizesSection: React.FC = () => {
                         bottomText="$2500"
                         radius={110}
                         height={550}
+                        bottomTextFontSize={{
+                            xs: "25px",
+                            sm: "21px",
+                            md: "30px",
+                            lg: "32px",
+                            xl: "32px"
+                        }}
                     />
                 </MotionBox>
             </MotionBox>
