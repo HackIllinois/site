@@ -9,38 +9,35 @@ import { bob, containerVariants, itemVariants } from "./animations";
 
 const MotionBox = motion.create(Box);
 
+const gridSx = {
+    display: "grid",
+    gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+    gap: { xs: "60px", sm: "100px" },
+    width: "90vw",
+    maxWidth: "1200px",
+    mx: "auto",
+    mt: "60px",
+    justifyItems: "center",
+    "& > *": {
+        animation: `${bob} 1.8s ease-in-out infinite`,
+        willChange: "transform"
+    },
+    "& > *:nth-of-type(1)": { animationDelay: "0s" },
+    "& > *:nth-of-type(2)": { animationDelay: "0.15s" },
+    "& > *:nth-of-type(3)": { animationDelay: "0.30s" },
+    "& > *:nth-of-type(4)": { animationDelay: "0.45s" },
+    "& > *:nth-of-type(5)": { animationDelay: "0.60s" },
+    "& > *:nth-of-type(6)": { animationDelay: "0.75s" }
+};
+
 const ExtraPathPrizesSection: React.FC = () => {
     return (
         <>
-            <SectionHeader title="EXTRA PATH PRIZES" pt="120px" />
+            {/* ── COMPANY PRIZES ── */}
+            <SectionHeader title="COMPANY PRIZES" pt="120px" />
 
             <MotionBox
-                sx={{
-                    display: "grid",
-                    gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
-                    gap: { xs: "60px", sm: "100px" },
-                    width: "90vw",
-                    maxWidth: "1200px",
-                    mx: "auto",
-                    mt: "60px",
-                    justifyItems: "center",
-                    "& > *": {
-                        animation: `${bob} 1.8s ease-in-out infinite`,
-                        willChange: "transform"
-                    },
-                    "& > *:nth-of-type(1)": { animationDelay: "0s" },
-                    "& > *:nth-of-type(2)": { animationDelay: "0.15s" },
-                    "& > *:nth-of-type(3)": { animationDelay: "0.30s" },
-                    "& > *:nth-of-type(4)": { animationDelay: "0.45s" },
-                    "& > *:nth-of-type(5)": { animationDelay: "0.60s" },
-                    "& > *:nth-of-type(6)": { animationDelay: "0.75s" },
-                    "& > *:nth-of-type(7)": { animationDelay: "0.90s" },
-                    "& > *:nth-of-type(8)": { animationDelay: "1.05s" },
-                    "& > *:nth-of-type(9)": { animationDelay: "1.20s" },
-                    "& > *:nth-of-type(10)": { animationDelay: "1.35s" },
-                    "& > *:nth-of-type(11)": { animationDelay: "1.5s" },
-                    "& > *:nth-of-type(12)": { animationDelay: "1.65s" }
-                }}
+                sx={gridSx}
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -174,8 +171,22 @@ const ExtraPathPrizesSection: React.FC = () => {
                         titleMinHeight={120}
                     />
                 </MotionBox>
+            </MotionBox>
 
-                {/* HackIllinois prize */}
+            {/* ── EXTRA HACK PRIZES ── */}
+            <SectionHeader
+                title="EXTRA HACK PRIZES"
+                pt="120px"
+                subtitles={["Awarded to each member of the winning team."]}
+            />
+
+            <MotionBox
+                sx={gridSx}
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+            >
+                {/* Best Beginner Hack */}
                 <MotionBox
                     variants={itemVariants}
                     sx={{ mt: { xs: "0px", sm: "0px" } }}
@@ -194,7 +205,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                     />
                 </MotionBox>
 
-                {/* HackIllinois prize */}
+                {/* Best UI/UX Design */}
                 <MotionBox
                     variants={itemVariants}
                     sx={{ mt: { xs: "0px", sm: "0px" } }}
@@ -211,7 +222,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                     />
                 </MotionBox>
 
-                {/* HackIllinois prize */}
+                {/* Best Social Impact */}
                 <MotionBox
                     variants={itemVariants}
                     sx={{ mt: { xs: "0px", sm: "0px" } }}
@@ -229,7 +240,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                     />
                 </MotionBox>
 
-                {/* HackIllinois prize */}
+                {/* Most Popular */}
                 <MotionBox
                     variants={itemVariants}
                     sx={{ mt: { xs: "0px", sm: "10px" } }}
@@ -247,7 +258,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                     />
                 </MotionBox>
 
-                {/* HackIllinois prize */}
+                {/* Most Creative */}
                 <MotionBox
                     variants={itemVariants}
                     sx={{ mt: { xs: "0px", sm: "0px" } }}
@@ -264,7 +275,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                     />
                 </MotionBox>
 
-                {/* HackIllinois prize */}
+                {/* Most Useless */}
                 <MotionBox
                     variants={itemVariants}
                     sx={{ mt: { xs: "0px", sm: "0px" } }}
