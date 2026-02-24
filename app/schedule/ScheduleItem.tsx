@@ -2,7 +2,9 @@
 import { EventType } from "@/util/types";
 import moment from "moment-timezone";
 import { EVENT_TIMEZONE } from "@/util/config";
-import { Box, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 import { Tag, TagsList } from "@/app/schedule/Tags";
 
@@ -28,6 +30,14 @@ function getEventTags(event: EventType): Tag[] {
     return tags;
 }
 
+const LOCATION_LINKS: Record<string, string> = {
+    "Siebel Center for Computer Science":
+        "https://maps.app.goo.gl/hcCozcrtpUJPK6X66",
+    "Sidney Lu Mechanical Engineering Building":
+        "https://maps.app.goo.gl/EXAfjtuG95Kggvbs7",
+    "Siebel Center for Design": "https://maps.app.goo.gl/MxsiqKW77PQctJBK7"
+};
+
 type ScheduleItemProps = {
     event: EventType;
 };
@@ -35,16 +45,12 @@ type ScheduleItemProps = {
 export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
     const eventTags = getEventTags(event);
 
-    const locations = event.locations
-        .map(location => location.description)
-        .join(", ");
-
     return (
         <Box
             sx={{
                 backgroundColor: "#2B1350",
                 borderRadius: "20px",
-                p: { xs: 2, sm: 3, md: 4 },
+                p: { xs: 2, sm: 3 },
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-start",
@@ -82,6 +88,12 @@ export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
 
             {/* Time */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <AccessTimeIcon
+                    sx={{
+                        color: "#EDDBFF",
+                        fontSize: { xs: 16, sm: 18, md: 20 }
+                    }}
+                />
                 <Typography
                     sx={{
                         fontFamily: "Montserrat, sans-serif",
@@ -97,8 +109,14 @@ export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
             </Box>
 
             {/* Locations */}
-            {locations.length > 0 && (
+            {event.locations && event.locations.length > 0 && (
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    <LocationOnIcon
+                        sx={{
+                            color: "#EDDBFF",
+                            fontSize: { xs: 16, sm: 18, md: 20 }
+                        }}
+                    />
                     <Typography
                         sx={{
                             fontFamily: "Montserrat, sans-serif",
@@ -107,7 +125,45 @@ export const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                             color: "#EDDBFF"
                         }}
                     >
-                        {locations}
+                        {event.locations.map((loc, index) => {
+                            const fullDesc = loc.description;
+
+                            const buildingKey = Object.keys(
+                                LOCATION_LINKS
+                            ).find(key => fullDesc.includes(key));
+
+                            if (buildingKey) {
+                                const url = LOCATION_LINKS[buildingKey];
+                                const parts = fullDesc.split(buildingKey);
+
+                                return (
+                                    <span key={`${fullDesc}-${index}`}>
+                                        <Link
+                                            href={url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            sx={{
+                                                color: "#FDAB60",
+                                                textDecoration: "none",
+                                                "&:hover": { color: "#A315D6" }
+                                            }}
+                                        >
+                                            {buildingKey}
+                                        </Link>
+                                        {parts[1]}
+                                        {index < event.locations.length - 1 &&
+                                            ", "}
+                                    </span>
+                                );
+                            }
+
+                            return (
+                                <span key={`${fullDesc}-${index}`}>
+                                    {fullDesc}
+                                    {index < event.locations.length - 1 && ", "}
+                                </span>
+                            );
+                        })}
                     </Typography>
                 </Box>
             )}

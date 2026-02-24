@@ -21,6 +21,7 @@ interface FilterPopupProps {
     tags: Tag[];
     selectedTagIds: Set<string>;
     selectedTime: { from?: moment.Moment; to?: moment.Moment };
+    isOpen: boolean;
     onClose: () => void;
     onUpdate: (
         newSelected: Set<string>,
@@ -166,7 +167,7 @@ const TimeFilterBox: React.FC<TimeFilterBoxProps> = ({
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                width: "170px",
+                // width: { xs: "140px", sm: "170px" },
                 gap: 1
             }}
         >
@@ -292,6 +293,7 @@ const TimeFilterBox: React.FC<TimeFilterBoxProps> = ({
                             vertical: "top",
                             horizontal: "center"
                         }}
+                        sx={{ zIndex: 10001 }}
                     >
                         {["AM", "PM"].map(option => (
                             <MenuItem
@@ -322,10 +324,20 @@ const FilterPopup: React.FC<FilterPopupProps> = ({
     tags,
     selectedTagIds,
     selectedTime,
+    isOpen,
     onClose,
     onUpdate
 }) => {
     const [timeError, setTimeError] = useState<string | null>(null);
+    const [allSelectedOnOpen, setAllSelectedOnOpen] = useState(false);
+    const [hasToggledOnce, setHasToggledOnce] = useState(false);
+
+    useEffect(() => {
+        if (isOpen) {
+            setAllSelectedOnOpen(selectedTagIds.size === tags.length);
+            setHasToggledOnce(false);
+        }
+    }, [isOpen]);
 
     useEffect(() => {
         const { from, to } = selectedTime;
@@ -346,6 +358,14 @@ const FilterPopup: React.FC<FilterPopupProps> = ({
     }, [selectedTime]);
 
     const handleToggleTag = (tagId: string) => {
+        // If all tags were selected when the modal opened and this is the
+        // first toggle, select only the clicked tag instead of deselecting it.
+        if (allSelectedOnOpen && !hasToggledOnce) {
+            setHasToggledOnce(true);
+            onUpdate(new Set([tagId]), selectedTime);
+            return;
+        }
+
         const next = new Set(selectedTagIds);
         if (next.has(tagId)) next.delete(tagId);
         else next.add(tagId);
@@ -387,10 +407,53 @@ const FilterPopup: React.FC<FilterPopupProps> = ({
                 sx={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: 0,
+                    gap: 1,
                     alignItems: "flex-start"
                 }}
             >
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 1,
+                        width: "100%",
+                        justifyContent: "space-between"
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            color: "#454545",
+                            fontFamily: "'Tsukimi Rounded', sans-serif",
+                            fontWeight: "bold",
+                            fontSize: 15
+                        }}
+                    >
+                        Filter by tag
+                    </Typography>
+                    <Button
+                        disabled={selectedTagIds.size === tags.length}
+                        onClick={() => {
+                            onUpdate(
+                                new Set(tags.map(t => t.id)),
+                                selectedTime
+                            );
+                            setHasToggledOnce(true);
+                        }}
+                        sx={{
+                            color: "#1976d2",
+                            fontFamily: "'Tsukimi Rounded', sans-serif",
+                            fontSize: 12,
+                            textTransform: "none",
+                            minWidth: 0,
+                            px: 1,
+                            "&.Mui-disabled": {
+                                color: "#BDBDBD"
+                            }
+                        }}
+                    >
+                        Select all
+                    </Button>
+                </Box>
                 <TagsToggleList
                     tags={tags}
                     selectedTagIds={[...selectedTagIds]}

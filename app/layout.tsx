@@ -5,11 +5,15 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
+import { usePathname } from "next/navigation";
 import theme from "../theme";
 import { montserrat, tsukimi } from "../theme/fonts";
 import "./globals.scss";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+    const pathname = usePathname();
+    const hideFooter = pathname === "/schedule";
+
     return (
         <html lang="en">
             <head>
@@ -17,6 +21,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <meta
                     name="description"
                     content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
+                />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, viewport-fit=cover"
                 />
 
                 {/* OpenGraph */}
@@ -56,7 +64,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <ThemeProvider theme={theme}>
                         <Navbar />
                         {children}
-                        <Footer />
+                        {!hideFooter && <Footer />}
                         <EventCountdownPill
                             targetDateTime="2026-02-27T18:00:00-06:00"
                             label="Countdown to HackIllinois 2026"
