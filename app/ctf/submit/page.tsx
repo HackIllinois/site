@@ -533,7 +533,7 @@ export default function CTFSubmit() {
                                     fontWeight: 600
                                 }}
                             >
-                                hackctf{"{flag-name-here}"}
+                                hackctf{"{flag#-flagcontent}"}
                             </Typography>
                             <Typography
                                 sx={{
@@ -543,7 +543,8 @@ export default function CTFSubmit() {
                                     textAlign: "center"
                                 }}
                             >
-                                You can submit flags in any order!
+                                Submit flags in the exact format. You can submit
+                                in any order!
                             </Typography>
                         </Box>
                     </motion.div>

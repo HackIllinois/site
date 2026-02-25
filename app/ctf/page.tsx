@@ -197,8 +197,8 @@ export default function CTF() {
             reveal: () => {
                 console.log("hackctf{flag5-c41170pr1n7}");
             },
-            password: (password: number) => {
-                if (password === 64) {
+            password: (key: number) => {
+                if (key === 64) {
                     console.log("aGFja2N0ZntmbGFnNi1kM2MwZDNtM30=");
                 } else {
                     console.log(
@@ -217,11 +217,11 @@ export default function CTF() {
         };
 
         (window as any).$HINT_2$ = {
-            hint: "You might need to REVEAL-ME by checking out the CSS"
+            hint: "I might be NOT-DISPLAYED until you check the CSS"
         };
 
         (window as any).$HINT_3$ = {
-            hint: "Check your comms, you received a message! You might need to FIND-ME in the DOM"
+            hint: "Check your comms, you received a message! I wonder where you can FIND-ME in the DOM"
         };
 
         (window as any).$HINT_4$ = {
@@ -229,11 +229,11 @@ export default function CTF() {
         };
 
         (window as any).$HINT_5$ = {
-            hint: "f is for function!"
+            hint: "There's a lot to this secret. Hint: f is for function"
         };
 
         (window as any).$HINT_6$ = {
-            hint: "Your browser knows how to decode me"
+            hint: "The password is encoded in magic!"
         };
 
         (window as any).$HINT_7$ = {
@@ -871,7 +871,7 @@ export default function CTF() {
                                 }}
                             >
                                 <Box
-                                    data-ctf-flag="flag3"
+                                    ctf-flag="flag3"
                                     sx={{
                                         opacity: 0,
                                         fontFamily: "Montserrat",
@@ -1000,8 +1000,8 @@ export default function CTF() {
                     </motion.div>
 
                     <Box
-                        id="REVEAL-ME"
-                        data-ctf-flag="flag2"
+                        id="NOT-DISPLAYED"
+                        ctf-flag="flag2"
                         sx={{
                             background: "rgba(163, 21, 214, 0.2)",
                             border: "2px solid #A315D6",
@@ -1010,21 +1010,16 @@ export default function CTF() {
                             maxWidth: "400px",
                             mx: "auto",
                             display: "none",
-                            alignItems: "center",
-                            gap: 2
-                        }}
-                    >
-                        <Typography
-                            sx={{
+                            "&::after": {
+                                content: '"hackctf{flag2-1nv151b13}"',
                                 color: "#FDAB60",
                                 fontFamily: "Montserrat",
                                 fontSize: "16px",
                                 fontWeight: 700,
-                                whiteSpace: "nowrap"
-                            }}
-                        >
-                            You found a flag: hackctf{"{flag2-1nv151b13}"}
-                        </Typography>
+                                display: "block"
+                            }
+                        }}
+                    >
                         <Button
                             onClick={() =>
                                 navigator.clipboard.writeText(
@@ -1040,6 +1035,7 @@ export default function CTF() {
                                 textTransform: "none",
                                 px: 3,
                                 py: 1,
+                                mb: 1,
                                 fontSize: "14px",
                                 color: "white",
                                 flexShrink: 0,
@@ -1053,7 +1049,7 @@ export default function CTF() {
                         </Button>
                     </Box>
 
-                    <Box data-ctf-flag="flag1" sx={{ display: "none" }}>
+                    <Box ctf-flag="flag1" sx={{ display: "none" }}>
                         {"YOUR FIRST FLAG HERE: hackctf{flag1-p141n51gh7}"}
                     </Box>
                 </motion.div>
