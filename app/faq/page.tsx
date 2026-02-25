@@ -121,10 +121,10 @@ const FAQ = () => {
                             }}
                         >
                             <iframe
-                                src="https://docs.google.com/document/d/e/2PACX-1vTuOSNOiGwSrG4Wg9m9xbjsSh10gzwR06LMtX1dudlo7rerEts0ICyUz8dmoWSwsJPE2sX-ChSupe3n/pub?embedded=true"
+                                src="https://hackillinois.org/attendee_guide.pdf"
                                 style={{
                                     width: "100%",
-                                    height: "400%",
+                                    height: "300%",
                                     minWidth: "100%",
                                     border: "none",
                                     display: "block"
