@@ -7,15 +7,15 @@ import Link from "next/link";
 import styles from "./submit.module.scss";
 
 const CORRECT_FLAGS = [
-    "flag{flag-1}",
-    "flag{flag-2}",
-    "flag{flag-3}",
-    "flag{flag-4}",
-    "flag{flag-5}",
-    "flag{flag-6}",
-    "flag{flag-7}",
-    "flag{flag-8}",
-    "flag{flag-9}"
+    "hackctf{flag1-p141n51gh7}",
+    "hackctf{flag2-1nv151b13}",
+    "hackctf{flag3-53cr37m3554g3}",
+    "hackctf{flag4-c0n501353cr37}",
+    "hackctf{flag5-c41170pr1n7}",
+    "hackctf{flag6-d3c0d3m3}",
+    "hackctf{flag7-m1n14p1}",
+    "hackctf{flag8-4p1m4573r}",
+    "hackctf{flag9-c0ngr475y0ub3477h3c7f}"
 ];
 
 const FLAG_POINTS = [
@@ -226,8 +226,11 @@ export default function CTFSubmit() {
         const savedFlags = localStorage.getItem("ctf_flags");
         if (savedFlags) {
             const parsedFlags = JSON.parse(savedFlags);
-            setFlagInputs(parsedFlags);
-            validateFlags(parsedFlags);
+            const allFlags = Array(9)
+                .fill("")
+                .map((_, i) => parsedFlags[i] || "");
+            setFlagInputs(allFlags);
+            validateFlags(allFlags);
         }
 
         const generatedStars = Array.from({ length: 100 }).map((_, i) => ({
@@ -242,11 +245,14 @@ export default function CTFSubmit() {
     }, []);
 
     const validateFlags = (flags: string[]) => {
-        const newStatus = flags.map((flag, index) => {
-            if (!flag) return null;
-            const isCorrect = flag.trim() === CORRECT_FLAGS[index];
-            return isCorrect;
-        });
+        const newStatus = Array(9)
+            .fill(null)
+            .map((_, index) => {
+                const flag = flags[index];
+                if (!flag) return null;
+                const isCorrect = flag.trim() === CORRECT_FLAGS[index];
+                return isCorrect;
+            });
         setFlagStatus(newStatus);
     };
 
