@@ -9,7 +9,7 @@ const FAQ = () => {
         <Box
             sx={{
                 width: "100%",
-                height: "100vh",
+                minHeight: "100vh",
                 bgcolor: "#020316",
                 position: "relative"
             }}
@@ -17,9 +17,8 @@ const FAQ = () => {
             <Box
                 sx={{
                     width: "100%",
-                    height: "100%",
+                    minHeight: "100vh",
                     position: "relative",
-                    overflow: "hidden",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -54,8 +53,7 @@ const FAQ = () => {
                         position: "relative",
                         zIndex: 1,
                         display: "flex",
-                        flexDirection: "column",
-                        flex: 1
+                        flexDirection: "column"
                     }}
                 >
                     <motion.div variants={itemVariants}>
@@ -91,14 +89,14 @@ const FAQ = () => {
                         style={{
                             display: "flex",
                             justifyContent: "center",
-                            flex: 1,
                             width: "100%"
                         }}
                     >
                         <Box
                             sx={{
                                 width: "100%",
-                                flex: 1,
+                                maxWidth: "950px",
+                                height: "80vh",
                                 borderRadius: "12px",
                                 overflow: "auto",
                                 overflowY: "scroll",
@@ -126,7 +124,7 @@ const FAQ = () => {
                                 src="https://docs.google.com/document/d/e/2PACX-1vTuOSNOiGwSrG4Wg9m9xbjsSh10gzwR06LMtX1dudlo7rerEts0ICyUz8dmoWSwsJPE2sX-ChSupe3n/pub?embedded=true"
                                 style={{
                                     width: "100%",
-                                    height: "300%",
+                                    height: "400%",
                                     minWidth: "100%",
                                     border: "none",
                                     display: "block"
