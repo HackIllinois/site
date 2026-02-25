@@ -12,8 +12,32 @@ const CORRECT_FLAGS = [
     "flag{flag-3}",
     "flag{flag-4}",
     "flag{flag-5}",
-    "flag{flag-6}"
+    "flag{flag-6}",
+    "flag{flag-7}",
+    "flag{flag-8}",
+    "flag{flag-9}"
 ];
+
+const FLAG_POINTS = [
+    { range: "1-3", points: 2, color: "#4CAF50" },
+    { range: "4-6", points: 6, color: "#2196F3" },
+    { range: "7-8", points: 10, color: "#FF9800" },
+    { range: "9", points: 16, color: "#E91E63" }
+];
+
+const getFlagPoints = (index: number): number => {
+    if (index < 3) return 2;
+    if (index < 6) return 6;
+    if (index < 8) return 10;
+    return 16;
+};
+
+const getFlagColor = (index: number): string => {
+    if (index < 3) return "#4CAF50";
+    if (index < 6) return "#2196F3";
+    if (index < 8) return "#FF9800";
+    return "#E91E63";
+};
 
 const TwinklingStar = ({
     size,
@@ -164,8 +188,21 @@ const itemVariants: Variants = {
 };
 
 export default function CTFSubmit() {
-    const [flagInputs, setFlagInputs] = useState(["", "", "", "", "", ""]);
+    const [flagInputs, setFlagInputs] = useState([
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ]);
     const [flagStatus, setFlagStatus] = useState<(boolean | null)[]>([
+        null,
+        null,
+        null,
         null,
         null,
         null,
@@ -445,7 +482,7 @@ export default function CTFSubmit() {
                                 fontSize: { xs: "16px", md: "18px" },
                                 color: "rgba(255, 255, 255, 0.85)",
                                 textAlign: "center",
-                                mb: 4,
+                                mb: 2,
                                 maxWidth: "600px",
                                 mx: "auto"
                             }}
@@ -453,6 +490,137 @@ export default function CTFSubmit() {
                             Enter the flags you&apos;ve discovered. Your
                             progress will be automatically saved. Good luck!
                         </Typography>
+                    </motion.div>
+
+                    <motion.div variants={itemVariants}>
+                        <Box
+                            sx={{
+                                background: "rgba(255, 255, 255, 0.06)",
+                                backdropFilter: "blur(10px)",
+                                border: "1px solid rgba(255, 255, 255, 0.12)",
+                                borderRadius: "16px",
+                                p: { xs: 2.5, md: 3 },
+                                maxWidth: "550px",
+                                mx: "auto",
+                                mb: 3
+                            }}
+                        >
+                            <Typography
+                                sx={{
+                                    fontFamily: "Tsukimi Rounded",
+                                    fontSize: { xs: "16px", md: "18px" },
+                                    fontWeight: 600,
+                                    color: "#FDAB60",
+                                    mb: 1.5,
+                                    textAlign: "center"
+                                }}
+                            >
+                                Flag Format
+                            </Typography>
+                            <Typography
+                                sx={{
+                                    fontFamily: "monospace",
+                                    fontSize: { xs: "14px", md: "16px" },
+                                    color: "#A315D6",
+                                    textAlign: "center",
+                                    mb: 1.5,
+                                    fontWeight: 600
+                                }}
+                            >
+                                hackctf{"{flag-name-here}"}
+                            </Typography>
+                            <Typography
+                                sx={{
+                                    fontFamily: "Montserrat",
+                                    fontSize: { xs: "13px", md: "14px" },
+                                    color: "rgba(255, 255, 255, 0.7)",
+                                    textAlign: "center"
+                                }}
+                            >
+                                You can submit flags in any order!
+                            </Typography>
+                        </Box>
+                    </motion.div>
+
+                    <motion.div variants={itemVariants}>
+                        <Box
+                            sx={{
+                                background: "rgba(255, 255, 255, 0.06)",
+                                backdropFilter: "blur(10px)",
+                                border: "1px solid rgba(255, 255, 255, 0.12)",
+                                borderRadius: "16px",
+                                p: { xs: 2.5, md: 3 },
+                                maxWidth: "550px",
+                                mx: "auto",
+                                mb: 4
+                            }}
+                        >
+                            <Typography
+                                sx={{
+                                    fontFamily: "Tsukimi Rounded",
+                                    fontSize: { xs: "16px", md: "18px" },
+                                    fontWeight: 600,
+                                    color: "#FDAB60",
+                                    mb: 2,
+                                    textAlign: "center"
+                                }}
+                            >
+                                Point Distribution
+                            </Typography>
+                            <Box
+                                sx={{
+                                    display: "grid",
+                                    gridTemplateColumns: {
+                                        xs: "1fr 1fr",
+                                        sm: "repeat(4, 1fr)"
+                                    },
+                                    gap: 2
+                                }}
+                            >
+                                {FLAG_POINTS.map((item, index) => (
+                                    <Box
+                                        key={index}
+                                        sx={{
+                                            background: "rgba(0, 0, 0, 0.3)",
+                                            borderRadius: "12px",
+                                            p: 2,
+                                            textAlign: "center",
+                                            border: `1px solid ${item.color}40`,
+                                            transition: "all 0.3s ease",
+                                            "&:hover": {
+                                                borderColor: item.color,
+                                                boxShadow: `0 0 20px ${item.color}30`
+                                            }
+                                        }}
+                                    >
+                                        <Typography
+                                            sx={{
+                                                fontFamily: "Montserrat",
+                                                fontSize: "12px",
+                                                color: "rgba(255, 255, 255, 0.6)",
+                                                mb: 0.5
+                                            }}
+                                        >
+                                            Flag
+                                            {item.range.includes("-")
+                                                ? "s"
+                                                : ""}{" "}
+                                            {item.range}
+                                        </Typography>
+                                        <Typography
+                                            sx={{
+                                                fontFamily: "Tsukimi Rounded",
+                                                fontSize: "22px",
+                                                fontWeight: 700,
+                                                color: item.color
+                                            }}
+                                        >
+                                            {item.points}pts
+                                        </Typography>
+                                    </Box>
+                                ))}
+                            </Box>
+                        </Box>
                     </motion.div>
 
                     {showSuccess && (
@@ -513,7 +681,8 @@ export default function CTFSubmit() {
                                 display: "grid",
                                 gridTemplateColumns: {
                                     xs: "1fr",
-                                    md: "1fr 1fr"
+                                    sm: "1fr 1fr",
+                                    lg: "1fr 1fr 1fr"
                                 },
                                 gap: 3,
                                 mt: 4,
@@ -545,27 +714,49 @@ export default function CTFSubmit() {
                                                       : "1px solid rgba(255, 255, 255, 0.15)"
                                         }}
                                     >
-                                        <Typography
+                                        <Box
                                             sx={{
-                                                fontFamily: "Montserrat",
-                                                fontSize: "14px",
-                                                fontWeight: 600,
-                                                color:
-                                                    flagStatus[index] === true
-                                                        ? "#4CAF50"
-                                                        : flagStatus[index] ===
-                                                            false
-                                                          ? "#F44336"
-                                                          : "rgba(255, 255, 255, 0.7)",
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                alignItems: "center",
                                                 mb: 1.5
                                             }}
                                         >
-                                            FLAG {index + 1}
-                                            {flagStatus[index] === true &&
-                                                " (correct)"}
-                                            {flagStatus[index] === false &&
-                                                " (incorrect)"}
-                                        </Typography>
+                                            <Typography
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "14px",
+                                                    fontWeight: 600,
+                                                    color:
+                                                        flagStatus[index] ===
+                                                        true
+                                                            ? "#4CAF50"
+                                                            : flagStatus[
+                                                                    index
+                                                                ] === false
+                                                              ? "#F44336"
+                                                              : "rgba(255, 255, 255, 0.7)"
+                                                }}
+                                            >
+                                                FLAG {index + 1}
+                                                {flagStatus[index] === true &&
+                                                    " (correct)"}
+                                                {flagStatus[index] === false &&
+                                                    " (incorrect)"}
+                                            </Typography>
+                                            <Typography
+                                                sx={{
+                                                    fontFamily:
+                                                        "Tsukimi Rounded",
+                                                    fontSize: "14px",
+                                                    fontWeight: 700,
+                                                    color: getFlagColor(index),
+                                                    opacity: 0.9
+                                                }}
+                                            >
+                                                {getFlagPoints(index)}pts
+                                            </Typography>
+                                        </Box>
                                         <TextField
                                             fullWidth
                                             value={flag}
