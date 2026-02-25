@@ -759,7 +759,9 @@ export default function CTF() {
                             >
                                 Find all 9 hidden flags scattered throughout
                                 this page. To get started, right-click anywhere
-                                on the page and select <b>Inspect</b>.
+                                on the page and select <b>Inspect</b>. Keep an
+                                eye on the <b>Elements, Console,</b> and{" "}
+                                <b>Network</b> tabs.
                             </Typography>
                             <Accordion
                                 disableGutters
@@ -845,7 +847,7 @@ export default function CTF() {
                                     textAlign: "center"
                                 }}
                             >
-                                YOU HAVE 1 MESSAGE
+                                YOU HAVE 1 MESSAGE:
                             </Box>
                             <Box
                                 id="FIND-ME"
@@ -876,10 +878,7 @@ export default function CTF() {
                                 <Box
                                     sx={{
                                         display: "flex",
-                                        flexDirection: {
-                                            xs: "column",
-                                            md: "row"
-                                        },
+                                        flexDirection: "row",
                                         gap: 3,
                                         mt: 3,
                                         justifyContent: "center",
