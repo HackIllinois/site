@@ -474,6 +474,33 @@ function CodeOfConductContent({ setTab }: { setTab: (tab: number) => void }) {
                     mt: 3
                 }}
             >
+                Photo and Media Consent
+            </Typography>
+            <Typography
+                sx={{
+                    fontFamily: "Montserrat, sans-serif",
+                    mb: 3,
+                    lineHeight: 1.7
+                }}
+            >
+                By attending HackIllinois, you consent to being photographed,
+                filmed, or otherwise recorded by HackIllinois staff or
+                designated media personnel. These photos, videos, and recordings
+                may be used by HackIllinois for promotional purposes, including
+                but not limited to social media, websites, and future event
+                marketing materials.
+            </Typography>
+
+            <Typography
+                variant="h5"
+                component="h2"
+                sx={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 700,
+                    mb: 1.5,
+                    mt: 3
+                }}
+            >
                 Taxes
             </Typography>
             <Typography
