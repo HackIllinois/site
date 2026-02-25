@@ -11,7 +11,8 @@ import {
     EventType
 } from "./types";
 
-const APIv2 = "https://adonix.hackillinois.org";
+const APIv2 =
+    process.env.VITE_BASE_API_URL ?? "https://adonix.hackillinois.org";
 
 export const isAuthenticated = async (): Promise<boolean> => {
     return (await getAuthToken()) !== null;
