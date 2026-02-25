@@ -9,7 +9,7 @@ const FAQ = () => {
         <Box
             sx={{
                 width: "100%",
-                minHeight: "100vh",
+                height: "100vh",
                 bgcolor: "#020316",
                 position: "relative"
             }}
@@ -17,14 +17,14 @@ const FAQ = () => {
             <Box
                 sx={{
                     width: "100%",
-                    minHeight: "100vh",
+                    height: "100%",
                     position: "relative",
                     overflow: "hidden",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    pt: "100px",
-                    pb: "80px",
+                    pt: { xs: "80px", md: "90px" },
+                    pb: { xs: "20px", md: "30px" },
                     px: { xs: 2, md: 4 }
                 }}
             >
@@ -52,7 +52,10 @@ const FAQ = () => {
                         width: "100%",
                         maxWidth: "1200px",
                         position: "relative",
-                        zIndex: 1
+                        zIndex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        flex: 1
                     }}
                 >
                     <motion.div variants={itemVariants}>
@@ -77,7 +80,7 @@ const FAQ = () => {
                                 fontFamily: "Montserrat",
                                 color: "rgba(255, 255, 255, 0.7)",
                                 textAlign: "center",
-                                mb: 3
+                                mb: 2
                             }}
                         >
                             Things to know about HackIllinois 2026
@@ -85,13 +88,18 @@ const FAQ = () => {
                     </motion.div>
                     <motion.div
                         variants={itemVariants}
-                        style={{ display: "flex", justifyContent: "center" }}
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            flex: 1,
+                            width: "100%"
+                        }}
                     >
                         <Box
                             sx={{
                                 width: "100%",
-                                maxWidth: "850px",
-                                height: "85vh",
+                                maxWidth: "900px",
+                                flex: 1,
                                 borderRadius: "12px",
                                 overflow: "auto",
                                 overflowY: "scroll",
