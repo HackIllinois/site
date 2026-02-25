@@ -50,7 +50,7 @@ const FAQ = () => {
                     animate="visible"
                     style={{
                         width: "100%",
-                        maxWidth: "1200px",
+                        maxWidth: "1400px",
                         position: "relative",
                         zIndex: 1,
                         display: "flex",
@@ -98,7 +98,6 @@ const FAQ = () => {
                         <Box
                             sx={{
                                 width: "100%",
-                                maxWidth: "1000px",
                                 flex: 1,
                                 borderRadius: "12px",
                                 overflow: "auto",
