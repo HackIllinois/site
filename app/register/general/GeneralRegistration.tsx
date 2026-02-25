@@ -48,7 +48,7 @@ export const GeneralRegistration = () => {
     const [showClickOffAlert, setShowClickOffAlert] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [isSaving, setIsSaving] = useState(false);
-    const saveTimeoutRef = useRef<NodeJS.Timeout>(null); // stores ten-second-delay
+    const saveTimeoutRef = useRef<NodeJS.Timeout>(null); // stores ten-second-delay autosave
     const [isLoadingComponent, setIsLoadingComponent] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const registrationAuth = useRegistrationAuth({
