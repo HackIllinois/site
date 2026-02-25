@@ -682,6 +682,18 @@ export default function CTFSubmit() {
                         variants={itemVariants}
                         style={{ width: "100%" }}
                     >
+                        <Typography
+                            sx={{
+                                fontFamily: "Tsukimi Rounded",
+                                fontSize: { xs: "20px", md: "24px" },
+                                fontWeight: 700,
+                                color: "#4CAF50",
+                                mb: 2,
+                                mt: 4
+                            }}
+                        >
+                            Level 1
+                        </Typography>
                         <Box
                             sx={{
                                 display: "grid",
@@ -691,11 +703,10 @@ export default function CTFSubmit() {
                                     lg: "1fr 1fr 1fr"
                                 },
                                 gap: 3,
-                                mt: 4,
-                                mb: 6
+                                mb: 4
                             }}
                         >
-                            {flagInputs.map((flag, index) => (
+                            {flagInputs.slice(0, 3).map((flag, index) => (
                                 <motion.div
                                     key={index}
                                     variants={itemVariants}
@@ -827,6 +838,354 @@ export default function CTFSubmit() {
                                     </Box>
                                 </motion.div>
                             ))}
+                        </Box>
+
+                        <Typography
+                            sx={{
+                                fontFamily: "Tsukimi Rounded",
+                                fontSize: { xs: "20px", md: "24px" },
+                                fontWeight: 700,
+                                color: "#2196F3",
+                                mb: 2
+                            }}
+                        >
+                            Level 2
+                        </Typography>
+                        <Box
+                            sx={{
+                                display: "grid",
+                                gridTemplateColumns: {
+                                    xs: "1fr",
+                                    sm: "1fr 1fr",
+                                    lg: "1fr 1fr 1fr"
+                                },
+                                gap: 3,
+                                mb: 4
+                            }}
+                        >
+                            {flagInputs.slice(3, 6).map((flag, idx) => {
+                                const index = idx + 3;
+                                return (
+                                    <motion.div
+                                        key={index}
+                                        variants={itemVariants}
+                                        whileHover={{ scale: 1.02 }}
+                                    >
+                                        <Box
+                                            className={styles.flagCard}
+                                            sx={{
+                                                background:
+                                                    flagStatus[index] === true
+                                                        ? "rgba(76, 175, 80, 0.15)"
+                                                        : flagStatus[index] ===
+                                                            false
+                                                          ? "rgba(244, 67, 54, 0.1)"
+                                                          : "rgba(255, 255, 255, 0.08)",
+                                                border:
+                                                    flagStatus[index] === true
+                                                        ? "2px solid #4CAF50"
+                                                        : flagStatus[index] ===
+                                                            false
+                                                          ? "2px solid #F44336"
+                                                          : "1px solid rgba(255, 255, 255, 0.15)"
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    justifyContent:
+                                                        "space-between",
+                                                    alignItems: "center",
+                                                    mb: 1.5
+                                                }}
+                                            >
+                                                <Typography
+                                                    sx={{
+                                                        fontFamily:
+                                                            "Montserrat",
+                                                        fontSize: "14px",
+                                                        fontWeight: 600,
+                                                        color:
+                                                            flagStatus[
+                                                                index
+                                                            ] === true
+                                                                ? "#4CAF50"
+                                                                : flagStatus[
+                                                                        index
+                                                                    ] === false
+                                                                  ? "#F44336"
+                                                                  : "rgba(255, 255, 255, 0.7)"
+                                                    }}
+                                                >
+                                                    FLAG {index + 1}
+                                                    {flagStatus[index] ===
+                                                        true && " (correct)"}
+                                                    {flagStatus[index] ===
+                                                        false && " (incorrect)"}
+                                                </Typography>
+                                                <Typography
+                                                    sx={{
+                                                        fontFamily:
+                                                            "Tsukimi Rounded",
+                                                        fontSize: "14px",
+                                                        fontWeight: 700,
+                                                        color: getFlagColor(
+                                                            index
+                                                        ),
+                                                        opacity: 0.9
+                                                    }}
+                                                >
+                                                    {getFlagPoints(index)}pts
+                                                </Typography>
+                                            </Box>
+                                            <TextField
+                                                fullWidth
+                                                value={flag}
+                                                onChange={e =>
+                                                    handleFlagChange(
+                                                        index,
+                                                        e.target.value
+                                                    )
+                                                }
+                                                placeholder="Enter flag..."
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    "& .MuiOutlinedInput-root":
+                                                        {
+                                                            fontFamily:
+                                                                "Montserrat",
+                                                            color: "white",
+                                                            backgroundColor:
+                                                                "rgba(0, 0, 0, 0.3)",
+                                                            borderRadius: "8px",
+                                                            "& fieldset": {
+                                                                borderColor:
+                                                                    flagStatus[
+                                                                        index
+                                                                    ] === true
+                                                                        ? "#4CAF50"
+                                                                        : flagStatus[
+                                                                                index
+                                                                            ] ===
+                                                                            false
+                                                                          ? "#F44336"
+                                                                          : "rgba(255, 255, 255, 0.3)"
+                                                            },
+                                                            "&:hover fieldset":
+                                                                {
+                                                                    borderColor:
+                                                                        flagStatus[
+                                                                            index
+                                                                        ] ===
+                                                                        true
+                                                                            ? "#4CAF50"
+                                                                            : flagStatus[
+                                                                                    index
+                                                                                ] ===
+                                                                                false
+                                                                              ? "#F44336"
+                                                                              : "rgba(163, 21, 214, 0.5)"
+                                                                },
+                                                            "&.Mui-focused fieldset":
+                                                                {
+                                                                    borderColor:
+                                                                        flagStatus[
+                                                                            index
+                                                                        ] ===
+                                                                        true
+                                                                            ? "#4CAF50"
+                                                                            : flagStatus[
+                                                                                    index
+                                                                                ] ===
+                                                                                false
+                                                                              ? "#F44336"
+                                                                              : "#A315D6"
+                                                                }
+                                                        },
+                                                    "& .MuiInputBase-input": {
+                                                        color: "white",
+                                                        fontFamily: "Montserrat"
+                                                    }
+                                                }}
+                                            />
+                                        </Box>
+                                    </motion.div>
+                                );
+                            })}
+                        </Box>
+
+                        <Typography
+                            sx={{
+                                fontFamily: "Tsukimi Rounded",
+                                fontSize: { xs: "20px", md: "24px" },
+                                fontWeight: 700,
+                                color: "#FF9800",
+                                mb: 2
+                            }}
+                        >
+                            Level 3
+                        </Typography>
+                        <Box
+                            sx={{
+                                display: "grid",
+                                gridTemplateColumns: {
+                                    xs: "1fr",
+                                    sm: "1fr 1fr",
+                                    lg: "1fr 1fr 1fr"
+                                },
+                                gap: 3,
+                                mb: 6
+                            }}
+                        >
+                            {flagInputs.slice(6, 9).map((flag, idx) => {
+                                const index = idx + 6;
+                                return (
+                                    <motion.div
+                                        key={index}
+                                        variants={itemVariants}
+                                        whileHover={{ scale: 1.02 }}
+                                    >
+                                        <Box
+                                            className={styles.flagCard}
+                                            sx={{
+                                                background:
+                                                    flagStatus[index] === true
+                                                        ? "rgba(76, 175, 80, 0.15)"
+                                                        : flagStatus[index] ===
+                                                            false
+                                                          ? "rgba(244, 67, 54, 0.1)"
+                                                          : "rgba(255, 255, 255, 0.08)",
+                                                border:
+                                                    flagStatus[index] === true
+                                                        ? "2px solid #4CAF50"
+                                                        : flagStatus[index] ===
+                                                            false
+                                                          ? "2px solid #F44336"
+                                                          : "1px solid rgba(255, 255, 255, 0.15)"
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    justifyContent:
+                                                        "space-between",
+                                                    alignItems: "center",
+                                                    mb: 1.5
+                                                }}
+                                            >
+                                                <Typography
+                                                    sx={{
+                                                        fontFamily:
+                                                            "Montserrat",
+                                                        fontSize: "14px",
+                                                        fontWeight: 600,
+                                                        color:
+                                                            flagStatus[
+                                                                index
+                                                            ] === true
+                                                                ? "#4CAF50"
+                                                                : flagStatus[
+                                                                        index
+                                                                    ] === false
+                                                                  ? "#F44336"
+                                                                  : "rgba(255, 255, 255, 0.7)"
+                                                    }}
+                                                >
+                                                    FLAG {index + 1}
+                                                    {flagStatus[index] ===
+                                                        true && " (correct)"}
+                                                    {flagStatus[index] ===
+                                                        false && " (incorrect)"}
+                                                </Typography>
+                                                <Typography
+                                                    sx={{
+                                                        fontFamily:
+                                                            "Tsukimi Rounded",
+                                                        fontSize: "14px",
+                                                        fontWeight: 700,
+                                                        color: getFlagColor(
+                                                            index
+                                                        ),
+                                                        opacity: 0.9
+                                                    }}
+                                                >
+                                                    {getFlagPoints(index)}pts
+                                                </Typography>
+                                            </Box>
+                                            <TextField
+                                                fullWidth
+                                                value={flag}
+                                                onChange={e =>
+                                                    handleFlagChange(
+                                                        index,
+                                                        e.target.value
+                                                    )
+                                                }
+                                                placeholder="Enter flag..."
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    "& .MuiOutlinedInput-root":
+                                                        {
+                                                            fontFamily:
+                                                                "Montserrat",
+                                                            color: "white",
+                                                            backgroundColor:
+                                                                "rgba(0, 0, 0, 0.3)",
+                                                            borderRadius: "8px",
+                                                            "& fieldset": {
+                                                                borderColor:
+                                                                    flagStatus[
+                                                                        index
+                                                                    ] === true
+                                                                        ? "#4CAF50"
+                                                                        : flagStatus[
+                                                                                index
+                                                                            ] ===
+                                                                            false
+                                                                          ? "#F44336"
+                                                                          : "rgba(255, 255, 255, 0.3)"
+                                                            },
+                                                            "&:hover fieldset":
+                                                                {
+                                                                    borderColor:
+                                                                        flagStatus[
+                                                                            index
+                                                                        ] ===
+                                                                        true
+                                                                            ? "#4CAF50"
+                                                                            : flagStatus[
+                                                                                    index
+                                                                                ] ===
+                                                                                false
+                                                                              ? "#F44336"
+                                                                              : "rgba(163, 21, 214, 0.5)"
+                                                                },
+                                                            "&.Mui-focused fieldset":
+                                                                {
+                                                                    borderColor:
+                                                                        flagStatus[
+                                                                            index
+                                                                        ] ===
+                                                                        true
+                                                                            ? "#4CAF50"
+                                                                            : flagStatus[
+                                                                                    index
+                                                                                ] ===
+                                                                                false
+                                                                              ? "#F44336"
+                                                                              : "#A315D6"
+                                                                }
+                                                        },
+                                                    "& .MuiInputBase-input": {
+                                                        color: "white",
+                                                        fontFamily: "Montserrat"
+                                                    }
+                                                }}
+                                            />
+                                        </Box>
+                                    </motion.div>
+                                );
+                            })}
                         </Box>
                     </motion.div>
 

@@ -698,7 +698,7 @@ export default function CTF() {
                                 color: "rgba(255, 255, 255, 0.9)",
                                 maxWidth: "700px",
                                 mx: "auto",
-                                mb: 4,
+                                mb: 2,
                                 lineHeight: 1.8
                             }}
                         >
@@ -708,6 +708,16 @@ export default function CTF() {
                             all flags. Every flag you find brings you closer to
                             victory!
                         </Typography>
+                    </motion.div>
+
+                    <motion.div variants={itemVariants}>
+                        <Box sx={{ mb: 4 }}>
+                            <GradientButton
+                                text="Go to flag submission page"
+                                link="/ctf/submit"
+                                target="_blank"
+                            />
+                        </Box>
                     </motion.div>
 
                     <motion.div
@@ -1000,27 +1010,48 @@ export default function CTF() {
                             maxWidth: "400px",
                             mx: "auto",
                             display: "none",
-                            "&::after": {
-                                content:
-                                    '"You found a flag: hackctf{flag2-1nv151b13}"',
+                            alignItems: "center",
+                            gap: 2
+                        }}
+                    >
+                        <Typography
+                            sx={{
                                 color: "#FDAB60",
                                 fontFamily: "Montserrat",
                                 fontSize: "16px",
                                 fontWeight: 700,
-                                display: "block"
+                                whiteSpace: "nowrap"
+                            }}
+                        >
+                            You found a flag: hackctf{"{flag2-1nv151b13}"}
+                        </Typography>
+                        <Button
+                            onClick={() =>
+                                navigator.clipboard.writeText(
+                                    "hackctf{flag2-1nv151b13}"
+                                )
                             }
-                        }}
-                    />
-
-                    <motion.div variants={itemVariants}>
-                        <Box sx={{ mt: 4, mb: 2 }}>
-                            <GradientButton
-                                text="Go to flag submission page"
-                                link="/ctf/submit"
-                                target="_blank"
-                            />
-                        </Box>
-                    </motion.div>
+                            sx={{
+                                background:
+                                    "linear-gradient(90deg, #A315D6, #FDAB60)",
+                                borderRadius: "50px",
+                                fontFamily: "Montserrat",
+                                fontWeight: 600,
+                                textTransform: "none",
+                                px: 3,
+                                py: 1,
+                                fontSize: "14px",
+                                color: "white",
+                                flexShrink: 0,
+                                "&:hover": {
+                                    boxShadow:
+                                        "0 0 20px rgba(163, 21, 214, 0.6)"
+                                }
+                            }}
+                        >
+                            Copy Flag
+                        </Button>
+                    </Box>
 
                     <Box data-ctf-flag="flag1" sx={{ display: "none" }}>
                         {"YOUR FIRST FLAG HERE: hackctf{flag1-p141n51gh7}"}
