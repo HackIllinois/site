@@ -98,7 +98,7 @@ const FAQ = () => {
                         <Box
                             sx={{
                                 width: "100%",
-                                maxWidth: "900px",
+                                maxWidth: "1000px",
                                 flex: 1,
                                 borderRadius: "12px",
                                 overflow: "auto",
