@@ -29,8 +29,7 @@ function getEventTags(event: EventType): Tag[] {
 }
 
 const LOCATION_LINKS: Record<string, string> = {
-    "Siebel Center for Computer Science":
-        "https://maps.app.goo.gl/hcCozcrtpUJPK6X66",
+    "Siebel CS": "https://maps.app.goo.gl/hcCozcrtpUJPK6X66",
     "Sidney Lu Mechanical Engineering Building":
         "https://maps.app.goo.gl/EXAfjtuG95Kggvbs7",
     "Siebel Center for Design": "https://maps.app.goo.gl/MxsiqKW77PQctJBK7"
