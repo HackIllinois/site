@@ -68,6 +68,13 @@
     @media (max-width: 500px) {
         top: 5%;
     }
+    @media (max-width: 449px) {
+        top: 3%;
+    }
+    @media (max-width: 350px) {
+        top: 8%;
+        padding: 0.5rem;
+    }
 }
 
 .joinUsHeading {
@@ -153,6 +160,13 @@
     @media (max-width: 600px) {
         top: 30%;
     }
+
+    @media (max-width: 449px) {
+        display: none;
+    }
+    @media (max-width: 318px) {
+        top: 35%;
+    }
 }
 
 /**
@@ -185,6 +199,10 @@
         top: 28%;
         width: 90%;
         height: 42%;
+    }
+
+    @media (max-width: 449px) {
+        display: none;
     }
 }
 
@@ -413,7 +431,7 @@
     }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 400px) {
     .alienWrapper.alien0 {
         top: 18%;
     }
@@ -454,7 +472,7 @@
     @media (max-width: 900px) {
         margin-bottom: 15vh;
     }
-    @media (max-width: 700px) {
+    @media (max-width: 720px) {
         margin-bottom: 0vh;
     }
 
@@ -463,12 +481,14 @@
         margin-bottom: 0vh;
     }
 
-    @media (max-width: 420px) {
+    @media (max-width: 449px) {
         width: 95%;
-        margin-bottom: 5vh;
+        margin-top: -35%;
+        margin-bottom: 1vh;
     }
     @media (max-width: 350px) {
         width: 95%;
+        // margin-top: -50%;
         margin-bottom: 0vh;
     }
 }
@@ -494,6 +514,11 @@
     @media (max-width: 400px) {
         gap: 10px;
         padding: 8px;
+    }
+
+    @media (max-width: 300px) {
+        gap: 6px;
+        padding: 4px;
     }
 }
 
@@ -563,14 +588,16 @@
         }
     }
 
-    // @media (max-width: 400px) {
-    //     height: 60px;
-    //     max-width: 72px;
+    @media (max-width: 300px) {
+        height: 55px;
+        img {
+            padding: 14px !important;
+        }
 
-    //     &.squareBox {
-    //         padding: 5px !important;
-    //     }
-    // }
+        &.squareBox img {
+            padding: 8px !important;
+        }
+    }
 
     &.invertWhite {
         filter: brightness(0) invert(1);

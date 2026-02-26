@@ -36,8 +36,6 @@ import {
 } from "@/util/api";
 import { schoolOptions } from "@/util/options";
 import { useRouter } from "next/navigation";
-import { FORCE_REGISTRATION_CLOSED } from "../constants";
-import PasswordAuthPage from "./PasswordAuthPage";
 import RegistrationStepper from "./components/RegistrationStepper";
 import { OTHER_SCHOOL_OPTION, steps } from "./constants/registration";
 import GithubAuthPage from "./formPages/GithubAuthPage";
@@ -54,7 +52,6 @@ export const GeneralRegistration = () => {
     const [isLoadingComponent, setIsLoadingComponent] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const registrationAuth = useRegistrationAuth({
-        isProtected: false,
         shouldLoadSubmission: false
     });
 
@@ -70,22 +67,22 @@ export const GeneralRegistration = () => {
 
     const RIGHT_ALIGNED_STEPS = [0, 3];
 
-    const [isPasswordAuthenticated, setIsPasswordAuthenticated] =
-        useState(false);
+    // const [isPasswordAuthenticated, setIsPasswordAuthenticated] =
+    //     useState(false);
 
-    useEffect(() => {
-        if (!FORCE_REGISTRATION_CLOSED) {
-            router.push("/");
-        }
+    // useEffect(() => {
+    //     // if (!FORCE_REGISTRATION_CLOSED) {
+    //     //     router.push("/");
+    //     // }
 
-        // Check localStorage for authentication
-        const authenticated = localStorage.getItem(
-            "lateRegistrationAuthenticated"
-        );
-        if (authenticated === "true") {
-            setIsPasswordAuthenticated(true);
-        }
-    }, [router]);
+    //     // Check localStorage for authentication
+    //     // const authenticated = localStorage.getItem(
+    //     //     "lateRegistrationAuthenticated"
+    //     // );
+    //     // if (authenticated === "true") {
+    //     //     setIsPasswordAuthenticated(true);
+    //     // }
+    // }, [router]);
 
     const renderStepContent = (step: number, formik: any) => {
         switch (step) {
@@ -432,22 +429,22 @@ export const GeneralRegistration = () => {
     }
 
     if (!registrationAuth.authenticated) {
-        return <GithubAuthPage mechathonMessage />;
+        return <GithubAuthPage />;
     }
 
-    if (!isPasswordAuthenticated) {
-        return (
-            <PasswordAuthPage
-                onAuthenticated={() => {
-                    localStorage.setItem(
-                        "lateRegistrationAuthenticated",
-                        "true"
-                    );
-                    setIsPasswordAuthenticated(true);
-                }}
-            />
-        );
-    }
+    // if (!isPasswordAuthenticated) {
+    //     return (
+    //         <PasswordAuthPage
+    //             onAuthenticated={() => {
+    //                 localStorage.setItem(
+    //                     "lateRegistrationAuthenticated",
+    //                     "true"
+    //                 );
+    //                 setIsPasswordAuthenticated(true);
+    //             }}
+    //         />
+    //     );
+    // }
 
     return (
         <main className={"screen"}>

@@ -33,7 +33,9 @@ export const DateSelector: React.FC<DateSelectorProps> = ({
                 alignItems: "center",
                 justifyContent: "center",
 
-                width: { xs: "15dvw", sm: "100px", md: "120px", xl: "160px" },
+                width: { xs: "80px", sm: "100px", md: "120px", xl: "160px" },
+                minWidth: "80px",
+                flexShrink: 0,
                 px: 3,
                 py: { xs: 8, md: 2 },
 

@@ -23,6 +23,7 @@
         "moment-timezone": "^0.6.0",
         "motion": "^12.23.22",
         "next": "^15.1.11",
+        "qrcode.react": "^4.2.0",
         "react": "^19.2.3",
         "react-confetti": "^6.4.0",
         "react-curved-text": "^3.0.1",

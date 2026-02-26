@@ -79,7 +79,7 @@ const GithubAuthPage = ({
                 </Typography>
 
                 {/* Priority and final deadline boxes */}
-                <Box
+                {/* <Box
                     sx={{
                         width: {
                             xs: "100%",
@@ -244,7 +244,7 @@ const GithubAuthPage = ({
                     ) : (
                         <></>
                     )}
-                </Box>
+                </Box> */}
 
                 <Box
                     sx={{

@@ -1,7 +1,7 @@
 "use client";
 import { getEvents } from "@/util/api";
 import { EventType } from "@/util/types";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import moment from "moment-timezone";
 import { EVENT_TIMEZONE } from "@/util/config";
 import {
@@ -106,8 +106,8 @@ const BlinkingAlien = () => {
             sx={{
                 position: "absolute",
                 top: 0,
-                left: "10%",
-                width: { xs: "23dvw", sm: "18dvw", md: "12dvw" },
+                left: { xs: "5%", md: "10%" },
+                width: { xs: "18dvw", md: "10dvw" },
                 zIndex: 10,
                 transform: "translate(-23%, -60%)",
                 pointerEvents: "none"
@@ -200,23 +200,48 @@ const Schedule = () => {
     const [loading, setLoading] = useState(false);
     const eventRef = useRef<HTMLDivElement>(null);
     const eventsBoxRef = useRef<HTMLDivElement>(null);
+    const dateSelectorContainerRef = useRef<HTMLDivElement>(null);
 
     const theme = useTheme();
     const isBetweenXsAndMd = useMediaQuery(
         theme.breakpoints.between("xs", "md")
     );
+    const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+    const isShortScreen = useMediaQuery("(max-height: 550px)");
 
-    const handleSelectDay = (day: string) => {
-        setSelectedDay(day);
+    const handleSelectDay = useCallback(
+        (day: string) => {
+            setSelectedDay(day);
 
-        const scrollContainer = eventRef.current || eventsBoxRef.current;
-        if (scrollContainer) {
-            scrollContainer.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        }
-    };
+            const scrollContainer = eventRef.current || eventsBoxRef.current;
+            if (scrollContainer) {
+                scrollContainer.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            }
+
+            // Auto-scroll the date selector to the clicked date on mobile
+            // Only when dates are in a horizontal row (xs–sm viewports)
+            const container = dateSelectorContainerRef.current;
+            if (container && isBetweenXsAndMd) {
+                const target = container.querySelector(
+                    `[data-date-id="${day}"]`
+                ) as HTMLElement | null;
+                if (target) {
+                    const scrollLeft =
+                        target.offsetLeft -
+                        container.offsetWidth / 2 +
+                        target.offsetWidth / 2;
+                    container.scrollTo({
+                        left: scrollLeft,
+                        behavior: "smooth"
+                    });
+                }
+            }
+        },
+        [isBetweenXsAndMd]
+    );
 
     const availableDays: DateOption[] = useMemo(() => {
         const seen = new Map<string, DateOption>();
@@ -318,7 +343,15 @@ const Schedule = () => {
             const newEvents = await getEvents();
 
             const eventsWithDay: EventsWithDay[] = newEvents
-                .filter(event => event.eventType !== "MEETING")
+                .filter(event => {
+                    if (event.eventType === "MEETING") {
+                        return false;
+                    }
+                    if (event.isPrivate) {
+                        return false;
+                    }
+                    return true;
+                })
                 .map(event => {
                     const startMoment = moment(event.startTime * 1000).tz(
                         EVENT_TIMEZONE
@@ -376,18 +409,28 @@ const Schedule = () => {
         <Box
             sx={{
                 width: "100%",
-                height: "100dvh",
+                height: { xs: "unset", md: "auto" },
+                minHeight: "100dvh",
                 position: "relative",
                 overflow: "hidden",
                 backgroundImage: 'url("/schedule/background.svg")',
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
-                backgroundPosition: "center",
+                backgroundPosition: "bottom",
                 display: "flex",
                 flexDirection: { xs: "column", md: "row" },
-                justifyContent: { xs: "center", md: "space-around" },
-                alignItems: { xs: "center", md: "auto" },
-                px: { xs: "10px", sm: "80px" },
+                alignItems: { xs: "center", md: "flex-start" },
+                justifyContent: { xs: "center", md: "space-between" },
+                px: { xs: "1px", md: "80px" },
+                pt: {
+                    xs:
+                        events.length > 0
+                            ? "calc(60px + env(safe-area-inset-top))"
+                            : "150px",
+                    md: "150px",
+                    lg: "180px"
+                },
+                pb: isBetweenXsAndMd || isShortScreen ? 2 : 0,
                 boxSizing: "border-box"
             }}
         >
@@ -397,47 +440,62 @@ const Schedule = () => {
             ))}
 
             {/* Pink planet */}
-            <Box
-                component={motion.img}
-                src="/schedule/pink_planet.svg"
-                animate={{
-                    y: [0, 10, 0]
-                }}
-                transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                }}
-                sx={{
-                    position: "absolute",
-                    bottom: { xs: "-4%", lg: "-7%" },
-                    left: { xs: 10, md: 50 },
-                    width: {
-                        xs: "20vw",
-                        sm: "15vw",
-                        md: "15vw"
-                    },
-                    zIndex: 11,
-                    pointerEvents: "none",
-                    objectFit: "contain",
-                    filter: "drop-shadow(0px 0px 8px rgba(238,130,205,1))"
-                }}
-            />
+            {!isBetweenXsAndMd && (
+                <Box
+                    component={motion.img}
+                    src="/schedule/pink_planet.svg"
+                    animate={{
+                        y: [0, 10, 0]
+                    }}
+                    transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                    sx={{
+                        position: "absolute",
+                        bottom: { xs: "-4%", lg: "-7%" },
+                        left: { xs: 10, md: 50 },
+                        width: {
+                            xs: "20vw",
+                            sm: "15vw",
+                            md: "15vw"
+                        },
+                        zIndex: 11,
+                        pointerEvents: "none",
+                        objectFit: "contain",
+                        filter: "drop-shadow(0px 0px 8px rgba(238,130,205,1))"
+                    }}
+                />
+            )}
 
             {/* DATE SELECTORS */}
             <Box
+                ref={dateSelectorContainerRef}
                 sx={{
                     display: "flex",
                     flexDirection: { xs: "row", md: "column" },
+                    justifyContent: { xs: "flex-start", sm: "space-around" },
                     flexShrink: 0,
-                    alignSelf: "center",
+                    alignSelf: { xs: "center", md: "flex-start" },
                     gap: { xs: "10px", sm: "30px", xl: "60px" },
-                    width: "auto",
-                    overflowX: "visible",
-                    overflowY: "visible",
-                    paddingTop: { xs: "175px", md: "120px" },
-                    mt: "-80px",
-                    zIndex: 12
+                    width: { xs: "100%", sm: "auto" },
+                    overflowX: { xs: "auto", md: "visible" },
+                    overflowY: { xs: "hidden", md: "visible" },
+                    zIndex: 12,
+                    px: { xs: 2, sm: 0 },
+                    "&::-webkit-scrollbar": { display: "none" },
+                    scrollbarWidth: "none",
+
+                    // Right-edge fade to hint at horizontal scroll
+                    maskImage: {
+                        xs: "linear-gradient(to right, black 80%, transparent 100%)",
+                        sm: "none"
+                    },
+                    WebkitMaskImage: {
+                        xs: "linear-gradient(to right, black 80%, transparent 100%)",
+                        sm: "none"
+                    }
                 }}
             >
                 {availableDays.map((date, index) => {
@@ -453,6 +511,7 @@ const Schedule = () => {
                     return (
                         <motion.div
                             key={date.id}
+                            data-date-id={date.id}
                             animate={
                                 !isBetweenXsAndMd
                                     ? {
@@ -481,9 +540,8 @@ const Schedule = () => {
                             }}
                             style={{
                                 width: "fit-content",
-                                cursor: !isBetweenXsAndMd
-                                    ? "pointer"
-                                    : "default"
+                                flexShrink: 0,
+                                cursor: "pointer"
                             }}
                         >
                             <DateSelector
@@ -504,58 +562,59 @@ const Schedule = () => {
                 sx={{
                     width: "100%",
                     maxWidth: "1440px",
+                    maxHeight: isMdUp && !isShortScreen ? "70dvh" : "none",
                     display: "flex",
                     justifyContent: { xs: "center", md: "flex-end" },
                     flexGrow: 1,
-                    alignSelf: { xs: "center", md: "flex-end" },
-                    mt: { xs: "60px", md: "0px" },
-                    pr: { md: "5vw", lg: "8vw" }
+                    alignSelf: { xs: "center", md: "auto" },
+                    pr: { xs: 0, md: "5vw", lg: "8vw", xl: "0vw" }
                 }}
             >
                 {/* NOTEPAD ANCHOR */}
                 <Box
                     sx={{
                         position: "relative",
-                        width: { xs: "100%", md: "90%" },
+                        width: { xs: "100%", md: "90dvw" },
+                        minHeight: "70dvh",
+                        bottom: 0,
                         display: "flex",
                         justifyContent: "center",
-                        transform: { sm: "rotate(1.67deg)" }
+                        alignItems: "stretch",
+                        transform:
+                            !isBetweenXsAndMd && !isShortScreen
+                                ? "rotate(0.5deg)"
+                                : "none"
                     }}
                 >
                     {/* Orange planet */}
-                    <Box
-                        component={motion.img}
-                        src="/schedule/orange_planet.svg"
-                        animate={{
-                            y: [0, 10, 0]
-                        }}
-                        transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: 0.5
-                        }}
-                        sx={{
-                            position: "absolute",
-                            right: -20,
-                            top: "-80px",
-                            transform: {
-                                xs: "translateX(20%)"
-                            },
-                            width: {
-                                xs: "15vw",
-                                sm: "15vw",
-                                md: "15vw"
-                            },
-                            minWidth: "120px",
-                            maxWidth: "220px",
-                            zIndex: 11,
-                            pointerEvents: "none",
-                            objectFit: "contain",
-                            objectPosition: "right",
-                            filter: "drop-shadow(0px 0px 8px rgba(255,165,89,1))"
-                        }}
-                    />
+                    {!isBetweenXsAndMd && (
+                        <Box
+                            component={motion.img}
+                            src="/schedule/orange_planet.svg"
+                            animate={{
+                                y: [0, 10, 0]
+                            }}
+                            transition={{
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: 0.5
+                            }}
+                            sx={{
+                                position: "absolute",
+                                right: -10,
+                                top: "-120px",
+                                width: "15vw",
+                                minWidth: "120px",
+                                maxWidth: "220px",
+                                zIndex: 11,
+                                pointerEvents: "none",
+                                objectFit: "contain",
+                                objectPosition: "right",
+                                filter: "drop-shadow(0px 0px 8px rgba(255,165,89,1))"
+                            }}
+                        />
+                    )}
 
                     {/* Alien image */}
                     <BlinkingAlien />
@@ -577,37 +636,47 @@ const Schedule = () => {
                     />
 
                     {/* Notepad background rectangle */}
-                    <Box
-                        sx={{
-                            position: "absolute",
-                            width: "80%",
-                            right: "10%",
-                            top: 0,
-                            height: { xs: "65dvh", md: "80dvh" },
-                            backgroundColor: "#6A4B8D",
-                            borderRadius: "10px",
-                            transform: "rotate(-5deg)",
-                            transformOrigin: "top right",
-                            zIndex: 1,
-                            pointerEvents: "none"
-                        }}
-                    />
+                    {!isBetweenXsAndMd && !isShortScreen && (
+                        <Box
+                            sx={{
+                                position: "absolute",
+                                top: 0,
+                                width: "80%",
+                                right: "10%",
+                                height: { md: "90dvh" },
+                                backgroundColor: "#6A4B8D",
+                                borderRadius: "10px",
+                                transform: "rotate(-5deg)",
+                                transformOrigin: "top right",
+                                zIndex: 1,
+                                pointerEvents: "none"
+                            }}
+                        />
+                    )}
 
                     {/* Filter button and Events list */}
                     <Box
                         ref={eventsBoxRef}
                         sx={{
-                            width: "80%",
-                            height: { xs: "70vh", md: "70vh" },
+                            width: { xs: "90%", md: "80%" },
                             position: "relative",
-                            overflowY: "auto",
+                            height:
+                                isMdUp && !isShortScreen
+                                    ? {
+                                          md: "calc(100dvh - 150px)",
+                                          lg: "calc(100dvh - 180px)",
+                                          xl: "calc(100dvh - 200px)"
+                                      }
+                                    : "auto",
+                            overflowY:
+                                isMdUp && !isShortScreen ? "auto" : "visible",
                             zIndex: 2,
                             background:
                                 "linear-gradient(180deg, #FCADF8 0%, #BA80D5 100%)",
                             borderRadius: "10px",
                             px: { xs: 1, lg: 2 },
-                            py: 4,
-                            mb: 2,
+                            pt: { xs: 2, md: 4 },
+                            pb: 4,
                             display: "flex",
                             flexDirection: "column"
                         }}
@@ -616,7 +685,8 @@ const Schedule = () => {
                         <Box
                             sx={{
                                 display: "flex",
-                                justifyContent: "flex-start"
+                                justifyContent: "flex-start",
+                                pl: { xs: 1, md: 2 }
                             }}
                         >
                             <Button
@@ -664,11 +734,18 @@ const Schedule = () => {
                             sx={{
                                 flex: 1,
                                 width: "100%",
-                                py: 5,
-                                px: 3,
-                                overflowY: "auto",
+                                py: { xs: 1, md: 2 },
+                                px: { xs: 2, md: 3 },
+                                overflowY:
+                                    isMdUp && !isShortScreen
+                                        ? "auto"
+                                        : "visible",
 
                                 "&::-webkit-scrollbar": { width: "6px" },
+                                "&::-webkit-scrollbar-track": {
+                                    backgroundColor: "rgba(0,0,0,0.15)",
+                                    borderRadius: "10px"
+                                },
                                 "&::-webkit-scrollbar-thumb": {
                                     backgroundColor: "rgba(0,0,0,0.3)",
                                     borderRadius: "10px",
@@ -678,13 +755,32 @@ const Schedule = () => {
                                 },
 
                                 WebkitMaskImage:
-                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
-                                WebkitMaskRepeat: "no-repeat",
-                                WebkitMaskSize: "100% 100%",
+                                    isMdUp && !isShortScreen
+                                        ? "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)"
+                                        : "none",
+
+                                WebkitMaskRepeat:
+                                    isMdUp && !isShortScreen
+                                        ? "no-repeat"
+                                        : "unset",
+                                WebkitMaskSize:
+                                    isMdUp && !isShortScreen
+                                        ? "100% 100%"
+                                        : "unset",
+
                                 maskImage:
-                                    "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
-                                maskRepeat: "no-repeat",
-                                maskSize: "100% 100%"
+                                    isMdUp && !isShortScreen
+                                        ? "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)"
+                                        : "none",
+
+                                maskRepeat:
+                                    isMdUp && !isShortScreen
+                                        ? "no-repeat"
+                                        : "unset",
+                                maskSize:
+                                    isMdUp && !isShortScreen
+                                        ? "100% 100%"
+                                        : "unset"
                             }}
                         >
                             {loading && (
@@ -725,7 +821,8 @@ const Schedule = () => {
                                     display: "flex",
                                     flexDirection: "column",
                                     gap: 3,
-                                    width: "100%"
+                                    width: "100%",
+                                    pb: { xs: 2, md: 6 }
                                 }}
                             >
                                 {displayedEvents.map((event, index) => (
@@ -739,62 +836,59 @@ const Schedule = () => {
                     </Box>
 
                     {/* Filter popup */}
-                    {filterOpen && (
-                        <>
-                            {/* Backdrop */}
-                            <Box
-                                onClick={() => setFilterOpen(false)}
-                                sx={{
-                                    position: "fixed",
-                                    top: "-100vh",
-                                    left: "-100vw",
-                                    width: "300vw",
-                                    height: "300vh",
-                                    zIndex: 9998,
-                                    backgroundColor: "rgba(0,0,0,0.1)",
-                                    cursor: "default",
-                                    transform: "rotate(-1.67deg)"
-                                }}
-                            />
+                    {/* Backdrop */}
+                    <Box
+                        onClick={() => setFilterOpen(false)}
+                        sx={{
+                            position: "fixed",
+                            top: 0,
+                            left: 0,
+                            width: "100vw",
+                            height: "100vh",
+                            zIndex: 9998,
+                            backgroundColor: "transparent",
+                            cursor: "default",
+                            opacity: filterOpen ? 1 : 0,
+                            pointerEvents: filterOpen ? "auto" : "none",
+                            transition: "opacity 0.2s ease-in-out"
+                        }}
+                    />
 
-                            <Box
-                                sx={{
-                                    position: "absolute",
-                                    zIndex: 10000,
-                                    top: "50%",
-                                    left: "50%",
-                                    width: "fit-content",
-                                    maxWidth: "90%",
-                                    minWidth: "280px",
-                                    maxHeight: { xs: "60dvh", md: "70dvh" },
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    overflow: "hidden",
-                                    transform: {
-                                        xs: "translate(-50%, -50%)",
-                                        sm: "translate(-50%, -50%) rotate(-1.67deg)"
-                                    },
-                                    "& > *": {
-                                        overflowY: "auto"
-                                    }
-                                }}
-                            >
-                                <FilterPopup
-                                    tags={allTags}
-                                    selectedTagIds={selectedTagIds}
-                                    selectedTime={timeFilter}
-                                    onClose={() => setFilterOpen(false)}
-                                    onUpdate={(
-                                        updatedIds,
-                                        updatedTimeFilter
-                                    ) => {
-                                        setSelectedTagIds(new Set(updatedIds));
-                                        setTimeFilter({ ...updatedTimeFilter });
-                                    }}
-                                />
-                            </Box>
-                        </>
-                    )}
+                    <Box
+                        sx={{
+                            position: "fixed",
+                            zIndex: 10000,
+                            top: "50%",
+                            left: "50%",
+                            width: { xs: "90%", md: "500px" },
+                            maxWidth: "90vw",
+                            maxHeight: "80dvh",
+                            display: "flex",
+                            flexDirection: "column",
+                            transform: {
+                                xs: "translate(-50%, -50%)",
+                                md: "translate(-50%, -50%) rotate(-0.5deg)"
+                            },
+                            "& > *": {
+                                overflowY: "auto"
+                            },
+                            opacity: filterOpen ? 1 : 0,
+                            pointerEvents: filterOpen ? "auto" : "none",
+                            transition: "opacity 0.2s ease-in-out"
+                        }}
+                    >
+                        <FilterPopup
+                            tags={allTags}
+                            selectedTagIds={selectedTagIds}
+                            selectedTime={timeFilter}
+                            isOpen={filterOpen}
+                            onClose={() => setFilterOpen(false)}
+                            onUpdate={(updatedIds, updatedTimeFilter) => {
+                                setSelectedTagIds(new Set(updatedIds));
+                                setTimeFilter({ ...updatedTimeFilter });
+                            }}
+                        />
+                    </Box>
                 </Box>
             </Box>
         </Box>

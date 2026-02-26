@@ -208,3 +208,10 @@ export async function getEvents(): Promise<EventType[]> {
     const res = await requestv2("GET", "/event").catch(handleError);
     return res.events as EventType[];
 }
+
+export async function loadQRCode(): Promise<{
+    userId: string;
+    qrInfo: string;
+}> {
+    return await requestv2("GET", "/user/qr/");
+}
