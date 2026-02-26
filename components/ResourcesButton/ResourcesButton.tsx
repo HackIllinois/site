@@ -86,7 +86,7 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
         >
             <Box
                 ref={wrapperRef}
-                sx={{ position: "relative" }}
+                sx={{ position: "relative", justifyContent: "center" }}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
@@ -102,7 +102,13 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
                     sx={{
                         cursor: "pointer",
                         display: "block",
-                        width: { xs: 140, sm: 170, md: 200, lg: 240, xl: 280 },
+                        width: {
+                            xs: "75dvw",
+                            sm: 240,
+                            md: 200,
+                            lg: 240,
+                            xl: 280
+                        },
                         transformOrigin: "center",
                         transition: "transform 0.2s ease",
                         "&:hover": { transform: "scale(1.08)" },
@@ -171,17 +177,6 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
         }
     };
 
-    const switchCategory = (newCategory: typeof activeCategory) => {
-        if (newCategory === activeCategory) return;
-
-        setIsVisible(false);
-
-        setTimeout(() => {
-            setActiveCategory(newCategory);
-            setIsVisible(true);
-        }, 200); // match popup transform duration
-    };
-
     const [isVisible, setIsVisible] = useState(isOpen);
 
     useEffect(() => {
@@ -211,8 +206,8 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                 sx={{
                     position: "absolute",
                     left: 0,
-                    width: { xs: "92vw", sm: 340, md: 300, lg: 340 },
-                    bottom: { xs: 60, sm: 70, md: 80 },
+                    width: { xs: "80vw", sm: 340, md: 300, lg: 340 },
+                    bottom: { xs: 90, sm: 70, md: 80 },
                     maxWidth: "95vw",
 
                     borderRadius: "26px",
@@ -236,7 +231,6 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                     pointerEvents: isOpen ? "auto" : "none"
                 }}
             >
-                {/* Corners */}
                 {/* Top left corner */}
                 <Box
                     component="img"
@@ -416,7 +410,7 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                         >
                             {/* Guides button */}
                             <Box
-                                onClick={() => switchCategory("guides")}
+                                onClick={() => setActiveCategory("guides")}
                                 sx={{
                                     flex: 1,
                                     display: "flex",
@@ -444,7 +438,7 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
 
                             {/* Platforms button */}
                             <Box
-                                onClick={() => switchCategory("platforms")}
+                                onClick={() => setActiveCategory("platforms")}
                                 sx={{
                                     flex: 1,
                                     display: "flex",
@@ -472,7 +466,7 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
 
                             {/* Workshops button */}
                             <Box
-                                onClick={() => switchCategory("workshops")}
+                                onClick={() => setActiveCategory("workshops")}
                                 sx={{
                                     flex: 1,
                                     display: "flex",
