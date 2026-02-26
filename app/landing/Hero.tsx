@@ -207,7 +207,7 @@ const Hero = () => {
                             className={styles.titleSponsor}
                             width="auto"
                             height="26px"
-                            src="/sponsor_icons/fulcrum.png"
+                            src="/sponsor_icons/logo_fulcrum_white 1.svg"
                             alt="Fulcrum"
                         />
                     </Box>
