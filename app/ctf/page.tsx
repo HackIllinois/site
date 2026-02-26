@@ -198,8 +198,8 @@ export default function CTF() {
                 console.log("hackctf{flag5-c41170pr1n7}");
             },
             password: (key: number) => {
-                if (key === 64) {
-                    console.log("aGFja2N0ZntmbGFnNi1kM2MwZDNtM30=");
+                if (key === (window as any).$MAGIC_NUMBER$.number) {
+                    console.log(btoa("hackctf{flag6-d3c0d3m3}"));
                 } else {
                     console.log(
                         "Authentication failed. What's the magic number?"

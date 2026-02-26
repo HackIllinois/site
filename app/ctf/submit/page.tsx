@@ -786,8 +786,7 @@ export default function CTFSubmit() {
                                 }}
                             >
                                 Congratulations! You&apos;ve found all the
-                                flags! Show a staff member to redeem your
-                                points.
+                                flags!
                             </Alert>
                         </motion.div>
                     )}
