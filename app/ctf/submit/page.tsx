@@ -1,22 +1,20 @@
 "use client";
 
-import { Box, Container, Typography, TextField, Alert } from "@mui/material";
-import { useState, useEffect } from "react";
+import {
+    Box,
+    Container,
+    Typography,
+    TextField,
+    Alert,
+    Button,
+    CircularProgress
+} from "@mui/material";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import styles from "./submit.module.scss";
 
-const CORRECT_FLAGS = [
-    "hackctf{flag1-p141n51gh7}",
-    "hackctf{flag2-1nv151b13}",
-    "hackctf{flag3-53cr37m3554g3}",
-    "hackctf{flag4-c0n501353cr37}",
-    "hackctf{flag5-c41170pr1n7}",
-    "hackctf{flag6-d3c0d3m3}",
-    "hackctf{flag7-m1n14p1}",
-    "hackctf{flag8-4p1m4573r}",
-    "hackctf{flag9-c0ngr475y0ub3477h3c7f}"
-];
+const API_URL = "https://adonix.hackillinois.org";
 
 const FLAG_POINTS = [
     { range: "1-3", points: 2, color: "#4CAF50" },
@@ -38,6 +36,12 @@ const getFlagColor = (index: number): string => {
     if (index < 8) return "#FF9800";
     return "#E91E63";
 };
+
+interface FlagStatusType {
+    correct: boolean | null;
+    claimed: boolean;
+    loading: boolean;
+}
 
 const TwinklingStar = ({
     size,
@@ -199,18 +203,16 @@ export default function CTFSubmit() {
         "",
         ""
     ]);
-    const [flagStatus, setFlagStatus] = useState<(boolean | null)[]>([
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-    ]);
+    const [flagStatus, setFlagStatus] = useState<FlagStatusType[]>(
+        Array(9)
+            .fill(null)
+            .map(() => ({ correct: null, claimed: false, loading: false }))
+    );
     const [showSuccess, setShowSuccess] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(
+        null
+    );
+    const debounceRefs = useRef<(NodeJS.Timeout | null)[]>(Array(9).fill(null));
     const [stars, setStars] = useState<
         {
             id: number;
@@ -223,6 +225,19 @@ export default function CTFSubmit() {
     >([]);
 
     useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const response = await fetch(`${API_URL}/auth/token/`, {
+                    mode: "cors",
+                    credentials: "include"
+                });
+                setIsAuthenticated(response.ok);
+            } catch {
+                setIsAuthenticated(false);
+            }
+        };
+        checkAuth();
+
         const savedFlags = localStorage.getItem("ctf_flags");
         if (savedFlags) {
             const parsedFlags = JSON.parse(savedFlags);
@@ -230,7 +245,26 @@ export default function CTFSubmit() {
                 .fill("")
                 .map((_, i) => parsedFlags[i] || "");
             setFlagInputs(allFlags);
-            validateFlags(allFlags);
+        }
+
+        const savedStatus = localStorage.getItem("ctf_status");
+        if (savedStatus) {
+            try {
+                const parsedStatus = JSON.parse(savedStatus);
+                const allStatus = Array(9)
+                    .fill(null)
+                    .map(
+                        (_, i) =>
+                            parsedStatus[i] || {
+                                correct: null,
+                                claimed: false,
+                                loading: false
+                            }
+                    );
+                setFlagStatus(allStatus);
+            } catch {
+                /* ignore */
+            }
         }
 
         const generatedStars = Array.from({ length: 100 }).map((_, i) => ({
@@ -244,34 +278,137 @@ export default function CTFSubmit() {
         setStars(generatedStars);
     }, []);
 
-    const validateFlags = (flags: string[]) => {
-        const newStatus = Array(9)
-            .fill(null)
-            .map((_, index) => {
-                const flag = flags[index];
-                if (!flag) return null;
-                const isCorrect = flag.trim() === CORRECT_FLAGS[index];
-                return isCorrect;
+    const submitFlag = useCallback(async (index: number, answer: string) => {
+        const flagId = `flag${index + 1}`;
+
+        setFlagStatus(prev => {
+            const newStatus = [...prev];
+            newStatus[index] = { ...newStatus[index], loading: true };
+            return newStatus;
+        });
+
+        try {
+            const response = await fetch(`${API_URL}/ctf/submit/${flagId}/`, {
+                method: "POST",
+                mode: "cors",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ answer: answer.trim() })
             });
-        setFlagStatus(newStatus);
-    };
+
+            const data = await response.json();
+
+            if (response.ok) {
+                return { correct: true, claimed: false };
+            }
+            if (data.error === "AlreadyClaimed") {
+                return { correct: true, claimed: true };
+            }
+            return { correct: false, claimed: false };
+        } catch {
+            return { correct: false, claimed: false };
+        }
+    }, []);
 
     const handleFlagChange = (index: number, value: string) => {
         const newInputs = [...flagInputs];
         newInputs[index] = value;
         setFlagInputs(newInputs);
-
         localStorage.setItem("ctf_flags", JSON.stringify(newInputs));
-        validateFlags(newInputs);
 
-        const allCorrect = newInputs.every((flag, index) => {
-            return flag && flag.trim() === CORRECT_FLAGS[index];
-        });
-        setShowSuccess(allCorrect);
+        if (debounceRefs.current[index]) {
+            clearTimeout(debounceRefs.current[index]!);
+        }
+
+        if (!value.trim()) return;
+
+        debounceRefs.current[index] = setTimeout(async () => {
+            const result = await submitFlag(index, value);
+            setFlagStatus(prev => {
+                const newStatus = [...prev];
+                newStatus[index] = {
+                    correct: result.correct,
+                    claimed: result.claimed,
+                    loading: false
+                };
+                localStorage.setItem("ctf_status", JSON.stringify(newStatus));
+                return newStatus;
+            });
+        }, 800);
     };
 
-    const correctCount = flagStatus.filter(s => s === true).length;
-    const progress = (correctCount / CORRECT_FLAGS.length) * 100;
+    const correctCount = flagStatus.filter(s => s.correct === true).length;
+    const progress = (correctCount / 9) * 100;
+
+    useEffect(() => {
+        setShowSuccess(correctCount === 9);
+    }, [correctCount]);
+
+    if (isAuthenticated === null) {
+        return (
+            <Box
+                sx={{
+                    width: "100%",
+                    minHeight: "100vh",
+                    background: "linear-gradient(to bottom, #020316, #16133e)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                }}
+            >
+                <CircularProgress sx={{ color: "#A315D6" }} />
+            </Box>
+        );
+    }
+
+    if (!isAuthenticated) {
+        return (
+            <Box
+                sx={{
+                    width: "100%",
+                    minHeight: "100vh",
+                    background: "linear-gradient(to bottom, #020316, #16133e)",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 3
+                }}
+            >
+                <Typography
+                    sx={{
+                        fontFamily: "Tsukimi Rounded",
+                        fontSize: { xs: "24px", md: "32px" },
+                        color: "white",
+                        textAlign: "center"
+                    }}
+                >
+                    Please log in to submit flags
+                </Typography>
+                <Button
+                    onClick={() => {
+                        window.location.href = `${API_URL}/auth/login/github/?redirect=${window.location.origin}/ctf/submit`;
+                    }}
+                    sx={{
+                        background: "linear-gradient(90deg, #A315D6, #FDAB60)",
+                        borderRadius: "50px",
+                        fontFamily: "Montserrat",
+                        fontWeight: 600,
+                        textTransform: "none",
+                        px: 4,
+                        py: 1.5,
+                        fontSize: "16px",
+                        color: "white",
+                        "&:hover": {
+                            boxShadow: "0 0 20px rgba(163, 21, 214, 0.6)"
+                        }
+                    }}
+                >
+                    Log in with GitHub
+                </Button>
+            </Box>
+        );
+    }
 
     return (
         <Box
@@ -674,8 +811,7 @@ export default function CTFSubmit() {
                                 textAlign: "right"
                             }}
                         >
-                            Progress: {correctCount} / {CORRECT_FLAGS.length}{" "}
-                            flags
+                            Progress: {correctCount} / {9} flags
                         </Typography>
                     </motion.div>
 
@@ -717,17 +853,19 @@ export default function CTFSubmit() {
                                         className={styles.flagCard}
                                         sx={{
                                             background:
-                                                flagStatus[index] === true
+                                                flagStatus[index].correct ===
+                                                true
                                                     ? "rgba(76, 175, 80, 0.15)"
-                                                    : flagStatus[index] ===
-                                                        false
+                                                    : flagStatus[index]
+                                                            .correct === false
                                                       ? "rgba(244, 67, 54, 0.1)"
                                                       : "rgba(255, 255, 255, 0.08)",
                                             border:
-                                                flagStatus[index] === true
+                                                flagStatus[index].correct ===
+                                                true
                                                     ? "2px solid #4CAF50"
-                                                    : flagStatus[index] ===
-                                                        false
+                                                    : flagStatus[index]
+                                                            .correct === false
                                                       ? "2px solid #F44336"
                                                       : "1px solid rgba(255, 255, 255, 0.15)"
                                         }}
@@ -746,21 +884,21 @@ export default function CTFSubmit() {
                                                     fontSize: "14px",
                                                     fontWeight: 600,
                                                     color:
-                                                        flagStatus[index] ===
-                                                        true
+                                                        flagStatus[index]
+                                                            .correct === true
                                                             ? "#4CAF50"
-                                                            : flagStatus[
-                                                                    index
-                                                                ] === false
+                                                            : flagStatus[index]
+                                                                    .correct ===
+                                                                false
                                                               ? "#F44336"
                                                               : "rgba(255, 255, 255, 0.7)"
                                                 }}
                                             >
                                                 FLAG {index + 1}
-                                                {flagStatus[index] === true &&
-                                                    " (correct)"}
-                                                {flagStatus[index] === false &&
-                                                    " (incorrect)"}
+                                                {flagStatus[index].correct ===
+                                                    true && " (correct)"}
+                                                {flagStatus[index].correct ===
+                                                    false && " (incorrect)"}
                                             </Typography>
                                             <Typography
                                                 sx={{
@@ -795,37 +933,43 @@ export default function CTFSubmit() {
                                                     borderRadius: "8px",
                                                     "& fieldset": {
                                                         borderColor:
-                                                            flagStatus[
-                                                                index
-                                                            ] === true
+                                                            flagStatus[index]
+                                                                .correct ===
+                                                            true
                                                                 ? "#4CAF50"
                                                                 : flagStatus[
                                                                         index
-                                                                    ] === false
+                                                                    ]
+                                                                        .correct ===
+                                                                    false
                                                                   ? "#F44336"
                                                                   : "rgba(255, 255, 255, 0.3)"
                                                     },
                                                     "&:hover fieldset": {
                                                         borderColor:
-                                                            flagStatus[
-                                                                index
-                                                            ] === true
+                                                            flagStatus[index]
+                                                                .correct ===
+                                                            true
                                                                 ? "#4CAF50"
                                                                 : flagStatus[
                                                                         index
-                                                                    ] === false
+                                                                    ]
+                                                                        .correct ===
+                                                                    false
                                                                   ? "#F44336"
                                                                   : "rgba(163, 21, 214, 0.5)"
                                                     },
                                                     "&.Mui-focused fieldset": {
                                                         borderColor:
-                                                            flagStatus[
-                                                                index
-                                                            ] === true
+                                                            flagStatus[index]
+                                                                .correct ===
+                                                            true
                                                                 ? "#4CAF50"
                                                                 : flagStatus[
                                                                         index
-                                                                    ] === false
+                                                                    ]
+                                                                        .correct ===
+                                                                    false
                                                                   ? "#F44336"
                                                                   : "#A315D6"
                                                     }
@@ -876,16 +1020,20 @@ export default function CTFSubmit() {
                                             className={styles.flagCard}
                                             sx={{
                                                 background:
-                                                    flagStatus[index] === true
+                                                    flagStatus[index]
+                                                        .correct === true
                                                         ? "rgba(76, 175, 80, 0.15)"
-                                                        : flagStatus[index] ===
+                                                        : flagStatus[index]
+                                                                .correct ===
                                                             false
                                                           ? "rgba(244, 67, 54, 0.1)"
                                                           : "rgba(255, 255, 255, 0.08)",
                                                 border:
-                                                    flagStatus[index] === true
+                                                    flagStatus[index]
+                                                        .correct === true
                                                         ? "2px solid #4CAF50"
-                                                        : flagStatus[index] ===
+                                                        : flagStatus[index]
+                                                                .correct ===
                                                             false
                                                           ? "2px solid #F44336"
                                                           : "1px solid rgba(255, 255, 255, 0.15)"
@@ -907,22 +1055,26 @@ export default function CTFSubmit() {
                                                         fontSize: "14px",
                                                         fontWeight: 600,
                                                         color:
-                                                            flagStatus[
-                                                                index
-                                                            ] === true
+                                                            flagStatus[index]
+                                                                .correct ===
+                                                            true
                                                                 ? "#4CAF50"
                                                                 : flagStatus[
                                                                         index
-                                                                    ] === false
+                                                                    ]
+                                                                        .correct ===
+                                                                    false
                                                                   ? "#F44336"
                                                                   : "rgba(255, 255, 255, 0.7)"
                                                     }}
                                                 >
                                                     FLAG {index + 1}
-                                                    {flagStatus[index] ===
-                                                        true && " (correct)"}
-                                                    {flagStatus[index] ===
-                                                        false && " (incorrect)"}
+                                                    {flagStatus[index]
+                                                        .correct === true &&
+                                                        " (correct)"}
+                                                    {flagStatus[index]
+                                                        .correct === false &&
+                                                        " (incorrect)"}
                                                 </Typography>
                                                 <Typography
                                                     sx={{
@@ -963,11 +1115,14 @@ export default function CTFSubmit() {
                                                                 borderColor:
                                                                     flagStatus[
                                                                         index
-                                                                    ] === true
+                                                                    ]
+                                                                        .correct ===
+                                                                    true
                                                                         ? "#4CAF50"
                                                                         : flagStatus[
                                                                                 index
-                                                                            ] ===
+                                                                            ]
+                                                                                .correct ===
                                                                             false
                                                                           ? "#F44336"
                                                                           : "rgba(255, 255, 255, 0.3)"
@@ -977,12 +1132,14 @@ export default function CTFSubmit() {
                                                                     borderColor:
                                                                         flagStatus[
                                                                             index
-                                                                        ] ===
+                                                                        ]
+                                                                            .correct ===
                                                                         true
                                                                             ? "#4CAF50"
                                                                             : flagStatus[
                                                                                     index
-                                                                                ] ===
+                                                                                ]
+                                                                                    .correct ===
                                                                                 false
                                                                               ? "#F44336"
                                                                               : "rgba(163, 21, 214, 0.5)"
@@ -992,12 +1149,14 @@ export default function CTFSubmit() {
                                                                     borderColor:
                                                                         flagStatus[
                                                                             index
-                                                                        ] ===
+                                                                        ]
+                                                                            .correct ===
                                                                         true
                                                                             ? "#4CAF50"
                                                                             : flagStatus[
                                                                                     index
-                                                                                ] ===
+                                                                                ]
+                                                                                    .correct ===
                                                                                 false
                                                                               ? "#F44336"
                                                                               : "#A315D6"
@@ -1050,16 +1209,20 @@ export default function CTFSubmit() {
                                             className={styles.flagCard}
                                             sx={{
                                                 background:
-                                                    flagStatus[index] === true
+                                                    flagStatus[index]
+                                                        .correct === true
                                                         ? "rgba(76, 175, 80, 0.15)"
-                                                        : flagStatus[index] ===
+                                                        : flagStatus[index]
+                                                                .correct ===
                                                             false
                                                           ? "rgba(244, 67, 54, 0.1)"
                                                           : "rgba(255, 255, 255, 0.08)",
                                                 border:
-                                                    flagStatus[index] === true
+                                                    flagStatus[index]
+                                                        .correct === true
                                                         ? "2px solid #4CAF50"
-                                                        : flagStatus[index] ===
+                                                        : flagStatus[index]
+                                                                .correct ===
                                                             false
                                                           ? "2px solid #F44336"
                                                           : "1px solid rgba(255, 255, 255, 0.15)"
@@ -1081,22 +1244,26 @@ export default function CTFSubmit() {
                                                         fontSize: "14px",
                                                         fontWeight: 600,
                                                         color:
-                                                            flagStatus[
-                                                                index
-                                                            ] === true
+                                                            flagStatus[index]
+                                                                .correct ===
+                                                            true
                                                                 ? "#4CAF50"
                                                                 : flagStatus[
                                                                         index
-                                                                    ] === false
+                                                                    ]
+                                                                        .correct ===
+                                                                    false
                                                                   ? "#F44336"
                                                                   : "rgba(255, 255, 255, 0.7)"
                                                     }}
                                                 >
                                                     FLAG {index + 1}
-                                                    {flagStatus[index] ===
-                                                        true && " (correct)"}
-                                                    {flagStatus[index] ===
-                                                        false && " (incorrect)"}
+                                                    {flagStatus[index]
+                                                        .correct === true &&
+                                                        " (correct)"}
+                                                    {flagStatus[index]
+                                                        .correct === false &&
+                                                        " (incorrect)"}
                                                 </Typography>
                                                 <Typography
                                                     sx={{
@@ -1137,11 +1304,14 @@ export default function CTFSubmit() {
                                                                 borderColor:
                                                                     flagStatus[
                                                                         index
-                                                                    ] === true
+                                                                    ]
+                                                                        .correct ===
+                                                                    true
                                                                         ? "#4CAF50"
                                                                         : flagStatus[
                                                                                 index
-                                                                            ] ===
+                                                                            ]
+                                                                                .correct ===
                                                                             false
                                                                           ? "#F44336"
                                                                           : "rgba(255, 255, 255, 0.3)"
@@ -1151,12 +1321,14 @@ export default function CTFSubmit() {
                                                                     borderColor:
                                                                         flagStatus[
                                                                             index
-                                                                        ] ===
+                                                                        ]
+                                                                            .correct ===
                                                                         true
                                                                             ? "#4CAF50"
                                                                             : flagStatus[
                                                                                     index
-                                                                                ] ===
+                                                                                ]
+                                                                                    .correct ===
                                                                                 false
                                                                               ? "#F44336"
                                                                               : "rgba(163, 21, 214, 0.5)"
@@ -1166,12 +1338,14 @@ export default function CTFSubmit() {
                                                                     borderColor:
                                                                         flagStatus[
                                                                             index
-                                                                        ] ===
+                                                                        ]
+                                                                            .correct ===
                                                                         true
                                                                             ? "#4CAF50"
                                                                             : flagStatus[
                                                                                     index
-                                                                                ] ===
+                                                                                ]
+                                                                                    .correct ===
                                                                                 false
                                                                               ? "#F44336"
                                                                               : "#A315D6"
