@@ -320,7 +320,7 @@ export default function CTF() {
                 animate={{
                     y: [0, 20, 0],
                     x: [0, 10, 0],
-                    rotate: [0, 8, 0]
+                    rotate: [90, 98, 90]
                 }}
                 transition={{
                     duration: 7,
