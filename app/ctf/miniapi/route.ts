@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { derive } from "../utils";
 
 async function sha256(text: string) {
     const encoder = new TextEncoder();
@@ -11,11 +12,23 @@ async function sha256(text: string) {
         .join("");
 }
 
-const SERVER_SECRET = "top-secret-key";
+const SERVER_SECRET = derive(["LWtleQ==", "ZWNyZXQ=", "dG9wLXM="]);
 
 export async function GET() {
-    const flag = "hackctf{flag7-m1n14p1}";
-    const hiddenFlag = "hackctf{flag8-4p1m4573r}";
+    const flag = derive([
+        "MX0=",
+        "MW4xNHA=",
+        "YWc3LW0=",
+        "dGZ7Zmw=",
+        "aGFja2M="
+    ]);
+    const hiddenFlag = derive([
+        "NzNyfQ==",
+        "cDFtNDU=",
+        "YWc4LTQ=",
+        "dGZ7Zmw=",
+        "aGFja2M="
+    ]);
 
     const secret = await sha256(hiddenFlag + SERVER_SECRET);
 

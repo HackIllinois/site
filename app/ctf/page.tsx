@@ -15,6 +15,7 @@ import { ExpandMore } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { GradientButton } from "@/components/GradientButton/GradientButton";
+import { derive } from "./utils";
 
 const TwinklingStar = ({
     size,
@@ -193,13 +194,41 @@ export default function CTF() {
         setStars(generatedStars);
 
         (window as any).$SECRET$ = {
-            flag: "hackctf{flag4-c0n501353cr37}",
+            flag: (() => {
+                return derive([
+                    "Mzd9",
+                    "MzUzY3I=",
+                    "MG41MDE=",
+                    "YWc0LWM=",
+                    "dGZ7Zmw=",
+                    "aGFja2M="
+                ]);
+            })(),
             reveal: () => {
-                console.log("hackctf{flag5-c41170pr1n7}");
+                console.log(
+                    derive([
+                        "fQ==",
+                        "cHIxbjc=",
+                        "NDExNzA=",
+                        "YWc1LWM=",
+                        "dGZ7Zmw=",
+                        "aGFja2M="
+                    ])
+                );
             },
             password: (key: number) => {
                 if (key === (window as any).$MAGIC_NUMBER$.number) {
-                    console.log(btoa("hackctf{flag6-d3c0d3m3}"));
+                    console.log(
+                        btoa(
+                            derive([
+                                "bTN9",
+                                "M2MwZDM=",
+                                "YWc2LWQ=",
+                                "dGZ7Zmw=",
+                                "aGFja2M="
+                            ])
+                        )
+                    );
                 } else {
                     console.log(
                         "Authentication failed. What's the magic number?"
@@ -880,7 +909,14 @@ export default function CTF() {
                                         color: "#FDAB60"
                                     }}
                                 >
-                                    {"hackctf{flag3-53cr37m3554g3}"}
+                                    {derive([
+                                        "ZzN9",
+                                        "bTM1NTQ=",
+                                        "M2NyMzc=",
+                                        "YWczLTU=",
+                                        "dGZ7Zmw=",
+                                        "aGFja2M="
+                                    ])}
                                 </Box>
                             </Box>
 
@@ -1011,7 +1047,13 @@ export default function CTF() {
                             mx: "auto",
                             display: "none",
                             "&::after": {
-                                content: '"hackctf{flag2-1nv151b13}"',
+                                content: `"${derive([
+                                    "YjEzfQ==",
+                                    "bnYxNTE=",
+                                    "YWcyLTE=",
+                                    "dGZ7Zmw=",
+                                    "aGFja2M="
+                                ])}"`,
                                 color: "#FDAB60",
                                 fontFamily: "Montserrat",
                                 fontSize: "16px",
@@ -1023,7 +1065,13 @@ export default function CTF() {
                         <Button
                             onClick={() =>
                                 navigator.clipboard.writeText(
-                                    "hackctf{flag2-1nv151b13}"
+                                    derive([
+                                        "YjEzfQ==",
+                                        "bnYxNTE=",
+                                        "YWcyLTE=",
+                                        "dGZ7Zmw=",
+                                        "aGFja2M="
+                                    ])
                                 )
                             }
                             sx={{
@@ -1050,7 +1098,7 @@ export default function CTF() {
                     </Box>
 
                     <Box ctf-flag="flag1" sx={{ display: "none" }}>
-                        {"YOUR FIRST FLAG HERE: hackctf{flag1-p141n51gh7}"}
+                        {`YOUR FIRST FLAG HERE: ${derive(["MWdoN30=", "MTQxbjU=", "YWcxLXA=", "dGZ7Zmw=", "aGFja2M="])}`}
                     </Box>
                 </motion.div>
             </Container>
