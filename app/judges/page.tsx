@@ -36,7 +36,9 @@ const Mentors = () => {
                     inset: 0,
                     backgroundImage:
                         "url(/mentors/debris.svg), url(/mentors/starfield.svg)",
-                    backgroundRepeat: "repeat-y",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
 
                     // Fade debris at top and bottom
                     maskImage:
@@ -68,8 +70,7 @@ const Mentors = () => {
                 <Box
                     display="flex"
                     columnGap={4}
-                    rowGap={{ xs: 8, md: 8 }}
-                    mb={4}
+                    rowGap={{ xs: 4, md: 8 }}
                     flexWrap="wrap"
                     alignItems="center"
                     justifyContent="center"
@@ -128,17 +129,13 @@ const Mentors = () => {
                                             cursor: "pointer",
                                             borderRadius: "50%"
                                         }}
-                                        onError={event => {
-                                            event.currentTarget.srcset =
-                                                "/mentors/people/placeholder.png";
-                                        }}
                                     />
                                 </Box>
                             </Box>
                             <Typography
                                 position="relative"
                                 zIndex={3}
-                                top="5px"
+                                bottom="0px"
                                 onClick={() =>
                                     setActivePerson({
                                         name: mentor.name,
@@ -147,7 +144,7 @@ const Mentors = () => {
                                 }
                                 sx={{
                                     // boxShadow: "0 0 15px 0px black",
-                                    // background: "#00000066",
+                                    // background: "#00000066"
                                     cursor: "pointer",
                                     fontWeight: 700
                                 }}
@@ -182,7 +179,9 @@ const Mentors = () => {
                             md: "80vw",
                             lg: "70vw"
                         },
-                        height: { xs: "80vh", md: "55vh" },
+                        height: { xs: "fit-content", md: "55vh" },
+                        minHeight: { xs: "60vh", md: "55vh" },
+                        // maxHeight: { xs: "80vh", md: "55vh" },
                         overflow: "hidden",
                         maxWidth: "100vw",
                         background: "#f0f0f0",
@@ -192,7 +191,7 @@ const Mentors = () => {
                         boxSizing: "border-box",
                         boxShadow: 24,
                         padding: 4,
-                        gap: { xs: 1, md: 2 }
+                        gap: { xs: 2, sm: 4 }
                     }}
                 >
                     {/* x button */}
@@ -215,93 +214,66 @@ const Mentors = () => {
                         alignItems="center"
                         position="relative"
                         width={{
-                            xs: "240px",
-                            md: "300px"
+                            xs: "200px",
+                            sm: "200px",
+                            md: "300px",
+                            lg: "300px"
                         }}
                         height={{
-                            xs: "240px",
-                            md: "300px"
+                            xs: "200px",
+                            sm: "200px",
+                            md: "300px",
+                            lg: "300px"
                         }}
                     >
-                        {/* frame */}
-                        <Image
-                            src={"/mentors/assets/frame.svg"}
-                            width={100}
-                            height={100}
-                            alt={"Mini-picture frame tape"}
-                            style={{
-                                position: "absolute",
-                                zIndex: 3,
-                                width: "100%",
-                                height: "100%"
-                            }}
-                        />
                         {/* Person's picture */}
                         <Box
                             position="relative"
                             zIndex={2}
                             width={{
                                 xs: "200px",
-                                md: "300px"
+                                sm: "200px",
+                                md: "300px",
+                                lg: "300px"
                             }}
                             height={{
                                 xs: "200px",
-                                md: "300px"
+                                sm: "200px",
+                                md: "300px",
+                                lg: "300px"
                             }}
                             display="flex"
                             justifyContent="center"
                             alignItems="flex-start"
                         >
-                            <Box
-                                position="absolute"
-                                zIndex={2}
-                                top={{ xs: "30px", md: "60px" }}
-                                width={{
-                                    xs: "160px",
-                                    md: "200px"
-                                }}
-                                height={{
-                                    xs: "160px",
-                                    md: "200px"
-                                }}
-                            >
+                            <Box position="absolute" zIndex={2} top="70px">
                                 <Image
                                     src={"/mentors/assets/astronaut.svg"}
-                                    fill
+                                    width={150}
+                                    height={150}
                                     alt={"Frame icon of an astronaut's helmet"}
                                 />
                             </Box>
                             <Box
                                 position="absolute"
                                 zIndex={1}
-                                top={{ xs: "39px", md: "69px" }}
+                                top="79px"
                                 pl="1px"
-                                width={{
-                                    xs: "120px",
-                                    md: "150px"
-                                }}
-                                height={{
-                                    xs: "120px",
-                                    md: "150px"
-                                }}
                             >
                                 <Image
                                     src={`/mentors/people/${activePerson?.name}.png`}
-                                    fill
+                                    width={110}
+                                    height={110}
                                     alt={`Picture of ${activePerson?.name}`}
                                     style={{
                                         borderRadius: "50%"
                                     }}
-                                    onError={event => {
-                                        event.currentTarget.srcset =
-                                            "/mentors/people/placeholder.png";
-                                    }}
                                 />
                             </Box>
                         </Box>
-                        {/* backing */}
+                        {/* frame */}
                         <Image
-                            src={"/mentors/assets/backing.svg"}
+                            src={"/mentors/assets/frame.svg"}
                             width={100}
                             height={100}
                             alt={"Mini-picture frame tape"}
@@ -324,8 +296,6 @@ const Mentors = () => {
                         gap={1}
                         width="100%"
                         height="100%"
-                        py={2.5}
-                        pr={1}
                     >
                         <Typography
                             id="info-modal-title"
