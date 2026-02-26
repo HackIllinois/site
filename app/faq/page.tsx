@@ -78,10 +78,31 @@ const FAQ = () => {
                                 fontFamily: "Montserrat",
                                 color: "rgba(255, 255, 255, 0.7)",
                                 textAlign: "center",
-                                mb: 2
+                                mb: 1
                             }}
                         >
                             Things to know about HackIllinois 2026
+                        </Typography>
+                    </motion.div>
+                    <motion.div variants={itemVariants}>
+                        <Typography
+                            component="a"
+                            href="https://hackillinois.org/attendee_guide.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            sx={{
+                                fontSize: { xs: "14px", md: "16px" },
+                                fontFamily: "Montserrat",
+                                color: "#4fc3f7",
+                                textAlign: "center",
+                                display: "block",
+                                mb: 3,
+                                "&:hover": {
+                                    color: "#81d4fa"
+                                }
+                            }}
+                        >
+                            Open in new tab
                         </Typography>
                     </motion.div>
                     <motion.div
@@ -120,17 +141,33 @@ const FAQ = () => {
                                 scrollbarColor: "#888 #f1f1f1"
                             }}
                         >
-                            <iframe
-                                src="https://hackillinois.org/attendee_guide.pdf"
+                            {/* Source - https://stackoverflow.com/a/18432886 */}
+                            {/* Posted by Kevin Lynch */}
+                            {/* Retrieved 2026-02-25, License - CC BY-SA 3.0 */}
+                            <object
+                                data="https://hackillinois.org/attendee_guide.pdf"
+                                type="application/pdf"
                                 style={{
                                     width: "100%",
-                                    height: "300%",
+                                    height: "100%",
                                     minWidth: "100%",
                                     border: "none",
                                     display: "block"
                                 }}
-                                title="FAQ Document"
-                            />
+                            >
+                                <p
+                                    style={{
+                                        padding: "20px",
+                                        textAlign: "center"
+                                    }}
+                                >
+                                    Your web browser doesn&apos;t have a PDF
+                                    plugin. Instead you can{" "}
+                                    <a href="https://hackillinois.org/attendee_guide.pdf">
+                                        click here to download the PDF file.
+                                    </a>
+                                </p>
+                            </object>
                         </Box>
                     </motion.div>
                 </motion.div>
