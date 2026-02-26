@@ -35,7 +35,7 @@ const Mentors = () => {
                     position: "absolute",
                     inset: 0,
                     backgroundImage:
-                        "url(/mentors/debris.svg), url(/mentors/starfield.svg)",
+                        "url(/mentors-judges/debris.svg), url(/mentors-judges/starfield.svg)",
                     backgroundRepeat: "repeat-y",
 
                     // Fade debris at top and bottom
@@ -74,9 +74,9 @@ const Mentors = () => {
                     alignItems="center"
                     justifyContent="center"
                 >
-                    {mentorData.map((mentor, index) => (
+                    {mentorData.map((profile, index) => (
                         <Box
-                            key={index + "_" + mentor.name}
+                            key={index + "_" + profile.name}
                             width={200}
                             height={200}
                         >
@@ -90,7 +90,9 @@ const Mentors = () => {
                             >
                                 <Box position="absolute" zIndex={2}>
                                     <Image
-                                        src={"/mentors/assets/astronaut.svg"}
+                                        src={
+                                            "/mentors-judges/assets/astronaut.svg"
+                                        }
                                         width={200}
                                         height={200}
                                         alt={
@@ -98,8 +100,8 @@ const Mentors = () => {
                                         }
                                         onClick={() =>
                                             setActivePerson({
-                                                name: mentor.name,
-                                                description: mentor.description
+                                                name: profile.name,
+                                                description: profile.description
                                             })
                                         }
                                         style={{
@@ -114,14 +116,14 @@ const Mentors = () => {
                                     pl="1px"
                                 >
                                     <Image
-                                        src={`/mentors/people/${mentor.name}.png`}
+                                        src={`/mentors-judges/mentors/${profile.name}.png`}
                                         width={150}
                                         height={150}
-                                        alt={`Picture of ${mentor.name}`}
+                                        alt={`Picture of ${profile.name}`}
                                         onClick={() =>
                                             setActivePerson({
-                                                name: mentor.name,
-                                                description: mentor.description
+                                                name: profile.name,
+                                                description: profile.description
                                             })
                                         }
                                         style={{
@@ -130,7 +132,7 @@ const Mentors = () => {
                                         }}
                                         onError={event => {
                                             event.currentTarget.srcset =
-                                                "/mentors/people/placeholder.png";
+                                                "/mentors-judges/assets/placeholder.png";
                                         }}
                                     />
                                 </Box>
@@ -141,8 +143,8 @@ const Mentors = () => {
                                 top="5px"
                                 onClick={() =>
                                     setActivePerson({
-                                        name: mentor.name,
-                                        description: mentor.description
+                                        name: profile.name,
+                                        description: profile.description
                                     })
                                 }
                                 sx={{
@@ -152,7 +154,7 @@ const Mentors = () => {
                                     fontWeight: 700
                                 }}
                             >
-                                {mentor.name}
+                                {profile.name}
                             </Typography>
                         </Box>
                     ))}
@@ -225,7 +227,7 @@ const Mentors = () => {
                     >
                         {/* frame */}
                         <Image
-                            src={"/mentors/assets/frame.svg"}
+                            src={"/mentors-judges/assets/frame.svg"}
                             width={100}
                             height={100}
                             alt={"Mini-picture frame tape"}
@@ -266,7 +268,7 @@ const Mentors = () => {
                                 }}
                             >
                                 <Image
-                                    src={"/mentors/assets/astronaut.svg"}
+                                    src={"/mentors-judges/assets/astronaut.svg"}
                                     fill
                                     alt={"Frame icon of an astronaut's helmet"}
                                 />
@@ -286,7 +288,7 @@ const Mentors = () => {
                                 }}
                             >
                                 <Image
-                                    src={`/mentors/people/${activePerson?.name}.png`}
+                                    src={`/mentors-judges/mentors/${activePerson?.name}.png`}
                                     fill
                                     alt={`Picture of ${activePerson?.name}`}
                                     style={{
@@ -294,14 +296,14 @@ const Mentors = () => {
                                     }}
                                     onError={event => {
                                         event.currentTarget.srcset =
-                                            "/mentors/people/placeholder.png";
+                                            "/mentors-judges/assets/placeholder.png";
                                     }}
                                 />
                             </Box>
                         </Box>
                         {/* backing */}
                         <Image
-                            src={"/mentors/assets/backing.svg"}
+                            src={"/mentors-judges/assets/backing.svg"}
                             width={100}
                             height={100}
                             alt={"Mini-picture frame tape"}

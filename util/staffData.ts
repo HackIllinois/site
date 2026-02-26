@@ -1,4 +1,6 @@
-export const mentorData: { name: string; description: string }[] = [
+export const mentorData: { name: string; description: string }[] = [];
+
+export const judgeData: { name: string; description: string }[] = [
     {
         name: "Shubham Kulkarni",
         description:
@@ -270,5 +272,3 @@ export const mentorData: { name: string; description: string }[] = [
             "Victor is a Software Engineer at Aedify.ai, where he builds scalable AI systems and backend infrastructure. His work focuses on LLM integration, vector search, and cloud-based pipelines for intelligent applications."
     }
 ];
-
-export const judgeData: { name: string; description: string }[] = [];
