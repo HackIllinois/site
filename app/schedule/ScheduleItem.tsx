@@ -3,7 +3,6 @@ import { EventType } from "@/util/types";
 import moment from "moment-timezone";
 import { EVENT_TIMEZONE } from "@/util/config";
 import { Box, Link, Typography } from "@mui/material";
-import { Box, Link, Typography } from "@mui/material";
 
 import { Tag, TagsList } from "@/app/schedule/Tags";
 
