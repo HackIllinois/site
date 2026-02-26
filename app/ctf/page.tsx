@@ -691,6 +691,16 @@ export default function CTF() {
                     </motion.div>
 
                     <motion.div variants={itemVariants}>
+                        <Box sx={{ mb: 3 }}>
+                            <GradientButton
+                                text="Go to flag submission page"
+                                link="/ctf/submit"
+                                target="_blank"
+                            />
+                        </Box>
+                    </motion.div>
+
+                    <motion.div variants={itemVariants}>
                         <Typography
                             sx={{
                                 fontFamily: "Montserrat",
@@ -708,16 +718,6 @@ export default function CTF() {
                             all flags. Every flag you find brings you closer to
                             victory!
                         </Typography>
-                    </motion.div>
-
-                    <motion.div variants={itemVariants}>
-                        <Box sx={{ mb: 4 }}>
-                            <GradientButton
-                                text="Go to flag submission page"
-                                link="/ctf/submit"
-                                target="_blank"
-                            />
-                        </Box>
                     </motion.div>
 
                     <motion.div
