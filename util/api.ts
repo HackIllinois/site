@@ -1,3 +1,4 @@
+import { getEnv } from "./env";
 import { handleError } from "./helpers";
 import {
     AcceptAdmissionRSVPRequest,
@@ -11,7 +12,7 @@ import {
     EventType
 } from "./types";
 
-const APIv2 = "https://adonix.hackillinois.org";
+const APIv2 = getEnv("VITE_BASE_API_URL");
 
 export const isAuthenticated = async (): Promise<boolean> => {
     return (await getAuthToken()) !== null;
