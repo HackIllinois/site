@@ -128,7 +128,16 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
                             width: "85dvw"
                         },
                         position: "relative",
-                        zIndex: 2
+                        zIndex: 2,
+                        transition: "transform 0.2s ease, filter 0.2s ease",
+                        transform: isClickedOpen ? "scale(1.06)" : "scale(1)",
+                        filter: isClickedOpen
+                            ? "brightness(1.2)"
+                            : "brightness(1)",
+                        "&:hover": {
+                            transform: "scale(1.06)",
+                            filter: "brightness(1.2)"
+                        }
                     }}
                     onClick={() => setIsClickedOpen(prev => !prev)}
                 >
