@@ -136,6 +136,9 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
                             lg: 280,
                             xl: 300
                         },
+                        "@media (max-width: 250px)": {
+                            width: "85dvw"
+                        },
                         position: "relative",
                         zIndex: 2,
 
@@ -157,7 +160,7 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
                             fontFamily: '"Tsukimi Rounded", sans-serif',
                             fontWeight: 700,
                             letterSpacing: "2px",
-                            fontSize: "clamp(1rem, 1dvw, 1.4rem)",
+                            fontSize: "clamp(0.9rem, 1dvw, 1.2rem)",
                             pointerEvents: "none",
                             zIndex: 3
                         }}
@@ -175,7 +178,8 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
                             alt="Resources"
                             style={{
                                 width: "100%",
-                                maxHeight: "100px"
+                                maxHeight: "100px",
+                                transform: "scale(110%)"
                             }}
                         />
                     </picture>
@@ -226,6 +230,21 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({
     const [activeCategory, setActiveCategory] = useState<
         "guides" | "platforms" | "events"
     >("guides");
+
+    useEffect(() => {
+        const srcs = [
+            "/resources/guides_selected.svg",
+            "/resources/guides_unselected.svg",
+            "/resources/platforms_selected.svg",
+            "/resources/platforms_unselected.svg",
+            "/resources/events_selected.svg",
+            "/resources/events_unselected.svg"
+        ];
+        srcs.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    }, []);
 
     const guidesItems = [
         {
@@ -723,7 +742,7 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({
                                                     : "1rem"
                                             },
                                             fontWeight: 600,
-                                            lineHeight: 1.0,
+                                            lineHeight: 1.3,
 
                                             display: "inline-flex",
                                             alignItems: "center",
@@ -796,7 +815,7 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({
                                             },
 
                                             "&:hover": {
-                                                transform: "scale(1.08)",
+                                                transform: "scale(1.05)",
                                                 textShadow: `0px 3px 10px ${hexToRgba(shadowColor, 0.6)}`
                                             }
                                         }}
