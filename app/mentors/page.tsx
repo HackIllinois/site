@@ -9,6 +9,7 @@ const Mentors = () => {
     const [activePerson, setActivePerson] = useState<{
         name: string;
         description: string;
+        imageName?: string;
     } | null>(null);
 
     return (
@@ -116,7 +117,7 @@ const Mentors = () => {
                                     pl="1px"
                                 >
                                     <Image
-                                        src={`/mentors-judges/mentors/${profile.name}.png`}
+                                        src={`/mentors-judges/mentors/${profile.name}.jpg`}
                                         width={150}
                                         height={150}
                                         alt={`Picture of ${profile.name}`}
@@ -128,7 +129,8 @@ const Mentors = () => {
                                         }
                                         style={{
                                             cursor: "pointer",
-                                            borderRadius: "50%"
+                                            borderRadius: "50%",
+                                            objectFit: "cover"
                                         }}
                                         onError={event => {
                                             event.currentTarget.srcset =
@@ -288,7 +290,7 @@ const Mentors = () => {
                                 }}
                             >
                                 <Image
-                                    src={`/mentors-judges/mentors/${activePerson?.name}.png`}
+                                    src={`/mentors-judges/mentors/${activePerson?.name}.jpg`}
                                     fill
                                     alt={`Picture of ${activePerson?.name}`}
                                     style={{

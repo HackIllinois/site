@@ -1,5 +1,140 @@
-export const mentorData: { name: string; description: string }[] = [];
-
+export const mentorData: { name: string; description: string }[] = [
+    {
+        name: "Arjun Sivaraman",
+        description:
+            "A CS graduate student at UIUC, and have worked in the industry as a software engineer for a while. I'm passionate about databases, distributed systems, and their intersection with data science and machine learning. I've been a hackathon enthusiast myself, winning many along the way, and I'm excited to now be on the other side as a mentor!"
+    },
+    {
+        name: "Artem Tikhonov",
+        description:
+            "Artem Tikhonov is an AI/ML Doctoral Researcher in Computer Science & Engineering at the University of Cincinnati, working at the intersection of computer vision and machine cognition. He has worked on projects with MIT, NASA, UVA, and UC Davis. Artem received awards at MIT and Princeton for ML in assistive technology, contributed as an inventor to NASA's New Technology Report, chaired a NASA L'SPACE review panel, and judged/mentored at HackMIT, HackPrinceton, MHacks, HackMerced, and MakeUC by IEEE@UC."
+    },
+    {
+        name: "Athena Tang",
+        description:
+            "Hi there, I'm Athena! I'm a UX Designer @ Amazon based in Seattle, where I've been designing for almost 3 years. I graduated from UIUC in 2023, and led design for HackIllinois '22. In my free time, I like playing mahjong and going to concerts. Happy to be back :)"
+    },
+    {
+        name: "Ayah Almusaddy",
+        description:
+            "I'm a UIC Computer Science graduate, working at Fulcrum GT as a Software Engineer. I've participated in hackathons, and this will be my first time being a mentor in one. I enjoy full stack development and talking to people, so I'm excited to put the two together and hopefully help teams with their own projects!"
+    },
+    {
+        name: "Brian Rosca",
+        description:
+            "I'm a software engineer at Fulcrum GT. 4x head TA, taught CS courses at Northwestern for a bit. Here to help strengthen your pitching! "
+    },
+    {
+        name: "Divya Ratra",
+        description:
+            "Hi, I am a product manager with a background in software engineering, currently working on AI-driven products in the legal-tech space. I've experience building products from early ideas to real-world launch."
+    },
+    {
+        name: "Geoffrey Challen",
+        description:
+            "Hi, I'm Geoff! I love to teach, and I love to code. I teach students to code, and I write code that helps them learn. My goal is to teach as many students as possible. I do this by creating interactive learning environments that scale."
+    },
+    {
+        name: "Kanishka Patel",
+        description:
+            "I'm a Digital Business Analyst at Caterpillar and a proud University of Illinois Urbana‑Champaign alum. I'm excited to return to HackIllinois as a mentor and judge for the second year, learning from students and supporting them as they build impactful, real‑world solutions."
+    },
+    {
+        name: "Kashvi Panjolia",
+        description:
+            "I'm an Illinois CS alum ('25) currently working as a software developer at Aviatrix. I have full-stack experience through my projects and I mostly enjoy backend work. When I'm not coding, you can find me baking or reading. "
+    },
+    {
+        name: "Kasun",
+        description:
+            "Software engineer at Aviatrix in the office at research park of UIUC. Purdue alumni."
+    },
+    {
+        name: "Linh Cao",
+        description:
+            "I am currently working at Aviatrix. Prior to that, I have spent 5+ years working on revenue data pipelines at Yahoo. Expertise in AWS, infrastructure automation, monitoring, and CI/CD pipelines. Passionate about creating efficient, resilient distributed systems with a focus on observability and security. "
+    },
+    {
+        name: "Manthan Lad",
+        description:
+            "Manthan Lad is an Advanced Purchasing and Strategic Sourcing leader at Nidec Mobility America Corporation with 13+ years in automotive and manufacturing. He leads mechanical commodity sourcing across North America, managing 150+ suppliers and multimillion-dollar spend portfolios. He is leading a team developing sourcing strategy for Nidec and driving supplier development for the North America business. Manthan has presented research at IEEE conferences and writes on advanced purchasing and innovation in automotive systems."
+    },
+    {
+        name: "Mohak Rajendra",
+        description:
+            "Mohak Rajendra is a Senior Software Engineer at Google with over 13 years of experience building large-scale distributed systems, cloud infrastructure, and applied AI/ML platforms. He has worked across Google, Microsoft, and Broadcom on high-impact projects spanning GPU-backed inference systems, cloud storage services managing billions of objects, and petabyte-scale data transfer platforms. His expertise includes system architecture, performance optimization, reliability engineering, and production ML deployment. Mohak is passionate about mentoring students and supporting innovation through hackathons, technical reviews, and engineering guidance."
+    },
+    {
+        name: "Naga Maddipudi",
+        description:
+            "Hi! My name is Naga, and I'm an AI Software Developer at Fulcrum GT. I recently graduated from UIC with a bachelor's degree in Computer Science. I'm passionate about software development and have experience building AI-powered tools, including a legal timesheet automation system."
+    },
+    {
+        name: "Peter Iordanov",
+        description:
+            "I'm a Senior Software Engineering Manager at Fulcrum GT in Chicago, focused on frontend architecture and product-driven engineering. I enjoy mentoring hackathon teams on shipping fast and building intuitive user experiences. UIUC Computer Science, Class of 2017."
+    },
+    {
+        name: "Prathamesh Nadkarni",
+        description:
+            "Prathamesh is a Senior MTS with Aviatrix and a mentor passionate about cloud infrastructure, security, and AI-driven systems. He works on building scalable, reliable platforms across Kubernetes and distributed systems, and enjoys helping students turn ambitious ideas into shippable products. At HackIllinois, he's here to unblock teams and ship impact. He is also experienced in Android Application Development."
+    },
+    {
+        name: "Pulakanti Sri Vardhan Reddy",
+        description:
+            "I'm a Software Engineer at Aviatrix, where I work on large-scale systems that power reliable and secure cloud infrastructure. I enjoy tackling complex engineering challenges and building resilient infrastructure. This is my first time mentoring at HackIllinois, and I'm excited to support hackers as they explore new ideas and grow their technical skills."
+    },
+    {
+        name: "Saloni Kataria",
+        description:
+            "Saloni Kataria is a data and analytics professional with 3+ years of experience, currently working in analytics and competitive intelligence. She has worked on AI-assisted automation, data validation pipelines, internal tools, and analytics dashboards using Python, SQL, and cloud technologies. Saloni enjoys supporting hackathon teams with problem framing, analytics, and execution."
+    },
+    {
+        name: "Saransh Bhardwaj",
+        description:
+            "Hello, My name is Saransh, I am a software engineer. For over an decade, I have led and developed multiple applications. From startup projects where I build zero-to-one apps to large organizations where I scaled the products to millions of users. "
+    },
+    {
+        name: "Shree Sevak",
+        description:
+            "Hi! I am currently a UX AI Project Manager at Caterpillar and UIUC alum, super excited to connect with students and help turn big ideas into meaningful impact!"
+    },
+    {
+        name: "Shreyas Chate",
+        description:
+            "I am a Conversational AI engineer in Chicago building LLM‑powered agents, RAG workflows, and cloud‑native apps with React/Node and ServiceNow/Amelia. I've won Best Overall Hack at AEC+ Tech 2025 and an AI research award, and I love helping student teams turn rough ideas into focused, demo‑ready projects."
+    },
+    {
+        name: "Sreekar Gadasu",
+        description:
+            "Sreekar is a software engineer with a Master's in Computer Science from Arizona State University. He builds AI-powered applications, agentic systems, and scalable full-stack products, with a focus on LLM-driven tools and intelligent automation."
+    },
+    {
+        name: "Sridharan Chinnaswamy",
+        description:
+            "Currently working as ALM Program Manager at Birlasoft, INC and previous I have done mentoring and judging at hackOhio 2025. I'm thrilled to be Part of Hackillinois 2026, Share & learning from all of you and supporting students in achieving their goals with my knowledge as much as possible."
+    },
+    {
+        name: "Suvrat Jain",
+        description:
+            "I'm a software engineer with experience in building scalable, production-ready systems across full-stack and cloud environments. I've worked on platforms combining several full stack frameworks with a focus on clean architecture, API design, and performance optimization. I enjoy working at the intersection of product thinking and engineering execution. I value practical problem-solving, thoughtful system design, and building real-world solutions that are both technically sound and user friendly."
+    },
+    {
+        name: "Victoria Rossi",
+        description:
+            "Hey! I'm Victoria. I'm a software engineer at Fulcrum GT. I've done research on LLMs, specifically related to sentiment analysis and theory of mind. Excited to help you discover new gaps in the cutting edge! In my free time you can find me planning vacations and learning languages!"
+    },
+    {
+        name: "Wilson Chay",
+        description:
+            "I'm a Software Engineer at Fulcrum GT working in ML/AI. I graduated from the University of Michigan in 2024 (CS + Statistics) and have experience across sports, healthcare, and tech. I enjoy meeting people building interesting things — feel free to reach out at wilsonwc@umich.edu"
+    },
+    {
+        name: "Zhuo Chen",
+        description:
+            "Joe is a software engineer with over four years of experience in software development. He has worked at Amazon and three startups, gaining experience across both large-scale systems and fast-paced startup environments. He enjoys vibe coding and frequently uses tools such as Claude Code, Cursor, and GitHub Copilot to enhance productivity. Joe is currently working at Aedify, a cloud infrastructure company based in Champaign."
+    }
+];
 export const judgeData: { name: string; description: string }[] = [
     {
         name: "Shubham Kulkarni",
@@ -60,7 +195,7 @@ export const judgeData: { name: string; description: string }[] = [
     {
         name: "Aniruddha Pai",
         description:
-            "Aniruddha Pai is a software engineer at Handshake and an alumnus of the University of Illinois at Urbana-Champaign. He focuses on building scalable, data-driven, and AI-powered systems that drive product growth. Aniruddha is also one of the founding engineers of Handshake AI, a strategic business advancing human-centered AI by connecting skilled talent with cutting-edge AI development and evaluation work. He helped build and scale the Handshake AI team and played a key role in shaping it into one of Handshake’s core business initiatives, extending Handshake’s impact into the AI economy."
+            "Aniruddha Pai is a software engineer at Handshake and an alumnus of the University of Illinois at Urbana-Champaign. He focuses on building scalable, data-driven, and AI-powered systems that drive product growth. Aniruddha is also one of the founding engineers of Handshake AI, a strategic business advancing human-centered AI by connecting skilled talent with cutting-edge AI development and evaluation work. He helped build and scale the Handshake AI team and played a key role in shaping it into one of Handshake\'s core business initiatives, extending Handshake\'s impact into the AI economy."
     },
     {
         name: "Sahil Garg",
@@ -75,7 +210,7 @@ export const judgeData: { name: string; description: string }[] = [
     {
         name: "Sreeja Vallamulla",
         description:
-            "I’m Sreeja Vallamulla, Founding Engineer at Zams and former CTO & Co-Founder of VedaVerse. I build end-to-end production ready LLM applications. I’ve served as a judge for the Stevie Awards, CODiE Awards, and Business Intelligence Group awards, and have peer-reviewed multiple IEEE papers."
+            "I\'m Sreeja Vallamulla, Founding Engineer at Zams and former CTO & Co-Founder of VedaVerse. I build end-to-end production ready LLM applications. I\'ve served as a judge for the Stevie Awards, CODiE Awards, and Business Intelligence Group awards, and have peer-reviewed multiple IEEE papers."
     },
     {
         name: "Harsh Deep",
@@ -151,7 +286,7 @@ export const judgeData: { name: string; description: string }[] = [
     {
         name: "Yurii Tovarnytskyi",
         description:
-            "I am Yura, a Chicago-based founder and design engineer. I have built startups from zero to launch, including serving as CTO at WUUXY, and now I’m at RunAnywhere (YC W26) mixing product, design, and engineering. When I’m not building, I’m playing volleyball and meeting other founders."
+            "I am Yura, a Chicago-based founder and design engineer. I have built startups from zero to launch, including serving as CTO at WUUXY, and now I\'m at RunAnywhere (YC W26) mixing product, design, and engineering. When I\'m not building, I\'m playing volleyball and meeting other founders."
     },
     {
         name: "Joowon Kim",
@@ -170,7 +305,7 @@ export const judgeData: { name: string; description: string }[] = [
     {
         name: "Gino Corrales",
         description:
-            "Gino Corrales is a Senior Cybersecurity Analyst specializing in Identity Access Management, secure systems design, and risk management. He holds a master’s degree in Management and Leadership and has served as a mentor and judge at multiple hackathons, evaluating innovative, security‑focused solutions built under real‑world constraints."
+            "Gino Corrales is a Senior Cybersecurity Analyst specializing in Identity Access Management, secure systems design, and risk management. He holds a master\'s degree in Management and Leadership and has served as a mentor and judge at multiple hackathons, evaluating innovative, security‑focused solutions built under real‑world constraints."
     },
     {
         name: "Bhanu Reddy",
@@ -180,7 +315,7 @@ export const judgeData: { name: string; description: string }[] = [
     {
         name: "Kanishka Patel",
         description:
-            "I’m a Digital Business Analyst at Caterpillar and a proud University of Illinois Urbana‑Champaign alum. I’m excited to return to HackIllinois as a mentor and judge for the second year, learning from students and supporting them as they build impactful, real‑world solutions."
+            "I\'m a Digital Business Analyst at Caterpillar and a proud University of Illinois Urbana‑Champaign alum. I\'m excited to return to HackIllinois as a mentor and judge for the second year, learning from students and supporting them as they build impactful, real‑world solutions."
     },
     {
         name: "Thomas Zadeik",
@@ -234,12 +369,12 @@ export const judgeData: { name: string; description: string }[] = [
     {
         name: "Phoebe Harmon",
         description:
-            "I’m a backend software engineer at Stripe on our Global Payments Experiences team. I graduated from UIUC in 2022 with a major in CS + Economics and a minor in Statistics."
+            "I\'m a backend software engineer at Stripe on our Global Payments Experiences team. I graduated from UIUC in 2022 with a major in CS + Economics and a minor in Statistics."
     },
     {
         name: "Divya Koya",
         description:
-            "Hello! I graduated from UIUC in 2025 in the BS/MCS program, and I'm ex-HackIllinois staff as well! I’m currently a software engineer at Stripe, with a focus on backend development for our Stripe merchant dashboard. I enjoy computer networking, full-stack web development, graphic design, and building things that are fun and a joy to use :))"
+            "Hello! I graduated from UIUC in 2025 in the BS/MCS program, and I'm ex-HackIllinois staff as well! I\'m currently a software engineer at Stripe, with a focus on backend development for our Stripe merchant dashboard. I enjoy computer networking, full-stack web development, graphic design, and building things that are fun and a joy to use :))"
     },
     {
         name: "Shashwat Mundra",
@@ -264,7 +399,7 @@ export const judgeData: { name: string; description: string }[] = [
     {
         name: "Yamaan Nandolia",
         description:
-            "Hey! I am a Technical Product Associate at Fulcrum GT and a UIC (CS, Business & Math) alum (’25). I drive product execution while working closely with engineering and business teams. Outside of work, I am usually experimenting in the kitchen or getting lost in a good book. Good luck with your projects!"
+            "Hey! I am a Technical Product Associate at Fulcrum GT and a UIC (CS, Business & Math) alum (\'25). I drive product execution while working closely with engineering and business teams. Outside of work, I am usually experimenting in the kitchen or getting lost in a good book. Good luck with your projects!"
     },
     {
         name: "Victor He",
