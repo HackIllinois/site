@@ -28,19 +28,10 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
     const [mounted, setMounted] = useState(false);
     const [isFooterVisible, setIsFooterVisible] = useState(false);
 
-    const isTouchDevice =
-        typeof window !== "undefined" &&
-        window.matchMedia("(hover: none)").matches;
-
     // popup
     const [isClickedOpen, setIsClickedOpen] = useState(false);
-    const [isHovered, setIsHovered] = useState(false);
-    const isOpen = isTouchDevice ? isClickedOpen : isClickedOpen || isHovered;
+    const isOpen = isClickedOpen;
     const wrapperRef = useRef<HTMLDivElement>(null);
-
-    const lockOpen = () => {
-        setIsClickedOpen(true);
-    };
 
     useEffect(() => {
         setMounted(true);
@@ -114,15 +105,12 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
             <Box
                 ref={wrapperRef}
                 sx={{ position: "relative", justifyContent: "center" }}
-                onMouseEnter={() => {
-                    if (!isTouchDevice) setIsHovered(true);
-                }}
-                onMouseLeave={() => {
-                    if (!isTouchDevice) setIsHovered(false);
-                }}
             >
                 {/* Popup */}
-                <ResourcesPopup isOpen={isOpen} onInteract={lockOpen} />
+                <ResourcesPopup
+                    isOpen={isOpen}
+                    onInteract={() => setIsClickedOpen(true)}
+                />
 
                 {/* Button */}
                 <Box
@@ -140,13 +128,7 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
                             width: "85dvw"
                         },
                         position: "relative",
-                        zIndex: 2,
-
-                        "&:hover": {
-                            transform: "scale(1.08)",
-                            transition: "transform 0.2s ease",
-                            transformOrigin: "center"
-                        }
+                        zIndex: 2
                     }}
                     onClick={() => setIsClickedOpen(prev => !prev)}
                 >
@@ -184,19 +166,6 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
                         />
                     </picture>
                 </Box>
-
-                {/* Hover buffer */}
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "-20px",
-                        left: 0,
-                        width: "100%",
-                        height: "20px",
-                        pointerEvents: "auto",
-                        zIndex: 1
-                    }}
-                />
             </Box>
         </Box>
     );

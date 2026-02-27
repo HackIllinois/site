@@ -25,6 +25,14 @@ type DropdownItem = {
 
 const NAVBAR_ITEMS: NavbarItem[] = [
     {
+        title: "Mentors",
+        link: "/mentors"
+    },
+    {
+        title: "Judges",
+        link: "/judges"
+    },
+    {
         title: "Schedule",
         link: "/schedule"
     },

@@ -858,6 +858,7 @@ const Rsvp = () => {
                     />
                 </Box>
             </Box>
+            {/* confirm dialog */}
             <Dialog
                 open={showConfirmDialog}
                 onClose={handleConfirmCancel}
