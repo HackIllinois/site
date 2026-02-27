@@ -217,3 +217,15 @@ export interface EventType {
     points: number;
     isPro: boolean;
 }
+
+export type MentorProfile = {
+    name: string;
+    description: string;
+    imageUrl: string;
+};
+
+export type JudgeProfile = {
+    name: string;
+    description: string;
+    imageUrl: string;
+};

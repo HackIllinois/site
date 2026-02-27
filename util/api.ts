@@ -8,7 +8,9 @@ import {
     RegistrationApplicationDraftBody,
     RegistrationApplicationSubmitted,
     RSVPInfo,
-    EventType
+    EventType,
+    MentorProfile,
+    JudgeProfile
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -214,4 +216,14 @@ export async function loadQRCode(): Promise<{
     qrInfo: string;
 }> {
     return await requestv2("GET", "/user/qr/");
+}
+
+export async function getMentors(): Promise<MentorProfile[]> {
+    const res = await requestv2("GET", "/mentor/info/").catch(handleError);
+    return res as MentorProfile[];
+}
+
+export async function getJudges(): Promise<JudgeProfile[]> {
+    const res = await requestv2("GET", "/judge/info/").catch(handleError);
+    return res as JudgeProfile[];
 }

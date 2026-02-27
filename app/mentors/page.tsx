@@ -1,17 +1,42 @@
 "use client";
 import { Box, Container, IconButton, Modal, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { mentorData } from "@/util/staffData";
 import { StaffCard } from "@/components/StaffCard/StaffCard";
+import { getMentors } from "@/util/api";
+import { MentorProfile } from "@/util/types";
 
 const Mentors = () => {
+    const DEFAULT_MENTOR_IMAGE_URL =
+        "https://raw.githubusercontent.com/HackIllinois/mobile/main/assets/point-shop/point-shop-shopkeeper-2.png";
+
+    const [mentors, setMentors] = useState<MentorProfile[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [activePerson, setActivePerson] = useState<{
         name: string;
         description: string;
-        imageName?: string;
+        imageUrl: string;
     } | null>(null);
+
+    useEffect(() => {
+        const loadMentors = async () => {
+            try {
+                setLoading(true);
+                const fetchedMentors = await getMentors();
+                setMentors(fetchedMentors);
+            } catch (e) {
+                const message =
+                    e instanceof Error ? e.message : "Failed to load mentors.";
+                setError(message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadMentors();
+    }, []);
 
     return (
         <Box
@@ -76,19 +101,36 @@ const Mentors = () => {
                     alignItems="center"
                     justifyContent="center"
                 >
-                    {mentorData.map((profile, index) => (
-                        <StaffCard
-                            key={index + "_" + profile.name}
-                            name={profile.name}
-                            photoSrc={`/mentors-judges/mentors/${profile.name}.jpg`}
-                            onClick={() =>
-                                setActivePerson({
-                                    name: profile.name,
-                                    description: profile.description
-                                })
-                            }
-                        />
-                    ))}
+                    {loading && (
+                        <Typography sx={{ color: "white", py: 4 }}>
+                            Loading mentors...
+                        </Typography>
+                    )}
+                    {!loading && error && (
+                        <Typography sx={{ color: "white", py: 4 }}>
+                            Failed to load mentors.
+                        </Typography>
+                    )}
+                    {!loading &&
+                        !error &&
+                        mentors.map((profile, index) => (
+                            <StaffCard
+                                key={index + "_" + profile.name}
+                                name={profile.name}
+                                photoSrc={
+                                    profile.imageUrl || DEFAULT_MENTOR_IMAGE_URL
+                                }
+                                onClick={() =>
+                                    setActivePerson({
+                                        name: profile.name,
+                                        description: profile.description,
+                                        imageUrl:
+                                            profile.imageUrl ||
+                                            DEFAULT_MENTOR_IMAGE_URL
+                                    })
+                                }
+                            />
+                        ))}
                 </Box>
             </Container>
 
@@ -205,6 +247,7 @@ const Mentors = () => {
                                 />
                             </Box>
                             <Box
+                                component="img"
                                 position="absolute"
                                 zIndex={1}
                                 top={{ xs: "39px", md: "69px" }}
@@ -217,20 +260,20 @@ const Mentors = () => {
                                     xs: "120px",
                                     md: "150px"
                                 }}
-                            >
-                                <Image
-                                    src={`/mentors-judges/mentors/${activePerson?.name}.jpg`}
-                                    fill
-                                    alt={`Picture of ${activePerson?.name}`}
-                                    style={{
-                                        borderRadius: "50%"
-                                    }}
-                                    onError={event => {
-                                        event.currentTarget.srcset =
-                                            "/mentors-judges/assets/placeholder.png";
-                                    }}
-                                />
-                            </Box>
+                                src={
+                                    activePerson?.imageUrl ||
+                                    DEFAULT_MENTOR_IMAGE_URL
+                                }
+                                alt={`Picture of ${activePerson?.name}`}
+                                onError={event => {
+                                    event.currentTarget.src =
+                                        DEFAULT_MENTOR_IMAGE_URL;
+                                }}
+                                sx={{
+                                    borderRadius: "50%",
+                                    objectFit: "cover"
+                                }}
+                            />
                         </Box>
                         {/* backing */}
                         <Image
