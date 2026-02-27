@@ -4,6 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import Image from "next/image";
 import { judgeData } from "@/util/staffData";
+import { StaffCard } from "@/components/StaffCard/StaffCard";
 
 const Judges = () => {
     const [activePerson, setActivePerson] = useState<{
@@ -75,88 +76,17 @@ const Judges = () => {
                     justifyContent="center"
                 >
                     {judgeData.map((profile, index) => (
-                        <Box
+                        <StaffCard
                             key={index + "_" + profile.name}
-                            width={200}
-                            height={200}
-                        >
-                            <Box
-                                position="relative"
-                                width="inherit"
-                                height="inherit"
-                                display="flex"
-                                justifyContent="center"
-                                alignItems="flex-start"
-                            >
-                                <Box position="absolute" zIndex={2}>
-                                    <Image
-                                        src={
-                                            "/mentors-judges/assets/astronaut.svg"
-                                        }
-                                        width={200}
-                                        height={200}
-                                        alt={
-                                            "Frame icon of an astronaut's helmet"
-                                        }
-                                        onClick={() =>
-                                            setActivePerson({
-                                                name: profile.name,
-                                                description: profile.description
-                                            })
-                                        }
-                                        style={{
-                                            cursor: "pointer"
-                                        }}
-                                    />
-                                </Box>
-                                <Box
-                                    position="absolute"
-                                    zIndex={1}
-                                    top="11px"
-                                    pl="1px"
-                                >
-                                    <Image
-                                        src={`/mentors-judges/judges/${profile.name}.png`}
-                                        width={150}
-                                        height={150}
-                                        alt={`Picture of ${profile.name}`}
-                                        onClick={() =>
-                                            setActivePerson({
-                                                name: profile.name,
-                                                description: profile.description
-                                            })
-                                        }
-                                        style={{
-                                            cursor: "pointer",
-                                            borderRadius: "50%"
-                                        }}
-                                        onError={event => {
-                                            event.currentTarget.srcset =
-                                                "/mentors-judges/assets/placeholder.png";
-                                        }}
-                                    />
-                                </Box>
-                            </Box>
-                            <Typography
-                                position="relative"
-                                zIndex={3}
-                                top="5px"
-                                onClick={() =>
-                                    setActivePerson({
-                                        name: profile.name,
-                                        description: profile.description
-                                    })
-                                }
-                                sx={{
-                                    // boxShadow: "0 0 15px 0px black",
-                                    // background: "#00000066",
-                                    cursor: "pointer",
-                                    fontWeight: 700
-                                }}
-                            >
-                                {profile.name}
-                            </Typography>
-                        </Box>
+                            name={profile.name}
+                            photoSrc={`/mentors-judges/judges/${profile.name}.png`}
+                            onClick={() =>
+                                setActivePerson({
+                                    name: profile.name,
+                                    description: profile.description
+                                })
+                            }
+                        />
                     ))}
                 </Box>
             </Container>
