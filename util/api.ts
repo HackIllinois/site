@@ -9,7 +9,8 @@ import {
     RegistrationApplicationSubmitted,
     RSVPInfo,
     EventType,
-    MentorProfile
+    MentorProfile,
+    JudgeProfile
 } from "./types";
 
 const APIv2 =
@@ -221,4 +222,9 @@ export async function loadQRCode(): Promise<{
 export async function getMentors(): Promise<MentorProfile[]> {
     const res = await requestv2("GET", "/mentor/info/").catch(handleError);
     return res as MentorProfile[];
+}
+
+export async function getJudges(): Promise<JudgeProfile[]> {
+    const res = await requestv2("GET", "/judge/info/").catch(handleError);
+    return res as JudgeProfile[];
 }

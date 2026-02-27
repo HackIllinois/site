@@ -219,7 +219,12 @@ export interface EventType {
 }
 
 export type MentorProfile = {
-    mentorId: string;
+    name: string;
+    description: string;
+    imageUrl: string;
+};
+
+export type JudgeProfile = {
     name: string;
     description: string;
     imageUrl: string;

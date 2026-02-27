@@ -8,6 +8,9 @@ import { getMentors } from "@/util/api";
 import { MentorProfile } from "@/util/types";
 
 const Mentors = () => {
+    const DEFAULT_MENTOR_IMAGE_URL =
+        "https://raw.githubusercontent.com/HackIllinois/mobile/main/assets/point-shop/point-shop-shopkeeper-2.png";
+
     const [mentors, setMentors] = useState<MentorProfile[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -115,7 +118,7 @@ const Mentors = () => {
                                 key={index + "_" + profile.name}
                                 name={profile.name}
                                 photoSrc={
-                                    profile.imageUrl || "mentors-judges/assets/placeholder.png"
+                                    profile.imageUrl || DEFAULT_MENTOR_IMAGE_URL
                                 }
                                 onClick={() =>
                                     setActivePerson({
@@ -123,7 +126,7 @@ const Mentors = () => {
                                         description: profile.description,
                                         imageUrl:
                                             profile.imageUrl ||
-                                            "mentors-judges/assets/placeholder.png"
+                                            DEFAULT_MENTOR_IMAGE_URL
                                     })
                                 }
                             />
