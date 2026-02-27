@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Box, Link } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 
 type ResourcesButtonProps = {};
 
@@ -95,9 +95,8 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
                 left: { xs: "50%", sm: 24 },
                 right: "auto",
                 bottom: {
-                    xs: 24,
-                    sm: isMobileLandscape ? 0 : 32,
-                    md: isMobileLandscape ? 0 : 24
+                    xs: "calc(24px + env(safe-area-inset-bottom))",
+                    sm: 24
                 },
                 zIndex: 99,
                 opacity: isFooterVisible ? 0 : 1,
@@ -133,16 +132,39 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
                         width: {
                             xs: "75dvw",
                             sm: isMobileLandscape ? 200 : 240,
-                            md: 200,
-                            lg: 240,
-                            xl: 280
+                            md: 220,
+                            lg: 280,
+                            xl: 300
                         },
                         position: "relative",
                         zIndex: 2,
-                        "&:hover img": { transform: "scale(1.08)" }
+
+                        "&:hover": {
+                            transform: "scale(1.08)",
+                            transition: "transform 0.2s ease",
+                            transformOrigin: "center"
+                        }
                     }}
                     onClick={() => setIsClickedOpen(prev => !prev)}
                 >
+                    <Typography
+                        sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            color: "#fff",
+                            fontFamily: '"Tsukimi Rounded", sans-serif',
+                            fontWeight: 700,
+                            letterSpacing: "2px",
+                            fontSize: "clamp(1rem, 1dvw, 1.4rem)",
+                            pointerEvents: "none",
+                            zIndex: 3
+                        }}
+                    >
+                        RESOURCES
+                    </Typography>
+
                     <picture>
                         <source
                             media="(max-width:599px)"
@@ -153,9 +175,7 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
                             alt="Resources"
                             style={{
                                 width: "100%",
-                                maxHeight: "100px",
-                                transition: "transform 0.2s ease",
-                                transformOrigin: "center"
+                                maxHeight: "100px"
                             }}
                         />
                     </picture>
@@ -219,13 +239,13 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({
         {
             title: "HOW TO HACK (BEGINNER)",
             link: "https://hackillinois.org/how_to_hack.pdf"
-        },
-        { title: "BUS SCHEDULE", link: "https://hackillinois.org" } // TODO
+        }
+        // { title: "BUS SCHEDULE", link: "https://hackillinois.org" }
     ];
 
     const platformsItems = [
         { title: "DISCORD", link: "https://go.hackillinois.org/discord" },
-        { title: "DEVPOST", link: "https://hackillinois.org" }, // TODO
+        // { title: "DEVPOST", link: "https://hackillinois.org" },
         {
             title: "IOS APP",
             link: "https://apps.apple.com/us/app/hackillinois/id1451755268"
@@ -237,7 +257,7 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({
     ];
 
     const eventsItems = [
-        { title: "OPENING CEREMONY", link: "https://hackillinois.org" }, // TODO
+        // { title: "OPENING CEREMONY", link: "https://hackillinois.org" },
         {
             title: "WORKSHOPS",
             link: "https://docs.google.com/document/d/1eAcfLvXOvHg61LSKDTmEWNIA--8JgSLumFDkFvTwsvA/edit?tab=t.0"
@@ -344,7 +364,7 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({
                     transformOrigin: "bottom",
                     opacity: isVisible ? 1 : 0,
                     transition:
-                        "transform 200ms cubic-bezier(0.4, 0, 0.2, 1), opacity 150ms ease",
+                        "transform 400ms cubic-bezier(0.4, 0, 0.2, 1), opacity 250ms ease",
 
                     pointerEvents: isOpen ? "auto" : "none"
                 }}
