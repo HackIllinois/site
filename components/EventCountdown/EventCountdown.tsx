@@ -1,7 +1,14 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Box, Typography, IconButton, Tooltip } from "@mui/material";
+import {
+    Box,
+    Typography,
+    IconButton,
+    Tooltip,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 
 type CountdownProps = {
@@ -61,6 +68,11 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
     liveLabel = "HackIllinois is LIVE!",
     onRocketClick
 }) => {
+    const theme = useTheme();
+    const isBetweenXsAndMd = useMediaQuery(
+        theme.breakpoints.between("xs", "md")
+    );
+
     const [mounted, setMounted] = useState(false);
     const [isFooterVisible, setIsFooterVisible] = useState(false);
 
@@ -149,6 +161,8 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
         parts.minutes,
         parts.seconds
     ].map(v => (v < 10 ? `0${v}` : `${v}`));
+
+    if (isBetweenXsAndMd) return null;
 
     return (
         <Box
