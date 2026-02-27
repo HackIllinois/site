@@ -1,5 +1,6 @@
 "use client";
 
+import { FORCE_REGISTRATION_CLOSED } from "@/app/register/constants";
 import GithubAuthPage from "@/app/register/general/formPages/GithubAuthPage";
 import NotProTrackPage from "@/app/register/general/formPages/NotProTrackPage";
 import Loading from "@/components/Loading/Loading";
@@ -8,8 +9,11 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import Link from "next/link";
 
 export default function ChallengeResult() {
-    const registrationAuth = useRegistrationAuth(true);
-
+    const registrationAuth = useRegistrationAuth({
+        isClosed: FORCE_REGISTRATION_CLOSED,
+        isProtected: !FORCE_REGISTRATION_CLOSED,
+        shouldLoadSubmission: true
+    });
     if (registrationAuth.isLoading) {
         return (
             <Loading

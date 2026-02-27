@@ -1,21 +1,28 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Box, Typography, IconButton, Tooltip } from "@mui/material";
+import {
+    Box,
+    Typography,
+    IconButton,
+    Tooltip,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 
 type CountdownProps = {
-    /** Target event date/time.
-     * Prefer an ISO string with timezone offset, e.g. "2025-03-15T18:00:00-05:00",
-     * or pass a Date constructed in the correct timezone.
-     */
-    targetDateTime: string | Date;
+    /** Event start date/time. */
+    startDateTime: string | Date;
 
-    /** Optional label for tooltip / accessibility. */
+    /** Event end date/time. */
+    endDateTime: string | Date;
+
+    /** Label shown before the event starts. */
     label?: string;
 
-    /** If true, hide the pill once the countdown hits exactly 0. */
-    hideWhenZero?: boolean;
+    /** Label shown while the event is live. */
+    liveLabel?: string;
 
     /** Optional click handler for the rocket button. */
     onRocketClick?: () => void;
@@ -37,9 +44,7 @@ function diffToParts(targetMs: number, nowMs: number): TimeParts {
     }
 
     const sign: -1 | 1 = diffMs < 0 ? -1 : 1;
-    let remaining = Math.abs(diffMs);
-
-    const totalSeconds = Math.floor(remaining / 1000);
+    const totalSeconds = Math.floor(Math.abs(diffMs) / 1000);
     const days = Math.floor(totalSeconds / (24 * 3600));
     const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -48,22 +53,50 @@ function diffToParts(targetMs: number, nowMs: number): TimeParts {
     return { sign, days, hours, minutes, seconds };
 }
 
+type Phase = "before" | "during" | "after";
+
+function getPhase(startMs: number, endMs: number, nowMs: number): Phase {
+    if (nowMs < startMs) return "before";
+    if (nowMs < endMs) return "during";
+    return "after";
+}
+
 export const EventCountdownPill: React.FC<CountdownProps> = ({
-    targetDateTime,
-    label = "Time until launch",
-    hideWhenZero = false,
+    startDateTime,
+    endDateTime,
+    label = "Countdown to HackIllinois 2026",
+    liveLabel = "HackIllinois is LIVE!",
     onRocketClick
 }) => {
+    const theme = useTheme();
+    const isBetweenXsAndMd = useMediaQuery(
+        theme.breakpoints.between("xs", "md")
+    );
+
     const [mounted, setMounted] = useState(false);
     const [isFooterVisible, setIsFooterVisible] = useState(false);
 
-    const targetMs = useMemo(
+    const startMs = useMemo(
         () =>
-            typeof targetDateTime === "string"
-                ? Date.parse(targetDateTime)
-                : targetDateTime.getTime(),
-        [targetDateTime]
+            typeof startDateTime === "string"
+                ? Date.parse(startDateTime)
+                : startDateTime.getTime(),
+        [startDateTime]
     );
+
+    const endMs = useMemo(
+        () =>
+            typeof endDateTime === "string"
+                ? Date.parse(endDateTime)
+                : endDateTime.getTime(),
+        [endDateTime]
+    );
+
+    const [phase, setPhase] = useState<Phase>(() =>
+        getPhase(startMs, endMs, Date.now())
+    );
+
+    const targetMs = phase === "during" ? endMs : startMs;
 
     const [parts, setParts] = useState<TimeParts>(() =>
         diffToParts(targetMs, Date.now())
@@ -74,13 +107,25 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
     }, []);
 
     useEffect(() => {
-        const update = () => setParts(diffToParts(targetMs, Date.now()));
+        const update = () => {
+            const now = Date.now();
+            setPhase(getPhase(startMs, endMs, now));
+        };
 
-        update(); // initial sync
+        update();
+        const id = window.setInterval(update, 1000);
+        return () => window.clearInterval(id);
+    }, [startMs, endMs]);
+
+    useEffect(() => {
+        const currentTarget = phase === "during" ? endMs : startMs;
+        const update = () => setParts(diffToParts(currentTarget, Date.now()));
+
+        update();
         const id = window.setInterval(update, 1000);
 
         return () => window.clearInterval(id);
-    }, [targetMs]);
+    }, [phase, startMs, endMs]);
 
     // Observe footer visibility
     useEffect(() => {
@@ -103,14 +148,11 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
         };
     }, [mounted]);
 
-    if (!mounted) {
+    if (!mounted || phase === "after") {
         return null;
     }
 
-    if (hideWhenZero && parts.sign === 0) {
-        return null;
-    }
-
+    const isLive = phase === "during";
     const signChar = parts.sign < 0 ? "-" : "";
 
     const formatted = [
@@ -119,6 +161,8 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
         parts.minutes,
         parts.seconds
     ].map(v => (v < 10 ? `0${v}` : `${v}`));
+
+    if (isBetweenXsAndMd) return null;
 
     return (
         <Box
@@ -131,7 +175,9 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
                 alignItems: "center",
                 gap: 1,
                 borderRadius: "16px",
-                background: "linear-gradient(135deg, #a68fc4, #8fa3d4)",
+                background: isLive
+                    ? "linear-gradient(135deg, #e05353, #e0a553)"
+                    : "linear-gradient(135deg, #a68fc4, #8fa3d4)",
                 backdropFilter: "blur(12px)",
                 boxShadow: "0 12px 30px rgba(15, 23, 42, 0.35)",
                 width: "250px",
@@ -142,7 +188,7 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
                 transition: "opacity 0.3s ease, transform 0.3s ease",
                 pointerEvents: isFooterVisible ? "none" : "auto"
             }}
-            aria-label={label}
+            aria-label={isLive ? liveLabel : label}
             role="status"
         >
             <Typography
@@ -166,7 +212,7 @@ export const EventCountdownPill: React.FC<CountdownProps> = ({
                     <Typography
                         sx={{ fontFamily: "Montserrat", fontSize: "16px" }}
                     >
-                        {label}
+                        {isLive ? liveLabel : label}
                     </Typography>
                 }
             >

@@ -25,6 +25,7 @@ import {
     MLH_CODE_OF_CONDUCT_URL,
     OTHER_SCHOOL_OPTION
 } from "../constants/registration";
+import { FORCE_REGISTRATION_CLOSED } from "../../constants";
 
 interface ReviewProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
@@ -182,10 +183,14 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                     values.applicationOptional || "N/A"
                                 }
                             />
-                            <UserInfoBox
-                                label="Would you like to be considered for HackVoyagers Track?"
-                                userResponse={values.pro ? "Yes" : "No"}
-                            />
+                            {FORCE_REGISTRATION_CLOSED ? (
+                                <></>
+                            ) : (
+                                <UserInfoBox
+                                    label="Would you like to be considered for HackVoyagers Track?"
+                                    userResponse={values.pro ? "Yes" : "No"}
+                                />
+                            )}
                         </ReviewInfoAccordionBox>
                     </AccordionDetails>
                 </StyledAccordion>

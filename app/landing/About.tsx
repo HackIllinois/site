@@ -150,7 +150,7 @@ const About = () => {
                             }
                         }}
                     >
-                        HackIllinois is University of Illinois at
+                        HackIllinois is the University of Illinois
                         Urbana-Champaign&apos;s premier collegiate hackathon.
                         Prospective attendees can register by the{" "}
                         <strong>

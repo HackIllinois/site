@@ -11,9 +11,14 @@ import Image from "next/image";
 import Confetti from "react-confetti";
 import { getChallenge } from "@/util/api";
 import { useEffect, useState } from "react";
+import { FORCE_REGISTRATION_CLOSED } from "@/app/register/constants";
 
 export default function ChallengeResult() {
-    const registrationAuth = useRegistrationAuth(true);
+    const registrationAuth = useRegistrationAuth({
+        isClosed: FORCE_REGISTRATION_CLOSED,
+        isProtected: !FORCE_REGISTRATION_CLOSED,
+        shouldLoadSubmission: true
+    });
     const { width, height } = useWindowSize();
 
     const [challengeStatus, setChallengeStatus] = useState<

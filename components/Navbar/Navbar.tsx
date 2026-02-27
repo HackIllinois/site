@@ -33,8 +33,8 @@ const NAVBAR_ITEMS: NavbarItem[] = [
         link: "/judges"
     },
     {
-        title: "Register",
-        link: "/register/general#personal-information"
+        title: "Schedule",
+        link: "/schedule"
     },
     {
         title: "Prizes",

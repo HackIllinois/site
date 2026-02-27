@@ -3,13 +3,18 @@
 import { EventCountdownPill } from "@/components/EventCountdown/EventCountdown";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import { ResourcesButton } from "@/components/ResourcesButton/ResourcesButton";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
+import { usePathname } from "next/navigation";
 import theme from "../theme";
 import { montserrat, tsukimi, jersey } from "../theme/fonts";
 import "./globals.scss";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+    const pathname = usePathname();
+    const hideFooter = pathname === "/schedule" || pathname === "/faq";
+
     return (
         <html lang="en">
             <head>
@@ -17,6 +22,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <meta
                     name="description"
                     content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
+                />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, viewport-fit=cover"
                 />
 
                 {/* OpenGraph */}
@@ -56,10 +65,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <ThemeProvider theme={theme}>
                         <Navbar />
                         {children}
-                        <Footer />
+                        <ResourcesButton />
+                        {!hideFooter && <Footer />}
                         <EventCountdownPill
-                            targetDateTime="2026-02-27T18:00:00-06:00"
-                            label="Countdown to HackIllinois 2026"
+                            startDateTime="2026-02-27T14:00:00-06:00"
+                            endDateTime="2026-03-01T06:00:00-06:00"
                         />
                     </ThemeProvider>
                 </AppRouterCacheProvider>

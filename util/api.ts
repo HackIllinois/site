@@ -7,7 +7,8 @@ import {
     MethodType,
     RegistrationApplicationDraftBody,
     RegistrationApplicationSubmitted,
-    RSVPInfo
+    RSVPInfo,
+    EventType
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -33,7 +34,10 @@ export async function getAuthToken(): Promise<string | null> {
 }
 
 export function authenticate(): void {
-    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/register/general`;
+    // Get the current URL
+    const callbackUrl = window.location.pathname;
+
+    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/${callbackUrl}`;
     window.location.replace(authUrl);
 }
 
@@ -198,4 +202,16 @@ export async function registrationAlive(): Promise<boolean> {
 
 export async function postAuthRefresh(): Promise<void> {
     await requestv2("POST", "/auth/refresh", {});
+}
+
+export async function getEvents(): Promise<EventType[]> {
+    const res = await requestv2("GET", "/event").catch(handleError);
+    return res.events as EventType[];
+}
+
+export async function loadQRCode(): Promise<{
+    userId: string;
+    qrInfo: string;
+}> {
+    return await requestv2("GET", "/user/qr/");
 }
