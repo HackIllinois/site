@@ -7,9 +7,6 @@ import { StaffCard } from "@/components/StaffCard/StaffCard";
 import { getMentors } from "@/util/api";
 import { MentorProfile } from "@/util/types";
 
-const DEFAULT_MENTOR_IMAGE_URL =
-    "https://raw.githubusercontent.com/HackIllinois/hackillinois/main/mobile/assets/profile/avatar-screen/avatars/character1.svg";
-
 const Mentors = () => {
     const [mentors, setMentors] = useState<MentorProfile[]>([]);
     const [loading, setLoading] = useState(true);
@@ -118,7 +115,7 @@ const Mentors = () => {
                                 key={index + "_" + profile.name}
                                 name={profile.name}
                                 photoSrc={
-                                    profile.imageUrl || DEFAULT_MENTOR_IMAGE_URL
+                                    profile.imageUrl || "mentors-judges/assets/placeholder.png"
                                 }
                                 onClick={() =>
                                     setActivePerson({
@@ -126,7 +123,7 @@ const Mentors = () => {
                                         description: profile.description,
                                         imageUrl:
                                             profile.imageUrl ||
-                                            DEFAULT_MENTOR_IMAGE_URL
+                                            "mentors-judges/assets/placeholder.png"
                                     })
                                 }
                             />
