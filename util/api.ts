@@ -8,10 +8,12 @@ import {
     RegistrationApplicationDraftBody,
     RegistrationApplicationSubmitted,
     RSVPInfo,
-    EventType
+    EventType,
+    MentorProfile
 } from "./types";
 
-const APIv2 = "https://adonix.hackillinois.org";
+const APIv2 =
+    process.env.NEXT_PUBLIC_ADONIX_URL || "https://adonix.hackillinois.org";
 
 export const isAuthenticated = async (): Promise<boolean> => {
     return (await getAuthToken()) !== null;
@@ -37,7 +39,7 @@ export function authenticate(): void {
     // Get the current URL
     const callbackUrl = window.location.pathname;
 
-    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/${callbackUrl}`;
+    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}${callbackUrl}`;
     window.location.replace(authUrl);
 }
 
@@ -214,4 +216,9 @@ export async function loadQRCode(): Promise<{
     qrInfo: string;
 }> {
     return await requestv2("GET", "/user/qr/");
+}
+
+export async function getMentors(): Promise<MentorProfile[]> {
+    const res = await requestv2("GET", "/mentor/info/").catch(handleError);
+    return res as MentorProfile[];
 }

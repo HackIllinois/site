@@ -1,6 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 
+const DEFAULT_MENTOR_IMAGE_URL =
+    "https://raw.githubusercontent.com/HackIllinois/hackillinois/main/mobile/assets/profile/avatar-screen/avatars/character1.svg";
+
 type StaffCardProps = {
     name: string;
     photoSrc: string;
@@ -41,22 +44,24 @@ export const StaffCard: React.FC<StaffCardProps> = ({
                         alt="Frame icon of an astronaut's helmet"
                     />
                 </Box>
-                <Box position="absolute" zIndex={1} top="11px" pl="1px">
-                    <Image
-                        src={photoSrc}
-                        width={150}
-                        height={150}
-                        alt={`Picture of ${name}`}
-                        style={{
-                            borderRadius: "50%",
-                            objectFit: "cover"
-                        }}
-                        onError={event => {
-                            event.currentTarget.srcset =
-                                "/mentors-judges/assets/placeholder.png";
-                        }}
-                    />
-                </Box>
+                <Box
+                    component="img"
+                    position="absolute"
+                    zIndex={1}
+                    top="11px"
+                    pl="1px"
+                    src={photoSrc || DEFAULT_MENTOR_IMAGE_URL}
+                    alt={`Picture of ${name}`}
+                    onError={event => {
+                        event.currentTarget.src = DEFAULT_MENTOR_IMAGE_URL;
+                    }}
+                    sx={{
+                        width: 150,
+                        height: 150,
+                        borderRadius: "50%",
+                        objectFit: "cover"
+                    }}
+                />
             </Box>
             <Typography
                 position="relative"
