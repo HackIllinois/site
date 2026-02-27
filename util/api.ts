@@ -13,8 +13,7 @@ import {
     JudgeProfile
 } from "./types";
 
-const APIv2 =
-    process.env.NEXT_PUBLIC_ADONIX_URL || "https://adonix.hackillinois.org";
+const APIv2 = "https://adonix.hackillinois.org";
 
 export const isAuthenticated = async (): Promise<boolean> => {
     return (await getAuthToken()) !== null;
@@ -40,7 +39,7 @@ export function authenticate(): void {
     // Get the current URL
     const callbackUrl = window.location.pathname;
 
-    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}${callbackUrl}`;
+    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/${callbackUrl}`;
     window.location.replace(authUrl);
 }
 
