@@ -51,7 +51,7 @@ const ExtraPathPrizesSection: React.FC = () => {
                         backgroundSrc="/prizes/path_prizes/prize13.svg"
                         topText="BEST USE OF"
                         topSecondRow="SOLANA"
-                        bottomText="$5K in Crypto for the team"
+                        bottomText="$5K in Crypto for the team and Ledger Nano S Plus"
                         radius={130}
                         height={540}
                         centerOffsetY={10}

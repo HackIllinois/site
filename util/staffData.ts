@@ -135,6 +135,7 @@ export const mentorData: { name: string; description: string }[] = [
             "Joe is a software engineer with over four years of experience in software development. He has worked at Amazon and three startups, gaining experience across both large-scale systems and fast-paced startup environments. He enjoys vibe coding and frequently uses tools such as Claude Code, Cursor, and GitHub Copilot to enhance productivity. Joe is currently working at Aedify, a cloud infrastructure company based in Champaign."
     }
 ];
+
 export const judgeData: { name: string; description: string }[] = [
     {
         name: "Shubham Kulkarni",
@@ -406,4 +407,4 @@ export const judgeData: { name: string; description: string }[] = [
         description:
             "Victor is a Software Engineer at Aedify.ai, where he builds scalable AI systems and backend infrastructure. His work focuses on LLM integration, vector search, and cloud-based pipelines for intelligent applications."
     }
-];
+].sort((a, b) => a.name.localeCompare(b.name));
