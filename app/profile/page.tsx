@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import {
     Box,
     CircularProgress,
@@ -58,9 +58,7 @@ export default function Profile() {
         setMode("profile");
     };
 
-    const handleShowQR = async () => {
-        setShowQR(true);
-        if (qrInfo) return;
+    const fetchQRCode = useCallback(async () => {
         setQrLoading(true);
         try {
             const data = await loadQRCode();
@@ -71,11 +69,23 @@ export default function Profile() {
                 error?.message || "Failed to load QR code. Please try again."
             );
             setShowErrorAlert(true);
-            setShowQR(false);
         } finally {
             setQrLoading(false);
         }
+    }, []);
+
+    const handleShowQR = async () => {
+        setShowQR(true);
+        if (qrInfo) return;
+        fetchQRCode();
     };
+
+    // Auto-refresh QR code every 5 minutes while the dialog is open
+    useEffect(() => {
+        if (!showQR) return;
+        const interval = setInterval(fetchQRCode, 5 * 60 * 1000);
+        return () => clearInterval(interval);
+    }, [showQR, fetchQRCode]);
 
     const confirmAvatarPicker = async () => {
         setLoading(true);
@@ -654,7 +664,7 @@ export default function Profile() {
                         Your QR Code
                     </Typography>
 
-                    {qrLoading ? (
+                    {!qrInfo && qrLoading ? (
                         <CircularProgress sx={{ color: "#2AFF00", my: 4 }} />
                     ) : (
                         <Box
@@ -664,16 +674,59 @@ export default function Profile() {
                                 borderRadius: "12px",
                                 display: "flex",
                                 alignItems: "center",
-                                justifyContent: "center"
+                                justifyContent: "center",
+                                position: "relative"
                             }}
                         >
                             <QRCodeSVG
                                 value={qrInfo}
                                 size={256}
-                                style={{ width: "100%", height: "auto" }}
+                                style={{
+                                    width: "100%",
+                                    height: "auto",
+                                    opacity: qrLoading ? 0.3 : 1,
+                                    transition: "opacity 0.2s ease"
+                                }}
                             />
+                            {qrLoading && (
+                                <CircularProgress
+                                    sx={{
+                                        color: "#2AFF00",
+                                        position: "absolute"
+                                    }}
+                                />
+                            )}
                         </Box>
                     )}
+
+                    <Box
+                        component="button"
+                        onClick={fetchQRCode}
+                        disabled={qrLoading}
+                        sx={{
+                            all: "unset",
+                            cursor: qrLoading ? "default" : "pointer",
+                            mt: 2,
+                            px: 3,
+                            py: 0.75,
+                            fontFamily: '"Montserrat", sans-serif',
+                            fontSize: "14px",
+                            fontWeight: 600,
+                            color: "white",
+                            borderRadius: "50px",
+                            border: "2px solid #2AFF00",
+                            background: "rgba(4, 255, 0, 0.15)",
+                            opacity: qrLoading ? 0.5 : 1,
+                            transition: "all 0.2s ease",
+                            "&:hover": {
+                                background: qrLoading
+                                    ? "rgba(4, 255, 0, 0.15)"
+                                    : "rgba(4, 255, 0, 0.25)"
+                            }
+                        }}
+                    >
+                        REFRESH QR
+                    </Box>
                 </DialogContent>
             </Dialog>
         </Box>
