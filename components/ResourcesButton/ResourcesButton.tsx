@@ -5,14 +5,42 @@ import { Box, Link } from "@mui/material";
 type ResourcesButtonProps = {};
 
 export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
+    const [isMobileLandscape, setIsMobileLandscape] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+
+        const updateOrientation = () => {
+            if (typeof window === "undefined") return;
+
+            const isLandscape =
+                window.innerWidth > window.innerHeight &&
+                window.innerWidth < 1000;
+            setIsMobileLandscape(isLandscape);
+        };
+
+        updateOrientation();
+        window.addEventListener("resize", updateOrientation);
+
+        return () => window.removeEventListener("resize", updateOrientation);
+    }, []);
+
     const [mounted, setMounted] = useState(false);
     const [isFooterVisible, setIsFooterVisible] = useState(false);
+
+    const isTouchDevice =
+        typeof window !== "undefined" &&
+        window.matchMedia("(hover: none)").matches;
 
     // popup
     const [isClickedOpen, setIsClickedOpen] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
-    const isOpen = isClickedOpen || isHovered;
+    const isOpen = isTouchDevice ? isClickedOpen : isClickedOpen || isHovered;
     const wrapperRef = useRef<HTMLDivElement>(null);
+
+    const lockOpen = () => {
+        setIsClickedOpen(true);
+    };
 
     useEffect(() => {
         setMounted(true);
@@ -48,9 +76,9 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
             }
         };
 
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("click", handleClickOutside);
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("click", handleClickOutside);
         };
     }, []);
 
@@ -64,12 +92,12 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
                 position: "fixed",
                 justifyContent: "center",
                 alignItems: "center",
-                left: { xs: "50%", md: 24 },
-                right: { xs: "auto", md: "auto" },
+                left: { xs: "50%", sm: 24 },
+                right: "auto",
                 bottom: {
                     xs: 24,
-                    sm: 32,
-                    md: 24
+                    sm: isMobileLandscape ? 0 : 32,
+                    md: isMobileLandscape ? 0 : 24
                 },
                 zIndex: 99,
                 opacity: isFooterVisible ? 0 : 1,
@@ -78,7 +106,7 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
                     xs: `translateX(-50%) ${
                         isFooterVisible ? "translateY(20px)" : "translateY(0)"
                     }`,
-                    md: isFooterVisible ? "translateY(20px)" : "translateY(0)"
+                    sm: isFooterVisible ? "translateY(20px)" : "translateY(0)"
                 },
                 transition: "opacity 0.3s ease, transform 0.3s ease",
                 pointerEvents: isFooterVisible ? "none" : "auto"
@@ -87,35 +115,51 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
             <Box
                 ref={wrapperRef}
                 sx={{ position: "relative", justifyContent: "center" }}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
+                onMouseEnter={() => {
+                    if (!isTouchDevice) setIsHovered(true);
+                }}
+                onMouseLeave={() => {
+                    if (!isTouchDevice) setIsHovered(false);
+                }}
             >
                 {/* Popup */}
-                <ResourcesPopup isOpen={isOpen} />
+                <ResourcesPopup isOpen={isOpen} onInteract={lockOpen} />
 
                 {/* Button */}
                 <Box
-                    component="img"
-                    src="/resources/resource_button_closed.svg"
-                    alt="Resources"
-                    onClick={() => setIsClickedOpen(prev => !prev)}
                     sx={{
                         cursor: "pointer",
                         display: "block",
                         width: {
                             xs: "75dvw",
-                            sm: 240,
+                            sm: isMobileLandscape ? 200 : 240,
                             md: 200,
                             lg: 240,
                             xl: 280
                         },
-                        transformOrigin: "center",
-                        transition: "transform 0.2s ease",
-                        "&:hover": { transform: "scale(1.08)" },
                         position: "relative",
-                        zIndex: 2
+                        zIndex: 2,
+                        "&:hover img": { transform: "scale(1.08)" }
                     }}
-                />
+                    onClick={() => setIsClickedOpen(prev => !prev)}
+                >
+                    <picture>
+                        <source
+                            media="(max-width:599px)"
+                            srcSet="/resources/resource_button_mobile.svg"
+                        />
+                        <img
+                            src="/resources/resource_button.svg"
+                            alt="Resources"
+                            style={{
+                                width: "100%",
+                                maxHeight: "100px",
+                                transition: "transform 0.2s ease",
+                                transformOrigin: "center"
+                            }}
+                        />
+                    </picture>
+                </Box>
 
                 {/* Hover buffer */}
                 <Box
@@ -134,11 +178,33 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
     );
 };
 
-type ResourcesPopupProps = { isOpen: boolean };
+type ResourcesPopupProps = { isOpen: boolean; onInteract: () => void };
 
-export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
+export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({
+    isOpen,
+    onInteract
+}) => {
+    const [isMobileLandscape, setIsMobileLandscape] = useState(false);
+
+    useEffect(() => {
+        const updateOrientation = () => {
+            if (typeof window === "undefined") return;
+
+            const isLandscape =
+                window.innerWidth > window.innerHeight &&
+                window.innerWidth < 900;
+
+            setIsMobileLandscape(isLandscape);
+        };
+
+        updateOrientation();
+        window.addEventListener("resize", updateOrientation);
+
+        return () => window.removeEventListener("resize", updateOrientation);
+    }, []);
+
     const [activeCategory, setActiveCategory] = useState<
-        "guides" | "platforms" | "workshops"
+        "guides" | "platforms" | "events"
     >("guides");
 
     const guidesItems = [
@@ -146,20 +212,36 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
             title: "ATTENDEE GUIDE",
             link: "https://hackillinois.org/attendee_guide.pdf"
         },
-        { title: "PRIZE INFO GUIDE", link: "https://google.com" },
-        { title: "HOW TO HACK (BEGINNER)", link: "https://google.com" },
-        { title: "BUS SCHEDULE", link: "https://google.com" }
+        {
+            title: "PRIZE INFO GUIDE",
+            link: "https://go.hackillinois.org/prizes"
+        },
+        {
+            title: "HOW TO HACK (BEGINNER)",
+            link: "https://hackillinois.org/how_to_hack.pdf"
+        },
+        { title: "BUS SCHEDULE", link: "https://hackillinois.org" } // TODO
     ];
 
     const platformsItems = [
-        { title: "PLATFORM 1", link: "https://google.com" },
-        { title: "PLATFORM 2", link: "https://google.com" },
-        { title: "PLATFORM 3", link: "https://google.com" }
+        { title: "DISCORD", link: "https://go.hackillinois.org/discord" },
+        { title: "DEVPOST", link: "https://hackillinois.org" }, // TODO
+        {
+            title: "IOS APP",
+            link: "https://apps.apple.com/us/app/hackillinois/id1451755268"
+        },
+        {
+            title: "ANDROID APP",
+            link: "https://play.google.com/store/apps/details?id=org.hackillinois.android.release"
+        }
     ];
 
-    const workshopsItems = [
-        { title: "WORKSHOP 1", link: "https://google.com" },
-        { title: "WORKSHOP 2", link: "https://google.com" }
+    const eventsItems = [
+        { title: "OPENING CEREMONY", link: "https://hackillinois.org" }, // TODO
+        {
+            title: "WORKSHOPS",
+            link: "https://docs.google.com/document/d/1eAcfLvXOvHg61LSKDTmEWNIA--8JgSLumFDkFvTwsvA/edit?tab=t.0"
+        }
     ];
 
     const strokeColors = ["#FFCCF3", "#A3F2FF", "#FFC0B9", "#DDFFE4"];
@@ -172,8 +254,8 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                 return guidesItems;
             case "platforms":
                 return platformsItems;
-            case "workshops":
-                return workshopsItems;
+            case "events":
+                return eventsItems;
         }
     };
 
@@ -200,15 +282,45 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
         md: { w: 5, h: 18 }
     };
 
+    const [maxPopupHeight, setMaxPopupHeight] = useState("95dvh");
+
+    useEffect(() => {
+        const updateHeight = () => {
+            if (typeof window === "undefined") return;
+
+            const isMobileLandscape =
+                window.innerWidth > window.innerHeight &&
+                window.innerWidth < 900;
+
+            if (isMobileLandscape) {
+                setMaxPopupHeight(`${window.innerHeight - 60}px`); // navbar buffer
+            } else {
+                setMaxPopupHeight("95dvh");
+            }
+        };
+
+        updateHeight();
+        window.addEventListener("resize", updateHeight);
+
+        return () => window.removeEventListener("resize", updateHeight);
+    }, []);
+
     return (
         <>
             <Box
                 sx={{
                     position: "absolute",
-                    left: 0,
-                    width: { xs: "80vw", sm: 340, md: 300, lg: 340 },
-                    bottom: { xs: 90, sm: 70, md: 80 },
-                    maxWidth: "95vw",
+                    left: { xs: "50%", sm: 0 },
+                    width: {
+                        xs: "80dvw",
+                        sm: isMobileLandscape ? 300 : 340,
+                        md: 300,
+                        lg: 340
+                    },
+                    bottom: { xs: "23dvw", sm: 80, md: 70, lg: 80, xl: 100 },
+                    maxWidth: "75dvw",
+                    maxHeight: maxPopupHeight,
+                    overflowY: "auto",
 
                     borderRadius: "26px",
                     padding: "3px",
@@ -222,7 +334,13 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                     )`,
 
                     // popup open/close animation
-                    transform: isVisible ? "scaleY(1)" : "scaleY(0)",
+                    transform: {
+                        xs: isVisible
+                            ? "translateX(-50%) scaleY(1)"
+                            : "translateX(-50%) scaleY(0)",
+                        sm: isVisible ? "scaleY(1)" : "scaleY(0)"
+                    },
+
                     transformOrigin: "bottom",
                     opacity: isVisible ? 1 : 0,
                     transition:
@@ -364,8 +482,32 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                             position: "relative",
                             zIndex: 1,
                             borderRadius: "14px",
-                            backgroundImage: `
+                            backgroundImage: {
+                                xs: `
                                 /* vertical grid lines */
+                                repeating-linear-gradient(
+                                    to right,
+                                    rgba(84, 172, 72, 0.15),
+                                    rgba(84, 172, 72, 0.15) 1px,
+                                    transparent 1px,
+                                    transparent 26px
+                                ),
+                                /* horizontal grid lines */
+                                repeating-linear-gradient(
+                                    to bottom,
+                                    rgba(84, 172, 72, 0.15),
+                                    rgba(84, 172, 72, 0.15) 1px,
+                                    transparent 1px,
+                                    transparent 26px
+                                ),
+                                /* gradient background */
+                                linear-gradient(
+                                    to right,
+                                    rgba(0, 40, 0, 0.95) 0%,
+                                    rgba(0, 55, 0, 0.95) 100%
+                                )
+                            `,
+                                md: `
                                 repeating-linear-gradient(
                                     to right,
                                     rgba(84, 172, 72, 0.2),
@@ -373,7 +515,6 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                                     transparent 1px,
                                     transparent 26px
                                 ),
-                                /* horizontal grid lines */
                                 repeating-linear-gradient(
                                     to bottom,
                                     rgba(84, 172, 72, 0.2),
@@ -381,18 +522,18 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                                     transparent 1px,
                                     transparent 26px
                                 ),
-                                /* gradient background */
                                 linear-gradient(
                                     to right,
-                                    rgba(0, 83, 1, 1) 0%,       /* 100% */
-                                    rgba(0, 65, 1, 0.9) 2%,     /* 90% */
-                                    rgba(1, 86, 2, 0.8) 4%,     /* 80% */
-                                    rgba(1, 113, 3, 0.5) 33%,   /* 50% */
-                                    rgba(1, 113, 3, 0.5) 71%,   /* 50% */
-                                    rgba(1, 86, 2, 0.8) 96%,    /* 80% */
-                                    rgba(0, 65, 1, 0.8) 99%     /* 80% */
+                                    rgba(0, 83, 1, 1) 0%,
+                                    rgba(0, 65, 1, 0.9) 2%,
+                                    rgba(1, 86, 2, 0.8) 4%,
+                                    rgba(1, 113, 3, 0.5) 33%,
+                                    rgba(1, 113, 3, 0.5) 71%,
+                                    rgba(1, 86, 2, 0.8) 96%,
+                                    rgba(0, 65, 1, 0.8) 99%
                                 )
-                            `,
+                            `
+                            },
                             backgroundRepeat: "repeat, repeat, no-repeat",
                             backgroundSize: "auto, auto, 100% 100%",
                             padding: "8px",
@@ -410,7 +551,10 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                         >
                             {/* Guides button */}
                             <Box
-                                onClick={() => setActiveCategory("guides")}
+                                onClick={() => {
+                                    onInteract();
+                                    setActiveCategory("guides");
+                                }}
                                 sx={{
                                     flex: 1,
                                     display: "flex",
@@ -432,13 +576,19 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                                             : "/resources/guides_unselected.svg"
                                     }
                                     alt="Guides"
-                                    sx={{ width: "90%", height: "auto" }}
+                                    sx={{
+                                        width: "90%",
+                                        height: "auto"
+                                    }}
                                 />
                             </Box>
 
                             {/* Platforms button */}
                             <Box
-                                onClick={() => setActiveCategory("platforms")}
+                                onClick={() => {
+                                    onInteract();
+                                    setActiveCategory("platforms");
+                                }}
                                 sx={{
                                     flex: 1,
                                     display: "flex",
@@ -460,13 +610,19 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                                             : "/resources/platforms_unselected.svg"
                                     }
                                     alt="Platforms"
-                                    sx={{ width: "90%", height: "auto" }}
+                                    sx={{
+                                        width: "90%",
+                                        height: "auto"
+                                    }}
                                 />
                             </Box>
 
-                            {/* Workshops button */}
+                            {/* Events button */}
                             <Box
-                                onClick={() => setActiveCategory("workshops")}
+                                onClick={() => {
+                                    onInteract();
+                                    setActiveCategory("events");
+                                }}
                                 sx={{
                                     flex: 1,
                                     display: "flex",
@@ -483,12 +639,15 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                                 <Box
                                     component="img"
                                     src={
-                                        activeCategory == "workshops"
-                                            ? "/resources/workshops_selected.svg"
-                                            : "/resources/workshops_unselected.svg"
+                                        activeCategory == "events"
+                                            ? "/resources/events_selected.svg"
+                                            : "/resources/events_unselected.svg"
                                     }
-                                    alt="Workshops"
-                                    sx={{ width: "90%", height: "auto" }}
+                                    alt="Events"
+                                    sx={{
+                                        width: "90%",
+                                        height: "auto"
+                                    }}
                                 />
                             </Box>
                         </Box>
@@ -522,6 +681,9 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                                         href={item.link}
                                         target="_blank"
                                         rel="noopener noreferrer"
+                                        onClick={() => {
+                                            onInteract();
+                                        }}
                                         sx={{
                                             position: "relative",
                                             pl: "14px",
@@ -533,8 +695,12 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                                                 '"Tsukimi Rounded", sans-serif',
                                             fontSize: {
                                                 xs: "0.85rem",
-                                                sm: "0.9rem",
-                                                md: "1rem"
+                                                sm: isMobileLandscape
+                                                    ? "0.8rem"
+                                                    : "0.9rem",
+                                                md: isMobileLandscape
+                                                    ? "1rem"
+                                                    : "1rem"
                                             },
                                             fontWeight: 600,
                                             lineHeight: 1.0,
@@ -553,7 +719,7 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
 
                                             overflow: "visible",
 
-                                            // top caps
+                                            // top cap
                                             "&::before": {
                                                 content: '""',
                                                 position: "absolute",
@@ -563,14 +729,15 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                                                     sm: `${cap.sm.w}px`,
                                                     md: `${cap.md.w}px`
                                                 },
-
                                                 height: {
                                                     xs: `${cap.xs.h}px`,
                                                     sm: `${cap.sm.h}px`,
                                                     md: `${cap.md.h}px`
                                                 },
-
-                                                left: "-4px",
+                                                left: {
+                                                    xs: "-3px",
+                                                    sm: "-4px"
+                                                },
                                                 top: "-12px",
 
                                                 backgroundColor: "#DFFFE4",
@@ -588,14 +755,15 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({ isOpen }) => {
                                                     sm: `${cap.sm.w}px`,
                                                     md: `${cap.md.w}px`
                                                 },
-
                                                 height: {
                                                     xs: `${cap.xs.h}px`,
                                                     sm: `${cap.sm.h}px`,
                                                     md: `${cap.md.h}px`
                                                 },
-
-                                                left: "-4px",
+                                                left: {
+                                                    xs: "-3px",
+                                                    sm: "-4px"
+                                                },
                                                 bottom: "-12px",
 
                                                 backgroundColor: "#DFFFE4",
