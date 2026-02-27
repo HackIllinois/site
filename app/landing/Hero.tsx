@@ -247,7 +247,21 @@ const Hero = () => {
                             </Typography>
                         </Box>
                     ) : (
-                        <Box sx={{ textAlign: "center", mt: 4 }}>
+                        <Box
+                            sx={{
+                                textAlign: "center",
+                                mt: 4,
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                gap: { xs: 1.5, md: 2 }
+                            }}
+                        >
+                            <GradientButton
+                                text="OPENING CEREMONY"
+                                link="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                                external
+                            />
                             <GradientButton
                                 text={
                                     isRegistrationOpen
