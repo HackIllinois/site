@@ -1,21 +1,46 @@
 "use client";
 import { Box, Container, IconButton, Modal, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { judgeData } from "@/util/staffData";
 import { StaffCard } from "@/components/StaffCard/StaffCard";
+import { getJudges } from "@/util/api";
+import { JudgeProfile } from "@/util/types";
+
+const DEFAULT_JUDGE_IMAGE_URL =
+    "https://raw.githubusercontent.com/HackIllinois/hackillinois/main/mobile/assets/profile/avatar-screen/avatars/character1.svg";
 
 const Judges = () => {
+    const [judges, setJudges] = useState<JudgeProfile[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [activePerson, setActivePerson] = useState<{
         name: string;
         description: string;
+        imageUrl: string;
     } | null>(null);
+
+    useEffect(() => {
+        const loadJudges = async () => {
+            try {
+                setLoading(true);
+                const fetchedJudges = await getJudges();
+                setJudges(fetchedJudges);
+            } catch (e) {
+                const message =
+                    e instanceof Error ? e.message : "Failed to load judges.";
+                setError(message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadJudges();
+    }, []);
 
     return (
         <Box
             sx={{
-                // position not specified - debris overlay attaches to the page
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
@@ -29,8 +54,6 @@ const Judges = () => {
                 backgroundColor: "#512D83",
                 backgroundImage:
                     "linear-gradient(0deg, #14123D 0%, #7059A6 60%, #533085 86%, #512D83 100%)",
-
-                // Image (debris) overlay layer
                 "&::before": {
                     content: '""',
                     position: "absolute",
@@ -38,17 +61,13 @@ const Judges = () => {
                     backgroundImage:
                         "url(/mentors-judges/debris.svg), url(/mentors-judges/starfield.svg)",
                     backgroundRepeat: "repeat-y",
-
-                    // Fade debris at top and bottom
                     maskImage:
                         "linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 90%)",
                     WebkitMaskImage:
                         "linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 90%)",
-
                     pointerEvents: "none",
                     zIndex: 0
                 },
-                // Ensure content sits above everything
                 "& > *": {
                     position: "relative",
                     zIndex: 1
@@ -75,30 +94,46 @@ const Judges = () => {
                     alignItems="center"
                     justifyContent="center"
                 >
-                    {judgeData.map((profile, index) => (
-                        <StaffCard
-                            key={index + "_" + profile.name}
-                            name={profile.name}
-                            photoSrc={`/mentors-judges/judges/${profile.name}.png`}
-                            onClick={() =>
-                                setActivePerson({
-                                    name: profile.name,
-                                    description: profile.description
-                                })
-                            }
-                        />
-                    ))}
+                    {loading && (
+                        <Typography sx={{ color: "white", py: 4 }}>
+                            Loading judges...
+                        </Typography>
+                    )}
+                    {!loading && error && (
+                        <Typography sx={{ color: "white", py: 4 }}>
+                            Failed to load judges.
+                        </Typography>
+                    )}
+                    {!loading &&
+                        !error &&
+                        judges.map((profile, index) => (
+                            <StaffCard
+                                key={index + "_" + profile.name}
+                                name={profile.name}
+                                photoSrc={
+                                    profile.imageUrl || DEFAULT_JUDGE_IMAGE_URL
+                                }
+                                onClick={() =>
+                                    setActivePerson({
+                                        name: profile.name,
+                                        description: profile.description,
+                                        imageUrl:
+                                            profile.imageUrl ||
+                                            DEFAULT_JUDGE_IMAGE_URL
+                                    })
+                                }
+                            />
+                        ))}
                 </Box>
             </Container>
 
-            {/* info display modal */}
             <Modal
                 open={!!activePerson}
                 onClose={() => setActivePerson(null)}
                 aria-labelledby="info-modal-title"
                 aria-describedby="info-modal-description"
             >
-                <Box // main modal box
+                <Box
                     display="flex"
                     flexDirection={{ xs: "column", md: "row" }}
                     alignItems="center"
@@ -127,7 +162,6 @@ const Judges = () => {
                         gap: { xs: 1, md: 2 }
                     }}
                 >
-                    {/* x button */}
                     <Box display="flex" position="absolute" top={24} right={24}>
                         <IconButton
                             aria-label="close"
@@ -138,7 +172,6 @@ const Judges = () => {
                             <CloseIcon sx={{ fontSize: "45px" }} />
                         </IconButton>
                     </Box>
-                    {/* profile image and frame */}
                     <Box
                         flexShrink={0}
                         display="flex"
@@ -155,7 +188,6 @@ const Judges = () => {
                             md: "300px"
                         }}
                     >
-                        {/* frame */}
                         <Image
                             src={"/mentors-judges/assets/frame.svg"}
                             width={100}
@@ -168,7 +200,6 @@ const Judges = () => {
                                 height: "100%"
                             }}
                         />
-                        {/* Person's picture */}
                         <Box
                             position="relative"
                             zIndex={2}
@@ -204,6 +235,7 @@ const Judges = () => {
                                 />
                             </Box>
                             <Box
+                                component="img"
                                 position="absolute"
                                 zIndex={1}
                                 top={{ xs: "39px", md: "69px" }}
@@ -216,22 +248,21 @@ const Judges = () => {
                                     xs: "120px",
                                     md: "150px"
                                 }}
-                            >
-                                <Image
-                                    src={`/mentors-judges/judges/${activePerson?.name}.png`}
-                                    fill
-                                    alt={`Picture of ${activePerson?.name}`}
-                                    style={{
-                                        borderRadius: "50%"
-                                    }}
-                                    onError={event => {
-                                        event.currentTarget.srcset =
-                                            "/mentors-judges/assets/placeholder.png";
-                                    }}
-                                />
-                            </Box>
+                                src={
+                                    activePerson?.imageUrl ||
+                                    DEFAULT_JUDGE_IMAGE_URL
+                                }
+                                alt={`Picture of ${activePerson?.name}`}
+                                onError={event => {
+                                    event.currentTarget.src =
+                                        DEFAULT_JUDGE_IMAGE_URL;
+                                }}
+                                sx={{
+                                    borderRadius: "50%",
+                                    objectFit: "cover"
+                                }}
+                            />
                         </Box>
-                        {/* backing */}
                         <Image
                             src={"/mentors-judges/assets/backing.svg"}
                             width={100}
@@ -245,7 +276,6 @@ const Judges = () => {
                             }}
                         />
                     </Box>
-                    {/* text (name, description) */}
                     <Box
                         flex={1}
                         minWidth={0}
@@ -268,7 +298,6 @@ const Judges = () => {
                                 fontSize: "clamp(3rem, 5vw, 5rem)",
                                 lineHeight: { xs: 0.8, sm: 1 },
                                 overflowWrap: "break-word"
-                                // hyphens: "auto"
                             }}
                         >
                             {activePerson?.name}
@@ -278,7 +307,7 @@ const Judges = () => {
                             sx={{
                                 color: "#292152",
                                 overflow: "auto",
-                                minHeight: 0, // IMPORTANT for flexbox scrolling
+                                minHeight: 0,
                                 overflowWrap: "break-word",
                                 maskImage:
                                     "linear-gradient(to bottom, transparent 0%, black 5%, black 90%, transparent 100%)",

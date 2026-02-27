@@ -217,3 +217,10 @@ export interface EventType {
     points: number;
     isPro: boolean;
 }
+
+export type JudgeProfile = {
+    _id: string;
+    name: string;
+    description: string;
+    imageUrl: string;
+};
