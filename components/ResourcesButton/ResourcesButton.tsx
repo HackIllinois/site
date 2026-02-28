@@ -258,6 +258,10 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({
         {
             title: "WORKSHOPS",
             link: "https://docs.google.com/document/d/1eAcfLvXOvHg61LSKDTmEWNIA--8JgSLumFDkFvTwsvA/edit?tab=t.0"
+        },
+        {
+            title: "IMC POKER TOURNAMENT",
+            link: "https://luma.com/s96u6k8q"
         }
     ];
 
