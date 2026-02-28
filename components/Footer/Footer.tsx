@@ -126,6 +126,34 @@ const Footer = () => {
                             Contact Us
                         </MuiLink>
                     </Box>
+
+                    <Typography
+                        component="span"
+                        sx={{
+                            display: { xs: "none", md: "inline" },
+                            color: "rgba(255, 255, 255, 0.4)",
+                            fontSize: "14px"
+                        }}
+                    >
+                        |
+                    </Typography>
+
+                    <MuiLink
+                        href="/legal"
+                        sx={{
+                            fontFamily: "Montserrat, sans-serif",
+                            fontSize: "14px",
+                            color: "#a78bfa",
+                            textDecoration: "none",
+                            py: 0.5,
+                            "&:hover": {
+                                color: "#c4b5fd",
+                                textDecoration: "underline"
+                            }
+                        }}
+                    >
+                        Legal
+                    </MuiLink>
                 </Box>
 
                 {/* Social Icons and Copyright Row */}

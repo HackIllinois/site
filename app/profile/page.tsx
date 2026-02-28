@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import {
     Box,
     CircularProgress,
@@ -12,7 +12,9 @@ import {
     loadAdmissionRSVP,
     loadProfile,
     loadQRCode,
-    updateProfile
+    updateProfile,
+    getUserInfo,
+    webSignOutUser
 } from "@/util/api";
 import Loading from "@/components/Loading/Loading";
 import ErrorSnackbar from "@/components/ErrorSnackbar/ErrorSnackbar";
@@ -46,6 +48,8 @@ export default function Profile() {
     const [showQR, setShowQR] = useState(false);
     const [qrInfo, setQrInfo] = useState("");
     const [qrLoading, setQrLoading] = useState(false);
+    const [userId, setUserId] = useState<string | null>(null);
+    const [signOutPopupActive, setSignOutPopupActive] = useState(false);
 
     const avatarUrl = `${base}/${avatarId}.png`;
 
@@ -58,9 +62,7 @@ export default function Profile() {
         setMode("profile");
     };
 
-    const handleShowQR = async () => {
-        setShowQR(true);
-        if (qrInfo) return;
+    const fetchQRCode = useCallback(async () => {
         setQrLoading(true);
         try {
             const data = await loadQRCode();
@@ -71,11 +73,23 @@ export default function Profile() {
                 error?.message || "Failed to load QR code. Please try again."
             );
             setShowErrorAlert(true);
-            setShowQR(false);
         } finally {
             setQrLoading(false);
         }
+    }, []);
+
+    const handleShowQR = async () => {
+        setShowQR(true);
+        if (qrInfo) return;
+        fetchQRCode();
     };
+
+    // Auto-refresh QR code every 5 minutes while the dialog is open
+    useEffect(() => {
+        if (!showQR) return;
+        const interval = setInterval(fetchQRCode, 15 * 1000);
+        return () => clearInterval(interval);
+    }, [showQR, fetchQRCode]);
 
     const confirmAvatarPicker = async () => {
         setLoading(true);
@@ -95,8 +109,34 @@ export default function Profile() {
     };
 
     useEffect(() => {
-        // TODO: Remove this redirect once the rest of RSVP is finished.
-        // redirect("/");
+        const loadUserInfo = async () => {
+            try {
+                const userInfo = await getUserInfo();
+                console.log(userInfo);
+
+                // if (
+                //     RSVPInfo.response !== "ACCEPTED" ||
+                //     RSVPInfo.status !== "ACCEPTED"
+                // ) {
+                //     router.push("/profile-unavailable");
+                //     return;
+                // }
+                // const profile = await loadProfile();
+                // setAvatarId(
+                //     profile.avatarUrl.split("/").pop()!.replace(".png", "")
+                // );
+                setUserId(userInfo.userId);
+
+                setLoading(false);
+            } catch (error: any) {
+                console.error("Error loading user data:", error);
+                setLoading(false);
+            }
+        };
+        loadUserInfo();
+    }, []);
+
+    useEffect(() => {
         const loadData = async () => {
             try {
                 const RSVPInfo = await loadAdmissionRSVP();
@@ -408,7 +448,6 @@ export default function Profile() {
                                     >
                                         {name}
                                     </Typography>
-
                                     <Typography
                                         sx={{
                                             color: "#FFF",
@@ -441,7 +480,6 @@ export default function Profile() {
                                     >
                                         {track}
                                     </Typography>
-
                                     <Box
                                         sx={{
                                             mt: "auto",
@@ -481,6 +519,28 @@ export default function Profile() {
                                         </Box>
                                     </Box>
                                 </Box>
+                                <Typography
+                                    position="absolute"
+                                    onClick={() => {
+                                        if (signOutPopupActive) {
+                                            sessionStorage.removeItem("token");
+                                            webSignOutUser().then(() =>
+                                                window.location.reload()
+                                            );
+                                        }
+                                        if (userId) setSignOutPopupActive(true);
+                                    }}
+                                    sx={{
+                                        bottom: "4px",
+                                        right: "40px",
+                                        fontSize: "12px",
+                                        color: "#7bff616b"
+                                    }}
+                                >
+                                    {signOutPopupActive
+                                        ? "sign out?"
+                                        : (userId ?? "not signed in")}
+                                </Typography>
                             </Box>
                             <Box
                                 sx={{
@@ -516,6 +576,28 @@ export default function Profile() {
                                 >
                                     SHOW QR
                                 </Box>
+                                <Typography
+                                    position="absolute"
+                                    onClick={() => {
+                                        if (signOutPopupActive) {
+                                            sessionStorage.removeItem("token");
+                                            webSignOutUser().then(() =>
+                                                window.location.reload()
+                                            );
+                                        }
+                                        if (userId) setSignOutPopupActive(true);
+                                    }}
+                                    sx={{
+                                        bottom: "50px",
+                                        right: "10px",
+                                        fontSize: "12px",
+                                        color: "#7bff616b"
+                                    }}
+                                >
+                                    {signOutPopupActive
+                                        ? "sign out?"
+                                        : (userId ?? "not signed in")}
+                                </Typography>
                             </Box>
                         </Box>
                     ) : (
@@ -654,7 +736,7 @@ export default function Profile() {
                         Your QR Code
                     </Typography>
 
-                    {qrLoading ? (
+                    {!qrInfo && qrLoading ? (
                         <CircularProgress sx={{ color: "#2AFF00", my: 4 }} />
                     ) : (
                         <Box
@@ -664,16 +746,59 @@ export default function Profile() {
                                 borderRadius: "12px",
                                 display: "flex",
                                 alignItems: "center",
-                                justifyContent: "center"
+                                justifyContent: "center",
+                                position: "relative"
                             }}
                         >
                             <QRCodeSVG
                                 value={qrInfo}
                                 size={256}
-                                style={{ width: "100%", height: "auto" }}
+                                style={{
+                                    width: "100%",
+                                    height: "auto",
+                                    opacity: qrLoading ? 0.3 : 1,
+                                    transition: "opacity 0.2s ease"
+                                }}
                             />
+                            {qrLoading && (
+                                <CircularProgress
+                                    sx={{
+                                        color: "#2AFF00",
+                                        position: "absolute"
+                                    }}
+                                />
+                            )}
                         </Box>
                     )}
+
+                    <Box
+                        component="button"
+                        onClick={fetchQRCode}
+                        disabled={qrLoading}
+                        sx={{
+                            all: "unset",
+                            cursor: qrLoading ? "default" : "pointer",
+                            mt: 2,
+                            px: 3,
+                            py: 0.75,
+                            fontFamily: '"Montserrat", sans-serif',
+                            fontSize: "14px",
+                            fontWeight: 600,
+                            color: "white",
+                            borderRadius: "50px",
+                            border: "2px solid #2AFF00",
+                            background: "rgba(4, 255, 0, 0.15)",
+                            opacity: qrLoading ? 0.5 : 1,
+                            transition: "all 0.2s ease",
+                            "&:hover": {
+                                background: qrLoading
+                                    ? "rgba(4, 255, 0, 0.15)"
+                                    : "rgba(4, 255, 0, 0.25)"
+                            }
+                        }}
+                    >
+                        REFRESH QR
+                    </Box>
                 </DialogContent>
             </Dialog>
         </Box>

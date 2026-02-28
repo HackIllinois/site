@@ -25,8 +25,8 @@ type DropdownItem = {
 
 const NAVBAR_ITEMS: NavbarItem[] = [
     {
-        title: "Register",
-        link: "/register/general#personal-information"
+        title: "FAQ",
+        link: "/faq"
     },
     {
         title: "Schedule",
@@ -37,21 +37,16 @@ const NAVBAR_ITEMS: NavbarItem[] = [
         link: "/prizes"
     },
     {
-        title: "Travel",
-        link: "/travel"
+        title: "Mentors",
+        link: "/mentors"
     },
     {
-        title: "Resources",
-        dropdown: [
-            {
-                title: "Judge and Mentor Interest Form",
-                link: "https://go.hackillinois.org/judgementor-2026"
-            },
-            {
-                title: "Speaker Interest Form",
-                link: "https://go.hackillinois.org/speaker-2026"
-            }
-        ]
+        title: "Judges",
+        link: "/judges"
+    },
+    {
+        title: "Travel",
+        link: "/travel"
     }
 ];
 

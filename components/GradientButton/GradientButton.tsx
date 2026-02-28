@@ -4,16 +4,21 @@ import Link from "next/link";
 type GradientButtonProps = {
     text: string;
     link: string;
-    target?: string;
+    external?: boolean;
 };
 
-export const GradientButton = ({ text, link, target }: GradientButtonProps) => {
+export const GradientButton = ({
+    text,
+    link,
+    external
+}: GradientButtonProps) => {
     return (
         <Link
             prefetch={false}
             href={link}
-            target={target}
-            rel={target === "_blank" ? "noopener noreferrer" : undefined}
+            {...(external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
         >
             <Box
                 sx={{

@@ -180,6 +180,39 @@ const Hero = () => {
                     </Typography>
                 </motion.div>
 
+                {/* 3rd Item: Sponsor */}
+                <motion.div variants={itemVariants}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 0.5,
+                            mb: 3
+                        }}
+                    >
+                        <Typography
+                            component="p"
+                            sx={{
+                                fontSize: { xs: "12px", md: "18px" },
+                                fontFamily: "Tsukimi Rounded",
+                                fontWeight: 500,
+                                color: "white"
+                            }}
+                        >
+                            POWERED BY
+                        </Typography>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            className={styles.titleSponsor}
+                            width="auto"
+                            height="26px"
+                            src="/sponsor_icons/logo_fulcrum_white 1.svg"
+                            alt="Fulcrum"
+                        />
+                    </Box>
+                </motion.div>
+
                 {/* 4th Item: CTA Button */}
                 <motion.div variants={itemVariants}>
                     {isLoading ? (
@@ -214,30 +247,31 @@ const Hero = () => {
                             </Typography>
                         </Box>
                     ) : (
-                        <Box sx={{ textAlign: "center" }}>
-                            {!isRegistrationOpen && (
-                                <Typography
-                                    sx={{
-                                        fontSize: { xs: "14px", md: "16px" },
-                                        fontFamily: "Montserrat",
-                                        color: "white",
-                                        my: 1,
-                                        opacity: 0.9
-                                    }}
-                                >
-                                    Registration is now closed.
-                                </Typography>
-                            )}
+                        <Box
+                            sx={{
+                                textAlign: "center",
+                                mt: 4,
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                gap: { xs: 1.5, md: 2 }
+                            }}
+                        >
+                            <GradientButton
+                                text="OPENING CEREMONY LINK"
+                                link="https://www.youtube.com/watch?v=MVUfuKi2Oao"
+                                external
+                            />
                             <GradientButton
                                 text={
                                     isRegistrationOpen
                                         ? "REGISTER NOW"
-                                        : "MORE INFO"
+                                        : "ATTENDEE GUIDE"
                                 }
                                 link={
                                     isRegistrationOpen
                                         ? "/register/general"
-                                        : "/registration-closed"
+                                        : "/faq"
                                 }
                             />
                         </Box>

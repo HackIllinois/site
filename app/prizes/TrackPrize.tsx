@@ -59,7 +59,7 @@ const TrackPrize: React.FC<TrackPrizeProps> = ({
     };
 
     const size = {
-        xs: Math.round(height * scaleFinal.xs),
+        xs: `min(${Math.round(height * scaleFinal.xs)}px, calc(100vw - 40px))`,
         sm: Math.round(height * scaleFinal.sm),
         md: Math.round(height * scaleFinal.md),
         lg: Math.round(height * scaleFinal.lg),
@@ -162,7 +162,10 @@ const TrackPrize: React.FC<TrackPrizeProps> = ({
                     width: "100%",
                     zIndex: 1,
                     mt: -6,
-                    fontSize: bottomTextSize,
+                    fontSize: {
+                        xs: "clamp(10px, 6vw, 16px)",
+                        sm: bottomTextSize
+                    },
                     color: "white",
                     lineHeight: 1.5,
                     "& ul": {
@@ -182,7 +185,10 @@ const TrackPrize: React.FC<TrackPrizeProps> = ({
                         sx={{
                             whiteSpace: "pre-line",
                             lineHeight: 1.5,
-                            fontSize: bottomTextSize,
+                            fontSize: {
+                                xs: "clamp(10px, 6vw, 16px)",
+                                sm: bottomTextSize
+                            },
                             textAlign: "center"
                         }}
                     >

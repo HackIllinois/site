@@ -203,6 +203,7 @@ export interface EventType {
     name: string;
     description: string;
     isAsync?: boolean;
+    isPrivate?: boolean;
     startTime: number;
     endTime: number;
     locations: {
@@ -216,3 +217,21 @@ export interface EventType {
     points: number;
     isPro: boolean;
 }
+
+export type MentorProfile = {
+    name: string;
+    description: string;
+    imageUrl: string;
+};
+
+export type JudgeProfile = {
+    name: string;
+    description: string;
+    imageUrl: string;
+};
+
+export type UserInfo = {
+    userId: string;
+    name: string;
+    email: string;
+};
