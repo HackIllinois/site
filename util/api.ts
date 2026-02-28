@@ -10,7 +10,8 @@ import {
     RSVPInfo,
     EventType,
     MentorProfile,
-    JudgeProfile
+    JudgeProfile,
+    UserInfo
 } from "./types";
 
 const APIv2 = "https://adonix.hackillinois.org";
@@ -206,6 +207,10 @@ export async function postAuthRefresh(): Promise<void> {
     await requestv2("POST", "/auth/refresh", {});
 }
 
+export async function webSignOutUser(): Promise<void> {
+    await requestv2("POST", "/auth/logout", {});
+}
+
 export async function getEvents(): Promise<EventType[]> {
     const res = await requestv2("GET", "/event").catch(handleError);
     return res.events as EventType[];
@@ -226,4 +231,9 @@ export async function getMentors(): Promise<MentorProfile[]> {
 export async function getJudges(): Promise<JudgeProfile[]> {
     const res = await requestv2("GET", "/judge/info/").catch(handleError);
     return res as JudgeProfile[];
+}
+
+export async function getUserInfo(): Promise<UserInfo> {
+    const res = await requestv2("GET", "/user").catch(handleError);
+    return res as UserInfo;
 }

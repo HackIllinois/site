@@ -229,3 +229,9 @@ export type JudgeProfile = {
     description: string;
     imageUrl: string;
 };
+
+export type UserInfo = {
+    userId: string;
+    name: string;
+    email: string;
+};
