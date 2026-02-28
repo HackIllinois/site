@@ -1,0 +1,140 @@
+.ctfSection {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, #020316, #16133e);
+    z-index: 1;
+}
+
+.ctfBackgrounds {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+@keyframes tinyStarsGlow {
+    0% {
+        opacity: 0.2;
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
+    }
+    50% {
+        opacity: 0.4;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+    }
+    100% {
+        opacity: 0.2;
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
+    }
+}
+
+@media (max-width: 768px) {
+    .ctfSection {
+        min-height: 100vh;
+    }
+}
+
+.flagInput {
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(163, 21, 214, 0.3);
+    }
+
+    &:focus {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(253, 171, 96, 0.4);
+    }
+
+    &.correct {
+        border-color: #4caf50 !important;
+        background: rgba(76, 175, 80, 0.1) !important;
+    }
+
+    &.incorrect {
+        border-color: #f44336 !important;
+        background: rgba(244, 67, 54, 0.1) !important;
+    }
+}
+
+.progressBar {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    height: 12px;
+
+    .progressFill {
+        height: 100%;
+        background: linear-gradient(90deg, #a315d6, #fdab60, #a315d6);
+        background-size: 200% 100%;
+        animation: shimmer 2s linear infinite;
+        transition: width 0.5s ease;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.flagCard {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 35px rgba(163, 21, 214, 0.25);
+        border-color: rgba(163, 21, 214, 0.4);
+    }
+}
+
+.celebration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & svg {
+        animation: confetti 3s ease-out forwards;
+    }
+}
+
+@keyframes confetti {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2) rotate(720deg);
+        opacity: 0;
+    }
+}
