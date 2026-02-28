@@ -83,7 +83,7 @@ export default function Profile() {
     // Auto-refresh QR code every 5 minutes while the dialog is open
     useEffect(() => {
         if (!showQR) return;
-        const interval = setInterval(fetchQRCode, 5 * 60 * 1000);
+        const interval = setInterval(fetchQRCode, 15 * 1000);
         return () => clearInterval(interval);
     }, [showQR, fetchQRCode]);
 
