@@ -525,7 +525,9 @@ export default function Profile() {
                                     onClick={() => {
                                         if (signOutPopupActive) {
                                             sessionStorage.removeItem("token");
-                                            webSignOutUser();
+                                            webSignOutUser().then(() =>
+                                                window.location.reload()
+                                            );
                                         }
                                         if (userId) setSignOutPopupActive(true);
                                     }}
@@ -580,7 +582,9 @@ export default function Profile() {
                                     onClick={() => {
                                         if (signOutPopupActive) {
                                             sessionStorage.removeItem("token");
-                                            webSignOutUser();
+                                            webSignOutUser().then(() =>
+                                                window.location.reload()
+                                            );
                                         }
                                         if (userId) setSignOutPopupActive(true);
                                     }}
