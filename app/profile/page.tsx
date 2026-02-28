@@ -12,7 +12,9 @@ import {
     loadAdmissionRSVP,
     loadProfile,
     loadQRCode,
-    updateProfile
+    updateProfile,
+    getUserInfo,
+    webSignOutUser
 } from "@/util/api";
 import Loading from "@/components/Loading/Loading";
 import ErrorSnackbar from "@/components/ErrorSnackbar/ErrorSnackbar";
@@ -46,6 +48,8 @@ export default function Profile() {
     const [showQR, setShowQR] = useState(false);
     const [qrInfo, setQrInfo] = useState("");
     const [qrLoading, setQrLoading] = useState(false);
+    const [userId, setUserId] = useState<string | null>(null);
+    const [signOutPopupActive, setSignOutPopupActive] = useState(false);
 
     const avatarUrl = `${base}/${avatarId}.png`;
 
@@ -105,8 +109,34 @@ export default function Profile() {
     };
 
     useEffect(() => {
-        // TODO: Remove this redirect once the rest of RSVP is finished.
-        // redirect("/");
+        const loadUserInfo = async () => {
+            try {
+                const userInfo = await getUserInfo();
+                console.log(userInfo);
+
+                // if (
+                //     RSVPInfo.response !== "ACCEPTED" ||
+                //     RSVPInfo.status !== "ACCEPTED"
+                // ) {
+                //     router.push("/profile-unavailable");
+                //     return;
+                // }
+                // const profile = await loadProfile();
+                // setAvatarId(
+                //     profile.avatarUrl.split("/").pop()!.replace(".png", "")
+                // );
+                setUserId(userInfo.userId);
+
+                setLoading(false);
+            } catch (error: any) {
+                console.error("Error loading user data:", error);
+                setLoading(false);
+            }
+        };
+        loadUserInfo();
+    }, []);
+
+    useEffect(() => {
         const loadData = async () => {
             try {
                 const RSVPInfo = await loadAdmissionRSVP();
@@ -418,7 +448,6 @@ export default function Profile() {
                                     >
                                         {name}
                                     </Typography>
-
                                     <Typography
                                         sx={{
                                             color: "#FFF",
@@ -451,7 +480,6 @@ export default function Profile() {
                                     >
                                         {track}
                                     </Typography>
-
                                     <Box
                                         sx={{
                                             mt: "auto",
@@ -491,6 +519,28 @@ export default function Profile() {
                                         </Box>
                                     </Box>
                                 </Box>
+                                <Typography
+                                    position="absolute"
+                                    onClick={() => {
+                                        if (signOutPopupActive) {
+                                            sessionStorage.removeItem("token");
+                                            webSignOutUser().then(() =>
+                                                window.location.reload()
+                                            );
+                                        }
+                                        if (userId) setSignOutPopupActive(true);
+                                    }}
+                                    sx={{
+                                        bottom: "4px",
+                                        right: "40px",
+                                        fontSize: "12px",
+                                        color: "#7bff616b"
+                                    }}
+                                >
+                                    {signOutPopupActive
+                                        ? "sign out?"
+                                        : (userId ?? "not signed in")}
+                                </Typography>
                             </Box>
                             <Box
                                 sx={{
@@ -526,6 +576,28 @@ export default function Profile() {
                                 >
                                     SHOW QR
                                 </Box>
+                                <Typography
+                                    position="absolute"
+                                    onClick={() => {
+                                        if (signOutPopupActive) {
+                                            sessionStorage.removeItem("token");
+                                            webSignOutUser().then(() =>
+                                                window.location.reload()
+                                            );
+                                        }
+                                        if (userId) setSignOutPopupActive(true);
+                                    }}
+                                    sx={{
+                                        bottom: "50px",
+                                        right: "10px",
+                                        fontSize: "12px",
+                                        color: "#7bff616b"
+                                    }}
+                                >
+                                    {signOutPopupActive
+                                        ? "sign out?"
+                                        : (userId ?? "not signed in")}
+                                </Typography>
                             </Box>
                         </Box>
                     ) : (
