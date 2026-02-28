@@ -84,13 +84,12 @@ export default function Profile() {
         fetchQRCode();
     };
 
-    const signOutUser =
-        // Auto-refresh QR code every 5 minutes while the dialog is open
-        useEffect(() => {
-            if (!showQR) return;
-            const interval = setInterval(fetchQRCode, 5 * 60 * 1000);
-            return () => clearInterval(interval);
-        }, [showQR, fetchQRCode]);
+    // Auto-refresh QR code every 5 minutes while the dialog is open
+    useEffect(() => {
+        if (!showQR) return;
+        const interval = setInterval(fetchQRCode, 5 * 60 * 1000);
+        return () => clearInterval(interval);
+    }, [showQR, fetchQRCode]);
 
     const confirmAvatarPicker = async () => {
         setLoading(true);
