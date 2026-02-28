@@ -724,7 +724,6 @@ export default function CTF() {
                             <GradientButton
                                 text="Go to flag submission page"
                                 link="/ctf/submit"
-                                target="_blank"
                             />
                         </Box>
                     </motion.div>
