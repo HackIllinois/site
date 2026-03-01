@@ -66,8 +66,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         {children}
                         {!hideFooter && <Footer />}
                         <EventCountdownPill
-                            targetDateTime="2026-02-27T18:00:00-06:00"
-                            label="Countdown to HackIllinois 2026"
+                            startDateTime="2026-02-27T14:00:00-06:00"
+                            endDateTime="2026-03-01T06:00:00-06:00"
                         />
                     </ThemeProvider>
                 </AppRouterCacheProvider>
