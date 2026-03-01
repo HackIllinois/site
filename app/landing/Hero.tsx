@@ -259,7 +259,7 @@ const Hero = () => {
                         >
                             <GradientButton
                                 text="CLOSING CEREMONY LINK"
-                                link="https://www.youtube.com/@hackillinois"
+                                link="https://www.youtube.com/@hackillinois/streams"
                                 external
                             />
                             <GradientButton
