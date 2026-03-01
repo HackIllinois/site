@@ -242,7 +242,7 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({
 
     const platformsItems = [
         { title: "DISCORD", link: "https://go.hackillinois.org/discord" },
-        // { title: "DEVPOST", link: "https://hackillinois.org" },
+        { title: "DEVPOST", link: "https://hackillinois-2026.devpost.com" },
         {
             title: "IOS APP",
             link: "https://apps.apple.com/us/app/hackillinois/id1451755268"
