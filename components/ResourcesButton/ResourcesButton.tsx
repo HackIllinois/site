@@ -256,12 +256,8 @@ export const ResourcesPopup: React.FC<ResourcesPopupProps> = ({
     const eventsItems = [
         // { title: "OPENING CEREMONY", link: "https://hackillinois.org" },
         {
-            title: "WORKSHOPS",
-            link: "https://docs.google.com/document/d/1eAcfLvXOvHg61LSKDTmEWNIA--8JgSLumFDkFvTwsvA/edit?tab=t.0"
-        },
-        {
-            title: "CLASH ROYALE TOURNAMENT",
-            link: "https://luma.com/90escx6k"
+            title: "Stay tuned for Hack 2027 :)",
+            link: "https://docs.google.com/forms/d/e/1FAIpQLSeco5rnd7eqrH0OBf7K5PgNfpGUfCpH8EpjJTSoiKKvO_6X5g/viewform"
         }
     ];
 

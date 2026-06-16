@@ -81,7 +81,7 @@ const FAQ = () => {
                                 mb: 1
                             }}
                         >
-                            Things to know about HackIllinois 2026
+                            Things to know about HackIllinois
                         </Typography>
                     </motion.div>
                     <motion.div variants={itemVariants}>

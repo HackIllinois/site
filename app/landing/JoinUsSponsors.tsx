@@ -10,6 +10,8 @@ import clsx from "clsx";
 import { motion, useAnimation, Variants, useInView } from "framer-motion"; // Added useInView
 import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
 import { useEffect, useMemo, useRef } from "react"; // Added hooks
+import { GradientButton } from "@/components/GradientButton/GradientButton";
+import { INTEREST_FORM_LINK } from "./constants";
 
 const alienAssets = [
     "/landing/sponsors/aliens/alien1.svg",
@@ -408,40 +410,56 @@ const JoinUsSponsors = () => {
                         <Box
                             sx={{
                                 display: "flex",
-                                alignItems: "flex-start",
-                                justifyContent: "center",
-                                gap: "30px",
-                                zIndex: 95
+                                flexDirection: "column",
+                                alignItems: "center",
+                                gap: 0
                             }}
                         >
                             <Box
                                 sx={{
-                                    display: {
-                                        xs: "none",
-                                        md: "block"
-                                    }
+                                    display: "flex",
+                                    alignItems: "flex-start",
+                                    justifyContent: "center",
+                                    gap: "30px",
+                                    zIndex: 95
                                 }}
                             >
-                                <GradientButtonInstagram />
-                            </Box>
-                            <Box>
-                                <Typography
-                                    variant="body2"
-                                    component="p"
+                                <Box
                                     sx={{
-                                        fontFamily: "Tsukimi Rounded",
-                                        fontSize: {
-                                            xs: "14px",
-                                            md: "20px"
-                                        },
-                                        color: "#3F2B75",
-                                        fontWeight: 600,
-                                        mb: 1
+                                        display: {
+                                            xs: "none",
+                                            md: "block"
+                                        }
                                     }}
                                 >
-                                    NEWSLETTER SIGN UP
-                                </Typography>
-                                <NewsletterSubscription />
+                                    <GradientButtonInstagram />
+                                </Box>
+                                <Box>
+                                    <Typography
+                                        variant="body2"
+                                        component="p"
+                                        sx={{
+                                            fontFamily: "Tsukimi Rounded",
+                                            fontSize: {
+                                                xs: "14px",
+                                                md: "20px"
+                                            },
+                                            color: "#3F2B75",
+                                            fontWeight: 600,
+                                            mb: 1
+                                        }}
+                                    >
+                                        NEWSLETTER SIGN UP
+                                    </Typography>
+                                    <NewsletterSubscription />
+                                </Box>
+                            </Box>
+                            <Box>
+                                <GradientButton
+                                    text="HACK 2027 INTEREST FORM"
+                                    link={INTEREST_FORM_LINK}
+                                    external
+                                />
                             </Box>
                         </Box>
                     </motion.div>

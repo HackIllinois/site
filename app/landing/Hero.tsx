@@ -8,7 +8,7 @@ import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { registrationAlive } from "@/util/api";
-import { START_END_DATES } from "./constants";
+import { INTEREST_FORM_LINK, START_END_DATES } from "./constants";
 import styles from "./Hero.module.scss";
 
 // Create a motion-enabled version of the Next.js Image component
@@ -191,7 +191,7 @@ const Hero = () => {
                             mb: 3
                         }}
                     >
-                        <Typography
+                        {/* <Typography
                             component="p"
                             sx={{
                                 fontSize: { xs: "12px", md: "18px" },
@@ -201,15 +201,15 @@ const Hero = () => {
                             }}
                         >
                             POWERED BY
-                        </Typography>
+                        </Typography> */}
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        {/* <img
                             className={styles.titleSponsor}
                             width="auto"
                             height="26px"
                             src="/sponsor_icons/logo_fulcrum_white 1.svg"
                             alt="Fulcrum"
-                        />
+                        /> */}
                     </Box>
                 </motion.div>
 
@@ -258,11 +258,11 @@ const Hero = () => {
                             }}
                         >
                             <GradientButton
-                                text="CLOSING CEREMONY LINK"
-                                link="https://www.youtube.com/@hackillinois/streams"
+                                text="INTEREST FORM"
+                                link={INTEREST_FORM_LINK}
                                 external
                             />
-                            <GradientButton
+                            {/* <GradientButton
                                 text={
                                     isRegistrationOpen
                                         ? "REGISTER NOW"
@@ -273,7 +273,7 @@ const Hero = () => {
                                         ? "/register/general"
                                         : "/faq"
                                 }
-                            />
+                            /> */}
                         </Box>
                     )}
                 </motion.div>
