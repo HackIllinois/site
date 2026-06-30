@@ -83,6 +83,13 @@ const Footer = () => {
                 >
                     <span>Privacy Policy</span>
                 </Link>
+                <Link
+                    href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span>MLH Code of Conduct</span>
+                </Link>
             </div>
         </footer>
     );
