@@ -17,6 +17,7 @@
 
         // temporary! for static holdover site:
         "@next/next/no-img-element": "off",
-        "@next/next/no-page-custom-font": "off"
+        "@next/next/no-page-custom-font": "off",
+        "jsx-ally/alt-text": "off"
     }
 }
