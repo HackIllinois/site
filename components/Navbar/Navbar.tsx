@@ -67,37 +67,16 @@ const Navbar: React.FC<NavbarProps> = ({ showJoinUsButton = true }) => {
                             className="hackillinois-logo mobile"
                         />
                     </Link>
-                    <div
-                        className={isOpen ? "hamburger open" : "hamburger"}
-                        onClick={() => setOpen(!isOpen)}
+                    <a
+                        href="https://www.mlh.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-                <div className={isOpen ? "mobileMenu menuOpen" : "mobileMenu"}>
-                    {links.map(({ href, text }, i) => (
-                        <a
-                            key={i}
-                            href={href}
-                            className={path === href ? "link active" : "link"}
-                        >
-                            {text}
-                        </a>
-                    ))}
-                    {showJoinUsButton ? (
-                        <a
-                            href="/join-us"
-                            className={
-                                path === "/join-us" ? "link active" : "link"
-                            }
-                        >
-                            Join Us
-                        </a>
-                    ) : (
-                        <></>
-                    )}
+                        <img
+                            src="generic/mlh-logo.svg"
+                            className="mlh-logo mobile"
+                        />
+                    </a>
                 </div>
             </nav>
         </>
