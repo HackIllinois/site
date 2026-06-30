@@ -23,12 +23,12 @@ const Navbar: React.FC<NavbarProps> = ({ showJoinUsButton = true }) => {
     return (
         <>
             <nav className="navbar">
-                <a href="/#">
+                <Link href="/#">
                     <img
                         src="generic/hackillinois-logo.svg"
                         className="hackillinois-logo"
                     />
-                </a>
+                </Link>
                 <div className="links">
                     {links.map(({ href, text }, i) => (
                         <Link
@@ -61,12 +61,12 @@ const Navbar: React.FC<NavbarProps> = ({ showJoinUsButton = true }) => {
 
             <nav className="mobile">
                 <div className="mobileTop">
-                    <a href="/#">
+                    <Link href="/#">
                         <img
                             src="generic/hackillinois-logo.svg"
                             className="hackillinois-logo mobile"
                         />
-                    </a>
+                    </Link>
                     <div
                         className={isOpen ? "hamburger open" : "hamburger"}
                         onClick={() => setOpen(!isOpen)}
