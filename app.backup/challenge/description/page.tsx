@@ -1,15 +1,15 @@
 "use client";
 
-import GithubAuthPage from "@/app/register/general/formPages/GithubAuthPage";
-import NotProTrackPage from "@/app/register/general/formPages/NotProTrackPage";
-import Loading from "@/components/Loading/Loading";
+import GithubAuthPage from "@/app.backup/register/general/formPages/GithubAuthPage";
+import NotProTrackPage from "@/app.backup/register/general/formPages/NotProTrackPage";
+import Loading from "@/components.backup/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import { getChallenge, submitChallenge } from "@/util/api";
 import { ChallengeStatus } from "@/util/types";
 import CHALLENGE_DESCRIPTION_BACKGROUND from "@/public/registration/backgrounds/challenge_background.svg";
 import { Box, Button, Snackbar, Typography } from "@mui/material";
 import React, { useCallback, useRef, useState, useEffect } from "react";
-import { FORCE_REGISTRATION_CLOSED } from "@/app/register/constants";
+import { FORCE_REGISTRATION_CLOSED } from "@/app.backup/register/constants";
 
 export default function ChallengeDescription() {
     const registrationAuth = useRegistrationAuth({

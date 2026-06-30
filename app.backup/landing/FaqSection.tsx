@@ -1,8 +1,8 @@
 "use client";
 
-import { FAQ } from "@/components/FAQ/FAQ";
-import { SocialIconsRow } from "@/components/GradientButton/GradientSocialButton";
-import NewsletterSubscription from "@/components/NewsletterSubscription/NewsletterSubscription";
+import { FAQ } from "@/components.backup/FAQ/FAQ";
+import { SocialIconsRow } from "@/components.backup/GradientButton/GradientSocialButton";
+import NewsletterSubscription from "@/components.backup/NewsletterSubscription/NewsletterSubscription";
 import { tsukimi } from "@/theme/fonts";
 import { Box, Typography } from "@mui/material";
 import clsx from "clsx";

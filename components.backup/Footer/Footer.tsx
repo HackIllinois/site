@@ -1,4 +1,4 @@
-import { MLH_CODE_OF_CONDUCT_URL } from "@/app/register/general/constants/registration";
+import { MLH_CODE_OF_CONDUCT_URL } from "@/app.backup/register/general/constants/registration";
 import { Box, Typography, Link as MuiLink } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";

@@ -1,5 +1,5 @@
-import RadioSelectGroup from "@/components/RadioSelectGroupMUI";
-import SelectTextInput from "@/components/SelectTextInputMUI";
+import RadioSelectGroup from "@/components.backup/RadioSelectGroupMUI";
+import SelectTextInput from "@/components.backup/SelectTextInputMUI";
 import {
     countryOptions,
     genderOptions,
@@ -12,7 +12,7 @@ import {
     studyLevelOptions,
     underrepresentedOptions
 } from "@/util/options";
-import TextInput from "@/components/TextInputMUI";
+import TextInput from "@/components.backup/TextInputMUI";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";

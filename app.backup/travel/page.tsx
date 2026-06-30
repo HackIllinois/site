@@ -10,7 +10,7 @@ import {
     useMediaQuery,
     useTheme
 } from "@mui/material";
-import GradientText from "@/components/GradientText";
+import GradientText from "@/components.backup/GradientText";
 import clsx from "clsx";
 import MouseIcon from "@mui/icons-material/Mouse";
 import MapLegend from "./MapLegend";

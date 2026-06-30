@@ -1,6 +1,6 @@
 "use client";
 
-import { GradientButton } from "@/components/GradientButton/GradientButton";
+import { GradientButton } from "@/components.backup/GradientButton/GradientButton";
 import Image from "next/image";
 import styles from "./HackVoyagers.module.scss";
 import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";

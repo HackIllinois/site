@@ -1,9 +1,9 @@
 "use client";
 
-import { EventCountdownPill } from "@/components/EventCountdown/EventCountdown";
-import Navbar from "@/components/Navbar/Navbar";
-import Footer from "@/components/Footer/Footer";
-import { ResourcesButton } from "@/components/ResourcesButton/ResourcesButton";
+import { EventCountdownPill } from "@/components.backup/EventCountdown/EventCountdown";
+import Navbar from "@/components.backup/Navbar/Navbar";
+import Footer from "@/components.backup/Footer/Footer";
+import { ResourcesButton } from "@/components.backup/ResourcesButton/ResourcesButton";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import { usePathname } from "next/navigation";

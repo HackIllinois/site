@@ -16,8 +16,8 @@ import {
     getUserInfo,
     webSignOutUser
 } from "@/util/api";
-import Loading from "@/components/Loading/Loading";
-import ErrorSnackbar from "@/components/ErrorSnackbar/ErrorSnackbar";
+import Loading from "@/components.backup/Loading/Loading";
+import ErrorSnackbar from "@/components.backup/ErrorSnackbar/ErrorSnackbar";
 import { AvatarCarousel, type AvatarItem } from "./AvatarCarousel";
 import { QRCodeSVG } from "qrcode.react";
 

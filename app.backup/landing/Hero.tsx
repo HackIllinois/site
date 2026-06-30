@@ -1,6 +1,6 @@
 "use client";
 
-import { GradientButton } from "@/components/GradientButton/GradientButton";
+import { GradientButton } from "@/components.backup/GradientButton/GradientButton";
 import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
 import { Typography, Box, CircularProgress } from "@mui/material";
 import clsx from "clsx";

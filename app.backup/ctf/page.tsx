@@ -1,7 +1,7 @@
 "use client";
 
-import ErrorSnackbar from "@/components/ErrorSnackbar/ErrorSnackbar";
-import Loading from "@/components/Loading/Loading";
+import ErrorSnackbar from "@/components.backup/ErrorSnackbar/ErrorSnackbar";
+import Loading from "@/components.backup/Loading/Loading";
 import {
     Box,
     Button,
@@ -14,7 +14,7 @@ import {
 import { ExpandMore } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { motion, Variants } from "framer-motion";
-import { GradientButton } from "@/components/GradientButton/GradientButton";
+import { GradientButton } from "@/components.backup/GradientButton/GradientButton";
 import { derive } from "./utils";
 
 const TwinklingStar = ({

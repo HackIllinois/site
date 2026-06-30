@@ -1,9 +1,9 @@
 "use client";
 
-import ErrorSnackbar from "@/components/ErrorSnackbar/ErrorSnackbar";
-import { SocialIconsRow } from "@/components/GradientButton/GradientSocialButton";
-import Loading from "@/components/Loading/Loading";
-import NewsletterSubscription from "@/components/NewsletterSubscription/NewsletterSubscription";
+import ErrorSnackbar from "@/components.backup/ErrorSnackbar/ErrorSnackbar";
+import { SocialIconsRow } from "@/components.backup/GradientButton/GradientSocialButton";
+import Loading from "@/components.backup/Loading/Loading";
+import NewsletterSubscription from "@/components.backup/NewsletterSubscription/NewsletterSubscription";
 import {
     declineAdmissionRSVP,
     loadAdmissionRSVP,

@@ -1,5 +1,5 @@
 "use client";
-import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
+import NavigationButton from "@/components.backup/Form/NavigationButton/NavigationButton";
 import {
     draftValidationSchemas,
     initialValues,
@@ -24,7 +24,7 @@ import Confirmation from "./formPages/Confirmation";
 import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
 
-import Loading from "@/components/Loading/Loading";
+import Loading from "@/components.backup/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import theme from "@/theme";
 import {

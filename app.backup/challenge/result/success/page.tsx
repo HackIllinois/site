@@ -1,9 +1,9 @@
 "use client";
 
-import GithubAuthPage from "@/app/register/general/formPages/GithubAuthPage";
-import NotProTrackPage from "@/app/register/general/formPages/NotProTrackPage";
-import { GradientButton } from "@/components/GradientButton/GradientButton";
-import Loading from "@/components/Loading/Loading";
+import GithubAuthPage from "@/app.backup/register/general/formPages/GithubAuthPage";
+import NotProTrackPage from "@/app.backup/register/general/formPages/NotProTrackPage";
+import { GradientButton } from "@/components.backup/GradientButton/GradientButton";
+import Loading from "@/components.backup/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import useWindowSize from "@/hooks/use-window-size";
 import { Box, Container, Typography } from "@mui/material";
@@ -11,7 +11,7 @@ import Image from "next/image";
 import Confetti from "react-confetti";
 import { getChallenge } from "@/util/api";
 import { useEffect, useState } from "react";
-import { FORCE_REGISTRATION_CLOSED } from "@/app/register/constants";
+import { FORCE_REGISTRATION_CLOSED } from "@/app.backup/register/constants";
 
 export default function ChallengeResult() {
     const registrationAuth = useRegistrationAuth({

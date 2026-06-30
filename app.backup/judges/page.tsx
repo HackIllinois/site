@@ -3,7 +3,7 @@ import { Box, Container, IconButton, Modal, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { StaffCard } from "@/components/StaffCard/StaffCard";
+import { StaffCard } from "@/components.backup/StaffCard/StaffCard";
 import { getJudges } from "@/util/api";
 import { JudgeProfile } from "@/util/types";
 

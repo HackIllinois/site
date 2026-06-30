@@ -1,4 +1,4 @@
-import CheckboxSelect from "@/components/CheckboxSelectMUI";
+import CheckboxSelect from "@/components.backup/CheckboxSelectMUI";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import LaunchIcon from "@mui/icons-material/Launch";
 import {

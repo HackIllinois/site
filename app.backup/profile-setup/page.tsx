@@ -1,8 +1,8 @@
 "use client";
 
-import CheckboxGroup from "@/components/CheckboxGroupMUI";
-import RadioSelectGroup from "@/components/RadioSelectGroupMUI";
-import TextInput from "@/components/TextInputMUI";
+import CheckboxGroup from "@/components.backup/CheckboxGroupMUI";
+import RadioSelectGroup from "@/components.backup/RadioSelectGroupMUI";
+import TextInput from "@/components.backup/TextInputMUI";
 import { dietaryRestrictionsOptions } from "@/util/options";
 import {
     profileInitialValues,
@@ -21,8 +21,8 @@ import {
 import { useFormik } from "formik";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import ErrorSnackbar from "@/components/ErrorSnackbar/ErrorSnackbar";
-import Loading from "@/components/Loading/Loading";
+import ErrorSnackbar from "@/components.backup/ErrorSnackbar/ErrorSnackbar";
+import Loading from "@/components.backup/Loading/Loading";
 import {
     acceptAdmissionRSVP,
     loadAdmissionRSVP,

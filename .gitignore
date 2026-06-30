@@ -12,6 +12,7 @@
 # production
 /build
 .next
+.open-next
 /out
 
 

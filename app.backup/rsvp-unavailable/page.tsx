@@ -1,6 +1,6 @@
 "use client";
 
-import { GradientButton } from "@/components/GradientButton/GradientButton";
+import { GradientButton } from "@/components.backup/GradientButton/GradientButton";
 import { Box, Typography } from "@mui/material";
 
 const RSVPUnavailable = () => {

@@ -1,9 +1,9 @@
 "use client";
 
-import { FORCE_REGISTRATION_CLOSED } from "@/app/register/constants";
-import GithubAuthPage from "@/app/register/general/formPages/GithubAuthPage";
-import NotProTrackPage from "@/app/register/general/formPages/NotProTrackPage";
-import Loading from "@/components/Loading/Loading";
+import { FORCE_REGISTRATION_CLOSED } from "@/app.backup/register/constants";
+import GithubAuthPage from "@/app.backup/register/general/formPages/GithubAuthPage";
+import NotProTrackPage from "@/app.backup/register/general/formPages/NotProTrackPage";
+import Loading from "@/components.backup/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import { Box, Button, Container, Typography } from "@mui/material";
 import Link from "next/link";

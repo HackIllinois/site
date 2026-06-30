@@ -1,6 +1,6 @@
 "use client";
-import { GradientButton } from "@/components/GradientButton/GradientButton";
-import Loading from "@/components/Loading/Loading";
+import { GradientButton } from "@/components.backup/GradientButton/GradientButton";
+import Loading from "@/components.backup/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import LANDING from "@/public/registration/pro/landing.svg";
 import { Box, Typography } from "@mui/material";

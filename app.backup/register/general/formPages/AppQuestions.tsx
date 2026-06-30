@@ -1,5 +1,5 @@
-import CheckboxSelect from "@/components/CheckboxSelectMUI";
-import TextInput from "@/components/TextInputMUI";
+import CheckboxSelect from "@/components.backup/CheckboxSelectMUI";
+import TextInput from "@/components.backup/TextInputMUI";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Box, Container, Grid, Link, Typography } from "@mui/material";
 import { FormikProps } from "formik";

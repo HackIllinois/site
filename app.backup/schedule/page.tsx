@@ -15,10 +15,10 @@ import {
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { motion } from "framer-motion";
 
-import { Tag } from "@/app/schedule/Tags";
-import { ScheduleItem } from "@/app/schedule/ScheduleItem";
-import { DateSelector } from "@/app/schedule/DateSelector";
-import FilterPopup from "@/app/schedule/FilterPopup";
+import { Tag } from "@/app.backup/schedule/Tags";
+import { ScheduleItem } from "@/app.backup/schedule/ScheduleItem";
+import { DateSelector } from "@/app.backup/schedule/DateSelector";
+import FilterPopup from "@/app.backup/schedule/FilterPopup";
 
 export interface EventsWithDay extends EventType {
     weekday: string; // ex. "Friday"

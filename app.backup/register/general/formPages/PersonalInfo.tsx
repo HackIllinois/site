@@ -1,5 +1,5 @@
-import SelectTextInput from "@/components/SelectTextInputMUI";
-import TextInput from "@/components/TextInputMUI";
+import SelectTextInput from "@/components.backup/SelectTextInputMUI";
+import TextInput from "@/components.backup/TextInputMUI";
 import { ageOptions } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Container, Grid, Typography } from "@mui/material";

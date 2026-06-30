@@ -4,13 +4,13 @@ import { Box, Link, Typography, useMediaQuery } from "@mui/material";
 import styles from "./JoinUsSponsors.module.scss";
 import Image from "next/image";
 import { tsukimi } from "@/theme/fonts";
-import NewsletterSubscription from "@/components/NewsletterSubscription/NewsletterSubscription";
-import { GradientButtonInstagram } from "@/components/GradientButton/GradientButtonInstagram";
+import NewsletterSubscription from "@/components.backup/NewsletterSubscription/NewsletterSubscription";
+import { GradientButtonInstagram } from "@/components.backup/GradientButton/GradientButtonInstagram";
 import clsx from "clsx";
 import { motion, useAnimation, Variants, useInView } from "framer-motion"; // Added useInView
 import { useParallaxScrollY } from "@/hooks/use-parallax-scrollY";
 import { useEffect, useMemo, useRef } from "react"; // Added hooks
-import { GradientButton } from "@/components/GradientButton/GradientButton";
+import { GradientButton } from "@/components.backup/GradientButton/GradientButton";
 import { INTEREST_FORM_LINK } from "./constants";
 
 const alienAssets = [

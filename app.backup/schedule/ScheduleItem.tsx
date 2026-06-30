@@ -6,7 +6,7 @@ import { Box, Link, Typography } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
-import { Tag, TagsList } from "@/app/schedule/Tags";
+import { Tag, TagsList } from "@/app.backup/schedule/Tags";
 
 function timeToHourMinute(time: number) {
     const date = moment(time * 1000).tz(EVENT_TIMEZONE);
