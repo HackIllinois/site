@@ -24,17 +24,21 @@
 
 .mlh-logo {
     z-index: 3;
-    width: 68px;
     position: fixed;
+    width: 92px;
     top: 0px;
-    right: 24px;
+    right: 32px;
 
     @media screen and (max-width: 750px) {
-        max-width: 60px;
+        // max-width: 60px;
     }
 
     &.mobile {
-        transform: translateX(150%);
+        z-index: 3;
+        position: fixed;
+        width: 64px;
+        top: 0px;
+        right: 32px;
     }
 }
 
