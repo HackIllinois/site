@@ -1,0 +1,41 @@
+.container {
+  display: inline-flex;
+  border: 2px solid #f99f48;
+  border-radius: 10px;
+  overflow: hidden;
+
+  /* ensure the input grows to fill available space */
+  & > input {
+    flex: 1;
+  }
+}
+
+.input {
+  padding: 1rem 1rem;
+  border: none;
+  outline: none;
+  font-size: 1.25rem;
+  background-color: white;
+  font-family: "Montserrat";
+
+  &::placeholder {
+    color: #aaa;
+  }
+}
+
+.button {
+  padding: 0 1.5rem;
+  background-color: #f99f48;
+  border: none;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: "Montserrat";
+}
+
+.label {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 10px;
+}

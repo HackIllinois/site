@@ -1,0 +1,669 @@
+@keyframes bob {
+    0%,
+    100% {
+        margin-top: 0;
+    }
+    50% {
+        margin-top: -8px;
+    }
+}
+
+.joinUsSection {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, #7e5ea7, #434c84);
+}
+
+.ufoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 95%;
+    max-width: 1500px;
+    z-index: 2;
+}
+
+.ufoImage {
+    width: 80%;
+    max-width: 900px;
+
+    height: auto;
+    @media (max-width: 900px) {
+        display: none;
+    }
+    &.mobile {
+        display: none;
+        @media (max-width: 900px) {
+            display: block;
+            width: 170%;
+            margin-top: 1rem;
+        }
+        @media (max-width: 400px) {
+            width: 200%;
+        }
+    }
+}
+
+.joinUsContentContainer {
+    position: absolute;
+    top: 0%;
+    width: 100%;
+    height: 27%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    @media (max-width: 900px) {
+        top: 5%;
+        height: auto;
+    }
+    @media (max-width: 600px) {
+        top: 5%;
+    }
+    @media (max-width: 500px) {
+        top: 5%;
+    }
+    @media (max-width: 449px) {
+        top: 3%;
+    }
+    @media (max-width: 350px) {
+        top: 8%;
+        padding: 0.5rem;
+    }
+}
+
+.joinUsHeading {
+    color: white;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.newsletterSubheader {
+    color: white;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+.joinUsDescription {
+    color: white;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 1rem auto;
+    line-height: 1.6;
+}
+
+.emailSubscription {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.emailInput {
+    padding: 12px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    width: 250px;
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    &:focus {
+        outline: none;
+        border-color: #6f4e92;
+        background: rgba(255, 255, 255, 0.15);
+    }
+}
+
+.subscribeButton {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #6f4e92, #4a3d7a);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(111, 78, 146, 0.4);
+    }
+}
+
+.sponsorSectionContentContainer {
+    position: absolute;
+    top: 30%;
+    width: 100%;
+    height: 50%;
+    z-index: 3;
+
+    @media (max-width: 600px) {
+        top: 30%;
+    }
+
+    @media (max-width: 449px) {
+        display: none;
+    }
+    @media (max-width: 318px) {
+        top: 35%;
+    }
+}
+
+/**
+ * Area of the light beam where aliens can be placed.
+ * Uses percentages so the layout scales with UFO size.
+ */
+.aliensContainer {
+    position: absolute;
+    top: 33%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 58%;
+    pointer-events: none;
+    z-index: 2;
+
+    @media (max-width: 900px) {
+        top: 37%;
+        width: 62%;
+        height: 50%;
+    }
+
+    @media (max-width: 600px) {
+        top: 34%;
+        width: 85%;
+        height: 45%;
+    }
+
+    @media (max-width: 420px) {
+        top: 28%;
+        width: 90%;
+        height: 42%;
+    }
+
+    @media (max-width: 449px) {
+        display: none;
+    }
+}
+
+.alienWrapper {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: bob 1.8s ease-in-out infinite;
+}
+
+.alienImage {
+    width: clamp(100px, 14vw, 180px);
+    height: auto;
+
+    @media (max-width: 900px) {
+        width: clamp(130px, 20vw, 200px);
+    }
+
+    @media (max-width: 600px) {
+        width: clamp(140px, 24vw, 180px);
+    }
+
+    @media (max-width: 500px) {
+        width: clamp(110px, 22vw, 150px);
+    }
+
+    @media (max-width: 400px) {
+        width: clamp(100px, 24vw, 140px);
+    }
+
+    &.title {
+        width: clamp(120px, 17vw, 220px);
+
+        @media (max-width: 900px) {
+            width: clamp(160px, 24vw, 240px);
+        }
+
+        @media (max-width: 600px) {
+            width: clamp(170px, 30vw, 220px);
+        }
+
+        @media (max-width: 500px) {
+            width: clamp(140px, 28vw, 180px);
+        }
+
+        @media (max-width: 400px) {
+            width: clamp(120px, 30vw, 170px);
+        }
+    }
+}
+
+.sponsorLogo {
+    position: absolute;
+    // width: 90%;
+    // width: auto;
+    // padding: 3px;
+    height: 75px;
+    padding: 24px;
+    // max-height: 80px;
+    // object-fit: contain;
+    box-sizing: border-box;
+
+    &.title {
+        height: 100px;
+    }
+
+    &.gold {
+        display: flex;
+        justify-content: center;
+        height: 85px;
+        width: 250px;
+    }
+
+    @media (max-width: 600px) {
+        &.title {
+            height: 80px;
+        }
+        &.gold {
+            display: flex;
+            justify-content: center;
+            height: 80px;
+            width: 200px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        padding: 18px;
+        &.title {
+            height: 60px;
+            width: 150px;
+        }
+        &.gold {
+            display: flex;
+            justify-content: center;
+            height: 60px;
+            width: 150px;
+        }
+    }
+}
+
+.alienWrapper.alien0 {
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.alienWrapper.alien1 {
+    top: 15%;
+    left: 5%;
+    // transform: scale(0.9);
+}
+
+.alienWrapper.alien2 {
+    top: 15%;
+    left: 75%;
+    // transform: scale(0.9);
+}
+
+.alienWrapper.alien3 {
+    top: 42%;
+    left: -5%;
+    // transform: scale(0.9);
+}
+
+.alienWrapper.alien4 {
+    top: 30%;
+    left: 38%;
+    transform: translateX(-50%);
+    // transform: scale(1.3);
+}
+
+.alienWrapper.alien5 {
+    top: 43%;
+    left: 75%;
+    // transform: scale(0.9);
+}
+
+@media (min-width: 901px) {
+    .alienWrapper.alien0 {
+        top: 6%;
+    }
+
+    .alienWrapper.alien1 {
+        top: 15%;
+    }
+
+    .alienWrapper.alien2 {
+        top: 15%;
+    }
+
+    .alienWrapper.alien3 {
+        top: 40%;
+        left: 10%;
+    }
+
+    .alienWrapper.alien4 {
+        top: 32%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .alienWrapper.alien4 .alienImage {
+        transform: scale(1.35);
+    }
+
+    .alienWrapper.alien5 {
+        top: 40%;
+        left: 68%;
+    }
+}
+
+@media (max-width: 900px) {
+    .alienWrapper.alien1 {
+        top: 10%;
+        left: -10%;
+    }
+
+    .alienWrapper.alien2 {
+        top: 10%;
+        left: 80%;
+    }
+    .alienWrapper.alien3 {
+        top: 35%;
+        left: -8%;
+    }
+    .alienWrapper.alien4 {
+        top: 27%;
+        left: 52%;
+    }
+    .alienWrapper.alien5 {
+        top: 36%;
+        left: 75%;
+    }
+}
+
+@media (max-width: 600px) {
+    .alienWrapper.alien0 {
+        top: 0%;
+        left: 50%;
+    }
+
+    .alienWrapper.alien1 {
+        top: 15%;
+        left: 3%;
+    }
+
+    .alienWrapper.alien2 {
+        top: 14%;
+        left: 63%;
+    }
+
+    .alienWrapper.alien3 {
+        top: 43%;
+        left: 3%;
+    }
+
+    .alienWrapper.alien4 {
+        top: 34%;
+        left: 50%;
+    }
+
+    .alienWrapper.alien5 {
+        top: 43%;
+        left: 63%;
+    }
+}
+
+@media (max-width: 400px) {
+    .alienWrapper.alien0 {
+        top: 18%;
+    }
+
+    .alienWrapper.alien1 {
+        top: 30%;
+        left: 5%;
+    }
+
+    .alienWrapper.alien2 {
+        top: 33%;
+        left: 65%;
+    }
+
+    .alienWrapper.alien3 {
+        top: 67%;
+        left: 5%;
+    }
+
+    .alienWrapper.alien4 {
+        top: 53%;
+        left: 50%;
+    }
+
+    .alienWrapper.alien5 {
+        top: 63%;
+        left: 65%;
+    }
+}
+
+.bottomSponsorsContainer {
+    margin-bottom: 5vh;
+    width: 100%;
+    z-index: 3;
+    @media (max-width: 1050px) {
+        margin-bottom: 0vh;
+    }
+    @media (max-width: 900px) {
+        margin-bottom: 15vh;
+    }
+    @media (max-width: 720px) {
+        margin-bottom: 0vh;
+    }
+
+    @media (max-width: 600px) {
+        width: 92%;
+        margin-bottom: 0vh;
+    }
+
+    @media (max-width: 449px) {
+        width: 95%;
+        margin-top: -35%;
+        margin-bottom: 1vh;
+    }
+    @media (max-width: 350px) {
+        width: 95%;
+        // margin-top: -50%;
+        margin-bottom: 0vh;
+    }
+}
+
+.bottomSponsorsGrid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 20px;
+
+    @media (max-width: 900px) {
+        gap: 12px;
+        padding: 10px;
+    }
+
+    @media (max-width: 600px) {
+        gap: 10px;
+        padding: 8px;
+    }
+
+    @media (max-width: 400px) {
+        gap: 10px;
+        padding: 8px;
+    }
+
+    @media (max-width: 300px) {
+        gap: 6px;
+        padding: 4px;
+    }
+}
+
+.bottomSponsorsRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    @media (max-width: 900px) {
+        gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+        gap: 10px;
+    }
+
+    @media (max-width: 400px) {
+        gap: 10px;
+    }
+}
+
+.bottomSponsorLogo {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    width: 220px;
+    transition:
+        filter 0.3s ease,
+        transform 0.3s ease;
+
+    box-sizing: border-box;
+    img {
+        padding: 30px !important;
+    }
+
+    height: 100px;
+    &.squareBox img {
+        padding: 20px !important;
+    }
+
+    @media (max-width: 900px) {
+        height: 90px;
+        width: 200px;
+        img {
+            padding: 20px;
+        }
+
+        &.squareBox img {
+            padding: 15px !important;
+        }
+    }
+
+    @media (max-width: 600px) {
+        display: flex;
+        height: 70px;
+        // width: 100%;
+        width: unset !important;
+        flex: 1 !important;
+        img {
+            padding: 20px !important;
+        }
+
+        &.squareBox img {
+            padding: 10px !important;
+        }
+    }
+
+    @media (max-width: 300px) {
+        height: 55px;
+        img {
+            padding: 14px !important;
+        }
+
+        &.squareBox img {
+            padding: 8px !important;
+        }
+    }
+
+    &.invertWhite {
+        filter: brightness(0) invert(1);
+
+        &:hover {
+            filter: brightness(0) invert(1) brightness(1.1);
+            transform: scale(1.05);
+        }
+    }
+}
+
+/* Optionally tweak for very small screens */
+// @media (max-width: 600px) {
+//     .alien0 { top: 5%;  left: 50%; }
+//     .alien1 { top: 26%; left: 28%; }
+//     .alien2 { top: 24%; left: 70%; }
+//     .alien3 { top: 56%; left: 25%; }
+//     .alien4 { top: 52%; left: 50%; }
+//     .alien5 { top: 54%; left: 73%; }
+// }
+
+.background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+    // Make the background bottom align with the actual bottom
+    object-position: center bottom;
+
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 10%
+    );
+
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 10%
+    );
+
+    @media (min-width: 900px) {
+        object-fit: cover;
+    }
+}
+
+.foreground {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150%;
+    object-fit: contain;
+    z-index: 2;
+    // Make the foreground bottom align with the actual bottom
+    object-position: center bottom;
+}
+
+.foregroundRocks {
+    bottom: 0 !important;
+    left: 0;
+    width: 100%;
+    height: auto !important;
+    object-fit: contain;
+    z-index: 2;
+    // Make the foreground bottom align with the actual bottom
+    object-position: center bottom;
+}
