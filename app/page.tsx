@@ -30,16 +30,16 @@ const Page = () => {
                         rel="noopener noreferrer"
                     >
                         <Button
-                            text={"Hack 2027 Interest Form"}
-                            navigateTo="https://docs.google.com/forms/d/e/1FAIpQLSeco5rnd7eqrH0OBf7K5PgNfpGUfCpH8EpjJTSoiKKvO_6X5g/viewform"
+                            text={"Hack 2026 Website"}
+                            navigateTo="https://2026.hackillinois.org"
                             backgroundColor={"#68C8BF"}
                             textColor={"#FCE891"}
                         />
                     </a>
                     <br />
                     <Button
-                        text={"Sign up for our newsletter!"}
-                        navigateTo="#connect-with-us"
+                        text={"Hack 2027 Interest Form"}
+                        navigateTo="https://docs.google.com/forms/d/e/1FAIpQLSeco5rnd7eqrH0OBf7K5PgNfpGUfCpH8EpjJTSoiKKvO_6X5g/viewform"
                         backgroundColor={"#FBA036"}
                         textColor={"#FCE891"}
                     />
