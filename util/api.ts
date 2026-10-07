@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "./api-config";
 import { handleError } from "./helpers";
 import {
     AcceptAdmissionRSVPRequest,
@@ -14,14 +15,12 @@ import {
     UserInfo
 } from "./types";
 
-const APIv2 = "https://adonix.hackillinois.org";
-
 export const isAuthenticated = async (): Promise<boolean> => {
     return (await getAuthToken()) !== null;
 };
 
 export async function getAuthToken(): Promise<string | null> {
-    const response = await fetch(APIv2 + "/auth/token", {
+    const response = await fetch(API_BASE_URL + "/auth/token", {
         mode: "cors",
         credentials: "include",
         headers: {
@@ -40,7 +39,7 @@ export function authenticate(): void {
     // Get the current URL
     const callbackUrl = window.location.pathname;
 
-    const authUrl = `${APIv2}/auth/login/github/?redirect=${window.location.origin}/${callbackUrl}`;
+    const authUrl = `${API_BASE_URL}/auth/login/github/?redirect=${window.location.origin}/${callbackUrl}`;
     window.location.replace(authUrl);
 }
 
@@ -52,7 +51,7 @@ export async function requestv2(
     endpoint: string,
     body?: unknown
 ) {
-    const response = await fetch(APIv2 + endpoint, {
+    const response = await fetch(API_BASE_URL + endpoint, {
         method,
         mode: "cors",
         credentials: "include",
@@ -97,7 +96,7 @@ export async function submitChallenge(file: File): Promise<ChallengeResponse> {
     const form = new FormData();
     form.append("solution", file);
 
-    const response = await fetch(APIv2 + "/registration/challenge/", {
+    const response = await fetch(API_BASE_URL + "/registration/challenge/", {
         method: "POST",
         mode: "cors",
         credentials: "include",
