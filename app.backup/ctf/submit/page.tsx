@@ -13,8 +13,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import styles from "./submit.module.scss";
-
-const API_URL = "https://adonix.hackillinois.org";
+import { API_BASE_URL } from "@/util/api-config";
 
 const FLAG_POINTS = [
     { range: "1-3", points: 2, color: "#4CAF50" },
@@ -227,7 +226,7 @@ export default function CTFSubmit() {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await fetch(`${API_URL}/auth/token/`, {
+                const response = await fetch(`${API_BASE_URL}/auth/token/`, {
                     mode: "cors",
                     credentials: "include"
                 });
@@ -288,13 +287,16 @@ export default function CTFSubmit() {
         });
 
         try {
-            const response = await fetch(`${API_URL}/ctf/submit/${flagId}/`, {
-                method: "POST",
-                mode: "cors",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ answer: answer.trim() })
-            });
+            const response = await fetch(
+                `${API_BASE_URL}/ctf/submit/${flagId}/`,
+                {
+                    method: "POST",
+                    mode: "cors",
+                    credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ answer: answer.trim() })
+                }
+            );
 
             const data = await response.json();
 
@@ -387,7 +389,7 @@ export default function CTFSubmit() {
                 </Typography>
                 <Button
                     onClick={() => {
-                        window.location.href = `${API_URL}/auth/login/github/?redirect=${window.location.origin}/ctf/submit`;
+                        window.location.href = `${API_BASE_URL}/auth/login/github/?redirect=${window.location.origin}/ctf/submit`;
                     }}
                     sx={{
                         background: "linear-gradient(90deg, #A315D6, #FDAB60)",
