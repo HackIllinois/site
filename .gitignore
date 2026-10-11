@@ -14,6 +14,7 @@
 .next
 .open-next
 /out
+*.tsbuildinfo
 
 
 # misc
@@ -28,8 +29,5 @@ yarn-debug.log*
 yarn-error.log*
 
 /.vscode
-
-# Local Netlify folder
-.netlify
 
 .env
