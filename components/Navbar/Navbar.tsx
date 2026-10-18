@@ -25,7 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({ showJoinUsButton = true }) => {
             <nav className="navbar">
                 <Link href="/#">
                     <img
-                        src="generic/hackillinois-logo.svg"
+                        src="/generic/hackillinois-logo.svg"
                         className="hackillinois-logo"
                     />
                 </Link>
@@ -55,7 +55,7 @@ const Navbar: React.FC<NavbarProps> = ({ showJoinUsButton = true }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <img src="generic/mlh-logo.svg" className="mlh-logo" />
+                    <img src="/generic/mlh-logo.svg" className="mlh-logo" />
                 </a>
             </nav>
 
@@ -63,7 +63,7 @@ const Navbar: React.FC<NavbarProps> = ({ showJoinUsButton = true }) => {
                 <div className="mobileTop">
                     <Link href="/#">
                         <img
-                            src="generic/hackillinois-logo.svg"
+                            src="/generic/hackillinois-logo.svg"
                             className="hackillinois-logo mobile"
                         />
                     </Link>
@@ -73,7 +73,7 @@ const Navbar: React.FC<NavbarProps> = ({ showJoinUsButton = true }) => {
                         rel="noopener noreferrer"
                     >
                         <img
-                            src="generic/mlh-logo.svg"
+                            src="/generic/mlh-logo.svg"
                             className="mlh-logo mobile"
                         />
                     </a>
