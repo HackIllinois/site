@@ -8,7 +8,6 @@ import {
     Box,
     Button,
     FormControl,
-    InputLabel,
     MenuItem,
     Select,
     Typography
@@ -365,46 +364,107 @@ const GithubAuthPage = () => {
                         {localSignInError && (
                             <Alert severity="error">{localSignInError}</Alert>
                         )}
-                        <FormControl fullWidth>
-                            <InputLabel id="local-seed-user-label">
-                                Seed user
-                            </InputLabel>
-                            <Select
-                                labelId="local-seed-user-label"
-                                value={selectedUserId}
-                                label="Seed user"
-                                onChange={event =>
-                                    setSelectedUserId(event.target.value)
-                                }
-                                disabled={isLoadingUsers || isSigningIn}
-                                sx={{ backgroundColor: "white" }}
-                            >
-                                {localUsers.map(user => (
-                                    <MenuItem
-                                        key={user.userId}
-                                        value={user.userId}
-                                    >
-                                        {user.name} ({user.email})
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                        <Button
-                            variant="contained"
-                            disabled={!selectedUserId || isSigningIn}
-                            onClick={() => handleLocalSignIn(selectedUserId)}
+                        <Box
+                            sx={{
+                                display: "flex",
+                                width: "100%",
+                                overflow: "hidden",
+                                borderRadius: 1
+                            }}
                         >
-                            {isSigningIn
-                                ? "Signing in…"
-                                : "Sign in as selected seed"}
-                        </Button>
+                            <FormControl sx={{ flex: 1, minWidth: 0 }}>
+                                <Select
+                                    value={selectedUserId}
+                                    inputProps={{
+                                        "aria-label": "Select seed user"
+                                    }}
+                                    displayEmpty
+                                    renderValue={selectedId => {
+                                        const selectedUser = localUsers.find(
+                                            user => user.userId === selectedId
+                                        );
+
+                                        return selectedUser
+                                            ? `${selectedUser.name} (${selectedUser.email})`
+                                            : isLoadingUsers
+                                              ? "Loading seed users…"
+                                              : "Select a seed user";
+                                    }}
+                                    onChange={event =>
+                                        setSelectedUserId(event.target.value)
+                                    }
+                                    disabled={
+                                        isLoadingUsers ||
+                                        isSigningIn ||
+                                        localUsers.length === 0
+                                    }
+                                    sx={{
+                                        width: "100%",
+                                        height: 50,
+                                        color: "white",
+                                        backgroundColor: "#1976d2",
+                                        borderRadius: 0,
+                                        "& .MuiSelect-select": {
+                                            overflow: "hidden",
+                                            textOverflow: "ellipsis",
+                                            whiteSpace: "nowrap"
+                                        },
+                                        "& .MuiOutlinedInput-notchedOutline": {
+                                            border: 0
+                                        },
+                                        "&:hover .MuiOutlinedInput-notchedOutline":
+                                            {
+                                                border: 0
+                                            },
+                                        "&.Mui-focused .MuiOutlinedInput-notchedOutline":
+                                            {
+                                                border: 0
+                                            },
+                                        "& .MuiSvgIcon-root": { color: "white" }
+                                    }}
+                                >
+                                    {localUsers.map(user => (
+                                        <MenuItem
+                                            key={user.userId}
+                                            value={user.userId}
+                                        >
+                                            {user.name} ({user.email})
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <Button
+                                variant="contained"
+                                aria-label="Sign in as selected seed"
+                                disabled={!selectedUserId || isSigningIn}
+                                onClick={() =>
+                                    handleLocalSignIn(selectedUserId)
+                                }
+                                sx={{
+                                    minWidth: "fit-content",
+                                    px: { xs: 1.5, sm: 2.5 },
+                                    borderRadius: 0,
+                                    borderLeft:
+                                        "1px solid rgba(255,255,255,0.35)",
+                                    boxShadow: "none",
+                                    whiteSpace: "nowrap",
+                                    textTransform: "none"
+                                }}
+                            >
+                                {isSigningIn ? "Signing in…" : "Sign in"}
+                            </Button>
+                        </Box>
                         <Button
                             variant="outlined"
                             disabled={isSigningIn}
                             onClick={() => handleLocalSignIn()}
-                            sx={{ color: "white", borderColor: "white" }}
+                            sx={{
+                                color: "white",
+                                borderColor: "white",
+                                textTransform: "none"
+                            }}
                         >
-                            Create and sign in as fresh registrant
+                            Sign in as Fresh User
                         </Button>
                         {isLoadingUsers && (
                             <Typography component="p">
