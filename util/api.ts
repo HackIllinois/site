@@ -12,7 +12,10 @@ import {
     EventType,
     MentorProfile,
     JudgeProfile,
-    UserInfo
+    UserInfo,
+    DevLoginRequest,
+    DevLoginResponse,
+    DevUsersResponse
 } from "./types";
 
 export const isAuthenticated = async (): Promise<boolean> => {
@@ -235,4 +238,42 @@ export async function getJudges(): Promise<JudgeProfile[]> {
 export async function getUserInfo(): Promise<UserInfo> {
     const res = await requestv2("GET", "/user").catch(handleError);
     return res as UserInfo;
+}
+
+async function requestDevApi<T>(
+    method: "GET" | "POST",
+    endpoint: string,
+    body?: unknown
+): Promise<T> {
+    const response = await fetch(API_BASE_URL + endpoint, {
+        method,
+        mode: "cors",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+            Origin: "www.hackillinois.org"
+        },
+        body: body === undefined ? undefined : JSON.stringify(body)
+    });
+
+    const responseBody = await response.json().catch(() => ({}));
+    if (!response.ok) {
+        const message =
+            responseBody.message ||
+            responseBody.error ||
+            `Request failed with status ${response.status}`;
+        throw new Error(message);
+    }
+
+    return responseBody as T;
+}
+
+export async function getDevUsers(): Promise<DevUsersResponse> {
+    return requestDevApi("GET", "/dev/users/");
+}
+
+export async function devLogin(
+    body: DevLoginRequest = {}
+): Promise<DevLoginResponse> {
+    return requestDevApi("POST", "/dev/login/", body);
 }
