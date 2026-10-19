@@ -331,8 +331,8 @@ const GithubAuthPage = ({
                             startIcon={<GoogleIcon />}
                             onClick={() => handleAuthenticate("google")}
                             sx={{
-                                backgroundColor: "#ffffff",
-                                color: "#1f1f1f",
+                                backgroundColor: "#24292f",
+                                color: "#ffffff",
                                 padding: "10px 20px",
                                 fontSize: {
                                     xs: "16px",
@@ -353,11 +353,11 @@ const GithubAuthPage = ({
                                     }
                                 },
                                 "&:hover": {
-                                    backgroundColor: "#f1f3f4",
+                                    backgroundColor: "#1b1f23",
                                     boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
                                 },
                                 "&:active": {
-                                    backgroundColor: "#e0e2e4",
+                                    backgroundColor: "#0f1113",
                                     boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
                                 },
                                 fontFamily: "Montserrat"
