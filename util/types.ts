@@ -235,3 +235,16 @@ export type UserInfo = {
     name: string;
     email: string;
 };
+
+export type DevUsersResponse = {
+    users: UserInfo[];
+};
+
+export type DevLoginRequest = {
+    userId?: string;
+};
+
+export type DevLoginResponse = {
+    user: UserInfo;
+    jwt: string;
+};

@@ -15,7 +15,7 @@ const Footer = () => {
                             rel="noopener noreferrer"
                         >
                             <img
-                                src="generic/icons/email-border.svg"
+                                src="/generic/icons/email-border.svg"
                                 className={styles.icon}
                             />
                         </a>
@@ -37,7 +37,7 @@ const Footer = () => {
                             rel="noopener noreferrer"
                         >
                             <img
-                                src="generic/icons/instagram-border.svg"
+                                src="/generic/icons/instagram-border.svg"
                                 className={styles.icon}
                             />
                         </a>
@@ -47,7 +47,7 @@ const Footer = () => {
                             rel="noopener noreferrer"
                         >
                             <img
-                                src="generic/icons/linkedin-border.svg"
+                                src="/generic/icons/linkedin-border.svg"
                                 className={styles.icon}
                             />
                         </a>
@@ -57,7 +57,7 @@ const Footer = () => {
                             rel="noopener noreferrer"
                         >
                             <img
-                                src="generic/icons/github-border.png"
+                                src="/generic/icons/github-border.png"
                                 className={styles.icon}
                             />
                         </a>
@@ -67,7 +67,7 @@ const Footer = () => {
                             rel="noopener noreferrer"
                         >
                             <img
-                                src="generic/icons/facebook-border.svg"
+                                src="/generic/icons/facebook-border.svg"
                                 className={styles.icon}
                             />
                         </a> */}
