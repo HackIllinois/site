@@ -1,16 +1,48 @@
 import { authenticate } from "@/util/api";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import GoogleIcon from "@mui/icons-material/Google";
 import { Box, Button, Typography } from "@mui/material";
+
+const gradientRingSx = {
+    borderRadius: "999px",
+    padding: "5px",
+    background:
+        "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
+    display: "inline-flex"
+};
+
+const authButtonSx = {
+    backgroundColor: "#24292f",
+    color: "#ffffff",
+    padding: "10px 20px",
+    fontSize: { xs: "16px", sm: "18px", md: "20px" },
+    fontWeight: 600,
+    borderRadius: "999px",
+    textTransform: "none",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 1,
+    "& .MuiButton-startIcon": {
+        marginRight: 1,
+        "& svg": { fontSize: "1.3rem" }
+    },
+    "&:hover": {
+        backgroundColor: "#1b1f23",
+        boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
+    },
+    "&:active": {
+        backgroundColor: "#0f1113",
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
+    },
+    fontFamily: "Montserrat"
+};
 
 const GithubAuthPage = ({
     mechathonMessage = false
 }: {
     mechathonMessage?: boolean;
 }) => {
-    const handleAuthenticate = async () => {
-        await authenticate();
-    };
-
     return (
         <Box
             sx={{
@@ -75,7 +107,7 @@ const GithubAuthPage = ({
                         paddingRight: 6
                     }}
                 >
-                    Sign in with your GitHub account to get started
+                    Sign in with your GitHub or Google account to get started
                 </Typography>
 
                 {/* Priority and final deadline boxes */}
@@ -248,53 +280,36 @@ const GithubAuthPage = ({
 
                 <Box
                     sx={{
-                        borderRadius: "999px",
-                        padding: "5px",
-                        background:
-                            "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
-                        display: "inline-flex"
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "16px"
                     }}
                 >
-                    <Button
-                        variant="contained"
-                        size="large"
-                        startIcon={<GitHubIcon />}
-                        onClick={handleAuthenticate}
-                        sx={{
-                            backgroundColor: "#24292f",
-                            color: "#ffffff",
-                            padding: "10px 20px",
-                            fontSize: {
-                                xs: "16px",
-                                sm: "18px",
-                                md: "20px"
-                            },
-                            fontWeight: 600,
-                            borderRadius: "999px",
-                            textTransform: "none",
-                            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 1,
-                            "& .MuiButton-startIcon": {
-                                marginRight: 1,
-                                "& svg": {
-                                    fontSize: "1.3rem"
-                                }
-                            },
-                            "&:hover": {
-                                backgroundColor: "#1b1f23",
-                                boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
-                            },
-                            "&:active": {
-                                backgroundColor: "#0f1113",
-                                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
-                            },
-                            fontFamily: "Montserrat"
-                        }}
-                    >
-                        Sign in with GitHub
-                    </Button>
+                    {[
+                        {
+                            provider: "github" as const,
+                            label: "GitHub",
+                            icon: <GitHubIcon />
+                        },
+                        {
+                            provider: "google" as const,
+                            label: "Google",
+                            icon: <GoogleIcon />
+                        }
+                    ].map(({ provider, label, icon }) => (
+                        <Box key={provider} sx={gradientRingSx}>
+                            <Button
+                                variant="contained"
+                                size="large"
+                                startIcon={icon}
+                                onClick={() => authenticate(provider)}
+                                sx={authButtonSx}
+                            >
+                                Sign in with {label}
+                            </Button>
+                        </Box>
+                    ))}
                 </Box>
             </Box>
         </Box>

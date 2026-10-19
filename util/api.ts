@@ -35,11 +35,13 @@ export async function getAuthToken(): Promise<string | null> {
     return null;
 }
 
-export function authenticate(): void {
+export type AuthProvider = "github" | "google";
+
+export function authenticate(provider: AuthProvider = "github"): void {
     // Get the current URL
     const callbackUrl = window.location.pathname;
 
-    const authUrl = `${API_BASE_URL}/auth/login/github/?redirect=${window.location.origin}/${callbackUrl}`;
+    const authUrl = `${API_BASE_URL}/auth/login/${provider}/?redirect=${window.location.origin}/${callbackUrl}`;
     window.location.replace(authUrl);
 }
 
