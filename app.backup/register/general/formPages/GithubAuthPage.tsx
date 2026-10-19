@@ -28,6 +28,13 @@ const GithubAuthPage = ({
 }: {
     mechathonMessage?: boolean;
 }) => {
+    const gradientRingSx = {
+        borderRadius: "999px",
+        padding: "5px",
+        background:
+            "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
+        display: "inline-flex"
+    };
     const handleAuthenticate = async (provider: "github" | "google") => {
         await authenticate(provider);
     };
@@ -269,95 +276,96 @@ const GithubAuthPage = ({
 
                 <Box
                     sx={{
-                        borderRadius: "999px",
-                        padding: "5px",
-                        background:
-                            "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
-                        display: "inline-flex",
+                        display: "flex",
                         flexDirection: "column",
-                        gap: "10px"
+                        alignItems: "center",
+                        gap: "16px"
                     }}
                 >
-                    <Button
-                        variant="contained"
-                        size="large"
-                        startIcon={<GitHubIcon />}
-                        onClick={() => handleAuthenticate("github")}
-                        sx={{
-                            backgroundColor: "#24292f",
-                            color: "#ffffff",
-                            padding: "10px 20px",
-                            fontSize: {
-                                xs: "16px",
-                                sm: "18px",
-                                md: "20px"
-                            },
-                            fontWeight: 600,
-                            borderRadius: "999px",
-                            textTransform: "none",
-                            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 1,
-                            "& .MuiButton-startIcon": {
-                                marginRight: 1,
-                                "& svg": {
-                                    fontSize: "1.3rem"
-                                }
-                            },
-                            "&:hover": {
-                                backgroundColor: "#1b1f23",
-                                boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
-                            },
-                            "&:active": {
-                                backgroundColor: "#0f1113",
-                                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
-                            },
-                            fontFamily: "Montserrat"
-                        }}
-                    >
-                        Sign in with GitHub
-                    </Button>
-                    <Button
-                        variant="contained"
-                        size="large"
-                        startIcon={<GoogleIcon />}
-                        onClick={() => handleAuthenticate("google")}
-                        sx={{
-                            backgroundColor: "#ffffff",
-                            color: "#1f1f1f",
-                            padding: "10px 20px",
-                            fontSize: {
-                                xs: "16px",
-                                sm: "18px",
-                                md: "20px"
-                            },
-                            fontWeight: 600,
-                            borderRadius: "999px",
-                            textTransform: "none",
-                            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 1,
-                            "& .MuiButton-startIcon": {
-                                marginRight: 1,
-                                "& svg": {
-                                    fontSize: "1.3rem"
-                                }
-                            },
-                            "&:hover": {
-                                backgroundColor: "#f1f3f4",
-                                boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
-                            },
-                            "&:active": {
-                                backgroundColor: "#e0e2e4",
-                                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
-                            },
-                            fontFamily: "Montserrat"
-                        }}
-                    >
-                        Sign in with Google
-                    </Button>
+                    <Box sx={gradientRingSx}>
+                        <Button
+                            variant="contained"
+                            size="large"
+                            startIcon={<GitHubIcon />}
+                            onClick={() => handleAuthenticate("github")}
+                            sx={{
+                                backgroundColor: "#24292f",
+                                color: "#ffffff",
+                                padding: "10px 20px",
+                                fontSize: {
+                                    xs: "16px",
+                                    sm: "18px",
+                                    md: "20px"
+                                },
+                                fontWeight: 600,
+                                borderRadius: "999px",
+                                textTransform: "none",
+                                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 1,
+                                "& .MuiButton-startIcon": {
+                                    marginRight: 1,
+                                    "& svg": {
+                                        fontSize: "1.3rem"
+                                    }
+                                },
+                                "&:hover": {
+                                    backgroundColor: "#1b1f23",
+                                    boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
+                                },
+                                "&:active": {
+                                    backgroundColor: "#0f1113",
+                                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
+                                },
+                                fontFamily: "Montserrat"
+                            }}
+                        >
+                            Sign in with GitHub
+                        </Button>
+                    </Box>
+                    <Box sx={gradientRingSx}>
+                        <Button
+                            variant="contained"
+                            size="large"
+                            startIcon={<GoogleIcon />}
+                            onClick={() => handleAuthenticate("google")}
+                            sx={{
+                                backgroundColor: "#ffffff",
+                                color: "#1f1f1f",
+                                padding: "10px 20px",
+                                fontSize: {
+                                    xs: "16px",
+                                    sm: "18px",
+                                    md: "20px"
+                                },
+                                fontWeight: 600,
+                                borderRadius: "999px",
+                                textTransform: "none",
+                                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 1,
+                                "& .MuiButton-startIcon": {
+                                    marginRight: 1,
+                                    "& svg": {
+                                        fontSize: "1.3rem"
+                                    }
+                                },
+                                "&:hover": {
+                                    backgroundColor: "#f1f3f4",
+                                    boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
+                                },
+                                "&:active": {
+                                    backgroundColor: "#e0e2e4",
+                                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
+                                },
+                                fontFamily: "Montserrat"
+                            }}
+                        >
+                            Sign in with Google
+                        </Button>
+                    </Box>
                 </Box>
             </Box>
         </Box>
