@@ -26,6 +26,13 @@ const Footer = () => {
                             contact@hackillinois.org
                         </a>
                     </div>
+                    <p className={styles.involvement}>
+                        Interested in becoming a judge or mentor? Email us at{" "}
+                        <a href="mailto:judging@hackillinois.org">
+                            judging@hackillinois.org
+                        </a>
+                        .
+                    </p>
                 </div>
                 <div>
                     <span>Want to stay up to date?</span>

@@ -10,6 +10,8 @@
         padding: 2.5rem 5%; // Container has 5% left-right padding as well
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 2rem;
 
         > div {
             display: flex;
@@ -69,6 +71,19 @@
         // > span:nth-child(2) {
         //     text-decoration: underline;
         // }
+    }
+}
+
+.involvement {
+    max-width: 25rem;
+    margin: 1rem 0 0;
+    font-size: 1rem;
+    line-height: 1.5;
+
+    a {
+        color: inherit;
+        text-decoration: underline;
+        overflow-wrap: anywhere;
     }
 }
 
