@@ -101,6 +101,14 @@ const Page = () => {
                                     newsletter for more info and announcements
                                     about the upcoming season!
                                 </p>
+                                <p>
+                                    Interested in becoming a judge or mentor?
+                                    Email us at{" "}
+                                    <a href="mailto:judging@hackillinois.org">
+                                        judging@hackillinois.org
+                                    </a>
+                                    .
+                                </p>
 
                                 <div className={styles.icons}>
                                     <div>
