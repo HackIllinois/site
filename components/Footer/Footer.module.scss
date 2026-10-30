@@ -1,121 +1,61 @@
 .footer {
-    //  position: relative;
-    // margin-top: 2rem;
-    z-index: 2;
+    width: 100%;
+    background: linear-gradient(to bottom, #16133e 0%, #2a2654 100%);
+    color: white;
+    padding: 3rem 2rem 2rem;
+    margin-top: auto;
+}
+
+.footerContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+.footerSection {
     display: flex;
     flex-direction: column;
+    gap: 0.75rem;
 
-    > div:nth-child(1) {
-        background-color: #b4e4df;
-        padding: 2.5rem 5%; // Container has 5% left-right padding as well
-        display: flex;
-        justify-content: space-between;
-
-        > div {
-            display: flex;
-            flex-direction: column;
-
-            > span:nth-child(1) {
-                font-size: 1.5rem;
-                font-weight: 600;
-                line-height: 1.875rem;
-            }
-
-            > span:nth-child(2) {
-                font-size: 1.25rem;
-                font-weight: 400;
-                line-height: 1.5rem;
-            }
-
-            > div {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                column-gap: 1.75rem;
-                font-size: 1.25rem;
-                font-weight: 500;
-                line-height: 1.5rem;
-                margin-top: 1rem;
-
-                .linkText {
-                    text-decoration: none;
-                    color: black;
-                }
-            }
-        }
-    }
-    > div:nth-child(2) {
-        background-color: #168277;
-        padding: 1.25rem 5%; // Container has 5% left-right padding as well
-        display: flex;
+    @media (max-width: 768px) {
+        text-align: center;
         align-items: center;
-        column-gap: 3rem;
-
-        > span {
-            font-size: 1.125rem;
-            font-weight: 500;
-            line-height: 1.25rem;
-            color: #fff;
-        }
-
-        > a > span {
-            font-size: 1.125rem;
-            font-weight: 500;
-            line-height: 1.25rem;
-            color: #fff;
-            text-decoration: underline;
-        }
-
-        // > span:nth-child(2) {
-        //     text-decoration: underline;
-        // }
     }
 }
 
-.icon {
-    width: 3rem;
-    height: 3rem;
+.sectionTitle {
+    font-family: "Tsukimi Rounded", sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    color: white;
 }
 
-@media screen and (max-width: 640px) {
-    .footer {
-        > div:nth-child(1) {
-            > div {
-                > span:nth-child(1) {
-                    font-size: 1.25rem;
-                }
+.description {
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.875rem;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+}
 
-                > span:nth-child(2) {
-                    font-size: 1rem;
-                }
-                > div {
-                    align-items: flex-start;
-                    column-gap: 0.25rem;
-                    font-size: 0.875rem;
-                    margin-top: 1rem;
-                }
-            }
-        }
-        > div:nth-child(2) {
-            > div {
-                > span:nth-child(1) {
-                    font-size: 1.25rem;
-                }
+.link {
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.875rem;
+    color: #a78bfa;
+    text-decoration: none;
+    transition: color 0.3s ease;
 
-                > span:nth-child(2) {
-                    font-size: 1rem;
-                }
-                > div {
-                    align-items: flex-start;
-                    column-gap: 0.25rem;
-                    font-size: 0.875rem;
-                    margin-top: 1rem;
-                }
-            }
-        }
-    }
-    .icon {
-        width: 1.5rem;
-        height: 1.5rem;
+    &:hover {
+        color: #c4b5fd;
+        text-decoration: underline;
     }
 }
