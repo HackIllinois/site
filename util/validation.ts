@@ -1,4 +1,4 @@
-import { OTHER_SCHOOL_OPTION } from "@/app.backup/register/general/constants/registration";
+import { OTHER_SCHOOL_OPTION } from "@/app/register/general/constants/registration";
 import {
     ProfileFormInfo,
     RegistrationApplicationDraftBodyForm

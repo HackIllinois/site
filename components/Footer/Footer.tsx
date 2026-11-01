@@ -1,97 +1,224 @@
-import Link from "next/link";
-import styles from "./Footer.module.scss";
+import { MLH_CODE_OF_CONDUCT_URL } from "@/app/register/general/constants/registration";
+import { Box, Typography, Link as MuiLink } from "@mui/material";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import TwitterIcon from "@mui/icons-material/Twitter";
 
 const Footer = () => {
     return (
-        <footer className={styles.footer}>
-            <div>
-                <div>
-                    <span>Contact Information</span>
-                    <span>Reach out to us with any inquiries!</span>
-                    <div>
-                        <a
+        <Box
+            id="site-footer"
+            component="footer"
+            sx={{
+                width: "100%",
+                background:
+                    "linear-gradient(to bottom, #16133e 0%, #2a2654 100%)",
+                color: "white",
+                py: 2.5,
+                px: 2,
+                pb: 4,
+                mt: "auto"
+            }}
+        >
+            <Box
+                sx={{
+                    maxWidth: "1200px",
+                    margin: "0 auto",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: { xs: "flex-start", md: "center" },
+                    gap: 2
+                }}
+            >
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: { xs: "flex-start", md: "center" },
+                        alignItems: { xs: "flex-start", md: "center" },
+                        flexDirection: { xs: "column", md: "row" },
+                        gap: { xs: 1.5, md: 3 },
+                        flexWrap: "wrap",
+                        fontSize: "14px",
+                        width: { xs: "100%", md: "auto" }
+                    }}
+                >
+                    <MuiLink
+                        href={MLH_CODE_OF_CONDUCT_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{
+                            fontFamily: "Montserrat, sans-serif",
+                            fontSize: "14px",
+                            color: "#a78bfa",
+                            textDecoration: "none",
+                            py: 0.5,
+                            "&:hover": {
+                                color: "#c4b5fd",
+                                textDecoration: "underline"
+                            }
+                        }}
+                    >
+                        MLH Code of Conduct
+                    </MuiLink>
+
+                    <Typography
+                        component="span"
+                        sx={{
+                            display: { xs: "none", md: "inline" },
+                            color: "rgba(255, 255, 255, 0.4)",
+                            fontSize: "14px"
+                        }}
+                    >
+                        |
+                    </Typography>
+
+                    <MuiLink
+                        href="https://info.hackillinois.org/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{
+                            fontFamily: "Montserrat, sans-serif",
+                            fontSize: "14px",
+                            color: "#a78bfa",
+                            textDecoration: "none",
+                            py: 0.5,
+                            "&:hover": {
+                                color: "#c4b5fd",
+                                textDecoration: "underline"
+                            }
+                        }}
+                    >
+                        HackIllinois Info Site
+                    </MuiLink>
+
+                    <Typography
+                        component="span"
+                        sx={{
+                            display: { xs: "none", md: "inline" },
+                            color: "rgba(255, 255, 255, 0.4)",
+                            fontSize: "14px"
+                        }}
+                    >
+                        |
+                    </Typography>
+
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: { xs: "flex-start", md: "center" },
+                            gap: 0.5
+                        }}
+                    >
+                        <MuiLink
                             href="mailto:contact@hackillinois.org"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            sx={{
+                                fontFamily: "Montserrat, sans-serif",
+                                fontSize: "14px",
+                                color: "#a78bfa",
+                                textDecoration: "none",
+                                py: 0.5,
+                                "&:hover": {
+                                    color: "#c4b5fd",
+                                    textDecoration: "underline"
+                                }
+                            }}
                         >
-                            <img
-                                src="generic/icons/email-border.svg"
-                                className={styles.icon}
-                            />
-                        </a>
-                        <a
-                            className={styles.linkText}
-                            href="mailto:contact@hackillinois.org"
-                        >
-                            contact@hackillinois.org
-                        </a>
-                    </div>
-                </div>
-                <div>
-                    <span>Want to stay up to date?</span>
-                    <span>Follow us on social media!</span>
-                    <div>
-                        <a
-                            href="https://instagram.com/HackIllinois"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                src="generic/icons/instagram-border.svg"
-                                className={styles.icon}
-                            />
-                        </a>
-                        <a
+                            Contact Us
+                        </MuiLink>
+                    </Box>
+
+                    <Typography
+                        component="span"
+                        sx={{
+                            display: { xs: "none", md: "inline" },
+                            color: "rgba(255, 255, 255, 0.4)",
+                            fontSize: "14px"
+                        }}
+                    >
+                        |
+                    </Typography>
+
+                    <MuiLink
+                        href="/legal"
+                        sx={{
+                            fontFamily: "Montserrat, sans-serif",
+                            fontSize: "14px",
+                            color: "#a78bfa",
+                            textDecoration: "none",
+                            py: 0.5,
+                            "&:hover": {
+                                color: "#c4b5fd",
+                                textDecoration: "underline"
+                            }
+                        }}
+                    >
+                        Legal
+                    </MuiLink>
+                </Box>
+
+                {/* Social Icons and Copyright Row */}
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 2.5,
+                        flexWrap: "wrap",
+                        justifyContent: { xs: "flex-start", md: "center" }
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            gap: 2,
+                            alignItems: "center"
+                        }}
+                    >
+                        <MuiLink
                             href="https://www.linkedin.com/company/hackillinois/"
                             target="_blank"
                             rel="noopener noreferrer"
+                            sx={{
+                                color: "#a78bfa",
+                                display: "flex",
+                                alignItems: "center",
+                                p: 0.5,
+                                "&:hover": {
+                                    color: "#c4b5fd"
+                                }
+                            }}
                         >
-                            <img
-                                src="generic/icons/linkedin-border.svg"
-                                className={styles.icon}
-                            />
-                        </a>
-                        <a
-                            href="https://github.com/HackIllinois/"
+                            <LinkedInIcon sx={{ fontSize: "1.5rem" }} />
+                        </MuiLink>
+                        <MuiLink
+                            href="https://x.com/HackIllinois"
                             target="_blank"
                             rel="noopener noreferrer"
+                            sx={{
+                                color: "#a78bfa",
+                                display: "flex",
+                                alignItems: "center",
+                                p: 0.5,
+                                "&:hover": {
+                                    color: "#c4b5fd"
+                                }
+                            }}
                         >
-                            <img
-                                src="generic/icons/github-border.png"
-                                className={styles.icon}
-                            />
-                        </a>
-                        {/* <a
-                            href="https://www.facebook.com/hackillinois/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                src="generic/icons/facebook-border.svg"
-                                className={styles.icon}
-                            />
-                        </a> */}
-                    </div>
-                </div>
-            </div>
-            <div>
-                <span>Copyright@2023</span>
-                <Link
-                    href="info.hackillinois.org/privacy-policy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <span>Privacy Policy</span>
-                </Link>
-                <Link
-                    href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <span>MLH Code of Conduct</span>
-                </Link>
-            </div>
-        </footer>
+                            <TwitterIcon sx={{ fontSize: "1.5rem" }} />
+                        </MuiLink>
+                    </Box>
+
+                    <Typography
+                        sx={{
+                            fontFamily: "Montserrat, sans-serif",
+                            fontSize: "14px",
+                            color: "rgba(255, 255, 255, 0.6)"
+                        }}
+                    >
+                        © HackIllinois 2026
+                    </Typography>
+                </Box>
+            </Box>
+        </Box>
     );
 };
 

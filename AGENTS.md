@@ -4,12 +4,8 @@ Instructions for coding agents working in this repo.
 
 ## What this repo is right now
 
-This is the HackIllinois attendee-facing site: Next.js 15 (App Router), React 19, TypeScript (strict), SCSS, npm.
+This is the HackIllinois attendee-facing site: Next.js 15 (App Router), React 19, TypeScript (strict), SCSS, MUI, npm.
 
-It is in a static holdover state between events:
-
-- The live app is a single page, `app/page.tsx`, with the 2027 interest form link and a newsletter signup.
-- The full 2026 event site (registration, RSVP, profile, schedule, CTF, judges, mentors) is parked in `app.backup/` and `components.backup/`. It is not routed. See [Parked code](#parked-code).
 - `hackillinois.org` currently redirects to `hype.hackillinois.org`, which is a different repo (`HackIllinois/hype-site`). This is expected. Changes merged here deploy to the `site` Cloudflare Worker but are not what visitors to `hackillinois.org` see right now.
 
 Related repos, all under the `HackIllinois` GitHub org:
@@ -33,9 +29,8 @@ There is no test suite. To verify a change, run `npm run lint` and `npx tsc --no
 
 ## Directory map
 
-- `app/`: the live routes. Currently only the root layout and `page.tsx`.
-- `components/`: components used by the live page (`Button`, `Container`, `EmailSubscribeInput`, `Footer`, `Navbar`).
-- `app.backup/`, `components.backup/`: the parked 2026 event site.
+- `app/`: the live routes — landing page, `register/`, `rsvp/`, `profile/`, `schedule/`, `ctf/`, `challenge/`, `judges/`, `mentors/`, `prizes/`, `travel/`, `faq/`, `legal/`.
+- `components/`: shared components (`Navbar`, `Footer`, `Form`, `EventCountdown`, `StaffCard`, `GradientButton`, the MUI-wrapping form inputs, etc.).
 - `util/`: the API client (`api.ts`, `api-config.ts`), shared types (`types.ts`), form validation and select options.
 - `hooks/`: shared React hooks.
 - `modules/`: static data (footer links; schools, majors, states and countries for form dropdowns).
@@ -43,14 +38,14 @@ There is no test suite. To verify a change, run `npm run lint` and `npx tsc --no
 - `public/`: static assets, grouped by page.
 - `design-reference/`: design exports for reference. Not imported by code.
 
-The import alias `@/*` maps to the repo root, for example `@/components/Button/Button`.
+The import alias `@/*` maps to the repo root, for example `@/components/Navbar/Navbar`.
 
 ## Conventions
 
 - Prettier settings: 4-space indent, double quotes, semicolons, no trailing commas, no parentheses around a single arrow function argument. Run `npm run format` instead of formatting by hand.
 - Each component lives in its own folder as `Name/Name.tsx` with its styles beside it, normally `Name.module.scss`.
 - Add `"use client"` only to components that need state, effects or browser APIs.
-- Style the live page with SCSS. MUI, Formik and Yup are used only by the parked registration code.
+- MUI, Formik and Yup are used throughout (registration, profile, forms). Some plain pages are still styled with SCSS modules.
 - Unused imports are a lint error. Prefix intentionally unused variables and arguments with `_`.
 - Put images in `public/<page>/` and reference them by path.
 
@@ -63,23 +58,12 @@ The import alias `@/*` maps to the repo root, for example `@/components/Button/B
 - The value is inlined at build time, so restart the dev server or rebuild after changing it. If it is unset, `util/api-config.ts` throws on import.
 - Make API calls through `util/api.ts`. Add a function there for a new endpoint instead of calling `fetch` from a component, and put request and response types in `util/types.ts`.
 - `requestv2` throws the error body on a non-OK response and redirects to GitHub login when the token is missing or invalid.
-- Newsletter list names passed to `subscribe()` are free-form strings. Adonix creates a list for any name it has not seen, so a typo silently creates a new list. The live list name is `hackillinois2026_interest`; do not rename it unless asked.
-
-## Parked code
-
-`app.backup/` and `components.backup/` hold the 2026 event site as reference.
-
-- Do not import from them in live code.
-- Do not delete them, and do not move them back into `app/` or `components/`, unless asked.
-- Keep them compiling. They are type-checked, and they import from `util/`, `hooks/` and `theme/`, so a change to a shared type or function can break them. Several files in those directories (`util/options.ts`, `util/validation.ts`, `util/config.ts`, the hooks, `theme/`) are used only by the parked code, so they are not dead.
-- Imports inside them use the `@/app.backup/...` and `@/components.backup/...` paths.
+- Newsletter list names passed to `subscribe()` are free-form strings. Adonix creates a list for any name it has not seen, so a typo silently creates a new list. The current list names (`hackillinois2026_interest`, `2026_applicants` in `GeneralRegistration.tsx` and `NewsletterSubscription.tsx`) are from last season, but do not rename them until asked.
 
 ## Gotchas
 
-- `npm run lint` runs ESLint only on `app/` and `components/`. Files in `util/`, `hooks/`, `theme/` and the parked directories are linted only by the pre-commit hook, and only when staged. Prettier and `tsc` do cover the whole repo.
+- `npm run lint` runs ESLint only on `app/` and `components/` (Next's default `eslint.dirs`). Files in `util/`, `hooks/`, `theme/` and `modules/` are linted only by the pre-commit hook, and only when staged. Prettier and `tsc` do cover the whole repo.
 - The pre-commit hook runs `lint-staged`, which applies ESLint fixes and Prettier to staged files, so committed content can differ from what was staged.
-- `npm run lint` on a clean checkout passes with two unused-variable warnings in `components/Navbar/Navbar.tsx`.
-- `.eslintrc.json` turns off `@next/next/no-img-element`, `@next/next/no-page-custom-font` and `jsx-a11y/alt-text` for the static holdover page. Do not treat that as the standard for new event pages.
 
 ## Git, CI and deployment
 
