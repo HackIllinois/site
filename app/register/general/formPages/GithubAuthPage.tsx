@@ -1,14 +1,34 @@
+"use client";
+
 import { authenticate } from "@/util/api";
+import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import { Box, Button, Typography } from "@mui/material";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import { Alert, Box, Button, Typography } from "@mui/material";
+import { useState } from "react";
 
 const GithubAuthPage = ({
     mechathonMessage = false
 }: {
     mechathonMessage?: boolean;
 }) => {
+    const [isSigningIn, setIsSigningIn] = useState(false);
+    const [signInError, setSignInError] = useState("");
+
     const handleAuthenticate = async () => {
-        await authenticate();
+        setIsSigningIn(true);
+        setSignInError("");
+        try {
+            await authenticate();
+        } catch (error) {
+            setSignInError(
+                error instanceof Error
+                    ? error.message
+                    : "Could not sign in. Please try again."
+            );
+        } finally {
+            setIsSigningIn(false);
+        }
     };
 
     return (
@@ -75,7 +95,9 @@ const GithubAuthPage = ({
                         paddingRight: 6
                     }}
                 >
-                    Sign in with your GitHub account to get started
+                    {LOCAL_AUTH_ENABLED
+                        ? "Sign in with a local test account to get started"
+                        : "Sign in with your GitHub account to get started"}
                 </Typography>
 
                 {/* Priority and final deadline boxes */}
@@ -258,8 +280,15 @@ const GithubAuthPage = ({
                     <Button
                         variant="contained"
                         size="large"
-                        startIcon={<GitHubIcon />}
+                        startIcon={
+                            LOCAL_AUTH_ENABLED ? (
+                                <PersonOutlineIcon />
+                            ) : (
+                                <GitHubIcon />
+                            )
+                        }
                         onClick={handleAuthenticate}
+                        disabled={isSigningIn}
                         sx={{
                             backgroundColor: "#24292f",
                             color: "#ffffff",
@@ -293,9 +322,18 @@ const GithubAuthPage = ({
                             fontFamily: "Montserrat"
                         }}
                     >
-                        Sign in with GitHub
+                        {isSigningIn
+                            ? "Signing in…"
+                            : LOCAL_AUTH_ENABLED
+                              ? "Sign in as a test user"
+                              : "Sign in with GitHub"}
                     </Button>
                 </Box>
+                {signInError && (
+                    <Alert severity="error" sx={{ mt: 3, maxWidth: 500 }}>
+                        {signInError}
+                    </Alert>
+                )}
             </Box>
         </Box>
     );

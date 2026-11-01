@@ -10,3 +10,9 @@ if (!apiBaseUrl) {
 
 // The origin of the Adonix API, without a trailing slash.
 export const API_BASE_URL: string = apiBaseUrl;
+
+export const LOCAL_AUTH_ENABLED =
+    process.env.NODE_ENV === "development" &&
+    ["localhost", "127.0.0.1", "[::1]"].includes(
+        new URL(API_BASE_URL).hostname
+    );

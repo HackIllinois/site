@@ -13,7 +13,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import styles from "./submit.module.scss";
-import { API_BASE_URL } from "@/util/api-config";
+import { API_BASE_URL, LOCAL_AUTH_ENABLED } from "@/util/api-config";
+import { authenticate } from "@/util/api";
 
 const FLAG_POINTS = [
     { range: "1-3", points: 2, color: "#4CAF50" },
@@ -208,6 +209,7 @@ export default function CTFSubmit() {
             .map(() => ({ correct: null, claimed: false, loading: false }))
     );
     const [showSuccess, setShowSuccess] = useState(false);
+    const [signInError, setSignInError] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(
         null
     );
@@ -388,8 +390,17 @@ export default function CTFSubmit() {
                     Please log in to submit flags
                 </Typography>
                 <Button
-                    onClick={() => {
-                        window.location.href = `${API_BASE_URL}/auth/login/github/?redirect=${window.location.origin}/ctf/submit`;
+                    onClick={async () => {
+                        setSignInError("");
+                        try {
+                            await authenticate();
+                        } catch (error) {
+                            setSignInError(
+                                error instanceof Error
+                                    ? error.message
+                                    : "Could not sign in. Please try again."
+                            );
+                        }
                     }}
                     sx={{
                         background: "linear-gradient(90deg, #A315D6, #FDAB60)",
@@ -406,8 +417,11 @@ export default function CTFSubmit() {
                         }
                     }}
                 >
-                    Log in with GitHub
+                    {LOCAL_AUTH_ENABLED
+                        ? "Sign in as a test user"
+                        : "Log in with GitHub"}
                 </Button>
+                {signInError && <Alert severity="error">{signInError}</Alert>}
             </Box>
         );
     }

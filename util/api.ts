@@ -1,10 +1,11 @@
-import { API_BASE_URL } from "./api-config";
+import { API_BASE_URL, LOCAL_AUTH_ENABLED } from "./api-config";
 import { handleError } from "./helpers";
 import {
     AcceptAdmissionRSVPRequest,
     AttendeeProfile,
     ChallengeResponse,
     ChallengeStatus,
+    DevUsersResponse,
     MethodType,
     RegistrationApplicationDraftBody,
     RegistrationApplicationSubmitted,
@@ -35,11 +36,30 @@ export async function getAuthToken(): Promise<string | null> {
     return null;
 }
 
-export function authenticate(): void {
-    // Get the current URL
-    const callbackUrl = window.location.pathname;
+export async function authenticate(): Promise<void> {
+    if (LOCAL_AUTH_ENABLED) {
+        const { users }: DevUsersResponse = await requestv2(
+            "GET",
+            "/dev/users/"
+        );
+        const user = users[0];
+        if (!user) {
+            throw new Error(
+                "No local test users are available. Restart Adonix to create them, then try again."
+            );
+        }
 
-    const authUrl = `${API_BASE_URL}/auth/login/github/?redirect=${window.location.origin}/${callbackUrl}`;
+        await requestv2(
+            "GET",
+            `/auth/dev/login/${encodeURIComponent(user.userId)}/`
+        );
+        window.location.reload();
+        return;
+    }
+
+    const callbackUrl = `${window.location.origin}${window.location.pathname}`;
+
+    const authUrl = `${API_BASE_URL}/auth/login/github/?redirect=${encodeURIComponent(callbackUrl)}`;
     window.location.replace(authUrl);
 }
 
@@ -70,7 +90,7 @@ export async function requestv2(
         responseJSON.error == "NoToken"
     ) {
         sessionStorage.removeItem("token");
-        authenticate();
+        await authenticate();
         throw responseJSON;
     }
 
@@ -111,7 +131,7 @@ export async function submitChallenge(file: File): Promise<ChallengeResponse> {
         responseJSON.error == "NoToken"
     ) {
         sessionStorage.removeItem("token");
-        authenticate();
+        await authenticate();
         throw responseJSON;
     }
 
