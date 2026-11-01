@@ -1,5 +1,5 @@
-import SelectTextInput from "@/components.backup/SelectTextInputMUI";
-import TextInput from "@/components.backup/TextInputMUI";
+import SelectTextInput from "@/components/SelectTextInputMUI";
+import TextInput from "@/components/TextInputMUI";
 import { ageOptions } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Container, Grid, Typography } from "@mui/material";
@@ -146,22 +146,3 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
 };
 
 export default PersonalInfo;
-
-/*
-
-First Name / Last Name — change both from md: 4.75 to md: 6 (half width each)
-Email Address — move it to right after Last Name, change to md: 12 (full width)
-Phone Number / Age — put them next to each other, both at md: 6
-Preferred Name — it’s not in the Figma, so you’ll need to decide: remove it or keep it. Check with your team if it’s still a required field
-Race/Ethnicity and Gender — these are in the Figma but not in this page currently. They might be on the BackgroundInfo page right now and need to be moved here. Check the Figma for BackgroundInfo to see if they’re supposed to stay there or move
-
-So the new Grid order would be:
-
-Row 1: First Name (md: 6) | Last Name (md: 6)
-Row 2: Email Address (md: 12)
-Row 3: Phone Number (md: 6) | Age (md: 6)
-Row 4: Race/Ethnicity (md: 6) | Gender (md: 6)
-
-Try rearranging the Grid items and updating their size props to match this.
-
-*/

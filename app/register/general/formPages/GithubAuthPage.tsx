@@ -1,62 +1,32 @@
 "use client";
 
-import { authenticate, devLogin, getDevUsers } from "@/util/api";
-import { UserInfo } from "@/util/types";
+import { authenticate } from "@/util/api";
+import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import {
-    Alert,
-    Box,
-    Button,
-    FormControl,
-    MenuItem,
-    Select,
-    Typography
-} from "@mui/material";
-import { useEffect, useState } from "react";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import { Alert, Box, Button, Typography } from "@mui/material";
+import { useState } from "react";
 
-const GithubAuthPage = () => {
-    const [showLocalSignIn, setShowLocalSignIn] = useState(false);
-    const [localUsers, setLocalUsers] = useState<UserInfo[]>([]);
-    const [selectedUserId, setSelectedUserId] = useState("");
-    const [localSignInError, setLocalSignInError] = useState("");
-    const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+const GithubAuthPage = ({
+    mechathonMessage = false
+}: {
+    mechathonMessage?: boolean;
+}) => {
     const [isSigningIn, setIsSigningIn] = useState(false);
-
-    useEffect(() => {
-        const isLocalHost =
-            window.location.hostname === "localhost" ||
-            window.location.hostname === "127.0.0.1";
-        if (process.env.NODE_ENV !== "development" || !isLocalHost) return;
-
-        setShowLocalSignIn(true);
-        setIsLoadingUsers(true);
-        getDevUsers()
-            .then(response => {
-                setLocalUsers(response.users);
-                setSelectedUserId(response.users[0]?.userId ?? "");
-            })
-            .catch(error => {
-                setLocalSignInError(
-                    `Could not load local seed users: ${error instanceof Error ? error.message : "Please try again."}`
-                );
-            })
-            .finally(() => setIsLoadingUsers(false));
-    }, []);
+    const [signInError, setSignInError] = useState("");
 
     const handleAuthenticate = async () => {
-        await authenticate();
-    };
-
-    const handleLocalSignIn = async (userId?: string) => {
         setIsSigningIn(true);
-        setLocalSignInError("");
+        setSignInError("");
         try {
-            await devLogin(userId ? { userId } : {});
-            window.location.reload();
+            await authenticate();
         } catch (error) {
-            setLocalSignInError(
-                `Could not sign in locally: ${error instanceof Error ? error.message : "Please try again."}`
+            setSignInError(
+                error instanceof Error
+                    ? error.message
+                    : "Could not sign in. Please try again."
             );
+        } finally {
             setIsSigningIn(false);
         }
     };
@@ -125,7 +95,9 @@ const GithubAuthPage = () => {
                         paddingRight: 6
                     }}
                 >
-                    Sign in with your GitHub account to get started
+                    {LOCAL_AUTH_ENABLED
+                        ? "Sign in with a local test account to get started"
+                        : "Sign in with your GitHub account to get started"}
                 </Typography>
 
                 {/* Priority and final deadline boxes */}
@@ -308,8 +280,15 @@ const GithubAuthPage = () => {
                     <Button
                         variant="contained"
                         size="large"
-                        startIcon={<GitHubIcon />}
+                        startIcon={
+                            LOCAL_AUTH_ENABLED ? (
+                                <PersonOutlineIcon />
+                            ) : (
+                                <GitHubIcon />
+                            )
+                        }
                         onClick={handleAuthenticate}
+                        disabled={isSigningIn}
                         sx={{
                             backgroundColor: "#24292f",
                             color: "#ffffff",
@@ -343,135 +322,17 @@ const GithubAuthPage = () => {
                             fontFamily: "Montserrat"
                         }}
                     >
-                        Sign in with GitHub
+                        {isSigningIn
+                            ? "Signing in…"
+                            : LOCAL_AUTH_ENABLED
+                              ? "Sign in as a test user"
+                              : "Sign in with GitHub"}
                     </Button>
                 </Box>
-                {showLocalSignIn && (
-                    <Box
-                        sx={{
-                            width: "100%",
-                            maxWidth: 420,
-                            mt: 4,
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 2,
-                            color: "white"
-                        }}
-                    >
-                        <Typography component="h2" variant="h6">
-                            Local sign in
-                        </Typography>
-                        {localSignInError && (
-                            <Alert severity="error">{localSignInError}</Alert>
-                        )}
-                        <Box
-                            sx={{
-                                display: "flex",
-                                width: "100%",
-                                overflow: "hidden",
-                                borderRadius: 1
-                            }}
-                        >
-                            <FormControl sx={{ flex: 1, minWidth: 0 }}>
-                                <Select
-                                    value={selectedUserId}
-                                    inputProps={{
-                                        "aria-label": "Select seed user"
-                                    }}
-                                    displayEmpty
-                                    renderValue={selectedId => {
-                                        const selectedUser = localUsers.find(
-                                            user => user.userId === selectedId
-                                        );
-
-                                        return selectedUser
-                                            ? `${selectedUser.name} (${selectedUser.email})`
-                                            : isLoadingUsers
-                                              ? "Loading seed users…"
-                                              : "Select a seed user";
-                                    }}
-                                    onChange={event =>
-                                        setSelectedUserId(event.target.value)
-                                    }
-                                    disabled={
-                                        isLoadingUsers ||
-                                        isSigningIn ||
-                                        localUsers.length === 0
-                                    }
-                                    sx={{
-                                        width: "100%",
-                                        height: 50,
-                                        color: "white",
-                                        backgroundColor: "#1976d2",
-                                        borderRadius: 0,
-                                        "& .MuiSelect-select": {
-                                            overflow: "hidden",
-                                            textOverflow: "ellipsis",
-                                            whiteSpace: "nowrap"
-                                        },
-                                        "& .MuiOutlinedInput-notchedOutline": {
-                                            border: 0
-                                        },
-                                        "&:hover .MuiOutlinedInput-notchedOutline":
-                                            {
-                                                border: 0
-                                            },
-                                        "&.Mui-focused .MuiOutlinedInput-notchedOutline":
-                                            {
-                                                border: 0
-                                            },
-                                        "& .MuiSvgIcon-root": { color: "white" }
-                                    }}
-                                >
-                                    {localUsers.map(user => (
-                                        <MenuItem
-                                            key={user.userId}
-                                            value={user.userId}
-                                        >
-                                            {user.name} ({user.email})
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                            <Button
-                                variant="contained"
-                                aria-label="Sign in as selected seed"
-                                disabled={!selectedUserId || isSigningIn}
-                                onClick={() =>
-                                    handleLocalSignIn(selectedUserId)
-                                }
-                                sx={{
-                                    minWidth: "fit-content",
-                                    px: { xs: 1.5, sm: 2.5 },
-                                    borderRadius: 0,
-                                    borderLeft:
-                                        "1px solid rgba(255,255,255,0.35)",
-                                    boxShadow: "none",
-                                    whiteSpace: "nowrap",
-                                    textTransform: "none"
-                                }}
-                            >
-                                {isSigningIn ? "Signing in…" : "Sign in"}
-                            </Button>
-                        </Box>
-                        <Button
-                            variant="outlined"
-                            disabled={isSigningIn}
-                            onClick={() => handleLocalSignIn()}
-                            sx={{
-                                color: "white",
-                                borderColor: "white",
-                                textTransform: "none"
-                            }}
-                        >
-                            Sign in as Fresh User
-                        </Button>
-                        {isLoadingUsers && (
-                            <Typography component="p">
-                                Loading seed users…
-                            </Typography>
-                        )}
-                    </Box>
+                {signInError && (
+                    <Alert severity="error" sx={{ mt: 3, maxWidth: 500 }}>
+                        {signInError}
+                    </Alert>
                 )}
             </Box>
         </Box>
