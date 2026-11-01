@@ -235,3 +235,7 @@ export type UserInfo = {
     name: string;
     email: string;
 };
+
+export type DevUsersResponse = {
+    users: UserInfo[];
+};
