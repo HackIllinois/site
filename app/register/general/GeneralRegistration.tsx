@@ -27,13 +27,7 @@ import Review from "./formPages/Review";
 import Loading from "@/components.backup/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import theme from "@/theme";
-import {
-    loadDraft,
-    loadSubmission,
-    saveDraft,
-    submitDraft,
-    subscribe
-} from "@/util/api";
+import { loadDraft, saveDraft, submitDraft, subscribe } from "@/util/api";
 import { schoolOptions } from "@/util/options";
 import { useRouter } from "next/navigation";
 import RegistrationStepper from "./components/RegistrationStepper";
@@ -52,7 +46,8 @@ export const GeneralRegistration = () => {
     const [isLoadingComponent, setIsLoadingComponent] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const registrationAuth = useRegistrationAuth({
-        shouldLoadSubmission: false
+        shouldLoadSubmission: false,
+        isProtected: false
     });
 
     const {
@@ -147,14 +142,14 @@ export const GeneralRegistration = () => {
         }
 
         try {
-            const submission = await loadSubmission();
+            /*const submission = await loadSubmission();
             if (submission) {
                 formik.setValues(submission);
                 setIsSubmitted(true);
                 skipToStep(steps.length - 1);
                 setIsLoadingComponent(false);
                 return;
-            }
+            }*/
         } catch (error: any) {
             // Only show error if it's not a 404 (no submission exists yet)
             if (error.error !== "NotFound") {

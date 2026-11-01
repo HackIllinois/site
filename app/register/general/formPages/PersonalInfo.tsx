@@ -4,6 +4,7 @@ import { ageOptions } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Container, Grid, Typography } from "@mui/material";
 import { FormikProps } from "formik";
+import { raceOptions, genderOptions } from "@/util/options";
 
 interface PersonalInfoProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
@@ -19,13 +20,15 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                 component="h1"
                 sx={{
                     mt: 8,
-                    mb: 4
+                    mb: 4,
+                    fontFamily: "Ultra",
+                    color: "#ffffff"
                 }}
             >
                 PERSONAL INFO
             </Typography>
             <Grid container columnSpacing={2} rowSpacing={{ xs: 3, md: 6 }}>
-                <Grid size={{ xs: 12, sm: 12, md: 4.75 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 6 }}>
                     <TextInput
                         name="firstName"
                         label="First Name"
@@ -38,7 +41,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         inputProps={{ maxLength: 200 }}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 12, md: 4.75 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 6 }}>
                     <TextInput
                         name="lastName"
                         label="Last Name"
@@ -51,42 +54,7 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         inputProps={{ maxLength: 200 }}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 5, md: 2.5 }}>
-                    <SelectTextInput
-                        name="age"
-                        label="Age"
-                        sublabel="You must be 18 or older to register."
-                        accentColor={accentColor}
-                        required
-                        options={ageOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
-                        value={values.age || ""}
-                        onChange={value => setFieldValue("age", value)}
-                        error={!!touched.age && Boolean(errors.age)}
-                        helperText={!!touched.age ? errors.age : ""}
-                    />
-                </Grid>
-                <Grid size={{ xs: 12, sm: 7, md: 4 }}>
-                    <TextInput
-                        name="preferredName"
-                        label="Preferred Name"
-                        accentColor={accentColor}
-                        value={values.preferredName}
-                        onChange={handleChange}
-                        error={
-                            !!touched.preferredName &&
-                            Boolean(errors.preferredName)
-                        }
-                        helperText={
-                            !!touched.preferredName ? errors.preferredName : ""
-                        }
-                        inputProps={{ maxLength: 200 }}
-                    />
-                </Grid>
-
-                <Grid size={{ xs: 12, sm: 12, md: 4 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 6 }}>
                     <TextInput
                         name="email"
                         label="Email Address"
@@ -118,9 +86,82 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         inputProps={{ maxLength: 20 }}
                     />
                 </Grid>
+                <Grid size={{ xs: 12, sm: 5, md: 2.5 }}>
+                    <SelectTextInput
+                        name="age"
+                        label="Age"
+                        sublabel="You must be 18 or older to register."
+                        accentColor={accentColor}
+                        required
+                        options={ageOptions.map(option => ({
+                            label: option,
+                            value: option
+                        }))}
+                        value={values.age || ""}
+                        onChange={value => setFieldValue("age", value)}
+                        error={!!touched.age && Boolean(errors.age)}
+                        helperText={!!touched.age ? errors.age : ""}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, sm: 7, md: 8 }}>
+                    <SelectTextInput
+                        name="race"
+                        label="Race/Ethnicity"
+                        accentColor={accentColor}
+                        multiple
+                        required
+                        options={raceOptions.map(option => ({
+                            label: option,
+                            value: option
+                        }))}
+                        value={values.race || []}
+                        onChange={value => setFieldValue("race", value)}
+                        error={!!touched.race ? Boolean(errors.race) : false}
+                        helperText={
+                            !!touched.race && errors.race
+                                ? String(errors.race)
+                                : ""
+                        }
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, sm: 5, md: 4 }}>
+                    <SelectTextInput
+                        name="gender"
+                        label="Gender"
+                        accentColor={accentColor}
+                        required
+                        options={genderOptions.map(option => ({
+                            label: option,
+                            value: option
+                        }))}
+                        value={values.gender || ""}
+                        onChange={value => setFieldValue("gender", value)}
+                        error={!!touched.gender && Boolean(errors.gender)}
+                        helperText={!!touched.gender ? errors.gender : ""}
+                    />
+                </Grid>
             </Grid>
         </Container>
     );
 };
 
 export default PersonalInfo;
+
+/*
+
+First Name / Last Name — change both from md: 4.75 to md: 6 (half width each)
+Email Address — move it to right after Last Name, change to md: 12 (full width)
+Phone Number / Age — put them next to each other, both at md: 6
+Preferred Name — it’s not in the Figma, so you’ll need to decide: remove it or keep it. Check with your team if it’s still a required field
+Race/Ethnicity and Gender — these are in the Figma but not in this page currently. They might be on the BackgroundInfo page right now and need to be moved here. Check the Figma for BackgroundInfo to see if they’re supposed to stay there or move
+
+So the new Grid order would be:
+
+Row 1: First Name (md: 6) | Last Name (md: 6)
+Row 2: Email Address (md: 12)
+Row 3: Phone Number (md: 6) | Age (md: 6)
+Row 4: Race/Ethnicity (md: 6) | Gender (md: 6)
+
+Try rearranging the Grid items and updating their size props to match this.
+
+*/

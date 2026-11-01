@@ -106,7 +106,7 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                             height: "36px",
                             padding: "0px", // override default
                             borderRadius: 2, // override default
-                            backgroundColor: "#f0f0f0",
+                            backgroundColor: "#ffffff",
                             display: "flex",
                             flexShrink: 0,
 

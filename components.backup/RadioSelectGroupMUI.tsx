@@ -117,7 +117,7 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
                                         height: 36,
                                         padding: "6px", // override default
                                         borderRadius: "50%",
-                                        backgroundColor: "#f0f0f0",
+                                        backgroundColor: "#ffffff",
 
                                         "& .MuiSvgIcon-root": {
                                             width: "100%",
