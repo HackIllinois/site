@@ -105,14 +105,13 @@ const GithubAuthPage = ({
             <Box
                 sx={{
                     position: "fixed",
-                    display: "flex",
+                    inset: 0,
                     width: "100%",
-                    height: "100vh",
-                    backgroundImage: `url("/registration/backgrounds/personal_info.svg")`,
+                    height: "100%",
+                    backgroundImage: `url("/registration/backgrounds/auth.svg")`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    transform: "scale(1.25)",
                     zIndex: -1
                 }}
             />

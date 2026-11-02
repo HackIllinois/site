@@ -1,8 +1,10 @@
-import { Box, Step, StepLabel, Stepper } from "@mui/material";
-import Image from "next/image";
-import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { Box, Step, StepConnector, StepLabel, Stepper } from "@mui/material";
+import { stepConnectorClasses } from "@mui/material/StepConnector";
+import { styled } from "@mui/material/styles";
+import { useMemo } from "react";
 import { steps } from "../constants/registration";
-import RocketOverlay from "./RocketOverlay";
+import HorseIcon from "./HorseIcon";
+import { STEP_HORSE_POSE } from "./horsePaths";
 
 type RegistrationStepperProps = {
     currentStep: number;
@@ -10,57 +12,33 @@ type RegistrationStepperProps = {
     onGoToStep: (step: number) => void;
 };
 
+const DashedConnector = styled(StepConnector)(() => ({
+    [`&.${stepConnectorClasses.alternativeLabel}`]: {
+        top: 18,
+        left: "calc(-50% + 28px)",
+        right: "calc(50% + 28px)"
+    },
+    [`& .${stepConnectorClasses.line}`]: {
+        borderColor: "rgba(255, 255, 255, 0.85)",
+        borderTopStyle: "dashed",
+        borderTopWidth: 2,
+        borderRadius: 0
+    }
+}));
+
 const RegistrationStepper = ({
     currentStep,
     maxStep,
     onGoToStep
 }: RegistrationStepperProps) => {
     const atEnd = currentStep === steps.length - 1;
-    const wrapperRef = useRef<HTMLDivElement | null>(null);
-    const planetRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const [planetCenters, setPlanetCenters] = useState<
-        { x: number; y: number }[]
-    >([]);
-
-    const measurePlanets = useCallback(() => {
-        if (!wrapperRef.current) return;
-        const wrapperRect = wrapperRef.current.getBoundingClientRect();
-
-        const centers = planetRefs.current.map(el => {
-            if (!el) return { x: 0, y: 0 };
-            const rect = el.getBoundingClientRect();
-            return {
-                x: rect.left - wrapperRect.left + rect.width / 2,
-                y: rect.top - wrapperRect.top + rect.height / 2
-            };
-        });
-
-        setPlanetCenters(centers);
-    }, []);
-
-    useLayoutEffect(() => {
-        const scrollTarget = wrapperRef.current ?? window;
-
-        const handle = () => {
-            measurePlanets();
-        };
-
-        measurePlanets();
-
-        scrollTarget.addEventListener("scroll", handle, { passive: true });
-        window.addEventListener("resize", handle);
-
-        return () => {
-            scrollTarget.removeEventListener("scroll", handle);
-            window.removeEventListener("resize", handle);
-        };
-    }, [measurePlanets]);
 
     const stepper = useMemo(() => {
         return (
             <Stepper
                 alternativeLabel
                 activeStep={currentStep}
+                connector={<DashedConnector />}
                 sx={{
                     pt: { xs: 20, lg: 24 },
                     width: "100%",
@@ -70,100 +48,93 @@ const RegistrationStepper = ({
                     }
                 }}
             >
-                {steps.map((step, i) => (
-                    <Step key={step.id}>
-                        <StepLabel
-                            sx={{
-                                "& .MuiStepLabel-label": {
-                                    pt: {
-                                        xs: 0.5,
-                                        sm: 2.5,
-                                        md: 3,
-                                        lg: 3.5
-                                    },
-                                    fontSize: {
-                                        xs: "8.5px",
-                                        sm: "12px",
-                                        md: "14px"
-                                    },
-                                    color: "white", // default text color
-                                    fontFamily: "Tsukimi Rounded",
-                                    "&.Mui-active": { color: "white" }, // active step stays white
-                                    "&.Mui-completed": {
-                                        color: "white"
-                                    } // completed step stays white
-                                }
-                            }}
-                            slots={{
-                                stepIcon: props => (
-                                    <Box
-                                        ref={(el: HTMLDivElement | null) => {
-                                            planetRefs.current[i] = el;
-                                        }}
-                                        sx={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            width: 32, // matches MUI's default StepIcon size
-                                            height: 32,
-                                            margin: "0 auto",
-                                            filter:
-                                                i <= maxStep
-                                                    ? "brightness(95%)"
-                                                    : "brightness(50%)",
-                                            "&:hover": {
-                                                filter:
-                                                    i <= maxStep
-                                                        ? "brightness(100%)"
-                                                        : "brightness(40%)"
-                                            },
-                                            cursor:
-                                                i <= maxStep && !atEnd
+                {steps.map((step, i) => {
+                    const filled = i <= currentStep;
+                    const clickable = i <= maxStep && !atEnd;
+                    const isConfirmation = step.id === "confirmation";
+                    const pose = STEP_HORSE_POSE[i] ?? "trot";
+
+                    return (
+                        <Step key={step.id} completed={i < currentStep}>
+                            <StepLabel
+                                sx={{
+                                    "& .MuiStepLabel-label": {
+                                        pt: {
+                                            xs: 0.5,
+                                            sm: 2.5,
+                                            md: 3,
+                                            lg: 3.5
+                                        },
+                                        fontSize: {
+                                            xs: "8.5px",
+                                            sm: "12px",
+                                            md: "14px"
+                                        },
+                                        color: "white",
+                                        fontFamily: "Tsukimi Rounded",
+                                        "&.Mui-active": { color: "white" },
+                                        "&.Mui-completed": {
+                                            color: "white"
+                                        }
+                                    }
+                                }}
+                                slots={{
+                                    stepIcon: () => (
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                width: isConfirmation ? 52 : 40,
+                                                height: isConfirmation
+                                                    ? 52
+                                                    : 40,
+                                                margin: "0 auto",
+                                                border: isConfirmation
+                                                    ? "1.5px solid white"
+                                                    : "none",
+                                                boxSizing: "border-box",
+                                                opacity:
+                                                    i <= maxStep ? 1 : 0.45,
+                                                cursor: clickable
                                                     ? "pointer"
                                                     : "default",
-                                            transition: "all 0.3s ease"
-                                        }}
-                                        onClick={() => {
-                                            if (i <= maxStep) {
-                                                onGoToStep(i);
-                                            }
-                                        }}
-                                    >
-                                        <Image
-                                            src={`/registration/progress_bar/${step.id}.svg`}
-                                            alt={`${step.name} icon`}
-                                            width={80}
-                                            height={80}
-                                            style={{
-                                                width: "auto",
-                                                height:
-                                                    step.id === "review"
-                                                        ? "clamp(30px, 10.5vw, 100px)"
-                                                        : "clamp(30px, 8vw, 75px)"
+                                                transition: "opacity 0.3s ease",
+                                                "&:hover": {
+                                                    opacity: clickable ? 1 : 0.4
+                                                }
                                             }}
-                                            priority
-                                        />
-                                    </Box>
-                                )
-                            }}
-                        />
-                    </Step>
-                ))}
+                                            onClick={() => {
+                                                if (i <= maxStep) {
+                                                    onGoToStep(i);
+                                                }
+                                            }}
+                                            role={
+                                                clickable ? "button" : undefined
+                                            }
+                                            aria-label={`${step.name}${
+                                                filled ? " (reached)" : ""
+                                            }`}
+                                        >
+                                            <HorseIcon
+                                                pose={pose}
+                                                filled={filled}
+                                                instanceId={`${step.id}-${i}`}
+                                            />
+                                        </Box>
+                                    )
+                                }}
+                            >
+                                {step.name}
+                            </StepLabel>
+                        </Step>
+                    );
+                })}
             </Stepper>
         );
-    }, [currentStep, maxStep, onGoToStep]);
+    }, [currentStep, maxStep, onGoToStep, atEnd]);
 
-    return (
-        <>
-            <div ref={wrapperRef} style={{ position: "relative" }}>
-                <RocketOverlay
-                    activeStep={currentStep}
-                    planetCenters={planetCenters}
-                />
-            </div>
-            {stepper}
-        </>
-    );
+    return stepper;
 };
 
 export default RegistrationStepper;
