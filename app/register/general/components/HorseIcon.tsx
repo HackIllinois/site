@@ -13,8 +13,7 @@ type HorseIconProps = {
  * the user has reached that step.
  */
 const HorseIcon = ({ pose, filled, instanceId, className }: HorseIconProps) => {
-    const { viewBox, d } = HORSE_PATHS[pose];
-    const maskId = `horse-mask-${instanceId}`;
+    const { viewBox, paths } = HORSE_PATHS[pose];
 
     return (
         <svg
@@ -24,27 +23,32 @@ const HorseIcon = ({ pose, filled, instanceId, className }: HorseIconProps) => {
             aria-hidden
             style={{
                 width: "auto",
-                height: "clamp(28px, 7vw, 56px)",
+                height: "clamp(24px, 5.5vw, 36px)",
                 display: "block",
                 overflow: "visible"
             }}
         >
-            {filled ? (
-                <path d={d} fill="white" />
-            ) : (
-                <>
-                    <mask id={maskId} fill="white">
-                        <path d={d} />
-                    </mask>
-                    <path
-                        d={d}
-                        fill="none"
-                        stroke="white"
-                        strokeWidth={4}
-                        mask={`url(#${maskId})`}
-                    />
-                </>
-            )}
+            {filled
+                ? paths.map((path, idx) => (
+                      <path key={idx} d={path.d} fill="white" />
+                  ))
+                : paths.map((path, idx) => {
+                      const maskId = `horse-mask-${instanceId}-${idx}`;
+                      return (
+                          <g key={idx}>
+                              <mask id={maskId} fill="white">
+                                  <path d={path.d} fill="white" />
+                              </mask>
+                              <path
+                                  d={path.d}
+                                  fill="none"
+                                  stroke="white"
+                                  strokeWidth={path.strokeWidth ?? 4}
+                                  mask={`url(#${maskId})`}
+                              />
+                          </g>
+                      );
+                  })}
         </svg>
     );
 };
