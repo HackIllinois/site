@@ -65,7 +65,8 @@ export const GeneralRegistration = () => {
         skipToStep
     } = useRegistrationSteps(validationSchemas, isSubmitted);
 
-    const RIGHT_ALIGNED_STEPS = [0, 3];
+    // New sunset backgrounds are composed around a centered sun; keep cover centered.
+    const RIGHT_ALIGNED_STEPS: number[] = [];
 
     // const [isPasswordAuthenticated, setIsPasswordAuthenticated] =
     //     useState(false);
@@ -484,21 +485,29 @@ export const GeneralRegistration = () => {
             </Snackbar>
             <Box
                 sx={{
-                    minHeight: "100dvh", // Full viewport height
-                    height: "100%",
+                    position: "relative",
+                    minHeight: "100dvh",
                     width: "100%",
                     pb: "50px",
-                    backgroundImage: {
-                        xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`,
-                        md: `url("/registration/backgrounds/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`
-                    },
-                    backgroundSize: "cover", // Fill the screen
-                    backgroundRepeat: "no-repeat", // Prevent tiling
-                    backgroundPosition: RIGHT_ALIGNED_STEPS.includes(
-                        currentStep
-                    )
-                        ? "right"
-                        : "center"
+                    // Fixed full-viewport layer so scrolling never reveals the
+                    // solid body color under the form / former footer band.
+                    "&::before": {
+                        content: '""',
+                        position: "fixed",
+                        inset: 0,
+                        zIndex: -1,
+                        backgroundImage: {
+                            xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`,
+                            md: `url("/registration/backgrounds/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`
+                        },
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: RIGHT_ALIGNED_STEPS.includes(
+                            currentStep
+                        )
+                            ? "right center"
+                            : "center center"
+                    }
                 }}
             >
                 <Paper

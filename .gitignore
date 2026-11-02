@@ -30,4 +30,7 @@ yarn-error.log*
 
 /.vscode
 
+# local background compare screenshots / assets
+.bg-compare/
+
 .env
