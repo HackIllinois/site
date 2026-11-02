@@ -1,6 +1,5 @@
 import { Box, Step, StepConnector, StepLabel, Stepper } from "@mui/material";
 import { stepConnectorClasses } from "@mui/material/StepConnector";
-import { styled } from "@mui/material/styles";
 import { useMemo } from "react";
 import { steps } from "../constants/registration";
 import HorseIcon from "./HorseIcon";
@@ -11,20 +10,6 @@ type RegistrationStepperProps = {
     maxStep: number;
     onGoToStep: (step: number) => void;
 };
-
-const DashedConnector = styled(StepConnector)(() => ({
-    [`&.${stepConnectorClasses.alternativeLabel}`]: {
-        top: 18,
-        left: "calc(-50% + 28px)",
-        right: "calc(50% + 28px)"
-    },
-    [`& .${stepConnectorClasses.line}`]: {
-        borderColor: "rgba(255, 255, 255, 0.85)",
-        borderTopStyle: "dashed",
-        borderTopWidth: 2,
-        borderRadius: 0
-    }
-}));
 
 const RegistrationStepper = ({
     currentStep,
@@ -38,7 +23,24 @@ const RegistrationStepper = ({
             <Stepper
                 alternativeLabel
                 activeStep={currentStep}
-                connector={<DashedConnector />}
+                connector={
+                    <StepConnector
+                        sx={{
+                            [`&.${stepConnectorClasses.alternativeLabel}`]: {
+                                top: 24,
+                                left: "calc(-50% + 28px)",
+                                right: "calc(50% + 28px)"
+                            },
+                            [`& .${stepConnectorClasses.line}`]: {
+                                borderColor: "white",
+                                borderTopStyle: "dashed",
+                                borderTopWidth: 2,
+                                borderRadius: 0,
+                                strokeDasharray: "4 4"
+                            }
+                        }}
+                    />
+                }
                 sx={{
                     pt: { xs: 20, lg: 24 },
                     width: "100%",
@@ -85,14 +87,13 @@ const RegistrationStepper = ({
                                                 display: "flex",
                                                 alignItems: "center",
                                                 justifyContent: "center",
-                                                width: isConfirmation ? 52 : 40,
-                                                height: isConfirmation
-                                                    ? 52
-                                                    : 40,
+                                                width: 48,
+                                                height: 48,
                                                 margin: "0 auto",
                                                 border: isConfirmation
                                                     ? "1.5px solid white"
                                                     : "none",
+                                                borderRadius: 0,
                                                 boxSizing: "border-box",
                                                 opacity:
                                                     i <= maxStep ? 1 : 0.45,
@@ -105,7 +106,7 @@ const RegistrationStepper = ({
                                                 }
                                             }}
                                             onClick={() => {
-                                                if (i <= maxStep) {
+                                                if (clickable) {
                                                     onGoToStep(i);
                                                 }
                                             }}
