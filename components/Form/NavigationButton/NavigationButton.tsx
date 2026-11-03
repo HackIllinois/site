@@ -37,9 +37,8 @@ const NavigationButton: React.FC<NavButtonProps> = ({
     ...props
 }) => {
     const themeConfig = NAV_BUTTON_THEMES[theme] ?? NAV_BUTTON_THEMES.sunset1;
-    // Plaque SVGs are authored pointing RIGHT. Mirror for back; use default on mobile.
-    const direction = noDirection || isMobile ? "default" : "right";
-    const bg = navButtonAsset(themeConfig.id, direction);
+    // One right-pointing plaque per theme; mirror for back. Mobile keeps upright.
+    const bg = navButtonAsset(themeConfig.id);
     const mirror = !noDirection && !isMobile && !pointRight;
     const shadowAlpha = Math.round(themeConfig.shadowOpacity * 255)
         .toString(16)
