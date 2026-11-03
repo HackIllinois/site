@@ -12,7 +12,7 @@ export type HorseData = {
 };
 
 export const HORSE_PATHS: Record<HorsePose, HorseData> = {
-    // Group 1016 (horse-b.svg): Upright posture with diagonal legs grounded (steps 0, 1)
+    // horse-b.svg: half-bent legs
     trot: {
         viewBox: "0 0 73 50",
         paths: [
@@ -26,7 +26,7 @@ export const HORSE_PATHS: Record<HorsePose, HorseData> = {
             }
         ]
     },
-    // Group 1017 (horse-c.svg): Mid-stride gathered pose with legs tucked under (steps 2, 3, 4)
+    // horse-c.svg: full-bent / tucked legs
     stride: {
         viewBox: "0 0 72 47",
         paths: [
@@ -44,7 +44,7 @@ export const HORSE_PATHS: Record<HorsePose, HorseData> = {
             }
         ]
     },
-    // Group 1015 (horse-a.svg): Most extended gallop with front leg reaching maximum forward (step 5 confirmation)
+    // horse-a.svg: wide / fully extended legs
     gallop: {
         viewBox: "0 0 73 43",
         paths: [
@@ -61,19 +61,14 @@ export const HORSE_PATHS: Record<HorsePose, HorseData> = {
 };
 
 /**
- * Which horse pose each registration step uses across all 6 steps:
- * 0 (personal_info): trot
- * 1 (background_info): trot
- * 2 (app_questions): mid-stride
- * 3 (attending_hack): mid-stride
- * 4 (review): mid-stride
- * 5 (confirmation): gallop (most extended gallop)
+ * Cycle across 6 steps: wide legs → half bent → full bent → repeat.
+ * gallop = wide (horse-a), trot = half bent (horse-b), stride = full bent (horse-c)
  */
 export const STEP_HORSE_POSE: HorsePose[] = [
+    "gallop",
     "trot",
+    "stride",
+    "gallop",
     "trot",
-    "stride",
-    "stride",
-    "stride",
-    "gallop"
+    "stride"
 ];

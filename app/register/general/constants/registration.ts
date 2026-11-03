@@ -1,7 +1,13 @@
+import type { NavButtonThemeId } from "@/components/Form/NavigationButton/navButtonThemes";
+
 export type Step = {
     id: string;
     name: string;
+    /** Short label for nav plaques (fits 260×66 arrow). */
+    navLabel: string;
     color: string;
+    /** Textured plaque theme matching the stage sunset background. */
+    buttonTheme: NavButtonThemeId;
     use_svg?: boolean;
 };
 
@@ -9,32 +15,49 @@ export const steps = [
     {
         id: "personal_info",
         name: "Personal Information",
+        navLabel: "PERSONAL",
         color: "#3A2541",
+        buttonTheme: "sunset1",
         use_svg: true
     },
     {
         id: "background_info",
         name: "Background Information",
+        navLabel: "BACKGROUND",
         color: "#3e66c2ff",
+        buttonTheme: "sunset2",
         use_svg: true
     },
     {
         id: "app_questions",
         name: "Application Questions",
+        navLabel: "APPLICATION",
         color: "#01313B",
+        buttonTheme: "sunset6",
         use_svg: true
     },
     {
         id: "attending_hack",
         name: "Attending HackIllinois",
+        navLabel: "ATTENDING",
         color: "#87304E",
+        buttonTheme: "sunset7",
         use_svg: true
     },
-    { id: "review", name: "Review & Submit", color: "#983300", use_svg: true },
+    {
+        id: "review",
+        name: "Review & Submit",
+        navLabel: "REVIEW",
+        color: "#983300",
+        buttonTheme: "sunset1",
+        use_svg: true
+    },
     {
         id: "confirmation",
         name: "Confirmation",
+        navLabel: "CONFIRMATION",
         color: "#480021",
+        buttonTheme: "sunset7",
         use_svg: true
     }
 ];
