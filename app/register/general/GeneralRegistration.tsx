@@ -65,9 +65,6 @@ export const GeneralRegistration = () => {
         skipToStep
     } = useRegistrationSteps(validationSchemas, isSubmitted);
 
-    // New sunset backgrounds are composed around a centered sun; keep cover centered.
-    const RIGHT_ALIGNED_STEPS: number[] = [];
-
     // const [isPasswordAuthenticated, setIsPasswordAuthenticated] =
     //     useState(false);
 
@@ -489,8 +486,8 @@ export const GeneralRegistration = () => {
                     minHeight: "100dvh",
                     width: "100%",
                     pb: "50px",
-                    // Fixed full-viewport layer so scrolling never reveals the
-                    // solid body color under the form / former footer band.
+                    // Fixed full-viewport layer so scrolling the form still
+                    // shows the stage sunset (cover stays pinned to the viewport).
                     "&::before": {
                         content: '""',
                         position: "fixed",
@@ -502,11 +499,7 @@ export const GeneralRegistration = () => {
                         },
                         backgroundSize: "cover",
                         backgroundRepeat: "no-repeat",
-                        backgroundPosition: RIGHT_ALIGNED_STEPS.includes(
-                            currentStep
-                        )
-                            ? "right center"
-                            : "center center"
+                        backgroundPosition: "center center"
                     }
                 }}
             >

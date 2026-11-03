@@ -45,10 +45,7 @@ export const STEP_NAV_BUTTON_THEME: Record<string, NavButtonThemeId> = {
     confirmation: "sunset7"
 };
 
-export function navButtonAsset(
-    theme: NavButtonThemeId,
-    direction: "left" | "right" | "default"
-): string {
-    // Cache-bust when plaque assets are regenerated
-    return `/registration/buttons/${direction}-${theme}.svg?v=4`;
+/** One right-pointing plaque per theme; NavigationButton mirrors for back. */
+export function navButtonAsset(theme: NavButtonThemeId): string {
+    return `/registration/buttons/right-${theme}.svg?v=5`;
 }

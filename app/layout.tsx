@@ -13,10 +13,7 @@ import "./globals.scss";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
-    const hideFooter =
-        pathname === "/schedule" ||
-        pathname === "/faq" ||
-        pathname.startsWith("/register");
+    const hideFooter = pathname === "/schedule" || pathname === "/faq";
 
     return (
         <html lang="en">
