@@ -27,17 +27,28 @@ const RegistrationStepper = ({
                     <StepConnector
                         sx={{
                             [`&.${stepConnectorClasses.alternativeLabel}`]: {
-                                top: 24,
-                                left: "calc(-50% + 28px)",
-                                right: "calc(50% + 28px)"
+                                top: 34,
+                                left: "calc(-50% + 36px)",
+                                right: "calc(50% + 36px)"
                             },
                             [`& .${stepConnectorClasses.line}`]: {
                                 borderColor: "white",
                                 borderTopStyle: "dashed",
                                 borderTopWidth: 2,
                                 borderRadius: 0,
-                                strokeDasharray: "4 4"
-                            }
+                                opacity: 0.45,
+                                transition: "opacity 0.3s ease"
+                            },
+                            // Connector sits on the step to its right: active/completed
+                            // means both endpoints are reached (white) → full opacity.
+                            [`&.${stepConnectorClasses.active} .${stepConnectorClasses.line}`]:
+                                {
+                                    opacity: 1
+                                },
+                            [`&.${stepConnectorClasses.completed} .${stepConnectorClasses.line}`]:
+                                {
+                                    opacity: 1
+                                }
                         }}
                     />
                 }
@@ -47,26 +58,24 @@ const RegistrationStepper = ({
                     "& .MuiStepLabel-root": {
                         zIndex: 1,
                         position: "relative"
+                    },
+                    "& .MuiStepLabel-iconContainer": {
+                        paddingRight: 0
                     }
                 }}
             >
                 {steps.map((step, i) => {
                     const filled = i <= currentStep;
                     const clickable = i <= maxStep && !atEnd;
-                    const isConfirmation = step.id === "confirmation";
-                    const pose = STEP_HORSE_POSE[i] ?? "trot";
+                    const pose = STEP_HORSE_POSE[i] ?? "gallop";
 
                     return (
                         <Step key={step.id} completed={i < currentStep}>
                             <StepLabel
                                 sx={{
                                     "& .MuiStepLabel-label": {
-                                        pt: {
-                                            xs: 0.5,
-                                            sm: 2.5,
-                                            md: 3,
-                                            lg: 3.5
-                                        },
+                                        marginTop: "6px !important",
+                                        paddingTop: 0,
                                         fontSize: {
                                             xs: "8.5px",
                                             sm: "12px",
@@ -87,13 +96,9 @@ const RegistrationStepper = ({
                                                 display: "flex",
                                                 alignItems: "center",
                                                 justifyContent: "center",
-                                                width: 48,
-                                                height: 48,
+                                                width: 72,
+                                                height: 68,
                                                 margin: "0 auto",
-                                                border: isConfirmation
-                                                    ? "1.5px solid white"
-                                                    : "none",
-                                                borderRadius: 0,
                                                 boxSizing: "border-box",
                                                 opacity:
                                                     i <= maxStep ? 1 : 0.45,

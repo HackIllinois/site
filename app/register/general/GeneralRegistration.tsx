@@ -497,8 +497,8 @@ export const GeneralRegistration = () => {
                         inset: 0,
                         zIndex: -1,
                         backgroundImage: {
-                            xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`,
-                            md: `url("/registration/backgrounds/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`
+                            xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}?v=2")`,
+                            md: `url("/registration/backgrounds/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}?v=2")`
                         },
                         backgroundSize: "cover",
                         backgroundRepeat: "no-repeat",
@@ -546,11 +546,9 @@ export const GeneralRegistration = () => {
                                 text={
                                     isMobile
                                         ? "BACK"
-                                        : steps[
-                                              currentStep - 1
-                                          ].name.toUpperCase()
+                                        : steps[currentStep - 1].navLabel
                                 }
-                                color={steps[currentStep].color}
+                                theme={steps[currentStep].buttonTheme}
                                 onClick={handleBack}
                                 disabled={currentStep === 0}
                                 type="button"
@@ -568,11 +566,9 @@ export const GeneralRegistration = () => {
                                             : "NEXT"
                                         : currentStep === steps.length - 2
                                           ? "SUBMIT"
-                                          : steps[
-                                                currentStep + 1
-                                            ].name.toUpperCase()
+                                          : steps[currentStep + 1].navLabel
                                 }
-                                color={steps[currentStep].color}
+                                theme={steps[currentStep].buttonTheme}
                                 pointRight={true}
                                 isMobile={isMobile}
                                 onClick={() => handleNextOrSubmit()}

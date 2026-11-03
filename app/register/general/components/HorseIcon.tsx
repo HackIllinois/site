@@ -23,7 +23,7 @@ const HorseIcon = ({ pose, filled, instanceId, className }: HorseIconProps) => {
             aria-hidden
             style={{
                 width: "auto",
-                height: "clamp(24px, 5.5vw, 36px)",
+                height: "clamp(40px, 8vw, 56px)",
                 display: "block",
                 overflow: "visible"
             }}
