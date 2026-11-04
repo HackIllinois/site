@@ -11,7 +11,7 @@ export type Step = {
     use_svg?: boolean;
 };
 
-export const steps = [
+export const steps: Step[] = [
     {
         id: "personal_info",
         name: "Personal Information",
