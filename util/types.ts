@@ -239,3 +239,12 @@ export type UserInfo = {
 export type DevUsersResponse = {
     users: UserInfo[];
 };
+
+export type DevLoginRequest = {
+    userId?: string;
+};
+
+export type DevLoginResponse = {
+    user: UserInfo;
+    jwt: string;
+};
