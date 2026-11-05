@@ -4,7 +4,7 @@ import { authenticate, devLogin, getDevUsers } from "@/util/api";
 import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
 import { UserInfo } from "@/util/types";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import GoogleIcon from "@mui/icons-material/Google";
 import {
     Alert,
     Box,
@@ -16,17 +16,51 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
+const gradientRingSx = {
+    borderRadius: "999px",
+    padding: "5px",
+    background:
+        "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
+    display: "inline-flex"
+};
+
+const authButtonSx = {
+    backgroundColor: "#24292f",
+    color: "#ffffff",
+    padding: "10px 20px",
+    fontSize: { xs: "16px", sm: "18px", md: "20px" },
+    fontWeight: 600,
+    borderRadius: "999px",
+    textTransform: "none",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 1,
+    "& .MuiButton-startIcon": {
+        marginRight: 1,
+        "& svg": { fontSize: "1.3rem" }
+    },
+    "&:hover": {
+        backgroundColor: "#1b1f23",
+        boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
+    },
+    "&:active": {
+        backgroundColor: "#0f1113",
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
+    },
+    fontFamily: "Montserrat"
+};
+
 const GithubAuthPage = ({
-    mechathonMessage = false
+    mechathonMessage: _mechathonMessage = false
 }: {
     mechathonMessage?: boolean;
 }) => {
-    const [isSigningIn, setIsSigningIn] = useState(false);
-    const [signInError, setSignInError] = useState("");
     const [localUsers, setLocalUsers] = useState<UserInfo[]>([]);
     const [selectedUserId, setSelectedUserId] = useState("");
     const [localSignInError, setLocalSignInError] = useState("");
     const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+    const [isSigningIn, setIsSigningIn] = useState(false);
 
     useEffect(() => {
         if (!LOCAL_AUTH_ENABLED) return;
@@ -44,22 +78,6 @@ const GithubAuthPage = ({
             })
             .finally(() => setIsLoadingUsers(false));
     }, []);
-
-    const handleAuthenticate = async () => {
-        setIsSigningIn(true);
-        setSignInError("");
-        try {
-            await authenticate();
-        } catch (error) {
-            setSignInError(
-                error instanceof Error
-                    ? error.message
-                    : "Could not sign in. Please try again."
-            );
-        } finally {
-            setIsSigningIn(false);
-        }
-    };
 
     const handleLocalSignIn = async (userId?: string) => {
         setIsSigningIn(true);
@@ -139,9 +157,7 @@ const GithubAuthPage = ({
                         paddingRight: 6
                     }}
                 >
-                    {LOCAL_AUTH_ENABLED
-                        ? "Sign in with a local test account to get started"
-                        : "Sign in with your GitHub account to get started"}
+                    Sign in with your GitHub or Google account to get started
                 </Typography>
 
                 {/* Priority and final deadline boxes */}
@@ -314,70 +330,37 @@ const GithubAuthPage = ({
 
                 <Box
                     sx={{
-                        borderRadius: "999px",
-                        padding: "5px",
-                        background:
-                            "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
-                        display: "inline-flex"
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "16px"
                     }}
                 >
-                    <Button
-                        variant="contained"
-                        size="large"
-                        startIcon={
-                            LOCAL_AUTH_ENABLED ? (
-                                <PersonOutlineIcon />
-                            ) : (
-                                <GitHubIcon />
-                            )
+                    {[
+                        {
+                            provider: "github" as const,
+                            label: "GitHub",
+                            icon: <GitHubIcon />
+                        },
+                        {
+                            provider: "google" as const,
+                            label: "Google",
+                            icon: <GoogleIcon />
                         }
-                        onClick={handleAuthenticate}
-                        disabled={isSigningIn}
-                        sx={{
-                            backgroundColor: "#24292f",
-                            color: "#ffffff",
-                            padding: "10px 20px",
-                            fontSize: {
-                                xs: "16px",
-                                sm: "18px",
-                                md: "20px"
-                            },
-                            fontWeight: 600,
-                            borderRadius: "999px",
-                            textTransform: "none",
-                            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 1,
-                            "& .MuiButton-startIcon": {
-                                marginRight: 1,
-                                "& svg": {
-                                    fontSize: "1.3rem"
-                                }
-                            },
-                            "&:hover": {
-                                backgroundColor: "#1b1f23",
-                                boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
-                            },
-                            "&:active": {
-                                backgroundColor: "#0f1113",
-                                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
-                            },
-                            fontFamily: "Montserrat"
-                        }}
-                    >
-                        {isSigningIn
-                            ? "Signing in…"
-                            : LOCAL_AUTH_ENABLED
-                              ? "Sign in as a test user"
-                              : "Sign in with GitHub"}
-                    </Button>
+                    ].map(({ provider, label, icon }) => (
+                        <Box key={provider} sx={gradientRingSx}>
+                            <Button
+                                variant="contained"
+                                size="large"
+                                startIcon={icon}
+                                onClick={() => authenticate(provider)}
+                                sx={authButtonSx}
+                            >
+                                Sign in with {label}
+                            </Button>
+                        </Box>
+                    ))}
                 </Box>
-                {signInError && (
-                    <Alert severity="error" sx={{ mt: 3, maxWidth: 500 }}>
-                        {signInError}
-                    </Alert>
-                )}
                 {LOCAL_AUTH_ENABLED && (
                     <Box
                         sx={{

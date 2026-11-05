@@ -1,4 +1,4 @@
-import { API_BASE_URL, LOCAL_AUTH_ENABLED } from "./api-config";
+import { API_BASE_URL } from "./api-config";
 import { handleError } from "./helpers";
 import {
     AcceptAdmissionRSVPRequest,
@@ -38,30 +38,25 @@ export async function getAuthToken(): Promise<string | null> {
     return null;
 }
 
-export async function authenticate(): Promise<void> {
-    if (LOCAL_AUTH_ENABLED) {
-        const { users }: DevUsersResponse = await requestv2(
-            "GET",
-            "/dev/users/"
-        );
-        const user = users[0];
-        if (!user) {
-            throw new Error(
-                "No local test users are available. Restart Adonix to create them, then try again."
-            );
-        }
+export type AuthProvider = "github" | "google";
 
-        await requestv2(
-            "GET",
-            `/auth/dev/login/${encodeURIComponent(user.userId)}/`
-        );
-        window.location.reload();
-        return;
-    }
+const AUTH_PROVIDER_KEY = "authProvider";
+
+function isAuthProvider(value: string | null): value is AuthProvider {
+    return value === "github" || value === "google";
+}
+
+export function getStoredAuthProvider(): AuthProvider {
+    const stored = sessionStorage.getItem(AUTH_PROVIDER_KEY);
+    return isAuthProvider(stored) ? stored : "github";
+}
+
+export function authenticate(provider: AuthProvider = "github"): void {
+    sessionStorage.setItem(AUTH_PROVIDER_KEY, provider);
 
     const callbackUrl = `${window.location.origin}${window.location.pathname}`;
 
-    const authUrl = `${API_BASE_URL}/auth/login/github/?redirect=${encodeURIComponent(callbackUrl)}`;
+    const authUrl = `${API_BASE_URL}/auth/login/${provider}/?redirect=${encodeURIComponent(callbackUrl)}`;
     window.location.replace(authUrl);
 }
 
@@ -92,7 +87,7 @@ export async function requestv2(
         responseJSON.error == "NoToken"
     ) {
         sessionStorage.removeItem("token");
-        await authenticate();
+        authenticate(getStoredAuthProvider());
         throw responseJSON;
     }
 
@@ -133,7 +128,7 @@ export async function submitChallenge(file: File): Promise<ChallengeResponse> {
         responseJSON.error == "NoToken"
     ) {
         sessionStorage.removeItem("token");
-        await authenticate();
+        authenticate(getStoredAuthProvider());
         throw responseJSON;
     }
 
