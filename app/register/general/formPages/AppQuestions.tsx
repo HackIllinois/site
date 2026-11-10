@@ -44,17 +44,17 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
 
     const handleSoftwareRank = (value: string | string[]) => {
         const rank = Array.isArray(value) ? value[0] || "" : value;
-        setFieldValue("softwareInterestRank", rank);
+        setFieldValue("interestSoftware", rank);
         if (rank === "1" || rank === "2") {
-            setFieldValue("hardwareInterestRank", complementRank(rank));
+            setFieldValue("interestHardware", complementRank(rank));
         }
     };
 
     const handleHardwareRank = (value: string | string[]) => {
         const rank = Array.isArray(value) ? value[0] || "" : value;
-        setFieldValue("hardwareInterestRank", rank);
+        setFieldValue("interestHardware", rank);
         if (rank === "1" || rank === "2") {
-            setFieldValue("softwareInterestRank", complementRank(rank));
+            setFieldValue("interestSoftware", complementRank(rank));
         }
     };
 
@@ -166,7 +166,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                     <Grid container columnSpacing={2} rowSpacing={3}>
                         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                             <SelectTextInput
-                                name="softwareInterestRank"
+                                name="interestSoftware"
                                 label="Software"
                                 accentColor={accentColor}
                                 required
@@ -176,22 +176,22 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                                         value: option
                                     })
                                 )}
-                                value={values.softwareInterestRank || ""}
+                                value={values.interestSoftware || ""}
                                 onChange={handleSoftwareRank}
                                 error={
-                                    !!touched.softwareInterestRank &&
-                                    Boolean(errors.softwareInterestRank)
+                                    !!touched.interestSoftware &&
+                                    Boolean(errors.interestSoftware)
                                 }
                                 helperText={
-                                    !!touched.softwareInterestRank
-                                        ? errors.softwareInterestRank
+                                    !!touched.interestSoftware
+                                        ? errors.interestSoftware
                                         : ""
                                 }
                             />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                             <SelectTextInput
-                                name="hardwareInterestRank"
+                                name="interestHardware"
                                 label="Hardware"
                                 accentColor={accentColor}
                                 required
@@ -201,15 +201,15 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                                         value: option
                                     })
                                 )}
-                                value={values.hardwareInterestRank || ""}
+                                value={values.interestHardware || ""}
                                 onChange={handleHardwareRank}
                                 error={
-                                    !!touched.hardwareInterestRank &&
-                                    Boolean(errors.hardwareInterestRank)
+                                    !!touched.interestHardware &&
+                                    Boolean(errors.interestHardware)
                                 }
                                 helperText={
-                                    !!touched.hardwareInterestRank
-                                        ? errors.hardwareInterestRank
+                                    !!touched.interestHardware
+                                        ? errors.interestHardware
                                         : ""
                                 }
                             />

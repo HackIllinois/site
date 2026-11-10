@@ -62,8 +62,8 @@ export type RegistrationApplicationSubmitted = {
     underrepresented: string;
     hackathonsParticipated: string;
 
-    softwareInterestRank: string;
-    hardwareInterestRank: string;
+    interestSoftware: string;
+    interestHardware: string;
 
     application1: string;
     application2: string;
@@ -97,8 +97,8 @@ export type RegistrationApplicationDraftBody = {
     major?: string;
     underrepresented?: string;
     hackathonsParticipated?: string;
-    softwareInterestRank?: string;
-    hardwareInterestRank?: string;
+    interestSoftware?: string;
+    interestHardware?: string;
     application1?: string;
     application2?: string;
     application3?: string;

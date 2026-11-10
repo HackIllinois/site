@@ -185,15 +185,11 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                         <ReviewInfoAccordionBox>
                             <UserInfoBox
                                 label="Software interest rank"
-                                userResponse={
-                                    values.softwareInterestRank || "N/A"
-                                }
+                                userResponse={values.interestSoftware || "N/A"}
                             />
                             <UserInfoBox
                                 label="Hardware interest rank"
-                                userResponse={
-                                    values.hardwareInterestRank || "N/A"
-                                }
+                                userResponse={values.interestHardware || "N/A"}
                             />
                             <UserInfoBox
                                 label="Resume Upload"
