@@ -1,10 +1,14 @@
 import CheckboxGroup from "@/components/CheckboxGroupMUI";
 import CheckboxSelect from "@/components/CheckboxSelectMUI";
 import RadioSelectGroup from "@/components/RadioSelectGroupMUI";
+import TextInput from "@/components/TextInputMUI";
 import {
     attributionOptions,
     eventInterestOptions,
-    travelReimbursementOptions
+    OTHER_PLEASE_SPECIFY,
+    OTHER_VC_PLEASE_SPECIFY,
+    travelReimbursementOptions,
+    vcInvolvementOptions
 } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Container, Grid, Typography } from "@mui/material";
@@ -16,7 +20,7 @@ interface TransportationProps {
 }
 
 const Transportation = ({ formik, accentColor }: TransportationProps) => {
-    const { values, errors, touched, setFieldValue } = formik;
+    const { values, errors, touched, setFieldValue, handleChange } = formik;
     return (
         <Container>
             <Typography
@@ -42,7 +46,12 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                             value: option
                         }))}
                         value={values.attribution || []}
-                        onChange={value => setFieldValue("attribution", value)}
+                        onChange={value => {
+                            setFieldValue("attribution", value);
+                            if (!value.includes(OTHER_PLEASE_SPECIFY)) {
+                                setFieldValue("otherAttribution", "");
+                            }
+                        }}
                         error={
                             !!touched.attribution && Boolean(errors.attribution)
                         }
@@ -53,6 +62,28 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         }
                     />
                 </Grid>
+                {values.attribution?.includes(OTHER_PLEASE_SPECIFY) && (
+                    <Grid size={12}>
+                        <TextInput
+                            name="otherAttribution"
+                            label="Please specify how you heard about HackIllinois"
+                            accentColor={accentColor}
+                            required
+                            value={values.otherAttribution || ""}
+                            onChange={handleChange}
+                            error={
+                                !!touched.otherAttribution &&
+                                Boolean(errors.otherAttribution)
+                            }
+                            helperText={
+                                !!touched.otherAttribution
+                                    ? errors.otherAttribution
+                                    : ""
+                            }
+                            inputProps={{ maxLength: 200 }}
+                        />
+                    </Grid>
+                )}
                 <Grid size={12} id="eventInterest">
                     <CheckboxGroup
                         name="eventInterest"
@@ -64,9 +95,12 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                             value: option
                         }))}
                         value={values.eventInterest || []}
-                        onChange={value =>
-                            setFieldValue("eventInterest", value)
-                        }
+                        onChange={value => {
+                            setFieldValue("eventInterest", value);
+                            if (!value.includes(OTHER_PLEASE_SPECIFY)) {
+                                setFieldValue("otherEventInterest", "");
+                            }
+                        }}
                         error={
                             !!touched.eventInterest &&
                             Boolean(errors.eventInterest)
@@ -78,6 +112,28 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         }
                     />
                 </Grid>
+                {values.eventInterest?.includes(OTHER_PLEASE_SPECIFY) && (
+                    <Grid size={12}>
+                        <TextInput
+                            name="otherEventInterest"
+                            label="Please specify what else you are interested in"
+                            accentColor={accentColor}
+                            required
+                            value={values.otherEventInterest || ""}
+                            onChange={handleChange}
+                            error={
+                                !!touched.otherEventInterest &&
+                                Boolean(errors.otherEventInterest)
+                            }
+                            helperText={
+                                !!touched.otherEventInterest
+                                    ? errors.otherEventInterest
+                                    : ""
+                            }
+                            inputProps={{ maxLength: 200 }}
+                        />
+                    </Grid>
+                )}
 
                 <Grid size={12}>
                     <RadioSelectGroup
@@ -128,6 +184,81 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                                 ? errors.travelAcknowledge
                                 : ""
                         }
+                    />
+                </Grid>
+
+                <Grid size={12} id="vcInvolvement">
+                    <CheckboxGroup
+                        name="vcInvolvement"
+                        label="How would you like to get involved with VCs?"
+                        accentColor={accentColor}
+                        required
+                        options={vcInvolvementOptions.map(option => ({
+                            label: option,
+                            value: option
+                        }))}
+                        value={values.vcInvolvement || []}
+                        onChange={value => {
+                            setFieldValue("vcInvolvement", value);
+                            if (!value.includes(OTHER_VC_PLEASE_SPECIFY)) {
+                                setFieldValue("otherVcInvolvement", "");
+                            }
+                        }}
+                        error={
+                            !!touched.vcInvolvement &&
+                            Boolean(errors.vcInvolvement)
+                        }
+                        helperText={
+                            !!touched.vcInvolvement
+                                ? String(errors.vcInvolvement || "")
+                                : ""
+                        }
+                    />
+                </Grid>
+                {values.vcInvolvement?.includes(OTHER_VC_PLEASE_SPECIFY) && (
+                    <Grid size={12}>
+                        <TextInput
+                            name="otherVcInvolvement"
+                            label="Please specify how else you would like to get involved with VCs"
+                            accentColor={accentColor}
+                            required
+                            value={values.otherVcInvolvement || ""}
+                            onChange={handleChange}
+                            error={
+                                !!touched.otherVcInvolvement &&
+                                Boolean(errors.otherVcInvolvement)
+                            }
+                            helperText={
+                                !!touched.otherVcInvolvement
+                                    ? errors.otherVcInvolvement
+                                    : ""
+                            }
+                            inputProps={{ maxLength: 200 }}
+                        />
+                    </Grid>
+                )}
+
+                <Grid size={12}>
+                    <TextInput
+                        name="hardwareInterest"
+                        label="What kind of hardware would you like to see at the event?"
+                        sublabel="max 100 words"
+                        accentColor={accentColor}
+                        multiline
+                        required
+                        minRows={3}
+                        value={values.hardwareInterest || ""}
+                        onChange={handleChange}
+                        error={
+                            !!touched.hardwareInterest &&
+                            Boolean(errors.hardwareInterest)
+                        }
+                        helperText={
+                            !!touched.hardwareInterest
+                                ? errors.hardwareInterest
+                                : ""
+                        }
+                        inputProps={{ maxLength: 1000 }}
                     />
                 </Grid>
             </Grid>

@@ -1,5 +1,6 @@
 import SelectTextInput from "@/components/SelectTextInputMUI";
 import TextInput from "@/components/TextInputMUI";
+import { AGE_ELIGIBILITY_NOTE } from "@/app/register/general/constants/registration";
 import { ageOptions } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Container, Grid, Typography } from "@mui/material";
@@ -51,23 +52,6 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         inputProps={{ maxLength: 200 }}
                     />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 5, md: 2.5 }}>
-                    <SelectTextInput
-                        name="age"
-                        label="Age"
-                        sublabel="You must be 18 or older to register."
-                        accentColor={accentColor}
-                        required
-                        options={ageOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
-                        value={values.age || ""}
-                        onChange={value => setFieldValue("age", value)}
-                        error={!!touched.age && Boolean(errors.age)}
-                        helperText={!!touched.age ? errors.age : ""}
-                    />
-                </Grid>
                 <Grid size={{ xs: 12, sm: 7, md: 4 }}>
                     <TextInput
                         name="preferredName"
@@ -82,21 +66,6 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         helperText={
                             !!touched.preferredName ? errors.preferredName : ""
                         }
-                        inputProps={{ maxLength: 200 }}
-                    />
-                </Grid>
-
-                <Grid size={{ xs: 12, sm: 12, md: 4 }}>
-                    <TextInput
-                        name="email"
-                        label="Email Address"
-                        accentColor={accentColor}
-                        required
-                        type="email"
-                        value={values.email}
-                        onChange={handleChange}
-                        error={!!touched.email && Boolean(errors.email)}
-                        helperText={!!touched.email ? errors.email : ""}
                         inputProps={{ maxLength: 200 }}
                     />
                 </Grid>
@@ -116,6 +85,37 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                             !!touched.phoneNumber ? errors.phoneNumber : ""
                         }
                         inputProps={{ maxLength: 20 }}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, sm: 5, md: 4 }}>
+                    <SelectTextInput
+                        name="age"
+                        label="Age"
+                        sublabel={AGE_ELIGIBILITY_NOTE}
+                        accentColor={accentColor}
+                        required
+                        options={ageOptions.map(option => ({
+                            label: option,
+                            value: option
+                        }))}
+                        value={values.age || ""}
+                        onChange={value => setFieldValue("age", value)}
+                        error={!!touched.age && Boolean(errors.age)}
+                        helperText={!!touched.age ? errors.age : ""}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, sm: 12, md: 4 }}>
+                    <TextInput
+                        name="email"
+                        label="Email"
+                        accentColor={accentColor}
+                        required
+                        type="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        error={!!touched.email && Boolean(errors.email)}
+                        helperText={!!touched.email ? errors.email : ""}
+                        inputProps={{ maxLength: 200 }}
                     />
                 </Grid>
             </Grid>

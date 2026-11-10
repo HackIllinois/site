@@ -2,6 +2,7 @@
 import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 import {
     draftValidationSchemas,
+    hydrateDraftFormValues,
     initialValues,
     validationSchemas,
     valuesToDraftContent
@@ -34,10 +35,9 @@ import {
     submitDraft,
     subscribe
 } from "@/util/api";
-import { schoolOptions } from "@/util/options";
 import { useRouter } from "next/navigation";
 import RegistrationStepper from "./components/RegistrationStepper";
-import { OTHER_SCHOOL_OPTION, steps } from "./constants/registration";
+import { steps } from "./constants/registration";
 import GithubAuthPage from "./formPages/GithubAuthPage";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
 
@@ -167,21 +167,7 @@ export const GeneralRegistration = () => {
             const draft = await loadDraft();
 
             if (draft) {
-                // Merge draft with initialValues to fill in any missing fields
-                let mergedValues = { ...initialValues, ...draft };
-
-                // Checking if school saved is among the options listed in dropdown
-                const savedSchool = (draft.school ?? "").trim();
-                const isListedSchool =
-                    savedSchool === "" || schoolOptions.includes(savedSchool);
-                if (!isListedSchool) {
-                    mergedValues.school = OTHER_SCHOOL_OPTION;
-                    mergedValues.otherSchool = savedSchool;
-                } else {
-                    mergedValues.otherSchool = "";
-                }
-
-                formik.setValues(mergedValues);
+                formik.setValues(hydrateDraftFormValues(draft));
             }
 
             let furthestValidPage = 0;
@@ -293,9 +279,26 @@ export const GeneralRegistration = () => {
             return;
         }
 
+        if (currentStep === 2 && !formik.values.hasResume) {
+            formik.setFieldTouched("hasResume", true, false);
+            formik.setFieldError("hasResume", "Resume is required");
+            const el = document.querySelector(
+                '[name="hasResume"]'
+            ) as HTMLElement | null;
+            el?.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+
         if (currentStep === steps.length - 2) {
             if (isSaving) {
                 // This shouldn't happen. The submit button is disabled while saving.
+                return;
+            }
+            if (!formik.values.hasResume) {
+                formik.setFieldTouched("hasResume", true, false);
+                formik.setFieldError("hasResume", "Resume is required");
+                setErrorMessage("Please upload your resume before submitting.");
+                setShowErrorAlert(true);
                 return;
             }
             // Final step before submission
@@ -324,11 +327,7 @@ export const GeneralRegistration = () => {
                 }
             }
             try {
-                const body: any = { ...formik.values };
-                if (body.school === OTHER_SCHOOL_OPTION) {
-                    body.school = (body.otherSchool || "").trim();
-                }
-                delete body.otherSchool;
+                const body = valuesToDraftContent(formik.values);
                 await submitDraft(body);
                 setIsSubmitted(true);
             } catch (error: any) {
