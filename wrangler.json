@@ -4,6 +4,8 @@
     "name": "site",
     "compatibility_date": "2026-01-08",
     "compatibility_flags": ["nodejs_compat"],
+    "preview_urls": true,
+    "previews": {},
     "assets": {
         "directory": ".open-next/assets",
         "binding": "ASSETS"
