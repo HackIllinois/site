@@ -1,9 +1,29 @@
 import { OTHER_SCHOOL_OPTION } from "@/app/register/general/constants/registration";
 import {
+    OTHER_MAJOR_OPTION,
+    OTHER_PLEASE_SPECIFY,
+    OTHER_VC_PLEASE_SPECIFY,
+    schoolOptions
+} from "@/util/options";
+import {
     ProfileFormInfo,
     RegistrationApplicationDraftBodyForm
 } from "@/util/types";
 import * as Yup from "yup";
+
+const maxWordsTest = (maxWords: number) =>
+    Yup.string().test(
+        `max-${maxWords}-words`,
+        `Response cannot be over ${maxWords} words`,
+        value => {
+            if (!value || !value.trim()) return true;
+            const wordCount = value
+                .trim()
+                .split(/\s+/)
+                .filter(word => word.length > 0).length;
+            return wordCount <= maxWords;
+        }
+    );
 
 /**
  * Initial values for the form. We shouldn't initialize with undefined values
@@ -29,8 +49,11 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     gender: "",
     underrepresented: "",
     otherSchool: "",
+    otherMajor: "",
 
     // Application Questions
+    softwareInterestRank: "",
+    hardwareInterestRank: "",
     application1: "",
     application2: "",
 
@@ -40,10 +63,16 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     applicationOptional: "",
     pro: false,
     hackathonsParticipated: "",
+    hasResume: false,
 
     // Attending HackIllinois
     attribution: [],
     eventInterest: [],
+    vcInvolvement: [],
+    hardwareInterest: "",
+    otherAttribution: "",
+    otherEventInterest: "",
+    otherVcInvolvement: "",
     requestTravelReimbursement: false,
     travelAcknowledge: false,
 
@@ -52,7 +81,131 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     codeOfConductAcknowledge: false,
     mlhDataSharingAcknowledge: false,
     mlhNewsletter: false,
-    optInHackNewsletter: true
+    optInHackNewsletter: true,
+    proChallengeAcknowledge: false
+};
+
+const FRONTEND_ONLY_KEYS: (keyof RegistrationApplicationDraftBodyForm)[] = [
+    "travelAcknowledge",
+    "reviewedAcknowledge",
+    "codeOfConductAcknowledge",
+    "mlhDataSharingAcknowledge",
+    "optInHackNewsletter",
+    "otherSchool",
+    "otherMajor",
+    "otherAttribution",
+    "otherEventInterest",
+    "otherVcInvolvement",
+    "proChallengeAcknowledge",
+    "hasResume"
+];
+
+const mergeSpecifyOption = (
+    values: string[] | undefined,
+    specifyOption: string,
+    customText: string | undefined
+): string[] | undefined => {
+    if (!values) return values;
+    if (!values.includes(specifyOption)) return values;
+    const trimmed = (customText || "").trim();
+    if (!trimmed) return values;
+    return values.map(value =>
+        value === specifyOption ? `${specifyOption}: ${trimmed}` : value
+    );
+};
+
+const splitSpecifyValue = (
+    value: string,
+    specifyOption: string
+): { selected: string; custom: string } => {
+    const prefix = `${specifyOption}:`;
+    if (value.startsWith(prefix)) {
+        return {
+            selected: specifyOption,
+            custom: value.slice(prefix.length).trim()
+        };
+    }
+    return { selected: value, custom: "" };
+};
+
+const hydrateSpecifyArray = (
+    values: string[] | undefined,
+    specifyOption: string
+): { values: string[]; custom: string } => {
+    if (!values?.length) return { values: values || [], custom: "" };
+    let custom = "";
+    const hydrated = values.map(value => {
+        const split = splitSpecifyValue(value, specifyOption);
+        if (split.selected === specifyOption && split.custom) {
+            custom = split.custom;
+        }
+        return split.selected;
+    });
+    return { values: hydrated, custom };
+};
+
+/**
+ * Expand API draft values into form-only fields (otherSchool, please-specify, etc.).
+ */
+export const hydrateDraftFormValues = (
+    draft: RegistrationApplicationDraftBodyForm
+): RegistrationApplicationDraftBodyForm => {
+    const merged: RegistrationApplicationDraftBodyForm = {
+        ...initialValues,
+        ...draft
+    };
+
+    const savedSchool = (draft.school ?? "").trim();
+    const isListedSchool =
+        savedSchool === "" ||
+        schoolOptions.includes(savedSchool) ||
+        savedSchool === OTHER_SCHOOL_OPTION;
+    if (savedSchool && !isListedSchool) {
+        merged.school = OTHER_SCHOOL_OPTION;
+        merged.otherSchool = savedSchool;
+    } else {
+        merged.otherSchool = "";
+    }
+
+    const savedMajor = (draft.major ?? "").trim();
+    const majorSplit = splitSpecifyValue(savedMajor, OTHER_MAJOR_OPTION);
+    if (majorSplit.selected === OTHER_MAJOR_OPTION) {
+        merged.major = OTHER_MAJOR_OPTION;
+        merged.otherMajor = majorSplit.custom;
+    } else {
+        merged.otherMajor = "";
+    }
+
+    const attribution = hydrateSpecifyArray(
+        draft.attribution,
+        OTHER_PLEASE_SPECIFY
+    );
+    merged.attribution = attribution.values;
+    merged.otherAttribution = attribution.custom;
+
+    const eventInterest = hydrateSpecifyArray(
+        draft.eventInterest,
+        OTHER_PLEASE_SPECIFY
+    );
+    merged.eventInterest = eventInterest.values;
+    merged.otherEventInterest = eventInterest.custom;
+
+    const vcInvolvement = hydrateSpecifyArray(
+        draft.vcInvolvement,
+        OTHER_VC_PLEASE_SPECIFY
+    );
+    merged.vcInvolvement = vcInvolvement.values;
+    merged.otherVcInvolvement = vcInvolvement.custom;
+
+    // Resume uploads are session-scoped; draft reload still requires re-upload.
+    merged.hasResume = false;
+    merged.proChallengeAcknowledge = false;
+    merged.travelAcknowledge = false;
+    merged.reviewedAcknowledge = false;
+    merged.codeOfConductAcknowledge = false;
+    merged.mlhDataSharingAcknowledge = false;
+
+    return merged;
 };
 
 /**
@@ -79,7 +232,32 @@ export const valuesToDraftContent = (
         draftContent.school = (draftContent.otherSchool || "").trim();
     }
 
-    delete draftContent.otherSchool;
+    if (draftContent.major === OTHER_MAJOR_OPTION) {
+        const otherMajor = (draftContent.otherMajor || "").trim();
+        if (otherMajor) {
+            draftContent.major = `${OTHER_MAJOR_OPTION}: ${otherMajor}`;
+        }
+    }
+
+    draftContent.attribution = mergeSpecifyOption(
+        draftContent.attribution,
+        OTHER_PLEASE_SPECIFY,
+        draftContent.otherAttribution
+    );
+    draftContent.eventInterest = mergeSpecifyOption(
+        draftContent.eventInterest,
+        OTHER_PLEASE_SPECIFY,
+        draftContent.otherEventInterest
+    );
+    draftContent.vcInvolvement = mergeSpecifyOption(
+        draftContent.vcInvolvement,
+        OTHER_VC_PLEASE_SPECIFY,
+        draftContent.otherVcInvolvement
+    );
+
+    for (const key of FRONTEND_ONLY_KEYS) {
+        delete draftContent[key];
+    }
 
     return draftContent;
 };
@@ -110,59 +288,54 @@ export const draftValidationSchemas = [
         }),
         graduate: Yup.string(),
         major: Yup.string(),
+        otherMajor: Yup.string().when("major", {
+            is: OTHER_MAJOR_OPTION,
+            then: schema => schema.trim().required("Please specify your major"),
+            otherwise: schema => schema.notRequired()
+        }),
         country: Yup.string(),
         state: Yup.string(),
         race: Yup.array().of(Yup.string()).min(1, "Select at least one option"),
         gender: Yup.string(),
-        underrepresented: Yup.string()
+        underrepresented: Yup.string(),
+        hackathonsParticipated: Yup.string()
     }),
 
     // 2. Application Questions
     Yup.object({
-        application1: Yup.string().test(
-            "max-50-words",
-            "Response cannot be over 50 words",
-            value => {
-                if (!value) return true;
-                const wordCount = value
-                    .trim()
-                    .split(/\s+/)
-                    .filter(word => word.length > 0).length;
-                return wordCount <= 50;
-            }
-        ),
-        application2: Yup.string().test(
-            "max-50-words",
-            "Response cannot be over 50 words",
-            value => {
-                if (!value) return true;
-                const wordCount = value
-                    .trim()
-                    .split(/\s+/)
-                    .filter(word => word.length > 0).length;
-                return wordCount <= 50;
-            }
-        ),
-        applicationOptional: Yup.string().test(
-            "max-100-words",
-            "Response cannot be over 100 words",
-            value => {
-                if (!value || !value.trim()) return true;
-                const wordCount = value
-                    .trim()
-                    .split(/\s+/)
-                    .filter(word => word.length > 0).length;
-                return wordCount <= 100;
-            }
-        ),
+        softwareInterestRank: Yup.string(),
+        hardwareInterestRank: Yup.string(),
+        application1: maxWordsTest(150),
+        application2: maxWordsTest(150),
+        applicationOptional: maxWordsTest(200),
         pro: Yup.boolean(),
-        hackathonsParticipated: Yup.string()
+        hasResume: Yup.boolean()
     }),
 
     // 3. Attending HackIllinois
     Yup.object({
         attribution: Yup.array().of(Yup.string()),
+        otherAttribution: Yup.string().when("attribution", {
+            is: (val: string[]) =>
+                Array.isArray(val) && val.includes(OTHER_PLEASE_SPECIFY),
+            then: schema => schema.trim().required("Please specify"),
+            otherwise: schema => schema.notRequired()
+        }),
         eventInterest: Yup.array().of(Yup.string()),
+        otherEventInterest: Yup.string().when("eventInterest", {
+            is: (val: string[]) =>
+                Array.isArray(val) && val.includes(OTHER_PLEASE_SPECIFY),
+            then: schema => schema.trim().required("Please specify"),
+            otherwise: schema => schema.notRequired()
+        }),
+        vcInvolvement: Yup.array().of(Yup.string()),
+        otherVcInvolvement: Yup.string().when("vcInvolvement", {
+            is: (val: string[]) =>
+                Array.isArray(val) && val.includes(OTHER_VC_PLEASE_SPECIFY),
+            then: schema => schema.trim().required("Please specify"),
+            otherwise: schema => schema.notRequired()
+        }),
+        hardwareInterest: maxWordsTest(100),
         requestTravelReimbursement: Yup.boolean(),
         travelAcknowledge: Yup.boolean()
     }),
@@ -171,7 +344,8 @@ export const draftValidationSchemas = [
     Yup.object({
         reviewedAcknowledge: Yup.boolean(),
         codeOfConductAcknowledge: Yup.boolean(),
-        mlhDataSharingAcknowledge: Yup.boolean()
+        mlhDataSharingAcknowledge: Yup.boolean(),
+        proChallengeAcknowledge: Yup.boolean()
     }),
 
     // 5. Confirmation (no new inputs, keep for indexing purposes)
@@ -207,6 +381,11 @@ export const validationSchemas = [
         }),
         graduate: Yup.string().required("Graduation year is required"),
         major: Yup.string().required("Major is required"),
+        otherMajor: Yup.string().when("major", {
+            is: OTHER_MAJOR_OPTION,
+            then: schema => schema.trim().required("Please specify your major"),
+            otherwise: schema => schema.notRequired()
+        }),
         country: Yup.string().required("Country is required"),
         state: Yup.string().when("country", {
             is: (val: string) => !!val && val === "United States",
@@ -220,55 +399,32 @@ export const validationSchemas = [
 
     // 2. Application Questions
     Yup.object({
+        softwareInterestRank: Yup.string()
+            .required("Please rank Software")
+            .oneOf(["1", "2"], "Rank must be 1 or 2"),
+        hardwareInterestRank: Yup.string()
+            .required("Please rank Hardware")
+            .oneOf(["1", "2"], "Rank must be 1 or 2")
+            .test(
+                "distinct-ranks",
+                "Software and Hardware must have different ranks",
+                function (value) {
+                    const { softwareInterestRank } = this.parent;
+                    if (!value || !softwareInterestRank) return true;
+                    return value !== softwareInterestRank;
+                }
+            ),
         application1: Yup.string()
             .required("This essay is required")
-            .test("max-50-words", "Response cannot be over 50 words", value => {
-                if (!value) return true;
-                const wordCount = value
-                    .trim()
-                    .split(/\s+/)
-                    .filter(word => word.length > 0).length;
-                return wordCount <= 50;
-            }),
+            .concat(maxWordsTest(150)),
         application2: Yup.string()
             .required("This essay is required")
-            .test("max-50-words", "Response cannot be over 50 words", value => {
-                if (!value) return true;
-                const wordCount = value
-                    .trim()
-                    .split(/\s+/)
-                    .filter(word => word.length > 0).length;
-                return wordCount <= 50;
-            }),
-        application3: Yup.string()
-            .required("This essay is required")
-            .test(
-                "max-100-words",
-                "Response cannot be over 100 words",
-                value => {
-                    if (!value || !value.trim()) return true;
-                    const wordCount = value
-                        .trim()
-                        .split(/\s+/)
-                        .filter(word => word.length > 0).length;
-                    return wordCount <= 100;
-                }
-            ),
-        applicationOptional: Yup.string()
-            .nullable()
-            .test(
-                "max-100-words",
-                "Response cannot be over 100 words",
-                value => {
-                    if (!value || !value.trim()) return true;
-                    const wordCount = value
-                        .trim()
-                        .split(/\s+/)
-                        .filter(word => word.length > 0).length;
-                    return wordCount <= 100;
-                }
-            ),
+            .concat(maxWordsTest(150)),
+        application3: Yup.string().required("This essay is required"),
+        applicationOptional: maxWordsTest(200),
         pro: Yup.boolean()
+        // hasResume is session-only (upload is separate from the draft API),
+        // so it is checked in the registration next/submit handlers instead.
     }),
 
     // 3. Attending HackIllinois
@@ -276,9 +432,33 @@ export const validationSchemas = [
         attribution: Yup.array()
             .of(Yup.string())
             .min(1, "Please let us know how you heard about us"),
+        otherAttribution: Yup.string().when("attribution", {
+            is: (val: string[]) =>
+                Array.isArray(val) && val.includes(OTHER_PLEASE_SPECIFY),
+            then: schema => schema.trim().required("Please specify"),
+            otherwise: schema => schema.notRequired()
+        }),
         eventInterest: Yup.array()
             .of(Yup.string())
             .min(1, "Pick at least one interest"),
+        otherEventInterest: Yup.string().when("eventInterest", {
+            is: (val: string[]) =>
+                Array.isArray(val) && val.includes(OTHER_PLEASE_SPECIFY),
+            then: schema => schema.trim().required("Please specify"),
+            otherwise: schema => schema.notRequired()
+        }),
+        vcInvolvement: Yup.array()
+            .of(Yup.string())
+            .min(1, "Pick at least one option"),
+        otherVcInvolvement: Yup.string().when("vcInvolvement", {
+            is: (val: string[]) =>
+                Array.isArray(val) && val.includes(OTHER_VC_PLEASE_SPECIFY),
+            then: schema => schema.trim().required("Please specify"),
+            otherwise: schema => schema.notRequired()
+        }),
+        hardwareInterest: Yup.string()
+            .required("This field is required")
+            .concat(maxWordsTest(100)),
         requestTravelReimbursement: Yup.boolean(),
         travelAcknowledge: Yup.boolean()
             .required()
@@ -295,7 +475,20 @@ export const validationSchemas = [
             .oneOf([true], "You must accept the Code of Conduct"),
         mlhDataSharingAcknowledge: Yup.boolean()
             .required("You must agree to share your data with MLH")
-            .oneOf([true], "You must agree to share your data with MLH")
+            .oneOf([true], "You must agree to share your data with MLH"),
+        proChallengeAcknowledge: Yup.boolean().when("pro", {
+            is: true,
+            then: schema =>
+                schema
+                    .required(
+                        "You must acknowledge the HackVoyagers challenge requirement"
+                    )
+                    .oneOf(
+                        [true],
+                        "You must acknowledge the HackVoyagers challenge requirement"
+                    ),
+            otherwise: schema => schema.notRequired()
+        })
     }),
 
     // 5. Confirmation (no new inputs, keep for indexing purposes)
