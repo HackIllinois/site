@@ -52,8 +52,8 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     otherMajor: "",
 
     // Application Questions
-    softwareInterestRank: "",
-    hardwareInterestRank: "",
+    interestSoftware: "",
+    interestHardware: "",
     application1: "",
     application2: "",
 
@@ -303,8 +303,8 @@ export const draftValidationSchemas = [
 
     // 2. Application Questions
     Yup.object({
-        softwareInterestRank: Yup.string(),
-        hardwareInterestRank: Yup.string(),
+        interestSoftware: Yup.string(),
+        interestHardware: Yup.string(),
         application1: maxWordsTest(150),
         application2: maxWordsTest(150),
         applicationOptional: maxWordsTest(200),
@@ -399,19 +399,19 @@ export const validationSchemas = [
 
     // 2. Application Questions
     Yup.object({
-        softwareInterestRank: Yup.string()
+        interestSoftware: Yup.string()
             .required("Please rank Software")
             .oneOf(["1", "2"], "Rank must be 1 or 2"),
-        hardwareInterestRank: Yup.string()
+        interestHardware: Yup.string()
             .required("Please rank Hardware")
             .oneOf(["1", "2"], "Rank must be 1 or 2")
             .test(
                 "distinct-ranks",
                 "Software and Hardware must have different ranks",
                 function (value) {
-                    const { softwareInterestRank } = this.parent;
-                    if (!value || !softwareInterestRank) return true;
-                    return value !== softwareInterestRank;
+                    const { interestSoftware } = this.parent;
+                    if (!value || !interestSoftware) return true;
+                    return value !== interestSoftware;
                 }
             ),
         application1: Yup.string()
