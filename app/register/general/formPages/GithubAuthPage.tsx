@@ -2,19 +2,11 @@
 
 import { authenticate, devLogin, getDevUsers } from "@/util/api";
 import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
-import { UserInfo } from "@/util/types";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
-import {
-    Alert,
-    Box,
-    Button,
-    FormControl,
-    MenuItem,
-    Select,
-    Typography
-} from "@mui/material";
-import { useEffect, useState } from "react";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import { Alert, Box, Button, Typography } from "@mui/material";
+import { useState } from "react";
 
 const gradientRingSx = {
     borderRadius: "999px",
@@ -51,45 +43,45 @@ const authButtonSx = {
     fontFamily: "Montserrat"
 };
 
+type LocalSignInMode = "existing" | "fresh";
+
 const GithubAuthPage = ({
     mechathonMessage: _mechathonMessage = false
 }: {
     mechathonMessage?: boolean;
 }) => {
-    const [localUsers, setLocalUsers] = useState<UserInfo[]>([]);
-    const [selectedUserId, setSelectedUserId] = useState("");
-    const [localSignInError, setLocalSignInError] = useState("");
-    const [isLoadingUsers, setIsLoadingUsers] = useState(false);
     const [isSigningIn, setIsSigningIn] = useState(false);
+    const [signingInMode, setSigningInMode] = useState<LocalSignInMode | null>(
+        null
+    );
+    const [signInError, setSignInError] = useState("");
 
-    useEffect(() => {
-        if (!LOCAL_AUTH_ENABLED) return;
-
-        setIsLoadingUsers(true);
-        getDevUsers()
-            .then(response => {
-                setLocalUsers(response.users);
-                setSelectedUserId(response.users[0]?.userId ?? "");
-            })
-            .catch(error => {
-                setLocalSignInError(
-                    `Could not load local seed users: ${error instanceof Error ? error.message : "Please try again."}`
-                );
-            })
-            .finally(() => setIsLoadingUsers(false));
-    }, []);
-
-    const handleLocalSignIn = async (userId?: string) => {
+    const handleLocalSignIn = async (mode: LocalSignInMode) => {
         setIsSigningIn(true);
-        setLocalSignInError("");
+        setSigningInMode(mode);
+        setSignInError("");
         try {
-            await devLogin(userId ? { userId } : {});
+            if (mode === "existing") {
+                const { users } = await getDevUsers();
+                const user = users[0];
+                if (!user) {
+                    throw new Error(
+                        "No local test users are available. Restart Adonix to create them, then try again."
+                    );
+                }
+                await devLogin({ userId: user.userId });
+            } else {
+                await devLogin({});
+            }
             window.location.reload();
         } catch (error) {
-            setLocalSignInError(
-                `Could not sign in locally: ${error instanceof Error ? error.message : "Please try again."}`
+            setSignInError(
+                error instanceof Error
+                    ? error.message
+                    : "Could not sign in. Please try again."
             );
             setIsSigningIn(false);
+            setSigningInMode(null);
         }
     };
 
@@ -157,7 +149,9 @@ const GithubAuthPage = ({
                         paddingRight: 6
                     }}
                 >
-                    Sign in with your GitHub or Google account to get started
+                    {LOCAL_AUTH_ENABLED
+                        ? "Sign in with a local test account to get started"
+                        : "Sign in with your GitHub or Google account to get started"}
                 </Typography>
 
                 {/* Priority and final deadline boxes */}
@@ -336,157 +330,70 @@ const GithubAuthPage = ({
                         gap: "16px"
                     }}
                 >
-                    {[
-                        {
-                            provider: "github" as const,
-                            label: "GitHub",
-                            icon: <GitHubIcon />
-                        },
-                        {
-                            provider: "google" as const,
-                            label: "Google",
-                            icon: <GoogleIcon />
-                        }
-                    ].map(({ provider, label, icon }) => (
-                        <Box key={provider} sx={gradientRingSx}>
-                            <Button
-                                variant="contained"
-                                size="large"
-                                startIcon={icon}
-                                onClick={() => authenticate(provider)}
-                                sx={authButtonSx}
-                            >
-                                Sign in with {label}
-                            </Button>
-                        </Box>
-                    ))}
-                </Box>
-                {LOCAL_AUTH_ENABLED && (
-                    <Box
-                        sx={{
-                            width: "100%",
-                            maxWidth: 420,
-                            mt: 4,
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 2,
-                            color: "white"
-                        }}
-                    >
-                        <Typography component="h2" variant="h6">
-                            Local sign in
-                        </Typography>
-                        {localSignInError && (
-                            <Alert severity="error">{localSignInError}</Alert>
-                        )}
-                        <Box
-                            sx={{
-                                display: "flex",
-                                width: "100%",
-                                overflow: "hidden",
-                                borderRadius: 1
-                            }}
-                        >
-                            <FormControl sx={{ flex: 1, minWidth: 0 }}>
-                                <Select
-                                    value={selectedUserId}
-                                    inputProps={{
-                                        "aria-label": "Select seed user"
-                                    }}
-                                    displayEmpty
-                                    renderValue={selectedId => {
-                                        const selectedUser = localUsers.find(
-                                            user => user.userId === selectedId
-                                        );
-
-                                        return selectedUser
-                                            ? `${selectedUser.name} (${selectedUser.email})`
-                                            : isLoadingUsers
-                                              ? "Loading seed users…"
-                                              : "Select a seed user";
-                                    }}
-                                    onChange={event =>
-                                        setSelectedUserId(event.target.value)
+                    {LOCAL_AUTH_ENABLED ? (
+                        <>
+                            <Box sx={gradientRingSx}>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    startIcon={<PersonOutlineIcon />}
+                                    onClick={() =>
+                                        handleLocalSignIn("existing")
                                     }
-                                    disabled={
-                                        isLoadingUsers ||
-                                        isSigningIn ||
-                                        localUsers.length === 0
-                                    }
-                                    sx={{
-                                        width: "100%",
-                                        height: 50,
-                                        color: "white",
-                                        backgroundColor: "#1976d2",
-                                        borderRadius: 0,
-                                        "& .MuiSelect-select": {
-                                            overflow: "hidden",
-                                            textOverflow: "ellipsis",
-                                            whiteSpace: "nowrap"
-                                        },
-                                        "& .MuiOutlinedInput-notchedOutline": {
-                                            border: 0
-                                        },
-                                        "&:hover .MuiOutlinedInput-notchedOutline":
-                                            {
-                                                border: 0
-                                            },
-                                        "&.Mui-focused .MuiOutlinedInput-notchedOutline":
-                                            {
-                                                border: 0
-                                            },
-                                        "& .MuiSvgIcon-root": { color: "white" }
-                                    }}
+                                    disabled={isSigningIn}
+                                    sx={authButtonSx}
                                 >
-                                    {localUsers.map(user => (
-                                        <MenuItem
-                                            key={user.userId}
-                                            value={user.userId}
-                                        >
-                                            {user.name} ({user.email})
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                            <Button
-                                variant="contained"
-                                aria-label="Sign in as selected seed"
-                                disabled={!selectedUserId || isSigningIn}
-                                onClick={() =>
-                                    handleLocalSignIn(selectedUserId)
-                                }
-                                sx={{
-                                    minWidth: "fit-content",
-                                    px: { xs: 1.5, sm: 2.5 },
-                                    borderRadius: 0,
-                                    borderLeft:
-                                        "1px solid rgba(255,255,255,0.35)",
-                                    boxShadow: "none",
-                                    whiteSpace: "nowrap",
-                                    textTransform: "none"
-                                }}
-                            >
-                                {isSigningIn ? "Signing in…" : "Sign in"}
-                            </Button>
-                        </Box>
-                        <Button
-                            variant="outlined"
-                            disabled={isSigningIn}
-                            onClick={() => handleLocalSignIn()}
-                            sx={{
-                                color: "white",
-                                borderColor: "white",
-                                textTransform: "none"
-                            }}
-                        >
-                            Sign in as Fresh User
-                        </Button>
-                        {isLoadingUsers && (
-                            <Typography component="p">
-                                Loading seed users…
-                            </Typography>
-                        )}
-                    </Box>
+                                    {signingInMode === "existing"
+                                        ? "Signing in…"
+                                        : "Sign in as an existing test user"}
+                                </Button>
+                            </Box>
+                            <Box sx={gradientRingSx}>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    startIcon={<PersonOutlineIcon />}
+                                    onClick={() => handleLocalSignIn("fresh")}
+                                    disabled={isSigningIn}
+                                    sx={authButtonSx}
+                                >
+                                    {signingInMode === "fresh"
+                                        ? "Signing in…"
+                                        : "Sign in as a fresh test user"}
+                                </Button>
+                            </Box>
+                        </>
+                    ) : (
+                        [
+                            {
+                                provider: "github" as const,
+                                label: "GitHub",
+                                icon: <GitHubIcon />
+                            },
+                            {
+                                provider: "google" as const,
+                                label: "Google",
+                                icon: <GoogleIcon />
+                            }
+                        ].map(({ provider, label, icon }) => (
+                            <Box key={provider} sx={gradientRingSx}>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    startIcon={icon}
+                                    onClick={() => authenticate(provider)}
+                                    sx={authButtonSx}
+                                >
+                                    Sign in with {label}
+                                </Button>
+                            </Box>
+                        ))
+                    )}
+                </Box>
+                {signInError && (
+                    <Alert severity="error" sx={{ mt: 3, maxWidth: 500 }}>
+                        {signInError}
+                    </Alert>
                 )}
             </Box>
         </Box>
