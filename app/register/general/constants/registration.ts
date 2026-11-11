@@ -75,3 +75,9 @@ export const OTHER_SCHOOL_OPTION = "Other - Not Listed";
 
 export const MLH_CODE_OF_CONDUCT_URL =
     "https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md";
+
+/** Placeholder until admissions publishes the HackVoyagers challenge cutoff. */
+export const PRO_CHALLENGE_DEADLINE = "January 31, 2027";
+
+export const AGE_ELIGIBILITY_NOTE =
+    "You must be at least 18 years old on or before February 26th 2027 to attend HackIllinois 2027";

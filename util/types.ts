@@ -62,6 +62,9 @@ export type RegistrationApplicationSubmitted = {
     underrepresented: string;
     hackathonsParticipated: string;
 
+    interestSoftware: string;
+    interestHardware: string;
+
     application1: string;
     application2: string;
     application3: string;
@@ -71,6 +74,8 @@ export type RegistrationApplicationSubmitted = {
 
     attribution: string[];
     eventInterest: string[];
+    vcInvolvement: string[];
+    hardwareInterest: string;
 
     requestTravelReimbursement: boolean;
 };
@@ -92,6 +97,8 @@ export type RegistrationApplicationDraftBody = {
     major?: string;
     underrepresented?: string;
     hackathonsParticipated?: string;
+    interestSoftware?: string;
+    interestHardware?: string;
     application1?: string;
     application2?: string;
     application3?: string;
@@ -99,6 +106,8 @@ export type RegistrationApplicationDraftBody = {
     pro?: boolean;
     attribution?: string[];
     eventInterest?: string[];
+    vcInvolvement?: string[];
+    hardwareInterest?: string;
     requestTravelReimbursement?: boolean;
     mlhNewsletter?: boolean;
 };
@@ -113,6 +122,12 @@ export type RegistrationApplicationDraftBodyForm =
         mlhDataSharingAcknowledge?: boolean;
         optInHackNewsletter?: boolean;
         otherSchool?: string;
+        otherMajor?: string;
+        otherAttribution?: string;
+        otherEventInterest?: string;
+        otherVcInvolvement?: string;
+        proChallengeAcknowledge?: boolean;
+        hasResume?: boolean;
     };
 
 export type RegistrationResponseFieldInfo = {

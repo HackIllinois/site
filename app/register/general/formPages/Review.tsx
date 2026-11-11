@@ -23,9 +23,11 @@ import {
 } from "../components/Review";
 import {
     MLH_CODE_OF_CONDUCT_URL,
-    OTHER_SCHOOL_OPTION
+    OTHER_SCHOOL_OPTION,
+    PRO_CHALLENGE_DEADLINE
 } from "../constants/registration";
 import { FORCE_REGISTRATION_CLOSED } from "../../constants";
+import { OTHER_MAJOR_OPTION } from "@/util/options";
 
 interface ReviewProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
@@ -111,9 +113,23 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                     <AccordionDetails>
                         <ReviewInfoAccordionBox>
                             <UserInfoBox
-                                label="Level of Study"
-                                userResponse={values.education || "N/A"}
+                                label="Gender"
+                                userResponse={values.gender || "N/A"}
                             />
+                            <UserInfoBox
+                                label="Race / Ethnicity"
+                                userResponse={values?.race?.join(", ") || "N/A"}
+                            />
+                            <UserInfoBox
+                                label="Country of Residence"
+                                userResponse={values.country || "N/A"}
+                            />
+                            {values.country === "United States" && (
+                                <UserInfoBox
+                                    label="State or territory of Residence"
+                                    userResponse={values.state || "N/A"}
+                                />
+                            )}
                             <UserInfoBox
                                 label="School"
                                 userResponse={
@@ -123,34 +139,32 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 }
                             />
                             <UserInfoBox
-                                label="Graduation Year"
+                                label="Level of Study"
+                                userResponse={values.education || "N/A"}
+                            />
+                            <UserInfoBox
+                                label="When do you plan to graduate?"
                                 userResponse={values.graduate || "N/A"}
                             />
                             <UserInfoBox
                                 label="Major/Field of Study"
-                                userResponse={values.major || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="Country of Residence"
-                                userResponse={values.country || "N/A"}
-                            />
-                            {values.country === "United States" && (
-                                <UserInfoBox
-                                    label="State/Territory"
-                                    userResponse={values.state || "N/A"}
-                                />
-                            )}
-                            <UserInfoBox
-                                label="Race/Ethnicity"
-                                userResponse={values?.race?.join(", ") || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="Gender"
-                                userResponse={values.gender || "N/A"}
+                                userResponse={
+                                    values.major === OTHER_MAJOR_OPTION
+                                        ? values.otherMajor
+                                            ? `${OTHER_MAJOR_OPTION}: ${values.otherMajor}`
+                                            : "N/A"
+                                        : values.major || "N/A"
+                                }
                             />
                             <UserInfoBox
                                 label="Do you identify as part of an underrepresented group in the technology industry?"
                                 userResponse={values.underrepresented || "No"}
+                            />
+                            <UserInfoBox
+                                label="How many Hackathons have you participated in?"
+                                userResponse={
+                                    values.hackathonsParticipated || "N/A"
+                                }
                             />
                         </ReviewInfoAccordionBox>
                     </AccordionDetails>
@@ -170,6 +184,22 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                     <AccordionDetails>
                         <ReviewInfoAccordionBox>
                             <UserInfoBox
+                                label="Software interest rank"
+                                userResponse={values.interestSoftware || "N/A"}
+                            />
+                            <UserInfoBox
+                                label="Hardware interest rank"
+                                userResponse={values.interestHardware || "N/A"}
+                            />
+                            <UserInfoBox
+                                label="Resume Upload"
+                                userResponse={
+                                    values.hasResume
+                                        ? "Uploaded"
+                                        : "Not uploaded"
+                                }
+                            />
+                            <UserInfoBox
                                 label="Tell us a project you have enjoyed working on, technical or non-technical."
                                 userResponse={values.application1 || "N/A"}
                             />
@@ -187,7 +217,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                 <></>
                             ) : (
                                 <UserInfoBox
-                                    label="Would you like to be considered for HackVoyagers Track?"
+                                    label="Would you like to be considered for HackVoyagers Path?"
                                     userResponse={values.pro ? "Yes" : "No"}
                                 />
                             )}
@@ -239,6 +269,16 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                                         : "N/A"
                                 }
                             />
+                            <UserInfoBox
+                                label="How would you like to get involved with VCs?"
+                                userResponse={
+                                    values.vcInvolvement?.join(", ") || "N/A"
+                                }
+                            />
+                            <UserInfoBox
+                                label="What kind of hardware would you like to see at the event?"
+                                userResponse={values.hardwareInterest || "N/A"}
+                            />
                         </ReviewInfoAccordionBox>
                     </AccordionDetails>
                 </StyledAccordion>
@@ -255,7 +295,7 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                     <Box>
                         <CheckboxSelect
                             name="reviewedAcknowledge"
-                            label="Please review the above information. Once you submit you will not be able to change any information without contacting us."
+                            label="Please review the above information. Once you submit you will not be able to make changes."
                             accentColor="#983300"
                             optionLabel="I reviewed my information to ensure it is correct."
                             optionLabelSx={AckOptionLabelStyle}
@@ -279,6 +319,41 @@ const Review = ({ formik, onEditStep }: ReviewProps) => {
                             <></>
                         )}
                     </Box>
+
+                    {!FORCE_REGISTRATION_CLOSED && values.pro ? (
+                        <Box mt={3}>
+                            <CheckboxSelect
+                                name="proChallengeAcknowledge"
+                                label={`I understand that in order to be considered for HackVoyagers, I must complete the challenge I receive after submitting this form by ${PRO_CHALLENGE_DEADLINE}`}
+                                accentColor="#983300"
+                                optionLabel="I understand"
+                                optionLabelSx={AckOptionLabelStyle}
+                                required
+                                value={values.proChallengeAcknowledge}
+                                sx={{ pl: "18px" }}
+                                onChange={val =>
+                                    formik.setFieldValue(
+                                        "proChallengeAcknowledge",
+                                        val
+                                    )
+                                }
+                                error={
+                                    !!touched.proChallengeAcknowledge &&
+                                    Boolean(errors.proChallengeAcknowledge)
+                                }
+                            />
+                            {touched.proChallengeAcknowledge &&
+                            errors.proChallengeAcknowledge ? (
+                                <FormHelperText error sx={AckErrorStyle}>
+                                    {errors.proChallengeAcknowledge as string}
+                                </FormHelperText>
+                            ) : (
+                                <></>
+                            )}
+                        </Box>
+                    ) : (
+                        <></>
+                    )}
 
                     <Box mt={3}>
                         {/* MLH code of conduct acknowledgement */}
