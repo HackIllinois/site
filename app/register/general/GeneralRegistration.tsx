@@ -60,8 +60,6 @@ export const GeneralRegistration = () => {
         skipToStep
     } = useRegistrationSteps(validationSchemas, isSubmitted);
 
-    const RIGHT_ALIGNED_STEPS = [0, 3];
-
     // const [isPasswordAuthenticated, setIsPasswordAuthenticated] =
     //     useState(false);
 
@@ -479,21 +477,25 @@ export const GeneralRegistration = () => {
             </Snackbar>
             <Box
                 sx={{
-                    minHeight: "100dvh", // Full viewport height
-                    height: "100%",
+                    position: "relative",
+                    minHeight: "100dvh",
                     width: "100%",
                     pb: "50px",
-                    backgroundImage: {
-                        xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`,
-                        md: `url("/registration/backgrounds/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`
-                    },
-                    backgroundSize: "cover", // Fill the screen
-                    backgroundRepeat: "no-repeat", // Prevent tiling
-                    backgroundPosition: RIGHT_ALIGNED_STEPS.includes(
-                        currentStep
-                    )
-                        ? "right"
-                        : "center"
+                    // Fixed full-viewport layer so scrolling the form still
+                    // shows the stage sunset (cover stays pinned to the viewport).
+                    "&::before": {
+                        content: '""',
+                        position: "fixed",
+                        inset: 0,
+                        zIndex: -1,
+                        backgroundImage: {
+                            xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}?v=2")`,
+                            md: `url("/registration/backgrounds/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}?v=2")`
+                        },
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center center"
+                    }
                 }}
             >
                 <Paper
@@ -532,11 +534,9 @@ export const GeneralRegistration = () => {
                                 text={
                                     isMobile
                                         ? "BACK"
-                                        : steps[
-                                              currentStep - 1
-                                          ].name.toUpperCase()
+                                        : steps[currentStep - 1].navLabel
                                 }
-                                color={steps[currentStep].color}
+                                theme={steps[currentStep].buttonTheme}
                                 onClick={handleBack}
                                 disabled={currentStep === 0}
                                 type="button"
@@ -554,11 +554,9 @@ export const GeneralRegistration = () => {
                                             : "NEXT"
                                         : currentStep === steps.length - 2
                                           ? "SUBMIT"
-                                          : steps[
-                                                currentStep + 1
-                                            ].name.toUpperCase()
+                                          : steps[currentStep + 1].navLabel
                                 }
-                                color={steps[currentStep].color}
+                                theme={steps[currentStep].buttonTheme}
                                 pointRight={true}
                                 isMobile={isMobile}
                                 onClick={() => handleNextOrSubmit()}
