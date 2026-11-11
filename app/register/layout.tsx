@@ -1,15 +1,9 @@
-"use client";
-import Head from "next/head";
+export const metadata = {
+    title: "HackIllinois | Register"
+};
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-    return (
-        <>
-            <Head>
-                <title>HackIllinois | Register</title>
-            </Head>
-            {children}
-        </>
-    );
+    return children;
 };
 
 export default Layout;

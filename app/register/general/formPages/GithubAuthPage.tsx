@@ -1,33 +1,87 @@
 "use client";
 
-import { authenticate } from "@/util/api";
+import { authenticate, devLogin, getDevUsers } from "@/util/api";
 import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import GoogleIcon from "@mui/icons-material/Google";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Alert, Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 
+const gradientRingSx = {
+    borderRadius: "999px",
+    padding: "5px",
+    background:
+        "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
+    display: "inline-flex"
+};
+
+const authButtonSx = {
+    backgroundColor: "#24292f",
+    color: "#ffffff",
+    padding: "10px 20px",
+    fontSize: { xs: "16px", sm: "18px", md: "20px" },
+    fontWeight: 600,
+    borderRadius: "999px",
+    textTransform: "none",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 1,
+    "& .MuiButton-startIcon": {
+        marginRight: 1,
+        "& svg": { fontSize: "1.3rem" }
+    },
+    "&:hover": {
+        backgroundColor: "#1b1f23",
+        boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
+    },
+    "&:active": {
+        backgroundColor: "#0f1113",
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
+    },
+    fontFamily: "Montserrat"
+};
+
+type LocalSignInMode = "existing" | "fresh";
+
 const GithubAuthPage = ({
-    mechathonMessage = false
+    mechathonMessage: _mechathonMessage = false
 }: {
     mechathonMessage?: boolean;
 }) => {
     const [isSigningIn, setIsSigningIn] = useState(false);
+    const [signingInMode, setSigningInMode] = useState<LocalSignInMode | null>(
+        null
+    );
     const [signInError, setSignInError] = useState("");
 
-    const handleAuthenticate = async () => {
+    const handleLocalSignIn = async (mode: LocalSignInMode) => {
         setIsSigningIn(true);
+        setSigningInMode(mode);
         setSignInError("");
         try {
-            await authenticate();
+            if (mode === "existing") {
+                const { users } = await getDevUsers();
+                const user = users[0];
+                if (!user) {
+                    throw new Error(
+                        "No local test users are available. Restart Adonix to create them, then try again."
+                    );
+                }
+                await devLogin({ userId: user.userId });
+            } else {
+                await devLogin({});
+            }
+            window.location.reload();
         } catch (error) {
             setSignInError(
                 error instanceof Error
                     ? error.message
                     : "Could not sign in. Please try again."
             );
-        } finally {
             setIsSigningIn(false);
+            setSigningInMode(null);
         }
     };
 
@@ -97,7 +151,7 @@ const GithubAuthPage = ({
                 >
                     {LOCAL_AUTH_ENABLED
                         ? "Sign in with a local test account to get started"
-                        : "Sign in with your GitHub account to get started"}
+                        : "Sign in with your GitHub or Google account to get started"}
                 </Typography>
 
                 {/* Priority and final deadline boxes */}
@@ -270,64 +324,71 @@ const GithubAuthPage = ({
 
                 <Box
                     sx={{
-                        borderRadius: "999px",
-                        padding: "5px",
-                        background:
-                            "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
-                        display: "inline-flex"
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "16px"
                     }}
                 >
-                    <Button
-                        variant="contained"
-                        size="large"
-                        startIcon={
-                            LOCAL_AUTH_ENABLED ? (
-                                <PersonOutlineIcon />
-                            ) : (
-                                <GitHubIcon />
-                            )
-                        }
-                        onClick={handleAuthenticate}
-                        disabled={isSigningIn}
-                        sx={{
-                            backgroundColor: "#24292f",
-                            color: "#ffffff",
-                            padding: "10px 20px",
-                            fontSize: {
-                                xs: "16px",
-                                sm: "18px",
-                                md: "20px"
+                    {LOCAL_AUTH_ENABLED ? (
+                        <>
+                            <Box sx={gradientRingSx}>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    startIcon={<PersonOutlineIcon />}
+                                    onClick={() =>
+                                        handleLocalSignIn("existing")
+                                    }
+                                    disabled={isSigningIn}
+                                    sx={authButtonSx}
+                                >
+                                    {signingInMode === "existing"
+                                        ? "Signing in…"
+                                        : "Sign in as an existing test user"}
+                                </Button>
+                            </Box>
+                            <Box sx={gradientRingSx}>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    startIcon={<PersonOutlineIcon />}
+                                    onClick={() => handleLocalSignIn("fresh")}
+                                    disabled={isSigningIn}
+                                    sx={authButtonSx}
+                                >
+                                    {signingInMode === "fresh"
+                                        ? "Signing in…"
+                                        : "Sign in as a fresh test user"}
+                                </Button>
+                            </Box>
+                        </>
+                    ) : (
+                        [
+                            {
+                                provider: "github" as const,
+                                label: "GitHub",
+                                icon: <GitHubIcon />
                             },
-                            fontWeight: 600,
-                            borderRadius: "999px",
-                            textTransform: "none",
-                            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 1,
-                            "& .MuiButton-startIcon": {
-                                marginRight: 1,
-                                "& svg": {
-                                    fontSize: "1.3rem"
-                                }
-                            },
-                            "&:hover": {
-                                backgroundColor: "#1b1f23",
-                                boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
-                            },
-                            "&:active": {
-                                backgroundColor: "#0f1113",
-                                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
-                            },
-                            fontFamily: "Montserrat"
-                        }}
-                    >
-                        {isSigningIn
-                            ? "Signing in…"
-                            : LOCAL_AUTH_ENABLED
-                              ? "Sign in as a test user"
-                              : "Sign in with GitHub"}
-                    </Button>
+                            {
+                                provider: "google" as const,
+                                label: "Google",
+                                icon: <GoogleIcon />
+                            }
+                        ].map(({ provider, label, icon }) => (
+                            <Box key={provider} sx={gradientRingSx}>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    startIcon={icon}
+                                    onClick={() => authenticate(provider)}
+                                    sx={authButtonSx}
+                                >
+                                    Sign in with {label}
+                                </Button>
+                            </Box>
+                        ))
+                    )}
                 </Box>
                 {signInError && (
                     <Alert severity="error" sx={{ mt: 3, maxWidth: 500 }}>

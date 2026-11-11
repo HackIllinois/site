@@ -5,9 +5,12 @@
     "scripts": {
         "dev": "next dev",
         "build": "next build",
+        "postbuild": "node scripts/workers-ci-opennext.cjs",
         "start": "next start",
         "lint": "next lint && npx prettier . --check",
         "format": "npx prettier . --write",
+        "preview": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+        "deploy": "opennextjs-cloudflare deploy",
         "prepare": "husky"
     },
     "dependencies": {
@@ -48,8 +51,8 @@
         "prettier": "^3.5.1",
         "sass": "^1.80.4",
         "sass-loader": "^16.0.2",
-        "typescript": "5.5.4",
-        "wrangler": "^4.58.0"
+        "typescript": "~5.5.4",
+        "wrangler": "^4.160.0"
     },
     "overrides": {
         "react-simple-maps": {
