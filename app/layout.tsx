@@ -4,9 +4,11 @@ import { EventCountdownPill } from "@/components/EventCountdown/EventCountdown";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { ResourcesButton } from "@/components/ResourcesButton/ResourcesButton";
+import { clearFooterTheme } from "@/app/register/general/constants/registration";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import theme from "../theme";
 import { montserrat, tsukimi, jersey } from "../theme/fonts";
 import "./globals.scss";
@@ -14,6 +16,13 @@ import "./globals.scss";
 export default function Layout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const hideFooter = pathname === "/schedule" || pathname === "/faq";
+    const isRegister = pathname.startsWith("/register");
+
+    // Drop step-specific inline footer vars when leaving /register so :root navy returns.
+    useEffect(() => {
+        if (isRegister) return;
+        clearFooterTheme();
+    }, [isRegister]);
 
     return (
         <html lang="en">
@@ -59,7 +68,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </head>
             <body
                 className={`${montserrat.variable} ${tsukimi.variable} ${jersey.variable} 
-                            ${montserrat.className}`} // compatibility
+                            ${montserrat.className}${isRegister ? " register-route" : ""}`} // compatibility
             >
                 <AppRouterCacheProvider>
                     <ThemeProvider theme={theme}>
