@@ -286,22 +286,13 @@ export async function getDevUsers(): Promise<DevUsersResponse> {
     return requestDevApi("GET", "/dev/users/");
 }
 
+/**
+ * Local-only login against Adonix `POST /dev/login/`.
+ * Pass a seed `userId` to reuse an existing test user, or `{}` to seed a fresh
+ * registrant. The API sets the HTTP-only jwt cookie (credentials: include).
+ */
 export async function devLogin(
     body: DevLoginRequest = {}
 ): Promise<DevLoginResponse> {
-    if (body.userId) {
-        try {
-            await requestv2(
-                "GET",
-                `/auth/dev/login/${encodeURIComponent(body.userId)}/`
-            );
-            return {
-                user: { userId: body.userId, name: "", email: "" },
-                jwt: ""
-            };
-        } catch {
-            return requestDevApi("POST", "/dev/login/", body);
-        }
-    }
     return requestDevApi("POST", "/dev/login/", body);
 }
