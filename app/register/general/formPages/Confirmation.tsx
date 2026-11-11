@@ -225,13 +225,13 @@ const Confirmation = ({
                             >
                                 {challengePassed ? (
                                     <>
-                                        You’ve successfully finished the
-                                        HackVoyagers Challenge <br />
+                                        You beat Saloon Rush, the Pro Track
+                                        Challenge, <br />
                                         and will be considered for the
-                                        HackVoyagers track.
+                                        HackOutlaws Pro Track.
                                     </>
                                 ) : (
-                                    "To join the Pro Track, you’ll need to complete the Pro Track Challenge."
+                                    "To join the HackOutlaws Pro Track, you’ll need to beat Saloon Rush, the Pro Track Challenge."
                                 )}
                             </Typography>
                             {!challengePassed && (

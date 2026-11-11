@@ -10,7 +10,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import theme from "../theme";
-import { montserrat, tsukimi, jersey } from "../theme/fonts";
+import { montserrat, tsukimi, jersey, rye, specialElite } from "../theme/fonts";
 import "./globals.scss";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -67,7 +67,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 />
             </head>
             <body
-                className={`${montserrat.variable} ${tsukimi.variable} ${jersey.variable} 
+                className={`${montserrat.variable} ${tsukimi.variable} ${jersey.variable} ${rye.variable} ${specialElite.variable}
                             ${montserrat.className}${isRegister ? " register-route" : ""}`} // compatibility
             >
                 <AppRouterCacheProvider>

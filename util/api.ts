@@ -109,6 +109,42 @@ export async function getChallenge(
     return res;
 }
 
+// Like getChallenge, but throws the error body (NotFound, MissingPro, ...) so the caller can handle it.
+export async function loadChallengeStatus(): Promise<ChallengeStatus> {
+    return await requestv2("GET", "/registration/challenge/");
+}
+
+// Downloads the applicant's assigned Saloon Rush floor plan as world.json.
+export async function downloadChallengeWorld(): Promise<void> {
+    const response = await fetch(
+        API_BASE_URL + "/registration/challenge/world/",
+        {
+            method: "GET",
+            mode: "cors",
+            credentials: "include"
+        }
+    );
+    if (!response.ok) {
+        const body = await response.json().catch(() => null);
+        throw (
+            body ?? {
+                error: "DownloadFailed",
+                message: "Couldn't download your floor plan."
+            }
+        );
+    }
+
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "world.json";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+}
+
 export async function submitChallenge(file: File): Promise<ChallengeResponse> {
     const form = new FormData();
     form.append("solution", file);
@@ -120,7 +156,10 @@ export async function submitChallenge(file: File): Promise<ChallengeResponse> {
         body: form
     });
 
-    const responseJSON = await response.json();
+    const responseJSON = await response.json().catch(() => ({
+        error: "UnknownError",
+        message: `The server responded with ${response.status}.`
+    }));
 
     if (
         responseJSON.error === "TokenInvalid" ||

@@ -114,7 +114,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                     ) : (
                         <CheckboxSelect
                             name="pro"
-                            label="Would you like to be considered for HackVoyagers Path?"
+                            label="Would you like to be considered for the HackOutlaws Pro Track?"
                             sublabelContent={
                                 <Box
                                     sx={{
@@ -128,10 +128,10 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                                         sx={{ opacity: "0.8" }}
                                     >
                                         {
-                                            "You will have to complete a coding challenge to be eligible for the Path. Learn more about HackVoyagers"
+                                            "You will have to complete a coding challenge to be eligible for the Pro Track. Learn more about HackOutlaws"
                                         }
                                         <Link
-                                            href="/challenge/landing-page"
+                                            href="/challenge"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             sx={{

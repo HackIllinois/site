@@ -373,7 +373,7 @@ export default Navbar;
 
 const ProTrackButton = () => {
     return (
-        <Link prefetch={false} href="/challenge/landing-page">
+        <Link prefetch={false} href="/challenge">
             <button className={styles.proTrackButton}>
                 <div className={styles.buttonBackground}></div>
                 <div className={styles.buttonContent}>
@@ -394,7 +394,7 @@ const ProTrackButton = () => {
                         />
                     </svg>
 
-                    <span>HackVoyagers</span>
+                    <span>HackOutlaws</span>
                 </div>
             </button>
         </Link>
