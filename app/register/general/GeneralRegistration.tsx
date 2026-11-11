@@ -31,7 +31,11 @@ import theme from "@/theme";
 import { loadDraft, saveDraft, submitDraft, subscribe } from "@/util/api";
 import { useRouter } from "next/navigation";
 import RegistrationStepper from "./components/RegistrationStepper";
-import { steps } from "./constants/registration";
+import {
+    applyFooterTheme,
+    REGISTER_FOOTER_DEFAULT,
+    steps
+} from "./constants/registration";
 import GithubAuthPage from "./formPages/GithubAuthPage";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
 
@@ -413,6 +417,17 @@ export const GeneralRegistration = () => {
     useEffect(() => {
         console.log("Authenticated", registrationAuth.authenticated);
     }, [registrationAuth.authenticated]);
+
+    // Match the site footer to the current stage bottom band (or canyon auth art).
+    useEffect(() => {
+        if (!registrationAuth.authenticated) {
+            applyFooterTheme(REGISTER_FOOTER_DEFAULT);
+            return;
+        }
+        applyFooterTheme(
+            steps[currentStep]?.footerTheme ?? REGISTER_FOOTER_DEFAULT
+        );
+    }, [registrationAuth.authenticated, currentStep]);
 
     const isLoading = isLoadingComponent || registrationAuth.isLoading;
 

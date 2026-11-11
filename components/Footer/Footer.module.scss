@@ -1,6 +1,10 @@
 .footer {
     width: 100%;
-    background: linear-gradient(to bottom, #16133e 0%, #2a2654 100%);
+    background: linear-gradient(
+        to bottom,
+        var(--footer-bg-from) 0%,
+        var(--footer-bg-to) 100%
+    );
     color: white;
     padding: 3rem 2rem 2rem;
     margin-top: auto;
@@ -50,12 +54,12 @@
 .link {
     font-family: "Montserrat", sans-serif;
     font-size: 0.875rem;
-    color: #a78bfa;
+    color: var(--footer-link);
     text-decoration: none;
     transition: color 0.3s ease;
 
     &:hover {
-        color: #c4b5fd;
+        color: var(--footer-link-hover);
         text-decoration: underline;
     }
 }

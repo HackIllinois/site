@@ -15,6 +15,12 @@ body {
     --border-radius: 12px;
     --font-family-primary: "Montserrat", sans-serif;
 
+    /* Site footer defaults (space-theme navy). /register overrides below / via JS. */
+    --footer-bg-from: #16133e;
+    --footer-bg-to: #2a2654;
+    --footer-link: #a78bfa;
+    --footer-link-hover: #c4b5fd;
+
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
@@ -105,6 +111,14 @@ body {
     overflow: clip;
     padding-right: 0 !important;
     font-family: "Montserrat", sans-serif;
+}
+
+/* Warm canyon/wood footer on registration; steps refine via inline CSS vars. */
+body.register-route {
+    --footer-bg-from: #983723;
+    --footer-bg-to: #a5372f;
+    --footer-link: #ffd8b3;
+    --footer-link-hover: #ffe8d0;
 }
 
 a {
