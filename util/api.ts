@@ -1,10 +1,12 @@
-import { API_BASE_URL, LOCAL_AUTH_ENABLED } from "./api-config";
+import { API_BASE_URL } from "./api-config";
 import { handleError } from "./helpers";
 import {
     AcceptAdmissionRSVPRequest,
     AttendeeProfile,
     ChallengeResponse,
     ChallengeStatus,
+    DevLoginRequest,
+    DevLoginResponse,
     DevUsersResponse,
     MethodType,
     RegistrationApplicationDraftBody,
@@ -36,30 +38,25 @@ export async function getAuthToken(): Promise<string | null> {
     return null;
 }
 
-export async function authenticate(): Promise<void> {
-    if (LOCAL_AUTH_ENABLED) {
-        const { users }: DevUsersResponse = await requestv2(
-            "GET",
-            "/dev/users/"
-        );
-        const user = users[0];
-        if (!user) {
-            throw new Error(
-                "No local test users are available. Restart Adonix to create them, then try again."
-            );
-        }
+export type AuthProvider = "github" | "google";
 
-        await requestv2(
-            "GET",
-            `/auth/dev/login/${encodeURIComponent(user.userId)}/`
-        );
-        window.location.reload();
-        return;
-    }
+const AUTH_PROVIDER_KEY = "authProvider";
+
+function isAuthProvider(value: string | null): value is AuthProvider {
+    return value === "github" || value === "google";
+}
+
+export function getStoredAuthProvider(): AuthProvider {
+    const stored = sessionStorage.getItem(AUTH_PROVIDER_KEY);
+    return isAuthProvider(stored) ? stored : "github";
+}
+
+export function authenticate(provider: AuthProvider = "github"): void {
+    sessionStorage.setItem(AUTH_PROVIDER_KEY, provider);
 
     const callbackUrl = `${window.location.origin}${window.location.pathname}`;
 
-    const authUrl = `${API_BASE_URL}/auth/login/github/?redirect=${encodeURIComponent(callbackUrl)}`;
+    const authUrl = `${API_BASE_URL}/auth/login/${provider}/?redirect=${encodeURIComponent(callbackUrl)}`;
     window.location.replace(authUrl);
 }
 
@@ -90,7 +87,7 @@ export async function requestv2(
         responseJSON.error == "NoToken"
     ) {
         sessionStorage.removeItem("token");
-        await authenticate();
+        authenticate(getStoredAuthProvider());
         throw responseJSON;
     }
 
@@ -131,7 +128,7 @@ export async function submitChallenge(file: File): Promise<ChallengeResponse> {
         responseJSON.error == "NoToken"
     ) {
         sessionStorage.removeItem("token");
-        await authenticate();
+        authenticate(getStoredAuthProvider());
         throw responseJSON;
     }
 
@@ -255,4 +252,47 @@ export async function getJudges(): Promise<JudgeProfile[]> {
 export async function getUserInfo(): Promise<UserInfo> {
     const res = await requestv2("GET", "/user").catch(handleError);
     return res as UserInfo;
+}
+
+async function requestDevApi<T>(
+    method: "GET" | "POST",
+    endpoint: string,
+    body?: unknown
+): Promise<T> {
+    const response = await fetch(API_BASE_URL + endpoint, {
+        method,
+        mode: "cors",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+            Origin: "www.hackillinois.org"
+        },
+        body: body === undefined ? undefined : JSON.stringify(body)
+    });
+
+    const responseBody = await response.json().catch(() => ({}));
+    if (!response.ok) {
+        const message =
+            responseBody.message ||
+            responseBody.error ||
+            `Request failed with status ${response.status}`;
+        throw new Error(message);
+    }
+
+    return responseBody as T;
+}
+
+export async function getDevUsers(): Promise<DevUsersResponse> {
+    return requestDevApi("GET", "/dev/users/");
+}
+
+/**
+ * Local-only login against Adonix `POST /dev/login/`.
+ * Pass a seed `userId` to reuse an existing test user, or `{}` to seed a fresh
+ * registrant. The API sets the HTTP-only jwt cookie (credentials: include).
+ */
+export async function devLogin(
+    body: DevLoginRequest = {}
+): Promise<DevLoginResponse> {
+    return requestDevApi("POST", "/dev/login/", body);
 }
