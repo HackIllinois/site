@@ -15,10 +15,7 @@ import {
     EventType,
     MentorProfile,
     JudgeProfile,
-    UserInfo,
-    DevLoginRequest,
-    DevLoginResponse,
-    DevUsersResponse
+    UserInfo
 } from "./types";
 
 export const isAuthenticated = async (): Promise<boolean> => {
