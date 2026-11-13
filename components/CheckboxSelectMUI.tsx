@@ -5,6 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import { BOX_SHADOW, BOX_SHADOW_HOVER } from "@/theme/shadows";
 
 interface CheckboxSelectInputProps {
     name: string;
@@ -62,7 +63,7 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                         {required && (
                             <span
                                 style={{
-                                    color: "#d32f2f",
+                                    color: "#ffffff",
                                     position: "absolute",
                                     fontWeight: 500
                                 }}
@@ -107,6 +108,7 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
                             padding: "0px", // override default
                             borderRadius: 2, // override default
                             backgroundColor: "#ffffff",
+                            boxShadow: BOX_SHADOW,
                             display: "flex",
                             flexShrink: 0,
 
@@ -126,11 +128,11 @@ const CheckboxSelect: React.FC<CheckboxSelectInputProps> = ({
 
                             "&:hover": {
                                 backgroundColor: "#ffffff", // lighter on hover
-                                boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
+                                boxShadow: BOX_SHADOW_HOVER
                             },
                             "&.Mui-checked:hover": {
                                 backgroundColor: accentColor, // don't lighten
-                                boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
+                                boxShadow: BOX_SHADOW_HOVER
                             }
                         }}
                     />

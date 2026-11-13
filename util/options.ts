@@ -7,6 +7,8 @@ export const OTHER_PLEASE_SPECIFY = "Other (please specify)";
 export const OTHER_VC_PLEASE_SPECIFY =
     "Another option not listed (please specify)";
 export const OTHER_MAJOR_OPTION = "Other (please specify)";
+export const US_COUNTRY_OPTION = "United States";
+export const FIRST_HACKATHON_OPTION = "0";
 
 export const ageOptions: string[] = [];
 for (let i = 18; i < 25; i += 1) {
@@ -22,24 +24,16 @@ export const genderOptions: string[] = [
     "Prefer Not to Answer"
 ];
 
+// Standard (EEO-style) categories used on most job applications.
 export const raceOptions: string[] = [
-    "Asian Indian",
-    "Black or African",
-    "Chinese",
-    "Filipino",
-    "Guamanian or Chamorro",
-    "Hispanic / Latino / Spanish Origin",
-    "Japanese",
-    "Korean",
-    "Middle Eastern",
-    "Native American or Alaskan Native",
-    "Native Hawaiian",
-    "Samoan",
-    "Vietnamese",
+    "American Indian or Alaska Native",
+    "Asian",
+    "Black or African American",
+    "Hispanic or Latino",
+    "Middle Eastern or North African",
+    "Native Hawaiian or Other Pacific Islander",
     "White",
-    "Other Asian (Thai, Cambodian, etc)",
-    "Other Pacific Islander",
-    "Other",
+    "Two or More Races",
     "Prefer Not to Answer"
 ];
 
@@ -66,7 +60,7 @@ export const studyLevelOptions: string[] = [
 
 const graduationSeasons = ["Fall", "Winter", "Spring"] as const;
 const graduationYears: string[] = [];
-for (let year = 2031; year >= 2026; year -= 1) {
+for (let year = 2031; year >= 2027; year -= 1) {
     for (const season of graduationSeasons) {
         graduationYears.push(`${season} ${year}`);
     }

@@ -77,7 +77,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
                 {required && (
                     <span
                         style={{
-                            color: "#d32f2f",
+                            color: "#ffffff",
                             position: "absolute",
                             fontWeight: 500
                         }}
@@ -212,7 +212,9 @@ const SelectInput: React.FC<SelectInputProps> = ({
             </Select>
 
             {helperText && (
-                <FormHelperText sx={{ mt: 0.5 }}>{helperText}</FormHelperText>
+                <FormHelperText sx={{ mt: 0.5, color: "#ffffff" }}>
+                    {helperText}
+                </FormHelperText>
             )}
         </FormControl>
     );

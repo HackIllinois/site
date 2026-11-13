@@ -110,6 +110,11 @@ export type RegistrationApplicationDraftBody = {
     hardwareInterest?: string;
     requestTravelReimbursement?: boolean;
     mlhNewsletter?: boolean;
+    // New for 2027. Adonix does not store these yet (its schema strips
+    // unknown keys), so they need backend fields before going live.
+    firstHackathonReason?: string;
+    portfolioLink?: string;
+    eventSuggestions?: string;
 };
 
 /** Includes fields available only on the frontend. */
@@ -128,6 +133,14 @@ export type RegistrationApplicationDraftBodyForm =
         otherVcInvolvement?: string;
         proChallengeAcknowledge?: boolean;
         hasResume?: boolean;
+        /** Display only (review page); not sent to the API. */
+        resumeFileName?: string;
+        legalAcknowledge?: boolean;
+        // Only used by the old, now-unused HackExperience/Transportation pages.
+        hasAllergies?: boolean;
+        allergyTypes?: string[];
+        otherAllergyText?: string;
+        transportationMethod?: string;
     };
 
 export type RegistrationResponseFieldInfo = {

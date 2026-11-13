@@ -10,6 +10,7 @@ import {
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Typography from "@mui/material/Typography";
+import { BOX_SHADOW, BOX_SHADOW_HOVER } from "@/theme/shadows";
 
 interface Option {
     label: string;
@@ -74,7 +75,7 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
                 {required && (
                     <span
                         style={{
-                            color: "#d32f2f",
+                            color: "#ffffff",
                             position: "absolute",
                             fontWeight: 500
                         }}
@@ -118,6 +119,7 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
                                         padding: "6px", // override default
                                         borderRadius: "50%",
                                         backgroundColor: "#ffffff",
+                                        boxShadow: BOX_SHADOW,
 
                                         "& .MuiSvgIcon-root": {
                                             width: "100%",
@@ -135,7 +137,7 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
                                         },
                                         "&:hover": {
                                             backgroundColor: "#ffffff", // lighter on hover
-                                            boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
+                                            boxShadow: BOX_SHADOW_HOVER
                                         }
                                     },
                                     ...(Array.isArray(inputSx)
@@ -160,7 +162,9 @@ const RadioSelectGroup: React.FC<RadioSelectGroupInputProps> = ({
             </RadioGroup>
 
             {helperText && (
-                <FormHelperText sx={{ mt: 0.5 }}>{helperText}</FormHelperText>
+                <FormHelperText sx={{ mt: 0.5, color: "#ffffff" }}>
+                    {helperText}
+                </FormHelperText>
             )}
         </FormControl>
     );

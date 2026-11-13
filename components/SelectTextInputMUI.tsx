@@ -6,6 +6,7 @@ import FormLabel from "@mui/material/FormLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import React, { useRef, useState } from "react";
+import { BOX_SHADOW_FILTER } from "@/theme/shadows";
 
 interface Option {
     label: string;
@@ -93,7 +94,7 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                 {required && (
                     <span
                         style={{
-                            color: "#d32f2f",
+                            color: "#ffffff",
                             position: "absolute",
                             fontWeight: 500
                         }}
@@ -102,7 +103,7 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                     </span>
                 )}
             </FormLabel>
-            <Box sx={{ filter: "drop-shadow(0 0 4px rgba(255,255,255,0.25))" }}>
+            <Box sx={{ filter: BOX_SHADOW_FILTER }}>
                 <Autocomplete
                     ref={autocompleteRef}
                     sx={{
@@ -256,7 +257,7 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
             </Box>
 
             {helperText && (
-                <FormHelperText sx={{ m: 0, mt: 0.5 }}>
+                <FormHelperText sx={{ m: 0, mt: 0.5, color: "#ffffff" }}>
                     {helperText}
                 </FormHelperText>
             )}

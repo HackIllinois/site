@@ -11,52 +11,52 @@ import {
     vcInvolvementOptions
 } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
-import { Container, Grid, Typography } from "@mui/material";
+import { Box, Grid, Link, Typography } from "@mui/material";
 import { FormikProps } from "formik";
+import SectionHeader from "../components/SectionHeader";
+import { HARDWARE_INTEREST_FORM_URL } from "../constants/registration";
 
-interface TransportationProps {
+interface AttendingHackProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     accentColor?: string;
 }
 
-const Transportation = ({ formik, accentColor }: TransportationProps) => {
-    const { values, errors, touched, setFieldValue, handleChange } = formik;
-    return (
-        <Container>
-            <Typography
-                variant="h2"
-                component="h1"
-                sx={{
-                    mt: 8,
-                    mb: 4
-                }}
-            >
-                ATTENDING HACKILLINOIS
-            </Typography>
+const toOptions = (arr: string[]) => arr.map(s => ({ label: s, value: s }));
 
-            <Grid container columnSpacing={2} rowSpacing={6}>
+const AttendingHack = ({ formik, accentColor }: AttendingHackProps) => {
+    const { values, errors, touched, setFieldValue, setValues, handleChange } =
+        formik;
+
+    return (
+        <Box sx={{ px: { xs: 3, md: 6 }, width: "100%" }}>
+            <SectionHeader
+                title="ATTENDING HACKILLINOIS"
+                description="Information to help us plan the HackIllinois experience."
+            />
+
+            <Grid container columnSpacing={3} rowSpacing={{ xs: 3, md: 4 }}>
                 <Grid size={12} id="attribution">
                     <CheckboxGroup
                         name="attribution"
                         label="How did you hear about HackIllinois?"
                         accentColor={accentColor}
                         required
-                        options={attributionOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
+                        options={toOptions(attributionOptions)}
                         value={values.attribution || []}
                         onChange={value => {
-                            setFieldValue("attribution", value);
-                            if (!value.includes(OTHER_PLEASE_SPECIFY)) {
-                                setFieldValue("otherAttribution", "");
-                            }
+                            setValues({
+                                ...values,
+                                attribution: value,
+                                ...(!value.includes(OTHER_PLEASE_SPECIFY) && {
+                                    otherAttribution: ""
+                                })
+                            });
                         }}
                         error={
                             !!touched.attribution && Boolean(errors.attribution)
                         }
                         helperText={
-                            !!touched.attribution
+                            touched.attribution
                                 ? String(errors.attribution || "")
                                 : ""
                         }
@@ -76,7 +76,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                                 Boolean(errors.otherAttribution)
                             }
                             helperText={
-                                !!touched.otherAttribution
+                                touched.otherAttribution
                                     ? errors.otherAttribution
                                     : ""
                             }
@@ -84,29 +84,30 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         />
                     </Grid>
                 )}
+
                 <Grid size={12} id="eventInterest">
                     <CheckboxGroup
                         name="eventInterest"
                         label="Which of these are you most interested in participating in during the hackathon?"
                         accentColor={accentColor}
                         required
-                        options={eventInterestOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
+                        options={toOptions(eventInterestOptions)}
                         value={values.eventInterest || []}
                         onChange={value => {
-                            setFieldValue("eventInterest", value);
-                            if (!value.includes(OTHER_PLEASE_SPECIFY)) {
-                                setFieldValue("otherEventInterest", "");
-                            }
+                            setValues({
+                                ...values,
+                                eventInterest: value,
+                                ...(!value.includes(OTHER_PLEASE_SPECIFY) && {
+                                    otherEventInterest: ""
+                                })
+                            });
                         }}
                         error={
                             !!touched.eventInterest &&
                             Boolean(errors.eventInterest)
                         }
                         helperText={
-                            !!touched.eventInterest
+                            touched.eventInterest
                                 ? String(errors.eventInterest || "")
                                 : ""
                         }
@@ -126,7 +127,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                                 Boolean(errors.otherEventInterest)
                             }
                             helperText={
-                                !!touched.otherEventInterest
+                                touched.otherEventInterest
                                     ? errors.otherEventInterest
                                     : ""
                             }
@@ -142,24 +143,24 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         accentColor={accentColor}
                         row
                         required
+                        booleanOptions
                         options={travelReimbursementOptions.map(option => ({
                             label: option,
                             value: option === "Yes"
                         }))}
                         value={values.requestTravelReimbursement}
-                        onChange={value => {
-                            setFieldValue("requestTravelReimbursement", value);
-                        }}
+                        onChange={value =>
+                            setFieldValue("requestTravelReimbursement", value)
+                        }
                         error={
                             !!touched.requestTravelReimbursement &&
                             Boolean(errors.requestTravelReimbursement)
                         }
                         helperText={
-                            !!touched.requestTravelReimbursement
+                            touched.requestTravelReimbursement
                                 ? errors.requestTravelReimbursement
                                 : ""
                         }
-                        booleanOptions
                     />
                 </Grid>
 
@@ -168,7 +169,6 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         name="travelAcknowledge"
                         label="If you attend HackIllinois, you are responsible for your own transportation and accommodations."
                         accentColor={accentColor}
-                        row
                         required
                         optionLabel="I understand"
                         value={values.travelAcknowledge}
@@ -180,7 +180,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                             Boolean(errors.travelAcknowledge)
                         }
                         helperText={
-                            !!touched.travelAcknowledge
+                            touched.travelAcknowledge
                                 ? errors.travelAcknowledge
                                 : ""
                         }
@@ -193,23 +193,23 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                         label="How would you like to get involved with VCs?"
                         accentColor={accentColor}
                         required
-                        options={vcInvolvementOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
+                        options={toOptions(vcInvolvementOptions)}
                         value={values.vcInvolvement || []}
                         onChange={value => {
-                            setFieldValue("vcInvolvement", value);
-                            if (!value.includes(OTHER_VC_PLEASE_SPECIFY)) {
-                                setFieldValue("otherVcInvolvement", "");
-                            }
+                            setValues({
+                                ...values,
+                                vcInvolvement: value,
+                                ...(!value.includes(
+                                    OTHER_VC_PLEASE_SPECIFY
+                                ) && { otherVcInvolvement: "" })
+                            });
                         }}
                         error={
                             !!touched.vcInvolvement &&
                             Boolean(errors.vcInvolvement)
                         }
                         helperText={
-                            !!touched.vcInvolvement
+                            touched.vcInvolvement
                                 ? String(errors.vcInvolvement || "")
                                 : ""
                         }
@@ -229,7 +229,7 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                                 Boolean(errors.otherVcInvolvement)
                             }
                             helperText={
-                                !!touched.otherVcInvolvement
+                                touched.otherVcInvolvement
                                     ? errors.otherVcInvolvement
                                     : ""
                             }
@@ -254,16 +254,65 @@ const Transportation = ({ formik, accentColor }: TransportationProps) => {
                             Boolean(errors.hardwareInterest)
                         }
                         helperText={
-                            !!touched.hardwareInterest
+                            touched.hardwareInterest
                                 ? errors.hardwareInterest
                                 : ""
                         }
                         inputProps={{ maxLength: 1000 }}
                     />
+                    {HARDWARE_INTEREST_FORM_URL && (
+                        <Typography
+                            sx={{
+                                mt: 1,
+                                color: "#ffffff",
+                                fontFamily: "Montserrat",
+                                fontSize: "14px"
+                            }}
+                        >
+                            Please fill out this{" "}
+                            <Link
+                                href={HARDWARE_INTEREST_FORM_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                sx={{
+                                    color: "#ffffff",
+                                    fontWeight: 600,
+                                    textDecorationColor: "#ffffff"
+                                }}
+                            >
+                                interest form
+                            </Link>
+                            !
+                        </Typography>
+                    )}
+                </Grid>
+
+                <Grid size={12}>
+                    <TextInput
+                        name="eventSuggestions"
+                        label="What would you like to see at our event (e.g. new entertainment events, workshops, etc.)? Anything that would improve your experience."
+                        sublabel="New ideas or suggestions that we can consider implementing"
+                        accentColor={accentColor}
+                        multiline
+                        required
+                        minRows={3}
+                        value={values.eventSuggestions || ""}
+                        onChange={handleChange}
+                        error={
+                            !!touched.eventSuggestions &&
+                            Boolean(errors.eventSuggestions)
+                        }
+                        helperText={
+                            touched.eventSuggestions
+                                ? errors.eventSuggestions
+                                : ""
+                        }
+                        inputProps={{ maxLength: 1500 }}
+                    />
                 </Grid>
             </Grid>
-        </Container>
+        </Box>
     );
 };
 
-export default Transportation;
+export default AttendingHack;

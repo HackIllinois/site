@@ -36,7 +36,7 @@ import {
     REGISTER_FOOTER_DEFAULT,
     steps
 } from "./constants/registration";
-import GithubAuthPage from "./formPages/GithubAuthPage";
+// import GithubAuthPage from "./formPages/GithubAuthPage";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
 
 export const GeneralRegistration = () => {
@@ -63,6 +63,12 @@ export const GeneralRegistration = () => {
         handleBack,
         skipToStep
     } = useRegistrationSteps(validationSchemas, isSubmitted);
+
+    // LOCAL TESTING: the GitHub login gate below is commented out, so the form
+    // also runs without a login. In that mode nothing is sent to the API:
+    // drafts aren't saved, the resume isn't uploaded, and "submit" just shows
+    // the payload on the confirmation page.
+    const isLocalPreview = !registrationAuth.authenticated;
 
     // const [isPasswordAuthenticated, setIsPasswordAuthenticated] =
     //     useState(false);
@@ -102,6 +108,7 @@ export const GeneralRegistration = () => {
                     <AppQuestions
                         formik={formik}
                         accentColor={steps[currentStep].color}
+                        localPreview={isLocalPreview}
                     />
                 );
             case 3:
@@ -112,13 +119,20 @@ export const GeneralRegistration = () => {
                     />
                 );
             case 4:
-                return <Review formik={formik} onEditStep={setCurrentStep} />;
+                return (
+                    <Review
+                        formik={formik}
+                        onEditStep={setCurrentStep}
+                        accentColor={steps[currentStep].color}
+                    />
+                );
             case 5:
                 return (
                     <Confirmation
                         formik={formik}
                         onSetErrorMessage={setErrorMessage}
                         onShowErrorAlert={setShowErrorAlert}
+                        localPreview={isLocalPreview}
                     />
                 );
             default:
@@ -278,13 +292,15 @@ export const GeneralRegistration = () => {
             return;
         }
 
-        if (currentStep === 2 && !formik.values.hasResume) {
-            formik.setFieldTouched("hasResume", true, false);
-            formik.setFieldError("hasResume", "Resume is required");
-            const el = document.querySelector(
-                '[name="hasResume"]'
-            ) as HTMLElement | null;
-            el?.scrollIntoView({ behavior: "smooth", block: "center" });
+        if (currentStep === steps.length - 2 && isLocalPreview) {
+            // LOCAL TESTING: skip newsletter + submit API calls.
+            console.log(
+                "[local preview] registration payload",
+                valuesToDraftContent(formik.values)
+            );
+            setShowClickOffAlert(false);
+            setIsSubmitted(true);
+            await handleNext(formik.values, formik.setTouched);
             return;
         }
 
@@ -293,13 +309,7 @@ export const GeneralRegistration = () => {
                 // This shouldn't happen. The submit button is disabled while saving.
                 return;
             }
-            if (!formik.values.hasResume) {
-                formik.setFieldTouched("hasResume", true, false);
-                formik.setFieldError("hasResume", "Resume is required");
-                setErrorMessage("Please upload your resume before submitting.");
-                setShowErrorAlert(true);
-                return;
-            }
+
             // Final step before submission
             setShowClickOffAlert(false);
             setIsLoadingComponent(true);
@@ -420,10 +430,11 @@ export const GeneralRegistration = () => {
 
     // Match the site footer to the current stage bottom band (or canyon auth art).
     useEffect(() => {
-        if (!registrationAuth.authenticated) {
-            applyFooterTheme(REGISTER_FOOTER_DEFAULT);
-            return;
-        }
+        // LOCAL TESTING: the login page is bypassed, so always follow the step.
+        // if (!registrationAuth.authenticated) {
+        //     applyFooterTheme(REGISTER_FOOTER_DEFAULT);
+        //     return;
+        // }
         applyFooterTheme(
             steps[currentStep]?.footerTheme ?? REGISTER_FOOTER_DEFAULT
         );
@@ -435,9 +446,10 @@ export const GeneralRegistration = () => {
         return <Loading />;
     }
 
-    if (!registrationAuth.authenticated) {
-        return <GithubAuthPage />;
-    }
+    // LOCAL TESTING: re-enable once the form looks right.
+    // if (!registrationAuth.authenticated) {
+    //     return <GithubAuthPage />;
+    // }
 
     // if (!isPasswordAuthenticated) {
     //     return (
@@ -562,14 +574,13 @@ export const GeneralRegistration = () => {
                         {currentStep < steps.length - 1 && (
                             <NavigationButton
                                 text={
-                                    isMobile
-                                        ? currentStep === steps.length - 2
-                                            ? "SUBMIT"
-                                            : "NEXT"
-                                        : currentStep === steps.length - 2
-                                          ? "SUBMIT"
+                                    currentStep === steps.length - 2
+                                        ? "SUBMIT FORM"
+                                        : isMobile
+                                          ? "NEXT"
                                           : steps[currentStep + 1].navLabel
                                 }
+                                submitPlank={currentStep === steps.length - 2}
                                 theme={steps[currentStep].buttonTheme}
                                 pointRight={true}
                                 isMobile={isMobile}

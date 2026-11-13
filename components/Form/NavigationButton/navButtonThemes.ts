@@ -1,4 +1,9 @@
-export type NavButtonThemeId = "sunset1" | "sunset2" | "sunset6" | "sunset7";
+export type NavButtonThemeId =
+    | "sunset1"
+    | "sunset2"
+    | "sunset6"
+    | "sunset7"
+    | "ocean";
 
 export type NavButtonTheme = {
     id: NavButtonThemeId;
@@ -32,6 +37,13 @@ export const NAV_BUTTON_THEMES: Record<NavButtonThemeId, NavButtonTheme> = {
         shadow: "#0B2D51",
         shadowOpacity: 0.8,
         shadowY: 6
+    },
+    /** Brighter blue wood (review page); recolor of sunset7. */
+    ocean: {
+        id: "ocean",
+        shadow: "#0B2D51",
+        shadowOpacity: 0.8,
+        shadowY: 6
     }
 };
 
@@ -49,3 +61,6 @@ export const STEP_NAV_BUTTON_THEME: Record<string, NavButtonThemeId> = {
 export function navButtonAsset(theme: NavButtonThemeId): string {
     return `/registration/buttons/right-${theme}.svg?v=5`;
 }
+
+/** Flat rectangular plank used only for the final Submit button. */
+export const SUBMIT_PLANK_ASSET = "/registration/buttons/submit-ocean.png?v=1";

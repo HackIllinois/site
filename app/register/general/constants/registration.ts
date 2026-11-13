@@ -52,6 +52,7 @@ export function clearFooterTheme(): void {
 }
 
 export type Step = {
+    /** Background art file name in public/registration/backgrounds/. */
     id: string;
     name: string;
     /** Short label for nav plaques (fits 260×66 arrow). */
@@ -75,7 +76,7 @@ const woodLink = {
 export const steps: Step[] = [
     {
         id: "personal_info",
-        name: "Personal Information",
+        name: "Personal Details",
         navLabel: "PERSONAL",
         color: "#3A2541",
         buttonTheme: "sunset1",
@@ -83,13 +84,14 @@ export const steps: Step[] = [
         use_svg: true
     },
     {
-        id: "background_info",
+        id: "canyon_background_info",
         name: "Background Information",
         navLabel: "BACKGROUND",
-        color: "#3e66c2ff",
+        color: "#7A1F6E",
         buttonTheme: "sunset2",
-        footerTheme: { bgFrom: "#712398", bgTo: "#862FA5", ...woodLink },
-        use_svg: true
+        // Sampled from the canyon art's bottom band.
+        footerTheme: { bgFrom: "#A62F8B", bgTo: "#BD3AAC", ...woodLink },
+        use_svg: false
     },
     {
         id: "app_questions",
@@ -114,7 +116,7 @@ export const steps: Step[] = [
         name: "Review & Submit",
         navLabel: "REVIEW",
         color: "#983300",
-        buttonTheme: "sunset1",
+        buttonTheme: "ocean",
         footerTheme: { bgFrom: "#983723", bgTo: "#A5372F", ...woodLink },
         use_svg: true
     },
@@ -140,8 +142,25 @@ export const page_slugs = [
 
 export const OTHER_SCHOOL_OPTION = "Other - Not Listed";
 
+export const MLH_PRIVACY_POLICY_URL =
+    "https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md";
+
+export const MLH_CONTEST_TERMS_URL =
+    "https://github.com/MLH/mlh-policies/blob/main/contest-terms.md";
+
 export const MLH_CODE_OF_CONDUCT_URL =
     "https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md";
+
+/** Placeholder name for the pro path/track until it is finalized. */
+export const PRO_TRACK_NAME = "HackVoyagers Path";
+
+/** Page describing the pro path/track. */
+export const PRO_TRACK_URL = "/challenge/landing-page";
+
+/** Hardware interest form. Leave empty to hide the link until it exists. */
+export const HARDWARE_INTEREST_FORM_URL = "";
+
+export const LEGAL_URL = "/legal";
 
 /** Placeholder until admissions publishes the HackVoyagers challenge cutoff. */
 export const PRO_CHALLENGE_DEADLINE = "January 31, 2027";

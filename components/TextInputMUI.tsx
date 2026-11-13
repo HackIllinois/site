@@ -4,6 +4,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import InputBase from "@mui/material/InputBase";
 import Typography from "@mui/material/Typography";
+import { BOX_SHADOW_FILTER } from "@/theme/shadows";
 
 interface TextInputProps {
     name: string;
@@ -59,7 +60,7 @@ const TextInput: React.FC<TextInputProps> = ({
                 {required && (
                     <span
                         style={{
-                            color: "#d32f2f",
+                            color: "#ffffff",
                             position: "absolute",
                             marginLeft: "-13px",
                             fontWeight: 500
@@ -76,7 +77,7 @@ const TextInput: React.FC<TextInputProps> = ({
                     {sublabel}
                 </Typography>
             </FormLabel>
-            <Box sx={{ filter: "drop-shadow(0 0 4px rgba(255,255,255,0.25))" }}>
+            <Box sx={{ filter: BOX_SHADOW_FILTER }}>
                 <InputBase
                     name={name}
                     value={value}
@@ -86,6 +87,7 @@ const TextInput: React.FC<TextInputProps> = ({
                     {...props}
                     sx={[
                         theme => ({
+                            width: "100%",
                             backgroundColor: "#ffffff",
                             clipPath:
                                 "polygon(12px 0%, calc(100% - 12px) 0%, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0% calc(100% - 12px), 0% 12px)",
@@ -124,7 +126,9 @@ const TextInput: React.FC<TextInputProps> = ({
                 />
             </Box>
             {helperText && (
-                <FormHelperText sx={{ mt: 0.5 }}>{helperText}</FormHelperText>
+                <FormHelperText sx={{ mt: 0.5, color: "#ffffff" }}>
+                    {helperText}
+                </FormHelperText>
             )}
         </FormControl>
     );

@@ -1,9 +1,11 @@
 import { OTHER_SCHOOL_OPTION } from "@/app/register/general/constants/registration";
 import {
+    FIRST_HACKATHON_OPTION,
     OTHER_MAJOR_OPTION,
     OTHER_PLEASE_SPECIFY,
     OTHER_VC_PLEASE_SPECIFY,
-    schoolOptions
+    schoolOptions,
+    US_COUNTRY_OPTION
 } from "@/util/options";
 import {
     ProfileFormInfo,
@@ -28,9 +30,10 @@ const maxWordsTest = (maxWords: number) =>
 /**
  * Initial values for the form. We shouldn't initialize with undefined values
  * because Formik treats undefined values as uncontrolled inputs.
+ * EXCEPTION: boolean radio fields use undefined to prevent preselection.
  */
 export const initialValues: RegistrationApplicationDraftBodyForm = {
-    // Personal Information
+    // 1. Personal Details
     firstName: "",
     lastName: "",
     preferredName: "",
@@ -38,51 +41,53 @@ export const initialValues: RegistrationApplicationDraftBodyForm = {
     email: "",
     phoneNumber: "",
 
-    // Education
-    education: "",
-    school: "",
-    graduate: "",
-    major: "",
+    // 2. Background Information
+    gender: "",
+    race: [],
     country: "",
     state: "",
-    race: [],
-    gender: "",
-    underrepresented: "",
+    school: "",
     otherSchool: "",
+    education: "",
+    graduate: "",
+    major: "",
     otherMajor: "",
+    underrepresented: "",
+    hackathonsParticipated: "",
+    firstHackathonReason: "",
 
-    // Application Questions
+    // 3. Application Questions
     interestSoftware: "",
     interestHardware: "",
+    hasResume: false,
+    resumeFileName: "",
     application1: "",
     application2: "",
-
-    // This will be left blank intentionally.
-    application3: "<INTENTIONALLY BLANK>",
-
     applicationOptional: "",
     pro: false,
-    hackathonsParticipated: "",
-    hasResume: false,
+    portfolioLink: "",
+    application3: "",
 
-    // Attending HackIllinois
+    // 4. Attending HackIllinois
     attribution: [],
-    eventInterest: [],
-    vcInvolvement: [],
-    hardwareInterest: "",
     otherAttribution: "",
+    eventInterest: [],
     otherEventInterest: "",
-    otherVcInvolvement: "",
-    requestTravelReimbursement: false,
+    requestTravelReimbursement: undefined,
     travelAcknowledge: false,
+    vcInvolvement: [],
+    otherVcInvolvement: "",
+    hardwareInterest: "",
+    eventSuggestions: "",
 
-    // Review
+    // 5. Review & Submit
     reviewedAcknowledge: false,
+    proChallengeAcknowledge: false,
     codeOfConductAcknowledge: false,
     mlhDataSharingAcknowledge: false,
     mlhNewsletter: false,
-    optInHackNewsletter: true,
-    proChallengeAcknowledge: false
+    legalAcknowledge: false,
+    optInHackNewsletter: true
 };
 
 const FRONTEND_ONLY_KEYS: (keyof RegistrationApplicationDraftBodyForm)[] = [
@@ -97,7 +102,9 @@ const FRONTEND_ONLY_KEYS: (keyof RegistrationApplicationDraftBodyForm)[] = [
     "otherEventInterest",
     "otherVcInvolvement",
     "proChallengeAcknowledge",
-    "hasResume"
+    "hasResume",
+    "resumeFileName",
+    "legalAcknowledge"
 ];
 
 const mergeSpecifyOption = (
@@ -199,11 +206,13 @@ export const hydrateDraftFormValues = (
 
     // Resume uploads are session-scoped; draft reload still requires re-upload.
     merged.hasResume = false;
+    merged.resumeFileName = "";
     merged.proChallengeAcknowledge = false;
     merged.travelAcknowledge = false;
     merged.reviewedAcknowledge = false;
     merged.codeOfConductAcknowledge = false;
     merged.mlhDataSharingAcknowledge = false;
+    merged.legalAcknowledge = false;
 
     return merged;
 };
@@ -230,6 +239,16 @@ export const valuesToDraftContent = (
 
     if (draftContent.school === OTHER_SCHOOL_OPTION) {
         draftContent.school = (draftContent.otherSchool || "").trim();
+    }
+
+    // Only relevant when the applicant has never been to a hackathon.
+    if (draftContent.hackathonsParticipated !== FIRST_HACKATHON_OPTION) {
+        delete draftContent.firstHackathonReason;
+    }
+
+    // State is only asked for US residents.
+    if (draftContent.country !== US_COUNTRY_OPTION) {
+        delete draftContent.state;
     }
 
     if (draftContent.major === OTHER_MAJOR_OPTION) {
@@ -295,10 +314,11 @@ export const draftValidationSchemas = [
         }),
         country: Yup.string(),
         state: Yup.string(),
-        race: Yup.array().of(Yup.string()).min(1, "Select at least one option"),
+        race: Yup.array().of(Yup.string()),
         gender: Yup.string(),
         underrepresented: Yup.string(),
-        hackathonsParticipated: Yup.string()
+        hackathonsParticipated: Yup.string(),
+        firstHackathonReason: maxWordsTest(150)
     }),
 
     // 2. Application Questions
@@ -307,9 +327,11 @@ export const draftValidationSchemas = [
         interestHardware: Yup.string(),
         application1: maxWordsTest(150),
         application2: maxWordsTest(150),
+        application3: maxWordsTest(150),
         applicationOptional: maxWordsTest(200),
         pro: Yup.boolean(),
-        hasResume: Yup.boolean()
+        hasResume: Yup.boolean(),
+        portfolioLink: Yup.string().url("Please enter a valid URL")
     }),
 
     // 3. Attending HackIllinois
@@ -336,7 +358,8 @@ export const draftValidationSchemas = [
             otherwise: schema => schema.notRequired()
         }),
         hardwareInterest: maxWordsTest(100),
-        requestTravelReimbursement: Yup.boolean(),
+        eventSuggestions: maxWordsTest(150),
+        requestTravelReimbursement: Yup.boolean().nullable(),
         travelAcknowledge: Yup.boolean()
     }),
 
@@ -345,7 +368,8 @@ export const draftValidationSchemas = [
         reviewedAcknowledge: Yup.boolean(),
         codeOfConductAcknowledge: Yup.boolean(),
         mlhDataSharingAcknowledge: Yup.boolean(),
-        proChallengeAcknowledge: Yup.boolean()
+        proChallengeAcknowledge: Yup.boolean(),
+        legalAcknowledge: Yup.boolean()
     }),
 
     // 5. Confirmation (no new inputs, keep for indexing purposes)
@@ -388,13 +412,25 @@ export const validationSchemas = [
         }),
         country: Yup.string().required("Country is required"),
         state: Yup.string().when("country", {
-            is: (val: string) => !!val && val === "United States",
-            then: schema => schema.required("State/Territory is required")
+            is: US_COUNTRY_OPTION,
+            then: schema => schema.required("State/Territory is required"),
+            otherwise: schema => schema.notRequired()
         }),
-        race: Yup.array().of(Yup.string()).min(1, "Select at least one option"),
+        race: Yup.array()
+            .of(Yup.string())
+            .min(1, "Race / Ethnicity is required"),
         gender: Yup.string().required("Gender is required"),
         underrepresented: Yup.string().required("This question is required"),
-        hackathonsParticipated: Yup.string().required("This field is required.")
+        hackathonsParticipated: Yup.string().required("This field is required"),
+        firstHackathonReason: Yup.string().when("hackathonsParticipated", {
+            is: FIRST_HACKATHON_OPTION,
+            then: schema =>
+                schema
+                    .trim()
+                    .required("This field is required")
+                    .concat(maxWordsTest(150)),
+            otherwise: schema => schema.notRequired()
+        })
     }),
 
     // 2. Application Questions
@@ -420,11 +456,17 @@ export const validationSchemas = [
         application2: Yup.string()
             .required("This essay is required")
             .concat(maxWordsTest(150)),
-        application3: Yup.string().required("This essay is required"),
+        hasResume: Yup.boolean()
+            .required("Please upload your resume")
+            .oneOf([true], "Please upload your resume"),
+        application3: Yup.string()
+            .required("This essay is required")
+            .concat(maxWordsTest(150)),
         applicationOptional: maxWordsTest(200),
-        pro: Yup.boolean()
-        // hasResume is session-only (upload is separate from the draft API),
-        // so it is checked in the registration next/submit handlers instead.
+        pro: Yup.boolean(),
+        portfolioLink: Yup.string().url(
+            "Please enter a valid URL (including https://)"
+        )
     }),
 
     // 3. Attending HackIllinois
@@ -459,7 +501,12 @@ export const validationSchemas = [
         hardwareInterest: Yup.string()
             .required("This field is required")
             .concat(maxWordsTest(100)),
-        requestTravelReimbursement: Yup.boolean(),
+        eventSuggestions: Yup.string()
+            .required("This field is required")
+            .concat(maxWordsTest(150)),
+        requestTravelReimbursement: Yup.boolean().required(
+            "Please select Yes or No"
+        ),
         travelAcknowledge: Yup.boolean()
             .required()
             .oneOf([true], "You must acknowledge the travel policy")
@@ -488,7 +535,10 @@ export const validationSchemas = [
                         "You must acknowledge the HackVoyagers challenge requirement"
                     ),
             otherwise: schema => schema.notRequired()
-        })
+        }),
+        legalAcknowledge: Yup.boolean()
+            .required("You must acknowledge the HackIllinois legal terms")
+            .oneOf([true], "You must acknowledge the HackIllinois legal terms")
     }),
 
     // 5. Confirmation (no new inputs, keep for indexing purposes)

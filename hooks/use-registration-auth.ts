@@ -40,7 +40,11 @@ export const useRegistrationAuth = ({
             }
         }
 
-        const isAuthenticatedResult = await isAuthenticated();
+        // A network/CORS failure counts as "not logged in" instead of
+        // leaving the page stuck on the loading spinner.
+        const isAuthenticatedResult = await isAuthenticated().catch(
+            () => false
+        );
         if (!isAuthenticatedResult) {
             setIsLoading(false);
             setAuthenticated(false);
