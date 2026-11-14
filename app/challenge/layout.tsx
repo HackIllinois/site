@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { Box } from "@mui/material";
 
 export const metadata: Metadata = {
-    title: "HackIllinois | Voyagers Challenge"
+    title: "HackIllinois | Saloon Rush"
 };
 
 export default function ChallengeLayout({

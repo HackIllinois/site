@@ -152,10 +152,10 @@ export const MLH_CODE_OF_CONDUCT_URL =
     "https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md";
 
 /** Placeholder name for the pro path/track until it is finalized. */
-export const PRO_TRACK_NAME = "HackVoyagers Path";
+export const PRO_TRACK_NAME = "HackOutlaws Pro Track";
 
 /** Page describing the pro path/track. */
-export const PRO_TRACK_URL = "/challenge/landing-page";
+export const PRO_TRACK_URL = "/challenge";
 
 /** Hardware interest form. Leave empty to hide the link until it exists. */
 export const HARDWARE_INTEREST_FORM_URL = "";

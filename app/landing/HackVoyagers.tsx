@@ -123,10 +123,7 @@ const HackVoyagers = () => {
                     className={styles.hackVoyagersButtonContainer}
                     variants={itemVariants}
                 >
-                    <GradientButton
-                        text="LEARN MORE"
-                        link="/challenge/landing-page"
-                    />
+                    <GradientButton text="LEARN MORE" link="/challenge" />
                 </motion.div>
             </motion.div>
         </motion.section>

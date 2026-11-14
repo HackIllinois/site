@@ -17,34 +17,22 @@ export function useRegistrationSteps(
     const [maxStep, setMaxStep] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);
 
-    // step -> hash
     useEffect(() => {
-        let slug = indexToSlug(currentStep);
-        if (submitted) {
-            // The user should be at the confirmation page if they submitted.
-            slug = "confirmation";
-        } else if (slug === "confirmation") {
-            // If the user somehow navigated to the confirmation page without submitting, send them back to the beginning.
-            slug = indexToSlug(0);
-        }
-        if (window.location.hash === `#${slug}`) return;
-        window.location.hash = slug;
-    }, [currentStep, submitted]);
-
-    // hash -> step
-    useEffect(() => {
-        const readHash = () => {
-            const slug = window.location.hash.replace(/^#/, "");
-            if (!slug) return;
-            const idx = slugToIndex(slug);
-            setCurrentStep(prev => (idx !== prev ? idx : prev));
+        const syncHash = () => {
+            const requested = slugToIndex(window.location.hash.slice(1));
+            const allowed = submitted
+                ? steps.length - 1
+                : Math.min(requested, maxStep, steps.length - 2);
+            setCurrentStep(allowed);
+            window.history.replaceState(null, "", `#${indexToSlug(allowed)}`);
         };
+        window.addEventListener("hashchange", syncHash);
+        return () => window.removeEventListener("hashchange", syncHash);
+    }, [submitted, maxStep]);
 
-        readHash();
-
-        window.addEventListener("hashchange", readHash);
-        return () => window.removeEventListener("hashchange", readHash);
-    }, []);
+    useEffect(() => {
+        window.history.replaceState(null, "", `#${indexToSlug(currentStep)}`);
+    }, [currentStep]);
 
     useEffect(() => {
         setMaxStep(Math.max(maxStep, currentStep));

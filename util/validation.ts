@@ -528,11 +528,11 @@ export const validationSchemas = [
             then: schema =>
                 schema
                     .required(
-                        "You must acknowledge the HackVoyagers challenge requirement"
+                        "You must acknowledge the Saloon Rush challenge requirement"
                     )
                     .oneOf(
                         [true],
-                        "You must acknowledge the HackVoyagers challenge requirement"
+                        "You must acknowledge the Saloon Rush challenge requirement"
                     ),
             otherwise: schema => schema.notRequired()
         }),

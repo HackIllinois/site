@@ -22,8 +22,6 @@ interface ResumeUploadProps {
     onUploadSuccess?: (fileName: string) => void;
     error?: boolean;
     helperText?: string;
-    /** Accept the file locally without calling the upload API (local testing). */
-    skipUpload?: boolean;
 }
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB (S3 limit)
@@ -36,8 +34,7 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
     value = false,
     onUploadSuccess,
     error: formikError = false,
-    helperText = "",
-    skipUpload = false
+    helperText = ""
 }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [fileName, setFileName] = useState<string | null>(null);
@@ -81,9 +78,7 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
         setSuccess(false);
 
         try {
-            if (!skipUpload) {
-                await uploadFile(file);
-            }
+            await uploadFile(file);
             setSuccess(true);
             onUploadSuccess?.(file.name);
         } catch {

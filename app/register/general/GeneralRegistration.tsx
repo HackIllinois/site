@@ -28,19 +28,23 @@ import Review from "./formPages/Review";
 import Loading from "@/components/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import theme from "@/theme";
-import { loadDraft, saveDraft, submitDraft, subscribe } from "@/util/api";
-import { useRouter } from "next/navigation";
+import {
+    loadSubmission,
+    loadDraft,
+    saveDraft,
+    submitDraft,
+    subscribe
+} from "@/util/api";
 import RegistrationStepper from "./components/RegistrationStepper";
 import {
     applyFooterTheme,
     REGISTER_FOOTER_DEFAULT,
     steps
 } from "./constants/registration";
-// import GithubAuthPage from "./formPages/GithubAuthPage";
+import GithubAuthPage from "./formPages/GithubAuthPage";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
 
 export const GeneralRegistration = () => {
-    const router = useRouter();
     const [showSaveAlert, setShowSaveAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [showClickOffAlert, setShowClickOffAlert] = useState(false);
@@ -49,10 +53,8 @@ export const GeneralRegistration = () => {
     const saveTimeoutRef = useRef<NodeJS.Timeout>(null); // stores ten-second-delay autosave
     const [isLoadingComponent, setIsLoadingComponent] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const registrationAuth = useRegistrationAuth({
-        shouldLoadSubmission: false,
-        isProtected: false
-    });
+    const registrationAuth = useRegistrationAuth({});
+    const [loadFailed, setLoadFailed] = useState(false);
 
     const {
         maxStep,
@@ -63,29 +65,6 @@ export const GeneralRegistration = () => {
         handleBack,
         skipToStep
     } = useRegistrationSteps(validationSchemas, isSubmitted);
-
-    // LOCAL TESTING: the GitHub login gate below is commented out, so the form
-    // also runs without a login. In that mode nothing is sent to the API:
-    // drafts aren't saved, the resume isn't uploaded, and "submit" just shows
-    // the payload on the confirmation page.
-    const isLocalPreview = !registrationAuth.authenticated;
-
-    // const [isPasswordAuthenticated, setIsPasswordAuthenticated] =
-    //     useState(false);
-
-    // useEffect(() => {
-    //     // if (!FORCE_REGISTRATION_CLOSED) {
-    //     //     router.push("/");
-    //     // }
-
-    //     // Check localStorage for authentication
-    //     // const authenticated = localStorage.getItem(
-    //     //     "lateRegistrationAuthenticated"
-    //     // );
-    //     // if (authenticated === "true") {
-    //     //     setIsPasswordAuthenticated(true);
-    //     // }
-    // }, [router]);
 
     const renderStepContent = (step: number, formik: any) => {
         switch (step) {
@@ -108,7 +87,6 @@ export const GeneralRegistration = () => {
                     <AppQuestions
                         formik={formik}
                         accentColor={steps[currentStep].color}
-                        localPreview={isLocalPreview}
                     />
                 );
             case 3:
@@ -132,7 +110,6 @@ export const GeneralRegistration = () => {
                         formik={formik}
                         onSetErrorMessage={setErrorMessage}
                         onShowErrorAlert={setShowErrorAlert}
-                        localPreview={isLocalPreview}
                     />
                 );
             default:
@@ -151,6 +128,7 @@ export const GeneralRegistration = () => {
     const handleLoadDraft = useCallback(async () => {
         setIsLoadingComponent(true);
         setLoadedDraft(false);
+        setLoadFailed(false);
 
         if (!registrationAuth.authenticated) {
             setIsLoadingComponent(false);
@@ -158,35 +136,37 @@ export const GeneralRegistration = () => {
         }
 
         try {
-            /*const submission = await loadSubmission();
+            const submission = await loadSubmission();
             if (submission) {
-                formik.setValues(submission);
+                formik.setValues(hydrateDraftFormValues(submission));
                 setIsSubmitted(true);
                 skipToStep(steps.length - 1);
                 setIsLoadingComponent(false);
                 return;
-            }*/
+            }
         } catch (error: any) {
             // Only show error if it's not a 404 (no submission exists yet)
-            if (error.error !== "NotFound") {
+            if (error?.error !== "NotFound") {
                 console.error("Failed to load submission:", error);
                 setErrorMessage(
                     "Failed to load your submission: " + (error?.message || "")
                 );
                 setShowErrorAlert(true);
+                setIsLoadingComponent(false);
+                setLoadFailed(true);
+                return;
             }
         }
         try {
             const draft = await loadDraft();
 
-            if (draft) {
-                formik.setValues(hydrateDraftFormValues(draft));
-            }
+            const values = hydrateDraftFormValues(draft);
+            formik.setValues(values);
 
             let furthestValidPage = 0;
-            for (let i = 0; i < steps.length - 1; i++) {
+            for (let i = 0; i < steps.length - 2; i++) {
                 try {
-                    await validationSchemas[i].validate(draft);
+                    await validationSchemas[i].validate(values);
                     furthestValidPage = i + 1;
                 } catch {
                     // Validation failed, stop here
@@ -197,7 +177,6 @@ export const GeneralRegistration = () => {
 
             skipToStep(furthestValidPage);
 
-            // TODO: Send the user to the correct page.
             setLoadedDraft(true);
             setIsLoadingComponent(false);
         } catch (error: any) {
@@ -208,6 +187,9 @@ export const GeneralRegistration = () => {
                     "Failed to load your draft: " + (error?.message || "")
                 );
                 setShowErrorAlert(true);
+                setIsLoadingComponent(false);
+                setLoadFailed(true);
+                return;
             }
             setLoadedDraft(true);
             setIsLoadingComponent(false);
@@ -223,7 +205,7 @@ export const GeneralRegistration = () => {
 
         const draftContent = valuesToDraftContent(formik.values);
         try {
-            await draftValidationSchemas[currentStep].validate(draftContent, {
+            await draftValidationSchemas[currentStep].validate(formik.values, {
                 abortEarly: false
             });
         } catch {
@@ -292,22 +274,21 @@ export const GeneralRegistration = () => {
             return;
         }
 
-        if (currentStep === steps.length - 2 && isLocalPreview) {
-            // LOCAL TESTING: skip newsletter + submit API calls.
-            console.log(
-                "[local preview] registration payload",
-                valuesToDraftContent(formik.values)
-            );
-            setShowClickOffAlert(false);
-            setIsSubmitted(true);
-            await handleNext(formik.values, formik.setTouched);
-            return;
-        }
-
         if (currentStep === steps.length - 2) {
             if (isSaving) {
                 // This shouldn't happen. The submit button is disabled while saving.
                 return;
+            }
+
+            for (let step = 0; step < currentStep; step++) {
+                if (!(await validationSchemas[step].isValid(formik.values))) {
+                    setCurrentStep(step);
+                    setErrorMessage(
+                        "Please complete this section before submitting."
+                    );
+                    setShowErrorAlert(true);
+                    return;
+                }
             }
 
             // Final step before submission
@@ -340,6 +321,14 @@ export const GeneralRegistration = () => {
                 await submitDraft(body);
                 setIsSubmitted(true);
             } catch (error: any) {
+                // The API can persist the application before email delivery fails.
+                const submission = await loadSubmission().catch(() => null);
+                if (submission) {
+                    formik.setValues(hydrateDraftFormValues(submission));
+                    setIsSubmitted(true);
+                    skipToStep(steps.length - 1);
+                    return;
+                }
                 console.error("Failed to submit draft:", error);
                 setErrorMessage(
                     error?.message ||
@@ -425,45 +414,29 @@ export const GeneralRegistration = () => {
     };
 
     useEffect(() => {
-        console.log("Authenticated", registrationAuth.authenticated);
-    }, [registrationAuth.authenticated]);
-
-    // Match the site footer to the current stage bottom band (or canyon auth art).
-    useEffect(() => {
-        // LOCAL TESTING: the login page is bypassed, so always follow the step.
-        // if (!registrationAuth.authenticated) {
-        //     applyFooterTheme(REGISTER_FOOTER_DEFAULT);
-        //     return;
-        // }
         applyFooterTheme(
-            steps[currentStep]?.footerTheme ?? REGISTER_FOOTER_DEFAULT
+            (registrationAuth.authenticated &&
+                steps[currentStep]?.footerTheme) ||
+                REGISTER_FOOTER_DEFAULT
         );
     }, [registrationAuth.authenticated, currentStep]);
 
-    const isLoading = isLoadingComponent || registrationAuth.isLoading;
-
-    if (isLoading) {
-        return <Loading />;
+    if (registrationAuth.loadError || loadFailed) {
+        return (
+            <Alert
+                severity="error"
+                action={
+                    <button onClick={() => window.location.reload()}>
+                        Try again
+                    </button>
+                }
+            >
+                {registrationAuth.loadError || errorMessage}
+            </Alert>
+        );
     }
-
-    // LOCAL TESTING: re-enable once the form looks right.
-    // if (!registrationAuth.authenticated) {
-    //     return <GithubAuthPage />;
-    // }
-
-    // if (!isPasswordAuthenticated) {
-    //     return (
-    //         <PasswordAuthPage
-    //             onAuthenticated={() => {
-    //                 localStorage.setItem(
-    //                     "lateRegistrationAuthenticated",
-    //                     "true"
-    //                 );
-    //                 setIsPasswordAuthenticated(true);
-    //             }}
-    //         />
-    //     );
-    // }
+    if (isLoadingComponent || registrationAuth.isLoading) return <Loading />;
+    if (!registrationAuth.authenticated) return <GithubAuthPage />;
 
     return (
         <main className={"screen"}>

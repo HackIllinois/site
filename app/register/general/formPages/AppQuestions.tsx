@@ -12,15 +12,9 @@ import { PRO_TRACK_NAME, PRO_TRACK_URL } from "../constants/registration";
 interface AppQuestionsProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     accentColor?: string;
-    /** Skip the real resume upload (used while testing without login). */
-    localPreview?: boolean;
 }
 
-const AppQuestions = ({
-    formik,
-    accentColor,
-    localPreview = false
-}: AppQuestionsProps) => {
+const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
     const { values, errors, touched, handleChange, setValues } = formik;
 
     // Software and Hardware must get different ranks, so picking one fills the other.
@@ -100,7 +94,6 @@ const AppQuestions = ({
                                 ? (errors.hasResume as string)
                                 : ""
                         }
-                        skipUpload={localPreview}
                     />
                 </Grid>
 

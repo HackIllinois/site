@@ -1,6 +1,7 @@
 import { Montserrat } from "next/font/google";
 import { Tsukimi_Rounded } from "next/font/google";
 import { Jersey_10 } from "next/font/google";
+import { Rye, Special_Elite } from "next/font/google";
 import localFont from "next/font/local";
 
 export const montserrat = Montserrat({
@@ -33,4 +34,19 @@ export const oswald = localFont({
     style: "normal",
     display: "swap",
     variable: "--font-oswald"
+});
+
+// Saloon Rush (Pro challenge) signage and wanted-poster type
+export const rye = Rye({
+    weight: ["400"],
+    subsets: ["latin"],
+    display: "swap",
+    variable: "--font-rye"
+});
+
+export const specialElite = Special_Elite({
+    weight: ["400"],
+    subsets: ["latin"],
+    display: "swap",
+    variable: "--font-special-elite"
 });

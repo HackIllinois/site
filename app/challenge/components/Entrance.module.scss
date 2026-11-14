@@ -1,0 +1,409 @@
+// The saloon front on /challenge: sign, swinging doors, wanted poster and signpost.
+
+// globals.scss forces Montserrat on every element; let these pages inherit instead
+.entrance * {
+    font-family: inherit;
+}
+
+.entrance {
+    --wood-900: #1a0e06;
+    --plank-a: #6b4526;
+    --plank-b: #5d3b1f;
+    --cream: #fbf1dc;
+    --brass: #dca543;
+    --brass-light: #f3cf7d;
+    --font-sign: var(--font-rye), "Rye", Georgia, serif;
+    --font-type:
+        var(--font-special-elite), "Special Elite", "Courier New", monospace;
+
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 110px 16px 72px;
+    overflow: hidden;
+    color: var(--cream);
+    background-color: var(--plank-a);
+    // vertical wall boards, then floorboards along the bottom
+    background-image:
+        linear-gradient(
+            180deg,
+            transparent 0 82%,
+            #3a2212 82%,
+            #4a2c17 82.4% 100%
+        ),
+        repeating-linear-gradient(
+            180deg,
+            transparent 0 22px,
+            rgba(0, 0, 0, 0.25) 22px 24px
+        ),
+        radial-gradient(
+            ellipse at 50% 30%,
+            rgba(255, 196, 110, 0.25),
+            transparent 60%
+        ),
+        repeating-linear-gradient(
+            90deg,
+            var(--plank-a) 0 86px,
+            #2f1b0d 86px 90px,
+            var(--plank-b) 90px 176px,
+            #2f1b0d 176px 180px
+        );
+    background-size:
+        100% 100%,
+        100% 18%,
+        100% 100%,
+        100% 100%;
+    background-position:
+        0 0,
+        0 100%,
+        0 0,
+        0 0;
+    background-repeat: no-repeat, repeat-x, no-repeat, repeat;
+}
+
+.kicker {
+    font-family: var(--font-type);
+    color: var(--brass-light);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin: 0 0 14px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    text-align: center;
+}
+
+.facade {
+    position: relative;
+    width: min(100%, 620px);
+}
+
+/* ---------- Sign ---------- */
+
+.sign {
+    position: relative;
+    z-index: 2;
+    width: 112%;
+    margin: 0 -6% -6px;
+    padding: 0.3em 0.8em 0.25em;
+    text-align: center;
+    font-family: var(--font-sign);
+    font-weight: 400;
+    font-size: clamp(2rem, 9vw, 3.6rem);
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    color: #3a2212;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+    background:
+        repeating-linear-gradient(
+            180deg,
+            transparent 0 7px,
+            rgba(90, 55, 25, 0.12) 7px 8px
+        ),
+        linear-gradient(180deg, #d8bc92, #b9946a);
+    clip-path: polygon(3% 0, 97% 0, 100% 50%, 97% 100%, 3% 100%, 0 50%);
+    filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.45));
+
+    @media (max-width: 560px) {
+        width: 100%;
+        margin: 0 0 -6px;
+    }
+}
+
+/* ---------- Frame ---------- */
+
+.lintel {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 46px;
+    padding: 0 6%;
+    background:
+        repeating-linear-gradient(
+            180deg,
+            transparent 0 9px,
+            rgba(0, 0, 0, 0.12) 9px 10px
+        ),
+        linear-gradient(180deg, #7d5230, #5a361c);
+    border: 3px solid var(--wood-900);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.35);
+}
+
+.horseshoe {
+    width: 34px;
+    height: 34px;
+}
+
+.frame {
+    position: relative;
+    display: grid;
+    grid-template-columns: 9% 1fr 9%;
+    aspect-ratio: 620 / 520;
+}
+
+.post {
+    position: relative;
+    z-index: 1;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 6px,
+            rgba(0, 0, 0, 0.12) 6px 7px
+        ),
+        linear-gradient(90deg, #4f2f18, #7a4f2c 45%, #4a2b15);
+    border: 3px solid var(--wood-900);
+    border-top: none;
+}
+
+.doorway {
+    position: relative;
+    overflow: hidden;
+    perspective: 1100px;
+    background:
+        linear-gradient(180deg, transparent 0 80%, #2a170c 80%, #3d2312 100%),
+        radial-gradient(
+            ellipse at 50% 38%,
+            rgba(255, 205, 120, 0.75),
+            rgba(150, 80, 30, 0.6) 40%,
+            #160b04 78%
+        );
+
+    // the glow that floods out when the doors open
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            ellipse at 50% 45%,
+            rgba(255, 225, 160, 0.95),
+            rgba(255, 190, 90, 0.35) 55%,
+            transparent 80%
+        );
+        opacity: 0;
+        transition: opacity 0.6s ease 0.2s;
+        pointer-events: none;
+    }
+}
+
+.doors {
+    position: absolute;
+    top: 22%;
+    bottom: 12%;
+    left: 0;
+    right: 0;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transform-style: preserve-3d;
+
+    &:focus-visible {
+        outline: 3px solid var(--brass-light);
+        outline-offset: -6px;
+    }
+}
+
+.door {
+    flex: 1;
+    display: block;
+    height: 100%;
+    transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+    filter: drop-shadow(0 8px 8px rgba(0, 0, 0, 0.45));
+
+    svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.doorLeft {
+    composes: door;
+    transform-origin: left center;
+}
+
+.doorRight {
+    composes: door;
+    transform-origin: right center;
+
+    // mirrored copy of the left door, so its hinges face outward
+    svg {
+        transform: scaleX(-1);
+    }
+}
+
+// Both doors swing in, away from the viewer
+.facade:hover .doorLeft,
+.doors:focus-visible .doorLeft {
+    transform: rotateY(16deg);
+}
+
+.facade:hover .doorRight,
+.doors:focus-visible .doorRight {
+    transform: rotateY(-16deg);
+}
+
+.open {
+    .doorLeft {
+        transform: rotateY(84deg) !important;
+    }
+
+    .doorRight {
+        transform: rotateY(-84deg) !important;
+    }
+
+    .doorway::after {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .door {
+        transition-duration: 0.01s;
+    }
+}
+
+/* ---------- Wanted poster ---------- */
+
+.poster {
+    position: absolute;
+    z-index: 3;
+    top: 34%;
+    right: -9%;
+    width: 22%;
+    min-width: 96px;
+    padding: 10px 8px 12px;
+    text-align: center;
+    color: #2b1a10;
+    background:
+        radial-gradient(
+            circle at 80% 85%,
+            rgba(130, 80, 30, 0.3),
+            transparent 40%
+        ),
+        linear-gradient(180deg, #f2e3c3, #dcc290);
+    box-shadow:
+        inset 0 0 18px rgba(110, 70, 25, 0.4),
+        0 8px 14px rgba(0, 0, 0, 0.45);
+    transform: rotate(4deg);
+
+    strong {
+        display: block;
+        font-family: var(--font-sign);
+        font-weight: 400;
+        font-size: clamp(0.9rem, 3vw, 1.35rem);
+        line-height: 1;
+    }
+
+    span {
+        display: block;
+        margin-top: 6px;
+        font-family: var(--font-type);
+        font-size: clamp(0.5rem, 1.6vw, 0.7rem);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        line-height: 1.35;
+    }
+
+    em {
+        display: block;
+        margin-top: 6px;
+        font-family: var(--font-sign);
+        font-style: normal;
+        font-size: clamp(0.75rem, 2.4vw, 1rem);
+        color: #8c1d1d;
+    }
+
+    @media (max-width: 560px) {
+        display: none;
+    }
+}
+
+/* ---------- Copy + signpost ---------- */
+
+.tagline {
+    max-width: 34em;
+    margin: 36px auto 0;
+    text-align: center;
+    font-size: clamp(1rem, 2.4vw, 1.15rem);
+    line-height: 1.65;
+    color: rgba(251, 241, 220, 0.92);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.signpost {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-top: 28px;
+    padding-bottom: 8px;
+
+    // the post the boards hang from
+    &::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        bottom: -40px;
+        left: 50%;
+        width: 16px;
+        margin-left: -8px;
+        background: linear-gradient(90deg, #e9e2d3, #fbf7ee 50%, #cfc6b4);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        z-index: 0;
+    }
+}
+
+.board {
+    position: relative;
+    z-index: 1;
+    min-width: 240px;
+    padding: 12px 44px;
+    font-family: var(--font-sign);
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.45));
+    transition: transform 0.2s ease;
+
+    &:focus-visible {
+        outline: 3px solid var(--brass-light);
+        outline-offset: 4px;
+    }
+
+    &:disabled {
+        cursor: progress;
+    }
+}
+
+.boardRight {
+    composes: board;
+    color: #1f140c;
+    background: linear-gradient(180deg, #fbf6ea, #e6dcc6);
+    clip-path: polygon(0 0, 88% 0, 100% 50%, 88% 100%, 0 100%);
+    transform: rotate(-2deg);
+
+    &:hover {
+        transform: rotate(-2deg) translateX(6px);
+    }
+}
+
+.boardLeft {
+    composes: board;
+    color: #f4efe4;
+    background: linear-gradient(180deg, #2c2420, #191310);
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 12% 100%, 0 50%);
+    transform: rotate(2deg);
+
+    &:hover {
+        transform: rotate(2deg) translateX(-6px);
+    }
+}

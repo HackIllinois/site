@@ -11,8 +11,7 @@ import {
 import { FormikProps } from "formik";
 import { Montserrat, Tsukimi_Rounded } from "next/font/google";
 import { useEffect, useState } from "react";
-import { getChallenge } from "@/util/api";
-import { valuesToDraftContent } from "@/util/validation";
+import { loadChallengeStatus } from "@/util/api";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import XIcon from "@mui/icons-material/X";
@@ -31,11 +30,6 @@ interface ConfirmationProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     onSetErrorMessage: (message: string) => void;
     onShowErrorAlert: (showErrorAlert: boolean) => void;
-    /**
-     * Local testing without login: skip the challenge API call and show the
-     * payload that would have been submitted.
-     */
-    localPreview?: boolean;
 }
 
 const SOCIAL_LINKS = {
@@ -74,20 +68,19 @@ const SocialIconButton = ({
 const Confirmation = ({
     formik,
     onSetErrorMessage,
-    onShowErrorAlert,
-    localPreview = false
+    onShowErrorAlert
 }: ConfirmationProps) => {
     const { values } = formik;
     const [challengePassed, setChallengePassed] = useState(false);
     const [loading, setLoading] = useState(true);
 
     async function load() {
-        if (localPreview) {
+        if (!values.pro) {
             setLoading(false);
             return;
         }
         try {
-            const res = await getChallenge(false);
+            const res = await loadChallengeStatus();
             if (res && res.complete) {
                 setChallengePassed(true);
             }
@@ -197,20 +190,19 @@ const Confirmation = ({
                                 {challengePassed ? (
                                     <>
                                         You&apos;ve successfully finished the
-                                        HackVoyagers Challenge
+                                        Saloon Rush challenge
                                         <br />
                                         and will be considered for the
-                                        HackVoyagers track.
+                                        HackOutlaws Pro Track.
                                     </>
                                 ) : (
-                                    "To join the Pro Track, you'll need to complete the Pro Track Challenge."
+                                    "To join the Pro Track, you'll need to complete Saloon Rush."
                                 )}
                             </Typography>
                             {!challengePassed && (
                                 <Button
                                     component="a"
-                                    href="/challenge/"
-                                    target="_blank"
+                                    href="/challenge/description"
                                     variant="contained"
                                     sx={{
                                         fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
@@ -247,50 +239,6 @@ const Confirmation = ({
                         Stay tuned for more HackIllinois news on our social
                         media!
                     </Typography>
-
-                    {localPreview && (
-                        <Box
-                            sx={{
-                                width: "100%",
-                                mb: 4,
-                                p: 2,
-                                textAlign: "left",
-                                borderRadius: 2,
-                                backgroundColor: "rgba(0, 0, 0, 0.7)",
-                                border: "1px solid rgba(255,255,255,0.4)"
-                            }}
-                        >
-                            <Typography
-                                sx={{
-                                    color: "#fff",
-                                    fontWeight: 700,
-                                    mb: 1,
-                                    fontFamily: `${montserrat.style.fontFamily}, sans-serif`
-                                }}
-                            >
-                                Local preview: not sent to the API. This is the
-                                payload that would be submitted:
-                            </Typography>
-                            <Box
-                                component="pre"
-                                sx={{
-                                    m: 0,
-                                    color: "#d6ffd6",
-                                    fontSize: "12px",
-                                    whiteSpace: "pre-wrap",
-                                    wordBreak: "break-word",
-                                    maxHeight: "60vh",
-                                    overflow: "auto"
-                                }}
-                            >
-                                {JSON.stringify(
-                                    valuesToDraftContent(values),
-                                    null,
-                                    2
-                                )}
-                            </Box>
-                        </Box>
-                    )}
 
                     <Box sx={{ display: "flex", gap: 2, zIndex: 1 }}>
                         <SocialIconButton
