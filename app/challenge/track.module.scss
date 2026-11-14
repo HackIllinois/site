@@ -1,0 +1,204 @@
+.saloon {
+    background: #302216;
+    color: #39200e;
+    font-family: var(--body);
+    section {
+        position: relative;
+    }
+    h1,
+    h2 {
+        font-family: var(--display);
+        font-weight: 400;
+    }
+    h2 {
+        font-size: 2.78cqw;
+        line-height: 1.275;
+    }
+    p,
+    dd,
+    dt {
+        font-size: 1.389cqw;
+        line-height: 1.35;
+    }
+    p + p {
+        margin-top: 0.55em;
+    }
+}
+.entrance h1 {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 46.5%;
+    text-align: center;
+    text-transform: uppercase;
+    color: #f9e7ca;
+    font-size: 7.25cqw;
+    line-height: 1.15;
+    text-shadow: 0 0.1em #401e14;
+}
+.plaque {
+    position: absolute;
+    left: 32.1%;
+    top: 60.3%;
+    width: 28.9%;
+    height: 5.1%;
+    display: grid;
+    place-content: center;
+    color: #fff0d9;
+    font-size: 1.39cqw;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+.roulette > div {
+    position: absolute;
+    left: 11.46%;
+    top: 19.5%;
+    width: 55%;
+    color: #ffead4;
+}
+.roulette h2 {
+    text-transform: uppercase;
+    font-size: 3.33cqw;
+    text-shadow: 0 0.08em #4a3121;
+    margin-bottom: 0.32em;
+}
+.roulette em {
+    font-style: normal;
+    color: #ffd465;
+}
+.menu {
+    position: absolute;
+    transform-origin: left top;
+}
+.menu small {
+    display: block;
+    font-size: 1.1cqw;
+    text-transform: uppercase;
+    margin-bottom: 0.7em;
+}
+.menu h2 {
+    margin-bottom: 0.36em;
+}
+.menu dt {
+    display: flex;
+    align-items: baseline;
+    font-weight: 800;
+    gap: 0.35em;
+}
+.menu dt::after {
+    content: "";
+    border-bottom: 0.11em dotted currentColor;
+    flex: 1;
+    order: 1;
+}
+.menu dt span {
+    order: 2;
+}
+.menu dd {
+    margin: 0 0 0.4em;
+}
+.benefits .menu {
+    left: 19.2%;
+    top: 39.8%;
+    width: 25%;
+    transform: rotate(-8.44deg);
+}
+.admission .menu {
+    left: 59.5%;
+    top: 29.9%;
+    width: 25.25%;
+    transform: rotate(4.23deg);
+}
+.menu a {
+    text-decoration: underline;
+    text-underline-offset: 0.14em;
+}
+.start {
+    display: inline-block;
+    margin-top: 0.55em;
+    font: 600 1.55cqw var(--condensed);
+}
+.bar .menu {
+    left: 25.4%;
+    top: 30.2%;
+    width: 49.3%;
+    transform: rotate(-2deg);
+}
+@media (min-width: 701px) and (max-width: 940px) {
+    .saloon :is(p, dd, dt) {
+        font-size: 1.45cqw;
+    }
+}
+@media (max-width: 850px) {
+    .entrance h1 {
+        font-size: 10.8cqw;
+        top: 40.4%;
+        line-height: 0.99;
+    }
+    .entrance h1 span {
+        display: block;
+    }
+    .plaque {
+        left: 30%;
+        width: 46%;
+        top: 52.3%;
+        height: 4.1%;
+        font-size: 2.1cqw;
+    }
+    .roulette > div {
+        left: 3%;
+        top: 15%;
+        width: 61%;
+    }
+    .saloon .roulette h2 {
+        font-size: 5.25cqw;
+        max-width: 77%;
+        line-height: 1.1;
+    }
+    .saloon .roulette p {
+        font-size: clamp(12px, 3.2cqw, 20px);
+        line-height: 1.25;
+    }
+    .arena {
+        display: none;
+    }
+    .saloon h2 {
+        font-size: 7.47cqw;
+    }
+    .saloon :is(p, dd, dt) {
+        font-size: 3.73cqw;
+        line-height: 1.3;
+    }
+    .menu small {
+        font-size: 3.3cqw;
+    }
+    .benefits .menu {
+        left: 18.5%;
+        top: 28.6%;
+        width: 63%;
+        transform: rotate(-3.7deg);
+    }
+    .admission .menu {
+        left: 18%;
+        top: 24.8%;
+        width: 64%;
+        transform: none;
+    }
+    .bar .menu {
+        left: 18%;
+        top: 25.7%;
+        width: 65%;
+        transform: none;
+    }
+    .bar h2 {
+        font-size: 5.9cqw;
+    }
+    .bar .menu p {
+        font-size: 3.3cqw;
+    }
+    .start {
+        font-size: 4cqw;
+        padding: 0.3em 0;
+    }
+}

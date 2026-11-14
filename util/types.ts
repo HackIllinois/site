@@ -299,3 +299,12 @@ export type DevLoginResponse = {
     user: UserInfo;
     jwt: string;
 };
+
+export interface JobPosting {
+    _id: string;
+    companyName: string;
+    logoUrl: string;
+    jobTitle: string;
+    jobDescription: string;
+    applicationUrl: string;
+}

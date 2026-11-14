@@ -15,6 +15,7 @@ import {
     EventType,
     MentorProfile,
     JudgeProfile,
+    JobPosting,
     UserInfo
 } from "./types";
 
@@ -369,4 +370,13 @@ export async function devLogin(
         "GET",
         `/auth/dev/login/${encodeURIComponent(userId)}/`
     );
+}
+
+export async function getJobPostings(): Promise<JobPosting[]> {
+    const response = await fetch(API_BASE_URL + "/job/", {
+        cache: "no-store",
+        signal: AbortSignal.timeout(8000)
+    });
+    if (!response.ok) throw new Error("Could not load job postings");
+    return response.json();
 }

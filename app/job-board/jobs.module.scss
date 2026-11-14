@@ -1,0 +1,228 @@
+.room {
+    position: relative;
+    min-height: 100svh;
+    background: #492a15;
+    color: #2f1a0d;
+    font-family: var(--body);
+}
+.board {
+    position: absolute;
+    left: 16%;
+    right: 14.3%;
+    top: 27.6%;
+    bottom: 14.5%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2cqw;
+}
+.search {
+    display: block;
+    background: url("/job-board/search.webp") center/100% 100%;
+    padding: 1.4cqw 5cqw;
+}
+.search input {
+    display: block;
+    width: 100%;
+    font-size: clamp(15px, 1.45cqw, 24px);
+    color: #fff;
+    background: transparent;
+    border: 0;
+    padding: 0.5em 0;
+}
+.search input::placeholder {
+    color: #fff1db;
+}
+.grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1cqw;
+    padding: 0 1.2cqw;
+}
+.grid li {
+    min-width: 0;
+}
+.grid button,
+.message,
+.detail article {
+    color: #342014;
+    background: #e3bc76 url("/job-board/poster.webp") center/100% 100% no-repeat;
+}
+.grid button {
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 247/286;
+    text-align: center;
+    background-color: transparent;
+    padding: 13% 12% 14%;
+    gap: 0.55em;
+    cursor: pointer;
+    overflow: hidden;
+}
+.grid button:hover {
+    filter: brightness(1.09);
+}
+.grid strong {
+    font: 400 clamp(12px, 1.42cqw, 24px)/1.12 var(--display);
+}
+.grid span {
+    font: 500 clamp(12px, 1.26cqw, 21px)/1.18 var(--condensed);
+    text-transform: uppercase;
+}
+.grid :is(strong, span) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+}
+.grid img {
+    width: 75%;
+    height: 26%;
+    object-fit: contain;
+}
+.message {
+    align-self: center;
+    margin: 5% auto;
+    width: min(85%, 36em);
+    padding: 3em 3.5em;
+    background-color: transparent;
+    text-align: center;
+    font-size: clamp(15px, 1.6cqw, 25px);
+}
+.message button,
+.apply,
+.pages button {
+    background: #583414;
+    color: #fff2d5;
+    font-family: var(--condensed);
+    padding: 0.45em 0.9em;
+    cursor: pointer;
+}
+.message button {
+    margin-top: 12px;
+}
+.pages {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    color: white;
+}
+.pages button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+.detail {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    border: 0;
+    padding: 0;
+    width: min(780px, 90vw);
+    background: transparent;
+    max-height: 85svh;
+    color: #372517;
+}
+.detail::backdrop {
+    background: #1b110bbb;
+    backdrop-filter: blur(5px);
+}
+.detail article {
+    position: relative;
+    padding: clamp(35px, 6vw, 72px);
+    background-color: transparent;
+}
+.detail h2,
+.company {
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+.detail h2 {
+    font-size: clamp(20px, 3vw, 36px);
+}
+.company {
+    font-weight: 700;
+    margin: 0.5em 0 2em;
+}
+.detail h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+.description {
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+    line-height: 1.55;
+}
+.close {
+    position: absolute;
+    right: 6%;
+    top: 4%;
+    width: 44px;
+    height: 44px;
+    font-size: 28px;
+    cursor: pointer;
+}
+.apply {
+    display: inline-block;
+    margin-top: 20px;
+}
+@media (max-width: 850px) {
+    .room {
+        padding: clamp(170px, 43vw, 275px) 5% 50px;
+        isolation: isolate;
+        background: repeating-linear-gradient(
+            90deg,
+            #57341e 0 17%,
+            #644229 17.4% 18%,
+            #6b4328 18.2% 30%
+        );
+    }
+    .room > picture {
+        position: absolute;
+        inset: 0 0 auto;
+        z-index: -1;
+    }
+    .room > picture img {
+        width: 142%;
+        max-width: none;
+        margin-left: -21%;
+    }
+    .message {
+        width: 96%;
+        padding: 3em 2em;
+    }
+    .board {
+        position: static;
+        display: flex;
+        gap: 10px;
+        padding: 12px 7px 20px;
+        background: #684126;
+        border: 7px ridge #4f3019;
+        box-shadow: 0 3px 6px #26190c;
+    }
+    .search {
+        padding: 5px 15px;
+    }
+    .search input {
+        min-height: 42px;
+    }
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+    }
+    .grid strong {
+        font-size: clamp(13px, 3.5vw, 19px);
+    }
+    .grid span {
+        font-size: clamp(12px, 3.2vw, 17px);
+    }
+    .pages {
+        margin-top: 10px;
+    }
+}

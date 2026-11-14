@@ -1,0 +1,139 @@
+@font-face {
+    font-family: "Frontier Ultra";
+    src: url("/frontier/fonts/ultra.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Frontier Manrope";
+    src: url("/frontier/fonts/manrope.woff2") format("woff2");
+    font-weight: 200 800;
+    font-display: swap;
+}
+.page {
+    --display: "Frontier Ultra", Georgia, serif;
+    --body: "Frontier Manrope", Arial, sans-serif;
+    --condensed: var(--font-oswald), "Arial Narrow", sans-serif;
+    color: #ffefdb;
+    background: #28150d;
+    position: relative;
+    overflow: clip;
+    container-type: inline-size;
+    font-family: var(--body);
+    :where(p, span, div, blockquote, a, label, cite, button, input, section) {
+        font-family: inherit;
+    }
+    :where(h1, h2, h3) {
+        font-family: var(--display);
+        font-weight: 400;
+    }
+    picture {
+        display: block;
+    }
+    picture > img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    :focus-visible {
+        outline: 3px solid #fff;
+        outline-offset: 3px;
+        box-shadow: 0 0 0 6px #542914;
+    }
+}
+.header {
+    position: absolute;
+    z-index: 5;
+    inset: 0 0 auto;
+    padding: 1.88% 3.95% 0 3.47%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    font-family: var(--font-oswald), sans-serif;
+    &[data-home="true"] {
+        padding-top: 3.47%;
+    }
+}
+.logo {
+    display: block;
+    width: 10vw;
+    height: auto;
+}
+.links {
+    font-family: var(--font-oswald), sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 3.5vw;
+    font-size: 1.667vw;
+    a {
+        text-shadow: 0 1px 5px #1b0b0a;
+    }
+    a:hover {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+    }
+    a:last-child {
+        background: rgba(232, 228, 236, 0.86);
+        color: #120f14;
+        padding: 0.68em 0.85em;
+        text-shadow: none;
+    }
+}
+.toggle {
+    display: none;
+}
+.hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+@media (max-width: 850px) {
+    .header,
+    .header[data-home="true"] {
+        padding: 12px 16px;
+    }
+    .logo {
+        width: 102px;
+    }
+    .toggle {
+        display: grid;
+        align-content: center;
+        gap: 5px;
+        width: 44px;
+        height: 44px;
+        cursor: pointer;
+    }
+    .toggle span {
+        display: block;
+        height: 2px;
+        width: 24px;
+        margin-left: auto;
+        background: #fff;
+        box-shadow: 0 1px 4px #211;
+    }
+    .links {
+        display: none;
+        position: absolute;
+        top: 64px;
+        right: 14px;
+        padding: 8px;
+        min-width: 170px;
+        background: #29180f;
+        border: 1px solid #d9ae73;
+        box-shadow: 0 6px 20px #180a0a66;
+        font-size: 18px;
+    }
+    .links[data-open="true"] {
+        display: grid;
+        gap: 0;
+    }
+    .links a,
+    .links a:last-child {
+        display: block;
+        padding: 11px 15px;
+    }
+}
