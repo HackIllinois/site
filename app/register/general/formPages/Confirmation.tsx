@@ -9,22 +9,12 @@ import {
     Typography
 } from "@mui/material";
 import { FormikProps } from "formik";
-import { Montserrat, Tsukimi_Rounded } from "next/font/google";
+import { montserrat, tsukimi } from "@/theme/fonts";
 import { useEffect, useState } from "react";
 import { loadChallengeStatus } from "@/util/api";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import XIcon from "@mui/icons-material/X";
-
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700"]
-});
-
-const tsukimi = Tsukimi_Rounded({
-    subsets: ["latin"],
-    weight: ["500", "600", "700"]
-});
 
 interface ConfirmationProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;

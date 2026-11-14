@@ -5,7 +5,6 @@ import { Rye, Special_Elite } from "next/font/google";
 import localFont from "next/font/local";
 
 export const montserrat = Montserrat({
-    weight: ["100", "200", "300", "400", "500", "600", "700"],
     subsets: ["latin"],
     display: "swap",
     variable: "--font-montserrat"
