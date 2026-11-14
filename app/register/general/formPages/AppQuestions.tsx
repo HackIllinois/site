@@ -182,7 +182,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                                 ? errors.applicationOptional
                                 : ""
                         }
-                        inputProps={{ maxLength: 2500 }}
+                        inputProps={{ maxLength: 2000 }}
                     />
                 </Grid>
 

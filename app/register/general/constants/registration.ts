@@ -151,7 +151,6 @@ export const MLH_CONTEST_TERMS_URL =
 export const MLH_CODE_OF_CONDUCT_URL =
     "https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md";
 
-/** Placeholder name for the pro path/track until it is finalized. */
 export const PRO_TRACK_NAME = "HackOutlaws Pro Track";
 
 /** Page describing the pro path/track. */
@@ -161,9 +160,6 @@ export const PRO_TRACK_URL = "/challenge";
 export const HARDWARE_INTEREST_FORM_URL = "";
 
 export const LEGAL_URL = "/legal";
-
-/** Placeholder until admissions publishes the HackVoyagers challenge cutoff. */
-export const PRO_CHALLENGE_DEADLINE = "January 31, 2027";
 
 export const AGE_ELIGIBILITY_NOTE =
     "You must be at least 18 years old on or before February 26th 2027 to attend HackIllinois 2027";

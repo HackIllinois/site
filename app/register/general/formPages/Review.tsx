@@ -23,7 +23,6 @@ import {
     MLH_CONTEST_TERMS_URL,
     MLH_PRIVACY_POLICY_URL,
     OTHER_SCHOOL_OPTION,
-    PRO_CHALLENGE_DEADLINE,
     PRO_TRACK_NAME
 } from "../constants/registration";
 
@@ -293,7 +292,7 @@ const Review = ({ formik, onEditStep, accentColor }: ReviewProps) => {
                     <Grid size={12}>
                         <CheckboxSelect
                             {...ack("proChallengeAcknowledge")}
-                            label={`I understand that in order to be considered for ${PRO_TRACK_NAME}, I must complete the challenge I receive after submitting this form by ${PRO_CHALLENGE_DEADLINE}.`}
+                            label={`I understand that in order to be considered for ${PRO_TRACK_NAME}, I must complete the challenge I receive after submitting this form before registration closes.`}
                             optionLabel="I understand"
                             required
                         />
