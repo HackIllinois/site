@@ -16,6 +16,7 @@ export const useRegistrationAuth = ({
 }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
+    const [loadError, setLoadError] = useState("");
     const [authenticated, setAuthenticated] = useState(false);
     const [submission, setSubmission] =
         useState<RegistrationApplicationSubmitted | null>(null);
@@ -33,14 +34,17 @@ export const useRegistrationAuth = ({
                     return;
                 }
             } catch {
-                alert(
+                setLoadError(
                     "Could not check if registration is still active; please try again later."
                 );
                 return;
             }
         }
 
-        const isAuthenticatedResult = await isAuthenticated();
+        const isAuthenticatedResult = await isAuthenticated().catch(() => {
+            setLoadError("Could not check your sign-in. Please try again.");
+            return false;
+        });
         if (!isAuthenticatedResult) {
             setIsLoading(false);
             setAuthenticated(false);
@@ -53,7 +57,11 @@ export const useRegistrationAuth = ({
                 const submissionData = await loadSubmission();
                 setSubmission(submissionData);
             }
-        } catch {
+        } catch (error: any) {
+            if (error?.error !== "NotFound")
+                setLoadError(
+                    "Could not load your application. Please try again."
+                );
         } finally {
             setIsLoading(false);
         }
@@ -65,6 +73,7 @@ export const useRegistrationAuth = ({
 
     return {
         isLoading,
+        loadError,
         authenticated,
         submission
     };

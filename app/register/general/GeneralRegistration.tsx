@@ -2,6 +2,7 @@
 import NavigationButton from "@/components/Form/NavigationButton/NavigationButton";
 import {
     draftValidationSchemas,
+    hydrateDraftFormValues,
     initialValues,
     validationSchemas,
     valuesToDraftContent
@@ -28,21 +29,22 @@ import Loading from "@/components/Loading/Loading";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import theme from "@/theme";
 import {
-    loadDraft,
     loadSubmission,
+    loadDraft,
     saveDraft,
     submitDraft,
     subscribe
 } from "@/util/api";
-import { schoolOptions } from "@/util/options";
-import { useRouter } from "next/navigation";
 import RegistrationStepper from "./components/RegistrationStepper";
-import { OTHER_SCHOOL_OPTION, steps } from "./constants/registration";
+import {
+    applyFooterTheme,
+    REGISTER_FOOTER_DEFAULT,
+    steps
+} from "./constants/registration";
 import GithubAuthPage from "./formPages/GithubAuthPage";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
 
 export const GeneralRegistration = () => {
-    const router = useRouter();
     const [showSaveAlert, setShowSaveAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [showClickOffAlert, setShowClickOffAlert] = useState(false);
@@ -51,9 +53,8 @@ export const GeneralRegistration = () => {
     const saveTimeoutRef = useRef<NodeJS.Timeout>(null); // stores ten-second-delay autosave
     const [isLoadingComponent, setIsLoadingComponent] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const registrationAuth = useRegistrationAuth({
-        shouldLoadSubmission: false
-    });
+    const registrationAuth = useRegistrationAuth({});
+    const [loadFailed, setLoadFailed] = useState(false);
 
     const {
         maxStep,
@@ -64,25 +65,6 @@ export const GeneralRegistration = () => {
         handleBack,
         skipToStep
     } = useRegistrationSteps(validationSchemas, isSubmitted);
-
-    const RIGHT_ALIGNED_STEPS = [0, 3];
-
-    // const [isPasswordAuthenticated, setIsPasswordAuthenticated] =
-    //     useState(false);
-
-    // useEffect(() => {
-    //     // if (!FORCE_REGISTRATION_CLOSED) {
-    //     //     router.push("/");
-    //     // }
-
-    //     // Check localStorage for authentication
-    //     // const authenticated = localStorage.getItem(
-    //     //     "lateRegistrationAuthenticated"
-    //     // );
-    //     // if (authenticated === "true") {
-    //     //     setIsPasswordAuthenticated(true);
-    //     // }
-    // }, [router]);
 
     const renderStepContent = (step: number, formik: any) => {
         switch (step) {
@@ -115,7 +97,13 @@ export const GeneralRegistration = () => {
                     />
                 );
             case 4:
-                return <Review formik={formik} onEditStep={setCurrentStep} />;
+                return (
+                    <Review
+                        formik={formik}
+                        onEditStep={setCurrentStep}
+                        accentColor={steps[currentStep].color}
+                    />
+                );
             case 5:
                 return (
                     <Confirmation
@@ -140,6 +128,7 @@ export const GeneralRegistration = () => {
     const handleLoadDraft = useCallback(async () => {
         setIsLoadingComponent(true);
         setLoadedDraft(false);
+        setLoadFailed(false);
 
         if (!registrationAuth.authenticated) {
             setIsLoadingComponent(false);
@@ -149,7 +138,7 @@ export const GeneralRegistration = () => {
         try {
             const submission = await loadSubmission();
             if (submission) {
-                formik.setValues(submission);
+                formik.setValues(hydrateDraftFormValues(submission));
                 setIsSubmitted(true);
                 skipToStep(steps.length - 1);
                 setIsLoadingComponent(false);
@@ -157,39 +146,27 @@ export const GeneralRegistration = () => {
             }
         } catch (error: any) {
             // Only show error if it's not a 404 (no submission exists yet)
-            if (error.error !== "NotFound") {
+            if (error?.error !== "NotFound") {
                 console.error("Failed to load submission:", error);
                 setErrorMessage(
                     "Failed to load your submission: " + (error?.message || "")
                 );
                 setShowErrorAlert(true);
+                setIsLoadingComponent(false);
+                setLoadFailed(true);
+                return;
             }
         }
         try {
             const draft = await loadDraft();
 
-            if (draft) {
-                // Merge draft with initialValues to fill in any missing fields
-                let mergedValues = { ...initialValues, ...draft };
-
-                // Checking if school saved is among the options listed in dropdown
-                const savedSchool = (draft.school ?? "").trim();
-                const isListedSchool =
-                    savedSchool === "" || schoolOptions.includes(savedSchool);
-                if (!isListedSchool) {
-                    mergedValues.school = OTHER_SCHOOL_OPTION;
-                    mergedValues.otherSchool = savedSchool;
-                } else {
-                    mergedValues.otherSchool = "";
-                }
-
-                formik.setValues(mergedValues);
-            }
+            const values = hydrateDraftFormValues(draft);
+            formik.setValues(values);
 
             let furthestValidPage = 0;
-            for (let i = 0; i < steps.length - 1; i++) {
+            for (let i = 0; i < steps.length - 2; i++) {
                 try {
-                    await validationSchemas[i].validate(draft);
+                    await validationSchemas[i].validate(values);
                     furthestValidPage = i + 1;
                 } catch {
                     // Validation failed, stop here
@@ -200,7 +177,6 @@ export const GeneralRegistration = () => {
 
             skipToStep(furthestValidPage);
 
-            // TODO: Send the user to the correct page.
             setLoadedDraft(true);
             setIsLoadingComponent(false);
         } catch (error: any) {
@@ -211,6 +187,9 @@ export const GeneralRegistration = () => {
                     "Failed to load your draft: " + (error?.message || "")
                 );
                 setShowErrorAlert(true);
+                setIsLoadingComponent(false);
+                setLoadFailed(true);
+                return;
             }
             setLoadedDraft(true);
             setIsLoadingComponent(false);
@@ -226,7 +205,7 @@ export const GeneralRegistration = () => {
 
         const draftContent = valuesToDraftContent(formik.values);
         try {
-            await draftValidationSchemas[currentStep].validate(draftContent, {
+            await draftValidationSchemas[currentStep].validate(formik.values, {
                 abortEarly: false
             });
         } catch {
@@ -300,6 +279,18 @@ export const GeneralRegistration = () => {
                 // This shouldn't happen. The submit button is disabled while saving.
                 return;
             }
+
+            for (let step = 0; step < currentStep; step++) {
+                if (!(await validationSchemas[step].isValid(formik.values))) {
+                    setCurrentStep(step);
+                    setErrorMessage(
+                        "Please complete this section before submitting."
+                    );
+                    setShowErrorAlert(true);
+                    return;
+                }
+            }
+
             // Final step before submission
             setShowClickOffAlert(false);
             setIsLoadingComponent(true);
@@ -326,14 +317,18 @@ export const GeneralRegistration = () => {
                 }
             }
             try {
-                const body: any = { ...formik.values };
-                if (body.school === OTHER_SCHOOL_OPTION) {
-                    body.school = (body.otherSchool || "").trim();
-                }
-                delete body.otherSchool;
+                const body = valuesToDraftContent(formik.values);
                 await submitDraft(body);
                 setIsSubmitted(true);
             } catch (error: any) {
+                // The API can persist the application before email delivery fails.
+                const submission = await loadSubmission().catch(() => null);
+                if (submission) {
+                    formik.setValues(hydrateDraftFormValues(submission));
+                    setIsSubmitted(true);
+                    skipToStep(steps.length - 1);
+                    return;
+                }
                 console.error("Failed to submit draft:", error);
                 setErrorMessage(
                     error?.message ||
@@ -419,32 +414,29 @@ export const GeneralRegistration = () => {
     };
 
     useEffect(() => {
-        console.log("Authenticated", registrationAuth.authenticated);
-    }, [registrationAuth.authenticated]);
+        applyFooterTheme(
+            (registrationAuth.authenticated &&
+                steps[currentStep]?.footerTheme) ||
+                REGISTER_FOOTER_DEFAULT
+        );
+    }, [registrationAuth.authenticated, currentStep]);
 
-    const isLoading = isLoadingComponent || registrationAuth.isLoading;
-
-    if (isLoading) {
-        return <Loading />;
+    if (registrationAuth.loadError || loadFailed) {
+        return (
+            <Alert
+                severity="error"
+                action={
+                    <button onClick={() => window.location.reload()}>
+                        Try again
+                    </button>
+                }
+            >
+                {registrationAuth.loadError || errorMessage}
+            </Alert>
+        );
     }
-
-    if (!registrationAuth.authenticated) {
-        return <GithubAuthPage />;
-    }
-
-    // if (!isPasswordAuthenticated) {
-    //     return (
-    //         <PasswordAuthPage
-    //             onAuthenticated={() => {
-    //                 localStorage.setItem(
-    //                     "lateRegistrationAuthenticated",
-    //                     "true"
-    //                 );
-    //                 setIsPasswordAuthenticated(true);
-    //             }}
-    //         />
-    //     );
-    // }
+    if (isLoadingComponent || registrationAuth.isLoading) return <Loading />;
+    if (!registrationAuth.authenticated) return <GithubAuthPage />;
 
     return (
         <main className={"screen"}>
@@ -484,21 +476,25 @@ export const GeneralRegistration = () => {
             </Snackbar>
             <Box
                 sx={{
-                    minHeight: "100dvh", // Full viewport height
-                    height: "100%",
+                    position: "relative",
+                    minHeight: "100dvh",
                     width: "100%",
                     pb: "50px",
-                    backgroundImage: {
-                        xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`,
-                        md: `url("/registration/backgrounds/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}")`
-                    },
-                    backgroundSize: "cover", // Fill the screen
-                    backgroundRepeat: "no-repeat", // Prevent tiling
-                    backgroundPosition: RIGHT_ALIGNED_STEPS.includes(
-                        currentStep
-                    )
-                        ? "right"
-                        : "center"
+                    // Fixed full-viewport layer so scrolling the form still
+                    // shows the stage sunset (cover stays pinned to the viewport).
+                    "&::before": {
+                        content: '""',
+                        position: "fixed",
+                        inset: 0,
+                        zIndex: -1,
+                        backgroundImage: {
+                            xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}?v=2")`,
+                            md: `url("/registration/backgrounds/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}?v=2")`
+                        },
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center center"
+                    }
                 }}
             >
                 <Paper
@@ -537,11 +533,9 @@ export const GeneralRegistration = () => {
                                 text={
                                     isMobile
                                         ? "BACK"
-                                        : steps[
-                                              currentStep - 1
-                                          ].name.toUpperCase()
+                                        : steps[currentStep - 1].navLabel
                                 }
-                                color={steps[currentStep].color}
+                                theme={steps[currentStep].buttonTheme}
                                 onClick={handleBack}
                                 disabled={currentStep === 0}
                                 type="button"
@@ -553,17 +547,14 @@ export const GeneralRegistration = () => {
                         {currentStep < steps.length - 1 && (
                             <NavigationButton
                                 text={
-                                    isMobile
-                                        ? currentStep === steps.length - 2
-                                            ? "SUBMIT"
-                                            : "NEXT"
-                                        : currentStep === steps.length - 2
-                                          ? "SUBMIT"
-                                          : steps[
-                                                currentStep + 1
-                                            ].name.toUpperCase()
+                                    currentStep === steps.length - 2
+                                        ? "SUBMIT FORM"
+                                        : isMobile
+                                          ? "NEXT"
+                                          : steps[currentStep + 1].navLabel
                                 }
-                                color={steps[currentStep].color}
+                                submitPlank={currentStep === steps.length - 2}
+                                theme={steps[currentStep].buttonTheme}
                                 pointRight={true}
                                 isMobile={isMobile}
                                 onClick={() => handleNextOrSubmit()}

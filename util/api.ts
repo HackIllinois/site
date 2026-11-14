@@ -98,15 +98,39 @@ export async function requestv2(
     return responseJSON;
 }
 
-export async function getChallenge(
-    shouldThrow?: boolean
-): Promise<ChallengeStatus> {
-    const res = await requestv2("GET", "/registration/challenge/").catch(e => {
-        if (shouldThrow) {
-            handleError(e);
+export async function loadChallengeStatus(): Promise<ChallengeStatus> {
+    return await requestv2("GET", "/registration/challenge/");
+}
+
+// Downloads the applicant's assigned Saloon Rush floor plan as world.json.
+export async function downloadChallengeWorld(): Promise<void> {
+    const response = await fetch(
+        API_BASE_URL + "/registration/challenge/world/",
+        {
+            method: "GET",
+            mode: "cors",
+            credentials: "include"
         }
-    });
-    return res;
+    );
+    if (!response.ok) {
+        const body = await response.json().catch(() => null);
+        throw (
+            body ?? {
+                error: "DownloadFailed",
+                message: "Couldn't download your floor plan."
+            }
+        );
+    }
+
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "world.json";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
 }
 
 export async function submitChallenge(file: File): Promise<ChallengeResponse> {
@@ -120,7 +144,10 @@ export async function submitChallenge(file: File): Promise<ChallengeResponse> {
         body: form
     });
 
-    const responseJSON = await response.json();
+    const responseJSON = await response.json().catch(() => ({
+        error: "UnknownError",
+        message: `The server responded with ${response.status}.`
+    }));
 
     if (
         responseJSON.error === "TokenInvalid" ||
@@ -287,12 +314,59 @@ export async function getDevUsers(): Promise<DevUsersResponse> {
 }
 
 /**
- * Local-only login against Adonix `POST /dev/login/`.
- * Pass a seed `userId` to reuse an existing test user, or `{}` to seed a fresh
- * registrant. The API sets the HTTP-only jwt cookie (credentials: include).
+ * Local-only login. Prefer Adonix `POST /dev/login/` (adonix#382). If that route
+ * is missing, fall back to main's `POST /dev/seed/fresh-user/` +
+ * `GET /auth/dev/login/:userId/` so local test-user pills work either way.
+ * Prod/preview builds never call this — they use GitHub/Google OAuth.
  */
 export async function devLogin(
     body: DevLoginRequest = {}
-): Promise<DevLoginResponse> {
-    return requestDevApi("POST", "/dev/login/", body);
+): Promise<DevLoginResponse | { success: boolean; userId: string }> {
+    const postResponse = await fetch(`${API_BASE_URL}/dev/login/`, {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+    });
+    const postBody = await postResponse.json().catch(() => ({}));
+    if (postResponse.ok) {
+        return postBody as DevLoginResponse;
+    }
+
+    const errorCode =
+        typeof postBody === "object" && postBody && "error" in postBody
+            ? String((postBody as { error?: string }).error)
+            : "";
+    const message =
+        (typeof postBody === "object" &&
+            postBody &&
+            "message" in postBody &&
+            String((postBody as { message?: string }).message)) ||
+        errorCode ||
+        `Request failed with status ${postResponse.status}`;
+
+    if (errorCode === "UserNotFound" || errorCode === "NotFound") {
+        throw new Error(message);
+    }
+    if (postResponse.status !== 404 && postResponse.status !== 405) {
+        throw new Error(message);
+    }
+
+    let userId = body.userId;
+    if (!userId) {
+        const seeded = await requestDevApi<{
+            users: Array<{ user: UserInfo }>;
+        }>("POST", "/dev/seed/fresh-user/", { count: 1 });
+        userId = seeded.users[0]?.user?.userId;
+        if (!userId) {
+            throw new Error("Failed to seed a fresh local test user.");
+        }
+    }
+
+    // Sets the HTTP-only jwt cookie (do not use requestv2 — it may force OAuth).
+    return requestDevApi(
+        "GET",
+        `/auth/dev/login/${encodeURIComponent(userId)}/`
+    );
 }

@@ -62,6 +62,9 @@ export type RegistrationApplicationSubmitted = {
     underrepresented: string;
     hackathonsParticipated: string;
 
+    interestSoftware: string;
+    interestHardware: string;
+
     application1: string;
     application2: string;
     application3: string;
@@ -71,6 +74,8 @@ export type RegistrationApplicationSubmitted = {
 
     attribution: string[];
     eventInterest: string[];
+    vcInvolvement: string[];
+    hardwareInterest: string;
 
     requestTravelReimbursement: boolean;
 };
@@ -92,6 +97,8 @@ export type RegistrationApplicationDraftBody = {
     major?: string;
     underrepresented?: string;
     hackathonsParticipated?: string;
+    interestSoftware?: string;
+    interestHardware?: string;
     application1?: string;
     application2?: string;
     application3?: string;
@@ -99,8 +106,15 @@ export type RegistrationApplicationDraftBody = {
     pro?: boolean;
     attribution?: string[];
     eventInterest?: string[];
+    vcInvolvement?: string[];
+    hardwareInterest?: string;
     requestTravelReimbursement?: boolean;
     mlhNewsletter?: boolean;
+    // New for 2027. Adonix does not store these yet (its schema strips
+    // unknown keys), so they need backend fields before going live.
+    firstHackathonReason?: string;
+    portfolioLink?: string;
+    eventSuggestions?: string;
 };
 
 /** Includes fields available only on the frontend. */
@@ -113,6 +127,20 @@ export type RegistrationApplicationDraftBodyForm =
         mlhDataSharingAcknowledge?: boolean;
         optInHackNewsletter?: boolean;
         otherSchool?: string;
+        otherMajor?: string;
+        otherAttribution?: string;
+        otherEventInterest?: string;
+        otherVcInvolvement?: string;
+        proChallengeAcknowledge?: boolean;
+        hasResume?: boolean;
+        /** Display only (review page); not sent to the API. */
+        resumeFileName?: string;
+        legalAcknowledge?: boolean;
+        // Only used by the old, now-unused HackExperience/Transportation pages.
+        hasAllergies?: boolean;
+        allergyTypes?: string[];
+        otherAllergyText?: string;
+        transportationMethod?: string;
     };
 
 export type RegistrationResponseFieldInfo = {
@@ -161,22 +189,45 @@ export type ProfileFormInfo = {
     avatarId: string;
 };
 
+// Saloon Rush (Pro challenge). Mirrors RegistrationChallengeStatus in Adonix.
+export type ChallengeRouteError = {
+    mercenary: string;
+    index: number;
+    message: string;
+};
+
+export type ChallengeGradeReport = {
+    instance: string;
+    score: number;
+    totalContracts: number;
+    completed: number;
+    onTime: number;
+    lateMinutes: number;
+    travelMinutes: number;
+    errors: ChallengeRouteError[];
+};
+
 export type ChallengeStatus = {
-    inputFileId: string;
+    instanceId: string;
     attempts: number;
     complete: boolean;
+    bestScore: number;
+    // bestScore / reference score, or null while the floor plan has no reference score yet
+    normalizedScore: number | null;
+    passRatio: number;
+    lastReport: ChallengeGradeReport | null;
 };
 
-export type ChallengeResponse = {
-    status: number;
-    body: any;
+export type ChallengeErrorBody = {
+    error: string;
+    message: string;
+    // Only on InvalidPlan: what's wrong with the file
+    reason?: string;
 };
 
-export enum ChallengeResultEnum {
-    Success = 0,
-    Failure = 1,
-    Invalid = 2
-}
+export type ChallengeResponse =
+    | { status: 200; body: ChallengeStatus }
+    | { status: number; body: ChallengeErrorBody };
 
 export type RefreshTokenResType = {
     token: string;

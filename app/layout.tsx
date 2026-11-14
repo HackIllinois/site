@@ -4,16 +4,32 @@ import { EventCountdownPill } from "@/components/EventCountdown/EventCountdown";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { ResourcesButton } from "@/components/ResourcesButton/ResourcesButton";
+import { clearFooterTheme } from "@/app/register/general/constants/registration";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import theme from "../theme";
-import { montserrat, tsukimi, jersey } from "../theme/fonts";
+import {
+    montserrat,
+    tsukimi,
+    jersey,
+    oswald,
+    rye,
+    specialElite
+} from "../theme/fonts";
 import "./globals.scss";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const hideFooter = pathname === "/schedule" || pathname === "/faq";
+    const isRegister = pathname.startsWith("/register");
+
+    // Drop step-specific inline footer vars when leaving /register so :root navy returns.
+    useEffect(() => {
+        if (isRegister) return;
+        clearFooterTheme();
+    }, [isRegister]);
 
     return (
         <html lang="en">
@@ -56,10 +72,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     name="twitter:image"
                     content="https://hackillinois.org/og-image.jpg"
                 />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Ultra&display=swap"
+                    rel="stylesheet"
+                />
             </head>
             <body
-                className={`${montserrat.variable} ${tsukimi.variable} ${jersey.variable} 
-                            ${montserrat.className}`} // compatibility
+                className={`${montserrat.variable} ${tsukimi.variable} ${jersey.variable} ${oswald.variable} ${rye.variable} ${specialElite.variable}
+                            ${montserrat.className}${isRegister ? " register-route" : ""}`} // compatibility
             >
                 <AppRouterCacheProvider>
                     <ThemeProvider theme={theme}>

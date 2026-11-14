@@ -1,51 +1,107 @@
 import CheckboxSelect from "@/components/CheckboxSelectMUI";
+import ResumeUpload from "@/components/ResumeUploadMUI";
+import RankSelect from "@/components/RankSelectMUI";
 import TextInput from "@/components/TextInputMUI";
+import { areaInterestRankOptions } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
-import { Box, Container, Grid, Link, Typography } from "@mui/material";
+import { Box, Grid, Link, Typography } from "@mui/material";
 import { FormikProps } from "formik";
-import { FORCE_REGISTRATION_CLOSED } from "../../constants";
+import SectionHeader from "../components/SectionHeader";
+import { PRO_TRACK_NAME, PRO_TRACK_URL } from "../constants/registration";
+
 interface AppQuestionsProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     accentColor?: string;
 }
 
 const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
-    const { values, errors, touched, handleChange, setFieldValue } = formik;
-    return (
-        <Container>
-            <Typography
-                variant="h2"
-                component="h1"
-                sx={{
-                    mt: 8,
-                    mb: 2
-                }}
-            >
-                APPLICATION QUESTIONS
-            </Typography>
-            <Typography
-                variant="body1"
-                sx={{
-                    mb: 4,
-                    lineHeight: 1.6,
-                    fontFamily: "Montserrat",
-                    color: "#e9e9e9ff",
-                    fontSize: "16px"
-                }}
-            >
-                Your application to HackIllinois will be evaluated solely based
-                on your responses to these questions.
-                <br />
-                <br />
-                No other registration information will be used.
-            </Typography>
+    const { values, errors, touched, handleChange, setValues } = formik;
 
-            <Grid container columnSpacing={2} rowSpacing={6}>
+    // Software and Hardware must get different ranks, so picking one fills the other.
+    const complementRank = (rank: string) => (rank === "1" ? "2" : "1");
+    const handleRank =
+        (field: "interestSoftware" | "interestHardware") => (rank: string) => {
+            const other =
+                field === "interestSoftware"
+                    ? "interestHardware"
+                    : "interestSoftware";
+            // One setValues so both ranks validate together.
+            setValues({
+                ...values,
+                [field]: rank,
+                ...((rank === "1" || rank === "2") && {
+                    [other]: complementRank(rank)
+                })
+            });
+        };
+
+    // One message for the ranking question (either field's error).
+    const rankError =
+        (touched.interestSoftware && errors.interestSoftware) ||
+        (touched.interestHardware && errors.interestHardware) ||
+        "";
+
+    return (
+        <Box sx={{ px: { xs: 3, md: 6 }, width: "100%" }}>
+            <SectionHeader
+                title="APPLICATION QUESTIONS"
+                description="Your responses in this section will help us decide who will be accepted to HackIllinois. We do not consider any other section of this form when making admissions decisions."
+            />
+
+            <Grid container columnSpacing={3} rowSpacing={{ xs: 3, md: 4 }}>
+                <Grid size={12}>
+                    <RankSelect
+                        name="interestRank"
+                        label="Which area of the hackathon are you most interested in? Please rank Software and Hardware from 1 (most interested) to 2 (least interested)."
+                        required
+                        ranks={areaInterestRankOptions}
+                        items={[
+                            {
+                                name: "interestSoftware",
+                                label: "Software",
+                                value: values.interestSoftware,
+                                onChange: handleRank("interestSoftware")
+                            },
+                            {
+                                name: "interestHardware",
+                                label: "Hardware",
+                                value: values.interestHardware,
+                                onChange: handleRank("interestHardware")
+                            }
+                        ]}
+                        error={!!rankError}
+                        helperText={rankError}
+                    />
+                </Grid>
+
+                <Grid size={12}>
+                    <ResumeUpload
+                        name="hasResume"
+                        label="Upload your Resume"
+                        required
+                        accentColor={accentColor}
+                        value={values.hasResume || false}
+                        onUploadSuccess={fileName =>
+                            setValues({
+                                ...values,
+                                hasResume: true,
+                                resumeFileName: fileName
+                            })
+                        }
+                        error={!!touched.hasResume && Boolean(errors.hasResume)}
+                        helperText={
+                            touched.hasResume
+                                ? (errors.hasResume as string)
+                                : ""
+                        }
+                    />
+                </Grid>
+
                 <Grid size={12}>
                     <TextInput
                         name="application1"
-                        label="Tell us a project you have enjoyed working on, technical or non-technical."
-                        sublabel="max 50 words"
+                        label="Tell us about a project you have enjoyed working on, technical or non-technical."
+                        sublabel="max 150 words"
                         accentColor={accentColor}
                         multiline
                         required
@@ -57,16 +113,17 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                             Boolean(errors.application1)
                         }
                         helperText={
-                            !!touched.application1 ? errors.application1 : ""
+                            touched.application1 ? errors.application1 : ""
                         }
-                        inputProps={{ maxLength: 700 }}
+                        inputProps={{ maxLength: 2000 }}
                     />
                 </Grid>
+
                 <Grid size={12}>
                     <TextInput
                         name="application2"
-                        label="Pick a product you like: what’s one thing you’d change to make it better and why?"
-                        sublabel="max 50 words"
+                        label="Pick a product you like: what's one thing you'd change to make it better and why?"
+                        sublabel="max 150 words"
                         accentColor={accentColor}
                         multiline
                         required
@@ -78,9 +135,31 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                             Boolean(errors.application2)
                         }
                         helperText={
-                            !!touched.application2 ? errors.application2 : ""
+                            touched.application2 ? errors.application2 : ""
                         }
-                        inputProps={{ maxLength: 700 }}
+                        inputProps={{ maxLength: 2000 }}
+                    />
+                </Grid>
+
+                <Grid size={12}>
+                    <TextInput
+                        name="application3"
+                        label="Why are you interested in attending hackathons, and what do you hope to gain out of HackIllinois?"
+                        sublabel="max 150 words"
+                        accentColor={accentColor}
+                        multiline
+                        required
+                        minRows={4}
+                        value={values.application3}
+                        onChange={handleChange}
+                        error={
+                            !!touched.application3 &&
+                            Boolean(errors.application3)
+                        }
+                        helperText={
+                            touched.application3 ? errors.application3 : ""
+                        }
+                        inputProps={{ maxLength: 2000 }}
                     />
                 </Grid>
 
@@ -88,10 +167,9 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                     <TextInput
                         name="applicationOptional"
                         label="If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
-                        sublabel="Optional, max 100 words"
+                        sublabel="Optional, max 200 words"
                         accentColor={accentColor}
                         multiline
-                        // not required
                         minRows={4}
                         value={values.applicationOptional}
                         onChange={handleChange}
@@ -100,74 +178,78 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                             Boolean(errors.applicationOptional)
                         }
                         helperText={
-                            !!touched.applicationOptional
+                            touched.applicationOptional
                                 ? errors.applicationOptional
                                 : ""
                         }
-                        inputProps={{ maxLength: 1400 }}
+                        inputProps={{ maxLength: 2000 }}
                     />
                 </Grid>
 
                 <Grid size={12}>
-                    {FORCE_REGISTRATION_CLOSED ? (
-                        <></>
-                    ) : (
-                        <CheckboxSelect
-                            name="pro"
-                            label="Would you like to be considered for HackVoyagers Path?"
-                            sublabelContent={
-                                <Box
+                    <TextInput
+                        name="portfolioLink"
+                        label="Supplemental Materials - Project Portfolio"
+                        sublabel="Optional. Link to a portfolio, GitHub, personal site, or a shared file (Google Drive, Dropbox, etc.)"
+                        placeholder="https://"
+                        accentColor={accentColor}
+                        type="url"
+                        value={values.portfolioLink || ""}
+                        onChange={handleChange}
+                        error={
+                            !!touched.portfolioLink &&
+                            Boolean(errors.portfolioLink)
+                        }
+                        helperText={
+                            touched.portfolioLink ? errors.portfolioLink : ""
+                        }
+                        inputProps={{ maxLength: 500 }}
+                    />
+                </Grid>
+
+                <Grid size={12}>
+                    <CheckboxSelect
+                        name="pro"
+                        label={`Would you like to be considered for ${PRO_TRACK_NAME}?`}
+                        sublabelContent={
+                            <Typography
+                                component="p"
+                                variant="body2"
+                                sx={{ opacity: 0.85, color: "#ffffff" }}
+                            >
+                                You will have to complete a coding challenge to
+                                be eligible. Learn more about {PRO_TRACK_NAME}{" "}
+                                <Link
+                                    href={PRO_TRACK_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     sx={{
-                                        display: "flex",
-                                        alignItems: "center"
+                                        color: "#ffffff",
+                                        fontWeight: 600,
+                                        textDecorationColor: "#ffffff"
                                     }}
                                 >
-                                    <Typography
-                                        component="p"
-                                        variant="body2"
-                                        sx={{ opacity: "0.8" }}
-                                    >
-                                        {
-                                            "You will have to complete a coding challenge to be eligible for the Path. Learn more about HackVoyagers"
-                                        }
-                                        <Link
-                                            href="/challenge/landing-page"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            sx={{
-                                                fontSize: "16px",
-                                                alignItems: "center",
-                                                padding: "2px 5px",
-                                                borderRadius: "5px",
-                                                color: "#ADED4A",
-                                                fontWeight: "500",
-                                                textDecorationColor: "#ADED4A",
-                                                textDecorationThickness: "2px",
-                                                "&:hover": {
-                                                    color: "#fff",
-                                                    textDecorationColor: "#fff",
-                                                    textDecoration: "underline"
-                                                }
-                                            }}
-                                        >
-                                            here
-                                        </Link>
-                                    </Typography>
-                                </Box>
-                            }
-                            optionLabel="Yes"
-                            accentColor={accentColor}
-                            value={values.pro}
-                            onChange={val => {
-                                setFieldValue("pro", val);
-                            }}
-                            error={!!touched.pro && Boolean(errors.pro)}
-                            helperText={!!touched.pro ? errors.pro : ""}
-                        />
-                    )}
+                                    here
+                                </Link>
+                                .
+                            </Typography>
+                        }
+                        optionLabel="Yes"
+                        accentColor={accentColor}
+                        value={values.pro}
+                        onChange={val => {
+                            setValues({
+                                ...values,
+                                pro: val,
+                                ...(!val && { proChallengeAcknowledge: false })
+                            });
+                        }}
+                        error={!!touched.pro && Boolean(errors.pro)}
+                        helperText={touched.pro ? errors.pro : ""}
+                    />
                 </Grid>
             </Grid>
-        </Container>
+        </Box>
     );
 };
 

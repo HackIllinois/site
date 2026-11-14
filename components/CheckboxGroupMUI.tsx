@@ -11,6 +11,7 @@ import {
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Typography from "@mui/material/Typography";
+import { BOX_SHADOW, BOX_SHADOW_HOVER } from "@/theme/shadows";
 
 interface Option {
     label: string;
@@ -79,7 +80,7 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
                 {required && (
                     <span
                         style={{
-                            color: "#d32f2f",
+                            color: "#ffffff",
                             position: "absolute",
                             fontWeight: 500
                         }}
@@ -121,7 +122,8 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
                                         height: "36px",
                                         padding: "0px", // override default
                                         borderRadius: 2, // override default
-                                        backgroundColor: "#f0f0f0",
+                                        backgroundColor: "#ffffff",
+                                        boxShadow: BOX_SHADOW,
                                         display: "flex",
                                         flexShrink: 0,
 
@@ -141,11 +143,11 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
 
                                         "&:hover": {
                                             backgroundColor: "#ffffff", // lighter on hover
-                                            boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
+                                            boxShadow: BOX_SHADOW_HOVER
                                         },
                                         "&.Mui-checked:hover": {
                                             backgroundColor: accentColor, // don't lighten
-                                            boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
+                                            boxShadow: BOX_SHADOW_HOVER
                                         }
                                     },
                                     ...(Array.isArray(inputSx)
@@ -170,7 +172,9 @@ const CheckboxGroup: React.FC<CheckboxGroupInputProps> = ({
             </FormGroup>
 
             {helperText && (
-                <FormHelperText sx={{ mt: 0.5 }}>{helperText}</FormHelperText>
+                <FormHelperText sx={{ mt: 0.5, color: "#ffffff" }}>
+                    {helperText}
+                </FormHelperText>
             )}
         </FormControl>
     );

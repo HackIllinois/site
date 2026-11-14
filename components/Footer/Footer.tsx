@@ -3,6 +3,28 @@ import { Box, Typography, Link as MuiLink } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
 
+const linkSx = {
+    fontFamily: "Montserrat, sans-serif",
+    fontSize: "14px",
+    color: "var(--footer-link)",
+    textDecoration: "none",
+    py: 0.5,
+    "&:hover": {
+        color: "var(--footer-link-hover)",
+        textDecoration: "underline"
+    }
+} as const;
+
+const iconLinkSx = {
+    color: "var(--footer-link)",
+    display: "flex",
+    alignItems: "center",
+    p: 0.5,
+    "&:hover": {
+        color: "var(--footer-link-hover)"
+    }
+} as const;
+
 const Footer = () => {
     return (
         <Box
@@ -11,7 +33,7 @@ const Footer = () => {
             sx={{
                 width: "100%",
                 background:
-                    "linear-gradient(to bottom, #16133e 0%, #2a2654 100%)",
+                    "linear-gradient(to bottom, var(--footer-bg-from) 0%, var(--footer-bg-to) 100%)",
                 color: "white",
                 py: 2.5,
                 px: 2,
@@ -45,17 +67,7 @@ const Footer = () => {
                         href={MLH_CODE_OF_CONDUCT_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        sx={{
-                            fontFamily: "Montserrat, sans-serif",
-                            fontSize: "14px",
-                            color: "#a78bfa",
-                            textDecoration: "none",
-                            py: 0.5,
-                            "&:hover": {
-                                color: "#c4b5fd",
-                                textDecoration: "underline"
-                            }
-                        }}
+                        sx={linkSx}
                     >
                         MLH Code of Conduct
                     </MuiLink>
@@ -75,17 +87,7 @@ const Footer = () => {
                         href="https://info.hackillinois.org/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        sx={{
-                            fontFamily: "Montserrat, sans-serif",
-                            fontSize: "14px",
-                            color: "#a78bfa",
-                            textDecoration: "none",
-                            py: 0.5,
-                            "&:hover": {
-                                color: "#c4b5fd",
-                                textDecoration: "underline"
-                            }
-                        }}
+                        sx={linkSx}
                     >
                         HackIllinois Info Site
                     </MuiLink>
@@ -111,17 +113,7 @@ const Footer = () => {
                     >
                         <MuiLink
                             href="mailto:contact@hackillinois.org"
-                            sx={{
-                                fontFamily: "Montserrat, sans-serif",
-                                fontSize: "14px",
-                                color: "#a78bfa",
-                                textDecoration: "none",
-                                py: 0.5,
-                                "&:hover": {
-                                    color: "#c4b5fd",
-                                    textDecoration: "underline"
-                                }
-                            }}
+                            sx={linkSx}
                         >
                             Contact Us
                         </MuiLink>
@@ -138,20 +130,7 @@ const Footer = () => {
                         |
                     </Typography>
 
-                    <MuiLink
-                        href="/legal"
-                        sx={{
-                            fontFamily: "Montserrat, sans-serif",
-                            fontSize: "14px",
-                            color: "#a78bfa",
-                            textDecoration: "none",
-                            py: 0.5,
-                            "&:hover": {
-                                color: "#c4b5fd",
-                                textDecoration: "underline"
-                            }
-                        }}
-                    >
+                    <MuiLink href="/legal" sx={linkSx}>
                         Legal
                     </MuiLink>
                 </Box>
@@ -177,15 +156,7 @@ const Footer = () => {
                             href="https://www.linkedin.com/company/hackillinois/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            sx={{
-                                color: "#a78bfa",
-                                display: "flex",
-                                alignItems: "center",
-                                p: 0.5,
-                                "&:hover": {
-                                    color: "#c4b5fd"
-                                }
-                            }}
+                            sx={iconLinkSx}
                         >
                             <LinkedInIcon sx={{ fontSize: "1.5rem" }} />
                         </MuiLink>
@@ -193,15 +164,7 @@ const Footer = () => {
                             href="https://x.com/HackIllinois"
                             target="_blank"
                             rel="noopener noreferrer"
-                            sx={{
-                                color: "#a78bfa",
-                                display: "flex",
-                                alignItems: "center",
-                                p: 0.5,
-                                "&:hover": {
-                                    color: "#c4b5fd"
-                                }
-                            }}
+                            sx={iconLinkSx}
                         >
                             <TwitterIcon sx={{ fontSize: "1.5rem" }} />
                         </MuiLink>

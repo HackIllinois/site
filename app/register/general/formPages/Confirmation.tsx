@@ -1,26 +1,59 @@
 "use client";
+
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    CircularProgress,
+    IconButton,
+    Typography
+} from "@mui/material";
 import { FormikProps } from "formik";
-import { Montserrat, Tsukimi_Rounded } from "next/font/google";
+import { montserrat, tsukimi } from "@/theme/fonts";
 import { useEffect, useState } from "react";
-import { getChallenge } from "@/util/api";
-
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "600", "700"]
-});
-
-const tsukimi = Tsukimi_Rounded({
-    subsets: ["latin"],
-    weight: ["500", "600", "700"]
-});
+import { loadChallengeStatus } from "@/util/api";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import XIcon from "@mui/icons-material/X";
 
 interface ConfirmationProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     onSetErrorMessage: (message: string) => void;
-    onShowErrorAlert: (showERrorAlert: boolean) => void;
+    onShowErrorAlert: (showErrorAlert: boolean) => void;
 }
+
+const SOCIAL_LINKS = {
+    instagram: "https://www.instagram.com/hackillinois/",
+    twitter: "https://twitter.com/hackillinois",
+    linkedin: "https://www.linkedin.com/company/hackillinois/"
+};
+
+const SocialIconButton = ({
+    href,
+    label,
+    children
+}: {
+    href: string;
+    label: string;
+    children: React.ReactNode;
+}) => (
+    <IconButton
+        component="a"
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={label}
+        sx={{
+            width: 48,
+            height: 48,
+            backgroundColor: "rgba(255,255,255,0.15)",
+            color: "white",
+            "&:hover": { backgroundColor: "rgba(255,255,255,0.3)" }
+        }}
+    >
+        {children}
+    </IconButton>
+);
 
 const Confirmation = ({
     formik,
@@ -29,12 +62,15 @@ const Confirmation = ({
 }: ConfirmationProps) => {
     const { values } = formik;
     const [challengePassed, setChallengePassed] = useState(false);
-    // 1. Initialize loading to true so it shows immediately on mount
     const [loading, setLoading] = useState(true);
 
     async function load() {
+        if (!values.pro) {
+            setLoading(false);
+            return;
+        }
         try {
-            const res = await getChallenge(false);
+            const res = await loadChallengeStatus();
             if (res && res.complete) {
                 setChallengePassed(true);
             }
@@ -42,7 +78,6 @@ const Confirmation = ({
             onSetErrorMessage("Failed to load challenge status.");
             onShowErrorAlert(true);
         } finally {
-            // 2. Ensure loading is turned off regardless of success or failure
             setLoading(false);
         }
     }
@@ -55,19 +90,16 @@ const Confirmation = ({
     return (
         <Box
             sx={{
-                position: "relative",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
                 textAlign: "center",
-                height: "auto",
-                overflow: "visible",
+                minHeight: "400px",
                 mt: { xs: "60px", md: "40px" },
-                minHeight: "400px" // Added minHeight to prevent layout shift while loading
+                px: 2
             }}
         >
-            {/* 3. Conditional Rendering based on loading state */}
             {loading ? (
                 <CircularProgress
                     size={60}
@@ -77,182 +109,105 @@ const Confirmation = ({
             ) : (
                 <Box
                     sx={{
-                        position: "relative",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
                         width: "100%",
-                        paddingTop: "100px"
+                        maxWidth: 700,
+                        pt: { xs: 6, md: 10 }
                     }}
                 >
-                    {values.pro ? (
-                        <>
-                            <Typography
-                                sx={{
-                                    fontFamily: `${tsukimi.style.fontFamily}, sans-serif`,
-                                    fontWeight: 700,
-                                    fontSize: {
-                                        xs: "40px",
-                                        sm: "60px",
-                                        md: "80px"
-                                    },
-                                    color: "white",
-                                    lineHeight: 1,
-                                    mb: 0.5,
-                                    zIndex: 1,
-                                    textShadow: "5px 5px 13px black"
-                                }}
-                            >
-                                APPLICATION
-                            </Typography>
+                    <Typography
+                        sx={{
+                            fontFamily: `${tsukimi.style.fontFamily}, sans-serif`,
+                            fontWeight: 700,
+                            fontSize: { xs: "32px", sm: "48px", md: "56px" },
+                            color: "white",
+                            lineHeight: 1.1,
+                            mb: 3,
+                            zIndex: 1,
+                            textShadow: "3px 3px 10px rgba(0,0,0,0.4)"
+                        }}
+                    >
+                        {values.pro
+                            ? challengePassed
+                                ? "Application Complete!"
+                                : "Application\nNext Steps"
+                            : "Application Submitted!"}
+                    </Typography>
 
-                            <Typography
-                                sx={{
-                                    fontFamily: `${tsukimi.style.fontFamily}, sans-serif`,
-                                    fontWeight: 800,
-                                    fontSize: {
-                                        xs: "60px",
-                                        sm: "100px",
-                                        md: "120px"
-                                    },
-                                    color: "white",
-                                    lineHeight: 1,
-                                    mb: 3,
-                                    width: "100%",
-                                    zIndex: 1,
-                                    textShadow: "5px 5px 13px black"
-                                }}
-                            >
-                                {challengePassed ? "COMPLETE" : "NEXT STEPS"}
-                            </Typography>
-
-                            <Typography
-                                sx={{
-                                    fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
-                                    fontWeight: 600,
-                                    fontSize: { xs: "11px", sm: "22px" },
-                                    color: "white",
-                                    zIndex: 1,
-                                    textShadow: "2px 2px 13px black"
-                                }}
-                            >
-                                Thank you for signing up for HackIllinois 2026!
-                            </Typography>
-                        </>
-                    ) : (
-                        <>
-                            <Typography
-                                sx={{
-                                    fontFamily: `${tsukimi.style.fontFamily}, sans-serif`,
-                                    fontWeight: 700,
-                                    fontSize: {
-                                        xs: "40px",
-                                        sm: "60px",
-                                        md: "80px"
-                                    },
-                                    color: "white",
-                                    lineHeight: 1,
-                                    mb: 0.5,
-                                    zIndex: 1,
-                                    textShadow: "2px 2px 13px black"
-                                }}
-                            >
-                                APPLICATION
-                            </Typography>
-
-                            <Typography
-                                sx={{
-                                    fontFamily: `${tsukimi.style.fontFamily}, sans-serif`,
-                                    fontWeight: 800,
-                                    fontSize: {
-                                        xs: "60px",
-                                        sm: "100px",
-                                        md: "120px"
-                                    },
-                                    color: "white",
-                                    lineHeight: 1,
-                                    mb: 3,
-                                    width: "100%",
-                                    zIndex: 1,
-                                    textShadow: "2px 2px 13px black"
-                                }}
-                            >
-                                FINISHED
-                            </Typography>
-                            <Typography
-                                sx={{
-                                    fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
-                                    fontWeight: 600,
-                                    fontSize: { xs: "11px", sm: "22px" },
-                                    color: "white",
-                                    zIndex: 1,
-                                    textShadow: "2px 2px 13px black"
-                                }}
-                            >
-                                Thank you for signing up for HackIllinois 2026!
-                            </Typography>
-
-                            <Typography
-                                sx={{
-                                    fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
-                                    fontWeight: 600,
-                                    fontSize: { xs: "11px", sm: "22px" },
-                                    color: "white",
-                                    mb: "17px",
-                                    zIndex: 1,
-                                    textShadow: "2px 2px 13px black"
-                                }}
-                            >
-                                Please check the status of your account in your
-                                email.
-                            </Typography>
-                        </>
-                    )}
+                    <Typography
+                        sx={{
+                            fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
+                            fontWeight: 500,
+                            fontSize: { xs: "14px", sm: "18px" },
+                            color: "rgba(255,255,255,0.9)",
+                            mb: 1,
+                            zIndex: 1,
+                            textShadow: "1px 1px 6px rgba(0,0,0,0.3)"
+                        }}
+                    >
+                        Thank you for applying to HackIllinois 2027!
+                    </Typography>
+                    <Typography
+                        sx={{
+                            fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
+                            fontWeight: 500,
+                            fontSize: { xs: "14px", sm: "18px" },
+                            color: "rgba(255,255,255,0.9)",
+                            mb: 4,
+                            zIndex: 1,
+                            textShadow: "1px 1px 6px rgba(0,0,0,0.3)"
+                        }}
+                    >
+                        Status updates will be sent to your email.
+                    </Typography>
 
                     {values.pro && (
                         <>
                             <Typography
                                 sx={{
                                     fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
-                                    fontWeight: 600,
-                                    fontSize: { xs: "11px", sm: "22px" },
-                                    color: "white",
-                                    my: "17px",
+                                    fontWeight: 500,
+                                    fontSize: { xs: "13px", sm: "17px" },
+                                    color: "rgba(255,255,255,0.85)",
+                                    mb: 3,
                                     zIndex: 1,
-                                    textShadow: "2px 2px 13px black"
+                                    textShadow: "1px 1px 6px rgba(0,0,0,0.3)"
                                 }}
                             >
                                 {challengePassed ? (
                                     <>
-                                        You’ve successfully finished the
-                                        HackVoyagers Challenge <br />
+                                        You&apos;ve successfully finished the
+                                        Saloon Rush challenge
+                                        <br />
                                         and will be considered for the
-                                        HackVoyagers track.
+                                        HackOutlaws Pro Track.
                                     </>
                                 ) : (
-                                    "To join the Pro Track, you’ll need to complete the Pro Track Challenge."
+                                    "To join the Pro Track, you'll need to complete Saloon Rush."
                                 )}
                             </Typography>
                             {!challengePassed && (
                                 <Button
                                     component="a"
-                                    href="/challenge/"
-                                    target="_blank"
+                                    href="/challenge/description"
                                     variant="contained"
                                     sx={{
-                                        padding: "4px 10px",
-                                        borderRadius: "8px",
-                                        fontWeight: 500,
+                                        fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
+                                        fontWeight: 600,
+                                        fontSize: { xs: "14px", sm: "17px" },
                                         textTransform: "none",
-                                        backgroundColor: "rgba(56, 56, 56)",
                                         color: "white",
+                                        backgroundColor: "rgba(56, 56, 56)",
+                                        borderRadius: "10px",
+                                        px: 3,
+                                        py: 1,
+                                        mb: 4,
                                         "&:hover": {
                                             backgroundColor: "rgba(20, 20, 20)"
-                                        },
-                                        fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
-                                        fontSize: { xs: "16px", sm: "20px" },
-                                        mt: "10px"
+                                        }
                                     }}
                                 >
                                     Go to Pro Track Challenge
@@ -260,6 +215,41 @@ const Confirmation = ({
                             )}
                         </>
                     )}
+
+                    <Typography
+                        sx={{
+                            fontFamily: `${montserrat.style.fontFamily}, sans-serif`,
+                            fontWeight: 500,
+                            fontSize: { xs: "13px", sm: "16px" },
+                            color: "rgba(255,255,255,0.75)",
+                            mb: 2,
+                            zIndex: 1
+                        }}
+                    >
+                        Stay tuned for more HackIllinois news on our social
+                        media!
+                    </Typography>
+
+                    <Box sx={{ display: "flex", gap: 2, zIndex: 1 }}>
+                        <SocialIconButton
+                            href={SOCIAL_LINKS.instagram}
+                            label="Instagram"
+                        >
+                            <InstagramIcon />
+                        </SocialIconButton>
+                        <SocialIconButton
+                            href={SOCIAL_LINKS.twitter}
+                            label="X / Twitter"
+                        >
+                            <XIcon />
+                        </SocialIconButton>
+                        <SocialIconButton
+                            href={SOCIAL_LINKS.linkedin}
+                            label="LinkedIn"
+                        >
+                            <LinkedInIcon />
+                        </SocialIconButton>
+                    </Box>
                 </Box>
             )}
         </Box>

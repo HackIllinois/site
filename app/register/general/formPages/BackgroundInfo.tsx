@@ -1,100 +1,148 @@
 import RadioSelectGroup from "@/components/RadioSelectGroupMUI";
 import SelectTextInput from "@/components/SelectTextInputMUI";
+import TextInput from "@/components/TextInputMUI";
 import {
     countryOptions,
+    FIRST_HACKATHON_OPTION,
     genderOptions,
     graduationYearOptions,
     majorOptions,
     numHackathonOptions,
+    OTHER_MAJOR_OPTION,
     raceOptions,
     schoolOptions,
     stateOptions,
     studyLevelOptions,
-    underrepresentedOptions
+    underrepresentedOptions,
+    US_COUNTRY_OPTION
 } from "@/util/options";
-import TextInput from "@/components/TextInputMUI";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
-import { Container, Grid, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { FormikProps } from "formik";
+import SectionHeader from "../components/SectionHeader";
 import { OTHER_SCHOOL_OPTION } from "../constants/registration";
 
-interface EducationProps {
+interface BackgroundInfoProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     accentColor?: string;
 }
 
-const Education = ({ formik, accentColor }: EducationProps) => {
-    const { values, errors, touched, setFieldValue, handleChange } = formik;
-    return (
-        <Container>
-            <Typography
-                variant="h2"
-                component="h1"
-                sx={{
-                    mt: 8,
-                    mb: 4
-                }}
-            >
-                BACKGROUND INFO
-            </Typography>
+const toOptions = (arr: string[]) => arr.map(s => ({ label: s, value: s }));
 
-            <Grid container columnSpacing={2} rowSpacing={6}>
-                <Grid
-                    size={
-                        values.school === OTHER_SCHOOL_OPTION
-                            ? { xs: 12, sm: 12, md: 7 }
-                            : { xs: 12, sm: 12, md: 4 }
-                    }
-                >
+const BackgroundInfo = ({ formik, accentColor }: BackgroundInfoProps) => {
+    const { values, errors, touched, setFieldValue, setValues, handleChange } =
+        formik;
+    const isUS = values.country === US_COUNTRY_OPTION;
+
+    return (
+        <Box sx={{ px: { xs: 3, md: 6 }, width: "100%" }}>
+            <SectionHeader
+                title="BACKGROUND INFO"
+                description="Information about your identity and education."
+            />
+
+            <Grid container columnSpacing={3} rowSpacing={{ xs: 2, md: 3 }}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                     <SelectTextInput
-                        name="education"
-                        label="Level of Study"
+                        name="gender"
+                        label="Gender"
+                        accentColor={accentColor}
                         required
-                        options={studyLevelOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
-                        value={values.education || ""}
-                        onChange={value => setFieldValue("education", value)}
-                        error={!!touched.education && Boolean(errors.education)}
-                        helperText={!!touched.education ? errors.education : ""}
-                    />{" "}
+                        options={toOptions(genderOptions)}
+                        value={values.gender || ""}
+                        onChange={value => setFieldValue("gender", value)}
+                        error={!!touched.gender && Boolean(errors.gender)}
+                        helperText={touched.gender ? errors.gender : ""}
+                    />
                 </Grid>
+                <Grid size={{ xs: 12, sm: 6 }}>
+                    <SelectTextInput
+                        name="race"
+                        label="Race / Ethnicity"
+                        accentColor={accentColor}
+                        required
+                        options={toOptions(raceOptions)}
+                        value={values.race?.[0] || ""}
+                        onChange={value =>
+                            setFieldValue("race", value ? [value] : [])
+                        }
+                        error={!!touched.race && Boolean(errors.race)}
+                        helperText={
+                            touched.race && errors.race
+                                ? String(errors.race)
+                                : ""
+                        }
+                    />
+                </Grid>
+
+                <Grid size={{ xs: 12, sm: isUS ? 6 : 12 }}>
+                    <SelectTextInput
+                        name="country"
+                        label="Country of Residence"
+                        accentColor={accentColor}
+                        required
+                        options={toOptions(countryOptions)}
+                        value={values.country || ""}
+                        onChange={value => {
+                            setValues({
+                                ...values,
+                                country: value as string,
+                                state: ""
+                            });
+                        }}
+                        error={!!touched.country && Boolean(errors.country)}
+                        helperText={touched.country ? errors.country : ""}
+                    />
+                </Grid>
+                {isUS && (
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                        <SelectTextInput
+                            name="state"
+                            label="State or Territory of Residence"
+                            accentColor={accentColor}
+                            required
+                            options={toOptions(stateOptions)}
+                            value={values.state || ""}
+                            onChange={value => setFieldValue("state", value)}
+                            error={!!touched.state && Boolean(errors.state)}
+                            helperText={touched.state ? errors.state : ""}
+                        />
+                    </Grid>
+                )}
+
                 <Grid
-                    size={
-                        values.school === OTHER_SCHOOL_OPTION
-                            ? { xs: 12, sm: 12, md: 5 }
-                            : { xs: 12, sm: 8, md: 5 }
-                    }
+                    size={{
+                        xs: 12,
+                        md: values.school === OTHER_SCHOOL_OPTION ? 7 : 12
+                    }}
                 >
                     <SelectTextInput
                         name="school"
                         label="School"
-                        sublabel="School not listed? Select 'Other - Not Listed'"
+                        sublabel={`School not listed? Select '${OTHER_SCHOOL_OPTION}'`}
                         accentColor={accentColor}
                         required
-                        options={schoolOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
+                        options={toOptions(schoolOptions)}
                         value={values.school || ""}
                         onChange={value => {
-                            setFieldValue("school", value);
-                            if (value !== OTHER_SCHOOL_OPTION) {
-                                setFieldValue("otherSchool", "");
-                            }
+                            setValues({
+                                ...values,
+                                school: value as string,
+                                ...(value !== OTHER_SCHOOL_OPTION && {
+                                    otherSchool: ""
+                                })
+                            });
                         }}
                         error={!!touched.school && Boolean(errors.school)}
-                        helperText={!!touched.school ? errors.school : ""}
+                        helperText={touched.school ? errors.school : ""}
                     />
                 </Grid>
-
                 {values.school === OTHER_SCHOOL_OPTION && (
-                    <Grid size={{ xs: 12, sm: 12, md: 7 }}>
+                    <Grid size={{ xs: 12, md: 5 }}>
                         <TextInput
                             name="otherSchool"
                             label="Other School"
-                            accentColor="#3A2541"
+                            accentColor={accentColor}
                             required
                             value={values.otherSchool || ""}
                             onChange={handleChange}
@@ -103,167 +151,86 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                                 Boolean(errors.otherSchool)
                             }
                             helperText={
-                                !!touched.otherSchool ? errors.otherSchool : ""
+                                touched.otherSchool ? errors.otherSchool : ""
                             }
                             inputProps={{ maxLength: 200 }}
                         />
                     </Grid>
                 )}
-                <Grid
-                    size={
-                        values.school === OTHER_SCHOOL_OPTION
-                            ? { xs: 12, sm: 4, md: 5 }
-                            : { xs: 12, sm: 4, md: 3 }
-                    }
-                >
+
+                <Grid size={{ xs: 12, md: 6 }}>
                     <SelectTextInput
-                        name="graduate"
-                        label="Graduation Year"
+                        name="education"
+                        label="Level of Study"
                         accentColor={accentColor}
                         required
-                        options={graduationYearOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
+                        options={toOptions(studyLevelOptions)}
+                        value={values.education || ""}
+                        onChange={value => setFieldValue("education", value)}
+                        error={!!touched.education && Boolean(errors.education)}
+                        helperText={touched.education ? errors.education : ""}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <SelectTextInput
+                        name="graduate"
+                        label="When do you plan to graduate?"
+                        accentColor={accentColor}
+                        required
+                        options={toOptions(graduationYearOptions)}
                         value={values.graduate || ""}
                         onChange={value => setFieldValue("graduate", value)}
                         error={!!touched.graduate && Boolean(errors.graduate)}
-                        helperText={!!touched.graduate ? errors.graduate : ""}
+                        helperText={touched.graduate ? errors.graduate : ""}
                     />
                 </Grid>
 
                 <Grid
                     size={{
                         xs: 12,
-                        sm: 12,
-                        md: values.country === "United States" ? 5 : 6
+                        md: values.major === OTHER_MAJOR_OPTION ? 7 : 12
                     }}
                 >
                     <SelectTextInput
                         name="major"
-                        label="Major/Field of Study"
+                        label="Major / Field of Study"
                         accentColor={accentColor}
                         required
-                        options={majorOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
+                        options={toOptions(majorOptions)}
                         value={values.major || ""}
-                        onChange={value => setFieldValue("major", value)}
-                        error={!!touched.major && Boolean(errors.major)}
-                        helperText={!!touched.major ? errors.major : ""}
-                    />
-                </Grid>
-                <Grid
-                    size={{
-                        xs: 12,
-                        sm: values.country === "United States" ? 6 : 12,
-                        md: values.country === "United States" ? 4 : 6
-                    }}
-                >
-                    <SelectTextInput
-                        name="country"
-                        label="Country of Residence"
-                        accentColor={accentColor}
-                        required
-                        options={countryOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
-                        value={values.country || ""}
                         onChange={value => {
-                            setFieldValue("country", value);
-                            setFieldValue("state", ""); // empty state of residence field
-                            // (prevents submitting a state after changing country to non-US)
+                            setValues({
+                                ...values,
+                                major: value as string,
+                                ...(value !== OTHER_MAJOR_OPTION && {
+                                    otherMajor: ""
+                                })
+                            });
                         }}
-                        error={!!touched.country && Boolean(errors.country)}
-                        helperText={!!touched.country ? errors.country : ""}
+                        error={!!touched.major && Boolean(errors.major)}
+                        helperText={touched.major ? errors.major : ""}
                     />
                 </Grid>
-                {values.country === "United States" ? (
-                    <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-                        <SelectTextInput
-                            name="state"
-                            label="State/Territory"
+                {values.major === OTHER_MAJOR_OPTION && (
+                    <Grid size={{ xs: 12, md: 5 }}>
+                        <TextInput
+                            name="otherMajor"
+                            label="Please specify your major"
                             accentColor={accentColor}
                             required
-                            options={stateOptions.map(option => ({
-                                label: option,
-                                value: option
-                            }))}
-                            value={values.state || ""}
-                            onChange={value => setFieldValue("state", value)}
-                            error={!!touched.state && Boolean(errors.state)}
-                            helperText={!!touched.state ? errors.state : ""}
+                            value={values.otherMajor || ""}
+                            onChange={handleChange}
+                            error={
+                                !!touched.otherMajor &&
+                                Boolean(errors.otherMajor)
+                            }
+                            helperText={
+                                touched.otherMajor ? errors.otherMajor : ""
+                            }
+                            inputProps={{ maxLength: 200 }}
                         />
                     </Grid>
-                ) : (
-                    <></>
                 )}
-                <Grid size={{ xs: 12, sm: 7, md: 8 }}>
-                    <SelectTextInput
-                        name="race"
-                        label="Race/Ethnicity"
-                        accentColor={accentColor}
-                        multiple
-                        required
-                        options={raceOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
-                        value={values.race || []}
-                        onChange={value => setFieldValue("race", value)}
-                        error={!!touched.race ? Boolean(errors.race) : false}
-                        helperText={
-                            !!touched.race && errors.race
-                                ? String(errors.race)
-                                : ""
-                        }
-                    />
-                </Grid>
-                <Grid size={{ xs: 12, sm: 5, md: 4 }}>
-                    <SelectTextInput
-                        name="gender"
-                        label="Gender"
-                        accentColor={accentColor}
-                        required
-                        options={genderOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
-                        value={values.gender || ""}
-                        onChange={value => setFieldValue("gender", value)}
-                        error={!!touched.gender && Boolean(errors.gender)}
-                        helperText={!!touched.gender ? errors.gender : ""}
-                    />
-                </Grid>
-
-                <Grid size={12}>
-                    <SelectTextInput
-                        name="hackathonsParticipated"
-                        label="How many hackathons have you participated in?"
-                        accentColor={accentColor}
-                        required
-                        options={numHackathonOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
-                        value={values.hackathonsParticipated || ""}
-                        onChange={value =>
-                            setFieldValue("hackathonsParticipated", value)
-                        }
-                        error={
-                            !!touched.hackathonsParticipated &&
-                            Boolean(errors.hackathonsParticipated)
-                        }
-                        helperText={
-                            !!touched.hackathonsParticipated
-                                ? errors.hackathonsParticipated
-                                : ""
-                        }
-                        maxInputWidth={"300px"}
-                    />
-                </Grid>
 
                 <Grid size={12}>
                     <RadioSelectGroup
@@ -272,10 +239,7 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                         accentColor={accentColor}
                         row
                         required
-                        options={underrepresentedOptions.map(option => ({
-                            label: option,
-                            value: option
-                        }))}
+                        options={toOptions(underrepresentedOptions)}
                         value={values.underrepresented}
                         onChange={value =>
                             setFieldValue("underrepresented", value)
@@ -285,15 +249,70 @@ const Education = ({ formik, accentColor }: EducationProps) => {
                             Boolean(errors.underrepresented)
                         }
                         helperText={
-                            !!touched.underrepresented
+                            touched.underrepresented
                                 ? errors.underrepresented
                                 : ""
                         }
                     />
                 </Grid>
+
+                <Grid size={12}>
+                    <SelectTextInput
+                        name="hackathonsParticipated"
+                        label="How many hackathons have you participated in?"
+                        accentColor={accentColor}
+                        required
+                        options={toOptions(numHackathonOptions)}
+                        value={values.hackathonsParticipated || ""}
+                        onChange={value => {
+                            setValues({
+                                ...values,
+                                hackathonsParticipated: value as string,
+                                ...(value !== FIRST_HACKATHON_OPTION && {
+                                    firstHackathonReason: ""
+                                })
+                            });
+                        }}
+                        error={
+                            !!touched.hackathonsParticipated &&
+                            Boolean(errors.hackathonsParticipated)
+                        }
+                        helperText={
+                            touched.hackathonsParticipated
+                                ? errors.hackathonsParticipated
+                                : ""
+                        }
+                        maxInputWidth="300px"
+                    />
+                </Grid>
+                {values.hackathonsParticipated === FIRST_HACKATHON_OPTION && (
+                    <Grid size={12}>
+                        <TextInput
+                            name="firstHackathonReason"
+                            label="Why would you like to participate in HackIllinois as your first hackathon?"
+                            sublabel="max 150 words"
+                            accentColor={accentColor}
+                            multiline
+                            required
+                            minRows={3}
+                            value={values.firstHackathonReason || ""}
+                            onChange={handleChange}
+                            error={
+                                !!touched.firstHackathonReason &&
+                                Boolean(errors.firstHackathonReason)
+                            }
+                            helperText={
+                                touched.firstHackathonReason
+                                    ? errors.firstHackathonReason
+                                    : ""
+                            }
+                            inputProps={{ maxLength: 2000 }}
+                        />
+                    </Grid>
+                )}
             </Grid>
-        </Container>
+        </Box>
     );
 };
 
-export default Education;
+export default BackgroundInfo;

@@ -3,12 +3,24 @@
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import { MouseEventHandler } from "react";
+import {
+    NAV_BUTTON_THEMES,
+    navButtonAsset,
+    SUBMIT_PLANK_ASSET,
+    type NavButtonThemeId
+} from "./navButtonThemes";
 
 interface NavButtonProps {
     text: string;
-    color: string;
+    /** @deprecated Prefer `theme` — kept for callers that still pass solid colors. */
+    color?: string;
+    theme?: NavButtonThemeId;
     pointRight?: boolean;
+    /** No arrow plaque (uses default SVG). Prefer for mobile. */
+    noDirection?: boolean;
     isMobile?: boolean;
+    /** Rectangular (non-arrow) plank, used for the final Submit button. */
+    submitPlank?: boolean;
     onClick?: MouseEventHandler<HTMLButtonElement>;
     href?: string;
     disabled?: boolean;
@@ -18,13 +30,27 @@ interface NavButtonProps {
 const NavigationButton: React.FC<NavButtonProps> = ({
     text,
     color,
+    theme = "sunset1",
     pointRight,
+    noDirection,
     isMobile,
+    submitPlank = false,
     onClick,
     href,
     disabled,
     ...props
 }) => {
+    const themeConfig = NAV_BUTTON_THEMES[theme] ?? NAV_BUTTON_THEMES.sunset1;
+    // One right-pointing plaque per theme; mirror for back. Mobile keeps upright.
+    const bg = submitPlank
+        ? SUBMIT_PLANK_ASSET
+        : navButtonAsset(themeConfig.id);
+    const mirror = !submitPlank && !noDirection && !isMobile && !pointRight;
+    const shadowAlpha = Math.round(themeConfig.shadowOpacity * 255)
+        .toString(16)
+        .padStart(2, "0");
+    const shadowColor = `${themeConfig.shadow}${shadowAlpha}`;
+
     const Content = (
         <Box
             sx={{
@@ -32,47 +58,68 @@ const NavigationButton: React.FC<NavButtonProps> = ({
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                pl: isMobile
-                    ? 3
-                    : pointRight
-                      ? { xs: 3, md: 4 }
-                      : { xs: 4, md: 6 },
-                pr: isMobile
-                    ? 3
-                    : pointRight
-                      ? { xs: 4, md: 6 }
-                      : { xs: 3, md: 4 },
-                height: { xs: "50px", md: "60px" },
-                minWidth: isMobile ? 50 : 160,
-                cursor: "pointer",
-                backgroundColor: color,
-                transition: "0.2s ease",
+                // Extra inset toward the tip so long labels stay inside the plaque
+                pl:
+                    isMobile || submitPlank
+                        ? 3
+                        : pointRight
+                          ? { xs: 2.5, md: 3 }
+                          : { xs: 4, md: 5 },
+                pr:
+                    isMobile || submitPlank
+                        ? 3
+                        : pointRight
+                          ? { xs: 4, md: 5 }
+                          : { xs: 2.5, md: 3 },
+                height: { xs: "50px", md: "66px" },
+                width: isMobile ? "auto" : { xs: "210px", md: "260px" },
+                minWidth: isMobile ? 120 : 210,
+                cursor: disabled ? "not-allowed" : "pointer",
+                opacity: disabled ? 0.55 : 1,
+                backgroundColor: "transparent",
+                filter: `drop-shadow(0px ${themeConfig.shadowY}px 0px ${shadowColor})`,
+                transition: "0.2s ease, filter 0.2s ease",
                 "&:hover": {
-                    opacity: 0.9
+                    opacity: disabled ? 0.55 : 0.92
                 },
-                clipPath: isMobile
-                    ? "none"
-                    : pointRight
-                      ? "polygon(0% 0%, calc(100% - 40px) 0%, 100% 50%, calc(100% - 40px) 100%, 0% 100%)"
-                      : "polygon(40px 0%, 100% 0%, 100% 100%, 40px 100%, 0% 50%)",
-
-                borderRadius: isMobile
-                    ? "16px"
-                    : pointRight
-                      ? "40px 0 0 40px"
-                      : "0 40px 40px 0"
+                borderRadius: 0
             }}
             {...props}
         >
+            <Box
+                aria-hidden
+                sx={{
+                    position: "absolute",
+                    inset: 0,
+                    backgroundImage: `url("${bg}")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    backgroundSize: "100% 100%",
+                    transform: mirror ? "scaleX(-1)" : "none",
+                    pointerEvents: "none",
+                    // Fallback solid if SVG fails — unused when image loads
+                    backgroundColor: color ?? "transparent"
+                }}
+            />
             <Typography
                 sx={{
                     whiteSpace: "nowrap",
                     overflow: "hidden",
+                    textOverflow: "clip",
+                    maxWidth: "100%",
                     color: "white",
                     textAlign: "center",
-                    fontFamily: "'Tsukimi Rounded', sans-serif",
+                    fontFamily: "var(--font-oswald), 'Oswald', sans-serif",
                     fontWeight: 700,
-                    fontSize: { xs: "14px", md: "20px" }
+                    fontSize: {
+                        xs: "13px",
+                        md: text.length > 12 ? "16px" : "18px"
+                    },
+                    letterSpacing: text.length > 12 ? "0.02em" : "0.04em",
+                    textShadow: "0 1px 2px rgba(0,0,0,0.35)",
+                    position: "relative",
+                    zIndex: 1,
+                    lineHeight: 1.1
                 }}
             >
                 {text}

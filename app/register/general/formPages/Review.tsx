@@ -1,465 +1,401 @@
 import CheckboxSelect from "@/components/CheckboxSelectMUI";
+import {
+    FIRST_HACKATHON_OPTION,
+    OTHER_MAJOR_OPTION,
+    OTHER_PLEASE_SPECIFY,
+    OTHER_VC_PLEASE_SPECIFY,
+    US_COUNTRY_OPTION
+} from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
-import LaunchIcon from "@mui/icons-material/Launch";
-import {
-    AccordionDetails,
-    Box,
-    FormHelperText,
-    Link as MuiLink,
-    Typography
-} from "@mui/material";
+import { Box, Grid, Link as MuiLink, Stack } from "@mui/material";
 import { FormikProps } from "formik";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-    AccordionHeader,
-    AckErrorStyle,
     AckLinkStyle,
-    AckOptionLabelStyle,
-    ReviewContainer,
-    ReviewInfoAccordionBox,
-    StyledAccordion,
-    StyledAccordionDetails,
-    UserInfoBox
+    ReviewField,
+    ReviewFieldGrid,
+    ReviewSectionCard
 } from "../components/Review";
+import SectionHeader from "../components/SectionHeader";
 import {
+    LEGAL_URL,
     MLH_CODE_OF_CONDUCT_URL,
-    OTHER_SCHOOL_OPTION
+    MLH_CONTEST_TERMS_URL,
+    MLH_PRIVACY_POLICY_URL,
+    OTHER_SCHOOL_OPTION,
+    PRO_TRACK_NAME
 } from "../constants/registration";
-import { FORCE_REGISTRATION_CLOSED } from "../../constants";
+
+type ReviewRow = {
+    label: string;
+    value?: string;
+    hidden?: boolean;
+    /** Long answers span both columns. */
+    wide?: boolean;
+    /** Uploaded file: shown with a paperclip. */
+    attachment?: boolean;
+};
+type ReviewSection = { key: string; title: string; rows: ReviewRow[] };
+
+const yesNo = (value?: boolean) =>
+    value === undefined ? undefined : value ? "Yes" : "No";
+
+const withOther = (
+    values: string[] | undefined,
+    otherOption: string,
+    otherText: string | undefined
+) =>
+    values
+        ?.map(value =>
+            value === otherOption && otherText
+                ? `${otherOption}: ${otherText}`
+                : value
+        )
+        .join(", ");
+
+const buildSections = (
+    values: RegistrationApplicationDraftBodyForm
+): ReviewSection[] => [
+    {
+        key: "personal",
+        title: "Personal Details",
+        rows: [
+            { label: "First Name", value: values.firstName },
+            { label: "Last Name", value: values.lastName },
+            { label: "Preferred Name", value: values.preferredName },
+            { label: "Phone Number", value: values.phoneNumber },
+            { label: "Age", value: values.age },
+            { label: "Email", value: values.email }
+        ]
+    },
+    {
+        key: "background",
+        title: "Background Information",
+        rows: [
+            { label: "Gender", value: values.gender },
+            { label: "Race / Ethnicity", value: values.race?.join(", ") },
+            { label: "Country of Residence", value: values.country },
+            {
+                label: "State or Territory",
+                value: values.state,
+                hidden: values.country !== US_COUNTRY_OPTION
+            },
+            {
+                label: "School",
+                value:
+                    values.school === OTHER_SCHOOL_OPTION
+                        ? values.otherSchool
+                        : values.school
+            },
+            { label: "Level of Study", value: values.education },
+            { label: "Graduation", value: values.graduate },
+            {
+                label: "Major / Field of Study",
+                value:
+                    values.major === OTHER_MAJOR_OPTION && values.otherMajor
+                        ? `${values.major}: ${values.otherMajor}`
+                        : values.major
+            },
+            {
+                label: "Underrepresented in tech",
+                value: values.underrepresented
+            },
+            {
+                label: "Hackathons participated in",
+                value: values.hackathonsParticipated
+            },
+            {
+                label: "Why HackIllinois as your first hackathon?",
+                value: values.firstHackathonReason,
+                wide: true,
+                hidden: values.hackathonsParticipated !== FIRST_HACKATHON_OPTION
+            }
+        ]
+    },
+    {
+        key: "application",
+        title: "Application Questions",
+        rows: [
+            { label: "Software rank", value: values.interestSoftware },
+            { label: "Hardware rank", value: values.interestHardware },
+            {
+                label: "Resume",
+                value: values.hasResume
+                    ? values.resumeFileName || "Uploaded"
+                    : undefined,
+                attachment: true
+            },
+            {
+                label: "A project you enjoyed working on",
+                value: values.application1,
+                wide: true
+            },
+            {
+                label: "A product you'd change",
+                value: values.application2,
+                wide: true
+            },
+            {
+                label: "Why hackathons / HackIllinois",
+                value: values.application3,
+                wide: true
+            },
+            {
+                label: "Anything else (optional)",
+                value: values.applicationOptional,
+                wide: true
+            },
+            {
+                label: "Project portfolio (optional)",
+                value: values.portfolioLink
+            },
+            {
+                label: `Considered for ${PRO_TRACK_NAME}`,
+                value: values.pro ? "Yes" : "No"
+            }
+        ]
+    },
+    {
+        key: "attending",
+        title: "Attending HackIllinois",
+        rows: [
+            {
+                label: "How did you hear about HackIllinois?",
+                value: withOther(
+                    values.attribution,
+                    OTHER_PLEASE_SPECIFY,
+                    values.otherAttribution
+                )
+            },
+            {
+                label: "Most interested in",
+                value: withOther(
+                    values.eventInterest,
+                    OTHER_PLEASE_SPECIFY,
+                    values.otherEventInterest
+                )
+            },
+            {
+                label: "Travel reimbursement",
+                value: yesNo(values.requestTravelReimbursement)
+            },
+            {
+                label: "Transportation & accommodations",
+                value: values.travelAcknowledge ? "I understand" : undefined
+            },
+            {
+                label: "VC involvement",
+                value: withOther(
+                    values.vcInvolvement,
+                    OTHER_VC_PLEASE_SPECIFY,
+                    values.otherVcInvolvement
+                )
+            },
+            {
+                label: "Hardware interest",
+                value: values.hardwareInterest,
+                wide: true
+            },
+            {
+                label: "Event suggestions",
+                value: values.eventSuggestions,
+                wide: true
+            }
+        ]
+    }
+];
 
 interface ReviewProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
     onEditStep: (step: number) => void;
+    accentColor?: string;
 }
 
-const Review = ({ formik, onEditStep }: ReviewProps) => {
-    const { values, errors, touched } = formik;
+const Review = ({ formik, onEditStep, accentColor }: ReviewProps) => {
+    const { values, errors, touched, setFieldValue } = formik;
     const [expanded, setExpanded] = useState<string | false>("personal");
+    const sections = buildSections(values);
 
-    const handleExpand =
-        (panel: string) =>
-        (_event: React.SyntheticEvent, isExpanded: boolean) => {
-            setExpanded(isExpanded ? panel : false);
-        };
+    type AckField =
+        | "reviewedAcknowledge"
+        | "codeOfConductAcknowledge"
+        | "mlhDataSharingAcknowledge"
+        | "proChallengeAcknowledge"
+        | "legalAcknowledge"
+        | "mlhNewsletter"
+        | "optInHackNewsletter";
+
+    // Shared props so every checkbox matches the earlier steps.
+    const ack = (field: AckField) => ({
+        name: field,
+        accentColor,
+        value: values[field],
+        onChange: (val: boolean) => setFieldValue(field, val),
+        error: !!touched[field] && Boolean(errors[field]),
+        helperText: touched[field] ? (errors[field] as string) : ""
+    });
 
     return (
-        <>
-            <ReviewContainer>
-                <Typography
-                    variant="h2"
-                    component="h1"
-                    sx={{
-                        mt: 8,
-                        mb: 4
-                    }}
-                >
-                    REVIEW INFORMATION
-                </Typography>
+        <Box sx={{ px: { xs: 3, md: 6 }, width: "100%" }}>
+            <SectionHeader
+                title="REVIEW & SUBMIT"
+                description="Check that your responses look correct. You won't be able to make changes once you submit."
+            />
 
-                {/* Personal Details accordion */}
-                <StyledAccordion
-                    defaultExpanded
-                    expanded={expanded === "personal"}
-                    onChange={handleExpand("personal")}
-                >
-                    <AccordionHeader
-                        title="Personal Details"
-                        isExpanded={expanded === "personal"}
-                        onEdit={() => onEditStep(0)}
+            <Stack spacing={{ xs: 2, md: 2.5 }}>
+                {sections.map((section, index) => (
+                    <ReviewSectionCard
+                        key={section.key}
+                        title={section.title}
+                        expanded={expanded === section.key}
+                        onToggle={() =>
+                            setExpanded(
+                                expanded === section.key ? false : section.key
+                            )
+                        }
+                        onEdit={() => onEditStep(index)}
+                    >
+                        <ReviewFieldGrid>
+                            {section.rows
+                                .filter(row => !row.hidden)
+                                .map(row => (
+                                    <ReviewField
+                                        key={row.label}
+                                        label={row.label}
+                                        value={row.value || "N/A"}
+                                        wide={row.wide}
+                                        attachment={
+                                            row.attachment && !!row.value
+                                        }
+                                    />
+                                ))}
+                        </ReviewFieldGrid>
+                    </ReviewSectionCard>
+                ))}
+            </Stack>
+
+            <Grid
+                container
+                rowSpacing={{ xs: 3, md: 4 }}
+                sx={{ mt: { xs: 4, md: 5 } }}
+            >
+                <Grid size={12}>
+                    <CheckboxSelect
+                        {...ack("reviewedAcknowledge")}
+                        label="Please review the above information. Once you submit you will not be able to make changes."
+                        optionLabel="I reviewed my information to ensure it is correct."
+                        required
                     />
-                    <StyledAccordionDetails>
-                        <ReviewInfoAccordionBox>
-                            <UserInfoBox
-                                label="First Name"
-                                userResponse={values.firstName || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="Last Name"
-                                userResponse={values.lastName || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="Preferred Name"
-                                userResponse={values.preferredName || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="Age"
-                                userResponse={values.age || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="Email"
-                                userResponse={values.email || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="Phone Number"
-                                userResponse={values.phoneNumber || "N/A"}
-                            />
-                        </ReviewInfoAccordionBox>
-                    </StyledAccordionDetails>
-                </StyledAccordion>
+                </Grid>
 
-                {/* Background Information accordion */}
-                <StyledAccordion
-                    defaultExpanded
-                    expanded={expanded === "background"}
-                    onChange={handleExpand("background")}
-                >
-                    <AccordionHeader
-                        title="Background Information"
-                        isExpanded={expanded === "background"}
-                        onEdit={() => onEditStep(1)}
-                    />
-                    <AccordionDetails>
-                        <ReviewInfoAccordionBox>
-                            <UserInfoBox
-                                label="Level of Study"
-                                userResponse={values.education || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="School"
-                                userResponse={
-                                    values.school === OTHER_SCHOOL_OPTION
-                                        ? values.otherSchool || "N/A"
-                                        : values.school || "N/A"
-                                }
-                            />
-                            <UserInfoBox
-                                label="Graduation Year"
-                                userResponse={values.graduate || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="Major/Field of Study"
-                                userResponse={values.major || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="Country of Residence"
-                                userResponse={values.country || "N/A"}
-                            />
-                            {values.country === "United States" && (
-                                <UserInfoBox
-                                    label="State/Territory"
-                                    userResponse={values.state || "N/A"}
-                                />
-                            )}
-                            <UserInfoBox
-                                label="Race/Ethnicity"
-                                userResponse={values?.race?.join(", ") || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="Gender"
-                                userResponse={values.gender || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="Do you identify as part of an underrepresented group in the technology industry?"
-                                userResponse={values.underrepresented || "No"}
-                            />
-                        </ReviewInfoAccordionBox>
-                    </AccordionDetails>
-                </StyledAccordion>
+                {values.pro && (
+                    <Grid size={12}>
+                        <CheckboxSelect
+                            {...ack("proChallengeAcknowledge")}
+                            label={`I understand that in order to be considered for ${PRO_TRACK_NAME}, I must complete the challenge I receive after submitting this form before registration closes.`}
+                            optionLabel="I understand"
+                            required
+                        />
+                    </Grid>
+                )}
 
-                {/* Application Questions accordion */}
-                <StyledAccordion
-                    defaultExpanded
-                    expanded={expanded === "specific"}
-                    onChange={handleExpand("specific")}
-                >
-                    <AccordionHeader
-                        title="Application Questions"
-                        isExpanded={expanded === "specific"}
-                        onEdit={() => onEditStep(2)}
-                    />
-                    <AccordionDetails>
-                        <ReviewInfoAccordionBox>
-                            <UserInfoBox
-                                label="Tell us a project you have enjoyed working on, technical or non-technical."
-                                userResponse={values.application1 || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="Pick a product you like: what’s one thing you’d change to make it better and why?"
-                                userResponse={values.application2 || "N/A"}
-                            />
-                            <UserInfoBox
-                                label="If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
-                                userResponse={
-                                    values.applicationOptional || "N/A"
-                                }
-                            />
-                            {FORCE_REGISTRATION_CLOSED ? (
-                                <></>
-                            ) : (
-                                <UserInfoBox
-                                    label="Would you like to be considered for HackVoyagers Track?"
-                                    userResponse={values.pro ? "Yes" : "No"}
-                                />
-                            )}
-                        </ReviewInfoAccordionBox>
-                    </AccordionDetails>
-                </StyledAccordion>
-
-                {/* Attending HackIllinois accordion */}
-                <StyledAccordion
-                    defaultExpanded
-                    expanded={expanded === "attendance"}
-                    onChange={handleExpand("attendance")}
-                >
-                    <AccordionHeader
-                        title="Attending HackIllinois"
-                        isExpanded={expanded === "attendance"}
-                        onEdit={() => onEditStep(3)}
-                    />
-                    <AccordionDetails>
-                        <ReviewInfoAccordionBox>
-                            <UserInfoBox
-                                label="How did you hear about HackIllinois?"
-                                userResponse={
-                                    values.attribution?.join(", ") || "N/A"
-                                }
-                            />
-                            <UserInfoBox
-                                label="Which of these are you most interested in participating in during the hackathon?"
-                                userResponse={
-                                    values.eventInterest?.join(", ") || "N/A"
-                                }
-                            />
-                            <UserInfoBox
-                                label="Would you like to be considered for travel reimbursement?"
-                                userResponse={
-                                    values.requestTravelReimbursement ===
-                                    undefined
-                                        ? "N/A"
-                                        : values.requestTravelReimbursement
-                                          ? "Yes"
-                                          : "No"
-                                }
-                            />
-                            <UserInfoBox
-                                label="If you attend HackIllinois, you are responsible for your own transportation and accommodations."
-                                userResponse={
-                                    values.travelAcknowledge
-                                        ? "Acknowledged"
-                                        : "N/A"
-                                }
-                            />
-                        </ReviewInfoAccordionBox>
-                    </AccordionDetails>
-                </StyledAccordion>
-
-                {/* Acknowledgements */}
-                <Box
-                    mt={2}
-                    p={2}
-                    pl={"18px"}
-                    borderRadius={4}
-                    border="1px solid white"
-                    bgcolor="rgba(0, 0, 0, 0.7)"
-                >
+                {/* MLH's 3 checkboxes. Each sits in its own Box because
+                    CheckboxSelect fills its parent's height, so siblings
+                    in one cell would overlap. */}
+                <Grid size={12}>
                     <Box>
                         <CheckboxSelect
-                            name="reviewedAcknowledge"
-                            label="Please review the above information. Once you submit you will not be able to change any information without contacting us."
-                            accentColor="#983300"
-                            optionLabel="I reviewed my information to ensure it is correct."
-                            optionLabelSx={AckOptionLabelStyle}
-                            required
-                            value={values.reviewedAcknowledge}
-                            sx={{ pl: "18px" }}
-                            onChange={val =>
-                                formik.setFieldValue("reviewedAcknowledge", val)
-                            }
-                            error={
-                                !!touched.reviewedAcknowledge &&
-                                Boolean(errors.reviewedAcknowledge)
-                            }
-                        />
-                        {touched.reviewedAcknowledge &&
-                        errors.reviewedAcknowledge ? (
-                            <FormHelperText error sx={AckErrorStyle}>
-                                {errors.reviewedAcknowledge as string}
-                            </FormHelperText>
-                        ) : (
-                            <></>
-                        )}
-                    </Box>
-
-                    <Box mt={3}>
-                        {/* MLH code of conduct acknowledgement */}
-                        <CheckboxSelect
-                            name="codeOfConductAcknowledge"
-                            label={
-                                "To participate in HackIllinois, you must agree to the following MLH policies."
-                            }
-                            accentColor="#983300"
+                            {...ack("codeOfConductAcknowledge")}
+                            label="To participate in HackIllinois, you must agree to the following MLH policies."
                             optionLabel={
-                                <span style={{ color: "#fff" }}>
+                                <>
                                     I have read and agree to the{" "}
                                     <MuiLink
                                         href={MLH_CODE_OF_CONDUCT_URL}
                                         target="_blank"
-                                        color="#ADED4A"
+                                        rel="noopener noreferrer"
                                         sx={AckLinkStyle}
                                     >
                                         MLH Code of Conduct
-                                        <LaunchIcon
-                                            sx={{
-                                                fontSize: {
-                                                    xs: "small",
-                                                    sm: "medium"
-                                                }
-                                            }}
-                                        />
                                     </MuiLink>
                                     .
-                                </span>
+                                </>
                             }
-                            optionLabelSx={AckOptionLabelStyle}
                             required
-                            value={values.codeOfConductAcknowledge}
-                            onChange={val =>
-                                formik.setFieldValue(
-                                    "codeOfConductAcknowledge",
-                                    val
-                                )
-                            }
-                            error={
-                                !!touched.codeOfConductAcknowledge &&
-                                Boolean(errors.codeOfConductAcknowledge)
-                            }
                         />
-                        {touched.codeOfConductAcknowledge &&
-                        errors.codeOfConductAcknowledge ? (
-                            <FormHelperText error sx={AckErrorStyle}>
-                                {errors.codeOfConductAcknowledge as string}
-                            </FormHelperText>
-                        ) : (
-                            <></>
-                        )}
-
-                        {/* MLH data sharing acknowledgement */}
+                    </Box>
+                    <Box>
                         <CheckboxSelect
-                            name="mlhDataSharingAcknowledge"
-                            accentColor="#983300"
+                            {...ack("mlhDataSharingAcknowledge")}
                             optionLabel={
-                                <span style={{ color: "#fff" }}>
+                                <>
                                     I authorize you to share my
                                     application/registration information with
                                     Major League Hacking for event
                                     administration, ranking, and MLH
                                     administration in-line with the{" "}
                                     <MuiLink
-                                        href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md"
+                                        href={MLH_PRIVACY_POLICY_URL}
                                         target="_blank"
+                                        rel="noopener noreferrer"
                                         sx={AckLinkStyle}
                                     >
                                         MLH Privacy Policy
-                                        <LaunchIcon
-                                            sx={{
-                                                fontSize: {
-                                                    xs: "small",
-                                                    sm: "medium"
-                                                }
-                                            }}
-                                        />
                                     </MuiLink>
                                     . I further agree to the terms of both the{" "}
                                     <MuiLink
-                                        href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
+                                        href={MLH_CONTEST_TERMS_URL}
                                         target="_blank"
+                                        rel="noopener noreferrer"
                                         sx={AckLinkStyle}
                                     >
                                         MLH Contest Terms and Conditions
-                                        <LaunchIcon
-                                            sx={{
-                                                fontSize: {
-                                                    xs: "small",
-                                                    sm: "medium"
-                                                }
-                                            }}
-                                        />
                                     </MuiLink>{" "}
                                     and the MLH Privacy Policy.
-                                </span>
+                                </>
                             }
-                            optionLabelSx={AckOptionLabelStyle}
                             required
-                            value={values.mlhDataSharingAcknowledge}
-                            onChange={val =>
-                                formik.setFieldValue(
-                                    "mlhDataSharingAcknowledge",
-                                    val
-                                )
-                            }
-                            error={
-                                !!touched.mlhDataSharingAcknowledge &&
-                                Boolean(errors.mlhDataSharingAcknowledge)
-                            }
                         />
-                        {touched.mlhDataSharingAcknowledge &&
-                        errors.mlhDataSharingAcknowledge ? (
-                            <FormHelperText error sx={AckErrorStyle}>
-                                {errors.mlhDataSharingAcknowledge as string}
-                            </FormHelperText>
-                        ) : (
-                            <></>
-                        )}
                     </Box>
-
-                    <Box mt={3}>
-                        {/* MLH newsletter opt-in */}
+                    <Box>
                         <CheckboxSelect
-                            name="mlhNewsletter"
-                            label="Newsletter Opt-In"
-                            accentColor="#983300"
+                            {...ack("mlhNewsletter")}
                             optionLabel="I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements."
-                            optionLabelSx={AckOptionLabelStyle}
-                            value={values.mlhNewsletter}
-                            onChange={val =>
-                                formik.setFieldValue("mlhNewsletter", val)
-                            }
-                            error={false}
                         />
-
-                        {/* HackIllinois newsletter opt-in */}
-                        <CheckboxSelect
-                            name="optInHackNewsletter"
-                            accentColor="#983300"
-                            optionLabel="Opt-in to the HackIllinois newsletter."
-                            optionLabelSx={AckOptionLabelStyle}
-                            value={values.optInHackNewsletter}
-                            onChange={val =>
-                                formik.setFieldValue("optInHackNewsletter", val)
-                            }
-                            error={
-                                !!touched.optInHackNewsletter &&
-                                Boolean(errors.optInHackNewsletter)
-                            }
-                        />
-                        {touched.optInHackNewsletter &&
-                        errors.optInHackNewsletter ? (
-                            <FormHelperText
-                                error
-                                sx={{
-                                    fontFamily: "Montserrat",
-                                    fontSize: "13px",
-                                    fontWeight: 500,
-                                    "&.Mui-error": {
-                                        color: "white"
-                                    },
-                                    border: "1px solid rgba(255, 0, 0, 0.5)",
-                                    borderRadius: "6px",
-                                    backgroundColor: "rgba(255, 0, 0, 0.5)",
-                                    width: "fit-content",
-                                    padding: "4px",
-                                    boxShadow: "0 0 8px rgba(255, 0, 0, 0.3)"
-                                }}
-                            >
-                                {errors.optInHackNewsletter as string}
-                            </FormHelperText>
-                        ) : (
-                            <></>
-                        )}
                     </Box>
-                </Box>
-            </ReviewContainer>
-        </>
+                </Grid>
+
+                <Grid size={12}>
+                    <CheckboxSelect
+                        {...ack("legalAcknowledge")}
+                        label="Legal Acknowledgement"
+                        optionLabel={
+                            <>
+                                I have read and agree to the{" "}
+                                <MuiLink
+                                    href={LEGAL_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    sx={AckLinkStyle}
+                                >
+                                    HackIllinois legal terms
+                                </MuiLink>
+                                .
+                            </>
+                        }
+                        required
+                    />
+                </Grid>
+
+                <Grid size={12}>
+                    <CheckboxSelect
+                        {...ack("optInHackNewsletter")}
+                        label="Newsletter Opt-In"
+                        optionLabel="Opt-in to the HackIllinois newsletter."
+                    />
+                </Grid>
+            </Grid>
+        </Box>
     );
 };
 
