@@ -1,6 +1,7 @@
 "use client";
 
 import { clearFooterTheme } from "@/app/register/general/constants/registration";
+import Navbar from "@/components/Navbar/Navbar";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -94,6 +95,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 className={`${montserrat.variable} ${tsukimi.variable} ${jersey.variable} ${oswald.variable} ${rye.variable} ${specialElite.variable}
                             ${montserrat.className}${isRegister ? " register-route" : ""}`} // compatibility
             >
+                <Navbar fixed={!isFrontier} />
                 {isFrontier ? (
                     children
                 ) : (

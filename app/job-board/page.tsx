@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import FrontierNav from "@/components/Frontier/FrontierNav";
 import shared from "@/components/Frontier/Frontier.module.scss";
 import { getJobPostings } from "@/util/api";
 import type { JobPosting } from "@/util/types";
@@ -19,7 +18,6 @@ export default async function JobsPage() {
     }
     return (
         <div className={shared.page}>
-            <FrontierNav />
             <JobBoard jobs={jobs} />
         </div>
     );

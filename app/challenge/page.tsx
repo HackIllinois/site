@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import FrontierNav from "@/components/Frontier/FrontierNav";
 import SceneArt from "@/components/Frontier/SceneArt";
 import shared from "@/components/Frontier/Frontier.module.scss";
 import styles from "./track.module.scss";
@@ -36,7 +35,6 @@ function SaloonArt({
 export default function ProTrackLanding() {
     return (
         <div className={shared.page}>
-            <FrontierNav />
             <main className={styles.saloon}>
                 <section className={styles.entrance}>
                     <SaloonArt
