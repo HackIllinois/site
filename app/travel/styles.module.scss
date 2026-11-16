@@ -20,14 +20,8 @@
     --font-family-primary: "Travel Manrope", sans-serif;
     color: #e7cea5;
     background-color: #a53b20;
-    background-image:
-        linear-gradient(to bottom, transparent 80%, #a53b20),
-        url("/travel/frontier/scene/scene.webp");
-    background-position: center top;
-    background-size:
-        100% 217.5vw,
-        100% auto;
-    background-repeat: no-repeat;
+    position: relative;
+    isolation: isolate;
     padding-bottom: 2vw;
     min-height: 100vh;
     color-scheme: light;
@@ -38,6 +32,7 @@
     }
 }
 .hero {
+    position: relative;
     height: 71.1vw;
     max-height: 1200px;
     padding-top: 15.5vw;
@@ -154,12 +149,6 @@
 }
 @media (max-width: 700px) {
     .page {
-        background-image:
-            linear-gradient(to bottom, transparent 80%, #a53b20),
-            url("/travel/frontier/scene/scene-mobile.webp");
-        background-size:
-            100% 602vw,
-            100% auto;
         padding-bottom: 24px;
     }
     .hero {

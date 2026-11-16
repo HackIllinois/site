@@ -1,0 +1,60 @@
+.scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 217.5vw;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, transparent 80%, #a53b20);
+    }
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}
+.scrollTarget {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 71.1vw;
+    max-height: 1200px;
+}
+.background,
+.foreground,
+.movingLayer {
+    position: absolute;
+    inset: 0;
+}
+.train {
+    position: absolute;
+    left: 23.0555556%;
+    top: 13.9208174%;
+    width: 47.4305556%;
+}
+@media (max-width: 700px) {
+    .scene {
+        height: 601.99005vw;
+    }
+    .scrollTarget {
+        height: 222vw;
+        max-height: none;
+    }
+    .train {
+        left: -37.0646766%;
+        top: 21.4876033%;
+        width: 108.4577114%;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    // CSS also handles preference changes immediately and protects the first paint.
+    .movingLayer {
+        transform: none !important;
+    }
+}
