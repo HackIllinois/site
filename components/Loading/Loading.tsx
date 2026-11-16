@@ -1,4 +1,7 @@
 import { Box, CircularProgress } from "@mui/material";
+import RegistrationBackground, {
+    registrationBackgrounds
+} from "@/components/RegistrationBackground/RegistrationBackground";
 
 type LoadingProps = {
     backgroundImage?: string;
@@ -6,24 +9,12 @@ type LoadingProps = {
 };
 
 const Loading: React.FC<LoadingProps> = ({
-    backgroundImage = "/registration/backgrounds/personal_info.svg",
+    backgroundImage = registrationBackgrounds.personal_info,
     zoom = true
 }) => {
     return (
         <>
-            <Box
-                sx={{
-                    display: "flex",
-                    width: "100vw",
-                    height: "100vh",
-                    backgroundImage: `url(${backgroundImage})`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    filter: "blur(10px)",
-                    transform: zoom ? "scale(1.25)" : "scale(1)"
-                }}
-            ></Box>
+            <RegistrationBackground src={backgroundImage} />
             <Box
                 sx={{
                     position: "absolute",

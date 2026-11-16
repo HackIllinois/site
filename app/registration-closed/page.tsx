@@ -1,4 +1,7 @@
-"use client";
+import RegistrationBackground, {
+    registrationBackgrounds
+} from "@/components/RegistrationBackground/RegistrationBackground";
+("use client");
 
 import { GradientButton } from "@/components/GradientButton/GradientButton";
 import { Box, Typography } from "@mui/material";
@@ -19,7 +22,7 @@ const RegistrationClosed = () => {
                     display: "flex",
                     width: "100%",
                     height: "100vh",
-                    backgroundImage: `url("/registration/backgrounds/personal_info.svg")`,
+                    backgroundImage: `url(${registrationBackgrounds.personal_info})`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",

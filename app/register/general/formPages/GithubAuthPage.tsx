@@ -7,6 +7,9 @@ import GoogleIcon from "@mui/icons-material/Google";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Alert, Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
+import RegistrationBackground, {
+    registrationBackgrounds
+} from "@/components/RegistrationBackground/RegistrationBackground";
 
 const gradientRingSx = {
     borderRadius: "999px",
@@ -94,19 +97,7 @@ const GithubAuthPage = ({
                 overflowY: "auto"
             }}
         >
-            <Box
-                sx={{
-                    position: "fixed",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    backgroundImage: `url("/registration/backgrounds/auth.svg")`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    zIndex: -1
-                }}
-            />
+            <RegistrationBackground src={registrationBackgrounds.auth} />
             <Box
                 sx={{
                     width: "100%",

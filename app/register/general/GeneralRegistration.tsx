@@ -36,6 +36,7 @@ import {
     subscribe
 } from "@/util/api";
 import RegistrationStepper from "./components/RegistrationStepper";
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
 import {
     applyFooterTheme,
     REGISTER_FOOTER_DEFAULT,
@@ -479,24 +480,13 @@ export const GeneralRegistration = () => {
                     position: "relative",
                     minHeight: "100dvh",
                     width: "100%",
-                    pb: "50px",
-                    // Fixed full-viewport layer so scrolling the form still
-                    // shows the stage sunset (cover stays pinned to the viewport).
-                    "&::before": {
-                        content: '""',
-                        position: "fixed",
-                        inset: 0,
-                        zIndex: -1,
-                        backgroundImage: {
-                            xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}?v=2")`,
-                            md: `url("/registration/backgrounds/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}?v=2")`
-                        },
-                        backgroundSize: "cover",
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center center"
-                    }
+                    pb: "50px"
                 }}
             >
+                <RegistrationBackground
+                    src={steps[currentStep].background}
+                    prefetchSrc={steps[currentStep + 1]?.background}
+                />
                 <Paper
                     elevation={0}
                     sx={{

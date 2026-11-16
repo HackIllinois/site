@@ -1,3 +1,6 @@
+import RegistrationBackground, {
+    registrationBackgrounds
+} from "@/components/RegistrationBackground/RegistrationBackground";
 import { Box } from "@mui/material";
 import Link from "next/link";
 
@@ -9,7 +12,7 @@ const NotFound: React.FC = () => {
                     display: "flex",
                     width: "100vw",
                     height: "100vh",
-                    backgroundImage: `url("/registration/backgrounds/personal_info.svg")`,
+                    backgroundImage: `url(${registrationBackgrounds.personal_info})`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",

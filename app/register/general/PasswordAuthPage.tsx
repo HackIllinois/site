@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import { LATE_REGISTRATION_PASSWORD } from "../constants";
+import RegistrationBackground, {
+    registrationBackgrounds
+} from "@/components/RegistrationBackground/RegistrationBackground";
 
 interface PasswordAuthPageProps {
     onAuthenticated: () => void;
@@ -31,19 +34,7 @@ const PasswordAuthPage = ({ onAuthenticated }: PasswordAuthPageProps) => {
                 overflowY: "auto"
             }}
         >
-            <Box
-                sx={{
-                    position: "fixed",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    backgroundImage: `url("/registration/backgrounds/auth.svg")`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    zIndex: -1
-                }}
-            />
+            <RegistrationBackground src={registrationBackgrounds.auth} />
             <Box
                 sx={{
                     width: "100%",

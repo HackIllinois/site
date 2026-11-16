@@ -1,4 +1,5 @@
 import type { NavButtonThemeId } from "@/components/Form/NavigationButton/navButtonThemes";
+import { registrationBackgrounds } from "@/components/RegistrationBackground/RegistrationBackground";
 
 /** Site footer palette; driven by CSS variables on :root. */
 export type FooterTheme = {
@@ -60,6 +61,7 @@ export type Step = {
     color: string;
     /** Textured plaque theme matching the stage sunset background. */
     buttonTheme: NavButtonThemeId;
+    background: string;
     /**
      * Footer gradient matching the stage art bottom band
      * (public/registration/backgrounds/{id}.svg y=727 / V839 strip).
@@ -80,6 +82,7 @@ export const steps: Step[] = [
         navLabel: "PERSONAL",
         color: "#3A2541",
         buttonTheme: "sunset1",
+        background: registrationBackgrounds.personal_info,
         footerTheme: { bgFrom: "#983723", bgTo: "#A5372F", ...woodLink },
         use_svg: true
     },
@@ -89,6 +92,7 @@ export const steps: Step[] = [
         navLabel: "BACKGROUND",
         color: "#7A1F6E",
         buttonTheme: "sunset2",
+        background: registrationBackgrounds.canyon_background_info,
         // Sampled from the canyon art's bottom band.
         footerTheme: { bgFrom: "#A62F8B", bgTo: "#BD3AAC", ...woodLink },
         use_svg: false
@@ -99,6 +103,7 @@ export const steps: Step[] = [
         navLabel: "APPLICATION",
         color: "#01313B",
         buttonTheme: "sunset6",
+        background: registrationBackgrounds.app_questions,
         footerTheme: { bgFrom: "#372398", bgTo: "#4735BB", ...woodLink },
         use_svg: true
     },
@@ -108,6 +113,7 @@ export const steps: Step[] = [
         navLabel: "ATTENDING",
         color: "#87304E",
         buttonTheme: "sunset7",
+        background: registrationBackgrounds.attending_hack,
         footerTheme: { bgFrom: "#236F98", bgTo: "#357ABB", ...woodLink },
         use_svg: true
     },
@@ -117,6 +123,7 @@ export const steps: Step[] = [
         navLabel: "REVIEW",
         color: "#983300",
         buttonTheme: "ocean",
+        background: registrationBackgrounds.review,
         footerTheme: { bgFrom: "#983723", bgTo: "#A5372F", ...woodLink },
         use_svg: true
     },
@@ -126,6 +133,7 @@ export const steps: Step[] = [
         navLabel: "CONFIRMATION",
         color: "#480021",
         buttonTheme: "sunset7",
+        background: registrationBackgrounds.confirmation,
         footerTheme: { bgFrom: "#236F98", bgTo: "#357ABB", ...woodLink },
         use_svg: true
     }
