@@ -13,3 +13,5 @@ Reproduce: npm ci; npm run build; npm run start -- --port 3019 (use a space betw
 Limits: Chrome desktop/mobile emulation tested; no real iOS/Safari or low-end performance profiling. Video timing becomes scroll distance; not a frame-for-frame video playback. SVG export texture/blur limitations remain. New assets total952772 bytes vs763496 bytes for removed flattened scenes. Build reports first-load JS182kB (previous141kB) due to animation library on this route. Browser selects only its desktop or mobile assets. No merge or deployment performed.
 
 Final npm run lint: exit 0; all files formatted, existing unrelated warnings only. git diff --check: exit 0.
+
+PR: https://github.com/HackIllinois/site/pull/565 (base codex/travel-2027 / PR #564). Preview remains at http://localhost:3019/travel.
