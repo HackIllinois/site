@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+    <meta charset="utf-8" /><meta
+        name="viewport"
+        content="width=device-width,initial-scale=1"
+    /><title>Travel page plan</title
+    ><style>
+        :root {
+            color-scheme: light dark;
+        }
+        body {
+            font: 17px/1.6 system-ui;
+            max-width: 850px;
+            margin: auto;
+            padding: 24px;
+        }
+        h1,
+        h2 {
+            line-height: 1.2;
+        }
+        section {
+            border: 1px solid #8886;
+            border-radius: 12px;
+            padding: 18px;
+            margin: 18px 0;
+        }
+        code {
+            overflow-wrap: anywhere;
+        }
+    </style>
+    <h1>Travel page · 2027</h1>
+    <p>
+        <b>Status:</b> Scope confirmed. Figma exported; implementation starting
+        in isolated <code>codex/travel-2027</code> worktree.
+    </p>
+    <section>
+        <h2>Goal and decisions</h2>
+        <p>
+            Figma desktop/mobile → responsive /travel page → tested map and
+            international ticket → PR against main.
+        </p>
+        <p>
+            Preserve reimbursement amounts and eligibility. Flag differences
+            before changing policy. No decorative animations. Use actual Figma
+            artwork with readable HTML text and accessible controls.
+        </p>
+    </section>
+    <section>
+        <h2>Steps</h2>
+        <ol>
+            <li>
+                Compare design text and current policy; extract reusable
+                artwork.
+            </li>
+            <li>
+                Add tests for policy, map selection, international rates,
+                keyboard/touch use and narrow screens; confirm failures before
+                implementation.
+            </li>
+            <li>
+                Replace old travel layout; reuse state data and shared
+                navigation.
+            </li>
+            <li>
+                Run focused browser tests, lint, TypeScript and build; inspect
+                desktop/mobile with Computer Use.
+            </li>
+            <li>
+                Create standalone HTML report with changed files, exact checks,
+                limitations and reproduction steps; open PR.
+            </li>
+        </ol>
+    </section>
+    <section>
+        <h2>Evidence and risks</h2>
+        <p>
+            Desktop Figma frame 1553:12 (1440 × 3132), exported 2026-11-15.
+            Eligibility and $100–$400 legend tiers match existing code.
+            Per-state and international amounts are not visible in the static
+            design; existing values remain authoritative.
+        </p>
+        <p>
+            Latest main 1230e24 includes shared 2027 navigation. Travel will
+            join the existing frontier page layout. Mobile content must remain
+            readable rather than shrink the desktop artwork as one image. No API
+            or backend changes planned.
+        </p>
+        <p>
+            Checks may uncover unrelated baseline failures; record them rather
+            than silently broaden scope. Tests will cover the complete rendered
+            flow; no separate unit tests for static markup. Diagnostic logging
+            is unnecessary for local display-only selection with no service
+            calls or caught errors.
+        </p>
+    </section>
+</html>

@@ -20,7 +20,7 @@ export const STATE_REIMBURSEMENT: Record<string, number> = {
     Vermont: 300,
     Maine: 350,
     Delaware: 250,
-    DC: 250,
+    "District of Columbia": 250,
     Maryland: 250,
     Massachusetts: 250,
     "New York": 250,
