@@ -2,6 +2,7 @@
 
 import { GradientButton } from "@/components/GradientButton/GradientButton";
 import { Box, Typography } from "@mui/material";
+import { HackIllinoisWordmark } from "@/components/HackIllinoisWordmark/HackIllinoisWordmark";
 
 const RSVPUnavailable = () => {
     return (
@@ -41,17 +42,7 @@ const RSVPUnavailable = () => {
                     px: 3
                 }}
             >
-                <img
-                    src="/registration/hackastra-logo.png"
-                    alt="Hackastra Logo"
-                    style={{
-                        width: "auto",
-                        maxHeight: "110px",
-                        maxWidth: "100%",
-                        marginBottom: "40px",
-                        objectFit: "contain"
-                    }}
-                />
+                <HackIllinoisWordmark sx={{ mb: "40px" }} />
 
                 <Box
                     sx={{

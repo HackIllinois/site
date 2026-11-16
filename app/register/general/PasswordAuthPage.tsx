@@ -1,3 +1,4 @@
+import { HackIllinoisWordmark } from "@/components/HackIllinoisWordmark/HackIllinoisWordmark";
 import { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
@@ -58,17 +59,7 @@ const PasswordAuthPage = ({ onAuthenticated }: PasswordAuthPageProps) => {
                     px: 3
                 }}
             >
-                <img
-                    src="/registration/hackastra-logo.png"
-                    alt="Hackastra Logo"
-                    style={{
-                        width: "auto",
-                        maxHeight: "110px",
-                        maxWidth: "100%",
-                        marginBottom: "20px",
-                        objectFit: "contain"
-                    }}
-                />
+                <HackIllinoisWordmark sx={{ mb: "20px" }} />
                 <Typography
                     variant="h6"
                     component="p"

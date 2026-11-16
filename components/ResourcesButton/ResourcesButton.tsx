@@ -2,6 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Box, Link, Typography } from "@mui/material";
 
+const SHOW_RESOURCES = false;
+
 type ResourcesButtonProps = {};
 
 export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
@@ -72,6 +74,9 @@ export const ResourcesButton: React.FC<ResourcesButtonProps> = () => {
             document.removeEventListener("click", handleClickOutside);
         };
     }, []);
+
+    // UI is temporarily hidden for a later reskin.
+    if (!SHOW_RESOURCES) return null;
 
     if (!mounted) {
         return null;
