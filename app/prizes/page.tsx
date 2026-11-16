@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import shared from "@/components/Frontier/Frontier.module.scss";
 import styles from "./styles.module.scss";
-import { prizeSections } from "./sample-prizes";
+import { prizeSections } from "./content/prize-data";
 
 export const metadata: Metadata = {
     title: "Prizes | HackIllinois 2027",

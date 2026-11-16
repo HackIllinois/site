@@ -1,3 +1,4 @@
+// Edit prize names, rewards, and section order here. See README.md beside this file.
 // Provisional Figma examples, approved for the page while awards are finalized.
 // Keep the repeated examples: they are sample content, not confirmed awards.
 type Prize = {

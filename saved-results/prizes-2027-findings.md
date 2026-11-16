@@ -15,3 +15,7 @@ Evidence: valid pre-change red5/5 failed; dev green5/5; production green5/5 in3.
 Search: rg prizes/ and old component names across app/components found FAQ uses old animations and stars artwork, retained. Registration SectionHeader is a separate component and untouched. No external callers of seven deleted prize-only components found. Runtime logging omitted: static display and native anchors have no inputs/API/caught-error paths; diagnostic output is test/build logs.
 
 PR: https://github.com/HackIllinois/site/pull/563. GitHub connector returned403; authenticated gh fallback created it.
+
+## Local editing follow-up
+
+User requested familiar local data maintenance, not a shop API. Moved sample-prizes.ts to app/prizes/content/prize-data.ts, added adjacent README.md, and updated page import. Data equality comparison against the prior commit passed after excluding the new comment; tsc exit0 and focused Next lint exit0. No behavior or award changes. Rename/docs exception: no new red/green tests, build or browser checks; existing production preview left running.

@@ -94,6 +94,32 @@
             selectable HTML. Uses existing Frontier fonts/navbar. No database,
             service, form or API changes.
         </p>
+        <section>
+            <h2>Follow-up: make local data easy to edit</h2>
+            <p>
+                Moved the existing data to
+                <code>app/prizes/content/prize-data.ts</code>, updated its
+                import, and added <code>app/prizes/content/README.md</code>. The
+                guide explains every field, adding/removing/reordering cards and
+                sections, shared sample references, the four-board navigation
+                limit, and preview checks. No backend, shop API, award changes,
+                or rendering changes.
+            </p>
+            <p>
+                Checks for this follow-up: <code>npx tsc --noEmit</code> exit0;
+                focused
+                <code
+                    >npx next lint --file app/prizes/page.tsx --file
+                    app/prizes/content/prize-data.ts</code
+                >
+                exit0 with no warnings/errors; Python compared the moved file
+                against the previous committed data, excluding the new editing
+                comment: PASS, data unchanged. Red/green tests, runtime browser
+                checks and build were not repeated because this is a mechanical
+                rename and documentation-only change. Existing production
+                preview was left running.
+            </p>
+        </section>
         <h2>Changed files</h2>
         <table>
             <tr>
@@ -183,7 +209,7 @@
                 </td>
             </tr>
             <tr>
-                <td><code>app/prizes/sample-prizes.ts</code></td>
+                <td><code>app/prizes/content/prize-data.ts</code></td>
                 <td>
                     Typed provisional Figma sample content, including deliberate
                     repeated entries.
@@ -259,6 +285,14 @@
                     screenshots.
                 </td>
             </tr>
+            <tr>
+                <td><code>app/prizes/content/README.md</code></td>
+                <td>
+                    Local editing guide with field definitions, examples, shared
+                    sample references, ordering instructions and signpost
+                    constraints.
+                </td>
+            </tr>
         </table>
         <h2>Focused implementation excerpts</h2>
         <details>
@@ -267,7 +301,7 @@
 import type { Metadata } from &quot;next&quot;;
 import shared from &quot;@/components/Frontier/Frontier.module.scss&quot;;
 import styles from &quot;./styles.module.scss&quot;;
-import { prizeSections } from &quot;./sample-prizes&quot;;
+import { prizeSections } from &quot;./content/prize-data&quot;;
 
 export const metadata: Metadata = {
     title: &quot;Prizes | HackIllinois 2027&quot;,
@@ -360,8 +394,9 @@ export default function PrizesPage() {
             >
         </details>
         <details>
-            <summary>app/prizes/sample-prizes.ts</summary>
+            <summary>app/prizes/content/prize-data.ts</summary>
             <pre>
+// Edit prize names, rewards, and section order here. See README.md beside this file.
 // Provisional Figma examples, approved for the page while awards are finalized.
 // Keep the repeated examples: they are sample content, not confirmed awards.
 type Prize = {
@@ -549,6 +584,67 @@ test(&quot;phone section links respond to touch&quot;, async ({ browser }) =&gt;
     ).toBeInViewport();
     await context.close();
 });
+</pre
+            >
+        </details>
+        <details>
+            <summary>Local content editing guide</summary>
+            <pre>
+# Editing the Prizes page
+
+Edit **`prize-data.ts` in this folder**. All prize information stays in the repository; the page does not fetch it from a shop or other API. Unlike the previous page, you do not need to find prize text inside separate section components.
+
+The current entries are **sample awards**, including repeated prizes and sponsor placeholders. Keep the preview notice in `../page.tsx` until the final content is confirmed.
+
+## Change a prize
+
+Find its `title`, then edit these fields:
+
+| Field     | What appears on the page                                                                                        |
+| --------- | --------------------------------------------------------------------------------------------------------------- |
+| `title`   | Heading above the barrel, such as `Best Voyager Hack`.                                                          |
+| `label`   | Decorative sponsor text on the wooden board, such as `stripe`. This is a sample label, not a confirmed sponsor. |
+| `artwork` | One of `purple`, `red`, or `gold`, selecting the existing cat/barrel artwork.                                   |
+| `rewards` | List of reward paragraphs below the barrel. State whether an award is per team or per member.                   |
+
+For example, this is the existing sample Voyager card:
+
+```ts
+{
+    title: &quot;Best Voyager Hack&quot;,
+    label: &quot;stripe&quot;,
+    artwork: &quot;purple&quot;,
+    rewards: [&quot;$5000&quot;]
+}
+```
+
+Copy a prize object into a section&#x27;s `prizes` list to add a card. Remove an object to remove its card. Move objects within the list to change their display order. Desktop reads left to right, then down; phones read top to bottom.
+
+**Repeated samples share content:** the four Track cards use `webApi`, so editing that object changes all four. Company and Extra both use `companyExamples`, so editing that list changes both sections. To change only one repeated card or section, replace its reference with a separate object or list copied from the sample. These references are just local TypeScript data, not a service connection.
+
+## Change a section
+
+The `prizeSections` list at the bottom defines the sections and the wooden navigation links, in display order:
+
+- `id`: unique link target, such as `path-prizes`. Keep existing IDs when possible so saved links continue working.
+- `label`: short navigation label, such as `Path`. The page adds `Prizes` to the section heading automatically.
+- `description`: optional explanatory paragraph, including eligibility or per-team/per-member rules.
+- `prizes`: list of cards, or a reference to a list declared above.
+
+Move section objects to reorder the page and its navigation together. To add a section, copy a section object and give it a unique `id`, short `label`, and its own `prizes` list. To remove one, remove its object.
+
+**The current artwork has four navigation boards.** Changing the number of sections also requires adjusting the signpost image and `.navigation` layout in `../styles.module.scss`. Long labels may need a smaller font. Adding or removing cards within an existing section does not need a layout change.
+
+## Check the result
+
+Run commands from the repository root:
+
+```sh
+npx tsc --noEmit
+npm run dev -- --port 3018
+```
+
+Open `http://localhost:3018/prizes`, check desktop and phone widths, and try each section link. Stop the server when finished. `npm run test:prizes` runs the browser checks using Chrome. When intentionally changing the number of cards or sections, update the expected count and section labels in `tests/prizes/page.spec.ts` to match the newly confirmed content.
 </pre
             >
         </details>
@@ -1002,7 +1098,7 @@ Running 5 tests using 1 worker
             </li>
             <li>
                 Inspect provisional amounts/eligibility before replacing
-                sample-prizes.ts with final content.
+                content/prize-data.ts with final content.
             </li>
         </ol>
     </main>
