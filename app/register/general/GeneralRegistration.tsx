@@ -26,6 +26,7 @@ import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
 
 import Loading from "@/components/Loading/Loading";
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import theme from "@/theme";
 import {
@@ -36,7 +37,6 @@ import {
     subscribe
 } from "@/util/api";
 import RegistrationStepper from "./components/RegistrationStepper";
-import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
 import {
     applyFooterTheme,
     REGISTER_FOOTER_DEFAULT,
@@ -483,9 +483,11 @@ export const GeneralRegistration = () => {
                     pb: "50px"
                 }}
             >
+                {/* Fixed full-viewport layer so scrolling the form still shows
+                    the stage sunset, crossfaded between steps. */}
                 <RegistrationBackground
-                    src={steps[currentStep].background}
-                    prefetchSrc={steps[currentStep + 1]?.background}
+                    background={steps[currentStep]}
+                    next={steps[currentStep + 1] ?? null}
                 />
                 <Paper
                     elevation={0}

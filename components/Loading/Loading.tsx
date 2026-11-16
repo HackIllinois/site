@@ -1,20 +1,39 @@
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
+import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 import { Box, CircularProgress } from "@mui/material";
-import RegistrationBackground, {
-    registrationBackgrounds
-} from "@/components/RegistrationBackground/RegistrationBackground";
 
 type LoadingProps = {
+    /**
+     * Full-size art to use instead of the registration stage (e.g. the profile
+     * page's /profile/background.jpg). Anything else uses the stage scene.
+     */
     backgroundImage?: string;
-    zoom?: boolean;
 };
 
-const Loading: React.FC<LoadingProps> = ({
-    backgroundImage = registrationBackgrounds.personal_info,
-    zoom = true
-}) => {
+const Loading: React.FC<LoadingProps> = ({ backgroundImage }) => {
     return (
         <>
-            <RegistrationBackground src={backgroundImage} />
+            {backgroundImage ? (
+                <Box
+                    sx={{
+                        position: "fixed",
+                        inset: 0,
+                        backgroundImage: `url(${backgroundImage})`,
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        filter: "blur(10px)",
+                        transform: "scale(1.1)",
+                        zIndex: -1
+                    }}
+                />
+            ) : (
+                // Blur-up over the encoded stage art instead of a multi-MB SVG.
+                <RegistrationBackground
+                    background={registrationBackgrounds.personal_info}
+                    blurPx={10}
+                />
+            )}
             <Box
                 sx={{
                     position: "absolute",

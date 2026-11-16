@@ -2,14 +2,13 @@
 
 import { authenticate, devLogin, getDevUsers } from "@/util/api";
 import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
+import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Alert, Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
-import RegistrationBackground, {
-    registrationBackgrounds
-} from "@/components/RegistrationBackground/RegistrationBackground";
 
 const gradientRingSx = {
     borderRadius: "999px",
@@ -97,7 +96,10 @@ const GithubAuthPage = ({
                 overflowY: "auto"
             }}
         >
-            <RegistrationBackground src={registrationBackgrounds.auth} />
+            <RegistrationBackground
+                background={registrationBackgrounds.auth}
+                next={registrationBackgrounds.personal_info}
+            />
             <Box
                 sx={{
                     width: "100%",

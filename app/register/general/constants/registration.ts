@@ -1,5 +1,9 @@
 import type { NavButtonThemeId } from "@/components/Form/NavigationButton/navButtonThemes";
-import { registrationBackgrounds } from "@/components/RegistrationBackground/RegistrationBackground";
+import type {
+    RegistrationBackgroundArt,
+    RegistrationBackgroundId
+} from "@/modules/RegistrationBackgrounds";
+import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 
 /** Site footer palette; driven by CSS variables on :root. */
 export type FooterTheme = {
@@ -52,22 +56,20 @@ export function clearFooterTheme(): void {
     }
 }
 
-export type Step = {
-    /** Background art file name in public/registration/backgrounds/. */
-    id: string;
+export type Step = RegistrationBackgroundArt & {
+    /** Scene key: also the name of the source art in public/registration/backgrounds/. */
+    id: RegistrationBackgroundId;
     name: string;
     /** Short label for nav plaques (fits 260×66 arrow). */
     navLabel: string;
     color: string;
     /** Textured plaque theme matching the stage sunset background. */
     buttonTheme: NavButtonThemeId;
-    background: string;
     /**
      * Footer gradient matching the stage art bottom band
      * (public/registration/backgrounds/{id}.svg y=727 / V839 strip).
      */
     footerTheme: FooterTheme;
-    use_svg?: boolean;
 };
 
 const woodLink = {
@@ -77,65 +79,59 @@ const woodLink = {
 
 export const steps: Step[] = [
     {
+        ...registrationBackgrounds.personal_info,
         id: "personal_info",
         name: "Personal Details",
         navLabel: "PERSONAL",
         color: "#3A2541",
         buttonTheme: "sunset1",
-        background: registrationBackgrounds.personal_info,
-        footerTheme: { bgFrom: "#983723", bgTo: "#A5372F", ...woodLink },
-        use_svg: true
+        footerTheme: { bgFrom: "#983723", bgTo: "#A5372F", ...woodLink }
     },
     {
+        ...registrationBackgrounds.canyon_background_info,
         id: "canyon_background_info",
         name: "Background Information",
         navLabel: "BACKGROUND",
         color: "#7A1F6E",
         buttonTheme: "sunset2",
-        background: registrationBackgrounds.canyon_background_info,
         // Sampled from the canyon art's bottom band.
-        footerTheme: { bgFrom: "#A62F8B", bgTo: "#BD3AAC", ...woodLink },
-        use_svg: false
+        footerTheme: { bgFrom: "#A62F8B", bgTo: "#BD3AAC", ...woodLink }
     },
     {
+        ...registrationBackgrounds.app_questions,
         id: "app_questions",
         name: "Application Questions",
         navLabel: "APPLICATION",
         color: "#01313B",
         buttonTheme: "sunset6",
-        background: registrationBackgrounds.app_questions,
-        footerTheme: { bgFrom: "#372398", bgTo: "#4735BB", ...woodLink },
-        use_svg: true
+        footerTheme: { bgFrom: "#372398", bgTo: "#4735BB", ...woodLink }
     },
     {
+        ...registrationBackgrounds.attending_hack,
         id: "attending_hack",
         name: "Attending HackIllinois",
         navLabel: "ATTENDING",
         color: "#87304E",
         buttonTheme: "sunset7",
-        background: registrationBackgrounds.attending_hack,
-        footerTheme: { bgFrom: "#236F98", bgTo: "#357ABB", ...woodLink },
-        use_svg: true
+        footerTheme: { bgFrom: "#236F98", bgTo: "#357ABB", ...woodLink }
     },
     {
+        ...registrationBackgrounds.review,
         id: "review",
         name: "Review & Submit",
         navLabel: "REVIEW",
         color: "#983300",
         buttonTheme: "ocean",
-        background: registrationBackgrounds.review,
-        footerTheme: { bgFrom: "#983723", bgTo: "#A5372F", ...woodLink },
-        use_svg: true
+        footerTheme: { bgFrom: "#983723", bgTo: "#A5372F", ...woodLink }
     },
     {
+        ...registrationBackgrounds.confirmation,
         id: "confirmation",
         name: "Confirmation",
         navLabel: "CONFIRMATION",
         color: "#480021",
         buttonTheme: "sunset7",
-        background: registrationBackgrounds.confirmation,
-        footerTheme: { bgFrom: "#236F98", bgTo: "#357ABB", ...woodLink },
-        use_svg: true
+        footerTheme: { bgFrom: "#236F98", bgTo: "#357ABB", ...woodLink }
     }
 ];
 

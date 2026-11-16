@@ -1,10 +1,8 @@
 "use client";
 
-import RegistrationBackground, {
-    registrationBackgrounds
-} from "@/components/RegistrationBackground/RegistrationBackground";
-
 import { GradientButton } from "@/components/GradientButton/GradientButton";
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
+import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 import { Box, Typography } from "@mui/material";
 
 const RSVPUnavailable = () => {
@@ -18,7 +16,7 @@ const RSVPUnavailable = () => {
             }}
         >
             <RegistrationBackground
-                src={registrationBackgrounds.personal_info}
+                background={registrationBackgrounds.personal_info}
             />
             <Box
                 sx={{

@@ -1,6 +1,5 @@
-import RegistrationBackground, {
-    registrationBackgrounds
-} from "@/components/RegistrationBackground/RegistrationBackground";
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
+import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 import { Box } from "@mui/material";
 import Link from "next/link";
 
@@ -8,7 +7,8 @@ const NotFound: React.FC = () => {
     return (
         <>
             <RegistrationBackground
-                src={registrationBackgrounds.personal_info}
+                background={registrationBackgrounds.personal_info}
+                blurPx={10}
             />
             <Box
                 sx={{
