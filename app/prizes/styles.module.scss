@@ -73,23 +73,6 @@
         }
     }
 }
-.sampleNotice {
-    position: absolute;
-    right: 8%;
-    bottom: 8%;
-    width: min(340px, 37%);
-    padding: 16px 20px;
-    background: #fff0dce8;
-    color: #46283b;
-    font-size: 14px;
-    line-height: 1.5;
-    border: 1px solid #855c41;
-    border-radius: 4px;
-    strong {
-        display: block;
-        margin-bottom: 5px;
-    }
-}
 .trail {
     background: url("/prizes/frontier/scenery/trail.webp") center top / 100%
         100% no-repeat;
@@ -216,14 +199,6 @@
     }
     .navigation a {
         font-size: 26px;
-    }
-    .sampleNotice {
-        width: auto;
-        left: 24px;
-        right: 24px;
-        bottom: 28px;
-        font-size: 13px;
-        padding: 12px 16px;
     }
     .trail {
         padding: 0 24px 90px;

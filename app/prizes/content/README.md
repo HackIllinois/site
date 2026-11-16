@@ -2,7 +2,7 @@
 
 Edit **`prize-data.ts` in this folder**. All prize information stays in the repository; the page does not fetch it from a shop or other API. Unlike the previous page, you do not need to find prize text inside separate section components.
 
-The current entries are **sample awards**, including repeated prizes and sponsor placeholders. Keep the preview notice in `../page.tsx` until the final content is confirmed.
+The current entries are **sample awards**, including repeated prizes and sponsor placeholders. The visible preview notice was removed at the user’s request; these entries still need final confirmation.
 
 ## Change a prize
 

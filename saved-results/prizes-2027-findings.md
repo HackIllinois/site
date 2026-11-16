@@ -19,3 +19,7 @@ PR: https://github.com/HackIllinois/site/pull/563. GitHub connector returned403;
 ## Local editing follow-up
 
 User requested familiar local data maintenance, not a shop API. Moved sample-prizes.ts to app/prizes/content/prize-data.ts, added adjacent README.md, and updated page import. Data equality comparison against the prior commit passed after excluding the new comment; tsc exit0 and focused Next lint exit0. No behavior or award changes. Rename/docs exception: no new red/green tests, build or browser checks; existing production preview left running.
+
+## Visible notice removal
+
+User requested removal of the visible sample-information notice. Removed the markup and unused desktop/mobile CSS, changed tests to assert absence, and updated editing guide. Sample data unchanged (byte comparison passed). Pre-change targeted test1 failed; production tests5 passed in2.4s after build exit0. Focused lint exit0. Production preview refreshed on3018; current screenshots embedded in HTML report.

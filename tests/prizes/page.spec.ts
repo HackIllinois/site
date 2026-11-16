@@ -11,7 +11,9 @@ for (const width of [1440, 390, 320]) {
         await expect(
             page.getByRole("heading", { name: "Prizes", exact: true })
         ).toBeVisible();
-        await expect(page.getByText(/sample prize information/i)).toBeVisible();
+        await expect(page.getByText(/sample prize information/i)).toHaveCount(
+            0
+        );
         const navigation = page.getByRole("navigation", {
             name: "Prize sections"
         });

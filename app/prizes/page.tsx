@@ -27,11 +27,6 @@ export default function PrizesPage() {
                         ))}
                     </nav>
                 </div>
-                <p className={styles.sampleNotice}>
-                    <strong>Sample prize information</strong>
-                    These are preview examples. Final prizes, sponsors, and
-                    eligibility details will be announced.
-                </p>
             </section>
             <div className={styles.trail}>
                 {prizeSections.map(section => (
