@@ -2,14 +2,13 @@
 
 import { authenticate, devLogin, getDevUsers } from "@/util/api";
 import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Alert, Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 
 const authButtonSx = {
-    backgroundColor: "#401a79",
+    backgroundColor: "#75462d",
     color: "#ffffff",
     padding: "12px 24px",
     fontSize: { xs: "18px", sm: "20px", md: "22px" },
@@ -25,11 +24,11 @@ const authButtonSx = {
         "& svg": { fontSize: "1.4rem" }
     },
     "&:hover": {
-        backgroundColor: "#5725a3",
+        backgroundColor: "#8c5638",
         boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
     },
     "&:active": {
-        backgroundColor: "#31135e",
+        backgroundColor: "#5f3825",
         boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
     },
     fontFamily: "Montserrat"
@@ -129,9 +128,7 @@ const GithubAuthPage = ({
                         paddingRight: 6
                     }}
                 >
-                    {LOCAL_AUTH_ENABLED
-                        ? "Sign in with a local test account to get started"
-                        : "Sign in with your GitHub or Google account to get started"}
+                    Sign in to get started!
                 </Typography>
 
                 {/* Priority and final deadline boxes */}
@@ -345,11 +342,6 @@ const GithubAuthPage = ({
                         </>
                     ) : (
                         [
-                            {
-                                provider: "github" as const,
-                                label: "GitHub",
-                                icon: <GitHubIcon />
-                            },
                             {
                                 provider: "google" as const,
                                 label: "Google",
