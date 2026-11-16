@@ -104,7 +104,7 @@ test("map takes priority over the small disclaimer without a dropdown", async ({
     expect(box!.y).toBeGreaterThan(map!.y + map!.height);
     expect(
         await policy.evaluate(el => parseFloat(getComputedStyle(el).fontSize))
-    ).toBeLessThanOrEqual(12);
+    ).toBe(14);
 });
 
 test("every state uses its reimbursement tier color without hover labels", async ({

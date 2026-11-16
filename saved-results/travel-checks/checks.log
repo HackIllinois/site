@@ -1562,3 +1562,223 @@ Checking formatting...
 All matched files use Prettier code style!
 
 === Local JSON types ===
+
+=== Disclaimer14px red ===
+
+> hackillinois-2025@0.1.0 test:travel
+> playwright test --config tests/travel/playwright.config.ts --workers=2 --grep map takes priority
+
+
+Running 2 tests using 2 workers
+
+(node:61499) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:61500) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [desktop] › tests/travel/travel.spec.ts:93:1 › map takes priority over the small disclaimer without a dropdown (708ms)
+  ✘  1 [mobile] › tests/travel/travel.spec.ts:93:1 › map takes priority over the small disclaimer without a dropdown (709ms)
+
+
+  1) [desktop] › tests/travel/travel.spec.ts:93:1 › map takes priority over the small disclaimer without a dropdown
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 14
+    Received: 12
+
+      105 |     expect(
+      106 |         await policy.evaluate(el => parseFloat(getComputedStyle(el).fontSize))
+    > 107 |     ).toBe(14);
+          |       ^
+      108 | });
+      109 |
+      110 | test("every state uses its reimbursement tier color without hover labels", async ({
+        at /Users/aadivyar/Documents/RSOs/HackIllinois/worktrees/travel-2027/tests/travel/travel.spec.ts:107:7
+
+    Error Context: test-results/travel/travel-map-takes-priority--3aa90-sclaimer-without-a-dropdown-desktop/error-context.md
+
+  2) [mobile] › tests/travel/travel.spec.ts:93:1 › map takes priority over the small disclaimer without a dropdown
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 14
+    Received: 12
+
+      105 |     expect(
+      106 |         await policy.evaluate(el => parseFloat(getComputedStyle(el).fontSize))
+    > 107 |     ).toBe(14);
+          |       ^
+      108 | });
+      109 |
+      110 | test("every state uses its reimbursement tier color without hover labels", async ({
+        at /Users/aadivyar/Documents/RSOs/HackIllinois/worktrees/travel-2027/tests/travel/travel.spec.ts:107:7
+
+    Error Context: test-results/travel/travel-map-takes-priority--3aa90-sclaimer-without-a-dropdown-mobile/error-context.md
+
+  2 failed
+    [desktop] › tests/travel/travel.spec.ts:93:1 › map takes priority over the small disclaimer without a dropdown
+    [mobile] › tests/travel/travel.spec.ts:93:1 › map takes priority over the small disclaimer without a dropdown
+
+=== Disclaimer14px green ===
+
+> hackillinois-2025@0.1.0 test:travel
+> playwright test --config tests/travel/playwright.config.ts --workers=2
+
+
+Running 12 tests using 2 workers
+
+(node:61965) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:61964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [mobile] › tests/travel/travel.spec.ts:9:1 › travel policy stays readable in the new layout (560ms)
+  ✓   2 [desktop] › tests/travel/travel.spec.ts:9:1 › travel policy stays readable in the new layout (582ms)
+  ✓   4 [desktop] › tests/travel/travel.spec.ts:35:1 › ticket exposes existing international caps and closes with Escape (596ms)
+  ✓   3 [mobile] › tests/travel/travel.spec.ts:35:1 › ticket exposes existing international caps and closes with Escape (621ms)
+  ✓   5 [desktop] › tests/travel/travel.spec.ts:59:1 › small screens and dark appearance retain working navigation (506ms)
+  ✓   6 [mobile] › tests/travel/travel.spec.ts:59:1 › small screens and dark appearance retain working navigation (497ms)
+  ✓   8 [mobile] › tests/travel/travel.spec.ts:93:1 › map takes priority over the small disclaimer without a dropdown (372ms)
+  ✓   7 [desktop] › tests/travel/travel.spec.ts:93:1 › map takes priority over the small disclaimer without a dropdown (373ms)
+  ✓   9 [mobile] › tests/travel/travel.spec.ts:110:1 › every state uses its reimbursement tier color without hover labels (875ms)
+  ✓  10 [desktop] › tests/travel/travel.spec.ts:110:1 › every state uses its reimbursement tier color without hover labels (884ms)
+  ✓  11 [mobile] › tests/travel/travel.spec.ts:155:1 › local reimbursement JSON covers every state once in the eight allowed tiers (426ms)
+  ✓  12 [desktop] › tests/travel/travel.spec.ts:155:1 › local reimbursement JSON covers every state once in the eight allowed tiers (422ms)
+
+  12 passed (4.2s)
+
+=== Disclaimer14px build ===
+
+> hackillinois-2025@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.9
+   - Environments: .env.production
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 3.0s
+   Linting and checking validity of types ...
+
+./app/landing/JoinUsSponsors.tsx
+252:11  Warning: 'getTierColor' is assigned a value but never used. Allowed unused vars must match /^_/u.  unused-imports/no-unused-vars
+513:41  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+527:49  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+618:53  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/layout.tsx
+89:25  Warning: Custom fonts not added in `pages/_document.js` will only load for a single page. This is discouraged. See: https://nextjs.org/docs/messages/no-page-custom-font  @next/next/no-page-custom-font
+
+./app/prizes/TrackPrize.tsx
+36:5  Warning: 'bottomTextOffset' is defined but never used. Allowed unused args must match /^_/u.  unused-imports/no-unused-vars
+38:5  Warning: 'width' is defined but never used. Allowed unused args must match /^_/u.  unused-imports/no-unused-vars
+43:5  Warning: 'bottomLetterSpacing' is assigned a value but never used. Allowed unused args must match /^_/u.  unused-imports/no-unused-vars
+46:5  Warning: 'children' is defined but never used. Allowed unused args must match /^_/u.  unused-imports/no-unused-vars
+
+./app/profile/AvatarCarousel.tsx
+85:8  Warning: React Hook useEffect has a missing dependency: 'go'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./app/profile/page.tsx
+172:8  Warning: React Hook useEffect has a missing dependency: 'router'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./app/profile-setup/page.tsx
+366:8  Warning: React Hook useEffect has a missing dependency: 'loadRSVPData'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./app/profile-unavailable/page.tsx
+44:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/register/general/GeneralRegistration.tsx
+360:8  Warning: React Hook useEffect has missing dependencies: 'currentStep' and 'handleSave'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+374:8  Warning: React Hook useEffect has a missing dependency: 'handleSave'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+378:8  Warning: React Hook useEffect has a missing dependency: 'handleLoadDraft'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./app/register/general/PasswordAuthPage.tsx
+61:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/register/general/components/RocketOverlay.tsx
+59:8  Warning: React Hook useEffect has a missing dependency: 'activeStep'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+75:8  Warning: React Hook useEffect has missing dependencies: 'move' and 'planetCenters'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./app/register/general/formPages/Confirmation.tsx
+77:18  Warning: 'error' is defined but never used.  unused-imports/no-unused-vars
+
+./app/register/general/formPages/GithubAuthPage.tsx
+124:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/registration-closed/page.tsx
+44:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/rsvp/page.tsx
+79:8  Warning: React Hook useEffect has a missing dependency: 'loadRSVPData'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+136:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+183:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+322:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+412:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+424:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/rsvp-unavailable/page.tsx
+44:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/schedule/FilterPopup.tsx
+340:8  Warning: React Hook useEffect has missing dependencies: 'selectedTagIds.size' and 'tags.length'. Either include them or remove the dependency array. If 'setAllSelectedOnOpen' needs the current value of 'selectedTagIds.size', you can also switch to useReducer instead of useState and read 'selectedTagIds.size' in the reducer.  react-hooks/exhaustive-deps
+
+./app/schedule/page.tsx
+336:8  Warning: React Hook useMemo has missing dependencies: 'timeFilter.from' and 'timeFilter.to'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./components/Form/TextInputMUI.tsx
+28:5  Warning: 'placeholder' is assigned a value but never used. Allowed unused args must match /^_/u.  unused-imports/no-unused-vars
+
+./components/SelectInputMUI.tsx
+192:33  Warning: 'theme' is defined but never used. Allowed unused args must match /^_/u.  unused-imports/no-unused-vars
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+   Collecting page data ...
+   Generating static pages (0/33) ...
+   Generating static pages (8/33)
+   Generating static pages (16/33)
+   Generating static pages (24/33)
+ ✓ Generating static pages (33/33)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    3.92 kB         109 kB
+├ ○ /_not-found                            159 B         102 kB
+├ ○ /challenge                             404 B         106 kB
+├ ○ /challenge/description               9.29 kB         168 kB
+├ ○ /challenge/landing-page                159 B         102 kB
+├ ○ /challenge/result/failure              159 B         102 kB
+├ ○ /challenge/result/success            3.17 kB         162 kB
+├ ○ /ctf                                 10.3 kB         202 kB
+├ ƒ /ctf/miniapi                           159 B         102 kB
+├ ƒ /ctf/miniapi/packet1                   159 B         102 kB
+├ ƒ /ctf/miniapi/packet2                   159 B         102 kB
+├ ƒ /ctf/miniapi/packet3                   159 B         102 kB
+├ ƒ /ctf/miniapi/packet4                   159 B         102 kB
+├ ƒ /ctf/miniapi/unlock                    159 B         102 kB
+├ ○ /ctf/submit                          9.21 kB         221 kB
+├ ○ /faq                                 1.54 kB         170 kB
+├ ƒ /job-board                           1.93 kB         109 kB
+├ ○ /judges                                 4 kB         160 kB
+├ ○ /legal                               11.4 kB         151 kB
+├ ○ /mentors                             4.02 kB         160 kB
+├ ○ /prizes                              11.6 kB         200 kB
+├ ○ /profile                             15.3 kB         171 kB
+├ ○ /profile-setup                       8.03 kB         249 kB
+├ ○ /profile-unavailable                 1.25 kB         146 kB
+├ ○ /register/general                    37.4 kB         307 kB
+├ ○ /registration-closed                 1.28 kB         146 kB
+├ ○ /rsvp                                  13 kB         232 kB
+├ ○ /rsvp-unavailable                    1.28 kB         146 kB
+├ ○ /schedule                            67.6 kB         279 kB
+└ ○ /travel                              38.7 kB         141 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/1255-8befde0980f5cba9.js      45.6 kB
+  ├ chunks/4bd1b696-100b9d70ed4e49c1.js  54.2 kB
+  └ other shared chunks (total)          2.26 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+> hackillinois-2025@0.1.0 postbuild
+> node scripts/workers-ci-opennext.cjs
