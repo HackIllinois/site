@@ -13,3 +13,5 @@ Reproduce: npm ci; npm run test:prizes; npm run lint; npx tsc --noEmit; npm run 
 Evidence: valid pre-change red5/5 failed; dev green5/5; production green5/5 in3.0s; lint0 with existing warnings; final tsc0; build0. Initial browser attempt used Travel3017, excluded. First tsc found FAQ importing prizes/animations; restored the shared file then tsc0. CUA native Chrome verified rendered hero and Track anchor reaching Track Prizes. Phone390 screenshot and touch test, widths320/390/1440 all no overflow.
 
 Search: rg prizes/ and old component names across app/components found FAQ uses old animations and stars artwork, retained. Registration SectionHeader is a separate component and untouched. No external callers of seven deleted prize-only components found. Runtime logging omitted: static display and native anchors have no inputs/API/caught-error paths; diagnostic output is test/build logs.
+
+PR: https://github.com/HackIllinois/site/pull/563. GitHub connector returned403; authenticated gh fallback created it.
