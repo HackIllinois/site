@@ -39,3 +39,9 @@ Removed the dropdown at the user's request. State hover/tap/keyboard focus shows
 New label tests: 2 expected failures before implementation. New dropdown/layout tests: 2 expected failures before implementation. Final production: 14 passed (3.8s); build, lint and TypeScript exit 0. Lint ran before the final spacing-only edit; formatting checked again before commit. Computer Use inspected desktop and 390px phone. No real Safari or screen-reader test.
 
 Search for Choose a state, stateSelect, stateElements, styles.selection in app/travel and tests/travel found no leftover uses. Current screenshots: travel-label-captures/desktop.webp and mobile.webp. See the updated HTML report for exact diff and full evidence.
+
+## Rate colors correction — 2026-11-15
+
+Supersedes hover-label behavior: eight light-to-dark olive greens now encode existing caps on states and matching legend dots. Lower amounts are lighter, higher darker. All51 state/district accessible labels retain names and exact caps. State selection/hover labels removed; international ticket and small disclaimer preserved. Exact Figma shades were not established by the screenshot.
+
+New browser checks first failed on both viewport sizes; final production 10 passed (4.1s), exit0. Build/lint/TypeScript exit0. Computer Use inspected desktop and390px phone. Searched app/travel for mapLabel, labelFor, setHovered, setSelected, old hover guidance and data-active: no leftover label paths. No real Safari, screen-reader or color-vision testing. Screenshots refreshed at existing travel-label-captures paths.
