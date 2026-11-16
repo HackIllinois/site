@@ -11,8 +11,7 @@ export const metadata: Metadata = {
 
 export default function TravelPage() {
     return (
-        <main className={styles.page}>
-            <TravelScene />
+        <TravelScene>
             <section className={styles.hero} aria-labelledby="travel-title">
                 <h1 id="travel-title">Travel Information</h1>
             </section>
@@ -77,6 +76,6 @@ export default function TravelPage() {
                     </aside>
                 </div>
             </section>
-        </main>
+        </TravelScene>
     );
 }

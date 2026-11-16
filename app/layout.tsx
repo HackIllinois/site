@@ -97,7 +97,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 className={`${montserrat.variable} ${tsukimi.variable} ${jersey.variable} ${oswald.variable} ${rye.variable} ${specialElite.variable}
                             ${montserrat.className}${isRegister ? " register-route" : ""}`} // compatibility
             >
-                <Navbar fixed={!isFrontier} />
+                {pathname !== "/travel" && <Navbar fixed={!isFrontier} />}
                 {isFrontier ? (
                     children
                 ) : (

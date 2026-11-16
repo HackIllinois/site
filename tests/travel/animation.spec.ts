@@ -12,42 +12,39 @@ async function translation(
     });
 }
 
-test("scene follows scroll and reverses without moving the board layout", async ({
+test("opening stays pinned until the whole train exits, then releases and reverses", async ({
     page
 }) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.goto("/travel");
     const scene = page.getByTestId("travel-scene");
     await expect(scene).toBeVisible();
-    await expect(scene).toHaveAttribute("aria-hidden", "true");
-    await expect(scene.locator("img")).toHaveCount(3);
-    for (const image of await scene.locator("img").all()) {
-        await expect
-            .poll(() =>
-                image.evaluate(img => (img as HTMLImageElement).naturalWidth)
-            )
-            .toBeGreaterThan(0);
-    }
-    const board = page.getByRole("region", {
-        name: "HackIllinois is offering travel reimbursements for qualifying attendees!"
+    const heading = page.getByRole("heading", {
+        name: "Travel Information",
+        exact: true
     });
-    const originalTop = await board.evaluate(
-        el => el.getBoundingClientRect().top + scrollY
-    );
-    const start = await translation(page, "train");
-    const distance = await page
+    const initialHeading = await heading.boundingBox();
+    const foreground = page.locator('[data-scene-layer="foreground"]');
+    const initialTree = await foreground.boundingBox();
+    const runway = await page
         .getByTestId("scene-scroll-target")
-        .evaluate(el => el.getBoundingClientRect().height * 0.45);
-    await page.evaluate(y => scrollTo(0, y), distance);
+        .evaluate(el => el.getBoundingClientRect().height);
+    await page.evaluate(y => scrollTo(0, y), runway * 0.5);
     await expect
         .poll(async () => (await translation(page, "train")).x)
-        .toBeGreaterThan(start.x + 50);
+        .toBeGreaterThan(50);
+    expect((await heading.boundingBox())!.y).toBeCloseTo(initialHeading!.y, 0);
+    expect((await foreground.boundingBox())!.y).toBeCloseTo(initialTree!.y, 0);
+    await page.evaluate(y => scrollTo(0, y), runway);
+    const trainImage = page.locator('[data-scene-layer="train"] img');
     await expect
-        .poll(async () => (await translation(page, "foreground")).y)
-        .toBeLessThan(-10);
-    expect(
-        await board.evaluate(el => el.getBoundingClientRect().top + scrollY)
-    ).toBeCloseTo(originalTop, 0);
+        .poll(async () => (await trainImage.boundingBox())!.x)
+        .toBeGreaterThanOrEqual(await page.evaluate(() => innerWidth));
+    expect((await heading.boundingBox())!.y).toBeCloseTo(initialHeading!.y, 0);
+    await page.evaluate(y => scrollTo(0, y), runway + 150);
+    await expect
+        .poll(async () => (await heading.boundingBox())!.y)
+        .toBeLessThan(initialHeading!.y - 140);
     expect(
         await page.evaluate(
             () => document.documentElement.scrollWidth <= innerWidth
@@ -56,7 +53,8 @@ test("scene follows scroll and reverses without moving the board layout", async 
     await page.evaluate(() => scrollTo(0, 0));
     await expect
         .poll(async () => (await translation(page, "train")).x)
-        .toBeCloseTo(start.x, 0);
+        .toBeCloseTo(0, 0);
+    expect((await heading.boundingBox())!.y).toBeCloseTo(initialHeading!.y, 0);
 });
 
 test("reduced motion keeps the scene still, including preference changes", async ({
@@ -65,7 +63,13 @@ test("reduced motion keeps the scene still, including preference changes", async
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/travel");
     await expect(page.getByTestId("travel-scene")).toBeVisible();
+    const heading = page.getByRole("heading", {
+        name: "Travel Information",
+        exact: true
+    });
+    const initialY = (await heading.boundingBox())!.y;
     await page.evaluate(() => scrollTo(0, 350));
+    expect((await heading.boundingBox())!.y).toBeCloseTo(initialY - 350, 0);
     for (const layer of ["train", "foreground"]) {
         await expect
             .poll(() => translation(page, layer))

@@ -95,4 +95,19 @@
             on an unmoving target to avoid layout feedback.
         </p>
     </section>
+    <section>
+        <h2>Correction: finish the train before descending</h2>
+        <p>
+            User found the floating tree and simultaneous downward scrolling
+            wrong. Pin the complete opening view while the first viewport of
+            scroll moves the entire train beyond the right edge. Keep foreground
+            trees fixed in the scene; then release normal downward page
+            scrolling. Scrolling back reverses the sequence. Reduced-motion and
+            no-JavaScript views skip the hold. Restore missing right-branch blur
+            from the source export. Tests must first reproduce drifting
+            heading/tree and premature release, then check pinned/released
+            states on desktop/mobile and unchanged reimbursement flows. Update
+            PR565 and this report.
+        </p>
+    </section>
 </html>
