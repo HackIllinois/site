@@ -1,6 +1,5 @@
 "use client";
 
-import { HackIllinoisWordmark } from "@/components/HackIllinoisWordmark/HackIllinoisWordmark";
 import { authenticate, devLogin, getDevUsers } from "@/util/api";
 import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -9,19 +8,11 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Alert, Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 
-const gradientRingSx = {
-    borderRadius: "999px",
-    padding: "5px",
-    background:
-        "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
-    display: "inline-flex"
-};
-
 const authButtonSx = {
-    backgroundColor: "#24292f",
+    backgroundColor: "#401a79",
     color: "#ffffff",
-    padding: "10px 20px",
-    fontSize: { xs: "16px", sm: "18px", md: "20px" },
+    padding: "12px 24px",
+    fontSize: { xs: "18px", sm: "20px", md: "22px" },
     fontWeight: 600,
     borderRadius: "999px",
     textTransform: "none",
@@ -31,14 +22,14 @@ const authButtonSx = {
     gap: 1,
     "& .MuiButton-startIcon": {
         marginRight: 1,
-        "& svg": { fontSize: "1.3rem" }
+        "& svg": { fontSize: "1.4rem" }
     },
     "&:hover": {
-        backgroundColor: "#1b1f23",
+        backgroundColor: "#5725a3",
         boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
     },
     "&:active": {
-        backgroundColor: "#0f1113",
+        backgroundColor: "#31135e",
         boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
     },
     fontFamily: "Montserrat"
@@ -122,7 +113,6 @@ const GithubAuthPage = ({
                     px: 3
                 }}
             >
-                <HackIllinoisWordmark sx={{ mb: "20px" }} />
                 <Typography
                     variant="h6"
                     component="p"
@@ -132,8 +122,8 @@ const GithubAuthPage = ({
                         opacity: 0.9,
                         fontFamily: "Montserrat",
                         fontSize: {
-                            xs: "16px",
-                            md: "20px"
+                            xs: "20px",
+                            md: "24px"
                         },
                         paddingLeft: 6,
                         paddingRight: 6
@@ -322,7 +312,7 @@ const GithubAuthPage = ({
                 >
                     {LOCAL_AUTH_ENABLED ? (
                         <>
-                            <Box sx={gradientRingSx}>
+                            <Box>
                                 <Button
                                     variant="contained"
                                     size="large"
@@ -338,7 +328,7 @@ const GithubAuthPage = ({
                                         : "Sign in as an existing test user"}
                                 </Button>
                             </Box>
-                            <Box sx={gradientRingSx}>
+                            <Box>
                                 <Button
                                     variant="contained"
                                     size="large"
@@ -366,7 +356,7 @@ const GithubAuthPage = ({
                                 icon: <GoogleIcon />
                             }
                         ].map(({ provider, label, icon }) => (
-                            <Box key={provider} sx={gradientRingSx}>
+                            <Box key={provider}>
                                 <Button
                                     variant="contained"
                                     size="large"
