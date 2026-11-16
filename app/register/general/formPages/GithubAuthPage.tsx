@@ -1,6 +1,6 @@
-import { HackIllinoisWordmark } from "@/components/HackIllinoisWordmark/HackIllinoisWordmark";
-("use client");
+"use client";
 
+import { HackIllinoisWordmark } from "@/components/HackIllinoisWordmark/HackIllinoisWordmark";
 import { authenticate, devLogin, getDevUsers } from "@/util/api";
 import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
 import GitHubIcon from "@mui/icons-material/GitHub";
