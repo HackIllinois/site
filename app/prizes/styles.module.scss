@@ -1,115 +1,260 @@
-@use "/app/colors" as *;
-
-.main {
-    width: 100%;
-    height: 100svh;
-    overflow: clip;
-    padding: 1rem 0.25rem;
-
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: column;
-    gap: 2.5rem;
-
-    background-image: url("/hype_animation.gif");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    @media screen and (max-width: 500px) {
-        gap: 2rem;
-    }
+.page {
+    background: #dca67b;
+    color: #fff4e8;
 }
-
-.top {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+.hero {
+    position: relative;
+    min-height: 840px;
+    height: 84.375vw;
+    max-height: 1350px;
+    background: url("/prizes/frontier/scenery/hero.webp") center top / 100% 100%
+        no-repeat;
 }
-
-.title {
-    width: 100%;
-
+.signpost {
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    width: 32%;
+    aspect-ratio: 600 / 1054;
+    background: url("/prizes/frontier/navigation/signpost.webp") center / 100%
+        100% no-repeat;
+    color: #342344;
+    text-align: center;
     h1 {
-        position: relative;
-        font-weight: 700;
-        font-size: 75px;
-        color: transparent;
-        text-align: center;
-        line-height: 1;
-
-        @media screen and (max-width: 800px) {
-            font-size: 50px;
+        position: absolute;
+        top: 9%;
+        width: 100%;
+        font-size: clamp(30px, 4.2vw, 64px);
+        color: #fff2d7;
+        text-shadow: 2px 3px #4b2539;
+        transform: rotate(2deg);
+        scroll-margin-top: 80px;
+    }
+}
+.cue {
+    position: absolute;
+    width: 120%;
+    left: -10%;
+    top: -5%;
+    font-weight: 700;
+    font-size: clamp(14px, 1.8vw, 25px);
+    color: white;
+    text-shadow: 0 2px 4px #442034;
+}
+.navigation {
+    position: absolute;
+    inset: 23% 0 7%;
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--display);
+        font-size: clamp(24px, 3.1vw, 45px);
+        color: #342344;
+        text-decoration: none;
+        &:first-child {
+            transform: rotate(-5deg);
         }
-
-        @media screen and (max-width: 500px) {
-            font-size: 40px;
+        &:nth-child(2) {
+            transform: rotate(5deg);
         }
-
-        @media screen and (max-height: 500px) {
-            font-size: 35px;
+        &:nth-child(3) {
+            transform: rotate(-7deg);
         }
-
-        &::after {
-            content: attr(data-text);
-            position: absolute;
-            pointer-events: none;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-
-            background: linear-gradient(
-                90deg,
-                #6384be 25%,
-                #fcdc8f 50%,
-                #dd7f48 75%
-            );
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        &:hover {
+            color: #771b3c;
+            text-decoration: underline;
+        }
+        &:focus-visible {
+            border-radius: 10px;
+            outline-offset: -7px;
         }
     }
 }
-
-.subtitle {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .text {
-        font-weight: 500;
-        font-size: 45px;
-        color: #fcdc8f;
-        text-shadow: 0px 1px 20px rgba(252, 220, 143, 0.76);
-        animation-name: glow;
-        animation-duration: 5s;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-
-        @media screen and (max-width: 800px) {
-            font-size: 32px;
+.sampleNotice {
+    position: absolute;
+    right: 8%;
+    bottom: 8%;
+    width: min(340px, 37%);
+    padding: 16px 20px;
+    background: #fff0dce8;
+    color: #46283b;
+    font-size: 14px;
+    line-height: 1.5;
+    border: 1px solid #855c41;
+    border-radius: 4px;
+    strong {
+        display: block;
+        margin-bottom: 5px;
+    }
+}
+.trail {
+    background: url("/prizes/frontier/scenery/trail.webp") center top / 100%
+        100% no-repeat;
+    padding: 0 8% 160px;
+}
+.section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 0 115px;
+    scroll-margin-top: 35px;
+}
+.sectionHeading {
+    text-align: center;
+    margin: 0 auto 45px;
+    max-width: 800px;
+    h2 {
+        font-size: clamp(28px, 3.15vw, 46px);
+        text-shadow: 2px 3px #6b3741;
+        padding-bottom: 16px;
+        margin-bottom: 14px;
+        scroll-margin-top: 30px;
+        &::after {
+            content: "";
+            display: block;
+            width: 160px;
+            height: 3px;
+            background: #fff1d7;
+            margin: 14px auto 0;
+            box-shadow: 0 2px #8c543b;
         }
-
-        @media screen and (max-height: 500px) {
-            font-size: 32px;
+    }
+    p {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.6;
+        text-shadow: 0 1px 3px #5d2a37;
+    }
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 9%;
+    row-gap: 65px;
+}
+.prize {
+    text-align: center;
+    min-width: 0;
+    h3 {
+        font-family: var(--condensed);
+        text-transform: uppercase;
+        font-size: clamp(23px, 2.5vw, 32px);
+        min-height: 2.5em;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        text-shadow: 1px 2px 3px #542334;
+        margin-bottom: 12px;
+    }
+}
+.barrel {
+    position: relative;
+    width: min(100%, 360px);
+    margin: 0 auto;
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}
+.sponsor {
+    position: absolute;
+    top: 42%;
+    left: 28%;
+    right: 3%;
+    color: #1a1015;
+    font-size: clamp(30px, 4vw, 54px);
+    font-weight: 800;
+    letter-spacing: -2px;
+}
+.rewards {
+    max-width: 370px;
+    margin: -12px auto 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.6;
+    text-shadow:
+        0 1px 3px #5e2c36,
+        1px 1px 1px #5e2c36;
+    p + p {
+        margin-top: 18px;
+    }
+}
+.backToTop {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 16px 22px;
+    background: #3e263d;
+    color: #fff4df;
+    border-radius: 4px;
+    font-weight: 700;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+@media (max-width: 650px) {
+    .hero {
+        height: 780px;
+        min-height: 0;
+        background-size: auto 100%;
+        background-position: 40% top;
+    }
+    .signpost {
+        width: 250px;
+        left: calc(50% - 125px);
+        top: 120px;
+        h1 {
+            font-size: 34px;
         }
-
-        @keyframes glow {
-            from {
-                text-shadow:
-                    0px 0px 5px #fff,
-                    0px 0px 4px #fcdc8f;
-            }
-
-            to {
-                text-shadow:
-                    0px 0px 20px #fff,
-                    0px 0px 4px #bd7c62;
-            }
+    }
+    .cue {
+        font-size: 15px;
+    }
+    .navigation a {
+        font-size: 26px;
+    }
+    .sampleNotice {
+        width: auto;
+        left: 24px;
+        right: 24px;
+        bottom: 28px;
+        font-size: 13px;
+        padding: 12px 16px;
+    }
+    .trail {
+        padding: 0 24px 90px;
+        background-size: auto 100%;
+    }
+    .section {
+        padding-bottom: 80px;
+    }
+    .sectionHeading {
+        margin-bottom: 28px;
+        p {
+            font-size: 14px;
         }
+    }
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .prize h3 {
+        font-size: 27px;
+        min-height: 0;
+    }
+    .barrel {
+        max-width: 320px;
+    }
+    .sponsor {
+        font-size: 42px;
+    }
+    .rewards {
+        margin-top: -5px;
+        font-size: 15px;
+        max-width: 320px;
     }
 }
