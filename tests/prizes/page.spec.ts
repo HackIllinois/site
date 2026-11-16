@@ -88,3 +88,53 @@ test("phone section links respond to touch", async ({ browser }) => {
     ).toBeInViewport();
     await context.close();
 });
+
+test("section introductions are omitted without removing prize cards", async ({
+    page
+}) => {
+    await page.goto("/prizes");
+    for (const text of [
+        "Awarded to the entire winning team, not per member.",
+        "Designed by our sponsors to provide a specialized topic to center your project around. Each team can only compete in ONE track. Each track winning team will also receive a $2500 cash prize.",
+        "Awarded to each member of the winning team."
+    ]) {
+        await expect(page.getByText(text, { exact: true })).toHaveCount(0);
+    }
+    await expect(page.locator("main section header p")).toHaveCount(0);
+    await expect(page.locator("main article")).toHaveCount(14);
+});
+
+test("reward paragraphs fit inside each barrel sign", async ({ page }) => {
+    for (const width of [1440, 390, 320]) {
+        await page.setViewportSize({ width, height: 900 });
+        await page.goto("/prizes");
+        await expect(
+            page.locator("main article [data-prize-sign]")
+        ).toHaveCount(14);
+        await expect(page.locator("main article > div > p")).toHaveCount(0);
+        await expect(
+            page.locator("main article").getByText(/^(stripe|Modal)$/)
+        ).toHaveCount(0);
+        const signs = page.locator("[data-prize-sign]");
+        expect(
+            await signs.evaluateAll(elements =>
+                elements.every(
+                    element =>
+                        element.scrollHeight <= element.clientHeight &&
+                        element.scrollWidth <= element.clientWidth
+                )
+            )
+        ).toBe(true);
+        await expect(
+            signs.getByText("$5k of OpenAI API credits for each member", {
+                exact: true
+            })
+        ).toHaveCount(2);
+        await expect(
+            signs.getByText(
+                "Honorable Mention: $500 for the team, $100 Amazon gift card for each team member",
+                { exact: true }
+            )
+        ).toHaveCount(4);
+    }
+});

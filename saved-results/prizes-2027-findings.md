@@ -23,3 +23,7 @@ User requested familiar local data maintenance, not a shop API. Moved sample-pri
 ## Visible notice removal
 
 User requested removal of the visible sample-information notice. Removed the markup and unused desktop/mobile CSS, changed tests to assert absence, and updated editing guide. Sample data unchanged (byte comparison passed). Pre-change targeted test1 failed; production tests5 passed in2.4s after build exit0. Focused lint exit0. Production preview refreshed on3018; current screenshots embedded in HTML report.
+
+## Section text removal and reward signs
+
+User requested deletion of the three section introductions, then explicitly approved moving full rewards onto signs instead of sponsor placeholders. Removed section-description field/rendering/styles and unused prize label fields; retained section labels for navigation. Full reward text,14 cards, order, titles and artwork unchanged (loaded-data comparison passed). Reward panels grow to fit16px text; no below-barrel paragraphs. This is a user-requested revision to the inspected desktop Figma variant. New tests each failed before their implementation, then all7 passed on development7.6s and production3.4s. Build0, focused lint0. Native Chrome CUA verified Track section rewards. Production3018 refreshed and running.

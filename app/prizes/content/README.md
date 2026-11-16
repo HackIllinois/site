@@ -2,25 +2,23 @@
 
 Edit **`prize-data.ts` in this folder**. All prize information stays in the repository; the page does not fetch it from a shop or other API. Unlike the previous page, you do not need to find prize text inside separate section components.
 
-The current entries are **sample awards**, including repeated prizes and sponsor placeholders. The visible preview notice was removed at the user’s request; these entries still need final confirmation.
+The current entries are **sample awards**, including repeated prizes. The visible preview notice was removed at the user’s request; these entries still need final confirmation.
 
 ## Change a prize
 
 Find its `title`, then edit these fields:
 
-| Field     | What appears on the page                                                                                        |
-| --------- | --------------------------------------------------------------------------------------------------------------- |
-| `title`   | Heading above the barrel, such as `Best Voyager Hack`.                                                          |
-| `label`   | Decorative sponsor text on the wooden board, such as `stripe`. This is a sample label, not a confirmed sponsor. |
-| `artwork` | One of `purple`, `red`, or `gold`, selecting the existing cat/barrel artwork.                                   |
-| `rewards` | List of reward paragraphs below the barrel. State whether an award is per team or per member.                   |
+| Field     | What appears on the page                                                                        |
+| --------- | ----------------------------------------------------------------------------------------------- |
+| `title`   | Heading above the barrel, such as `Best Voyager Hack`.                                          |
+| `artwork` | One of `purple`, `red`, or `gold`, selecting the existing cat/barrel artwork.                   |
+| `rewards` | List of reward paragraphs on the wooden sign. State whether an award is per team or per member. |
 
 For example, this is the existing sample Voyager card:
 
 ```ts
 {
     title: "Best Voyager Hack",
-    label: "stripe",
     artwork: "purple",
     rewards: ["$5000"]
 }
@@ -36,7 +34,6 @@ The `prizeSections` list at the bottom defines the sections and the wooden navig
 
 - `id`: unique link target, such as `path-prizes`. Keep existing IDs when possible so saved links continue working.
 - `label`: short navigation label, such as `Path`. The page adds `Prizes` to the section heading automatically.
-- `description`: optional explanatory paragraph, including eligibility or per-team/per-member rules.
 - `prizes`: list of cards, or a reference to a list declared above.
 
 Move section objects to reorder the page and its navigation together. To add a section, copy a section object and give it a unique `id`, short `label`, and its own `prizes` list. To remove one, remove its object.

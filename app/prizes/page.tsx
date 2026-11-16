@@ -40,9 +40,6 @@ export default function PrizesPage() {
                             <h2 id={`${section.id}-title`} tabIndex={-1}>
                                 {section.label} Prizes
                             </h2>
-                            {section.description && (
-                                <p>{section.description}</p>
-                            )}
                         </header>
                         <div className={styles.grid}>
                             {section.prizes.map((prize, index) => (
@@ -61,17 +58,14 @@ export default function PrizesPage() {
                                             height={438}
                                             loading="lazy"
                                         />
-                                        <span
-                                            aria-hidden="true"
-                                            className={styles.sponsor}
+                                        <div
+                                            className={styles.rewardSign}
+                                            data-prize-sign
                                         >
-                                            {prize.label}
-                                        </span>
-                                    </div>
-                                    <div className={styles.rewards}>
-                                        {prize.rewards.map(reward => (
-                                            <p key={reward}>{reward}</p>
-                                        ))}
+                                            {prize.rewards.map(reward => (
+                                                <p key={reward}>{reward}</p>
+                                            ))}
+                                        </div>
                                     </div>
                                 </article>
                             ))}
