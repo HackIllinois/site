@@ -7,19 +7,9 @@ import Link from "next/link";
 const NotFound: React.FC = () => {
     return (
         <>
-            <Box
-                sx={{
-                    display: "flex",
-                    width: "100vw",
-                    height: "100vh",
-                    backgroundImage: `url(${registrationBackgrounds.personal_info})`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    filter: "blur(10px)",
-                    transform: "scale(1.25)"
-                }}
-            ></Box>
+            <RegistrationBackground
+                src={registrationBackgrounds.personal_info}
+            />
             <Box
                 sx={{
                     position: "absolute",
