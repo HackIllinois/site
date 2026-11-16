@@ -45,3 +45,9 @@ Search for Choose a state, stateSelect, stateElements, styles.selection in app/t
 Supersedes hover-label behavior: eight light-to-dark olive greens now encode existing caps on states and matching legend dots. Lower amounts are lighter, higher darker. All51 state/district accessible labels retain names and exact caps. State selection/hover labels removed; international ticket and small disclaimer preserved. Exact Figma shades were not established by the screenshot.
 
 New browser checks first failed on both viewport sizes; final production 10 passed (4.1s), exit0. Build/lint/TypeScript exit0. Computer Use inspected desktop and390px phone. Searched app/travel for mapLabel, labelFor, setHovered, setSelected, old hover guidance and data-active: no leftover label paths. No real Safari, screen-reader or color-vision testing. Screenshots refreshed at existing travel-label-captures paths.
+
+## Local JSON editing — 2026-11-15
+
+State rates now live in app/travel/reimbursement-data/state-rates.json. Eight fixed dollar keys contain state-name lists. The map lookup and complete legend derive from this file, including empty tiers. Editing rules are in the adjacent README.md. All 51 existing values were compared and preserved. International rates remain separate.
+
+New checks failed twice before the file existed; final production12 tests passed (6.0s), build/lint/TypeScript exit0. Tests require exactly the supported tiers,51 unique atlas names and matching rendered caps. Validation is test-time, not runtime repair. No extra API or diagnostics. Search for both reimbursement exports found only the data module and renderer. Computer Use confirmed the refreshed map.

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
-import { STATE_REIMBURSEMENT } from "../constants";
+import { STATE_REIMBURSEMENT, REIMBURSEMENT_TIERS } from "../constants";
 import styles from "./Reimbursement.module.scss";
 
 const internationalRates = [
@@ -13,9 +13,7 @@ const internationalRates = [
     ["UK", 500],
     ["Not listed", 350]
 ] as const;
-const tiers = [...new Set(Object.values(STATE_REIMBURSEMENT))].sort(
-    (a, b) => a - b
-);
+const tiers = REIMBURSEMENT_TIERS;
 
 const mapWidth = 800;
 const mapHeight = 520;

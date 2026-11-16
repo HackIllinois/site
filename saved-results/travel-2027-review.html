@@ -78,6 +78,312 @@
         <code>1230e24</code>
     </p>
     <section class="result">
+        <h2>Latest update: editable local reimbursement JSON</h2>
+        <p>
+            State caps now live in
+            <code>app/travel/reimbursement-data/state-rates.json</code>: eight
+            fixed dollar keys, each containing a list of states. Moving a name
+            between lists updates its cap and color. All 51 existing
+            state/district caps were compared before/after and are unchanged.
+            Empty lists retain their legend tier. International rates are
+            unchanged and remain separate.
+        </p>
+        <p>
+            <strong>12 production browser tests passed (6.0s).</strong> Build,
+            lint and TypeScript exited 0. Computer Use reopened the production
+            map. State coloring and disclaimer appearance are unchanged from the
+            current screenshots below.
+        </p>
+        <h3>Changed files</h3>
+        <ul>
+            <li>
+                <code>app/travel/reimbursement-data/state-rates.json</code>: new
+                editable eight-tier source of truth.
+            </li>
+            <li>
+                <code>app/travel/reimbursement-data/README.md</code>: editing
+                rules, example, rebuild/deployment and validation commands.
+            </li>
+            <li>
+                <code>app/travel/constants.ts</code>: replaces hardcoded
+                per-state values with lookup and tier lists derived from JSON.
+            </li>
+            <li>
+                <code>app/travel/reimbursement/Reimbursement.tsx</code>: reads
+                the complete tier list from JSON so empty tiers stay in the
+                legend.
+            </li>
+            <li>
+                <code>tests/travel/travel.spec.ts</code>: checks allowed keys,
+                all 51 atlas names exactly once and every rendered cap against
+                JSON.
+            </li>
+            <li>
+                <code>planning/travel-2027-plan.html</code>: records JSON
+                editing scope.
+            </li>
+            <li>
+                <code>saved-results/travel-implementation.md</code>,
+                <code>saved-results/travel-checks/checks.log</code> and this
+                report: current results and evidence.
+            </li>
+        </ul>
+        <h3>Evidence and limits</h3>
+        <p>
+            New JSON checks first failed twice because the file did not exist.
+            Final <code>npm run test:travel -- --workers=2</code>: 12 passed
+            (6.0s), exit 0. <code>npm run build</code>,
+            <code>npm run lint</code> and <code>npx tsc --noEmit</code>: exit 0.
+            Existing unrelated lint warnings remain. Migration equality check:
+            all 51 entries unchanged. Searched app for STATE_REIMBURSEMENT and
+            REIMBURSEMENT_TIERS: only the constants module and reimbursement
+            renderer use them.
+        </p>
+        <p>
+            Validation runs through the tests; malformed lists are not silently
+            repaired at runtime. Editors should run the documented checks before
+            publishing. No backend, API or schema migration. No separate unit
+            suite because browser tests compare file data to rendered output,
+            including names, tiers and colors. No diagnostic logging for this
+            static data conversion. Previous browser/platform limits below still
+            apply.
+        </p>
+        <p>
+            Manual edit: move a state to another existing dollar list,
+            rebuild/restart the site and confirm its map color and accessible
+            cap change. Restore it before publishing unless the rate change is
+            intended. Do not add new dollar keys.
+        </p>
+        <details>
+            <summary>Exact JSON integration diff</summary>
+            <pre>
+diff --git a/app/travel/constants.ts b/app/travel/constants.ts
+index a257943..3b467fc 100644
+--- a/app/travel/constants.ts
++++ b/app/travel/constants.ts
+@@ -1,60 +1,14 @@
+-export const STATE_REIMBURSEMENT: Record&lt;string, number&gt; = {
+-    // Midwest
+-    Minnesota: 200,
+-    Iowa: 150,
+-    Missouri: 200,
+-    &quot;North Dakota&quot;: 250,
+-    &quot;South Dakota&quot;: 250,
+-    Nebraska: 200,
+-    Kansas: 200,
+-    Michigan: 300,
+-    Ohio: 200,
+-    Illinois: 100,
+-    Indiana: 100,
+-    Wisconsin: 100,
++import stateRates from &quot;./reimbursement-data/state-rates.json&quot;;
+
+-    // Northeast
+-    Connecticut: 250,
+-    &quot;Rhode Island&quot;: 250,
+-    &quot;New Hampshire&quot;: 300,
+-    Vermont: 300,
+-    Maine: 350,
+-    Delaware: 250,
+-    &quot;District of Columbia&quot;: 250,
+-    Maryland: 250,
+-    Massachusetts: 250,
+-    &quot;New York&quot;: 250,
+-    &quot;New Jersey&quot;: 250,
+-    Pennsylvania: 250,
+-    Virginia: 250,
+-    &quot;West Virginia&quot;: 200,
++// These are the supported reimbursement tiers. Move states between lists in JSON.
++type ReimbursementTier = 100 | 150 | 200 | 250 | 275 | 300 | 350 | 400;
++const groups: Record&lt;ReimbursementTier, string[]&gt; = stateRates;
+
+-    // South
+-    Alabama: 250,
+-    Mississippi: 250,
+-    Louisiana: 275,
+-    Tennessee: 250,
+-    Kentucky: 200,
+-    &quot;South Carolina&quot;: 275,
+-    &quot;North Carolina&quot;: 275,
+-    Arkansas: 250,
+-    Georgia: 250,
+-    Florida: 250,
+-
+-    // West
+-    Oklahoma: 250,
+-    Texas: 300,
+-    Washington: 275,
+-    Colorado: 275,
+-    Arizona: 300,
+-    Oregon: 250,
+-    Idaho: 300,
+-    Montana: 350,
+-    Wyoming: 300,
+-    Utah: 300,
+-    Nevada: 300,
+-    California: 350,
+-    &quot;New Mexico&quot;: 300,
+-    Hawaii: 400,
+-    Alaska: 400
+-};
++export const REIMBURSEMENT_TIERS = Object.keys(groups)
++    .map(Number)
++    .sort((a, b) =&gt; a - b);
++export const STATE_REIMBURSEMENT: Record&lt;string, number&gt; = Object.fromEntries(
++    Object.entries(groups).flatMap(([amount, states]) =&gt;
++        states.map(state =&gt; [state, Number(amount)])
++    )
++);
+diff --git a/app/travel/reimbursement/Reimbursement.tsx b/app/travel/reimbursement/Reimbursement.tsx
+index 0a9db44..c8814d0 100644
+--- a/app/travel/reimbursement/Reimbursement.tsx
++++ b/app/travel/reimbursement/Reimbursement.tsx
+@@ -2,7 +2,7 @@
+
+ import { useRef, useState } from &quot;react&quot;;
+ import { ComposableMap, Geographies, Geography } from &quot;react-simple-maps&quot;;
+-import { STATE_REIMBURSEMENT } from &quot;../constants&quot;;
++import { STATE_REIMBURSEMENT, REIMBURSEMENT_TIERS } from &quot;../constants&quot;;
+ import styles from &quot;./Reimbursement.module.scss&quot;;
+
+ const internationalRates = [
+@@ -13,9 +13,7 @@ const internationalRates = [
+     [&quot;UK&quot;, 500],
+     [&quot;Not listed&quot;, 350]
+ ] as const;
+-const tiers = [...new Set(Object.values(STATE_REIMBURSEMENT))].sort(
+-    (a, b) =&gt; a - b
+-);
++const tiers = REIMBURSEMENT_TIERS;
+
+ const mapWidth = 800;
+ const mapHeight = 520;
+diff --git a/tests/travel/travel.spec.ts b/tests/travel/travel.spec.ts
+index 6976a99..bfe3412 100644
+--- a/tests/travel/travel.spec.ts
++++ b/tests/travel/travel.spec.ts
+@@ -1,4 +1,6 @@
+ import { expect, test } from &quot;@playwright/test&quot;;
++import { readFileSync } from &quot;node:fs&quot;;
++import { join } from &quot;node:path&quot;;
+
+ test.beforeEach(async ({ page }) =&gt; {
+     await page.goto(&quot;/travel&quot;);
+@@ -149,3 +151,47 @@ test(&quot;every state uses its reimbursement tier color without hover labels&quot;, async
+         0
+     );
+ });
++
++test(&quot;local reimbursement JSON covers every state once in the eight allowed tiers&quot;, async ({
++    page
++}) =&gt; {
++    const groups = JSON.parse(
++        readFileSync(
++            join(
++                process.cwd(),
++                &quot;app/travel/reimbursement-data/state-rates.json&quot;
++            ),
++            &quot;utf8&quot;
++        )
++    ) as Record&lt;string, string[]&gt;;
++    expect(Object.keys(groups).sort((a, b) =&gt; Number(a) - Number(b))).toEqual([
++        &quot;100&quot;,
++        &quot;150&quot;,
++        &quot;200&quot;,
++        &quot;250&quot;,
++        &quot;275&quot;,
++        &quot;300&quot;,
++        &quot;350&quot;,
++        &quot;400&quot;
++    ]);
++    const atlas = JSON.parse(
++        readFileSync(join(process.cwd(), &quot;public/us-atlas.json&quot;), &quot;utf8&quot;)
++    );
++    const expected = atlas.objects.states.geometries
++        .filter((state: { id: string }) =&gt; Number(state.id) &lt;= 56)
++        .map((state: { properties: { name: string } }) =&gt; state.properties.name)
++        .sort();
++    const listed = Object.values(groups).flat();
++    expect(listed.length).toBe(51);
++    expect(new Set(listed).size).toBe(51);
++    expect([...listed].sort()).toEqual(expected);
++    for (const [amount, states] of Object.entries(groups)) {
++        for (const state of states) {
++            await expect(
++                page.getByLabel(`${state}: $${amount} reimbursement cap`, {
++                    exact: true
++                })
++            ).toBeVisible();
++        }
++    }
++});
+</pre
+            >
+        </details>
+        <details>
+            <summary>Exact editable JSON</summary>
+            <pre>
+{
+    &quot;100&quot;: [&quot;Illinois&quot;, &quot;Indiana&quot;, &quot;Wisconsin&quot;],
+    &quot;150&quot;: [&quot;Iowa&quot;],
+    &quot;200&quot;: [
+        &quot;Kansas&quot;,
+        &quot;Kentucky&quot;,
+        &quot;Minnesota&quot;,
+        &quot;Missouri&quot;,
+        &quot;Nebraska&quot;,
+        &quot;Ohio&quot;,
+        &quot;West Virginia&quot;
+    ],
+    &quot;250&quot;: [
+        &quot;Alabama&quot;,
+        &quot;Arkansas&quot;,
+        &quot;Connecticut&quot;,
+        &quot;Delaware&quot;,
+        &quot;District of Columbia&quot;,
+        &quot;Florida&quot;,
+        &quot;Georgia&quot;,
+        &quot;Maryland&quot;,
+        &quot;Massachusetts&quot;,
+        &quot;Mississippi&quot;,
+        &quot;New Jersey&quot;,
+        &quot;New York&quot;,
+        &quot;North Dakota&quot;,
+        &quot;Oklahoma&quot;,
+        &quot;Oregon&quot;,
+        &quot;Pennsylvania&quot;,
+        &quot;Rhode Island&quot;,
+        &quot;South Dakota&quot;,
+        &quot;Tennessee&quot;,
+        &quot;Virginia&quot;
+    ],
+    &quot;275&quot;: [
+        &quot;Colorado&quot;,
+        &quot;Louisiana&quot;,
+        &quot;North Carolina&quot;,
+        &quot;South Carolina&quot;,
+        &quot;Washington&quot;
+    ],
+    &quot;300&quot;: [
+        &quot;Arizona&quot;,
+        &quot;Idaho&quot;,
+        &quot;Michigan&quot;,
+        &quot;Nevada&quot;,
+        &quot;New Hampshire&quot;,
+        &quot;New Mexico&quot;,
+        &quot;Texas&quot;,
+        &quot;Utah&quot;,
+        &quot;Vermont&quot;,
+        &quot;Wyoming&quot;
+    ],
+    &quot;350&quot;: [&quot;California&quot;, &quot;Maine&quot;, &quot;Montana&quot;],
+    &quot;400&quot;: [&quot;Alaska&quot;, &quot;Hawaii&quot;]
+}
+</pre
+            >
+        </details>
+    </section>
+    <section class="result">
         <h2>Current result: reimbursement colors</h2>
         <p>
             Replaced hover/tap rate labels with eight light-to-dark olive

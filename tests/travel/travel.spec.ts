@@ -1,4 +1,6 @@
 import { expect, test } from "@playwright/test";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 test.beforeEach(async ({ page }) => {
     await page.goto("/travel");
@@ -148,4 +150,48 @@ test("every state uses its reimbursement tier color without hover labels", async
     await expect(page.getByText(/Hover, tap, or select a state/)).toHaveCount(
         0
     );
+});
+
+test("local reimbursement JSON covers every state once in the eight allowed tiers", async ({
+    page
+}) => {
+    const groups = JSON.parse(
+        readFileSync(
+            join(
+                process.cwd(),
+                "app/travel/reimbursement-data/state-rates.json"
+            ),
+            "utf8"
+        )
+    ) as Record<string, string[]>;
+    expect(Object.keys(groups).sort((a, b) => Number(a) - Number(b))).toEqual([
+        "100",
+        "150",
+        "200",
+        "250",
+        "275",
+        "300",
+        "350",
+        "400"
+    ]);
+    const atlas = JSON.parse(
+        readFileSync(join(process.cwd(), "public/us-atlas.json"), "utf8")
+    );
+    const expected = atlas.objects.states.geometries
+        .filter((state: { id: string }) => Number(state.id) <= 56)
+        .map((state: { properties: { name: string } }) => state.properties.name)
+        .sort();
+    const listed = Object.values(groups).flat();
+    expect(listed.length).toBe(51);
+    expect(new Set(listed).size).toBe(51);
+    expect([...listed].sort()).toEqual(expected);
+    for (const [amount, states] of Object.entries(groups)) {
+        for (const state of states) {
+            await expect(
+                page.getByLabel(`${state}: $${amount} reimbursement cap`, {
+                    exact: true
+                })
+            ).toBeVisible();
+        }
+    }
 });
