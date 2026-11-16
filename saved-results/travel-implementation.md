@@ -29,3 +29,5 @@ Figma Hand was replaced with Caveat; Ultra and Manrope match the design. SVG exp
 Searched STATE_REIMBURSEMENT, InteractiveMap, MapLegend, EllipseHeader across the repo: only the Travel route used them. Removed superseded components/styles. The existing atlas names revealed the DC mismatch; other state names match. Existing public PDFs and old public assets remain untouched. App Router files follow the established framework layout.
 
 The HTML report is the complete human review handoff. No merge or manual deployment performed.
+
+PR: https://github.com/HackIllinois/site/pull/564 (open; CI running at handoff). Separate Prizes PR: https://github.com/HackIllinois/site/pull/563.
