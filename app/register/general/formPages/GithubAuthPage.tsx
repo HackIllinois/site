@@ -5,7 +5,7 @@ import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
 import GoogleIcon from "@mui/icons-material/Google";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Alert, Box, Button, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const authButtonSx = {
     backgroundColor: "#75462d",
@@ -41,6 +41,14 @@ const GithubAuthPage = ({
 }: {
     mechathonMessage?: boolean;
 }) => {
+    useEffect(() => {
+        const redirectKey = "googleAuthRedirectAttempted";
+        if (!LOCAL_AUTH_ENABLED && !sessionStorage.getItem(redirectKey)) {
+            sessionStorage.setItem(redirectKey, "true");
+            authenticate("google");
+        }
+    }, []);
+
     const [isSigningIn, setIsSigningIn] = useState(false);
     const [signingInMode, setSigningInMode] = useState<LocalSignInMode | null>(
         null
