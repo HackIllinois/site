@@ -24,14 +24,22 @@ export function useRegistrationSteps(
                 ? steps.length - 1
                 : Math.min(requested, maxStep, steps.length - 2);
             setCurrentStep(allowed);
-            window.history.replaceState(null, "", `#${indexToSlug(allowed)}`);
+            window.history.replaceState(
+                window.history.state,
+                "",
+                `#${indexToSlug(allowed)}`
+            );
         };
         window.addEventListener("hashchange", syncHash);
         return () => window.removeEventListener("hashchange", syncHash);
     }, [submitted, maxStep]);
 
     useEffect(() => {
-        window.history.replaceState(null, "", `#${indexToSlug(currentStep)}`);
+        window.history.replaceState(
+            window.history.state,
+            "",
+            `#${indexToSlug(currentStep)}`
+        );
     }, [currentStep]);
 
     useEffect(() => {
