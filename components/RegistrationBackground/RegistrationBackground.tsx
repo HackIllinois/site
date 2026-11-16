@@ -182,6 +182,15 @@ const RegistrationBackground = ({
                         blurPx={blurPx}
                     />
                 )}
+            <div
+                aria-hidden
+                style={{
+                    ...LAYER_STYLE,
+                    zIndex: 1,
+                    pointerEvents: "none",
+                    backgroundColor: "rgba(0, 0, 0, 0.2)"
+                }}
+            />
         </div>
     );
 };
