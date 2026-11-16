@@ -3,26 +3,30 @@ import { TITLE_TEXT_SHADOW } from "@/theme/shadows";
 
 type HackIllinoisWordmarkProps = { sx?: object };
 
+/** Stacked Ultra wordmark sized to ~the old hackastra-logo maxHeight (~110px on md). */
 export const HackIllinoisWordmark = ({ sx }: HackIllinoisWordmarkProps) => (
     <Box
+        component="h1"
         role="img"
         aria-label="HackIllinois"
         sx={{
+            m: 0,
             color: "#fff",
-            fontFamily: "Ultra",
-            fontSize: { xs: "1.9rem", sm: "2.6rem" },
-            lineHeight: 0.9,
-            letterSpacing: { xs: "2px", sm: "3px" },
+            fontFamily: '"Ultra", Georgia, serif',
+            fontWeight: 400,
+            fontSize: { xs: "40px", sm: "52px", md: "72px" },
+            lineHeight: 0.8,
+            letterSpacing: "0.05em",
+            textTransform: "uppercase",
             textShadow: TITLE_TEXT_SHADOW,
             textAlign: "center",
-            height: { xs: "72px", sm: "96px" },
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+            maxWidth: "100%",
+            mr: "-0.05em",
             ...sx
         }}
     >
-        <span>HACK</span>
-        <span>ILLINOIS</span>
+        HACK
+        <br />
+        ILLINOIS
     </Box>
 );
