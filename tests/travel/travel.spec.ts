@@ -40,14 +40,20 @@ test("state rates work by keyboard and selection, including DC", async ({
     await california.focus();
     await expect(page.getByRole("status")).toContainText("California: $350");
     await california.press("Enter");
-    await page
-        .getByLabel("Choose a state or district")
-        .selectOption("District of Columbia");
-    await expect(page.getByRole("status")).toContainText(
-        "District of Columbia: $250"
-    );
-    await page.getByLabel("Choose a state or district").selectOption("Alaska");
-    await expect(page.getByRole("status")).toContainText("Alaska: $400");
+    for (const [name, amount] of [
+        ["District of Columbia", 250],
+        ["Alaska", 400]
+    ]) {
+        const state = page.getByRole("button", {
+            name: `${name}: $${amount} reimbursement cap`,
+            exact: true
+        });
+        await state.focus();
+        await state.press("Enter");
+        await expect(page.getByRole("status")).toContainText(
+            `${name}: $${amount}`
+        );
+    }
 });
 
 test("map supports pointer or touch selection", async ({ page }, testInfo) => {
@@ -116,4 +122,67 @@ test("small screens and dark appearance retain working navigation", async ({
     expect(box).not.toBeNull();
     expect(box!.x).toBeGreaterThanOrEqual(0);
     expect(box!.x + box!.width).toBeLessThanOrEqual(320);
+});
+
+test("state cap appears on the map and dismisses outside it", async ({
+    page
+}, testInfo) => {
+    const state = page.getByRole("button", {
+        name: "Illinois: $100 reimbursement cap",
+        exact: true
+    });
+    if (testInfo.project.name === "mobile") await state.tap();
+    else await state.hover();
+    const label = page.getByRole("status");
+    await expect(label).toContainText("Illinois: $100");
+    const mapBox = await page
+        .getByLabel("United States reimbursement map", { exact: true })
+        .boundingBox();
+    const labelBox = await label.boundingBox();
+    expect(labelBox!.y).toBeLessThan(mapBox!.y + mapBox!.height);
+    expect(labelBox!.y + labelBox!.height).toBeGreaterThan(mapBox!.y);
+    expect(labelBox!.x).toBeGreaterThanOrEqual(mapBox!.x - 10);
+    expect(labelBox!.x + labelBox!.width).toBeLessThanOrEqual(
+        mapBox!.x + mapBox!.width + 10
+    );
+    if (testInfo.project.name === "mobile") {
+        await page
+            .getByRole("button", {
+                name: "California: $350 reimbursement cap",
+                exact: true
+            })
+            .tap();
+        await expect(label).toContainText("California: $350");
+        await page
+            .getByText(
+                "Hover, tap, or select a state for reimbursement rates",
+                { exact: true }
+            )
+            .tap();
+    } else {
+        await page
+            .getByText(
+                "Hover, tap, or select a state for reimbursement rates",
+                { exact: true }
+            )
+            .hover();
+    }
+    await expect(label).toBeHidden();
+});
+
+test("map takes priority over the small disclaimer without a dropdown", async ({
+    page
+}) => {
+    await expect(page.getByRole("combobox")).toHaveCount(0);
+    const map = await page
+        .getByLabel("United States reimbursement map", { exact: true })
+        .boundingBox();
+    const policy = page.getByRole("complementary", {
+        name: "Reimbursement policy"
+    });
+    const box = await policy.boundingBox();
+    expect(box!.y).toBeGreaterThan(map!.y + map!.height);
+    expect(
+        await policy.evaluate(el => parseFloat(getComputedStyle(el).fontSize))
+    ).toBeLessThanOrEqual(12);
 });

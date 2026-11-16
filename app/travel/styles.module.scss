@@ -127,28 +127,24 @@
 }
 .details {
     display: grid;
-    grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
-    gap: 7vw;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
     margin-top: 4.5vw;
     align-items: start;
 }
 .policy {
-    font-size: clamp(14px, 1.11vw, 18px);
+    font-size: 12px;
     line-height: 1.5;
-    p {
-        padding: 1.4vw;
-        background: #40270f;
-        box-shadow: 0 4px 6px #28150880;
-    }
+    color: #d4bc97;
     p + p {
-        margin-top: 1.5vw;
+        margin-top: 8px;
     }
     a {
         text-decoration: underline;
         overflow-wrap: anywhere;
     }
     strong {
-        font-weight: 700;
+        font-weight: 600;
     }
 }
 @media (min-width: 1700px) {
@@ -223,14 +219,5 @@
         grid-template-columns: minmax(0, 1fr);
         gap: 30px;
         margin-top: 45px;
-    }
-    .policy {
-        font-size: 14px;
-        p {
-            padding: 18px;
-        }
-        p + p {
-            margin-top: 16px;
-        }
     }
 }

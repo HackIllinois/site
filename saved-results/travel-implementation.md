@@ -31,3 +31,11 @@ Searched STATE_REIMBURSEMENT, InteractiveMap, MapLegend, EllipseHeader across th
 The HTML report is the complete human review handoff. No merge or manual deployment performed.
 
 PR: https://github.com/HackIllinois/site/pull/564 (open; CI running at handoff). Separate Prizes PR: https://github.com/HackIllinois/site/pull/563.
+
+## Map emphasis follow-up — 2026-11-15
+
+Removed the dropdown at the user's request. State hover/tap/keyboard focus shows a parchment cap label beside the state, dismissed by outside tap or Escape. Map fills the content width; unchanged disclaimer appears below at 12px without dark panels. Legend spacing is tighter.
+
+New label tests: 2 expected failures before implementation. New dropdown/layout tests: 2 expected failures before implementation. Final production: 14 passed (3.8s); build, lint and TypeScript exit 0. Lint ran before the final spacing-only edit; formatting checked again before commit. Computer Use inspected desktop and 390px phone. No real Safari or screen-reader test.
+
+Search for Choose a state, stateSelect, stateElements, styles.selection in app/travel and tests/travel found no leftover uses. Current screenshots: travel-label-captures/desktop.webp and mobile.webp. See the updated HTML report for exact diff and full evidence.

@@ -54,17 +54,15 @@ export default function TravelPage() {
                         aria-label="Reimbursement policy"
                     >
                         <p>
-                            Disclaimer:
-                            <br />
-                            The determination of reimbursement amounts is
-                            influenced by several factors, including but not
-                            limited to an applicant&apos;s geographic location
-                            and their distance from the University of Illinois
-                            Urbana-Champaign campus. Although a preliminary
-                            reimbursement amount may be indicated upon
-                            acceptance, please understand that this amount is{" "}
-                            <strong>not guaranteed</strong> and may be subject
-                            to adjustments based on the final review of
+                            Disclaimer: The determination of reimbursement
+                            amounts is influenced by several factors, including
+                            but not limited to an applicant&apos;s geographic
+                            location and their distance from the University of
+                            Illinois Urbana-Champaign campus. Although a
+                            preliminary reimbursement amount may be indicated
+                            upon acceptance, please understand that this amount
+                            is <strong>not guaranteed</strong> and may be
+                            subject to adjustments based on the final review of
                             eligibility criteria.
                         </p>
                         <p>

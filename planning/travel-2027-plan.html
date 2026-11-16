@@ -30,8 +30,8 @@
     </style>
     <h1>Travel page · 2027</h1>
     <p>
-        <b>Status:</b> Scope confirmed. Figma exported; implementation starting
-        in isolated <code>codex/travel-2027</code> worktree.
+        <b>Status:</b> Complete: map emphasis and disclaimer updated in isolated
+        <code>codex/travel-2027</code> worktree.
     </p>
     <section>
         <h2>Goal and decisions</h2>
@@ -91,6 +91,16 @@
             flow; no separate unit tests for static markup. Diagnostic logging
             is unnecessary for local display-only selection with no service
             calls or caught errors.
+        </p>
+    </section>
+    <section>
+        <h2>Map emphasis follow-up</h2>
+        <p>
+            Remove the dropdown; retain keyboard state controls. Expand the map
+            into the available width and move unchanged disclaimer text below it
+            at 12px, without separate dark panels. Verify failing browser tests
+            first, then production tests, build, lint, TypeScript and visual
+            inspection; update the existing report and PR.
         </p>
     </section>
 </html>
