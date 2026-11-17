@@ -6,6 +6,24 @@ import styles from "./TravelScene.module.scss";
 import pageStyles from "../styles.module.scss";
 import Navbar from "@/components/Navbar/Navbar";
 
+function ForegroundArt() {
+    return (
+        <picture className={styles.foreground}>
+            <source
+                media="(max-width: 700px)"
+                srcSet="/travel/frontier/motion/mobile/foreground.webp"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+                src="/travel/frontier/motion/desktop/foreground.webp"
+                alt=""
+                width={1440}
+                height={3132}
+            />
+        </picture>
+    );
+}
+
 export default function TravelScene({ children }: { children: ReactNode }) {
     const target = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
@@ -17,6 +35,8 @@ export default function TravelScene({ children }: { children: ReactNode }) {
         value =>
             `translateX(calc(${Math.max(0, Math.min(1, value))} * (100% - var(--train-left) + 2px)))`
     );
+
+    const branchY = useTransform(scrollYProgress, [0, 1], ["0svh", "-26svh"]);
 
     return (
         <div className={styles.sequence}>
@@ -65,23 +85,18 @@ export default function TravelScene({ children }: { children: ReactNode }) {
                         </picture>
                     </motion.div>
                     <div
-                        className={styles.movingLayer}
+                        className={styles.fixedTree}
                         data-scene-layer="foreground"
                     >
-                        <picture className={styles.foreground}>
-                            <source
-                                media="(max-width: 700px)"
-                                srcSet="/travel/frontier/motion/mobile/foreground.webp"
-                            />
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                                src="/travel/frontier/motion/desktop/foreground.webp"
-                                alt=""
-                                width={1440}
-                                height={3132}
-                            />
-                        </picture>
+                        <ForegroundArt />
                     </div>
+                    <motion.div
+                        className={`${styles.movingLayer} ${styles.branch}`}
+                        style={{ y: branchY }}
+                        data-scene-layer="branch"
+                    >
+                        <ForegroundArt />
+                    </motion.div>
                 </div>
                 {children}
             </main>
