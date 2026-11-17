@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SceneArt from "@/components/Frontier/SceneArt";
 import shared from "@/components/Frontier/Frontier.module.scss";
+import CactusAnimation from "./components/CactusAnimation";
 import styles from "./track.module.scss";
 
 export const metadata: Metadata = {
@@ -12,11 +13,13 @@ export const metadata: Metadata = {
 
 function SaloonArt({
     name,
+    phoneName,
     height,
     phoneHeight,
     priority = false
 }: {
     name: string;
+    phoneName?: string;
     height: number;
     phoneHeight: number;
     priority?: boolean;
@@ -26,7 +29,11 @@ function SaloonArt({
         <SceneArt
             src={src}
             height={height}
-            phone={{ src: src + "-phone", width: 402, height: phoneHeight }}
+            phone={{
+                src: `/challenge/saloon/${phoneName ?? name}-phone`,
+                width: 402,
+                height: phoneHeight
+            }}
             priority={priority}
         />
     );
@@ -69,10 +76,12 @@ export default function ProTrackLanding() {
                 </section>
                 <section className={styles.benefits}>
                     <SaloonArt
-                        name="benefits"
+                        name="benefits-animated"
+                        phoneName="benefits"
                         height={1180}
                         phoneHeight={790}
                     />
+                    <CactusAnimation />
                     <div className={styles.menu}>
                         <small>The Pro Track Menu</small>
                         <h2>
