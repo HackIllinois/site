@@ -103,6 +103,24 @@
     top: 39.8%;
     width: 25%;
     transform: rotate(-8.44deg);
+    z-index: 2;
+}
+.cactusAnimation {
+    position: absolute;
+    left: 30.56%;
+    top: 16.27%;
+    width: 59.44%;
+    aspect-ratio: 856 / 877;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+.cactusFrame {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: auto;
+    transform: translate(-50%, -50%);
 }
 .admission .menu {
     left: 59.5%;
@@ -178,6 +196,9 @@
         top: 28.6%;
         width: 63%;
         transform: rotate(-3.7deg);
+    }
+    .cactusAnimation {
+        display: none;
     }
     .admission .menu {
         left: 18%;

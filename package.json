@@ -11,7 +11,8 @@
         "format": "npx prettier . --write",
         "preview": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
         "deploy": "opennextjs-cloudflare deploy",
-        "prepare": "husky"
+        "prepare": "husky",
+        "test:prizes": "playwright test --config tests/prizes/playwright.config.ts"
     },
     "dependencies": {
         "@emotion/react": "^11.14.0",
@@ -37,6 +38,7 @@
         "yup": "^1.6.0"
     },
     "devDependencies": {
+        "@playwright/test": "^1.65.1",
         "@types/moment-timezone": "^0.5.13",
         "@types/node": "18.19.130",
         "@types/react": "19.3.0",
