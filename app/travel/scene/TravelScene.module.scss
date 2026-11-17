@@ -1,0 +1,81 @@
+.sequence {
+    --train-hold: 100svh;
+    position: relative;
+    &::after {
+        content: "";
+        display: block;
+        height: var(--train-hold);
+    }
+}
+.sequence > .pinned {
+    position: sticky;
+    top: 0;
+}
+// Avoid a body scroll container that would stop sticky positioning on this route.
+:global(html):has(.sequence),
+:global(body):has(.sequence) {
+    overflow-x: clip;
+}
+.scene {
+    --train-left: 23.0555556%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 217.5vw;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, transparent 80%, #a53b20);
+    }
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}
+.scrollTarget {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: var(--train-hold);
+    pointer-events: none;
+}
+.background,
+.foreground,
+.movingLayer {
+    position: absolute;
+    inset: 0;
+}
+.train {
+    position: absolute;
+    left: var(--train-left);
+    top: 13.9208174%;
+    width: 47.4305556%;
+}
+@media (max-width: 700px) {
+    .scene {
+        height: 601.99005vw;
+        --train-left: -37.0646766%;
+    }
+    .train {
+        top: 21.4876033%;
+        width: 108.4577114%;
+    }
+}
+@media (prefers-reduced-motion: reduce), (scripting: none) {
+    .sequence::after {
+        height: 0;
+    }
+    .sequence > .pinned {
+        position: relative;
+    }
+    // CSS also handles preference changes immediately and protects the first paint.
+    .movingLayer {
+        transform: none !important;
+    }
+}
