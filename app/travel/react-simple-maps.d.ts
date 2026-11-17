@@ -1,45 +1,22 @@
 declare module "react-simple-maps" {
-    export interface GeographyProps {
-        geography: any;
-        onMouseEnter?: () => void;
-        onMouseLeave?: () => void;
-        style?: {
-            default?: {
-                fill?: string;
-                stroke?: string;
-                strokeWidth?: number;
-                outline?: string;
-                transition?: string;
-            };
-            hover?: {
-                fill?: string;
-                stroke?: string;
-                strokeWidth?: number;
-                outline?: string;
-                transition?: string;
-            };
-            pressed?: {
-                fill?: string;
-                stroke?: string;
-                strokeWidth?: number;
-                outline?: string;
-                transition?: string;
-            };
-        };
+    import type { FC, ReactNode, SVGProps } from "react";
+    export interface MapGeography {
+        rsmKey: string;
+        svgPath: string;
+        properties: { name: string };
     }
-
-    export interface ComposableMapProps {
+    export interface GeographyProps extends SVGProps<SVGPathElement> {
+        geography: MapGeography;
+    }
+    export interface ComposableMapProps extends SVGProps<SVGSVGElement> {
         projection?: string;
-        className?: string;
-        children?: React.ReactNode;
+        projectionConfig?: { scale?: number };
     }
-
     export interface GeographiesProps {
         geography: string;
-        children: (props: { geographies: any[] }) => React.ReactNode;
+        children: (props: { geographies: MapGeography[] }) => ReactNode;
     }
-
-    export const ComposableMap: React.FC<ComposableMapProps>;
-    export const Geographies: React.FC<GeographiesProps>;
-    export const Geography: React.FC<GeographyProps>;
+    export const ComposableMap: FC<ComposableMapProps>;
+    export const Geographies: FC<GeographiesProps>;
+    export const Geography: FC<GeographyProps>;
 }
