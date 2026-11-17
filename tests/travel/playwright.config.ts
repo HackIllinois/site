@@ -2,7 +2,7 @@ import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
     testDir: ".",
-    testMatch: "travel.spec.ts",
+    testMatch: "*.spec.ts",
     outputDir: "../../test-results/travel",
     use: {
         baseURL: process.env.TRAVEL_BASE_URL || "http://127.0.0.1:3017",

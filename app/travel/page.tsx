@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import TravelScene from "./scene/TravelScene";
 import Reimbursement from "./reimbursement/Reimbursement";
 import styles from "./styles.module.scss";
 
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function TravelPage() {
     return (
-        <main className={styles.page}>
+        <TravelScene>
             <section className={styles.hero} aria-labelledby="travel-title">
                 <h1 id="travel-title">Travel Information</h1>
             </section>
@@ -75,6 +76,6 @@ export default function TravelPage() {
                     </aside>
                 </div>
             </section>
-        </main>
+        </TravelScene>
     );
 }
