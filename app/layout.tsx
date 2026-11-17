@@ -20,9 +20,13 @@ const StandardSiteLayout = dynamic(() => import("./StandardSiteLayout"));
 export default function Layout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const hideFooter = pathname === "/schedule" || pathname === "/faq";
-    const isFrontier = ["/", "/challenge", "/job-board", "/travel"].includes(
-        pathname
-    );
+    const isFrontier = [
+        "/",
+        "/challenge",
+        "/job-board",
+        "/prizes",
+        "/travel"
+    ].includes(pathname);
     const isRegister = pathname.startsWith("/register");
 
     // Drop step-specific inline footer vars when leaving /register so :root navy returns.

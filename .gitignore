@@ -31,5 +31,5 @@ yarn-error.log*
 /.vscode
 
 .env
-/test-results
-/playwright-report
+/test-results/
+/playwright-report/

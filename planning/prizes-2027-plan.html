@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+    <meta charset="utf-8" /><meta
+        name="viewport"
+        content="width=device-width,initial-scale=1"
+    /><title>Prizes page implementation plan</title
+    ><style>
+        :root {
+            color-scheme: light dark;
+        }
+        body {
+            max-width: 800px;
+            margin: auto;
+            padding: 24px;
+            font: 17px/1.6 system-ui;
+        }
+        h1,
+        h2 {
+            line-height: 1.2;
+        }
+        section {
+            border: 1px solid #8886;
+            border-radius: 12px;
+            padding: 18px;
+            margin: 20px 0;
+        }
+        .status {
+            background: #b8872320;
+        }
+        code {
+            overflow-wrap: anywhere;
+        }
+    </style>
+    <main>
+        <h1>Prizes page</h1>
+        <p>November 15, 2026 · HackIllinois site</p>
+        <section class="status">
+            <h2>Goal and status</h2>
+            <p>
+                Replace the existing prizes page with the Figma desktop and
+                mobile design, retain useful mouse/touch/keyboard interactions,
+                and open a separate pull request against main.
+            </p>
+            <p>
+                <strong>Status:</strong> implementation and local checks
+                complete; PR #563 opened. Use MacBook Air - 4 (node 2678-252);
+                adapt to a stacked phone layout because no mobile frame was
+                found.
+            </p>
+            <p>
+                <strong>Needs attention:</strong> Figma repeats track and
+                company sample entries. The user approved sample content instead
+                of the incomplete previous inventory.
+            </p>
+        </section>
+        <h2>Local content editing follow-up</h2>
+        <p>
+            Keep all prize data in the repository. Rename the data file to
+            app/prizes/content/prize-data.ts and add a nearby guide for editing
+            names, rewards, sections and order. Preserve sample content and
+            rendering; run TypeScript and formatting checks. No backend or shop
+            API.
+        </p>
+        <h2>Visible notice follow-up</h2>
+        <p>
+            User requested removal of the sample-information notice. Remove that
+            text and its unused styles, keep all local sample data unchanged,
+            notice absence verified on desktop/mobile; production preview
+            refreshed.
+        </p>
+        <h2>Section introductions follow-up</h2>
+        <p>
+            Remove the three user-specified section description fields from
+            local content. Keep prize cards unchanged. Verify descriptions
+            absent, rebuild and refresh preview3018, and update PR563.
+        </p>
+        <h2>Reward placement revision</h2>
+        <p>
+            User explicitly requested existing reward text on the wooden signs,
+            replacing placeholder sponsor labels, with no reward paragraphs
+            below the barrels. Keep full reward wording; verify long text fits
+            at1440,390 and320px. This is a requested revision to the inspected
+            Figma variant.
+        </p>
+        <h2>Agreed decisions</h2>
+        <ul>
+            <li>No decorative animation.</li>
+            <li>
+                User correction: use Figma sample prize data for now; previous
+                prize inventory is incomplete. Keep its provisional status in
+                developer documentation; user requested no visible notice.
+            </li>
+            <li>
+                Reuse the shared Frontier fonts and navigation where
+                appropriate.
+            </li>
+            <li>
+                Separate branch <code>codex/prizes-2027</code>; no merge or
+                production deployment.
+            </li>
+        </ul>
+        <h2>Steps</h2>
+        <ol>
+            <li>
+                Inspect Figma and export artwork; compare prize information with
+                the existing page.
+            </li>
+            <li>
+                Write behavior tests for the agreed page and interactions;
+                observe failures before implementation.
+            </li>
+            <li>
+                Implement the smallest responsive page using real text and
+                accessible controls.
+            </li>
+            <li>
+                Run behavior tests, lint, typecheck, and build; inspect
+                desktop/mobile with Computer Use.
+            </li>
+            <li>
+                Write the standalone HTML report with files, excerpts, exact
+                checks, risks, and reproduction steps; commit, push, and open
+                the PR.
+            </li>
+        </ol>
+        <h2>Checks and risks</h2>
+        <p>
+            Confirm readable layouts at desktop and phone widths, keyboard
+            access, touch interactions, stable links, no accidental prize
+            changes, and no decorative motion. Figma content is provisional and
+            repeated; this is approved sample data, not a confirmed award
+            announcement. Existing unrelated build errors will be recorded
+            rather than silently expanded into this task.
+        </p>
+        <details>
+            <summary>Implementation details</summary>
+            <p>
+                Working directory:
+                <code
+                    >/Users/aadivyar/Documents/RSOs/HackIllinois/worktrees/prizes-2027</code
+                >. Framework route files follow the established Next.js
+                <code>app/</code> layout; new artwork and feature files will be
+                grouped by purpose.
+            </p>
+        </details>
+    </main>
+</html>
