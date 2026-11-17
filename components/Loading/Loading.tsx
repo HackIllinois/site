@@ -1,29 +1,39 @@
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
+import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 import { Box, CircularProgress } from "@mui/material";
 
 type LoadingProps = {
+    /**
+     * Full-size art to use instead of the registration stage (e.g. the profile
+     * page's /profile/background.jpg). Anything else uses the stage scene.
+     */
     backgroundImage?: string;
-    zoom?: boolean;
 };
 
-const Loading: React.FC<LoadingProps> = ({
-    backgroundImage = "/registration/backgrounds/personal_info.svg",
-    zoom = true
-}) => {
+const Loading: React.FC<LoadingProps> = ({ backgroundImage }) => {
     return (
         <>
-            <Box
-                sx={{
-                    display: "flex",
-                    width: "100vw",
-                    height: "100vh",
-                    backgroundImage: `url(${backgroundImage})`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    filter: "blur(10px)",
-                    transform: zoom ? "scale(1.25)" : "scale(1)"
-                }}
-            ></Box>
+            {backgroundImage ? (
+                <Box
+                    sx={{
+                        position: "fixed",
+                        inset: 0,
+                        backgroundImage: `url(${backgroundImage})`,
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        filter: "blur(10px)",
+                        transform: "scale(1.1)",
+                        zIndex: -1
+                    }}
+                />
+            ) : (
+                // Blur-up over the encoded stage art instead of a multi-MB SVG.
+                <RegistrationBackground
+                    background={registrationBackgrounds.personal_info}
+                    blurPx={10}
+                />
+            )}
             <Box
                 sx={{
                     position: "absolute",

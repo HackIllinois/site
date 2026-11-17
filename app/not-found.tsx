@@ -1,22 +1,15 @@
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
+import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 import { Box } from "@mui/material";
 import Link from "next/link";
 
 const NotFound: React.FC = () => {
     return (
         <>
-            <Box
-                sx={{
-                    display: "flex",
-                    width: "100vw",
-                    height: "100vh",
-                    backgroundImage: `url("/registration/backgrounds/personal_info.svg")`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    filter: "blur(10px)",
-                    transform: "scale(1.25)"
-                }}
-            ></Box>
+            <RegistrationBackground
+                background={registrationBackgrounds.personal_info}
+                blurPx={10}
+            />
             <Box
                 sx={{
                     position: "absolute",

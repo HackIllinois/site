@@ -2,11 +2,13 @@
 
 import { authenticate, devLogin, getDevUsers } from "@/util/api";
 import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
+import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Alert, Box, Button, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const gradientRingSx = {
     borderRadius: "999px",
@@ -50,6 +52,14 @@ const GithubAuthPage = ({
 }: {
     mechathonMessage?: boolean;
 }) => {
+    useEffect(() => {
+        const redirectKey = "googleAuthRedirectAttempted";
+        if (!LOCAL_AUTH_ENABLED && !sessionStorage.getItem(redirectKey)) {
+            sessionStorage.setItem(redirectKey, "true");
+            authenticate("google");
+        }
+    }, []);
+
     const [isSigningIn, setIsSigningIn] = useState(false);
     const [signingInMode, setSigningInMode] = useState<LocalSignInMode | null>(
         null
@@ -94,18 +104,9 @@ const GithubAuthPage = ({
                 overflowY: "auto"
             }}
         >
-            <Box
-                sx={{
-                    position: "fixed",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    backgroundImage: `url("/registration/backgrounds/auth.svg")`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    zIndex: -1
-                }}
+            <RegistrationBackground
+                background={registrationBackgrounds.auth}
+                next={registrationBackgrounds.personal_info}
             />
             <Box
                 sx={{

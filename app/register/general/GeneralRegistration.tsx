@@ -26,6 +26,7 @@ import PersonalInfo from "./formPages/PersonalInfo";
 import Review from "./formPages/Review";
 
 import Loading from "@/components/Loading/Loading";
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
 import { useRegistrationAuth } from "@/hooks/use-registration-auth";
 import theme from "@/theme";
 import {
@@ -479,24 +480,15 @@ export const GeneralRegistration = () => {
                     position: "relative",
                     minHeight: "100dvh",
                     width: "100%",
-                    pb: "50px",
-                    // Fixed full-viewport layer so scrolling the form still
-                    // shows the stage sunset (cover stays pinned to the viewport).
-                    "&::before": {
-                        content: '""',
-                        position: "fixed",
-                        inset: 0,
-                        zIndex: -1,
-                        backgroundImage: {
-                            xs: `url("/registration/backgrounds/mobile/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}?v=2")`,
-                            md: `url("/registration/backgrounds/${steps[currentStep].id}${steps[currentStep].use_svg ? ".svg" : ".png"}?v=2")`
-                        },
-                        backgroundSize: "cover",
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center center"
-                    }
+                    pb: "50px"
                 }}
             >
+                {/* Fixed full-viewport layer so scrolling the form still shows
+                    the stage sunset, crossfaded between steps. */}
+                <RegistrationBackground
+                    background={steps[currentStep]}
+                    next={steps[currentStep + 1] ?? null}
+                />
                 <Paper
                     elevation={0}
                     sx={{
