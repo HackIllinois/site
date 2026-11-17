@@ -8,7 +8,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Alert, Box, Button, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const gradientRingSx = {
     borderRadius: "999px",
@@ -52,6 +52,14 @@ const GithubAuthPage = ({
 }: {
     mechathonMessage?: boolean;
 }) => {
+    useEffect(() => {
+        const redirectKey = "googleAuthRedirectAttempted";
+        if (!LOCAL_AUTH_ENABLED && !sessionStorage.getItem(redirectKey)) {
+            sessionStorage.setItem(redirectKey, "true");
+            authenticate("google");
+        }
+    }, []);
+
     const [isSigningIn, setIsSigningIn] = useState(false);
     const [signingInMode, setSigningInMode] = useState<LocalSignInMode | null>(
         null

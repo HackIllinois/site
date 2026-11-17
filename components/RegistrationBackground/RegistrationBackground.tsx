@@ -115,7 +115,9 @@ const RegistrationBackground = ({
     next = null,
     blurPx = 0
 }: RegistrationBackgroundProps) => {
-    const [readySrc, setReadySrc] = useState<string | null>(null);
+    const [readySources, setReadySources] = useState<ReadonlySet<string>>(
+        () => new Set()
+    );
     const [previous, setPrevious] = useState<RegistrationBackgroundArt | null>(
         null
     );
@@ -125,12 +127,13 @@ const RegistrationBackground = ({
         if (shownRef.current.src === background.src) return;
         // Only hold art that actually painted; a step that is still loading
         // would just cover the screen with its own LQIP.
-        if (readySrc === shownRef.current.src) setPrevious(shownRef.current);
+        setPrevious(
+            readySources.has(shownRef.current.src) ? shownRef.current : null
+        );
         shownRef.current = background;
-        setReadySrc(null);
-    }, [background, readySrc]);
+    }, [background, readySources]);
 
-    const ready = readySrc === background.src;
+    const ready = readySources.has(background.src);
 
     useEffect(() => {
         if (!previous || !ready) return;
@@ -138,7 +141,11 @@ const RegistrationBackground = ({
         return () => clearTimeout(timer);
     }, [previous, ready]);
 
-    const handleReady = useCallback((src: string) => setReadySrc(src), []);
+    const handleReady = useCallback((src: string) => {
+        setReadySources(sources =>
+            sources.has(src) ? sources : new Set([...sources, src])
+        );
+    }, []);
 
     return (
         <div aria-hidden style={CONTAINER_STYLE}>
@@ -156,7 +163,7 @@ const RegistrationBackground = ({
                     transition: `opacity ${FADE_MS}ms ease-out`
                 }}
             />
-            {previous && (
+            {previous && previous.src !== background.src && (
                 <ArtLayer
                     key={previous.src}
                     art={previous}
