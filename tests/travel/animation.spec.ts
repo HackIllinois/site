@@ -12,56 +12,103 @@ async function translation(
     });
 }
 
-test("opening stays pinned until the whole train exits, then releases and reverses", async ({
+async function top(locator: import("@playwright/test").Locator) {
+    return (await locator.boundingBox())!.y;
+}
+
+test("opening holds for the train, then layers scroll at reference speeds and reverse", async ({
     page
 }) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.goto("/travel");
-    const scene = page.getByTestId("travel-scene");
-    await expect(scene).toBeVisible();
-    const heading = page.getByRole("heading", {
+    await expect(page.getByTestId("travel-scene")).toBeVisible();
+    const title = page.getByRole("heading", {
         name: "Travel Information",
         exact: true
     });
-    const initialHeading = await heading.boundingBox();
-    const foreground = page.locator('[data-scene-layer="foreground"]');
-    const initialTree = await foreground.boundingBox();
+    const board = page.getByRole("heading", {
+        name: /offering travel reimbursements/
+    });
+    const backdrop = page.locator('[data-scene-layer="backdrop"]');
+    const tree = page.locator('[data-scene-layer="foreground"]');
     const branch = page.locator('[data-scene-layer="branch"]');
-    const runway = await page
-        .getByTestId("scene-scroll-target")
-        .evaluate(el => el.getBoundingClientRect().height);
-    await page.evaluate(y => scrollTo(0, y), runway * 0.5);
-    await expect
-        .poll(async () => (await branch.boundingBox())?.y)
-        .toBeLessThan(initialTree!.y - 50);
-    await expect
-        .poll(async () => (await translation(page, "train")).x)
-        .toBeGreaterThan(50);
-    expect((await heading.boundingBox())!.y).toBeCloseTo(initialHeading!.y, 0);
-    expect((await foreground.boundingBox())!.y).toBeCloseTo(initialTree!.y, 0);
-    await page.evaluate(y => scrollTo(0, y), runway);
     const trainImage = page.locator('[data-scene-layer="train"] img');
+    const hold = await page
+        .getByTestId("scene-hold")
+        .evaluate(el => el.getBoundingClientRect().height);
+    const start = {
+        title: await top(title),
+        board: await top(board),
+        backdrop: await top(backdrop),
+        tree: await top(tree),
+        branch: await top(branch)
+    };
+    const trainStart = (await trainImage.boundingBox())!.x;
+
+    // Hold: only the train moves.
+    await page.evaluate(y => scrollTo(0, y), hold * 0.5);
     await expect
         .poll(async () => (await trainImage.boundingBox())!.x)
-        .toBeGreaterThanOrEqual(await page.evaluate(() => innerWidth));
-    expect((await heading.boundingBox())!.y).toBeCloseTo(initialHeading!.y, 0);
-    await page.evaluate(y => scrollTo(0, y), runway + 150);
+        .toBeGreaterThan(trainStart + 20);
+    for (const [name, locator] of Object.entries({
+        title,
+        board,
+        backdrop,
+        tree,
+        branch
+    })) {
+        expect(await top(locator), name).toBeCloseTo(
+            start[name as keyof typeof start],
+            0
+        );
+    }
+
+    // After the hold: board 1x, scene 0.5x, branch 2x. Train still crossing.
+    const drift = 200;
+    await page.evaluate(y => scrollTo(0, y), hold + drift);
+    await expect.poll(() => top(board)).toBeCloseTo(start.board - drift, 0);
     await expect
-        .poll(async () => (await heading.boundingBox())!.y)
-        .toBeLessThan(initialHeading!.y - 140);
+        .poll(() => top(branch))
+        .toBeCloseTo(start.branch - 2 * drift, 0);
+    for (const [name, locator] of Object.entries({ title, backdrop, tree })) {
+        expect(await top(locator), name).toBeCloseTo(
+            start[name as keyof typeof start] - drift / 2,
+            0
+        );
+    }
+    const viewportWidth = await page.evaluate(() => innerWidth);
+    expect((await trainImage.boundingBox())!.x).toBeLessThan(viewportWidth);
+
+    // The train leaves the screen before the crossing ends.
+    const crossing = await page
+        .getByTestId("scene-scroll-target")
+        .evaluate(el => el.getBoundingClientRect().height);
+    await page.evaluate(y => scrollTo(0, y), crossing);
+    await expect
+        .poll(async () => (await trainImage.boundingBox())!.x)
+        .toBeGreaterThanOrEqual(viewportWidth);
     expect(
         await page.evaluate(
             () => document.documentElement.scrollWidth <= innerWidth
         )
     ).toBeTruthy();
+
+    // Scrolling back restores every layer.
     await page.evaluate(() => scrollTo(0, 0));
     await expect
-        .poll(async () => (await translation(page, "train")).x)
-        .toBeCloseTo(0, 0);
-    expect((await heading.boundingBox())!.y).toBeCloseTo(initialHeading!.y, 0);
-    await expect
-        .poll(async () => (await branch.boundingBox())?.y)
-        .toBeCloseTo(initialTree!.y, 0);
+        .poll(async () => (await trainImage.boundingBox())!.x)
+        .toBeCloseTo(trainStart, 0);
+    for (const [name, locator] of Object.entries({
+        title,
+        board,
+        backdrop,
+        tree,
+        branch
+    })) {
+        await expect
+            .poll(() => top(locator), name)
+            .toBeCloseTo(start[name as keyof typeof start], 0);
+    }
 });
 
 test("reduced motion keeps the scene still, including preference changes", async ({
@@ -77,21 +124,24 @@ test("reduced motion keeps the scene still, including preference changes", async
     const initialY = (await heading.boundingBox())!.y;
     await page.evaluate(() => scrollTo(0, 350));
     expect((await heading.boundingBox())!.y).toBeCloseTo(initialY - 350, 0);
-    for (const layer of ["train", "foreground", "branch"]) {
+    for (const layer of ["backdrop", "train", "branch"]) {
         await expect
             .poll(() => translation(page, layer))
             .toEqual({ x: 0, y: 0 });
     }
     await page.emulateMedia({ reducedMotion: "no-preference" });
-    await page.evaluate(() => scrollTo(0, 450));
+    await page.evaluate(() => scrollTo(0, 900));
     await expect
         .poll(async () => (await translation(page, "train")).x)
+        .toBeGreaterThan(0);
+    await expect
+        .poll(async () => (await translation(page, "backdrop")).y)
         .toBeGreaterThan(0);
     await expect
         .poll(async () => (await translation(page, "branch")).y)
         .toBeLessThan(0);
     await page.emulateMedia({ reducedMotion: "reduce" });
-    for (const layer of ["train", "branch"]) {
+    for (const layer of ["backdrop", "train", "branch"]) {
         await expect
             .poll(() => translation(page, layer))
             .toEqual({ x: 0, y: 0 });

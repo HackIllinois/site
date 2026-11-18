@@ -1,11 +1,11 @@
+// The scene stays pinned for the hold. The train crossing continues after the page starts to move.
 .sequence {
-    --train-hold: 100svh;
+    --train-hold: 40svh;
+    --train-crossing: 100svh;
     position: relative;
-    &::after {
-        content: "";
-        display: block;
-        height: var(--train-hold);
-    }
+}
+.hold {
+    height: var(--train-hold);
 }
 .sequence > .pinned {
     position: sticky;
@@ -42,7 +42,7 @@
     position: absolute;
     top: 0;
     width: 100%;
-    height: var(--train-hold);
+    height: var(--train-crossing);
     pointer-events: none;
 }
 .background,
@@ -58,6 +58,9 @@
 }
 .branch {
     clip-path: inset(0 50% 0 0);
+}
+.drift {
+    position: relative;
 }
 .train {
     position: absolute;
@@ -90,14 +93,15 @@
     }
 }
 @media (prefers-reduced-motion: reduce), (scripting: none) {
-    .sequence::after {
+    .hold {
         height: 0;
     }
     .sequence > .pinned {
         position: relative;
     }
     // CSS also handles preference changes immediately and protects the first paint.
-    .movingLayer {
+    .movingLayer,
+    .drift {
         transform: none !important;
     }
 }
