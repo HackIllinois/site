@@ -10,19 +10,11 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Alert, Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const gradientRingSx = {
-    borderRadius: "999px",
-    padding: "5px",
-    background:
-        "linear-gradient(90deg, #A315D6 0%, #FDAB60 51.44%, #A315D6 100%)",
-    display: "inline-flex"
-};
-
 const authButtonSx = {
-    backgroundColor: "#24292f",
+    backgroundColor: "#75462d",
     color: "#ffffff",
-    padding: "10px 20px",
-    fontSize: { xs: "16px", sm: "18px", md: "20px" },
+    padding: "12px 24px",
+    fontSize: { xs: "18px", sm: "20px", md: "22px" },
     fontWeight: 600,
     borderRadius: "999px",
     textTransform: "none",
@@ -32,14 +24,14 @@ const authButtonSx = {
     gap: 1,
     "& .MuiButton-startIcon": {
         marginRight: 1,
-        "& svg": { fontSize: "1.3rem" }
+        "& svg": { fontSize: "1.4rem" }
     },
     "&:hover": {
-        backgroundColor: "#1b1f23",
+        backgroundColor: "#8c5638",
         boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)"
     },
     "&:active": {
-        backgroundColor: "#0f1113",
+        backgroundColor: "#5f3825",
         boxShadow: "0 2px 8px rgba(0, 0, 0, 0.6)"
     },
     fontFamily: "Montserrat"
@@ -122,17 +114,6 @@ const GithubAuthPage = ({
                     px: 3
                 }}
             >
-                <img
-                    src="/registration/hackastra-logo.png"
-                    alt="Hackastra Logo"
-                    style={{
-                        width: "auto",
-                        maxHeight: "110px",
-                        maxWidth: "100%",
-                        marginBottom: "20px",
-                        objectFit: "contain"
-                    }}
-                />
                 <Typography
                     variant="h6"
                     component="p"
@@ -142,16 +123,14 @@ const GithubAuthPage = ({
                         opacity: 0.9,
                         fontFamily: "Montserrat",
                         fontSize: {
-                            xs: "16px",
-                            md: "20px"
+                            xs: "20px",
+                            md: "24px"
                         },
                         paddingLeft: 6,
                         paddingRight: 6
                     }}
                 >
-                    {LOCAL_AUTH_ENABLED
-                        ? "Sign in with a local test account to get started"
-                        : "Sign in with your GitHub or Google account to get started"}
+                    Sign in to get started!
                 </Typography>
 
                 {/* Priority and final deadline boxes */}
@@ -332,7 +311,7 @@ const GithubAuthPage = ({
                 >
                     {LOCAL_AUTH_ENABLED ? (
                         <>
-                            <Box sx={gradientRingSx}>
+                            <Box>
                                 <Button
                                     variant="contained"
                                     size="large"
@@ -348,7 +327,7 @@ const GithubAuthPage = ({
                                         : "Sign in as an existing test user"}
                                 </Button>
                             </Box>
-                            <Box sx={gradientRingSx}>
+                            <Box>
                                 <Button
                                     variant="contained"
                                     size="large"
@@ -366,17 +345,17 @@ const GithubAuthPage = ({
                     ) : (
                         [
                             {
-                                provider: "github" as const,
-                                label: "GitHub",
-                                icon: <GitHubIcon />
-                            },
-                            {
                                 provider: "google" as const,
                                 label: "Google",
                                 icon: <GoogleIcon />
+                            },
+                            {
+                                provider: "github" as const,
+                                label: "GitHub",
+                                icon: <GitHubIcon />
                             }
                         ].map(({ provider, label, icon }) => (
-                            <Box key={provider} sx={gradientRingSx}>
+                            <Box key={provider}>
                                 <Button
                                     variant="contained"
                                     size="large"

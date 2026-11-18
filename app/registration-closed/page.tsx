@@ -4,6 +4,7 @@ import { GradientButton } from "@/components/GradientButton/GradientButton";
 import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
 import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 import { Box, Typography } from "@mui/material";
+import { HackIllinoisWordmark } from "@/components/HackIllinoisWordmark/HackIllinoisWordmark";
 
 const RegistrationClosed = () => {
     return (
@@ -32,17 +33,7 @@ const RegistrationClosed = () => {
                     px: 3
                 }}
             >
-                <img
-                    src="/registration/hackastra-logo.png"
-                    alt="Hackastra Logo"
-                    style={{
-                        width: "auto",
-                        maxHeight: "110px",
-                        maxWidth: "100%",
-                        marginBottom: "40px",
-                        objectFit: "contain"
-                    }}
-                />
+                <HackIllinoisWordmark sx={{ mb: "40px" }} />
 
                 <Box
                     sx={{

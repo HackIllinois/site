@@ -1,5 +1,6 @@
 import { isAuthenticated, loadSubmission, registrationAlive } from "@/util/api";
 import { RegistrationApplicationSubmitted } from "@/util/types";
+import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -26,7 +27,7 @@ export const useRegistrationAuth = ({
             router.push("/registration-closed");
             return;
         }
-        if (isProtected) {
+        if (isProtected && !LOCAL_AUTH_ENABLED) {
             try {
                 const alive = await registrationAlive();
                 if (!alive) {
