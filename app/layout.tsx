@@ -40,10 +40,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <head>
                 {!isFrontier && (
                     <>
-                        <title>HackIllinois 2026</title>
+                        <title>HackIllinois 2027</title>
                         <meta
                             name="description"
-                            content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
+                            content="Forge Your Frontier at HackIllinois 2027. February 26 – 28 2027. Registrations open."
                         />
                         <meta
                             name="viewport"
@@ -51,10 +51,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         />
 
                         {/* OpenGraph */}
-                        <meta property="og:title" content="HackIllinois 2026" />
+                        <meta property="og:title" content="HackIllinois 2027" />
                         <meta
                             property="og:description"
-                            content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
+                            content="Forge Your Frontier at HackIllinois 2027. February 26 – 28 2027. Registrations open."
                         />
                         <meta property="og:type" content="website" />
                         <meta property="og:site_name" content="HackIllinois" />
@@ -70,7 +70,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         <meta property="og:image:height" content="630" />
                         <meta
                             property="og:image:alt"
-                            content="HackIllinois 2026"
+                            content="HackIllinois 2027"
                         />
 
                         {/* Twitter */}
@@ -80,11 +80,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         />
                         <meta
                             name="twitter:title"
-                            content="HackIllinois 2026"
+                            content="HackIllinois 2027"
                         />
                         <meta
                             name="twitter:description"
-                            content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
+                            content="Forge Your Frontier at HackIllinois 2027. February 26 – 28 2027. Registrations open."
                         />
                         <meta
                             name="twitter:image"
