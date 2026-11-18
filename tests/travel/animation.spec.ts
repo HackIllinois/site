@@ -26,10 +26,14 @@ test("opening stays pinned until the whole train exits, then releases and revers
     const initialHeading = await heading.boundingBox();
     const foreground = page.locator('[data-scene-layer="foreground"]');
     const initialTree = await foreground.boundingBox();
+    const branch = page.locator('[data-scene-layer="branch"]');
     const runway = await page
         .getByTestId("scene-scroll-target")
         .evaluate(el => el.getBoundingClientRect().height);
     await page.evaluate(y => scrollTo(0, y), runway * 0.5);
+    await expect
+        .poll(async () => (await branch.boundingBox())?.y)
+        .toBeLessThan(initialTree!.y - 50);
     await expect
         .poll(async () => (await translation(page, "train")).x)
         .toBeGreaterThan(50);
@@ -55,6 +59,9 @@ test("opening stays pinned until the whole train exits, then releases and revers
         .poll(async () => (await translation(page, "train")).x)
         .toBeCloseTo(0, 0);
     expect((await heading.boundingBox())!.y).toBeCloseTo(initialHeading!.y, 0);
+    await expect
+        .poll(async () => (await branch.boundingBox())?.y)
+        .toBeCloseTo(initialTree!.y, 0);
 });
 
 test("reduced motion keeps the scene still, including preference changes", async ({
@@ -70,7 +77,7 @@ test("reduced motion keeps the scene still, including preference changes", async
     const initialY = (await heading.boundingBox())!.y;
     await page.evaluate(() => scrollTo(0, 350));
     expect((await heading.boundingBox())!.y).toBeCloseTo(initialY - 350, 0);
-    for (const layer of ["train", "foreground"]) {
+    for (const layer of ["train", "foreground", "branch"]) {
         await expect
             .poll(() => translation(page, layer))
             .toEqual({ x: 0, y: 0 });
@@ -80,8 +87,15 @@ test("reduced motion keeps the scene still, including preference changes", async
     await expect
         .poll(async () => (await translation(page, "train")).x)
         .toBeGreaterThan(0);
+    await expect
+        .poll(async () => (await translation(page, "branch")).y)
+        .toBeLessThan(0);
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await expect.poll(() => translation(page, "train")).toEqual({ x: 0, y: 0 });
+    for (const layer of ["train", "branch"]) {
+        await expect
+            .poll(() => translation(page, layer))
+            .toEqual({ x: 0, y: 0 });
+    }
 });
 
 test("scene stays visible without JavaScript", async ({
@@ -97,7 +111,7 @@ test("scene stays visible without JavaScript", async ({
     await page.goto(`${baseURL}/travel`);
     const scene = page.getByTestId("travel-scene");
     await expect(scene).toBeVisible();
-    await expect(scene.locator("img")).toHaveCount(3);
+    await expect(scene.locator("img")).toHaveCount(4);
     for (const image of await scene.locator("img").all()) {
         expect(
             await image.evaluate(img => (img as HTMLImageElement).naturalWidth)
