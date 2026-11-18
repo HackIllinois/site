@@ -2,6 +2,9 @@
 
 import { authenticate, devLogin, getDevUsers } from "@/util/api";
 import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
+import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Alert, Box, Button, Typography } from "@mui/material";
@@ -93,18 +96,9 @@ const GithubAuthPage = ({
                 overflowY: "auto"
             }}
         >
-            <Box
-                sx={{
-                    position: "fixed",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    backgroundImage: `url("/registration/backgrounds/auth.svg")`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    zIndex: -1
-                }}
+            <RegistrationBackground
+                background={registrationBackgrounds.auth}
+                next={registrationBackgrounds.personal_info}
             />
             <Box
                 sx={{
@@ -354,6 +348,11 @@ const GithubAuthPage = ({
                                 provider: "google" as const,
                                 label: "Google",
                                 icon: <GoogleIcon />
+                            },
+                            {
+                                provider: "github" as const,
+                                label: "GitHub",
+                                icon: <GitHubIcon />
                             }
                         ].map(({ provider, label, icon }) => (
                             <Box key={provider}>

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import FrontierNav from "@/components/Frontier/FrontierNav";
 import SceneArt from "@/components/Frontier/SceneArt";
 import shared from "@/components/Frontier/Frontier.module.scss";
 import { socials } from "@/modules/FooterData";
@@ -34,7 +33,6 @@ const stories = [
 export default function Home() {
     return (
         <div className={shared.page}>
-            <FrontierNav />
             <main className={styles.landing}>
                 <section className={styles.scene} aria-labelledby="event-name">
                     <SceneArt
@@ -124,19 +122,28 @@ export default function Home() {
                         }}
                     />
                     <div className={styles.letter}>
-                        <p>Howdy, hackers!</p>
+                        <p>Howdy Hackers!</p>
                         <p>
-                            Join us February 26–28 at the University of Illinois
-                            Urbana-Champaign.
+                            HackIllinois has always been powered by passionate
+                            people who love creating, problem solving, and
+                            making a lasting impact on the community around
+                            them. Behind the scenes, our team has been pouring
+                            months of creativity and dedication into making this
+                            an unforgettable weekend for y&apos;all.
                         </p>
+                        <p>
+                            We&apos;ve got a whole lot of Midwest heart and
+                            plenty of surprises in store. We can&apos;t wait to
+                            see y&apos;all build incredible projects and even
+                            better memories this February.
+                        </p>
+                        <p>
+                            Saddle up, it&apos;s time to forge your frontier! 🤠
+                        </p>
+                        <p>— The HackIllinois Team</p>
                         <Link href="/register/general">
                             Register for HackIllinois
                         </Link>
-                        <p>
-                            Forge Your Frontier,
-                            <br />
-                            The HackIllinois Team
-                        </p>
                         <FrontierNewsletter />
                     </div>
                     <div className={styles.social}>
