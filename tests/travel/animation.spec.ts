@@ -149,3 +149,54 @@ test("scene stays visible without JavaScript", async ({
     ).toBeVisible();
     await context.close();
 });
+
+test("left parallax branch extends unclipped past its right tip", async ({
+    page
+}, testInfo) => {
+    await page.goto("/travel");
+    const branchLayer = page.locator('[data-scene-layer="branch"]');
+    const branchImg = branchLayer.locator("img");
+    await expect(branchImg).toBeVisible();
+    const metrics = await branchLayer.evaluate(async layer => {
+        const img = layer.querySelector("img") as HTMLImageElement;
+        await img.decode();
+        const canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext("2d")!;
+        ctx.drawImage(img, 0, 0);
+        const { data, width, height } = ctx.getImageData(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+        let maxX = -1;
+        let maxDrop = 0;
+        const colMaxAlpha = new Uint8Array(width);
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const a = data[(y * width + x) * 4 + 3];
+                if (a > colMaxAlpha[x]) colMaxAlpha[x] = a;
+                if (a > 10 && x > maxX) maxX = x;
+            }
+        }
+        for (let x = 1; x < width; x++) {
+            const drop = colMaxAlpha[x - 1] - colMaxAlpha[x];
+            if (drop > maxDrop) maxDrop = drop;
+        }
+        return {
+            clipPath: getComputedStyle(layer).clipPath,
+            width,
+            maxX,
+            maxDrop
+        };
+    });
+    expect(metrics.clipPath).toBe("none");
+    if (testInfo.project.name === "mobile") {
+        expect(metrics.maxX / metrics.width).toBeGreaterThan(0.8);
+    } else {
+        expect(metrics.maxX / metrics.width).toBeGreaterThan(0.45);
+    }
+    expect(metrics.maxDrop).toBeLessThan(30);
+});

@@ -12,16 +12,16 @@ import styles from "./TravelScene.module.scss";
 import pageStyles from "../styles.module.scss";
 import Navbar from "@/components/Navbar/Navbar";
 
-function ForegroundArt() {
+function SceneLayerArt({ name }: { name: "foreground" | "branch" }) {
     return (
         <picture className={styles.foreground}>
             <source
                 media="(max-width: 700px)"
-                srcSet="/travel/frontier/motion/mobile/foreground.webp"
+                srcSet={`/travel/frontier/motion/mobile/${name}.webp`}
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-                src="/travel/frontier/motion/desktop/foreground.webp"
+                src={`/travel/frontier/motion/desktop/${name}.webp`}
                 alt=""
                 width={1440}
                 height={3132}
@@ -138,15 +138,15 @@ export default function TravelScene({
                         className={styles.fixedTree}
                         data-scene-layer="foreground"
                     >
-                        <ForegroundArt />
+                        <SceneLayerArt name="foreground" />
                     </div>
                 </motion.div>
                 <motion.div
-                    className={`${styles.movingLayer} ${styles.branch}`}
+                    className={styles.movingLayer}
                     style={{ y: branchY }}
                     data-scene-layer="branch"
                 >
-                    <ForegroundArt />
+                    <SceneLayerArt name="branch" />
                 </motion.div>
             </div>
             {/* The navbar and title belong to the scene, so they drift with it. */}
