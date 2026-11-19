@@ -1,47 +1,26 @@
 import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
 import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
-import { Box } from "@mui/material";
 import Link from "next/link";
+import styles from "./not-found.module.scss";
 
 const NotFound: React.FC = () => {
     return (
-        <>
+        <main className={styles.page}>
             <RegistrationBackground
                 background={registrationBackgrounds.personal_info}
                 blurPx={10}
             />
-            <Box
-                sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100vw",
-                    height: "100vh",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: 3
-                }}
-            >
-                <div>
-                    <h2>Page not found</h2>
-                    <br />
-                    <p>
-                        Return to the{" "}
-                        <Link
-                            prefetch={false}
-                            href="/"
-                            style={{
-                                color: "#1976d2",
-                                textDecoration: "underline"
-                            }}
-                        >
-                            home page
-                        </Link>
-                    </p>
-                </div>
-            </Box>
-        </>
+            <div className={styles.card}>
+                <p className={styles.code}>404</p>
+                <h1 className={styles.heading}>Page not found</h1>
+                <p className={styles.message}>
+                    We couldn&apos;t find the page you&apos;re looking for.
+                </p>
+                <Link prefetch={false} href="/" className={styles.homeLink}>
+                    Return to the home page
+                </Link>
+            </div>
+        </main>
     );
 };
 

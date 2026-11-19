@@ -111,7 +111,11 @@ export default function Home() {
                     <SceneArt src={art + "mine"} height={1690} />
                     <MineFaq />
                 </section>
-                <footer className={styles.frontier} id="newsletter">
+                <section
+                    className={styles.frontier}
+                    id="newsletter"
+                    aria-label="Newsletter and social links"
+                >
                     <SceneArt
                         src={art + "frontier"}
                         height={1758}
@@ -163,7 +167,7 @@ export default function Home() {
                             ))}
                         </div>
                     </div>
-                </footer>
+                </section>
             </main>
         </div>
     );

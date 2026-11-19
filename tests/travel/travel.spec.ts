@@ -6,6 +6,22 @@ test.beforeEach(async ({ page }) => {
     await page.goto("/travel");
 });
 
+test("the site navbar stays at the top past the travel scene", async ({
+    page
+}) => {
+    const navbar = page.getByRole("banner");
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(500);
+    await expect(navbar).toHaveCount(1);
+    expect(await navbar.evaluate(el => el.getBoundingClientRect().top)).toBe(0);
+    if (await page.getByRole("button", { name: "Open menu" }).isVisible()) {
+        await page.getByRole("button", { name: "Open menu" }).click();
+    }
+    await expect(navbar.getByRole("link", { name: "Schedule" })).toHaveCount(0);
+    await navbar.getByRole("link", { name: "Prizes" }).click();
+    await expect(page).toHaveURL(/\/prizes$/);
+});
+
 test("travel policy stays readable in the new layout", async ({ page }) => {
     await expect(
         page.getByRole("heading", { name: "Travel Information", exact: true })
