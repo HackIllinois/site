@@ -46,3 +46,23 @@ test("the desktop window casts the same shadow as the page scrolls underneath", 
         .toBeLessThan(2);
     expect((await strip.screenshot()).equals(shaded)).toBe(true);
 });
+
+test("Back restores the saloon after following the hero plaque", async ({
+    page
+}) => {
+    await page.goto("/challenge");
+    await page.getByRole("link", { name: "HackIllinois Pro-Track" }).click();
+    await expect(page).toHaveURL(/#about-outlaws$/);
+    await page
+        .getByRole("navigation")
+        .getByRole("link", { name: "Prizes" })
+        .click();
+    await expect(
+        page.getByRole("heading", { name: "Prizes", exact: true })
+    ).toBeVisible();
+    await page.goBack();
+    await expect(page).toHaveURL(/\/challenge#about-outlaws$/);
+    await expect(
+        page.getByRole("heading", { level: 1, name: /hack\s*outlaws/i })
+    ).toBeVisible();
+});

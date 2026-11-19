@@ -53,9 +53,9 @@ export default function ProTrackLanding() {
                     <h1>
                         Hack<span>Outlaws</span>
                     </h1>
-                    <a href="#about-outlaws" className={styles.plaque}>
+                    <Link href="#about-outlaws" className={styles.plaque}>
                         HackIllinois Pro-Track
-                    </a>
+                    </Link>
                 </section>
                 <section className={styles.roulette} id="about-outlaws">
                     <SaloonArt name="roulette" height={816} phoneHeight={370} />
