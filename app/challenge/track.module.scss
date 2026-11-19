@@ -1,3 +1,17 @@
+// The desktop Figma window stays above the navbar as the saloon scrolls.
+// Keep it outside the scene's size container so its containing block is the viewport.
+@media screen and (width > 850px) and (forced-colors: none) {
+    :global(body):has(.saloon)::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 1101;
+        pointer-events: none;
+        background: url("/challenge/saloon/window-shadow.webp") left top / 100%
+            auto no-repeat;
+    }
+}
+
 .saloon {
     background: #302216;
     color: #39200e;
