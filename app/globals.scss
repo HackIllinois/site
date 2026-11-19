@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+/* Keep fragment targets and focused controls below the fixed navbar. */
+html {
+    scroll-padding-top: max(68px, 9vw);
+}
+
 html,
 body {
     width: 100vw;

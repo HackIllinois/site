@@ -8,6 +8,7 @@ import styles from "./Navbar.module.scss";
 const destinations = [
     ["Job Board", "/job-board"],
     ["Travel", "/travel"],
+    ["Prizes", "/prizes"],
     ["HackOutlaws", "/challenge"]
 ];
 
