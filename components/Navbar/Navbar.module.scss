@@ -13,6 +13,11 @@
     // The bar now stays over content on every route, so it always needs its own
     // backdrop to keep the white links legible.
     background: linear-gradient(to bottom, rgb(0 0 0 / 85%), transparent);
+    transition: transform 200ms ease;
+    // Once the page scrolls, tuck the bar up against the top edge.
+    &[data-scrolled="true"] {
+        transform: translateY(-10px);
+    }
     :focus-visible {
         outline: 3px solid #fff;
         outline-offset: 3px;
@@ -20,6 +25,11 @@
     }
     &[data-home="true"] {
         padding-top: 3.47%;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .header {
+        transition: none;
     }
 }
 .logo {
