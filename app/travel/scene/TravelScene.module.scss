@@ -52,13 +52,6 @@
     position: absolute;
     inset: 0;
 }
-// The clips meet in transparent parts of the shared foreground artwork.
-.fixedTree {
-    clip-path: inset(0 0 0 50%);
-}
-.branch {
-    clip-path: inset(0 50% 0 0);
-}
 .train {
     position: absolute;
     left: var(--train-left);
@@ -69,20 +62,6 @@
     .scene {
         height: 601.99005vw;
         --train-left: -37.0646766%;
-    }
-    // The right tree extends farther left above the near branch on phones.
-    .fixedTree {
-        clip-path: polygon(
-            0 0,
-            100% 0,
-            100% 100%,
-            60% 100%,
-            60% 25.6%,
-            0 25.6%
-        );
-    }
-    .branch {
-        clip-path: inset(25.6% 40% 0 0);
     }
     .train {
         top: 21.4876033%;
