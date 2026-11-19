@@ -58,52 +58,54 @@ export default function Navbar() {
             data-home={path === "/"}
             data-scrolled={scrolled}
         >
-            <Link
-                href="/"
-                aria-label="HackIllinois home"
-                prefetch={false}
-                onClick={() => setOpen(false)}
-            >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                    className={styles.logo}
-                    src="/logo.svg"
-                    alt=""
-                    width="144"
-                    height="47"
-                />
-            </Link>
-            <button
-                ref={toggle}
-                type="button"
-                className={styles.toggle}
-                aria-label={open ? "Close menu" : "Open menu"}
-                aria-controls="frontier-nav"
-                aria-expanded={open}
-                onClick={() => setOpen(!open)}
-            >
-                <span />
-                <span />
-                <span />
-            </button>
-            <nav
-                id="frontier-nav"
-                aria-label="Main navigation"
-                data-open={open}
-                className={styles.links}
-            >
-                {destinations.map(([label, href]) => (
-                    <Link
-                        key={href}
-                        href={href}
-                        prefetch={false}
-                        aria-current={path === href ? "page" : undefined}
-                        onClick={() => setOpen(false)}
-                    >
-                        {label}
-                    </Link>
-                ))}
-            </nav>
+            <div className={styles.bar}>
+                <Link
+                    href="/"
+                    aria-label="HackIllinois home"
+                    prefetch={false}
+                    onClick={() => setOpen(false)}
+                >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        className={styles.logo}
+                        src="/logo.svg"
+                        alt=""
+                        width="144"
+                        height="47"
+                    />
+                </Link>
+                <button
+                    ref={toggle}
+                    type="button"
+                    className={styles.toggle}
+                    aria-label={open ? "Close menu" : "Open menu"}
+                    aria-controls="frontier-nav"
+                    aria-expanded={open}
+                    onClick={() => setOpen(!open)}
+                >
+                    <span />
+                    <span />
+                    <span />
+                </button>
+                <nav
+                    id="frontier-nav"
+                    aria-label="Main navigation"
+                    data-open={open}
+                    className={styles.links}
+                >
+                    {destinations.map(([label, href]) => (
+                        <Link
+                            key={href}
+                            href={href}
+                            prefetch={false}
+                            aria-current={path === href ? "page" : undefined}
+                            onClick={() => setOpen(false)}
+                        >
+                            {label}
+                        </Link>
+                    ))}
+                </nav>
+            </div>
         </header>
     );
 }
