@@ -1,6 +1,7 @@
 "use client";
 
 import { clearFooterTheme } from "@/app/register/general/constants/registration";
+import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
@@ -29,7 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     ].includes(pathname);
     const isRegister = pathname.startsWith("/register");
 
-    // Drop step-specific inline footer vars when leaving /register so :root navy returns.
+    // Drop step-specific inline footer vars when leaving /register so the :root default returns.
     useEffect(() => {
         if (isRegister) return;
         clearFooterTheme();
@@ -40,10 +41,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <head>
                 {!isFrontier && (
                     <>
-                        <title>HackIllinois 2026</title>
+                        <title>HackIllinois 2027</title>
                         <meta
                             name="description"
-                            content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
+                            content="Forge Your Frontier at HackIllinois 2027. February 26 – 28 2027. Registrations open."
                         />
                         <meta
                             name="viewport"
@@ -51,10 +52,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         />
 
                         {/* OpenGraph */}
-                        <meta property="og:title" content="HackIllinois 2026" />
+                        <meta property="og:title" content="HackIllinois 2027" />
                         <meta
                             property="og:description"
-                            content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
+                            content="Forge Your Frontier at HackIllinois 2027. February 26 – 28 2027. Registrations open."
                         />
                         <meta property="og:type" content="website" />
                         <meta property="og:site_name" content="HackIllinois" />
@@ -70,7 +71,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         <meta property="og:image:height" content="630" />
                         <meta
                             property="og:image:alt"
-                            content="HackIllinois 2026"
+                            content="HackIllinois 2027"
                         />
 
                         {/* Twitter */}
@@ -80,11 +81,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         />
                         <meta
                             name="twitter:title"
-                            content="HackIllinois 2026"
+                            content="HackIllinois 2027"
                         />
                         <meta
                             name="twitter:description"
-                            content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
+                            content="Forge Your Frontier at HackIllinois 2027. February 26 – 28 2027. Registrations open."
                         />
                         <meta
                             name="twitter:image"
@@ -99,16 +100,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </head>
             <body
                 className={`${montserrat.variable} ${tsukimi.variable} ${jersey.variable} ${oswald.variable} ${rye.variable} ${specialElite.variable}
-                            ${montserrat.className}${isRegister ? " register-route" : ""}`} // compatibility
+                            ${montserrat.className}`} // compatibility
             >
                 {pathname !== "/travel" && <Navbar fixed={!isFrontier} />}
                 {isFrontier ? (
                     children
                 ) : (
-                    <StandardSiteLayout hideFooter={hideFooter}>
-                        {children}
-                    </StandardSiteLayout>
+                    <StandardSiteLayout>{children}</StandardSiteLayout>
                 )}
+                {!hideFooter && <Footer />}
             </body>
         </html>
     );

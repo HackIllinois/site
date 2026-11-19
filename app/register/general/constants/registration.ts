@@ -13,12 +13,12 @@ export type FooterTheme = {
     linkHover: string;
 };
 
-/** Legacy space-theme navy — default outside /register. */
+/** Warm canyon/wood Frontier palette — site-wide footer default. */
 export const SITE_FOOTER_THEME: FooterTheme = {
-    bgFrom: "#16133e",
-    bgTo: "#2a2654",
-    link: "#a78bfa",
-    linkHover: "#c4b5fd"
+    bgFrom: "#983723",
+    bgTo: "#A5372F",
+    link: "#FFD8B3",
+    linkHover: "#FFE8D0"
 };
 
 /**

@@ -14,7 +14,8 @@
         "prepare": "husky",
         "test:prizes": "playwright test --config tests/prizes/playwright.config.ts",
         "test:travel": "playwright test --config tests/travel/playwright.config.ts",
-        "test:registration": "playwright test --config tests/registration/playwright.config.ts"
+        "test:registration": "playwright test --config tests/registration/playwright.config.ts",
+        "test:site": "playwright test --config tests/site/playwright.config.ts"
     },
     "dependencies": {
         "@emotion/react": "^11.14.0",
