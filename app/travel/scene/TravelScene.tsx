@@ -10,7 +10,6 @@ import {
 } from "motion/react";
 import styles from "./TravelScene.module.scss";
 import pageStyles from "../styles.module.scss";
-import Navbar from "@/components/Navbar/Navbar";
 
 function SceneLayerArt({ name }: { name: "foreground" | "branch" }) {
     return (
@@ -149,9 +148,8 @@ export default function TravelScene({
                     <SceneLayerArt name="branch" />
                 </motion.div>
             </div>
-            {/* The navbar and title belong to the scene, so they drift with it. */}
+            {/* The title drifts with the scene. */}
             <motion.div className={styles.drift} style={{ y: backdropY }}>
-                <Navbar fixed={false} />
                 {hero}
             </motion.div>
             {children}

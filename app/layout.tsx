@@ -102,7 +102,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 className={`${montserrat.variable} ${tsukimi.variable} ${jersey.variable} ${oswald.variable} ${rye.variable} ${specialElite.variable}
                             ${montserrat.className}`} // compatibility
             >
-                {pathname !== "/travel" && <Navbar fixed={!isFrontier} />}
+                <Navbar />
                 {isFrontier ? (
                     children
                 ) : (
