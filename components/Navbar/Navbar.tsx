@@ -13,7 +13,7 @@ const destinations = [
     ["HackOutlaws", "/challenge"]
 ];
 
-export default function Navbar({ fixed }: { fixed: boolean }) {
+export default function Navbar() {
     const path = usePathname();
     const [open, setOpen] = useState(false);
     const header = useRef<HTMLElement>(null);
@@ -43,12 +43,7 @@ export default function Navbar({ fixed }: { fixed: boolean }) {
     }, [open]);
 
     return (
-        <header
-            ref={header}
-            className={styles.header}
-            data-home={path === "/"}
-            data-fixed={fixed}
-        >
+        <header ref={header} className={styles.header} data-home={path === "/"}>
             <Link
                 href="/"
                 aria-label="HackIllinois home"

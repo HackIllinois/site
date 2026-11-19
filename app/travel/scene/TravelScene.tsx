@@ -4,7 +4,6 @@ import { useRef, type ReactNode } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import styles from "./TravelScene.module.scss";
 import pageStyles from "../styles.module.scss";
-import Navbar from "@/components/Navbar/Navbar";
 
 function ForegroundArt() {
     return (
@@ -47,7 +46,6 @@ export default function TravelScene({ children }: { children: ReactNode }) {
                 aria-hidden="true"
             />
             <main className={`${pageStyles.page} ${styles.pinned}`}>
-                <Navbar fixed={false} />
                 <div
                     className={styles.scene}
                     aria-hidden="true"
