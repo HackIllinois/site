@@ -1,6 +1,7 @@
 "use client";
 
 import { clearFooterTheme } from "@/app/register/general/constants/registration";
+import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
@@ -29,7 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     ].includes(pathname);
     const isRegister = pathname.startsWith("/register");
 
-    // Drop step-specific inline footer vars when leaving /register so :root navy returns.
+    // Drop step-specific inline footer vars when leaving /register so the :root default returns.
     useEffect(() => {
         if (isRegister) return;
         clearFooterTheme();
@@ -99,16 +100,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </head>
             <body
                 className={`${montserrat.variable} ${tsukimi.variable} ${jersey.variable} ${oswald.variable} ${rye.variable} ${specialElite.variable}
-                            ${montserrat.className}${isRegister ? " register-route" : ""}`} // compatibility
+                            ${montserrat.className}`} // compatibility
             >
                 {pathname !== "/travel" && <Navbar fixed={!isFrontier} />}
                 {isFrontier ? (
                     children
                 ) : (
-                    <StandardSiteLayout hideFooter={hideFooter}>
-                        {children}
-                    </StandardSiteLayout>
+                    <StandardSiteLayout>{children}</StandardSiteLayout>
                 )}
+                {!hideFooter && <Footer />}
             </body>
         </html>
     );
