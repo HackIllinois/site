@@ -1,5 +1,7 @@
 .header {
-    position: absolute;
+    // Fixed, not in-flow: every route (frontier heroes, the pinned travel
+    // scene) is designed to start at the top of the viewport under the bar.
+    position: fixed;
     z-index: 1100;
     inset: 0 0 auto;
     padding: 1.88% 3.95% 0 3.47%;
@@ -8,10 +10,9 @@
     justify-content: space-between;
     color: white;
     font-family: var(--font-oswald), sans-serif;
-    &[data-fixed="true"] {
-        position: fixed;
-        background: linear-gradient(to bottom, rgb(0 0 0 / 85%), transparent);
-    }
+    // The bar now stays over content on every route, so it always needs its own
+    // backdrop to keep the white links legible.
+    background: linear-gradient(to bottom, rgb(0 0 0 / 85%), transparent);
     :focus-visible {
         outline: 3px solid #fff;
         outline-offset: 3px;
