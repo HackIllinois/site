@@ -6,10 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./Navbar.module.scss";
 
 const destinations = [
-    ["Schedule", "/schedule"],
     ["Job Board", "/job-board"],
     ["Travel", "/travel"],
-    ["Prizes", "/prizes"],
     ["HackOutlaws", "/challenge"]
 ];
 
