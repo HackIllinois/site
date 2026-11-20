@@ -5,6 +5,8 @@ import shared from "@/components/Frontier/Frontier.module.scss";
 import BarDrinks from "./components/BarDrinks";
 import CactusAnimation from "./components/CactusAnimation";
 import RouletteWheel from "./components/RouletteWheel";
+import SaloonMotion from "./components/SaloonMotion";
+import TableProps from "./components/TableProps";
 import styles from "./track.module.scss";
 
 export const metadata: Metadata = {
@@ -61,6 +63,7 @@ export default function ProTrackLanding() {
     return (
         <div className={shared.page}>
             <main className={styles.saloon}>
+                <SaloonMotion />
                 <section className={styles.entrance}>
                     <SaloonArt
                         name="entrance"
@@ -68,6 +71,7 @@ export default function ProTrackLanding() {
                         phoneHeight={780}
                         priority
                     />
+                    <TableProps scene="entrance" play="load" />
                     <h1>
                         Hack<span>Outlaws</span>
                     </h1>
@@ -78,8 +82,9 @@ export default function ProTrackLanding() {
                 </section>
                 <section className={styles.roulette} id="about-outlaws">
                     <SaloonArt name="roulette" height={816} phoneHeight={370} />
+                    <TableProps scene="roulette" play="view" />
                     <RouletteWheel />
-                    <div>
+                    <div className={styles.rouletteCopy} data-reveal>
                         <h2>What is HackOutlaws?</h2>
                         <p>
                             HackOutlaws is an exclusive path tailored for
@@ -102,7 +107,7 @@ export default function ProTrackLanding() {
                         phoneHeight={790}
                     />
                     <CactusAnimation />
-                    <div className={styles.menu}>
+                    <div className={styles.menu} data-reveal>
                         <small>The Pro Track Menu</small>
                         <h2>
                             Benefits of
@@ -135,7 +140,7 @@ export default function ProTrackLanding() {
                         height={1098}
                         phoneHeight={732}
                     />
-                    <div className={styles.menu}>
+                    <div className={styles.menu} data-reveal>
                         <h2>
                             How Do I<br />
                             Become a<br />
@@ -154,14 +159,14 @@ export default function ProTrackLanding() {
                             className={styles.start}
                             href="/challenge/description"
                         >
-                            Start Saloon Rush →
+                            Start Saloon Rush <span aria-hidden="true">→</span>
                         </Link>
                     </div>
                 </section>
                 <section className={styles.bar}>
                     <SaloonArt name="bar" height={1002} phoneHeight={693} />
                     <BarDrinks />
-                    <div className={styles.menu}>
+                    <div className={styles.menu} data-reveal>
                         <h2>
                             How are HackOutlaws Different from General
                             Attendees?
