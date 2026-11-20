@@ -116,6 +116,25 @@ export default function ProTrackLanding() {
                     <h1>
                         Hack<span>Outlaws</span>
                     </h1>
+                    {/* Plain felt over the cut-off plaque in the artwork, so none
+                        of it shows around the redrawn plaque's notches. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        className={styles.plaquePatch}
+                        src="/challenge/saloon/plaque-patch.webp"
+                        alt=""
+                        width={435}
+                        height={73}
+                    />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        className={styles.plaquePatchPhone}
+                        src="/challenge/saloon/plaque-patch-phone.webp"
+                        alt=""
+                        width={196}
+                        height={37}
+                        loading="lazy"
+                    />
                     <Link href="#about-outlaws" className={styles.plaque}>
                         <Plaque />
                         <span>HackIllinois Pro-Track</span>

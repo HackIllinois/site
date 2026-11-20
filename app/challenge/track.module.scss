@@ -50,6 +50,23 @@
     line-height: 1.15;
     text-shadow: 0 0.1em #401e14;
 }
+.plaquePatch,
+.plaquePatchPhone {
+    position: absolute;
+    height: auto;
+    pointer-events: none;
+}
+.plaquePatch {
+    left: 31.528%;
+    top: 59.18%;
+    width: 30.208%;
+}
+.plaquePatchPhone {
+    display: none;
+    left: 28.856%;
+    top: 52.179%;
+    width: 48.756%;
+}
 .plaque {
     position: absolute;
     // Drawn over the plaque baked into the artwork, whose right end is cut off.
@@ -270,6 +287,12 @@
         top: 52.82%;
         height: 3.33%;
         font-size: 2.1cqw;
+    }
+    .plaquePatch {
+        display: none;
+    }
+    .plaquePatchPhone {
+        display: block;
     }
     .wheel,
     .barPaper,
