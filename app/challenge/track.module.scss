@@ -52,10 +52,11 @@
 }
 .plaque {
     position: absolute;
-    left: 32.1%;
-    top: 60.3%;
-    width: 28.9%;
-    height: 5.1%;
+    // Drawn over the plaque baked into the artwork, whose right end is cut off.
+    left: 31.94%;
+    top: 59.77%;
+    width: 29.38%;
+    height: 5.76%;
     display: grid;
     place-content: center;
     color: #fff0d9;
@@ -63,6 +64,19 @@
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+    isolation: isolate;
+    svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: visible;
+        filter: drop-shadow(0 0.2cqw 0 rgb(48 14 8 / 0.6));
+    }
+}
+.roulette {
+    isolation: isolate;
 }
 .roulette > div {
     position: absolute;
@@ -136,6 +150,78 @@
     height: auto;
     transform: translate(-50%, -50%);
 }
+.wheel {
+    position: absolute;
+    // Rotor centre (1279, 498.5) and radius 206 on the 1440 × 816 artwork.
+    left: 74.51%;
+    top: 35.84%;
+    width: 28.61%;
+    aspect-ratio: 1;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+.rotor {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: url("/challenge/saloon/roulette-wheel/rotor.webp") center / 100%
+        100% no-repeat;
+    will-change: transform;
+}
+.ball {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 2.91%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 34% 30%,
+        #fff 0 18%,
+        #f3ebdd 45%,
+        #b8aa94 100%
+    );
+    box-shadow: 0.08cqw 0.12cqw 0.12cqw rgb(20 6 0 / 0.55);
+    transform: translate(-50%, -50%);
+}
+.hubShadow {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.drinks {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    user-select: none;
+    img {
+        position: absolute;
+        height: auto;
+    }
+}
+@keyframes drink-spin {
+    from {
+        transform: rotate(var(--start));
+    }
+    to {
+        transform: rotate(calc(var(--start) - 360deg));
+    }
+}
+.drinkSpin {
+    transform: rotate(var(--start));
+    animation: drink-spin var(--period) linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+    .drinkSpin {
+        animation: none;
+    }
+}
 .admission .menu {
     left: 59.5%;
     top: 29.9%;
@@ -172,11 +258,16 @@
         display: block;
     }
     .plaque {
-        left: 30%;
-        width: 46%;
-        top: 52.3%;
-        height: 4.1%;
+        left: 30.1%;
+        width: 46.02%;
+        top: 52.82%;
+        height: 3.33%;
         font-size: 2.1cqw;
+    }
+    .wheel,
+    .drinks {
+        // The phone artwork has no wheel and only placeholder glasses.
+        display: none;
     }
     .roulette > div {
         left: 3%;

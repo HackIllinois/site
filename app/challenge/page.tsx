@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SceneArt from "@/components/Frontier/SceneArt";
 import shared from "@/components/Frontier/Frontier.module.scss";
+import BarDrinks from "./components/BarDrinks";
 import CactusAnimation from "./components/CactusAnimation";
+import RouletteWheel from "./components/RouletteWheel";
 import styles from "./track.module.scss";
 
 export const metadata: Metadata = {
@@ -39,6 +41,22 @@ function SaloonArt({
     );
 }
 
+// Brass plaque with notched corners and a stud at each end.
+function Plaque() {
+    return (
+        <svg viewBox="0 0 423 59" preserveAspectRatio="none" aria-hidden="true">
+            <path
+                d="M14 1.5H409A13 15 0 0 0 422 16.5V42.5A13 15 0 0 0 409 57.5H14A13 15 0 0 0 1 42.5V16.5A13 15 0 0 0 14 1.5Z"
+                fill="#2d1713"
+                stroke="#d39a6c"
+                strokeWidth="2"
+            />
+            <circle cx="28.5" cy="29.5" r="6.5" fill="#d9a04d" />
+            <circle cx="394.5" cy="29.5" r="6.5" fill="#d9a04d" />
+        </svg>
+    );
+}
+
 export default function ProTrackLanding() {
     return (
         <div className={shared.page}>
@@ -54,11 +72,13 @@ export default function ProTrackLanding() {
                         Hack<span>Outlaws</span>
                     </h1>
                     <Link href="#about-outlaws" className={styles.plaque}>
+                        <Plaque />
                         HackIllinois Pro-Track
                     </Link>
                 </section>
                 <section className={styles.roulette} id="about-outlaws">
                     <SaloonArt name="roulette" height={816} phoneHeight={370} />
+                    <RouletteWheel />
                     <div>
                         <h2>What is HackOutlaws?</h2>
                         <p>
@@ -140,6 +160,7 @@ export default function ProTrackLanding() {
                 </section>
                 <section className={styles.bar}>
                     <SaloonArt name="bar" height={1002} phoneHeight={693} />
+                    <BarDrinks />
                     <div className={styles.menu}>
                         <h2>
                             How are HackOutlaws Different from General
