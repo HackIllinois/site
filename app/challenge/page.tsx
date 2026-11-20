@@ -43,6 +43,47 @@ function SaloonArt({
     );
 }
 
+// The two sheets of paper on the bar, redrawn over the artwork, whose edges
+// are stair-stepped. Corners are measured on the 1440 × 1002 artwork.
+function BarPaper() {
+    return (
+        <svg
+            className={styles.barPaper}
+            viewBox="0 0 1440 1002"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+        >
+            <defs>
+                <filter
+                    id="bar-paper-shadow"
+                    x="-5%"
+                    y="-5%"
+                    width="110%"
+                    height="115%"
+                >
+                    <feDropShadow
+                        dx="-1"
+                        dy="2"
+                        stdDeviation="2"
+                        floodColor="#1e0a00"
+                        floodOpacity="0.35"
+                    />
+                </filter>
+            </defs>
+            <g filter="url(#bar-paper-shadow)">
+                <polygon
+                    points="352.5,289 1112.5,261.5 1127.5,628 364,654"
+                    fill="#f0e3d1"
+                />
+                <polygon
+                    points="294.5,265.5 1132.5,236.5 1145.5,615.5 306.5,645"
+                    fill="#f9eee0"
+                />
+            </g>
+        </svg>
+    );
+}
+
 // Brass plaque with notched corners and a stud at each end.
 function Plaque() {
     return (
@@ -165,6 +206,7 @@ export default function ProTrackLanding() {
                 </section>
                 <section className={styles.bar}>
                     <SaloonArt name="bar" height={1002} phoneHeight={693} />
+                    <BarPaper />
                     <BarDrinks />
                     <div className={styles.menu} data-reveal>
                         <h2>

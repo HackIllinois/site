@@ -237,6 +237,13 @@
     margin-top: 0.55em;
     font: 600 1.55cqw var(--condensed);
 }
+.barPaper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
 .bar .menu {
     left: 25.4%;
     top: 30.2%;
@@ -265,6 +272,7 @@
         font-size: 2.1cqw;
     }
     .wheel,
+    .barPaper,
     .drinks {
         // The phone artwork has no wheel and only placeholder glasses.
         display: none;
