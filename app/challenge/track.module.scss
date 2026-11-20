@@ -400,6 +400,20 @@
         scale: 1;
     }
 }
+@keyframes write-in {
+    from {
+        clip-path: inset(-20% 100% -20% 0);
+    }
+    to {
+        clip-path: inset(-20% 0 -20% 0);
+    }
+}
+@keyframes stud-on {
+    from {
+        opacity: 0;
+        scale: 0.3;
+    }
+}
 @keyframes fade-up {
     from {
         opacity: 0;
@@ -423,11 +437,13 @@
 .menu a:hover {
     color: #8a2f1c;
 }
+// The plaque stays put: moving it would uncover the cut-off plaque in the art.
 .plaque:hover {
-    translate: 0 -0.15cqw;
     filter: brightness(1.12);
 }
 .plaque svg circle {
+    transform-box: fill-box;
+    transform-origin: center;
     transition: filter 0.3s ease;
 }
 .plaque:hover svg circle {
@@ -460,8 +476,19 @@
     .entrance h1 {
         animation: fade-up 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s backwards;
     }
-    .entrance .plaque {
-        animation: fade-up 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.3s backwards;
+    // The text is written onto the plaque from left to right; the studs
+    // light up as each end is reached.
+    .plaque span {
+        animation: write-in 1.1s cubic-bezier(0.45, 0, 0.25, 1) 0.45s backwards;
+    }
+    .plaque svg circle {
+        animation: stud-on 0.35s ease-out backwards;
+    }
+    .plaque svg circle:first-of-type {
+        animation-delay: 0.35s;
+    }
+    .plaque svg circle:last-of-type {
+        animation-delay: 1.5s;
     }
     .revealArmed [data-reveal] {
         transition:

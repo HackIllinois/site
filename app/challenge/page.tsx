@@ -77,7 +77,7 @@ export default function ProTrackLanding() {
                     </h1>
                     <Link href="#about-outlaws" className={styles.plaque}>
                         <Plaque />
-                        HackIllinois Pro-Track
+                        <span>HackIllinois Pro-Track</span>
                     </Link>
                 </section>
                 <section className={styles.roulette} id="about-outlaws">
