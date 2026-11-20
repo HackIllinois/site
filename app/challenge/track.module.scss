@@ -69,8 +69,9 @@
 }
 .plaque {
     position: absolute;
-    // Drawn over the plaque baked into the artwork, whose right end is cut off.
-    left: 31.94%;
+    // Centred under the title. The plaque baked into the artwork, off to the
+    // left and cut off on the right, is covered by .plaquePatch.
+    left: 35.31%;
     top: 59.77%;
     width: 29.38%;
     height: 5.76%;
@@ -282,7 +283,7 @@
         display: block;
     }
     .plaque {
-        left: 30.1%;
+        left: 26.99%;
         width: 46.02%;
         top: 52.82%;
         height: 3.33%;
