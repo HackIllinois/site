@@ -20,7 +20,7 @@ const drinks: Drink[] = [
     { src: "green1", x: 659.5, y: 149.6, size: 148 },
     { src: "gray2", x: 730.5, y: 80.5, size: 76 },
     { src: "gray3", x: 1271.5, y: 148.5, size: 76 },
-    { src: "green2", x: 1334, y: 74, size: 108 },
+    { src: "green2", x: 1334, y: 74, size: 110 },
     // The row of five overlapping glasses, outermost first so the middle one
     // sits on top.
     { src: "stack", x: 907.2, y: 126, size: 106 },
@@ -34,7 +34,7 @@ const drinks: Drink[] = [
 // glass, so the pick can swing around without leaving a copy behind.
 const patches = [
     { src: "green1-patch", left: 595, top: 104, width: 110, height: 91 },
-    { src: "green2-patch", left: 1289, top: 29, width: 96, height: 90 }
+    { src: "green2-patch", left: 1288, top: 28, width: 98, height: 92 }
 ];
 
 const pct = (value: number, of: number) => `${(value / of) * 100}%`;
