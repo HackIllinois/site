@@ -4,123 +4,122 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import styles from "../track.module.scss";
 
 // Cards and chips cut out of the table artwork. Each one sits over a patch of
-// plain felt (or wood) so it can be dealt onto the table and lifted on hover.
-// [left, top, width, height] in pixels of the 1440px-wide artwork.
+// plain felt so it can be dealt onto the table and lifted on hover.
+// Boxes are [left, top, width, height] in pixels of the scene's artwork.
 type Box = [number, number, number, number];
 type Prop = {
-    name: string;
+    // Sprite file in /challenge/saloon/table/.
+    src: string;
     kind: "card" | "chip";
     sprite: Box;
-    patch: Box;
     // Where a card is dealt from, as an offset in artwork pixels and a turn.
     from?: [number, number, number];
 };
+type Scene = {
+    width: number;
+    height: number;
+    phone?: boolean;
+    patches: { src: string; box: Box }[];
+    props: Prop[];
+};
 
-const scenes: Record<
-    "entrance" | "roulette",
-    { height: number; props: Prop[] }
-> = {
+const card = (src: string, sprite: Box, from: [number, number, number]) =>
+    ({ src, kind: "card", sprite, from }) as Prop;
+const chip = (src: string, sprite: Box) =>
+    ({ src, kind: "chip", sprite }) as Prop;
+
+const scenes = {
     entrance: {
+        width: 1440,
         height: 1024,
+        patches: [
+            { src: "e-cards-tr", box: [970, 272, 178, 161] },
+            { src: "e-cards-bl", box: [211, 663, 137, 162] },
+            { src: "e-chips-1", box: [532, 316, 107, 75] },
+            { src: "e-chips-2", box: [856, 314, 102, 111] },
+            { src: "e-chips-3", box: [420, 750, 80, 95] },
+            { src: "e-chips-4", box: [523, 792, 60, 60] },
+            { src: "e-chips-5", box: [1104, 680, 151, 100] }
+        ],
         props: [
-            {
-                name: "e-cards-tr",
-                kind: "card",
-                sprite: [976, 278, 166, 149],
-                patch: [970, 272, 178, 161],
-                from: [220, -160, 24]
-            },
-            {
-                name: "e-cards-bl",
-                kind: "card",
-                sprite: [217, 669, 125, 150],
-                patch: [211, 663, 137, 162],
-                from: [-200, 170, -22]
-            },
-            {
-                name: "e-chips-1",
-                kind: "chip",
-                sprite: [538, 322, 95, 63],
-                patch: [532, 316, 107, 75]
-            },
-            {
-                name: "e-chips-2",
-                kind: "chip",
-                sprite: [862, 320, 90, 99],
-                patch: [856, 314, 102, 111]
-            },
-            {
-                name: "e-chips-3",
-                kind: "chip",
-                sprite: [426, 756, 68, 83],
-                patch: [420, 750, 80, 95]
-            },
-            {
-                name: "e-chips-4",
-                kind: "chip",
-                sprite: [529, 798, 48, 48],
-                patch: [523, 792, 60, 60]
-            },
-            {
-                name: "e-chips-5",
-                kind: "chip",
-                sprite: [1110, 686, 139, 88],
-                patch: [1104, 680, 151, 100]
-            }
+            card("e-cards-tr", [976, 278, 166, 149], [220, -160, 24]),
+            card("e-cards-bl", [217, 669, 125, 150], [-200, 170, -22]),
+            chip("e-chips-1", [538, 322, 95, 63]),
+            chip("e-chips-2", [862, 320, 90, 99]),
+            chip("e-chips-3", [426, 756, 68, 83]),
+            chip("e-chips-4", [529, 798, 48, 48]),
+            chip("e-chips-5", [1110, 686, 139, 88])
         ]
     },
     roulette: {
+        width: 1440,
         height: 816,
+        patches: [
+            { src: "r-cards-t", box: [929, 39, 233, 194] },
+            { src: "r-cards-bl", box: [57, 601, 208, 162] },
+            { src: "r-chips-t", box: [1183, 76, 98, 112] },
+            { src: "r-chips-b1", box: [904, 629, 60, 60] },
+            { src: "r-chips-b2", box: [963, 689, 56, 58] }
+        ],
         props: [
-            {
-                name: "r-cards-t",
-                kind: "card",
-                sprite: [935, 45, 221, 182],
-                patch: [929, 39, 233, 194],
-                from: [160, -190, 20]
-            },
-            {
-                name: "r-cards-bl",
-                kind: "card",
-                sprite: [63, 607, 196, 150],
-                patch: [57, 601, 208, 162],
-                from: [-190, 160, -18]
-            },
-            {
-                name: "r-chips-t",
-                kind: "chip",
-                sprite: [1189, 82, 86, 100],
-                patch: [1183, 76, 98, 112]
-            },
-            {
-                name: "r-chips-b1",
-                kind: "chip",
-                sprite: [910, 635, 48, 48],
-                patch: [904, 629, 60, 60]
-            },
-            {
-                name: "r-chips-b2",
-                kind: "chip",
-                sprite: [969, 695, 44, 46],
-                patch: [963, 689, 56, 58]
-            }
+            card("r-cards-t", [935, 45, 221, 182], [160, -190, 20]),
+            card("r-cards-bl", [63, 607, 196, 150], [-190, 160, -18]),
+            chip("r-chips-t", [1189, 82, 86, 100]),
+            chip("r-chips-b1", [910, 635, 48, 48]),
+            chip("r-chips-b2", [969, 695, 44, 46])
+        ]
+    },
+    "entrance-phone": {
+        width: 402,
+        height: 780,
+        phone: true,
+        patches: [
+            { src: "ep-cards-t", box: [277, 170, 76, 70] },
+            { src: "ep-cards-br", box: [301, 497, 64, 78] },
+            { src: "ep-chips-t", box: [232, 178, 44, 32] },
+            { src: "ep-chips-l", box: [60, 448, 42, 46] },
+            { src: "ep-chips-b", box: [237, 554, 72, 48] }
+        ],
+        props: [
+            card("ep-cards-t", [279, 172, 72, 66], [70, -60, 22]),
+            card("ep-cards-br", [303, 499, 60, 74], [70, 60, -20]),
+            chip("ep-chips-t", [234, 180, 40, 28]),
+            chip("ep-chips-l", [62, 450, 38, 42]),
+            chip("ep-chips-b", [239, 556, 68, 44])
+        ]
+    },
+    // The phone roulette artwork has plain placeholder shapes where the cards
+    // and chips go. Felt covers them, and the desktop sprites sit a little to
+    // the right so they clear the copy.
+    "roulette-phone": {
+        width: 402,
+        height: 370,
+        phone: true,
+        patches: [
+            { src: "rp-cards", box: [228, 49, 104, 85] },
+            { src: "rp-chips", box: [333, 79, 45, 79] }
+        ],
+        props: [
+            card("r-cards-t", [256, 56, 84, 69.2], [70, -60, 20]),
+            chip("chip-red", [348, 80, 18, 18]),
+            chip("chip-blue", [367, 104, 18, 18]),
+            chip("chip-white", [349, 128, 18, 18])
         ]
     }
-};
+} satisfies Record<string, Scene>;
 
-const ART_WIDTH = 1440;
 const DIR = "/challenge/saloon/table/";
 
-function place([left, top, width]: Box, height: number): CSSProperties {
+function place([left, top, width]: Box, scene: Scene): CSSProperties {
     return {
-        left: `${(left / ART_WIDTH) * 100}%`,
-        top: `${(top / height) * 100}%`,
-        width: `${(width / ART_WIDTH) * 100}%`
+        left: `${(left / scene.width) * 100}%`,
+        top: `${(top / scene.height) * 100}%`,
+        width: `${(width / scene.width) * 100}%`
     };
 }
 
 export default function TableProps({
-    scene,
+    scene: sceneName,
     play
 }: {
     scene: keyof typeof scenes;
@@ -128,7 +127,7 @@ export default function TableProps({
     // scroll into view.
     play: "load" | "view";
 }) {
-    const { height, props } = scenes[scene];
+    const scene: Scene = scenes[sceneName];
     const ref = useRef<HTMLDivElement>(null);
     const [state, setState] = useState<"static" | "armed" | "dealt">(
         play === "load" ? "dealt" : "static"
@@ -154,47 +153,48 @@ export default function TableProps({
 
     let cardIndex = 0;
     let chipIndex = 0;
+    const classes = [
+        styles.tableProps,
+        scene.phone ? styles.phoneOnly : styles.desktopOnly,
+        state === "armed" ? styles.armed : "",
+        state === "dealt" ? styles.dealt : ""
+    ];
 
     return (
-        <div
-            ref={ref}
-            className={`${styles.tableProps} ${state === "armed" ? styles.armed : ""} ${state === "dealt" ? styles.dealt : ""}`}
-            aria-hidden="true"
-        >
-            {props.map(prop => (
+        <div ref={ref} className={classes.join(" ")} aria-hidden="true">
+            {scene.patches.map(patch => (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                    key={`${prop.name}-patch`}
-                    className={styles.propPatch}
-                    src={`${DIR}${prop.name}-patch.webp`}
+                    key={`${patch.src}-patch`}
+                    src={`${DIR}${patch.src}-patch.webp`}
                     alt=""
-                    width={prop.patch[2]}
-                    height={prop.patch[3]}
+                    width={patch.box[2]}
+                    height={patch.box[3]}
                     decoding="async"
-                    style={place(prop.patch, height)}
+                    style={place(patch.box, scene)}
                 />
             ))}
-            {props.map(prop => {
+            {scene.props.map(prop => {
                 const order = prop.kind === "card" ? cardIndex++ : chipIndex++;
                 const [dx, dy, turn] = prop.from ?? [0, 0, 0];
                 return (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
-                        key={prop.name}
+                        key={prop.src}
                         className={
                             prop.kind === "card" ? styles.card : styles.chip
                         }
-                        src={`${DIR}${prop.name}.webp`}
+                        src={`${DIR}${prop.src}.webp`}
                         alt=""
-                        width={prop.sprite[2]}
-                        height={prop.sprite[3]}
+                        width={Math.round(prop.sprite[2])}
+                        height={Math.round(prop.sprite[3])}
                         decoding="async"
                         draggable={false}
                         style={
                             {
-                                ...place(prop.sprite, height),
-                                "--from-x": `${(dx / ART_WIDTH) * 100}cqw`,
-                                "--from-y": `${(dy / ART_WIDTH) * 100}cqw`,
+                                ...place(prop.sprite, scene),
+                                "--from-x": `${(dx / scene.width) * 100}cqw`,
+                                "--from-y": `${(dy / scene.width) * 100}cqw`,
                                 "--from-turn": `${turn}deg`,
                                 "--delay": `${
                                     prop.kind === "card"

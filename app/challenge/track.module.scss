@@ -98,6 +98,8 @@
 }
 .rouletteCopy {
     position: absolute;
+    // Above the dealt cards, which overlap the copy on phones.
+    z-index: 4;
     left: 11.46%;
     top: 19.5%;
     width: 55%;
@@ -297,7 +299,7 @@
     }
     .wheel,
     .barPaper,
-    .drinks {
+    .desktopOnly {
         // The phone artwork has no wheel and only placeholder glasses.
         display: none;
     }
@@ -532,9 +534,10 @@
         translate: 0 1.4cqw;
     }
 }
-@media (max-width: 850px) {
-    .tableProps {
-        // The phone artwork lays the table out differently.
+// Desktop and phone artwork lay the scenes out differently, so each has its
+// own set of props.
+@media (width > 850px) {
+    .phoneOnly {
         display: none;
     }
 }

@@ -3,16 +3,16 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import styles from "../track.module.scss";
 
-// Positions are measured on the 1440 × 1002 bar artwork. Each sprite is the
-// glass cut out of that artwork, so the shadow baked into the bar stays put
-// while the glass turns above it.
-const ART_WIDTH = 1440;
-const ART_HEIGHT = 1002;
+// Positions are measured on the bar artwork (1440 × 1002 on desktop, 402 × 693
+// on phones). Each sprite is a glass cut out of the desktop artwork, so the
+// shadow baked into the bar stays put while the glass turns above it. The
+// phone artwork has plain grey circles where the glasses go; the sprites are
+// sized to cover them.
 const DIR = "/challenge/saloon/drinks/";
 
 type Drink = { src: string; x: number; y: number; size: number };
 
-const drinks: Drink[] = [
+const desktopDrinks: Drink[] = [
     { src: "gray1", x: 87.5, y: 134.5, size: 76 },
     { src: "beer1", x: 211.4, y: 90.6, size: 108 },
     { src: "beer2", x: 326.4, y: 122.6, size: 108 },
@@ -32,16 +32,46 @@ const drinks: Drink[] = [
 
 // Wood painted over the parts of each olive pick that stick out past the
 // glass, so the pick can swing around without leaving a copy behind.
-const patches = [
+const desktopPatches = [
     { src: "green1-patch", left: 595, top: 104, width: 110, height: 91 },
     { src: "green2-patch", left: 1288, top: 28, width: 98, height: 92 }
 ];
+
+const layouts = {
+    desktop: {
+        width: 1440,
+        height: 1002,
+        drinks: desktopDrinks,
+        patches: desktopPatches
+    },
+    phone: {
+        width: 402,
+        height: 693,
+        drinks: [
+            { src: "beer1", x: 50.5, y: 54.5, size: 55.2 },
+            { src: "beer2", x: 124.5, y: 54.5, size: 55.2 },
+            { src: "gray1", x: 196, y: 75, size: 39.8 },
+            { src: "green1", x: 342, y: 60, size: 132.9 }
+        ] as Drink[],
+        patches: [] as typeof desktopPatches
+    }
+};
 
 const pct = (value: number, of: number) => `${(value / of) * 100}%`;
 
 type Motion = { start: number; period: number };
 
-export default function BarDrinks() {
+export default function BarDrinks({
+    layout: layoutName
+}: {
+    layout: keyof typeof layouts;
+}) {
+    const {
+        width: ART_WIDTH,
+        height: ART_HEIGHT,
+        drinks,
+        patches
+    } = layouts[layoutName];
     const [motion, setMotion] = useState<Motion[] | null>(null);
 
     useEffect(() => {
@@ -51,10 +81,13 @@ export default function BarDrinks() {
                 period: 45 + Math.random() * 55
             }))
         );
-    }, []);
+    }, [drinks]);
 
     return (
-        <div className={styles.drinks} aria-hidden="true">
+        <div
+            className={`${styles.drinks} ${layoutName === "phone" ? styles.phoneOnly : styles.desktopOnly}`}
+            aria-hidden="true"
+        >
             {patches.map(patch => (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -81,8 +114,8 @@ export default function BarDrinks() {
                         className={m ? styles.drinkSpin : undefined}
                         src={`${DIR}${drink.src}.webp`}
                         alt=""
-                        width={drink.size}
-                        height={drink.size}
+                        width={Math.round(drink.size)}
+                        height={Math.round(drink.size)}
                         loading="lazy"
                         decoding="async"
                         draggable={false}

@@ -113,6 +113,7 @@ export default function ProTrackLanding() {
                         priority
                     />
                     <TableProps scene="entrance" play="load" />
+                    <TableProps scene="entrance-phone" play="load" />
                     <h1>
                         Hack<span>Outlaws</span>
                     </h1>
@@ -143,6 +144,7 @@ export default function ProTrackLanding() {
                 <section className={styles.roulette} id="about-outlaws">
                     <SaloonArt name="roulette" height={816} phoneHeight={370} />
                     <TableProps scene="roulette" play="view" />
+                    <TableProps scene="roulette-phone" play="view" />
                     <RouletteWheel />
                     <div className={styles.rouletteCopy} data-reveal>
                         <h2>What is HackOutlaws?</h2>
@@ -226,7 +228,8 @@ export default function ProTrackLanding() {
                 <section className={styles.bar}>
                     <SaloonArt name="bar" height={1002} phoneHeight={693} />
                     <BarPaper />
-                    <BarDrinks />
+                    <BarDrinks layout="desktop" />
+                    <BarDrinks layout="phone" />
                     <div className={styles.menu} data-reveal>
                         <h2>
                             How are HackOutlaws Different from General
