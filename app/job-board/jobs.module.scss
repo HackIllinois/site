@@ -490,12 +490,12 @@
 
 .detailHeader {
     position: absolute;
-    top: 16.5%;
+    top: 16.2%;
     left: 19%;
     right: 19%;
     display: grid;
     grid-template-rows: minmax(0, 1fr) auto;
-    gap: 0.3em;
+    gap: 0.1em;
     height: 18.5%;
     text-align: center;
 }
@@ -507,7 +507,7 @@
 
 .detailHeader h2 {
     display: -webkit-box;
-    align-self: center;
+    align-self: end;
     margin: 0;
     overflow: hidden;
     padding: 0.06em 0 0.12em;
@@ -565,7 +565,7 @@
 
     position: absolute;
     z-index: 2;
-    top: 27.5%;
+    top: 25%;
     right: 11.5%;
     display: flex;
     flex-direction: column;
@@ -880,8 +880,8 @@
         top: 16.5%;
         left: 12%;
         right: 12%;
-        height: 12.5%;
-        gap: 0.15em;
+        height: 12%;
+        gap: 0.1em;
     }
 
     .detailHeader h2 {
