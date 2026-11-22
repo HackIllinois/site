@@ -1,21 +1,26 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { useEffect, useRef, type ReactNode } from "react";
+import {
+    animate,
+    motion,
+    useMotionValue,
+    useScroll,
+    useTransform
+} from "motion/react";
 import styles from "./TravelScene.module.scss";
 import pageStyles from "../styles.module.scss";
-import Navbar from "@/components/Navbar/Navbar";
 
-function ForegroundArt() {
+function SceneLayerArt({ name }: { name: "foreground" | "branch" }) {
     return (
         <picture className={styles.foreground}>
             <source
                 media="(max-width: 700px)"
-                srcSet="/travel/frontier/motion/mobile/foreground.webp"
+                srcSet={`/travel/frontier/motion/mobile/${name}.webp`}
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-                src="/travel/frontier/motion/desktop/foreground.webp"
+                src={`/travel/frontier/motion/desktop/${name}.webp`}
                 alt=""
                 width={1440}
                 height={3132}
@@ -24,34 +29,77 @@ function ForegroundArt() {
     );
 }
 
-export default function TravelScene({ children }: { children: ReactNode }) {
-    const target = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target,
-        offset: ["start start", "end start"]
-    });
-    const trainTransform = useTransform(
-        scrollYProgress,
-        value =>
-            `translateX(calc(${Math.max(0, Math.min(1, value))} * (100% - var(--train-left) + 2px)))`
+// Speeds measured from the reference video, relative to the board (page scroll).
+const BACKDROP_SPEED = 0.5;
+const BRANCH_SPEED = 2;
+// The reference train moves at a constant 43% of the desktop width each second.
+const TRAIN_SECONDS = 3.4;
+
+export default function TravelScene({
+    hero,
+    children
+}: {
+    hero: ReactNode;
+    children: ReactNode;
+}) {
+    const { scrollY } = useScroll();
+    const backdropY = useTransform(
+        scrollY,
+        y => Math.max(0, y) * (1 - BACKDROP_SPEED)
+    );
+    const branchY = useTransform(
+        scrollY,
+        y => -Math.max(0, y) * (BRANCH_SPEED - 1)
     );
 
-    const branchY = useTransform(scrollYProgress, [0, 1], ["0svh", "-26svh"]);
+    // The train crosses once on page load: from just off the left edge to just off the right edge.
+    const trainImage = useRef<HTMLImageElement>(null);
+    const trainProgress = useMotionValue(0);
+    const trainTransform = useTransform(
+        trainProgress,
+        // NaN keeps the train at rest in its artwork position (reduced motion).
+        p =>
+            Number.isNaN(p)
+                ? "none"
+                : `translateX(calc(-1 * (var(--train-left) + var(--train-width)) + ${p} * (100% + var(--train-width) + 2px)))`
+    );
+    useEffect(() => {
+        const image = trainImage.current;
+        if (!image) return;
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            trainProgress.jump(Number.NaN);
+            return;
+        }
+        let animation: ReturnType<typeof animate> | undefined;
+        let cancelled = false;
+        // Wait for the artwork so the visitor sees the whole crossing.
+        image
+            .decode()
+            .catch(() => undefined)
+            .then(() => {
+                if (cancelled) return;
+                animation = animate(trainProgress, 1, {
+                    duration: TRAIN_SECONDS,
+                    ease: "linear"
+                });
+            });
+        return () => {
+            cancelled = true;
+            animation?.stop();
+        };
+    }, [trainProgress]);
 
     return (
-        <div className={styles.sequence}>
+        <main className={pageStyles.page}>
             <div
-                ref={target}
-                className={styles.scrollTarget}
-                data-testid="scene-scroll-target"
+                className={styles.scene}
                 aria-hidden="true"
-            />
-            <main className={`${pageStyles.page} ${styles.pinned}`}>
-                <Navbar fixed={false} />
-                <div
-                    className={styles.scene}
-                    aria-hidden="true"
-                    data-testid="travel-scene"
+                data-testid="travel-scene"
+            >
+                <motion.div
+                    className={styles.movingLayer}
+                    style={{ y: backdropY }}
+                    data-scene-layer="backdrop"
                 >
                     <picture className={styles.background}>
                         <source
@@ -79,6 +127,7 @@ export default function TravelScene({ children }: { children: ReactNode }) {
                             />
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
+                                ref={trainImage}
                                 src="/travel/frontier/motion/desktop/train.webp"
                                 alt=""
                             />
@@ -88,18 +137,22 @@ export default function TravelScene({ children }: { children: ReactNode }) {
                         className={styles.fixedTree}
                         data-scene-layer="foreground"
                     >
-                        <ForegroundArt />
+                        <SceneLayerArt name="foreground" />
                     </div>
-                    <motion.div
-                        className={`${styles.movingLayer} ${styles.branch}`}
-                        style={{ y: branchY }}
-                        data-scene-layer="branch"
-                    >
-                        <ForegroundArt />
-                    </motion.div>
-                </div>
-                {children}
-            </main>
-        </div>
+                </motion.div>
+                <motion.div
+                    className={styles.movingLayer}
+                    style={{ y: branchY }}
+                    data-scene-layer="branch"
+                >
+                    <SceneLayerArt name="branch" />
+                </motion.div>
+            </div>
+            {/* The title drifts with the scene. */}
+            <motion.div className={styles.drift} style={{ y: backdropY }}>
+                {hero}
+            </motion.div>
+            {children}
+        </main>
     );
 }

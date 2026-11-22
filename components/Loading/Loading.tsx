@@ -12,7 +12,10 @@ type LoadingProps = {
 
 const Loading: React.FC<LoadingProps> = ({ backgroundImage }) => {
     return (
-        <>
+        // This wrapper is in normal flow and at least viewport tall, so the
+        // footer below the content stays below the fold while the real
+        // content is still loading instead of jumping up to the top.
+        <Box sx={{ minHeight: "100dvh" }}>
             {backgroundImage ? (
                 <Box
                     sx={{
@@ -36,11 +39,9 @@ const Loading: React.FC<LoadingProps> = ({ backgroundImage }) => {
             )}
             <Box
                 sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100vw",
-                    height: "100vh",
+                    position: "relative",
+                    width: "100%",
+                    minHeight: "100vh",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -50,7 +51,7 @@ const Loading: React.FC<LoadingProps> = ({ backgroundImage }) => {
                 <CircularProgress />
                 <h2>Loading...</h2>
             </Box>
-        </>
+        </Box>
     );
 };
 

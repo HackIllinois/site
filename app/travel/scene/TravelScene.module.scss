@@ -1,23 +1,6 @@
-.sequence {
-    --train-hold: 100svh;
-    position: relative;
-    &::after {
-        content: "";
-        display: block;
-        height: var(--train-hold);
-    }
-}
-.sequence > .pinned {
-    position: sticky;
-    top: 0;
-}
-// Avoid a body scroll container that would stop sticky positioning on this route.
-:global(html):has(.sequence),
-:global(body):has(.sequence) {
-    overflow-x: clip;
-}
 .scene {
     --train-left: 23.0555556%;
+    --train-width: 47.4305556%;
     position: absolute;
     top: 0;
     left: 0;
@@ -38,13 +21,6 @@
         height: auto;
     }
 }
-.scrollTarget {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: var(--train-hold);
-    pointer-events: none;
-}
 .background,
 .foreground,
 .fixedTree,
@@ -52,52 +28,29 @@
     position: absolute;
     inset: 0;
 }
-// The clips meet in transparent parts of the shared foreground artwork.
-.fixedTree {
-    clip-path: inset(0 0 0 50%);
-}
-.branch {
-    clip-path: inset(0 50% 0 0);
+.drift {
+    position: relative;
 }
 .train {
     position: absolute;
     left: var(--train-left);
     top: 13.9208174%;
-    width: 47.4305556%;
+    width: var(--train-width);
 }
 @media (max-width: 700px) {
     .scene {
         height: 601.99005vw;
         --train-left: -37.0646766%;
-    }
-    // The right tree extends farther left above the near branch on phones.
-    .fixedTree {
-        clip-path: polygon(
-            0 0,
-            100% 0,
-            100% 100%,
-            60% 100%,
-            60% 25.6%,
-            0 25.6%
-        );
-    }
-    .branch {
-        clip-path: inset(25.6% 40% 0 0);
+        --train-width: 108.4577114%;
     }
     .train {
         top: 21.4876033%;
-        width: 108.4577114%;
     }
 }
 @media (prefers-reduced-motion: reduce), (scripting: none) {
-    .sequence::after {
-        height: 0;
-    }
-    .sequence > .pinned {
-        position: relative;
-    }
     // CSS also handles preference changes immediately and protects the first paint.
-    .movingLayer {
+    .movingLayer,
+    .drift {
         transform: none !important;
     }
 }
