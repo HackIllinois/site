@@ -817,13 +817,19 @@
         box-shadow: 0 3px 6px #26190c;
     }
 
+    /* Keep text clear of the notched left end and the arrow tip on the right. */
     .search {
-        padding: 5px 16px 5px clamp(28px, 8vw, 42px);
+        padding: 5px clamp(26px, 7.5vw, 36px) 5px clamp(28px, 8vw, 42px);
     }
 
+    /* 16px minimum stops iOS Safari from zooming in when the input is focused. */
     .search input {
+        min-width: 0;
         min-height: 42px;
-        font-size: clamp(15px, 4vw, 19px);
+        font-size: clamp(16px, 3.7vw, 19px);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     .lighting {
