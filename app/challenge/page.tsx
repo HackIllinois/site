@@ -140,6 +140,7 @@ export default function ProTrackLanding() {
                 </section>
                 <section className={styles.bar}>
                     <SaloonArt name="bar" height={1002} phoneHeight={693} />
+                    <div className={styles.paper} aria-hidden="true" />
                     <div className={styles.menu}>
                         <h2>
                             How are HackOutlaws Different from General
