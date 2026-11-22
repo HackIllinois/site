@@ -3,6 +3,14 @@
 import { useState } from "react";
 import { Box, Typography, Tabs, Tab, Link as MuiLink } from "@mui/material";
 
+const ACCENT_COLOR = "var(--footer-link)";
+const LINK_SX = {
+    color: ACCENT_COLOR,
+    // MUI would otherwise underline in the theme's translucent white.
+    textDecorationColor: "currentColor",
+    fontWeight: 700
+};
+
 function CodeOfConductContent({ setTab }: { setTab: (tab: number) => void }) {
     return (
         <Box>
@@ -117,8 +125,7 @@ function CodeOfConductContent({ setTab }: { setTab: (tab: number) => void }) {
                             ?.scrollIntoView({ behavior: "smooth" });
                     }}
                     sx={{
-                        color: "#a78bfa",
-                        fontWeight: 700,
+                        ...LINK_SX,
                         cursor: "pointer"
                     }}
                 >
@@ -329,10 +336,7 @@ function CodeOfConductContent({ setTab }: { setTab: (tab: number) => void }) {
             >
                 Reports of misconduct or violations can be submitted
                 confidentially via email directly to{" "}
-                <MuiLink
-                    href="mailto:conduct@hackillinois.org"
-                    sx={{ color: "#a78bfa", fontWeight: 700 }}
-                >
+                <MuiLink href="mailto:conduct@hackillinois.org" sx={LINK_SX}>
                     conduct@hackillinois.org
                 </MuiLink>
                 , which is monitored 24/7 during HackIllinois business hours.
@@ -346,8 +350,7 @@ function CodeOfConductContent({ setTab }: { setTab: (tab: number) => void }) {
                         window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
                     sx={{
-                        color: "#a78bfa",
-                        fontWeight: 700,
+                        ...LINK_SX,
                         cursor: "pointer",
                         verticalAlign: "baseline",
                         fontSize: "inherit",
@@ -569,10 +572,7 @@ function ComplaintProceduresContent() {
                 }}
             >
                 Complaints can be submitted by emailing a report to{" "}
-                <MuiLink
-                    href="mailto:conduct@hackillinois.org"
-                    sx={{ color: "#a78bfa", fontWeight: 700 }}
-                >
+                <MuiLink href="mailto:conduct@hackillinois.org" sx={LINK_SX}>
                     conduct@hackillinois.org
                 </MuiLink>
                 . Reports should include:
@@ -887,10 +887,7 @@ function ComplaintProceduresContent() {
                 If the accused party believes the resolution was unfair, they
                 may submit a written appeal within 24 hours of being notified of
                 the decision. Appeals should be sent to{" "}
-                <MuiLink
-                    href="mailto:conduct@hackillinois.org"
-                    sx={{ color: "#a78bfa", fontWeight: 700 }}
-                >
+                <MuiLink href="mailto:conduct@hackillinois.org" sx={LINK_SX}>
                     conduct@hackillinois.org
                 </MuiLink>
                 , where they will be reviewed by an external party (e.g., a
@@ -978,11 +975,11 @@ const Legal: React.FC = () => {
                 sx={{
                     mb: 4,
                     "& .MuiTabs-indicator": {
-                        backgroundColor: "#a78bfa"
+                        backgroundColor: ACCENT_COLOR
                     },
                     "& .MuiTab-root": {
                         fontFamily: "Montserrat, sans-serif",
-                        color: "rgba(255, 255, 255, 0.6)",
+                        color: "rgba(255, 255, 255, 0.75)",
                         textTransform: "none",
                         fontSize: "16px",
                         "&.Mui-selected": {
