@@ -15,7 +15,7 @@ export default function LegalLayout({ children }: { children?: ReactNode }) {
                 minWidth: "100vw",
                 minHeight: "100vh",
                 px: { xs: 2, md: 4 },
-                pt: { xs: 12, md: 12 },
+                pt: "max(96px, var(--navbar-clearance))",
                 pb: 4
             }}
         >

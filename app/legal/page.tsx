@@ -985,6 +985,8 @@ const Legal: React.FC = () => {
                         color: "rgba(255, 255, 255, 0.6)",
                         textTransform: "none",
                         fontSize: "16px",
+                        // Let the labels wrap on phones instead of being clipped.
+                        flexShrink: 1,
                         "&.Mui-selected": {
                             color: "white"
                         }
