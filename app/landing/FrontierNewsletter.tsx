@@ -33,10 +33,9 @@ export default function FrontierNewsletter() {
                 type="email"
                 autoComplete="email"
                 required
-                placeholder="Email address"
             />
             <button disabled={sending}>
-                {sending ? "Subscribing…" : "Subscribe"}
+                {sending ? "SUBSCRIBING…" : "SUBSCRIBE"}
             </button>
             <p role="status">{status}</p>
         </form>
