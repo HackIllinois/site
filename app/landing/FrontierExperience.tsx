@@ -55,18 +55,55 @@ export default function FrontierExperience() {
     );
     const buildingY = useTransform(
         progress,
-        [0.09, 0.25],
-        reduceMotion ? ["0cqw", "0cqw"] : ["18cqw", "5cqw"]
+        [0.09, 0.18],
+        reduceMotion ? ["0cqw", "0cqw"] : ["18cqw", "10cqw"]
     );
     const buildingScale = useTransform(
         progress,
-        [0.09, 0.22],
-        reduceMotion ? [1, 1] : [0.86, 1.45]
+        [0.09, 0.16, 0.18],
+        reduceMotion ? [1, 1, 1] : [0.86, 1.16, 1.16]
     );
     const buildingOpacity = useTransform(
         progress,
-        [0.07, 0.1, 0.26],
-        reduceMotion ? [1, 1, 1] : [0, 1, 1]
+        [0.07, 0.1, 0.199, 0.2],
+        reduceMotion ? [1, 1, 1, 1] : [0, 1, 1, 0]
+    );
+    const entranceStageOpacity = useTransform(
+        progress,
+        [0.199, 0.2, 0.349, 0.35],
+        [0, 1, 1, 0]
+    );
+    const entranceBuildingOpacity = useTransform(
+        progress,
+        [0.2, 0.335, 0.342],
+        [1, 1, 0]
+    );
+    const doorwayScale = useTransform(
+        progress,
+        [0.2, 0.26, 0.335],
+        reduceMotion ? [1.16, 1.16, 1.16] : [1.16, 1.16, 22]
+    );
+    const entranceClosedOpacity = useTransform(
+        progress,
+        [0.254, 0.255],
+        [1, 0]
+    );
+    const entranceOpeningOpacity = useTransform(
+        progress,
+        [0.254, 0.255, 0.275, 0.276],
+        [0, 1, 1, 0]
+    );
+    const entranceOpenOpacity = useTransform(progress, [0.275, 0.276], [0, 1]);
+    const roomStageOpacity = useTransform(progress, [0.254, 0.255], [0, 1]);
+    const previewScale = useTransform(
+        progress,
+        [0.255, 0.349],
+        reduceMotion ? [1, 1] : [1.4, 1.45]
+    );
+    const previewY = useTransform(
+        progress,
+        [0.335, 0.349],
+        reduceMotion ? ["0vh", "0vh"] : ["0vh", "-18vh"]
     );
     const bartenderY = useTransform(
         progress,
@@ -234,18 +271,113 @@ export default function FrontierExperience() {
                             opacity: buildingOpacity
                         }}
                     >
-                        <Image
-                            src={sequence + "hackoutlaws-building.png"}
-                            alt="The HackOutlaws saloon"
-                            width={1969}
-                            height={1561}
-                            unoptimized
-                        />
+                        <div
+                            className={`${styles.buildingFrame} ${styles.buildingFrameBase}`}
+                        >
+                            <Image
+                                src={sequence + "hackoutlaws-building.png"}
+                                alt="The HackOutlaws saloon"
+                                width={1969}
+                                height={1561}
+                                unoptimized
+                            />
+                        </div>
                         <Link
                             href="/challenge"
                             className={styles.challengeHotspot}
                             aria-label="Learn more about HackOutlaws"
                         />
+                    </motion.div>
+
+                    <motion.div
+                        className={styles.entranceStage}
+                        style={{ opacity: entranceStageOpacity }}
+                        aria-hidden="true"
+                    >
+                        <motion.div
+                            className={styles.roomStage}
+                            style={{
+                                opacity: roomStageOpacity,
+                                scale: previewScale,
+                                y: previewY
+                            }}
+                        >
+                            <div className={styles.roomLayoutAnchor}>
+                                <Image
+                                    src={sequence + "pub-room-layout.png"}
+                                    alt=""
+                                    width={2657}
+                                    height={1979}
+                                    className={styles.roomLayoutImage}
+                                    unoptimized
+                                />
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            className={styles.entranceSaloon}
+                            style={{ opacity: entranceBuildingOpacity }}
+                        >
+                            <motion.div
+                                className={styles.entranceSaloonZoom}
+                                style={{ x: "-50%" }}
+                            >
+                                <motion.div
+                                    className={styles.entranceExterior}
+                                    style={{ scale: doorwayScale }}
+                                >
+                                    <motion.div
+                                        className={`${styles.entranceFrame} ${styles.entranceFrameBase}`}
+                                        style={{
+                                            opacity: entranceClosedOpacity
+                                        }}
+                                    >
+                                        <Image
+                                            src={
+                                                sequence +
+                                                "hackoutlaws-building.png"
+                                            }
+                                            alt=""
+                                            width={1969}
+                                            height={1561}
+                                            unoptimized
+                                        />
+                                    </motion.div>
+                                    <motion.div
+                                        className={styles.entranceFrame}
+                                        style={{
+                                            opacity: entranceOpeningOpacity
+                                        }}
+                                    >
+                                        <Image
+                                            src={
+                                                sequence +
+                                                "hackoutlaws-building-opening.png"
+                                            }
+                                            alt=""
+                                            width={1960}
+                                            height={1519}
+                                            unoptimized
+                                        />
+                                    </motion.div>
+                                    <motion.div
+                                        className={styles.entranceFrame}
+                                        style={{ opacity: entranceOpenOpacity }}
+                                    >
+                                        <Image
+                                            src={
+                                                sequence +
+                                                "hackoutlaws-building-open.png"
+                                            }
+                                            alt=""
+                                            width={1966}
+                                            height={1695}
+                                            unoptimized
+                                        />
+                                    </motion.div>
+                                </motion.div>
+                            </motion.div>
+                        </motion.div>
                     </motion.div>
 
                     <motion.div

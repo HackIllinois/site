@@ -180,10 +180,102 @@
 }
 
 .building {
-    z-index: 4;
+    z-index: 9;
     top: 123cqw;
     left: -4%;
     width: 108%;
+    transform-origin: 50% 76%;
+    will-change: transform, opacity;
+}
+
+.buildingFrame {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+div.buildingFrame {
+    position: absolute;
+    z-index: 2;
+    inset: 0 auto auto 0;
+    pointer-events: none;
+}
+
+div.buildingFrameBase {
+    position: relative;
+    z-index: 1;
+}
+
+.entranceStage {
+    position: fixed;
+    z-index: 9;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: linear-gradient(#3b1017, #70353b 88%);
+    will-change: opacity;
+}
+
+.entranceSaloon,
+.roomStage {
+    position: absolute;
+    inset: 0;
+}
+
+.entranceSaloon {
+    z-index: 2;
+    overflow: hidden;
+    will-change: opacity;
+}
+
+.entranceSaloonZoom {
+    position: absolute;
+    top: -18vh;
+    left: 50%;
+    width: 108vw;
+}
+
+.entranceExterior {
+    width: 100%;
+    transform-origin: 50% 75%;
+    will-change: transform;
+}
+
+.entranceFrame {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+}
+
+.entranceFrame {
+    z-index: 2;
+}
+
+.entranceFrameBase {
+    position: relative;
+}
+
+.entranceFrame img,
+.roomLayoutImage {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.roomStage {
+    z-index: 1;
+    overflow: hidden;
+    background: #70353b;
+    transform-origin: 50% 52%;
+    will-change: opacity, transform;
+}
+
+.roomLayoutAnchor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    transform: translate(-50%, -50%);
 }
 
 .building .challengeHotspot {
