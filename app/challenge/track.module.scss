@@ -257,18 +257,25 @@
     margin-top: 0.55em;
     font: 600 1.55cqw var(--condensed);
 }
-.barPaper {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
 .bar .menu {
     left: 25.4%;
     top: 30.2%;
     width: 49.3%;
     transform: rotate(-2deg);
+}
+/* Clean rectangular sheet laid over the paper baked into bar.webp, which has a
+   second sheet peeking out underneath and doesn't read as a rectangle. Sized to
+   fully cover the baked paper (838x389 at -2deg, centred on 720,446 of 1440x1002). */
+.paper {
+    position: absolute;
+    left: 20.417%;
+    top: 24.451%;
+    width: 59.167%;
+    height: 40.12%;
+    background: #f9eee0;
+    transform: rotate(-2deg);
+    box-shadow: 0.5cqw 0.6cqw 0.9cqw rgba(28, 12, 4, 0.45);
+    pointer-events: none;
 }
 @media (min-width: 701px) and (max-width: 940px) {
     .saloon :is(p, dd, dt) {
@@ -298,7 +305,6 @@
         display: block;
     }
     .wheel,
-    .barPaper,
     .desktopOnly {
         // The phone artwork has no wheel and only placeholder glasses.
         display: none;
@@ -344,6 +350,9 @@
         top: 24.8%;
         width: 64%;
         transform: none;
+    }
+    .paper {
+        display: none;
     }
     .bar .menu {
         left: 18%;

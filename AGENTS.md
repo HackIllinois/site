@@ -31,7 +31,7 @@ Some pages have Playwright suites in `tests/<page>/`, run with `npm run test:<pa
 
 ## Directory map
 
-- `app/`: the live routes — landing page, `register/`, `rsvp/`, `profile/`, `schedule/`, `ctf/`, `challenge/`, `judges/`, `mentors/`, `prizes/`, `travel/`, `faq/`, `legal/`.
+- `app/`: the live routes — landing page, `register/`, `rsvp/`, `profile/`, `ctf/`, `challenge/`, `judges/`, `mentors/`, `prizes/`, `travel/`, `faq/`, `legal/`.
 - `components/`: shared components (`Navbar`, `Footer`, `Form`, `EventCountdown`, `StaffCard`, `GradientButton`, the MUI-wrapping form inputs, etc.).
 - `util/`: the API client (`api.ts`, `api-config.ts`), shared types (`types.ts`), form validation and select options.
 - `hooks/`: shared React hooks.
