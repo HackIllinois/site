@@ -2,6 +2,20 @@
     background: #24150f;
 }
 
+.signLayer {
+    position: absolute;
+    z-index: 4;
+    top: 5cqw;
+    left: 15%;
+    width: 70%;
+    pointer-events: none;
+}
+
+.signLayer img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
 .motionCanvas {
     position: relative;
     width: 100%;
@@ -34,8 +48,8 @@
 .clock {
     position: absolute;
     z-index: 5;
-    top: 55.9cqw;
-    left: 21.1%;
+    top: 46.9cqw;
+    left: 24.1%;
     width: 36.2%;
     height: 8.1cqw;
     display: grid;
@@ -67,7 +81,7 @@
 }
 
 .registerHotspot {
-    top: 49cqw;
+    top: 40cqw;
     left: 40.7%;
     width: 19.8%;
     height: 6.7cqw;
@@ -416,7 +430,7 @@
 .socialHotspots {
     position: absolute;
     z-index: 12;
-    top: 776.8cqw;
+    top: 785.8cqw;
     left: 23.2%;
     width: 53.7%;
     display: grid;

@@ -162,6 +162,7 @@ export default function FrontierExperience() {
                     className={styles.motionCanvas}
                     aria-labelledby="event-name"
                 >
+                    {/* 1. This is your new background without the sign */}
                     <Image
                         src={sequence + "background.png"}
                         alt=""
@@ -172,6 +173,18 @@ export default function FrontierExperience() {
                         priority
                         unoptimized
                     />
+
+                    {/* 2. Add the independent sign layer here */}
+                    <div className={styles.signLayer} aria-hidden="true">
+                        <Image
+                            src={sequence + "sign.png"}
+                            alt="HackIllinois Sign"
+                            width={1000}
+                            height={800}
+                            unoptimized
+                        />
+                    </div>
+
                     <div className={styles.navCover} aria-hidden="true" />
 
                     <h1 id="event-name" className={shared.hidden}>
@@ -272,10 +285,6 @@ export default function FrontierExperience() {
                             unoptimized
                         />
                     </motion.div>
-
-                    <div className={styles.hackersHeading} aria-hidden="true">
-                        Hear from the Hackers
-                    </div>
 
                     <motion.div
                         className={`${styles.testimonial} ${styles.testimonialOne}`}
