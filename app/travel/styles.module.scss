@@ -103,12 +103,24 @@
             500 clamp(19px, 2.1vw, 34px)/1.2 "Travel Hand",
             cursive;
         text-align: center;
+        transition: transform 160ms ease;
     }
     li:nth-child(1) {
-        transform: rotate(-2deg);
+        //transform: rotate(-2deg);
+        &:hover {
+            transform: rotate(-2deg) translateY(-2px) rotate(-1.4deg);
+        }
+    }
+    li:nth-child(2) {
+        &:hover {
+            transform: rotate(4deg) translateY(-2px) rotate(1.4deg);
+        }
     }
     li:nth-child(3) {
-        transform: rotate(3deg);
+        //transform: rotate(3deg);
+        &:hover {
+            transform: rotate(3deg) translateY(-2px) rotate(-1.4deg);
+        }
     }
 }
 .warning {
