@@ -14,7 +14,8 @@
         "prepare": "husky",
         "test:prizes": "playwright test --config tests/prizes/playwright.config.ts",
         "test:travel": "playwright test --config tests/travel/playwright.config.ts",
-        "test:registration": "playwright test --config tests/registration/playwright.config.ts"
+        "test:registration": "playwright test --config tests/registration/playwright.config.ts",
+        "test:site": "playwright test --config tests/site/playwright.config.ts"
     },
     "dependencies": {
         "@emotion/react": "^11.14.0",
@@ -26,6 +27,7 @@
         "clsx": "^2.1.1",
         "d3-geo": "^3.1.1",
         "formik": "^2.4.6",
+        "lenis": "^1.3.4",
         "moment-timezone": "^0.6.0",
         "motion": "^12.23.22",
         "next": "^15.1.11",

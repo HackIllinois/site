@@ -11,10 +11,13 @@ export const metadata: Metadata = {
 
 export default function TravelPage() {
     return (
-        <TravelScene>
-            <section className={styles.hero} aria-labelledby="travel-title">
-                <h1 id="travel-title">Travel Information</h1>
-            </section>
+        <TravelScene
+            hero={
+                <section className={styles.hero} aria-labelledby="travel-title">
+                    <h1 id="travel-title">Travel Information</h1>
+                </section>
+            }
+        >
             <section
                 className={styles.board}
                 aria-labelledby="reimbursement-title"

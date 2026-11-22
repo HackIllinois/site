@@ -25,7 +25,9 @@ npm run format     # prettier --write
 npx tsc --noEmit   # typecheck
 ```
 
-There is no test suite. To verify a change, run `npm run lint` and `npx tsc --noEmit`, then load the affected page in the dev server.
+To verify a change, run `npm run lint` and `npx tsc --noEmit`, then load the affected page in the dev server.
+
+Some pages have Playwright suites in `tests/<page>/`, run with `npm run test:<page>` (for example `test:travel`). The configs do not start a server, so start one first and point the suite at it with that page's base URL variable, for example `TRAVEL_BASE_URL=http://localhost:3000 npm run test:travel`. They use the locally installed Chrome.
 
 ## Directory map
 
