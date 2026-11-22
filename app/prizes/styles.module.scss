@@ -19,15 +19,24 @@
     top: 15%;
     left: 10%;
     width: 32%;
-    aspect-ratio: 600 / 1054;
+    aspect-ratio: 600 / 1047;
     background: url("/prizes/frontier/navigation/signpost.webp") center / 100%
         100% no-repeat;
     color: #342344;
     text-align: center;
+    // Each label box spans its board's face in signpost.webp (600x1047),
+    // measured at the post's centre line and excluding the dark drop shadow
+    // under each board, so flex centring puts the text in the visual middle.
     h1 {
         position: absolute;
-        top: 9%;
+        top: 8.7%;
+        height: 12.8%;
         width: 100%;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
         font-size: clamp(30px, 4.2vw, 64px);
         color: #fff2d7;
         text-shadow: 2px 3px #4b2539;
@@ -47,25 +56,38 @@
 }
 .navigation {
     position: absolute;
-    inset: 23% 0 7%;
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
+    inset: 0;
     a {
+        position: absolute;
+        left: 0;
+        right: 0;
         display: flex;
         align-items: center;
         justify-content: center;
         font-family: var(--display);
         font-size: clamp(24px, 3.1vw, 45px);
+        line-height: 1;
         color: #342344;
         text-decoration: none;
         &:first-child {
+            top: 25.6%;
+            height: 11.3%;
             transform: rotate(-5deg);
         }
         &:nth-child(2) {
+            top: 40.4%;
+            height: 11.5%;
             transform: rotate(5deg);
         }
         &:nth-child(3) {
+            top: 57.4%;
+            height: 14.7%;
             transform: rotate(-7deg);
+        }
+        // The lowest board fades out towards the bottom of the artwork.
+        &:nth-child(4) {
+            top: 76.4%;
+            height: 16.2%;
         }
         &:hover {
             color: #771b3c;
