@@ -48,17 +48,22 @@ function isAuthProvider(value: string | null): value is AuthProvider {
 }
 
 export function getStoredAuthProvider(): AuthProvider {
-    const stored = sessionStorage.getItem(AUTH_PROVIDER_KEY);
-    return isAuthProvider(stored) ? stored : "github";
+    const stored =
+        typeof window !== "undefined"
+            ? sessionStorage.getItem(AUTH_PROVIDER_KEY)
+            : null;
+    return isAuthProvider(stored) ? stored : "google";
 }
 
-export function authenticate(provider: AuthProvider = "github"): void {
-    sessionStorage.setItem(AUTH_PROVIDER_KEY, provider);
+export function authenticate(provider: AuthProvider = "google"): void {
+    if (typeof window !== "undefined") {
+        sessionStorage.setItem(AUTH_PROVIDER_KEY, provider);
 
-    const callbackUrl = `${window.location.origin}${window.location.pathname}`;
+        const callbackUrl = `${window.location.origin}${window.location.pathname}`;
 
-    const authUrl = `${API_BASE_URL}/auth/login/${provider}/?redirect=${encodeURIComponent(callbackUrl)}`;
-    window.location.replace(authUrl);
+        const authUrl = `${API_BASE_URL}/auth/login/${provider}/?redirect=${encodeURIComponent(callbackUrl)}`;
+        window.location.replace(authUrl);
+    }
 }
 
 // If status is good, returns response. If status is bad, throws the error response.

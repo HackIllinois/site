@@ -42,6 +42,14 @@ test("cached backgrounds follow repeated Back and Next navigation", async ({
             await route.fulfill({ status, headers, json: data });
         }
     );
+    const baseURL = testInfo.project.use.baseURL || "http://127.0.0.1:3018";
+    await page.context().addCookies([
+        {
+            name: "jwt",
+            value: "browser-test-token",
+            url: baseURL
+        }
+    ]);
     await page.goto("/register/general");
     await expect(page).toHaveURL(/#background-information$/);
     const background = (id: string) =>
