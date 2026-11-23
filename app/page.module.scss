@@ -162,7 +162,7 @@
 }
 
 .mountains {
-    z-index: 3;
+    z-index: 2;
     top: 64cqw;
     left: -4%;
     width: 108%;
@@ -175,7 +175,7 @@
     left: 0;
     width: 100%;
     height: 70cqw;
-    background: linear-gradient(#7a2029 0%, #70353b 72%);
+    //background: linear-gradient(#7a2029 0%, #70353b 72%);
     pointer-events: none;
 }
 
@@ -184,7 +184,7 @@
     top: 123cqw;
     left: -4%;
     width: 108%;
-    transform-origin: 50% 76%;
+    transform-origin: 50% 72%;
     will-change: transform, opacity;
 }
 
@@ -206,76 +206,21 @@ div.buildingFrameBase {
     z-index: 1;
 }
 
-.entranceStage {
+.buildingFramePreOpen {
+    transform: translateY(0.66cqw);
+}
+
+.buildingFrameOpen {
+    transform: translateY(1.15cqw);
+}
+
+.entranceBackdrop {
     position: fixed;
-    z-index: 9;
+    z-index: 8;
     inset: 0;
-    overflow: hidden;
     pointer-events: none;
-    background: linear-gradient(#3b1017, #70353b 88%);
+    background: #24160f;
     will-change: opacity;
-}
-
-.entranceSaloon,
-.roomStage {
-    position: absolute;
-    inset: 0;
-}
-
-.entranceSaloon {
-    z-index: 2;
-    overflow: hidden;
-    will-change: opacity;
-}
-
-.entranceSaloonZoom {
-    position: absolute;
-    top: -18vh;
-    left: 50%;
-    width: 108vw;
-}
-
-.entranceExterior {
-    width: 100%;
-    transform-origin: 50% 75%;
-    will-change: transform;
-}
-
-.entranceFrame {
-    position: absolute;
-    inset: 0 auto auto 0;
-    width: 100%;
-}
-
-.entranceFrame {
-    z-index: 2;
-}
-
-.entranceFrameBase {
-    position: relative;
-}
-
-.entranceFrame img,
-.roomLayoutImage {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-.roomStage {
-    z-index: 1;
-    overflow: hidden;
-    background: #70353b;
-    transform-origin: 50% 52%;
-    will-change: opacity, transform;
-}
-
-.roomLayoutAnchor {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100vw;
-    transform: translate(-50%, -50%);
 }
 
 .building .challengeHotspot {
@@ -374,16 +319,6 @@ div.buildingFrameBase {
     position: relative;
 }
 
-.columns > div:last-child::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    inset: -0.35cqw -0.45cqw -1.1cqw;
-    background: linear-gradient(100deg, #28180ff2, #25160ff7 72%, #2c1a11ed);
-    border-radius: 0.6cqw;
-    box-shadow: 0 0 1.6cqw 0.75cqw #28180ff0;
-}
-
 .faqItem + .faqItem {
     margin-top: 0.55cqw;
 }
@@ -412,8 +347,9 @@ div.buildingFrameBase {
 }
 
 .columns button:focus-visible {
-    outline: 0.16cqw solid #fff9ed;
-    outline-offset: -0.2cqw;
+    //outline: 0.16cqw solid #fff9ed;
+    //outline-offset: -0.2cqw;
+    outline: none;
 }
 
 .answerReveal {
@@ -502,21 +438,21 @@ div.buildingFrameBase {
 .orangeCharacter {
     z-index: 4;
     top: -26%;
-    left: 20%;
-    width: 43%;
+    left: 37%;
+    width: 50%;
 }
 
 .yellowCharacter {
     z-index: 4;
     top: -10%;
-    left: 38%;
-    width: 39%;
+    left: 48%;
+    width: 45%;
 }
 
 .blueCharacter {
     top: 12%;
-    left: 24%;
-    width: 36%;
+    left: 34%;
+    width: 40%;
 }
 
 .socialHotspots {
