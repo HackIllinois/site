@@ -54,13 +54,7 @@ const scenes = {
     roulette: {
         width: 1440,
         height: 816,
-        patches: [
-            { src: "r-cards-t", box: [929, 39, 233, 194] },
-            { src: "r-cards-bl", box: [57, 601, 208, 162] },
-            { src: "r-chips-t", box: [1183, 76, 98, 112] },
-            { src: "r-chips-b1", box: [904, 629, 60, 60] },
-            { src: "r-chips-b2", box: [963, 689, 56, 58] }
-        ],
+        patches: [],
         props: [
             card("r-cards-t", [935, 45, 221, 182], [160, -190, 20]),
             card("r-cards-bl", [63, 607, 196, 150], [-190, 160, -18]),
@@ -88,17 +82,11 @@ const scenes = {
             chip("ep-chips-b", [239, 556, 68, 44])
         ]
     },
-    // The phone roulette artwork has plain placeholder shapes where the cards
-    // and chips go. Felt covers them, and the desktop sprites sit a little to
-    // the right so they clear the copy.
     "roulette-phone": {
         width: 402,
         height: 370,
         phone: true,
-        patches: [
-            { src: "rp-cards", box: [228, 49, 104, 85] },
-            { src: "rp-chips", box: [333, 79, 45, 79] }
-        ],
+        patches: [],
         props: [
             card("r-cards-t", [256, 56, 84, 69.2], [70, -60, 20]),
             chip("chip-red", [348, 80, 18, 18]),

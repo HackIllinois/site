@@ -4,15 +4,38 @@ type SceneArtProps = {
     src: string;
     width?: number;
     height: number;
-    phone?: { src: string; width: number; height: number; small?: number };
+    largeWidth?: number;
+    phone?: {
+        src: string;
+        width: number;
+        height: number;
+        small?: number;
+        largeWidth?: number;
+    };
     priority?: boolean;
     alt?: string;
 };
+
+function sceneSources(
+    src: string,
+    width: number,
+    small?: number,
+    large?: number
+) {
+    return [
+        small && `${src}-small.webp ${small}w`,
+        `${src}.webp ${width}w`,
+        large && `${src}-large.webp ${large}w`
+    ]
+        .filter(Boolean)
+        .join(", ");
+}
 
 export default function SceneArt({
     src,
     width = 1440,
     height,
+    largeWidth,
     phone,
     priority = false,
     alt = ""
@@ -24,11 +47,12 @@ export default function SceneArt({
                     media="(max-width: 850px)"
                     width={phone.width}
                     height={phone.height}
-                    srcSet={
-                        phone.small
-                            ? `${phone.src}-small.webp ${phone.small}w, ${phone.src}.webp ${phone.width}w`
-                            : `${phone.src}.webp`
-                    }
+                    srcSet={sceneSources(
+                        phone.src,
+                        phone.width,
+                        phone.small,
+                        phone.largeWidth
+                    )}
                     sizes="100vw"
                 />
             )}
@@ -36,7 +60,7 @@ export default function SceneArt({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
                 src={`${src}.webp`}
-                srcSet={`${src}-small.webp 780w, ${src}.webp ${width}w`}
+                srcSet={sceneSources(src, width, 780, largeWidth)}
                 sizes="100vw"
                 width={width}
                 height={height}

@@ -101,7 +101,17 @@ export default function ProTrackLanding() {
                     </Link>
                 </section>
                 <section className={styles.roulette} id="about-outlaws">
-                    <SaloonArt name="roulette" height={816} phoneHeight={370} />
+                    <SceneArt
+                        src="/challenge/saloon/roulette"
+                        height={816}
+                        largeWidth={2880}
+                        phone={{
+                            src: "/challenge/saloon/roulette-phone",
+                            width: 402,
+                            height: 370,
+                            largeWidth: 1206
+                        }}
+                    />
                     <TableProps scene="roulette" play="view" />
                     <TableProps scene="roulette-phone" play="view" />
                     <RouletteWheel />
