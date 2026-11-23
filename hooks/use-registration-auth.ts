@@ -52,6 +52,9 @@ export const useRegistrationAuth = ({
             return;
         }
         setAuthenticated(true);
+        if (typeof window !== "undefined") {
+            sessionStorage.removeItem("googleAuthRedirectAttempted");
+        }
 
         try {
             if (shouldLoadSubmission) {
