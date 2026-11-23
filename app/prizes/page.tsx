@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import shared from "@/components/Frontier/Frontier.module.scss";
+import { prizesEnabled } from "./availability";
 import styles from "./styles.module.scss";
 import { prizeSections } from "./content/prize-data";
 
@@ -10,6 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default function PrizesPage() {
+    if (!prizesEnabled) notFound();
+
     return (
         <main className={`${shared.page} ${styles.page}`}>
             <section className={styles.hero} aria-labelledby="prizes-title">

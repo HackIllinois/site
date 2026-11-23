@@ -1,5 +1,6 @@
 "use client";
 
+import { prizesEnabled } from "@/app/prizes/availability";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -10,7 +11,7 @@ const destinations = [
     ["Travel", "/travel"],
     ["Prizes", "/prizes"],
     ["HackOutlaws", "/challenge"]
-];
+].filter(([, href]) => href !== "/prizes" || prizesEnabled);
 
 export default function Navbar() {
     const path = usePathname();
