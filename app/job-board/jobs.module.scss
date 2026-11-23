@@ -77,12 +77,19 @@
 
 .search input {
     display: block;
+    box-sizing: border-box;
     width: 100%;
     font-size: clamp(15px, 1.45cqw, 24px);
     color: #fff;
     background: transparent;
     border: 0;
+    outline: 1px solid rgb(255 255 255 / 12%);
+    outline-offset: -1px;
     padding: 0.5em 0;
+}
+
+.search input:focus-visible {
+    outline-color: rgb(255 255 255 / 18%);
 }
 
 .search input::placeholder {
@@ -101,12 +108,6 @@
     min-width: 0;
 }
 
-.grid button,
-.message {
-    color: #342014;
-    background: #e3bc76 url("/job-board/poster.webp") center/100% 100% no-repeat;
-}
-
 .grid button {
     box-sizing: border-box;
     position: relative;
@@ -117,8 +118,10 @@
     justify-items: center;
     width: 100%;
     aspect-ratio: 247/286;
+    color: #342014;
     text-align: center;
-    background-color: transparent;
+    background: transparent url("/job-board/poster.webp") center/100% 100%
+        no-repeat;
     padding: 14% 10.5% 12%;
     gap: 1.5%;
     cursor: pointer;
@@ -276,11 +279,17 @@
 }
 
 .message {
+    box-sizing: border-box;
+    display: grid;
+    place-content: center;
     align-self: center;
     margin: 5% auto;
-    width: min(85%, 36em);
-    padding: 3em 3.5em;
-    background-color: transparent;
+    width: min(72%, 36em);
+    aspect-ratio: 1568/1003;
+    padding: 12% 13%;
+    color: #342014;
+    background: transparent url("/job-board/detail-poster.png") center/100% 100%
+        no-repeat;
     text-align: center;
     font-size: clamp(15px, 1.6cqw, 25px);
 }
@@ -780,14 +789,10 @@
 
 @media (max-width: 850px) {
     .room {
-        padding: clamp(170px, 43vw, 275px) 5% 50px;
+        min-height: calc(100vw * 1660 / 402);
+        padding: 74.5vw 5% 50px;
         isolation: isolate;
-        background: repeating-linear-gradient(
-            90deg,
-            #57341e 0 17%,
-            #644229 17.4% 18%,
-            #6b4328 18.2% 30%
-        );
+        background: #5c351c;
     }
 
     .room > picture {
@@ -798,42 +803,45 @@
 
     .room > picture img {
         width: 100%;
+        height: calc(100vw * 1660 / 402);
         max-width: 100%;
         margin-left: 0;
     }
 
     .message {
         width: 96%;
-        padding: 3em 2em;
+        padding: 12% 13%;
     }
 
     .board {
         position: static;
         display: flex;
         gap: 10px;
-        padding: 12px 7px 20px;
-        background: #684126;
-        border: 7px ridge #4f3019;
-        box-shadow: 0 3px 6px #26190c;
+        padding: 0 0 20px;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
     }
 
     /* Keep text clear of the notched left end and the arrow tip on the right. */
     .search {
-        padding: 5px clamp(26px, 7.5vw, 36px) 5px clamp(28px, 8vw, 42px);
+        align-self: center;
+        width: 90%;
+        padding: 3px clamp(26px, 7.5vw, 36px) 3px clamp(28px, 8vw, 42px);
     }
 
     /* 16px minimum stops iOS Safari from zooming in when the input is focused. */
     .search input {
         min-width: 0;
-        min-height: 42px;
-        font-size: clamp(16px, 3.7vw, 19px);
+        min-height: 32px;
+        font-size: clamp(16px, 3.4vw, 18px);
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
     }
 
     .lighting {
-        height: 35svh;
+        display: none;
     }
 
     .lightHalo {
@@ -853,6 +861,7 @@
     .grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 6px;
+        padding: 0 10%;
     }
 
     .cardCompany {
@@ -868,8 +877,12 @@
     }
 
     .pages {
-        width: min(100%, 380px);
-        margin-top: 10px;
+        position: absolute;
+        top: calc(100vw * 1038 / 402);
+        left: 50%;
+        width: min(70%, 280px);
+        margin-top: 0;
+        transform: translateX(-50%);
     }
 }
 
@@ -883,16 +896,25 @@
     }
 
     .detailHeader {
-        top: 16.5%;
-        left: 12%;
-        right: 12%;
-        height: 12%;
+        top: 10.5%;
+        left: 17%;
+        right: 17%;
+        grid-template-rows: auto auto;
+        align-content: center;
+        height: 19%;
         gap: 0.1em;
     }
 
     .detailHeader h2 {
-        font-size: clamp(19px, 6.2vw, 30px);
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        overflow: visible;
+        padding-inline: 0.15em;
+        font-size: clamp(14px, 4.6vw, 22px);
         line-height: 1.08;
+        overflow-wrap: anywhere;
+        -webkit-line-clamp: unset;
     }
 
     .company {

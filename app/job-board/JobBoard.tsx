@@ -140,7 +140,17 @@ export default function JobBoard({ jobs }: { jobs: JobPosting[] | null }) {
 
     return (
         <main className={styles.room}>
-            <SceneArt src="/job-board/jobs-room" height={1410} priority />
+            <SceneArt
+                src="/job-board/jobs-room"
+                height={1410}
+                phone={{
+                    src: "/job-board/jobs-room-mobile",
+                    width: 402,
+                    height: 1544,
+                    format: "png"
+                }}
+                priority
+            />
             <div className={styles.lighting} aria-hidden="true">
                 {[styles.lightHaloLeft, styles.lightHaloRight].map(side => (
                     <span key={side} className={`${styles.lightHalo} ${side}`}>
