@@ -1,5 +1,6 @@
 "use client";
 
+import { prizesEnabled } from "@/app/prizes/availability";
 import { clearFooterTheme } from "@/app/register/general/constants/registration";
 import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
@@ -21,13 +22,9 @@ const StandardSiteLayout = dynamic(() => import("./StandardSiteLayout"));
 export default function Layout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const hideFooter = pathname === "/faq";
-    const isFrontier = [
-        "/",
-        "/challenge",
-        "/job-board",
-        "/prizes",
-        "/travel"
-    ].includes(pathname);
+    const isFrontier =
+        ["/", "/challenge", "/job-board", "/travel"].includes(pathname) ||
+        (prizesEnabled && pathname === "/prizes");
     const isRegister = pathname.startsWith("/register");
 
     // Drop step-specific inline footer vars when leaving /register so the :root default returns.
