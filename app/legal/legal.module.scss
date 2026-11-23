@@ -1,0 +1,9 @@
+// The footer's top color (#983723), 18% darker.
+$background: #7d2d1d;
+
+// html and body are included so overscroll doesn't show the global black.
+:global(html):has(.page),
+:global(html):has(.page) :global(body),
+.page {
+    background-color: $background;
+}

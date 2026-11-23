@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+    <meta charset="utf-8" /><meta
+        name="viewport"
+        content="width=device-width,initial-scale=1"
+    /><title>Travel scene animation plan</title
+    ><style>
+        :root {
+            color-scheme: light dark;
+        }
+        body {
+            font: 16px/1.6 system-ui;
+            max-width: 850px;
+            margin: auto;
+            padding: 24px;
+        }
+        section {
+            border: 1px solid #8886;
+            padding: 18px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+        code {
+            overflow-wrap: anywhere;
+        }
+    </style>
+    <h1>Travel scene animation</h1>
+    <section>
+        <h2>Goal and status</h2>
+        <p>
+            Implemented and production-verified: visitor scroll → train crosses
+            the scene + foreground moves at a different speed → existing
+            reimbursement board. Desktop and mobile. Reduced-motion preference →
+            still scene.
+        </p>
+        <p>
+            Worktree: <code>worktrees/travel-animation-2027</code>, branch
+            <code>codex/travel-animation-2027</code>, based on Travel PR #564.
+            New PR will target that unmerged branch so it contains only
+            animation work.
+        </p>
+    </section>
+    <section>
+        <h2>Scope</h2>
+        <p>
+            Match the supplied seven-second video’s scene motion using original
+            Figma layers. Preserve approved board layout, cards, map colors,
+            local JSON rates, international ticket and 14px disclaimer. No
+            automatic scrolling, timed autoplay or board/card animation.
+        </p>
+    </section>
+    <section>
+        <h2>Steps and checks</h2>
+        <ol>
+            <li>
+                Extract background, train and foreground separately from
+                desktop/mobile source SVG; preserve composition and document
+                source IDs.
+            </li>
+            <li>
+                Add browser tests first for scroll-driven transforms, reversing
+                scroll, still reduced-motion scene and unchanged board layout;
+                observe failure.
+            </li>
+            <li>
+                Use installed Motion library and stable, nonmoving scroll
+                target. Decorative layers must not capture input or add
+                horizontal overflow.
+            </li>
+            <li>
+                Run browser tests including existing policy/map/ticket tests,
+                lint, TypeScript and production build. Inspect desktop/mobile
+                through Computer Use.
+            </li>
+            <li>
+                Write standalone HTML report with screenshots, exact files and
+                check results; push separate PR with short intro and concrete
+                bullets.
+            </li>
+        </ol>
+    </section>
+    <section>
+        <h2>Risks and assumptions</h2>
+        <p>
+            The video gives timing, but scroll distance replaces time by user
+            choice. Original assets may differ in texture from video. Mobile
+            adapts motion to its existing taller scene. Reduced-motion mode and
+            initial still render must stay readable. No new dependency, backend
+            or policy change planned. Display-only animation needs no new
+            logging; browser console errors and check logs are recorded.
+        </p>
+        <p>
+            Motion documentation checked through Context7: useScroll
+            target/offset, useTransform, useReducedMotion. Progress is measured
+            on an unmoving target to avoid layout feedback.
+        </p>
+    </section>
+    <section>
+        <h2>Correction: finish the train before descending</h2>
+        <p>
+            User found the floating tree and simultaneous downward scrolling
+            wrong. Pin the complete opening view while the first viewport of
+            scroll moves the entire train beyond the right edge. Keep foreground
+            trees fixed in the scene; then release normal downward page
+            scrolling. Scrolling back reverses the sequence. Reduced-motion and
+            no-JavaScript views skip the hold. Restore missing right-branch blur
+            from the source export. Tests must first reproduce drifting
+            heading/tree and premature release, then check pinned/released
+            states on desktop/mobile and unchanged reimbursement flows. Update
+            PR565 and this report.
+        </p>
+    </section>
+</html>

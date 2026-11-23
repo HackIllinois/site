@@ -1,0 +1,148 @@
+.reimbursement {
+    position: relative;
+    min-width: 0;
+    color: #40390e;
+}
+.hint {
+    font:
+        500 clamp(17px, 1.6vw, 25px)/1.2 "Travel Hand",
+        cursive;
+    color: #e7cea5;
+    margin-bottom: 12px;
+}
+.mapPaper {
+    position: relative;
+    padding: 7% 4% 9%;
+    background: #dbccaa url("/travel/frontier/paper/map-paper.webp") center /
+        100% 100% no-repeat;
+    transform: rotate(-2deg);
+}
+.mapCanvas {
+    position: relative;
+}
+.map {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+.state {
+    stroke: #dfd0aa;
+    stroke-width: 1.4;
+    outline: none;
+}
+.ticketArea {
+    position: relative;
+    width: 44%;
+    margin: -26% -9% 0 auto;
+    z-index: 2;
+}
+.ticket {
+    width: 100%;
+    aspect-ratio: 1.25;
+    padding: 12%;
+    background: url("/travel/frontier/ticket/international-ticket.webp")
+        center / 100% 100% no-repeat;
+    color: #402611;
+    font:
+        500 clamp(14px, 1.3vw, 21px)/1.1 var(--font-oswald),
+        sans-serif;
+    text-transform: uppercase;
+    cursor: pointer;
+    .ticketText {
+        display: block;
+        font: inherit;
+        transform: rotate(23deg);
+        small {
+            display: block;
+            font: inherit;
+            font-size: 0.65em;
+        }
+    }
+}
+.international {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    bottom: calc(100% - 10px);
+    width: 300px;
+    max-width: 65vw;
+    padding: 20px;
+    color: #402611;
+    background: #f0dfba;
+    border: 2px solid #8a5b2b;
+    border-radius: 4px;
+    box-shadow: 0 8px 24px #28150880;
+    font-size: 16px;
+    h3 {
+        margin-bottom: 12px;
+        font:
+            400 20px/1.3 var(--font-oswald),
+            sans-serif;
+    }
+    dl > div {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 6px 0;
+    }
+    dd {
+        font-weight: 700;
+    }
+    button {
+        margin-top: 14px;
+        padding: 10px 15px;
+        border: 1px solid #402611;
+        cursor: pointer;
+    }
+}
+.legend {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    list-style: none;
+    width: 85%;
+    margin: 4% 0 0 auto;
+    padding: 20px 14px;
+    background: #dbccaa;
+    transform: rotate(2deg);
+    font-size: clamp(12px, 1.3vw, 18px);
+    li {
+        font-family: "Travel Ultra", Georgia, serif;
+        color: #69432f;
+        white-space: nowrap;
+    }
+    li span {
+        display: inline-block;
+        width: 0.6em;
+        height: 0.6em;
+        border-radius: 50%;
+        border: 1px solid #40390e55;
+        margin-right: 0.25em;
+    }
+}
+@media (max-width: 700px) {
+    .hint {
+        font-size: 19px;
+    }
+    .ticketArea {
+        margin-right: -3%;
+        width: 43%;
+    }
+    .ticket {
+        font-size: clamp(11px, 3.3vw, 16px);
+        transform: rotate(-43deg);
+    }
+    .international {
+        max-width: 75vw;
+        width: 280px;
+        padding: 15px;
+    }
+    .legend {
+        width: 88%;
+        padding: 15px 10px;
+        gap: 8px;
+        margin-top: 4%;
+        font-size: clamp(10px, 2.8vw, 16px);
+    }
+}

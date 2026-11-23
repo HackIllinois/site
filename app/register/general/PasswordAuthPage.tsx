@@ -1,6 +1,9 @@
+import { HackIllinoisWordmark } from "@/components/HackIllinoisWordmark/HackIllinoisWordmark";
 import { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
+import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 import { LATE_REGISTRATION_PASSWORD } from "../constants";
 
 interface PasswordAuthPageProps {
@@ -31,18 +34,9 @@ const PasswordAuthPage = ({ onAuthenticated }: PasswordAuthPageProps) => {
                 overflowY: "auto"
             }}
         >
-            <Box
-                sx={{
-                    position: "fixed",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    backgroundImage: `url("/registration/backgrounds/auth.svg")`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    zIndex: -1
-                }}
+            <RegistrationBackground
+                background={registrationBackgrounds.auth}
+                next={registrationBackgrounds.personal_info}
             />
             <Box
                 sx={{
@@ -58,17 +52,7 @@ const PasswordAuthPage = ({ onAuthenticated }: PasswordAuthPageProps) => {
                     px: 3
                 }}
             >
-                <img
-                    src="/registration/hackastra-logo.png"
-                    alt="Hackastra Logo"
-                    style={{
-                        width: "auto",
-                        maxHeight: "110px",
-                        maxWidth: "100%",
-                        marginBottom: "20px",
-                        objectFit: "contain"
-                    }}
-                />
+                <HackIllinoisWordmark sx={{ mb: "20px" }} />
                 <Typography
                     variant="h6"
                     component="p"

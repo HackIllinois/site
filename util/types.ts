@@ -62,6 +62,9 @@ export type RegistrationApplicationSubmitted = {
     underrepresented: string;
     hackathonsParticipated: string;
 
+    interestSoftware: string;
+    interestHardware: string;
+
     application1: string;
     application2: string;
     application3: string;
@@ -71,6 +74,8 @@ export type RegistrationApplicationSubmitted = {
 
     attribution: string[];
     eventInterest: string[];
+    vcInvolvement: string[];
+    hardwareInterest: string;
 
     requestTravelReimbursement: boolean;
 };
@@ -92,6 +97,8 @@ export type RegistrationApplicationDraftBody = {
     major?: string;
     underrepresented?: string;
     hackathonsParticipated?: string;
+    interestSoftware?: string;
+    interestHardware?: string;
     application1?: string;
     application2?: string;
     application3?: string;
@@ -99,8 +106,15 @@ export type RegistrationApplicationDraftBody = {
     pro?: boolean;
     attribution?: string[];
     eventInterest?: string[];
+    vcInvolvement?: string[];
+    hardwareInterest?: string;
     requestTravelReimbursement?: boolean;
     mlhNewsletter?: boolean;
+    // New for 2027. Adonix does not store these yet (its schema strips
+    // unknown keys), so they need backend fields before going live.
+    firstHackathonReason?: string;
+    portfolioLink?: string;
+    eventSuggestions?: string;
 };
 
 /** Includes fields available only on the frontend. */
@@ -113,6 +127,20 @@ export type RegistrationApplicationDraftBodyForm =
         mlhDataSharingAcknowledge?: boolean;
         optInHackNewsletter?: boolean;
         otherSchool?: string;
+        otherMajor?: string;
+        otherAttribution?: string;
+        otherEventInterest?: string;
+        otherVcInvolvement?: string;
+        proChallengeAcknowledge?: boolean;
+        hasResume?: boolean;
+        /** Display only (review page); not sent to the API. */
+        resumeFileName?: string;
+        legalAcknowledge?: boolean;
+        // Only used by the old, now-unused HackExperience/Transportation pages.
+        hasAllergies?: boolean;
+        allergyTypes?: string[];
+        otherAllergyText?: string;
+        transportationMethod?: string;
     };
 
 export type RegistrationResponseFieldInfo = {
@@ -271,3 +299,12 @@ export type DevLoginResponse = {
     user: UserInfo;
     jwt: string;
 };
+
+export interface JobPosting {
+    _id: string;
+    companyName: string;
+    logoUrl: string;
+    jobTitle: string;
+    jobDescription: string;
+    applicationUrl: string;
+}

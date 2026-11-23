@@ -92,6 +92,15 @@ export default function ChallengeGate({ children }: { children: ReactNode }) {
         shouldLoadSubmission: true
     });
 
+    if (registrationAuth.loadError) {
+        return (
+            <SaloonNotice heading="Couldn’t load your application">
+                <button onClick={() => window.location.reload()}>
+                    Try again
+                </button>
+            </SaloonNotice>
+        );
+    }
     if (registrationAuth.isLoading) {
         return <SaloonLoading />;
     }

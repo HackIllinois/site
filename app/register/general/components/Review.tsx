@@ -1,231 +1,213 @@
 "use client";
-import EditIcon from "@mui/icons-material/Edit";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Box,
-    Stack,
-    Typography
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import CheckIcon from "@mui/icons-material/Check";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { Box, ButtonBase, Collapse, Typography } from "@mui/material";
 import React from "react";
+import { BOX_SHADOW_FILTER } from "@/theme/shadows";
 
-export const ReviewContainer = styled(Stack)(({ theme }) => ({
-    alignItems: "stretch",
-    gap: "25px",
-    marginLeft: "20px",
-    marginRight: "20px",
-    [theme.breakpoints.down("sm")]: {
-        gap: "18px",
-        marginLeft: "20px",
-        marginRight: "20px"
-    }
-}));
+/** Same cut-corner shape as the form inputs on the earlier steps. */
+const chamfer = (px: number) =>
+    `polygon(${px}px 0%, calc(100% - ${px}px) 0%, 100% ${px}px, 100% calc(100% - ${px}px), calc(100% - ${px}px) 100%, ${px}px 100%, 0% calc(100% - ${px}px), 0% ${px}px)`;
 
-export const StyledAccordion = styled(Accordion)(({ theme }) => ({
-    width: "100%",
-    backgroundColor: "#f6f6f67A",
-    borderRadius: 12,
-    border: "1px solid white",
-    overflow: "hidden",
-    "&:first-of-type": {
-        borderTopLeftRadius: 12,
-        borderTopRightRadius: 12
-    },
-    "&:last-of-type": {
-        borderBottomLeftRadius: 12,
-        borderBottomRightRadius: 12
-    },
-    "&.Mui-expanded": {
-        borderRadius: 12,
-        overflow: "hidden"
-    },
-    [theme.breakpoints.down("sm")]: {
-        borderRadius: 6,
-        "&:first-of-type": {
-            borderTopLeftRadius: 6,
-            borderTopRightRadius: 6
-        },
-        "&:last-of-type": {
-            borderBottomLeftRadius: 6,
-            borderBottomRightRadius: 6
-        }
-    }
-}));
+const EDIT_BUTTON_COLOR = "#13294B";
 
-interface AccordionHeaderProps {
+interface ReviewSectionCardProps {
     title: string;
-    isExpanded: boolean;
+    expanded: boolean;
+    onToggle: () => void;
     onEdit: () => void;
+    /** Thin outline color; defaults to the step accent. */
+    outlineColor?: string;
+    children: React.ReactNode;
 }
 
-export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
+/**
+ * One collapsible review section: a white cut-corner card with the section
+ * title, a check mark when collapsed and an "Edit section" button when open.
+ */
+export const ReviewSectionCard = ({
     title,
-    isExpanded,
-    onEdit
-}) => {
+    expanded,
+    onToggle,
+    onEdit,
+    outlineColor = "rgba(255, 255, 255, 0.6)",
+    children
+}: ReviewSectionCardProps) => {
+    const contentId = `review-${title.replace(/\W+/g, "-").toLowerCase()}`;
     return (
-        <AccordionSummary
+        // Outer layer is the outline; the white card sits 2px inside it.
+        <Box
             sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between"
+                p: "2px",
+                backgroundColor: outlineColor,
+                clipPath: chamfer(14),
+                filter: BOX_SHADOW_FILTER
             }}
-            expandIcon={
-                !isExpanded ? (
-                    <ExpandMoreIcon sx={{ color: "white" }} />
-                ) : undefined
-            } // only set expandIcon if collapsed
         >
-            <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
-                <Typography
-                    sx={theme => ({
-                        color: "#fff",
-                        fontFamily: `Montserrat, sans-serif`,
-                        fontSize: "30px",
-                        fontWeight: 600,
-                        paddingLeft: "18px",
-                        [theme.breakpoints.down("sm")]: {
-                            fontSize: "20px",
-                            paddingLeft: "13px"
-                        }
-                    })}
+            <Box sx={{ backgroundColor: "#ffffff", clipPath: chamfer(13) }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 2,
+                        px: { xs: 2, md: 3 },
+                        py: expanded ? 2 : 1.25
+                    }}
                 >
-                    {title}
-                </Typography>
-
-                <Box sx={{ flexGrow: 1 }} />
-
-                {isExpanded && onEdit && (
-                    <Box
-                        onClick={onEdit}
+                    <ButtonBase
+                        onClick={onToggle}
+                        aria-expanded={expanded}
+                        aria-controls={contentId}
                         sx={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            padding: "2px",
-                            cursor: "pointer",
-                            color: "white",
-                            "&:hover": {
-                                color: "navy",
-                                transform: "scale(1.1)"
-                            },
-                            transition: "transform 0.2s, color 0.2s"
+                            flex: 1,
+                            justifyContent: "flex-start",
+                            textAlign: "left",
+                            py: 0.5
                         }}
                     >
-                        <EditIcon fontSize="medium" />
+                        <Typography
+                            component="h2"
+                            sx={{
+                                fontFamily: "Montserrat",
+                                fontWeight: 500,
+                                fontSize: { xs: "16px", md: "18px" },
+                                color: "#1a1a1a"
+                            }}
+                        >
+                            {title}
+                        </Typography>
+                    </ButtonBase>
+
+                    {expanded ? (
+                        <ButtonBase
+                            onClick={onEdit}
+                            sx={{
+                                gap: 1,
+                                px: 2.5,
+                                py: 1,
+                                backgroundColor: EDIT_BUTTON_COLOR,
+                                color: "#ffffff",
+                                clipPath: chamfer(8),
+                                fontFamily:
+                                    "var(--font-oswald), 'Oswald', sans-serif",
+                                fontWeight: 500,
+                                fontSize: { xs: "13px", md: "15px" },
+                                letterSpacing: "0.04em",
+                                textTransform: "uppercase",
+                                transition: "filter 0.15s ease",
+                                "&:hover": { filter: "brightness(1.25)" }
+                            }}
+                        >
+                            <EditOutlinedIcon sx={{ fontSize: "18px" }} />
+                            Edit Section
+                        </ButtonBase>
+                    ) : (
+                        <ButtonBase
+                            onClick={onToggle}
+                            aria-label={`Show ${title}`}
+                            sx={{ p: 0.5, borderRadius: "50%" }}
+                        >
+                            <CheckIcon sx={{ color: "#1a1a1a" }} />
+                        </ButtonBase>
+                    )}
+                </Box>
+
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <Box
+                        id={contentId}
+                        sx={{
+                            px: { xs: 2, md: 3 },
+                            pb: { xs: 2.5, md: 3.5 },
+                            pt: 0.5
+                        }}
+                    >
+                        {children}
                     </Box>
-                )}
+                </Collapse>
             </Box>
-        </AccordionSummary>
+        </Box>
     );
 };
 
-export const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
-    padding: "4px 18px 18px 18px",
-    [theme.breakpoints.down("sm")]: {
-        padding: "0px 10px 10px 10px"
-    }
-}));
+/** Two-column label/value grid inside a section card. */
+export const ReviewFieldGrid = ({
+    children
+}: {
+    children: React.ReactNode;
+}) => (
+    <Box
+        sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+            columnGap: 6,
+            rowGap: { xs: 2, md: 2.5 }
+        }}
+    >
+        {children}
+    </Box>
+);
 
-export const ReviewInfoAccordionBox = styled(Box)(({ theme }) => ({
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "flex-start",
-    gap: "25px",
-    alignItems: "flex-start",
-    padding: "0px 13px 13px 13px",
-    [theme.breakpoints.down("sm")]: {
-        flexDirection: "column",
-        alignItems: "stretch",
-        gap: "11px"
-    }
-}));
-
-interface UserInfoProps {
+interface ReviewFieldProps {
     label: string;
-    userResponse: string;
+    value: string;
+    /** Span both columns (long answers). */
+    wide?: boolean;
+    /** Show a paperclip before the value (uploaded files). */
+    attachment?: boolean;
 }
 
-const StyledUserInfoBox = styled(Box)(() => ({
-    display: "flex",
-    flexDirection: "column",
-    flexWrap: "wrap",
-    justifyContent: "flex-start",
-    backgroundColor: "#ffffff",
-    borderRadius: "5px",
-    padding: "10px",
-    gap: "5px",
-    flex: "1 1 auto",
-    minWidth: 0,
-    maxWidth: "100%"
-}));
-
-export const UserInfoBox: React.FC<UserInfoProps> = ({
+export const ReviewField = ({
     label,
-    userResponse
-}) => {
-    return (
-        <StyledUserInfoBox>
-            <Typography
-                variant="h3"
-                sx={{
-                    color: "text.primary",
-                    fontWeight: 600
-                }}
-            >
-                {label}
-            </Typography>
-            <Typography
-                variant="h3"
-                sx={{
-                    color: "text.secondary",
-                    wordWrap: "break-word",
-                    overflowWrap: "anywhere",
-                    whiteSpace: "normal"
-                }}
-            >
-                {userResponse}
-            </Typography>
-        </StyledUserInfoBox>
-    );
-};
+    value,
+    wide = false,
+    attachment = false
+}: ReviewFieldProps) => (
+    <Box sx={{ gridColumn: wide ? "1 / -1" : "auto", minWidth: 0 }}>
+        <Typography
+            sx={{
+                fontFamily: "Montserrat",
+                fontWeight: 700,
+                fontSize: { xs: "15px", md: "17px" },
+                color: "#111111",
+                mb: 0.5
+            }}
+        >
+            {label}
+        </Typography>
+        <Typography
+            component="div"
+            sx={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 0.75,
+                fontFamily: "Montserrat",
+                fontWeight: 400,
+                fontSize: { xs: "15px", md: "17px" },
+                color: "#222222",
+                whiteSpace: "pre-wrap",
+                overflowWrap: "anywhere"
+            }}
+        >
+            {attachment && (
+                <AttachFileIcon
+                    sx={{
+                        fontSize: "20px",
+                        mt: "2px",
+                        transform: "rotate(45deg)"
+                    }}
+                />
+            )}
+            {value}
+        </Typography>
+    </Box>
+);
 
+/** Links inside the acknowledgement checkboxes (white, like other steps). */
 export const AckLinkStyle = {
-    color: "#ADED4A",
+    color: "#ffffff",
+    fontWeight: 600,
     textDecoration: "underline",
-    textDecorationColor: "#ADED4A",
-    textDecorationThickness: "2px",
-    "&:hover": {
-        color: "#fff",
-        textDecorationColor: "#fff"
-    }
-};
-
-export const AckErrorStyle = {
-    fontFamily: "Montserrat",
-    fontSize: "13px",
-    fontWeight: 500,
-    "&.Mui-error": {
-        color: "white"
-    },
-    border: "1px solid rgba(255, 0, 0, 0.5)",
-    borderRadius: "6px",
-    backgroundColor: "rgba(255, 0, 0, 0.5)",
-    width: "fit-content",
-    padding: "4px",
-    boxShadow: "0 0 8px rgba(255, 0, 0, 0.3)",
-    mb: 2
-};
-
-export const AckOptionLabelStyle = {
-    fontFamily: `Montserrat, sans-serif`,
-    fontSize: "20px",
-    color: "#fff",
-    fontWeight: 400,
-    "@media (max-width:600px)": {
-        fontSize: "18px"
-    }
+    textDecorationColor: "#ffffff",
+    "&:hover": { opacity: 0.8 }
 };

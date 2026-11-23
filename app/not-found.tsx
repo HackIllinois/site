@@ -1,54 +1,26 @@
-import { Box } from "@mui/material";
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
+import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 import Link from "next/link";
+import styles from "./not-found.module.scss";
 
 const NotFound: React.FC = () => {
     return (
-        <>
-            <Box
-                sx={{
-                    display: "flex",
-                    width: "100vw",
-                    height: "100vh",
-                    backgroundImage: `url("/registration/backgrounds/personal_info.svg")`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    filter: "blur(10px)",
-                    transform: "scale(1.25)"
-                }}
-            ></Box>
-            <Box
-                sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100vw",
-                    height: "100vh",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: 3
-                }}
-            >
-                <div>
-                    <h2>Page not found</h2>
-                    <br />
-                    <p>
-                        Return to the{" "}
-                        <Link
-                            prefetch={false}
-                            href="/"
-                            style={{
-                                color: "#1976d2",
-                                textDecoration: "underline"
-                            }}
-                        >
-                            home page
-                        </Link>
-                    </p>
-                </div>
-            </Box>
-        </>
+        <main className={styles.page}>
+            <RegistrationBackground
+                background={registrationBackgrounds.personal_info}
+                blurPx={10}
+            />
+            <div className={styles.card}>
+                <p className={styles.code}>404</p>
+                <h1 className={styles.heading}>Page not found</h1>
+                <p className={styles.message}>
+                    We couldn&apos;t find the page you&apos;re looking for.
+                </p>
+                <Link prefetch={false} href="/" className={styles.homeLink}>
+                    Return to the home page
+                </Link>
+            </div>
+        </main>
     );
 };
 

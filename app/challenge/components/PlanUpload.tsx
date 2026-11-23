@@ -112,16 +112,21 @@ export default function PlanUpload({
                 setOutcome({ kind: "graded" });
                 if (justPassed) onPassed();
             } else {
-                setOutcome(
-                    describeError(
-                        response.status,
-                        response.body as ChallengeErrorBody
-                    )
-                );
-                // A broken plan still counts as an attempt, so refresh the count.
-                loadChallengeStatus()
-                    .then(onStatusChange)
-                    .catch(() => {});
+                // Grading can succeed before the completion email fails. Read the
+                // saved result before asking the applicant to submit the plan again.
+                const latest = await loadChallengeStatus().catch(() => null);
+                if (latest) onStatusChange(latest);
+                if (latest?.complete && !status.complete) {
+                    setOutcome({ kind: "graded" });
+                    onPassed();
+                } else {
+                    setOutcome(
+                        describeError(
+                            response.status,
+                            response.body as ChallengeErrorBody
+                        )
+                    );
+                }
             }
         } catch {
             setOutcome({

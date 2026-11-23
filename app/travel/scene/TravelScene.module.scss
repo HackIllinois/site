@@ -1,0 +1,56 @@
+.scene {
+    --train-left: 23.0555556%;
+    --train-width: 47.4305556%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 217.5vw;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, transparent 80%, #a53b20);
+    }
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}
+.background,
+.foreground,
+.fixedTree,
+.movingLayer {
+    position: absolute;
+    inset: 0;
+}
+.drift {
+    position: relative;
+}
+.train {
+    position: absolute;
+    left: var(--train-left);
+    top: 13.9208174%;
+    width: var(--train-width);
+}
+@media (max-width: 700px) {
+    .scene {
+        height: 601.99005vw;
+        --train-left: -37.0646766%;
+        --train-width: 108.4577114%;
+    }
+    .train {
+        top: 21.4876033%;
+    }
+}
+@media (prefers-reduced-motion: reduce), (scripting: none) {
+    // CSS also handles preference changes immediately and protects the first paint.
+    .movingLayer,
+    .drift {
+        transform: none !important;
+    }
+}

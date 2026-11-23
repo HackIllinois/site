@@ -1,24 +1,33 @@
 "use client";
 
-import { EventCountdownPill } from "@/components/EventCountdown/EventCountdown";
-import Navbar from "@/components/Navbar/Navbar";
-import Footer from "@/components/Footer/Footer";
-import { ResourcesButton } from "@/components/ResourcesButton/ResourcesButton";
+import { prizesEnabled } from "@/app/prizes/availability";
 import { clearFooterTheme } from "@/app/register/general/constants/registration";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { ThemeProvider } from "@mui/material/styles";
+import Footer from "@/components/Footer/Footer";
+import Navbar from "@/components/Navbar/Navbar";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import theme from "../theme";
-import { montserrat, tsukimi, jersey, rye, specialElite } from "../theme/fonts";
+import {
+    montserrat,
+    tsukimi,
+    jersey,
+    oswald,
+    rye,
+    specialElite
+} from "../theme/fonts";
 import "./globals.scss";
+
+const StandardSiteLayout = dynamic(() => import("./StandardSiteLayout"));
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
-    const hideFooter = pathname === "/schedule" || pathname === "/faq";
+    const hideFooter = pathname === "/faq";
+    const isFrontier =
+        ["/", "/challenge", "/job-board", "/travel"].includes(pathname) ||
+        (prizesEnabled && pathname === "/prizes");
     const isRegister = pathname.startsWith("/register");
 
-    // Drop step-specific inline footer vars when leaving /register so :root navy returns.
+    // Drop step-specific inline footer vars when leaving /register so the :root default returns.
     useEffect(() => {
         if (isRegister) return;
         clearFooterTheme();
@@ -27,61 +36,76 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
             <head>
-                <title>HackIllinois 2026</title>
-                <meta
-                    name="description"
-                    content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
-                />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1, viewport-fit=cover"
-                />
+                {!isFrontier && (
+                    <>
+                        <title>HackIllinois 2027</title>
+                        <meta
+                            name="description"
+                            content="Forge Your Frontier at HackIllinois 2027. February 26 – 28 2027. Registrations open."
+                        />
+                        <meta
+                            name="viewport"
+                            content="width=device-width, initial-scale=1, viewport-fit=cover"
+                        />
 
-                {/* OpenGraph */}
-                <meta property="og:title" content="HackIllinois 2026" />
-                <meta
-                    property="og:description"
-                    content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
-                />
-                <meta property="og:type" content="website" />
-                <meta property="og:site_name" content="HackIllinois" />
-                <meta property="og:url" content="https://hackillinois.org" />
-                <meta
-                    property="og:image"
-                    content="https://hackillinois.org/og-image.jpg"
-                />
-                <meta property="og:image:width" content="1200" />
-                <meta property="og:image:height" content="630" />
-                <meta property="og:image:alt" content="HackIllinois 2026" />
+                        {/* OpenGraph */}
+                        <meta property="og:title" content="HackIllinois 2027" />
+                        <meta
+                            property="og:description"
+                            content="Forge Your Frontier at HackIllinois 2027. February 26 – 28 2027. Registrations open."
+                        />
+                        <meta property="og:type" content="website" />
+                        <meta property="og:site_name" content="HackIllinois" />
+                        <meta
+                            property="og:url"
+                            content="https://hackillinois.org"
+                        />
+                        <meta
+                            property="og:image"
+                            content="https://hackillinois.org/og-image.jpg"
+                        />
+                        <meta property="og:image:width" content="1200" />
+                        <meta property="og:image:height" content="630" />
+                        <meta
+                            property="og:image:alt"
+                            content="HackIllinois 2027"
+                        />
 
-                {/* Twitter */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="HackIllinois 2026" />
-                <meta
-                    name="twitter:description"
-                    content="Launch your Legacy and build your dreams at HackIllinois 2026. February 27 - March 1, 2026. Registrations open."
-                />
-                <meta
-                    name="twitter:image"
-                    content="https://hackillinois.org/og-image.jpg"
-                />
+                        {/* Twitter */}
+                        <meta
+                            name="twitter:card"
+                            content="summary_large_image"
+                        />
+                        <meta
+                            name="twitter:title"
+                            content="HackIllinois 2027"
+                        />
+                        <meta
+                            name="twitter:description"
+                            content="Forge Your Frontier at HackIllinois 2027. February 26 – 28 2027. Registrations open."
+                        />
+                        <meta
+                            name="twitter:image"
+                            content="https://hackillinois.org/og-image.jpg"
+                        />
+                        <link
+                            href="https://fonts.googleapis.com/css2?family=Ultra&display=swap"
+                            rel="stylesheet"
+                        />
+                    </>
+                )}
             </head>
             <body
-                className={`${montserrat.variable} ${tsukimi.variable} ${jersey.variable} ${rye.variable} ${specialElite.variable}
-                            ${montserrat.className}${isRegister ? " register-route" : ""}`} // compatibility
+                className={`${montserrat.variable} ${tsukimi.variable} ${jersey.variable} ${oswald.variable} ${rye.variable} ${specialElite.variable}
+                            ${montserrat.className}`} // compatibility
             >
-                <AppRouterCacheProvider>
-                    <ThemeProvider theme={theme}>
-                        <Navbar />
-                        {children}
-                        <ResourcesButton />
-                        {!hideFooter && <Footer />}
-                        <EventCountdownPill
-                            startDateTime="2026-02-27T14:00:00-06:00"
-                            endDateTime="2026-03-01T06:00:00-06:00"
-                        />
-                    </ThemeProvider>
-                </AppRouterCacheProvider>
+                <Navbar />
+                {isFrontier ? (
+                    children
+                ) : (
+                    <StandardSiteLayout>{children}</StandardSiteLayout>
+                )}
+                {!hideFooter && <Footer />}
             </body>
         </html>
     );

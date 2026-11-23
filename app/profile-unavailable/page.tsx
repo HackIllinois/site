@@ -1,7 +1,10 @@
 "use client";
 
 import { GradientButton } from "@/components/GradientButton/GradientButton";
+import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
+import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 import { Box, Typography } from "@mui/material";
+import { HackIllinoisWordmark } from "@/components/HackIllinoisWordmark/HackIllinoisWordmark";
 
 const RSVPUnavailable = () => {
     return (
@@ -13,19 +16,8 @@ const RSVPUnavailable = () => {
                 overflowY: "auto"
             }}
         >
-            <Box
-                sx={{
-                    position: "fixed",
-                    display: "flex",
-                    width: "100%",
-                    height: "100vh",
-                    backgroundImage: `url("/registration/backgrounds/personal_info.svg")`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    transform: "scale(1.25)",
-                    zIndex: -1
-                }}
+            <RegistrationBackground
+                background={registrationBackgrounds.personal_info}
             />
             <Box
                 sx={{
@@ -41,17 +33,7 @@ const RSVPUnavailable = () => {
                     px: 3
                 }}
             >
-                <img
-                    src="/registration/hackastra-logo.png"
-                    alt="Hackastra Logo"
-                    style={{
-                        width: "auto",
-                        maxHeight: "110px",
-                        maxWidth: "100%",
-                        marginBottom: "40px",
-                        objectFit: "contain"
-                    }}
-                />
+                <HackIllinoisWordmark sx={{ mb: "40px" }} />
 
                 <Box
                     sx={{

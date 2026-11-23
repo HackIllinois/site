@@ -1,5 +1,6 @@
 import { isAuthenticated, loadSubmission, registrationAlive } from "@/util/api";
 import { RegistrationApplicationSubmitted } from "@/util/types";
+import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -16,6 +17,7 @@ export const useRegistrationAuth = ({
 }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
+    const [loadError, setLoadError] = useState("");
     const [authenticated, setAuthenticated] = useState(false);
     const [submission, setSubmission] =
         useState<RegistrationApplicationSubmitted | null>(null);
@@ -25,7 +27,7 @@ export const useRegistrationAuth = ({
             router.push("/registration-closed");
             return;
         }
-        if (isProtected) {
+        if (isProtected && !LOCAL_AUTH_ENABLED) {
             try {
                 const alive = await registrationAlive();
                 if (!alive) {
@@ -33,27 +35,37 @@ export const useRegistrationAuth = ({
                     return;
                 }
             } catch {
-                alert(
+                setLoadError(
                     "Could not check if registration is still active; please try again later."
                 );
                 return;
             }
         }
 
-        const isAuthenticatedResult = await isAuthenticated();
+        const isAuthenticatedResult = await isAuthenticated().catch(() => {
+            setLoadError("Could not check your sign-in. Please try again.");
+            return false;
+        });
         if (!isAuthenticatedResult) {
             setIsLoading(false);
             setAuthenticated(false);
             return;
         }
         setAuthenticated(true);
+        if (typeof window !== "undefined") {
+            sessionStorage.removeItem("googleAuthRedirectAttempted");
+        }
 
         try {
             if (shouldLoadSubmission) {
                 const submissionData = await loadSubmission();
                 setSubmission(submissionData);
             }
-        } catch {
+        } catch (error: any) {
+            if (error?.error !== "NotFound")
+                setLoadError(
+                    "Could not load your application. Please try again."
+                );
         } finally {
             setIsLoading(false);
         }
@@ -65,6 +77,7 @@ export const useRegistrationAuth = ({
 
     return {
         isLoading,
+        loadError,
         authenticated,
         submission
     };

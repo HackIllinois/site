@@ -9,6 +9,7 @@ import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import Confetti from "react-confetti";
 import ChallengeGate, {
     SaloonLoading,
@@ -730,7 +731,13 @@ function Saloon() {
                                     <strong>Welcome to the gang</strong>
                                     You passed Saloon Rush with a best haul of{" "}
                                     {status.bestScore}. Keep tuning if you like:
-                                    reviewers see your best score.
+                                    reviewers see your best score.{" "}
+                                    <Link
+                                        className={styles.btnBrass}
+                                        href="/register/general"
+                                    >
+                                        Finish registration
+                                    </Link>
                                 </div>
                             )}
                             <PlanUpload

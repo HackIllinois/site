@@ -15,6 +15,7 @@ import {
     EventType,
     MentorProfile,
     JudgeProfile,
+    JobPosting,
     UserInfo
 } from "./types";
 
@@ -47,17 +48,22 @@ function isAuthProvider(value: string | null): value is AuthProvider {
 }
 
 export function getStoredAuthProvider(): AuthProvider {
-    const stored = sessionStorage.getItem(AUTH_PROVIDER_KEY);
-    return isAuthProvider(stored) ? stored : "github";
+    const stored =
+        typeof window !== "undefined"
+            ? sessionStorage.getItem(AUTH_PROVIDER_KEY)
+            : null;
+    return isAuthProvider(stored) ? stored : "google";
 }
 
-export function authenticate(provider: AuthProvider = "github"): void {
-    sessionStorage.setItem(AUTH_PROVIDER_KEY, provider);
+export function authenticate(provider: AuthProvider = "google"): void {
+    if (typeof window !== "undefined") {
+        sessionStorage.setItem(AUTH_PROVIDER_KEY, provider);
 
-    const callbackUrl = `${window.location.origin}${window.location.pathname}`;
+        const callbackUrl = `${window.location.origin}${window.location.pathname}`;
 
-    const authUrl = `${API_BASE_URL}/auth/login/${provider}/?redirect=${encodeURIComponent(callbackUrl)}`;
-    window.location.replace(authUrl);
+        const authUrl = `${API_BASE_URL}/auth/login/${provider}/?redirect=${encodeURIComponent(callbackUrl)}`;
+        window.location.replace(authUrl);
+    }
 }
 
 // If status is good, returns response. If status is bad, throws the error response.
@@ -98,18 +104,6 @@ export async function requestv2(
     return responseJSON;
 }
 
-export async function getChallenge(
-    shouldThrow?: boolean
-): Promise<ChallengeStatus> {
-    const res = await requestv2("GET", "/registration/challenge/").catch(e => {
-        if (shouldThrow) {
-            handleError(e);
-        }
-    });
-    return res;
-}
-
-// Like getChallenge, but throws the error body (NotFound, MissingPro, ...) so the caller can handle it.
 export async function loadChallengeStatus(): Promise<ChallengeStatus> {
     return await requestv2("GET", "/registration/challenge/");
 }
@@ -325,22 +319,69 @@ export async function getDevUsers(): Promise<DevUsersResponse> {
     return requestDevApi("GET", "/dev/users/");
 }
 
+/**
+ * Local-only login. Prefer Adonix `POST /dev/login/` (adonix#382). If that route
+ * is missing, fall back to main's `POST /dev/seed/fresh-user/` +
+ * `GET /auth/dev/login/:userId/` so local test-user pills work either way.
+ * Prod/preview builds never call this — they use GitHub/Google OAuth.
+ */
 export async function devLogin(
     body: DevLoginRequest = {}
-): Promise<DevLoginResponse> {
-    if (body.userId) {
-        try {
-            await requestv2(
-                "GET",
-                `/auth/dev/login/${encodeURIComponent(body.userId)}/`
-            );
-            return {
-                user: { userId: body.userId, name: "", email: "" },
-                jwt: ""
-            };
-        } catch {
-            return requestDevApi("POST", "/dev/login/", body);
+): Promise<DevLoginResponse | { success: boolean; userId: string }> {
+    const postResponse = await fetch(`${API_BASE_URL}/dev/login/`, {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+    });
+    const postBody = await postResponse.json().catch(() => ({}));
+    if (postResponse.ok) {
+        return postBody as DevLoginResponse;
+    }
+
+    const errorCode =
+        typeof postBody === "object" && postBody && "error" in postBody
+            ? String((postBody as { error?: string }).error)
+            : "";
+    const message =
+        (typeof postBody === "object" &&
+            postBody &&
+            "message" in postBody &&
+            String((postBody as { message?: string }).message)) ||
+        errorCode ||
+        `Request failed with status ${postResponse.status}`;
+
+    if (errorCode === "UserNotFound" || errorCode === "NotFound") {
+        throw new Error(message);
+    }
+    if (postResponse.status !== 404 && postResponse.status !== 405) {
+        throw new Error(message);
+    }
+
+    let userId = body.userId;
+    if (!userId) {
+        const seeded = await requestDevApi<{
+            users: Array<{ user: UserInfo }>;
+        }>("POST", "/dev/seed/fresh-user/", { count: 1 });
+        userId = seeded.users[0]?.user?.userId;
+        if (!userId) {
+            throw new Error("Failed to seed a fresh local test user.");
         }
     }
-    return requestDevApi("POST", "/dev/login/", body);
+
+    // Sets the HTTP-only jwt cookie (do not use requestv2 — it may force OAuth).
+    return requestDevApi(
+        "GET",
+        `/auth/dev/login/${encodeURIComponent(userId)}/`
+    );
+}
+
+export async function getJobPostings(): Promise<JobPosting[]> {
+    const response = await fetch(API_BASE_URL + "/job/", {
+        cache: "no-store",
+        signal: AbortSignal.timeout(8000)
+    });
+    if (!response.ok) throw new Error("Could not load job postings");
+    return response.json();
 }

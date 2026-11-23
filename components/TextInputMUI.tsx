@@ -1,9 +1,10 @@
-// import { RegistrationData } from "@/util/types";
+import Box from "@mui/material/Box";
 import { FormHelperText, SxProps, Theme } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import InputBase from "@mui/material/InputBase";
 import Typography from "@mui/material/Typography";
+import { BOX_SHADOW_FILTER } from "@/theme/shadows";
 
 interface TextInputProps {
     name: string;
@@ -59,7 +60,7 @@ const TextInput: React.FC<TextInputProps> = ({
                 {required && (
                     <span
                         style={{
-                            color: "#d32f2f",
+                            color: "#ffffff",
                             position: "absolute",
                             marginLeft: "-13px",
                             fontWeight: 500
@@ -76,52 +77,58 @@ const TextInput: React.FC<TextInputProps> = ({
                     {sublabel}
                 </Typography>
             </FormLabel>
-            <InputBase
-                name={name}
-                value={value}
-                onChange={onChange}
-                multiline={multiline}
-                placeholder={placeholder}
-                {...props}
-                sx={[
-                    theme => ({
-                        backgroundColor: "#f0f0f0",
-                        borderRadius: 6,
-                        px: multiline ? 2.5 : 3,
-                        py: multiline ? 2 : 0.5,
-                        color: accentColor,
-                        border: "2px solid #f0f0f0",
-                        "&.Mui-focused": {
-                            // Mui props needed because of the MUI component structure... the focus is on the input _inside_ this div
-                            backgroundColor: "#ffffff", // lighter on focus
-                            boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
-                        },
-                        "&.Mui-error": {
-                            borderColor: theme.palette.error.main
-                        }
-                    }),
-                    ...(Array.isArray(inputSx) ? inputSx : [inputSx])
-                ]}
-                slotProps={{
-                    // for some reason you can't access the placeholder from general sx, hit the input slot directly
-                    input: {
-                        sx: {
-                            "::placeholder": {
-                                color: placeholderColor,
-                                opacity: 0.8
+            <Box sx={{ filter: BOX_SHADOW_FILTER }}>
+                <InputBase
+                    name={name}
+                    value={value}
+                    onChange={onChange}
+                    multiline={multiline}
+                    placeholder={placeholder}
+                    {...props}
+                    sx={[
+                        theme => ({
+                            width: "100%",
+                            backgroundColor: "#ffffff",
+                            clipPath:
+                                "polygon(12px 0%, calc(100% - 12px) 0%, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0% calc(100% - 12px), 0% 12px)",
+                            px: multiline ? 2.5 : 3,
+                            py: multiline ? 2 : 0.5,
+                            color: accentColor,
+                            //border: "2px solid #ffffff",
+                            "&.Mui-focused": {
+                                // Mui props needed because of the MUI component structure... the focus is on the input _inside_ this div
+                                backgroundColor: "#ffffff" // lighter on focus
+                                //boxShadow: "0 0 4px 2px #ffffff40" // subtle glow
                             },
-                            "&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus":
-                                {
-                                    WebkitBoxShadow:
-                                        "0 0 0 1000px #f0f0f0 inset", // same as your bg
-                                    WebkitTextFillColor: accentColor
-                                }
+                            "&.Mui-error": {
+                                borderColor: theme.palette.error.main
+                            }
+                        }),
+                        ...(Array.isArray(inputSx) ? inputSx : [inputSx])
+                    ]}
+                    slotProps={{
+                        // for some reason you can't access the placeholder from general sx, hit the input slot directly
+                        input: {
+                            sx: {
+                                "::placeholder": {
+                                    color: placeholderColor,
+                                    opacity: 0.8
+                                },
+                                "&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus":
+                                    {
+                                        WebkitBoxShadow:
+                                            "0 0 0 1000px #ffffff inset", // same as your bg
+                                        WebkitTextFillColor: accentColor
+                                    }
+                            }
                         }
-                    }
-                }}
-            />
+                    }}
+                />
+            </Box>
             {helperText && (
-                <FormHelperText sx={{ mt: 0.5 }}>{helperText}</FormHelperText>
+                <FormHelperText sx={{ mt: 0.5, color: "#ffffff" }}>
+                    {helperText}
+                </FormHelperText>
             )}
         </FormControl>
     );

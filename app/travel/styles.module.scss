@@ -1,1043 +1,259 @@
-// Main container
-.main {
-    width: 100vw;
-    min-height: auto;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-    position: relative;
+@font-face {
+    font-family: "Travel Ultra";
+    src: url("/travel/frontier/fonts/ultra/ultra.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
 }
-
-// Main section
-.travelSection {
+@font-face {
+    font-family: "Travel Manrope";
+    src: url("/travel/frontier/fonts/manrope/manrope.woff2") format("woff2");
+    font-weight: 200 800;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Travel Hand";
+    src: url("/travel/frontier/fonts/caveat/caveat.woff2") format("woff2");
+    font-weight: 400 700;
+    font-display: swap;
+}
+.page {
+    --font-family-primary: "Travel Manrope", sans-serif;
+    color: #e7cea5;
+    background-color: #a53b20;
     position: relative;
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(
-        to bottom,
-        #16133e 0%,
-        #3a3069 30%,
-        #5b3a7d 60%,
-        #8b5fa8 100%
-    );
-    z-index: 1;
-    overflow: hidden;
-
-    &::before {
+    isolation: isolate;
+    padding-bottom: 2vw;
+    min-height: 100vh;
+    color-scheme: light;
+    container-type: inline-size;
+    :focus-visible {
+        outline: 3px solid #fff4cb;
+        outline-offset: 4px;
+        box-shadow: 0 0 0 7px #492a15;
+    }
+}
+.hero {
+    position: relative;
+    height: 71.1vw;
+    max-height: 1200px;
+    padding-top: 15.5vw;
+    h1 {
+        font:
+            clamp(30px, 2.62vw, 48px)/1.05 "Travel Ultra",
+            Georgia,
+            serif;
+        text-align: center;
+        letter-spacing: 0.02em;
+        color: white;
+        text-shadow:
+            2px 4px #6b1d10,
+            -1px -1px #6b1d10,
+            1px -1px #6b1d10,
+            -1px 1px #6b1d10;
+    }
+}
+// The board art is sliced from the Figma vector export into a sign cap, a
+// plank section and a foot. Only the planks stretch with the content, so the
+// HackIllinois sign always keeps its designed proportions.
+.board {
+    // Slice heights and content insets are in artwork units (1220 wide on
+    // desktop, 378 on mobile), so they scale with the board width.
+    --board-width: min(84.4cqw, 1420px);
+    --board-top: calc(var(--board-width) * 440 / 1220);
+    --board-bottom: calc(var(--board-width) * 172 / 1220);
+    position: relative;
+    isolation: isolate;
+    width: var(--board-width);
+    margin: 0 auto;
+    padding: calc(var(--board-width) * 424 / 1220) 9.1%
+        calc(var(--board-width) * 170 / 1220);
+    background: url("/travel/frontier/board/middle.svg") 0
+        calc(var(--board-top) - 1px) / 100%
+        calc(100% - var(--board-top) - var(--board-bottom) + 2px) no-repeat;
+    &::before,
+    &::after {
         content: "";
         position: absolute;
-        top: 0;
         left: 0;
         width: 100%;
-        height: 80vh;
-        background-image:
-            radial-gradient(
-                2px 2px at 20px 30px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 60px 70px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 50px 160px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 90px 40px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 130px 80px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 160px 120px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 200px 50px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 250px 90px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 300px 140px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 350px 60px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 400px 100px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 450px 30px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 500px 150px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 550px 70px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 600px 110px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 650px 40px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 700px 130px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 750px 80px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 800px 20px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 850px 160px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 40px 200px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 100px 240px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 150px 280px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 220px 320px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 280px 220px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 340px 260px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 400px 300px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 460px 340px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 520px 240px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 580px 280px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 640px 320px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 15px 110px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 85px 190px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 120px 15px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 180px 250px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 240px 180px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 310px 30px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 380px 210px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 430px 270px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 510px 90px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 570px 190px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 630px 30px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 690px 230px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 760px 170px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 820px 50px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 870px 290px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 35px 350px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 95px 370px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 145px 390px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 205px 360px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 265px 380px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 335px 355px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 395px 375px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 475px 345px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 535px 385px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 605px 365px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 665px 350px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 735px 390px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 795px 360px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 865px 380px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 25px 75px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 75px 125px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 110px 195px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 165px 235px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 215px 45px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 270px 95px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 325px 175px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 365px 225px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 415px 285px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 485px 55px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 540px 115px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 595px 165px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 655px 205px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 710px 255px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 770px 305px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 830px 355px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 880px 395px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 5px 145px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 55px 315px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 105px 25px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 155px 85px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 225px 135px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 295px 195px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 355px 245px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 425px 295px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 495px 345px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 565px 395px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 625px 25px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 685px 95px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 745px 145px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 805px 215px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 875px 275px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 30px 325px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 80px 365px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 140px 395px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 190px 55px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 260px 105px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 320px 175px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 380px 235px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 440px 315px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 510px 375px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 580px 25px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 640px 85px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 710px 155px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 780px 205px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 850px 285px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 890px 355px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 45px 185px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 115px 265px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 175px 345px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 235px 385px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 305px 65px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 375px 125px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 445px 195px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 515px 275px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 585px 335px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 645px 395px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 715px 45px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 785px 115px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 855px 185px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 895px 265px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 65px 225px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 125px 305px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 195px 375px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 255px 55px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 325px 115px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 395px 185px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 465px 255px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 535px 325px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 595px 385px,
-                rgba(255, 255, 255, 0.9),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 665px 45px,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 735px 105px,
-                rgba(255, 255, 255, 0.7),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 805px 175px,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            ),
-            radial-gradient(
-                2px 2px at 875px 245px,
-                rgba(255, 255, 255, 0.8),
-                transparent
-            ),
-            radial-gradient(
-                1px 1px at 895px 315px,
-                rgba(255, 255, 255, 0.6),
-                transparent
-            );
-        background-size: 900px 400px;
-        background-repeat: repeat;
-        pointer-events: none;
-        z-index: 0;
-        animation: twinkle 3s ease-in-out infinite;
+        z-index: -1;
+        background: center / 100% 100% no-repeat;
+    }
+    &::before {
+        top: 0;
+        height: var(--board-top);
+        background-image: url("/travel/frontier/board/top.svg");
+    }
+    &::after {
+        bottom: 0;
+        height: var(--board-bottom);
+        background-image: url("/travel/frontier/board/bottom.svg");
     }
 }
-
-@keyframes twinkle {
-    0%,
-    100% {
-        opacity: 1;
-        filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8))
-            drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
-    }
-    50% {
-        opacity: 0.5;
-        filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
-    }
-}
-
-.headerText {
-    font-family: "Tsukimi Rounded", sans-serif;
-    font-size: 40px;
-    font-weight: 700;
-    fill: white;
-    text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
-    @media (max-width: 768px) {
-        font-size: 50px;
-    }
-}
-
-// Content wrapper - Over the ellipse
-.content {
-    position: relative;
-    margin: 0;
+.introduction {
+    padding: 2vw 3vw 2.7vw;
+    background: #40270f url("/travel/frontier/panels/intro-plank.webp") center /
+        100% 100% no-repeat;
+    box-shadow: 0 4px 5px #28150880;
     text-align: center;
-    z-index: 10;
-}
-
-// Title
-.title {
-    font-family: "Tsukimi Rounded", sans-serif;
-    font-size: 3.5rem;
-    font-weight: 700;
-    text-align: center;
-    margin-top: 15rem;
-    color: white;
-    text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
-
-    @media (max-width: 768px) {
-        font-size: 2.5rem;
-        margin-bottom: 1.5rem;
+    h2 {
+        font:
+            400 clamp(20px, 2.22vw, 36px)/1.45 "Travel Ultra",
+            Georgia,
+            serif;
+        letter-spacing: -0.022em;
+        color: #dbc49e;
+        text-shadow: 1px 3px #68481e;
     }
 }
-
-// Section titles
-.sectionTitle {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #401a79;
-    text-align: center;
-    margin-bottom: 1rem;
-    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
-
-    @media (max-width: 768px) {
-        font-size: 1.4rem;
+.introCopy {
+    font-size: clamp(14px, 1.47vw, 23px);
+    line-height: 1.5;
+    p {
+        margin-top: 2vw;
     }
 }
-
-// Requirements section
-.requirementsSection {
-    margin-bottom: 5rem;
-    position: relative;
-    z-index: 10;
-}
-
-.qualifiedSection,
-.disclaimerSection {
-    margin-bottom: 3rem;
-    position: relative;
-    z-index: 10;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.contactSection {
-    margin-bottom: 3rem;
-    position: relative;
-    z-index: 10;
-}
-
-.reimbursementSection {
-    margin-top: 4rem;
-    margin-bottom: 6rem;
-    position: relative;
-    z-index: 10;
-}
-
-.requirementText {
-    font-family: "Montserrat", sans-serif;
-    font-size: 18px;
-    color: #401a79;
-    line-height: 1.7;
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-
-    @media (max-width: 768px) {
-        font-size: 14px;
-    }
-}
-
-// Requirements grid
-.requirementsGrid {
+.requirements {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    max-width: 1000px;
-    gap: 3rem;
-    margin: 2rem auto;
-    @media (max-width: 700px) {
+    gap: 5vw;
+    padding: 3vw 6%;
+    list-style: none;
+    li {
+        min-width: 0;
+        aspect-ratio: 210 / 380;
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 23% 16% 40%;
+        color: #40390e;
+        background: url("/travel/frontier/paper/requirement-card.webp") center /
+            100% 100% no-repeat;
+        font:
+            500 clamp(19px, 2.1vw, 34px)/1.2 "Travel Hand",
+            cursive;
+        text-align: center;
+        transition: transform 160ms ease;
+    }
+    li:nth-child(1) {
+        //transform: rotate(-2deg);
+        &:hover {
+            transform: rotate(-2deg) translateY(-2px) rotate(-1.4deg);
+        }
+    }
+    li:nth-child(2) {
+        &:hover {
+            transform: rotate(4deg) translateY(-2px) rotate(1.4deg);
+        }
+    }
+    li:nth-child(3) {
+        //transform: rotate(3deg);
+        &:hover {
+            transform: rotate(3deg) translateY(-2px) rotate(-1.4deg);
+        }
     }
 }
-
-.requirementItem {
+.warning {
+    font-size: clamp(14px, 1.39vw, 22px);
+    line-height: 1.5;
     text-align: center;
+    padding: 2vw 6%;
+    background: #40270f url("/travel/frontier/panels/warning-plank.webp")
+        center / 100% 100% no-repeat;
+    box-shadow: 0 4px 5px #28150880;
 }
-
-.iconContainer {
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.details {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    margin-top: 4.5vw;
+    align-items: start;
 }
-
-.requirementIcon {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 10px rgba(255, 255, 255, 0.3));
+.policy {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #d4bc97;
+    p + p {
+        margin-top: 8px;
+    }
+    a {
+        text-decoration: underline;
+        overflow-wrap: anywhere;
+    }
+    strong {
+        font-weight: 600;
+    }
 }
-
-// Disclaimer
-.disclaimerText {
-    font-family: "Montserrat", sans-serif;
-    font-size: 18px;
-    color: #401a79;
-    line-height: 1.7;
-    text-align: center;
-    max-width: 1500px;
-    margin: 0 auto 1rem;
-    @media (max-width: 768px) {
+@media (max-width: 700px) {
+    .page {
+        padding-bottom: 24px;
+    }
+    .hero {
+        height: 222vw;
+        max-height: none;
+        padding-top: 34vw;
+        h1 {
+            max-width: 300px;
+            margin: auto;
+            font-size: clamp(26px, 7.1vw, 42px);
+        }
+    }
+    .board {
+        --board-width: 94cqw;
+        --board-top: calc(var(--board-width) * 150 / 378);
+        --board-bottom: calc(var(--board-width) * 80 / 378);
+        padding: calc(var(--board-width) * 139 / 378) 10%
+            calc(var(--board-width) * 64 / 378);
+        background-image: url("/travel/frontier/board/mobile/middle.svg");
+        &::before {
+            background-image: url("/travel/frontier/board/mobile/top.svg");
+        }
+        &::after {
+            background-image: url("/travel/frontier/board/mobile/bottom.svg");
+        }
+    }
+    .introduction {
+        background: none;
+        box-shadow: none;
+        padding: 0;
+    }
+    .introduction h2 {
+        background: #40270f;
+        padding: 18px 10px;
+        font-size: clamp(17px, 4.3vw, 25px);
+        line-height: 1.4;
+        box-shadow: 0 4px 5px #28150880;
+    }
+    .introCopy {
+        background: #40270f;
+        padding: 18px 12px;
+        margin-top: 16px;
+        font-size: 14px;
+        p {
+            margin: 0;
+        }
+        p + p {
+            margin-top: 20px;
+        }
+    }
+    .requirements {
+        gap: 5%;
+        padding: 18px 0 25px;
+        li {
+            aspect-ratio: 0.53;
+            font-size: clamp(12px, 3.4vw, 22px);
+            // The paper in the card art spans roughly 10%-85% of its width.
+            padding: 28% 15% 42% 12%;
+        }
+    }
+    .warning {
+        background-image: none;
+        padding: 16px 10px;
         font-size: 14px;
     }
-}
-
-.disclaimerText.italic {
-    font-style: italic;
-}
-// US Map
-.usMapContainer {
-    position: relative;
-    margin: 3rem auto;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 6rem;
-}
-
-.usMap {
-    height: auto;
-    filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.2));
-    flex-shrink: 0;
-}
-
-// Interactive Map Container
-.mapContainer {
-    width: fit-content;
-    position: relative;
-    margin: 0 auto;
-    filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.2));
-}
-
-.composableMap {
-    width: 100%;
-    height: auto;
-}
-
-.legendWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 5rem;
-}
-
-.legend {
-    width: auto;
-    height: auto;
-    max-width: 400px;
-    object-fit: contain;
-    flex-shrink: 0;
-}
-
-.internationalWrapper {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-
-    &:hover .internationalPopup {
-        opacity: 1;
-        visibility: visible;
-    }
-}
-
-.internationalIcon {
-    width: 20vw;
-    height: auto;
-    max-width: 200px;
-    min-width: 100px;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 10px rgba(255, 255, 255, 0.3));
-}
-
-.internationalPopup {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    height: auto;
-    opacity: 0;
-    visibility: hidden;
-    transition:
-        opacity 0.3s ease,
-        visibility 0.3s ease;
-    pointer-events: none;
-    z-index: 100;
-}
-
-// Contact section
-.contactText {
-    font-family: "Montserrat", sans-serif;
-    font-size: 16px;
-    color: #401a79;
-    text-align: center;
-    margin: 0;
-}
-
-.contactLink {
-    color: #1f93d1;
-    text-decoration: underline;
-    font-weight: 500;
-    transition: color 0.3s ease;
-
-    &:hover {
-        color: #1f93d1;
-        text-decoration: underline;
-    }
-}
-
-// Bottom wave - Over the ellipse at the bottom
-.bottomWave {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10;
-    pointer-events: none;
-}
-
-.bottomWaveImage {
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-    object-position: top;
-    display: block;
-    background-color: #fad0ff;
-}
-
-// Responsive adjustments
-@media (max-width: 900px) {
-    .contactSection {
-        margin-bottom: 5rem;
-    }
-
-    .requirementsGrid {
-        gap: 2rem;
-    }
-
-    .usMapContainer {
-        flex-wrap: wrap;
-    }
-
-    .usMap {
-        max-width: 100%;
-    }
-
-    .internationalPopup {
-        width: 250px;
-    }
-}
-
-@media (max-width: 480px) {
-    .title {
-        font-size: 2rem;
-    }
-    .requirementsGrid {
-        gap: 1.5rem;
-    }
-}
-
-.headerText {
-    font-family: "Tsukimi Rounded", sans-serif;
-}
-
-.contentContainer {
-    max-width: 1500px;
-    margin: 0 auto;
-    margin-top: -200px;
-    @media (max-width: 2100px) {
-        margin-top: -130px;
-    }
-    @media (max-width: 1700px) {
-        margin-top: -100px;
-    }
-    @media (max-width: 1400px) {
-        margin-top: 50px;
+    .details {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 30px;
+        margin-top: 45px;
     }
 }

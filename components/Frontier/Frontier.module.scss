@@ -1,0 +1,51 @@
+@font-face {
+    font-family: "Frontier Ultra";
+    src: url("/frontier/fonts/ultra.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Frontier Manrope";
+    src: url("/frontier/fonts/manrope.woff2") format("woff2");
+    font-weight: 200 800;
+    font-display: swap;
+}
+.page {
+    --display: "Frontier Ultra", Georgia, serif;
+    --body: "Frontier Manrope", Arial, sans-serif;
+    --condensed: var(--font-oswald), "Arial Narrow", sans-serif;
+    color: #ffefdb;
+    background: #28150d;
+    position: relative;
+    overflow: clip;
+    container-type: inline-size;
+    font-family: var(--body);
+    :where(p, span, div, blockquote, a, label, cite, button, input, section) {
+        font-family: inherit;
+    }
+    :where(h1, h2, h3) {
+        font-family: var(--display);
+        font-weight: 400;
+    }
+    picture {
+        display: block;
+    }
+    picture > img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    :focus-visible {
+        outline: 3px solid #fff;
+        outline-offset: 3px;
+        box-shadow: 0 0 0 6px #542914;
+    }
+}
+.hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}

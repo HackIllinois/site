@@ -1,0 +1,56 @@
+{
+    "100": ["Illinois", "Indiana", "Wisconsin"],
+    "150": ["Iowa"],
+    "200": [
+        "Kansas",
+        "Kentucky",
+        "Minnesota",
+        "Missouri",
+        "Nebraska",
+        "Ohio",
+        "West Virginia"
+    ],
+    "250": [
+        "Alabama",
+        "Arkansas",
+        "Connecticut",
+        "Delaware",
+        "District of Columbia",
+        "Florida",
+        "Georgia",
+        "Maryland",
+        "Massachusetts",
+        "Mississippi",
+        "New Jersey",
+        "New York",
+        "North Dakota",
+        "Oklahoma",
+        "Oregon",
+        "Pennsylvania",
+        "Rhode Island",
+        "South Dakota",
+        "Tennessee",
+        "Virginia"
+    ],
+    "275": [
+        "Colorado",
+        "Louisiana",
+        "North Carolina",
+        "South Carolina",
+        "Washington"
+    ],
+    "300": [
+        "Arizona",
+        "Idaho",
+        "Michigan",
+        "Nevada",
+        "New Hampshire",
+        "New Mexico",
+        "Texas",
+        "Utah",
+        "Vermont",
+        "Wyoming"
+    ],
+    "350": ["California", "Maine", "Montana"],
+    "400": ["Alaska", "Hawaii"]
+}

@@ -1,19 +1,8 @@
-import { ReactNode } from "react";
-import { Metadata } from "next";
-import { Box } from "@mui/material";
+import type { ReactNode } from "react";
+import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-    title: "HackIllinois | Saloon Rush"
-};
+export const metadata: Metadata = { title: "HackIllinois | Saloon Rush" };
 
-export default function ChallengeLayout({
-    children
-}: {
-    children?: ReactNode;
-}) {
-    return (
-        <Box>
-            <main>{children}</main>
-        </Box>
-    );
+export default function ChallengeLayout({ children }: { children: ReactNode }) {
+    return children;
 }

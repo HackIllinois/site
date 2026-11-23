@@ -1,60 +1,14 @@
-export const STATE_REIMBURSEMENT: Record<string, number> = {
-    // Midwest
-    Minnesota: 200,
-    Iowa: 150,
-    Missouri: 200,
-    "North Dakota": 250,
-    "South Dakota": 250,
-    Nebraska: 200,
-    Kansas: 200,
-    Michigan: 300,
-    Ohio: 200,
-    Illinois: 100,
-    Indiana: 100,
-    Wisconsin: 100,
+import stateRates from "./reimbursement-data/state-rates.json";
 
-    // Northeast
-    Connecticut: 250,
-    "Rhode Island": 250,
-    "New Hampshire": 300,
-    Vermont: 300,
-    Maine: 350,
-    Delaware: 250,
-    DC: 250,
-    Maryland: 250,
-    Massachusetts: 250,
-    "New York": 250,
-    "New Jersey": 250,
-    Pennsylvania: 250,
-    Virginia: 250,
-    "West Virginia": 200,
+// These are the supported reimbursement tiers. Move states between lists in JSON.
+type ReimbursementTier = 100 | 150 | 200 | 250 | 275 | 300 | 350 | 400;
+const groups: Record<ReimbursementTier, string[]> = stateRates;
 
-    // South
-    Alabama: 250,
-    Mississippi: 250,
-    Louisiana: 275,
-    Tennessee: 250,
-    Kentucky: 200,
-    "South Carolina": 275,
-    "North Carolina": 275,
-    Arkansas: 250,
-    Georgia: 250,
-    Florida: 250,
-
-    // West
-    Oklahoma: 250,
-    Texas: 300,
-    Washington: 275,
-    Colorado: 275,
-    Arizona: 300,
-    Oregon: 250,
-    Idaho: 300,
-    Montana: 350,
-    Wyoming: 300,
-    Utah: 300,
-    Nevada: 300,
-    California: 350,
-    "New Mexico": 300,
-    Hawaii: 400,
-    Alaska: 400
-};
+export const REIMBURSEMENT_TIERS = Object.keys(groups)
+    .map(Number)
+    .sort((a, b) => a - b);
+export const STATE_REIMBURSEMENT: Record<string, number> = Object.fromEntries(
+    Object.entries(groups).flatMap(([amount, states]) =>
+        states.map(state => [state, Number(amount)])
+    )
+);

@@ -6,6 +6,7 @@ import { MouseEventHandler } from "react";
 import {
     NAV_BUTTON_THEMES,
     navButtonAsset,
+    SUBMIT_PLANK_ASSET,
     type NavButtonThemeId
 } from "./navButtonThemes";
 
@@ -18,6 +19,8 @@ interface NavButtonProps {
     /** No arrow plaque (uses default SVG). Prefer for mobile. */
     noDirection?: boolean;
     isMobile?: boolean;
+    /** Rectangular (non-arrow) plank, used for the final Submit button. */
+    submitPlank?: boolean;
     onClick?: MouseEventHandler<HTMLButtonElement>;
     href?: string;
     disabled?: boolean;
@@ -31,6 +34,7 @@ const NavigationButton: React.FC<NavButtonProps> = ({
     pointRight,
     noDirection,
     isMobile,
+    submitPlank = false,
     onClick,
     href,
     disabled,
@@ -38,8 +42,10 @@ const NavigationButton: React.FC<NavButtonProps> = ({
 }) => {
     const themeConfig = NAV_BUTTON_THEMES[theme] ?? NAV_BUTTON_THEMES.sunset1;
     // One right-pointing plaque per theme; mirror for back. Mobile keeps upright.
-    const bg = navButtonAsset(themeConfig.id);
-    const mirror = !noDirection && !isMobile && !pointRight;
+    const bg = submitPlank
+        ? SUBMIT_PLANK_ASSET
+        : navButtonAsset(themeConfig.id);
+    const mirror = !submitPlank && !noDirection && !isMobile && !pointRight;
     const shadowAlpha = Math.round(themeConfig.shadowOpacity * 255)
         .toString(16)
         .padStart(2, "0");
@@ -53,16 +59,18 @@ const NavigationButton: React.FC<NavButtonProps> = ({
                 alignItems: "center",
                 justifyContent: "center",
                 // Extra inset toward the tip so long labels stay inside the plaque
-                pl: isMobile
-                    ? 3
-                    : pointRight
-                      ? { xs: 2.5, md: 3 }
-                      : { xs: 4, md: 5 },
-                pr: isMobile
-                    ? 3
-                    : pointRight
-                      ? { xs: 4, md: 5 }
-                      : { xs: 2.5, md: 3 },
+                pl:
+                    isMobile || submitPlank
+                        ? 3
+                        : pointRight
+                          ? { xs: 2.5, md: 3 }
+                          : { xs: 4, md: 5 },
+                pr:
+                    isMobile || submitPlank
+                        ? 3
+                        : pointRight
+                          ? { xs: 4, md: 5 }
+                          : { xs: 2.5, md: 3 },
                 height: { xs: "50px", md: "66px" },
                 width: isMobile ? "auto" : { xs: "210px", md: "260px" },
                 minWidth: isMobile ? 120 : 210,
@@ -101,7 +109,7 @@ const NavigationButton: React.FC<NavButtonProps> = ({
                     maxWidth: "100%",
                     color: "white",
                     textAlign: "center",
-                    fontFamily: "'Tsukimi Rounded', sans-serif",
+                    fontFamily: "var(--font-oswald), 'Oswald', sans-serif",
                     fontWeight: 700,
                     fontSize: {
                         xs: "13px",

@@ -1,4 +1,9 @@
 import type { NavButtonThemeId } from "@/components/Form/NavigationButton/navButtonThemes";
+import type {
+    RegistrationBackgroundArt,
+    RegistrationBackgroundId
+} from "@/modules/RegistrationBackgrounds";
+import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 
 /** Site footer palette; driven by CSS variables on :root. */
 export type FooterTheme = {
@@ -8,12 +13,12 @@ export type FooterTheme = {
     linkHover: string;
 };
 
-/** Legacy space-theme navy — default outside /register. */
+/** Warm canyon/wood Frontier palette — site-wide footer default. */
 export const SITE_FOOTER_THEME: FooterTheme = {
-    bgFrom: "#16133e",
-    bgTo: "#2a2654",
-    link: "#a78bfa",
-    linkHover: "#c4b5fd"
+    bgFrom: "#983723",
+    bgTo: "#A5372F",
+    link: "#FFD8B3",
+    linkHover: "#FFE8D0"
 };
 
 /**
@@ -51,8 +56,9 @@ export function clearFooterTheme(): void {
     }
 }
 
-export type Step = {
-    id: string;
+export type Step = RegistrationBackgroundArt & {
+    /** Scene key: also the name of the source art in public/registration/backgrounds/. */
+    id: RegistrationBackgroundId;
     name: string;
     /** Short label for nav plaques (fits 260×66 arrow). */
     navLabel: string;
@@ -64,7 +70,6 @@ export type Step = {
      * (public/registration/backgrounds/{id}.svg y=727 / V839 strip).
      */
     footerTheme: FooterTheme;
-    use_svg?: boolean;
 };
 
 const woodLink = {
@@ -74,58 +79,59 @@ const woodLink = {
 
 export const steps: Step[] = [
     {
+        ...registrationBackgrounds.personal_info,
         id: "personal_info",
-        name: "Personal Information",
+        name: "Personal Details",
         navLabel: "PERSONAL",
         color: "#3A2541",
         buttonTheme: "sunset1",
-        footerTheme: { bgFrom: "#983723", bgTo: "#A5372F", ...woodLink },
-        use_svg: true
+        footerTheme: { bgFrom: "#983723", bgTo: "#A5372F", ...woodLink }
     },
     {
-        id: "background_info",
+        ...registrationBackgrounds.canyon_background_info,
+        id: "canyon_background_info",
         name: "Background Information",
         navLabel: "BACKGROUND",
-        color: "#3e66c2ff",
+        color: "#7A1F6E",
         buttonTheme: "sunset2",
-        footerTheme: { bgFrom: "#712398", bgTo: "#862FA5", ...woodLink },
-        use_svg: true
+        // Sampled from the canyon art's bottom band.
+        footerTheme: { bgFrom: "#A62F8B", bgTo: "#BD3AAC", ...woodLink }
     },
     {
+        ...registrationBackgrounds.app_questions,
         id: "app_questions",
         name: "Application Questions",
         navLabel: "APPLICATION",
         color: "#01313B",
         buttonTheme: "sunset6",
-        footerTheme: { bgFrom: "#372398", bgTo: "#4735BB", ...woodLink },
-        use_svg: true
+        footerTheme: { bgFrom: "#372398", bgTo: "#4735BB", ...woodLink }
     },
     {
+        ...registrationBackgrounds.attending_hack,
         id: "attending_hack",
         name: "Attending HackIllinois",
         navLabel: "ATTENDING",
         color: "#87304E",
         buttonTheme: "sunset7",
-        footerTheme: { bgFrom: "#236F98", bgTo: "#357ABB", ...woodLink },
-        use_svg: true
+        footerTheme: { bgFrom: "#236F98", bgTo: "#357ABB", ...woodLink }
     },
     {
+        ...registrationBackgrounds.review,
         id: "review",
         name: "Review & Submit",
         navLabel: "REVIEW",
         color: "#983300",
-        buttonTheme: "sunset1",
-        footerTheme: { bgFrom: "#983723", bgTo: "#A5372F", ...woodLink },
-        use_svg: true
+        buttonTheme: "ocean",
+        footerTheme: { bgFrom: "#983723", bgTo: "#A5372F", ...woodLink }
     },
     {
+        ...registrationBackgrounds.confirmation,
         id: "confirmation",
         name: "Confirmation",
         navLabel: "CONFIRMATION",
         color: "#480021",
         buttonTheme: "sunset7",
-        footerTheme: { bgFrom: "#236F98", bgTo: "#357ABB", ...woodLink },
-        use_svg: true
+        footerTheme: { bgFrom: "#236F98", bgTo: "#357ABB", ...woodLink }
     }
 ];
 
@@ -140,5 +146,24 @@ export const page_slugs = [
 
 export const OTHER_SCHOOL_OPTION = "Other - Not Listed";
 
+export const MLH_PRIVACY_POLICY_URL =
+    "https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md";
+
+export const MLH_CONTEST_TERMS_URL =
+    "https://github.com/MLH/mlh-policies/blob/main/contest-terms.md";
+
 export const MLH_CODE_OF_CONDUCT_URL =
     "https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md";
+
+export const PRO_TRACK_NAME = "HackOutlaws Pro Track";
+
+/** Page describing the pro path/track. */
+export const PRO_TRACK_URL = "/challenge";
+
+/** Hardware interest form. Leave empty to hide the link until it exists. */
+export const HARDWARE_INTEREST_FORM_URL = "";
+
+export const LEGAL_URL = "/legal";
+
+export const AGE_ELIGIBILITY_NOTE =
+    "You must be at least 18 years old on or before February 26th 2027 to attend HackIllinois 2027";

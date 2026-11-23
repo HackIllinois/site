@@ -1,0 +1,23 @@
+"use client";
+import { EventCountdownPill } from "@/components/EventCountdown/EventCountdown";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "@/theme";
+
+export default function StandardSiteLayout({
+    children
+}: {
+    children: React.ReactNode;
+}) {
+    return (
+        <AppRouterCacheProvider>
+            <ThemeProvider theme={theme}>
+                {children}
+                <EventCountdownPill
+                    startDateTime="2026-02-27T14:00:00-06:00"
+                    endDateTime="2026-03-01T06:00:00-06:00"
+                />
+            </ThemeProvider>
+        </AppRouterCacheProvider>
+    );
+}
