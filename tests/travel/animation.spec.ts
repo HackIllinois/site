@@ -200,3 +200,55 @@ test("left parallax branch extends unclipped past its right tip", async ({
     }
     expect(metrics.maxDrop).toBeLessThan(30);
 });
+
+test("cactus is layered in the foreground above the train", async ({
+    page
+}, testInfo) => {
+    await page.goto("/travel");
+    const isMobile = testInfo.project.name === "mobile";
+    // Center of the cactus torso in Figma artwork coordinates.
+    const point = isMobile ? { x: 325, y: 615 } : { x: 1184, y: 580 };
+
+    const result = await page.evaluate(async ({ x, y }) => {
+        const backdrop = document.querySelector(
+            '[data-scene-layer="backdrop"]'
+        )!;
+        const train = backdrop.querySelector('[data-scene-layer="train"]')!;
+        const foreground = backdrop.querySelector(
+            '[data-scene-layer="foreground"]'
+        )!;
+        const bgImg = backdrop.querySelector(
+            "picture:not([data-scene-layer]) img"
+        ) as HTMLImageElement;
+        const fgImg = foreground.querySelector("img") as HTMLImageElement;
+
+        const samplePixel = async (img: HTMLImageElement) => {
+            await img.decode();
+            const canvas = document.createElement("canvas");
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            const ctx = canvas.getContext("2d")!;
+            ctx.drawImage(img, 0, 0);
+            const [r, g, b, a] = ctx.getImageData(x, y, 1, 1).data;
+            return { r, g, b, a };
+        };
+
+        const fgAfterTrain = Boolean(
+            train.compareDocumentPosition(foreground) &
+            Node.DOCUMENT_POSITION_FOLLOWING
+        );
+
+        return {
+            fgAfterTrain,
+            fgPixel: await samplePixel(fgImg),
+            bgPixel: await samplePixel(bgImg)
+        };
+    }, point);
+
+    expect(result.fgAfterTrain).toBe(true);
+    // Foreground has the opaque green cactus at this coordinate.
+    expect(result.fgPixel.a).toBeGreaterThan(240);
+    expect(result.fgPixel.g).toBeGreaterThan(result.fgPixel.r);
+    // Background has desert sand (red > green) instead of the green cactus.
+    expect(result.bgPixel.r).toBeGreaterThan(result.bgPixel.g);
+});
