@@ -9,6 +9,7 @@ type SceneArtProps = {
         src: string;
         width: number;
         height: number;
+        format?: "png" | "webp";
         small?: number;
         largeWidth?: number;
     };
@@ -20,12 +21,13 @@ function sceneSources(
     src: string,
     width: number,
     small?: number,
-    large?: number
+    large?: number,
+    format = "webp"
 ) {
     return [
-        small && `${src}-small.webp ${small}w`,
-        `${src}.webp ${width}w`,
-        large && `${src}-large.webp ${large}w`
+        small && `${src}-small.${format} ${small}w`,
+        `${src}.${format} ${width}w`,
+        large && `${src}-large.${format} ${large}w`
     ]
         .filter(Boolean)
         .join(", ");
@@ -51,7 +53,8 @@ export default function SceneArt({
                         phone.src,
                         phone.width,
                         phone.small,
-                        phone.largeWidth
+                        phone.largeWidth,
+                        phone.format
                     )}
                     sizes="100vw"
                 />
