@@ -16,21 +16,12 @@ const destinations = [
 export default function Navbar() {
     const path = usePathname();
     const [open, setOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
     const header = useRef<HTMLElement>(null);
     const toggle = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
         setOpen(false);
     }, [path]);
-
-    // Slide the bar up slightly once the page moves, so it hugs the top edge.
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 4);
-        onScroll();
-        window.addEventListener("scroll", onScroll, { passive: true });
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
 
     useEffect(() => {
         if (!open) return;
@@ -52,12 +43,7 @@ export default function Navbar() {
     }, [open]);
 
     return (
-        <header
-            ref={header}
-            className={styles.header}
-            data-home={path === "/"}
-            data-scrolled={scrolled}
-        >
+        <header ref={header} className={styles.header} data-home={path === "/"}>
             <div className={styles.bar}>
                 <Link
                     href="/"

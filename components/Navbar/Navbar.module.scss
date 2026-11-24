@@ -4,7 +4,7 @@
     position: fixed;
     z-index: 1100;
     inset: 0 0 auto;
-    // Top inset, shared with the scroll lift below so it can never overshoot.
+    // Top inset. The bar never moves on scroll.
     --nav-inset: 1.88vw;
     color: white;
     font-family: var(--font-oswald), sans-serif;
@@ -20,24 +20,17 @@
         --nav-inset: 3.47vw;
     }
 }
-// Only the logo, links and toggle are lifted on scroll; the backdrop above
-// stays where it is.
 .bar {
     position: relative;
     padding: var(--nav-inset) 3.95% 0 3.47%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    transition: transform 200ms ease;
 }
-.header[data-scrolled="true"] .bar {
-    // Stops at the viewport edge on narrow desktop widths.
+// The landing page's bar always sits at its old scrolled position: lifted,
+// with the backdrop above left where it is. It never moves on scroll.
+.header[data-home="true"] .bar {
     transform: translateY(calc(-1 * min(20px, var(--nav-inset))));
-}
-@media (prefers-reduced-motion: reduce) {
-    .bar {
-        transition: none;
-    }
 }
 .logo {
     display: block;
@@ -72,8 +65,8 @@
     .bar {
         padding: 12px 16px;
     }
-    // The short mobile bar stays put on scroll.
-    .header[data-scrolled="true"] .bar {
+    // The short mobile bar is not lifted.
+    .header[data-home="true"] .bar {
         transform: none;
     }
     .logo {
