@@ -20,8 +20,7 @@ const StandardSiteLayout = dynamic(() => import("./StandardSiteLayout"));
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
-    const hideFooter =
-        pathname === "/" || pathname === "/schedule" || pathname === "/faq";
+    const hideFooter = pathname === "/schedule" || pathname === "/faq";
     const isFrontier = [
         "/",
         "/challenge",

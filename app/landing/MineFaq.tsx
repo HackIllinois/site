@@ -50,7 +50,7 @@ const questions = [
 ] as const;
 
 export default function MineFaq() {
-    const [active, setActive] = useState<number | null>(4);
+    const [active, setActive] = useState<number | null>();
 
     function item(index: number) {
         const [question, answer] = questions[index];

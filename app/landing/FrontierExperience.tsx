@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
     motion,
+    useMotionValue,
     useReducedMotion,
     useScroll,
     useSpring,
@@ -14,10 +15,15 @@ import shared from "@/components/Frontier/Frontier.module.scss";
 import { socials } from "@/modules/FooterData";
 import FrontierNewsletter from "./FrontierNewsletter";
 import MarqueeClock from "./MarqueeClock";
+import MarqueeSign from "./MarqueeSign";
 import MineFaq from "./MineFaq";
+import SaloonEntrance, { type SaloonMetrics } from "./SaloonEntrance";
 import styles from "../page.module.scss";
 
 const sequence = "/landing/frontier/sequence/";
+// background.png is 11799px tall at 1440px wide; 14.4px = 1cqw.
+const LEGACY_HEIGHT = 11799 / 14.4;
+const SALOON_TOP = 3335 / 14.4;
 const socialOrder = [
     "Instagram",
     "Facebook",
@@ -32,12 +38,67 @@ const orderedSocials = socialOrder.flatMap(name =>
 
 export default function FrontierExperience() {
     const canvasRef = useRef<HTMLElement>(null);
-    const reduceMotion = useReducedMotion();
-    const { scrollYProgress } = useScroll({
-        target: canvasRef,
+    const trackRef = useRef<HTMLDivElement>(null);
+    const sceneRef = useRef<HTMLDivElement>(null);
+    const metrics = useRef<SaloonMetrics | null>(null);
+    const metricsVersion = useMotionValue(0);
+    const reduceMotion = useReducedMotion() ?? false;
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const track = trackRef.current;
+        const scene = sceneRef.current;
+        if (!canvas || !track || !scene) return;
+        const measure = () => {
+            const vh = scene.offsetHeight;
+            metrics.current = {
+                cq: canvas.clientWidth / 100,
+                vh,
+                top: track.offsetTop,
+                pin: track.offsetHeight - vh,
+                canvasTop: canvas.getBoundingClientRect().top + window.scrollY
+            };
+            metricsVersion.set(metricsVersion.get() + 1);
+        };
+        measure();
+        const observer = new ResizeObserver(measure);
+        observer.observe(canvas);
+        observer.observe(scene);
+        return () => observer.disconnect();
+    }, [metricsVersion]);
+
+    const { scrollY } = useScroll();
+    const { scrollYProgress: pin } = useScroll({
+        target: trackRef,
         offset: ["start start", "end end"]
     });
-    const progress = useSpring(scrollYProgress, {
+    const { scrollYProgress: approach } = useScroll({
+        target: trackRef,
+        offset: ["start end", "start start"]
+    });
+
+    // Every animation below was tuned against the canvas before the saloon
+    // entrance was pinned. Map the real scroll back onto that layout: the
+    // pinned stretch walks from the track top to the saloon top, and
+    // everything after it is shifted up by the extra scroll the pin adds.
+    const legacyProgress = useTransform(() => {
+        // Read every input before any early return so all are tracked.
+        metricsVersion.get();
+        const scroll = scrollY.get();
+        const m = metrics.current;
+        if (!m) return 0;
+        const y = scroll - m.canvasTop;
+        const saloonTop = SALOON_TOP * m.cq;
+        let legacyY = y;
+        if (y > m.top + m.pin) {
+            legacyY = y - (m.top + m.pin - saloonTop);
+        } else if (y > m.top) {
+            legacyY = m.top + ((saloonTop - m.top) * (y - m.top)) / m.pin;
+        }
+        const scrollable = LEGACY_HEIGHT * m.cq - window.innerHeight;
+        return Math.min(1, Math.max(0, legacyY / scrollable));
+    });
+    const progress = useSpring(legacyProgress, {
         stiffness: 90,
         damping: 24,
         mass: 0.42
@@ -53,39 +114,26 @@ export default function FrontierExperience() {
         [0.06, 0.23],
         reduceMotion ? [1, 1] : [1.03, 1]
     );
-    const buildingY = useTransform(
-        scrollYProgress,
-        [0.09, 0.18, 0.202, 0.207, 0.292],
-        reduceMotion
-            ? ["0cqw", "0cqw", "0cqw", "0cqw", "0cqw"]
-            : ["18cqw", "10cqw", "-2.41cqw", "1.42cqw", "66.54cqw"]
-    );
-    const buildingScale = useTransform(
+    const cloudY = useTransform(
         progress,
-        [0.09, 0.16, 0.18, 0.214, 0.292],
-        reduceMotion ? [1, 1, 1, 1, 1] : [0.86, 1.16, 1.16, 1.16, 7.2]
+        [0, 0.2],
+        reduceMotion ? ["0cqw", "0cqw"] : ["0cqw", "-4cqw"]
     );
-    const buildingOpacity = useTransform(
+    // Saloon lighting: in once the bartender has scrolled past and the
+    // testimonial tables come up; out quickly as the saloon floor leaves.
+    const shaderOpacity = useTransform(
         progress,
-        [0.07, 0.1, 0.286, 0.294],
-        reduceMotion ? [1, 1, 1, 1] : [0, 1, 1, 0]
-    );
-    const doorwayBackdropOpacity = useTransform(
-        progress,
-        [0.18, 0.19, 0.296, 0.312],
-        reduceMotion ? [0, 0, 0, 0] : [0, 1, 1, 0]
-    );
-    const entranceClosedOpacity = useTransform(
-        progress,
-        [0.202, 0.207],
-        [1, 0]
-    );
-    const entranceOpeningOpacity = useTransform(
-        progress,
-        [0.202, 0.207, 0.212, 0.217],
+        [0.385, 0.41, 0.585, 0.6],
         [0, 1, 1, 0]
     );
-    const entranceOpenOpacity = useTransform(progress, [0.212, 0.217], [0, 1]);
+    const shaderVisibility = useTransform(shaderOpacity, o =>
+        o > 0 ? "visible" : "hidden"
+    );
+    const noteY = useTransform(
+        progress,
+        [0.8, 0.95],
+        reduceMotion ? ["0cqw", "0cqw"] : ["6cqw", "0cqw"]
+    );
     const bartenderY = useTransform(
         progress,
         [0.27, 0.43],
@@ -180,42 +228,48 @@ export default function FrontierExperience() {
                     className={styles.motionCanvas}
                     aria-labelledby="event-name"
                 >
-                    {/* 1. This is your new background without the sign */}
-                    <Image
-                        src={sequence + "background.png"}
-                        alt=""
-                        aria-hidden="true"
-                        width={1440}
-                        height={11799}
-                        className={styles.background}
-                        priority
-                        unoptimized
-                    />
-
-                    {/* 2. Add the independent sign layer here */}
-                    <div className={styles.signLayer} aria-hidden="true">
+                    {/* The desert above the saloon, and the saloon onward
+                        (shifted down by the pinned entrance). */}
+                    <div className={styles.backgroundTop} aria-hidden="true">
                         <Image
-                            src={sequence + "sign.png"}
-                            alt="HackIllinois Sign"
-                            width={1000}
-                            height={800}
+                            src={sequence + "background.png"}
+                            alt=""
+                            width={1440}
+                            height={11799}
+                            priority
                             unoptimized
                         />
                     </div>
+                    <div className={styles.backgroundBottom} aria-hidden="true">
+                        <Image
+                            src={sequence + "background.png"}
+                            alt=""
+                            width={1440}
+                            height={11799}
+                            unoptimized
+                        />
+                    </div>
+
+                    <MarqueeSign>
+                        <MarqueeClock />
+                        <Link
+                            href="/register/general"
+                            className={styles.registerHotspot}
+                            aria-label="Register for HackIllinois 2027"
+                        />
+                    </MarqueeSign>
 
                     <div className={styles.navCover} aria-hidden="true" />
 
                     <h1 id="event-name" className={shared.hidden}>
                         HackIllinois 2027: Forge Your Frontier
                     </h1>
-                    <MarqueeClock />
-                    <Link
-                        href="/register/general"
-                        className={styles.registerHotspot}
-                        aria-label="Register for HackIllinois 2027"
-                    />
 
-                    <div className={styles.cloudWindow} aria-hidden="true">
+                    <motion.div
+                        className={styles.cloudWindow}
+                        style={{ y: cloudY }}
+                        aria-hidden="true"
+                    >
                         <div className={styles.cloudTrack}>
                             {[0, 1].map(copy => (
                                 <Image
@@ -228,80 +282,20 @@ export default function FrontierExperience() {
                                 />
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
 
-                    <motion.div
-                        className={styles.mountains}
-                        style={{ y: mountainY, scale: mountainScale }}
-                        aria-hidden="true"
-                    >
-                        <Image
-                            src={sequence + "rocks-behind-building.png"}
-                            alt=""
-                            width={1440}
-                            height={1601}
-                            unoptimized
-                        />
-                    </motion.div>
-                    {/* <div className={styles.saloonBridge} aria-hidden="true" /> */}
-                    <motion.div
-                        className={styles.entranceBackdrop}
-                        style={{ opacity: doorwayBackdropOpacity }}
-                        aria-hidden="true"
+                    <SaloonEntrance
+                        trackRef={trackRef}
+                        sceneRef={sceneRef}
+                        pin={pin}
+                        approach={approach}
+                        metrics={metrics}
+                        metricsVersion={metricsVersion}
+                        reduceMotion={reduceMotion}
+                        mountainY={mountainY}
+                        mountainScale={mountainScale}
+                        bartenderY={bartenderY}
                     />
-                    <motion.div
-                        className={styles.building}
-                        style={{
-                            y: buildingY,
-                            scale: buildingScale,
-                            opacity: buildingOpacity
-                        }}
-                    >
-                        <motion.div
-                            className={`${styles.buildingFrame} ${styles.buildingFrameBase} ${styles.buildingFramePreOpen}`}
-                            style={{ opacity: entranceClosedOpacity }}
-                        >
-                            <Image
-                                src={sequence + "hackoutlaws-building.png"}
-                                alt="The HackOutlaws saloon"
-                                width={1969}
-                                height={1561}
-                                unoptimized
-                            />
-                        </motion.div>
-                        <motion.div
-                            className={`${styles.buildingFrame} ${styles.buildingFramePreOpen}`}
-                            style={{ opacity: entranceOpeningOpacity }}
-                        >
-                            <Image
-                                src={
-                                    sequence +
-                                    "hackoutlaws-building-opening.png"
-                                }
-                                alt=""
-                                width={1969}
-                                height={1561}
-                                unoptimized
-                            />
-                        </motion.div>
-                        <motion.div
-                            className={`${styles.buildingFrame} ${styles.buildingFrameOpen}`}
-                            style={{ opacity: entranceOpenOpacity }}
-                        >
-                            <Image
-                                src={sequence + "hackoutlaws-building-open.png"}
-                                alt=""
-                                width={1966}
-                                height={1695}
-                                unoptimized
-                            />
-                        </motion.div>
-                        <Link
-                            href="/challenge"
-                            className={styles.challengeHotspot}
-                            aria-label="Learn more about HackOutlaws"
-                        />
-                    </motion.div>
 
                     <motion.div
                         className={`${styles.hangingLight} ${styles.lightOne}`}
@@ -341,6 +335,9 @@ export default function FrontierExperience() {
                         />
                     </motion.div>
 
+                    <h2 className={styles.hackersHeading}>
+                        Hear from the Hackers
+                    </h2>
                     <motion.div
                         className={`${styles.testimonial} ${styles.testimonialOne}`}
                         style={{ y: storyOneY, opacity: storyOneOpacity }}
@@ -378,6 +375,15 @@ export default function FrontierExperience() {
                         />
                     </motion.div>
 
+                    <motion.div
+                        className={styles.saloonShader}
+                        style={{
+                            opacity: shaderOpacity,
+                            visibility: shaderVisibility
+                        }}
+                        aria-hidden="true"
+                    />
+
                     <MineFaq />
 
                     <motion.div
@@ -401,6 +407,7 @@ export default function FrontierExperience() {
                     <motion.div
                         className={styles.howdyNote}
                         style={{
+                            y: noteY,
                             opacity: noteOpacity
                         }}
                     >
