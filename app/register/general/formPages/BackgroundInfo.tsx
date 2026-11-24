@@ -9,6 +9,7 @@ import {
     majorOptions,
     numHackathonOptions,
     OTHER_MAJOR_OPTION,
+    RACE_NOT_DISCLOSED,
     raceOptions,
     schoolOptions,
     stateOptions,
@@ -59,13 +60,28 @@ const BackgroundInfo = ({ formik, accentColor }: BackgroundInfoProps) => {
                     <SelectTextInput
                         name="race"
                         label="Race / Ethnicity"
+                        sublabel="Select all that apply"
+                        multiple
                         accentColor={accentColor}
                         required
                         options={toOptions(raceOptions)}
-                        value={values.race?.[0] || ""}
-                        onChange={value =>
-                            setFieldValue("race", value ? [value] : [])
-                        }
+                        value={values.race || []}
+                        onChange={value => {
+                            const picked = Array.isArray(value)
+                                ? value
+                                : [value];
+                            // Not disclosing excludes every other answer:
+                            // whichever was picked last wins.
+                            const last = picked[picked.length - 1];
+                            setFieldValue(
+                                "race",
+                                last === RACE_NOT_DISCLOSED
+                                    ? [RACE_NOT_DISCLOSED]
+                                    : picked.filter(
+                                          r => r !== RACE_NOT_DISCLOSED
+                                      )
+                            );
+                        }}
                         error={!!touched.race && Boolean(errors.race)}
                         helperText={
                             touched.race && errors.race

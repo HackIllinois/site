@@ -116,6 +116,11 @@ const buildSections = (
         key: "application",
         title: "Application Questions",
         rows: [
+            {
+                label: "Why hackathons / HackIllinois",
+                value: values.application3,
+                wide: true
+            },
             { label: "Software rank", value: values.interestSoftware },
             { label: "Hardware rank", value: values.interestHardware },
             {
@@ -136,17 +141,12 @@ const buildSections = (
                 wide: true
             },
             {
-                label: "Why hackathons / HackIllinois",
-                value: values.application3,
-                wide: true
-            },
-            {
                 label: "Anything else (optional)",
                 value: values.applicationOptional,
                 wide: true
             },
             {
-                label: "Project portfolio (optional)",
+                label: "Supplemental materials (optional)",
                 value: values.portfolioLink
             },
             {
@@ -184,7 +184,7 @@ const buildSections = (
                 value: values.travelAcknowledge ? "I understand" : undefined
             },
             {
-                label: "VC involvement",
+                label: "VC involvement (optional)",
                 value: withOther(
                     values.vcInvolvement,
                     OTHER_VC_PLEASE_SPECIFY,
@@ -197,7 +197,7 @@ const buildSections = (
                 wide: true
             },
             {
-                label: "Event suggestions",
+                label: "Event suggestions (optional)",
                 value: values.eventSuggestions,
                 wide: true
             }

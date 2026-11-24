@@ -4,6 +4,7 @@ import {
     OTHER_MAJOR_OPTION,
     OTHER_PLEASE_SPECIFY,
     OTHER_VC_PLEASE_SPECIFY,
+    raceOptions,
     schoolOptions,
     US_COUNTRY_OPTION
 } from "@/util/options";
@@ -174,6 +175,9 @@ export const hydrateDraftFormValues = (
         merged.otherSchool = "";
     }
 
+    // Drop answers from retired options so the applicant picks again.
+    merged.race = (draft.race ?? []).filter(r => raceOptions.includes(r));
+
     const savedMajor = (draft.major ?? "").trim();
     const majorSplit = splitSpecifyValue(savedMajor, OTHER_MAJOR_OPTION);
     if (majorSplit.selected === OTHER_MAJOR_OPTION) {
@@ -327,7 +331,7 @@ export const draftValidationSchemas = [
         interestHardware: Yup.string(),
         application1: maxWordsTest(150),
         application2: maxWordsTest(150),
-        application3: maxWordsTest(150),
+        application3: maxWordsTest(50),
         applicationOptional: maxWordsTest(200),
         pro: Yup.boolean(),
         hasResume: Yup.boolean(),
@@ -417,7 +421,7 @@ export const validationSchemas = [
             otherwise: schema => schema.notRequired()
         }),
         race: Yup.array()
-            .of(Yup.string())
+            .of(Yup.string().oneOf(raceOptions, "Please choose again"))
             .min(1, "Race / Ethnicity is required"),
         gender: Yup.string().required("Gender is required"),
         underrepresented: Yup.string().required("This question is required"),
@@ -461,7 +465,7 @@ export const validationSchemas = [
             .oneOf([true], "Please upload your resume"),
         application3: Yup.string()
             .required("This essay is required")
-            .concat(maxWordsTest(150)),
+            .concat(maxWordsTest(50)),
         applicationOptional: maxWordsTest(200),
         pro: Yup.boolean(),
         portfolioLink: Yup.string().url(
@@ -489,9 +493,7 @@ export const validationSchemas = [
             then: schema => schema.trim().required("Please specify"),
             otherwise: schema => schema.notRequired()
         }),
-        vcInvolvement: Yup.array()
-            .of(Yup.string())
-            .min(1, "Pick at least one option"),
+        vcInvolvement: Yup.array().of(Yup.string()),
         otherVcInvolvement: Yup.string().when("vcInvolvement", {
             is: (val: string[]) =>
                 Array.isArray(val) && val.includes(OTHER_VC_PLEASE_SPECIFY),
@@ -501,9 +503,7 @@ export const validationSchemas = [
         hardwareInterest: Yup.string()
             .required("This field is required")
             .concat(maxWordsTest(100)),
-        eventSuggestions: Yup.string()
-            .required("This field is required")
-            .concat(maxWordsTest(150)),
+        eventSuggestions: maxWordsTest(150),
         requestTravelReimbursement: Yup.boolean().required(
             "Please select Yes or No"
         ),

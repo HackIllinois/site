@@ -319,6 +319,8 @@ export const GeneralRegistration = () => {
             }
             try {
                 const body = valuesToDraftContent(formik.values);
+                // Optional here, but adonix requires the key on submit.
+                body.vcInvolvement ??= [];
                 await submitDraft(body);
                 setIsSubmitted(true);
             } catch (error: any) {
