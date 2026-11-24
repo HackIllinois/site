@@ -5,57 +5,6 @@ import type {
 } from "@/modules/RegistrationBackgrounds";
 import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
 
-/** Site footer palette; driven by CSS variables on :root. */
-export type FooterTheme = {
-    bgFrom: string;
-    bgTo: string;
-    link: string;
-    linkHover: string;
-};
-
-/** Warm canyon/wood Frontier palette — site-wide footer default. */
-export const SITE_FOOTER_THEME: FooterTheme = {
-    bgFrom: "#983723",
-    bgTo: "#A5372F",
-    link: "#FFD8B3",
-    linkHover: "#FFE8D0"
-};
-
-/**
- * Warm canyon/wood tint matching stage bottom bands + wooden plaque highlights.
- * Used for /register auth and as the fallback when a step theme is unavailable.
- */
-export const REGISTER_FOOTER_DEFAULT: FooterTheme = {
-    bgFrom: "#983723",
-    bgTo: "#A5372F",
-    link: "#FFD8B3",
-    linkHover: "#FFE8D0"
-};
-
-const FOOTER_CSS_VARS = [
-    "--footer-bg-from",
-    "--footer-bg-to",
-    "--footer-link",
-    "--footer-link-hover"
-] as const;
-
-export function applyFooterTheme(theme: FooterTheme): void {
-    if (typeof document === "undefined") return;
-    const root = document.documentElement;
-    root.style.setProperty("--footer-bg-from", theme.bgFrom);
-    root.style.setProperty("--footer-bg-to", theme.bgTo);
-    root.style.setProperty("--footer-link", theme.link);
-    root.style.setProperty("--footer-link-hover", theme.linkHover);
-}
-
-export function clearFooterTheme(): void {
-    if (typeof document === "undefined") return;
-    const root = document.documentElement;
-    for (const name of FOOTER_CSS_VARS) {
-        root.style.removeProperty(name);
-    }
-}
-
 export type Step = RegistrationBackgroundArt & {
     /** Scene key: also the name of the source art in public/registration/backgrounds/. */
     id: RegistrationBackgroundId;
@@ -65,16 +14,6 @@ export type Step = RegistrationBackgroundArt & {
     color: string;
     /** Textured plaque theme matching the stage sunset background. */
     buttonTheme: NavButtonThemeId;
-    /**
-     * Footer gradient matching the stage art bottom band
-     * (public/registration/backgrounds/{id}.svg y=727 / V839 strip).
-     */
-    footerTheme: FooterTheme;
-};
-
-const woodLink = {
-    link: REGISTER_FOOTER_DEFAULT.link,
-    linkHover: REGISTER_FOOTER_DEFAULT.linkHover
 };
 
 export const steps: Step[] = [
@@ -84,8 +23,7 @@ export const steps: Step[] = [
         name: "Personal Details",
         navLabel: "PERSONAL",
         color: "#3A2541",
-        buttonTheme: "sunset1",
-        footerTheme: { bgFrom: "#983723", bgTo: "#A5372F", ...woodLink }
+        buttonTheme: "sunset1"
     },
     {
         ...registrationBackgrounds.canyon_background_info,
@@ -93,9 +31,7 @@ export const steps: Step[] = [
         name: "Background Information",
         navLabel: "BACKGROUND",
         color: "#7A1F6E",
-        buttonTheme: "sunset2",
-        // Sampled from the canyon art's bottom band.
-        footerTheme: { bgFrom: "#A62F8B", bgTo: "#BD3AAC", ...woodLink }
+        buttonTheme: "sunset2"
     },
     {
         ...registrationBackgrounds.app_questions,
@@ -103,8 +39,7 @@ export const steps: Step[] = [
         name: "Application Questions",
         navLabel: "APPLICATION",
         color: "#01313B",
-        buttonTheme: "sunset6",
-        footerTheme: { bgFrom: "#372398", bgTo: "#4735BB", ...woodLink }
+        buttonTheme: "sunset6"
     },
     {
         ...registrationBackgrounds.attending_hack,
@@ -112,8 +47,7 @@ export const steps: Step[] = [
         name: "Attending HackIllinois",
         navLabel: "ATTENDING",
         color: "#87304E",
-        buttonTheme: "sunset7",
-        footerTheme: { bgFrom: "#236F98", bgTo: "#357ABB", ...woodLink }
+        buttonTheme: "sunset7"
     },
     {
         ...registrationBackgrounds.review,
@@ -121,8 +55,7 @@ export const steps: Step[] = [
         name: "Review & Submit",
         navLabel: "REVIEW",
         color: "#983300",
-        buttonTheme: "ocean",
-        footerTheme: { bgFrom: "#983723", bgTo: "#A5372F", ...woodLink }
+        buttonTheme: "ocean"
     },
     {
         ...registrationBackgrounds.confirmation,
@@ -130,8 +63,7 @@ export const steps: Step[] = [
         name: "Confirmation",
         navLabel: "CONFIRMATION",
         color: "#480021",
-        buttonTheme: "sunset7",
-        footerTheme: { bgFrom: "#236F98", bgTo: "#357ABB", ...woodLink }
+        buttonTheme: "sunset7"
     }
 ];
 
