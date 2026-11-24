@@ -247,8 +247,17 @@ test("VC and event suggestions can be left blank through submit", async ({
         "Code of Conduct",
         "Complaint Procedures"
     ]);
-    for (const link of await legalLinks.all()) {
-        await expect(link).toHaveAttribute("href", "/legal");
+    const legalTabs = [
+        "privacy-policy",
+        "terms-and-conditions",
+        "code-of-conduct",
+        "complaint-procedures"
+    ];
+    for (const [i, link] of (await legalLinks.all()).entries()) {
+        await expect(link).toHaveAttribute(
+            "href",
+            `/legal?tab=${legalTabs[i]}`
+        );
     }
 
     for (const field of [

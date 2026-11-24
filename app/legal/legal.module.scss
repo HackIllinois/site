@@ -1,9 +1,58 @@
-// The footer's top color (#983723), 18% darker.
-$background: #7d2d1d;
+// Darkest band at the bottom of the sunset art, so overscroll and any gap
+// below the art blend in.
+$base: #1e0431;
 
-// html and body are included so overscroll doesn't show the global black.
-:global(html):has(.page),
-:global(html):has(.page) :global(body),
-.page {
-    background-color: $background;
+// Only html gets a color: the art below sits at z-index -1, which paints
+// above the root background but under any in-flow block background.
+:global(html):has(.page) {
+    background-color: $base;
+}
+
+:global(html):has(.page) :global(body) {
+    background-color: transparent;
+}
+
+// Footer palette for this page. Inline vars set by /register take precedence
+// and are cleared by the root layout when leaving it.
+:global(html):has(.page) {
+    --footer-bg-from: #{$base};
+    --footer-bg-to: #13021f;
+    --footer-link: #ffb3dd;
+    --footer-link-hover: #ffd6ee;
+}
+
+// Fixed layer (not background-attachment: fixed, which iOS ignores), so the
+// scene stays put behind the long documents while they scroll.
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: $base;
+    background-image: url("/legal/background.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    // Desktop crops the square art top and bottom; keep sky and canyon floor.
+    background-position: center 35%;
+
+    // Portrait screens crop the sides instead, like the registration steps.
+    @media (max-aspect-ratio: 1/1) {
+        background-position: center top;
+    }
+}
+
+.panel {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 40px 40px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background-color: rgba(30, 4, 49, 0.78);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    @media (max-width: 599.95px) {
+        padding: 12px 18px 28px;
+        border-radius: 12px;
+    }
 }
