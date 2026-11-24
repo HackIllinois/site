@@ -149,13 +149,8 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                                 const newValues = Array.isArray(value)
                                     ? [...value]
                                     : [];
-                                if (newValues.includes(focusedValue)) {
-                                    onChange(
-                                        newValues.filter(
-                                            v => v !== focusedValue
-                                        )
-                                    );
-                                } else {
+                                // Add only: Enter may already have selected it.
+                                if (!newValues.includes(focusedValue)) {
                                     onChange([...newValues, focusedValue]);
                                 }
                             } else {

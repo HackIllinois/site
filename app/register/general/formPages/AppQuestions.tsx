@@ -7,7 +7,11 @@ import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Box, Grid, Link, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import SectionHeader from "../components/SectionHeader";
-import { PRO_TRACK_NAME, PRO_TRACK_URL } from "../constants/registration";
+import {
+    HARDWARE_INTEREST_FORM_URL,
+    PRO_TRACK_NAME,
+    PRO_TRACK_URL
+} from "../constants/registration";
 
 interface AppQuestionsProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
@@ -50,6 +54,28 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
 
             <Grid container columnSpacing={3} rowSpacing={{ xs: 3, md: 4 }}>
                 <Grid size={12}>
+                    <TextInput
+                        name="application3"
+                        label="Why are you interested in attending hackathons, and what do you hope to gain out of HackIllinois?"
+                        sublabel="max 50 words"
+                        accentColor={accentColor}
+                        multiline
+                        required
+                        minRows={4}
+                        value={values.application3}
+                        onChange={handleChange}
+                        error={
+                            !!touched.application3 &&
+                            Boolean(errors.application3)
+                        }
+                        helperText={
+                            touched.application3 ? errors.application3 : ""
+                        }
+                        inputProps={{ maxLength: 2000 }}
+                    />
+                </Grid>
+
+                <Grid size={12}>
                     <RankSelect
                         name="interestRank"
                         label="Which area of the hackathon are you most interested in? Please rank Software and Hardware from 1 (most interested) to 2 (least interested)."
@@ -72,6 +98,32 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                         error={!!rankError}
                         helperText={rankError}
                     />
+                    {HARDWARE_INTEREST_FORM_URL && (
+                        <Typography
+                            sx={{
+                                mt: 1,
+                                color: "#ffffff",
+                                fontFamily: "Montserrat",
+                                fontSize: "14px"
+                            }}
+                        >
+                            If you&apos;re interested in hardware, please fill
+                            out this brief{" "}
+                            <Link
+                                href={HARDWARE_INTEREST_FORM_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                sx={{
+                                    color: "#ffffff",
+                                    fontWeight: 600,
+                                    textDecorationColor: "#ffffff"
+                                }}
+                            >
+                                interest form
+                            </Link>
+                            !
+                        </Typography>
+                    )}
                 </Grid>
 
                 <Grid size={12}>
@@ -143,28 +195,6 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
 
                 <Grid size={12}>
                     <TextInput
-                        name="application3"
-                        label="Why are you interested in attending hackathons, and what do you hope to gain out of HackIllinois?"
-                        sublabel="max 150 words"
-                        accentColor={accentColor}
-                        multiline
-                        required
-                        minRows={4}
-                        value={values.application3}
-                        onChange={handleChange}
-                        error={
-                            !!touched.application3 &&
-                            Boolean(errors.application3)
-                        }
-                        helperText={
-                            touched.application3 ? errors.application3 : ""
-                        }
-                        inputProps={{ maxLength: 2000 }}
-                    />
-                </Grid>
-
-                <Grid size={12}>
-                    <TextInput
                         name="applicationOptional"
                         label="If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
                         sublabel="Optional, max 200 words"
@@ -189,7 +219,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 <Grid size={12}>
                     <TextInput
                         name="portfolioLink"
-                        label="Supplemental Materials - Project Portfolio"
+                        label="Upload any supplemental materials that you think might provide more context for your application, such as a project portfolio, etc."
                         sublabel="Optional. Link to a portfolio, GitHub, personal site, or a shared file (Google Drive, Dropbox, etc.)"
                         placeholder="https://"
                         accentColor={accentColor}

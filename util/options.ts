@@ -24,17 +24,17 @@ export const genderOptions: string[] = [
     "Prefer Not to Answer"
 ];
 
-// Standard (EEO-style) categories used on most job applications.
+export const RACE_NOT_DISCLOSED = "I choose not to disclose";
+
 export const raceOptions: string[] = [
-    "American Indian or Alaska Native",
+    "American Indian or Alaskan Native",
     "Asian",
     "Black or African American",
-    "Hispanic or Latino",
+    "Hispanic or Latinx",
+    RACE_NOT_DISCLOSED,
     "Middle Eastern or North African",
     "Native Hawaiian or Other Pacific Islander",
-    "White",
-    "Two or More Races",
-    "Prefer Not to Answer"
+    "White"
 ];
 
 export const numHackathonOptions: string[] = ["0", "1", "2-3", "4+"];

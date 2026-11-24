@@ -11,10 +11,9 @@ import {
     vcInvolvementOptions
 } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
-import { Box, Grid, Link, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { FormikProps } from "formik";
 import SectionHeader from "../components/SectionHeader";
-import { HARDWARE_INTEREST_FORM_URL } from "../constants/registration";
 
 interface AttendingHackProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
@@ -190,9 +189,8 @@ const AttendingHack = ({ formik, accentColor }: AttendingHackProps) => {
                 <Grid size={12} id="vcInvolvement">
                     <CheckboxGroup
                         name="vcInvolvement"
-                        label="How would you like to get involved with VCs?"
+                        label="In what ways would you like to get involved with VCs?"
                         accentColor={accentColor}
-                        required
                         options={toOptions(vcInvolvementOptions)}
                         value={values.vcInvolvement || []}
                         onChange={value => {
@@ -260,41 +258,16 @@ const AttendingHack = ({ formik, accentColor }: AttendingHackProps) => {
                         }
                         inputProps={{ maxLength: 1000 }}
                     />
-                    {HARDWARE_INTEREST_FORM_URL && (
-                        <Typography
-                            sx={{
-                                mt: 1,
-                                color: "#ffffff",
-                                fontFamily: "Montserrat",
-                                fontSize: "14px"
-                            }}
-                        >
-                            Please fill out this{" "}
-                            <Link
-                                href={HARDWARE_INTEREST_FORM_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                sx={{
-                                    color: "#ffffff",
-                                    fontWeight: 600,
-                                    textDecorationColor: "#ffffff"
-                                }}
-                            >
-                                interest form
-                            </Link>
-                            !
-                        </Typography>
-                    )}
                 </Grid>
 
                 <Grid size={12}>
                     <TextInput
                         name="eventSuggestions"
-                        label="What would you like to see at our event (e.g. new entertainment events, workshops, etc.)? Anything that would improve your experience."
-                        sublabel="New ideas or suggestions that we can consider implementing"
+                        label="What new activities, entertainment, workshops, or other additions would you like to see at future events? We welcome any suggestions that could help improve your experience."
+                        sublabel="Optional"
+                        placeholder="Share your ideas or suggestions with us!"
                         accentColor={accentColor}
                         multiline
-                        required
                         minRows={3}
                         value={values.eventSuggestions || ""}
                         onChange={handleChange}
