@@ -229,6 +229,39 @@
     margin-top: 32px;
 }
 
+.tierPicker {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    scroll-margin-top: 110px;
+
+    button {
+        background: var(--wood-900);
+        border: 1px solid var(--brass);
+        border-radius: 5px;
+        color: var(--brass-light);
+        padding: 8px 16px;
+        font: inherit;
+        cursor: pointer;
+
+        &[aria-pressed="true"] {
+            background: var(--brass-light);
+            color: var(--ink);
+        }
+
+        &:disabled {
+            opacity: 0.65;
+            cursor: default;
+        }
+    }
+
+    span {
+        display: block;
+        font-size: 0.8em;
+    }
+}
+
 .inlineError {
     margin-top: 12px;
     color: #ffb4a8;
