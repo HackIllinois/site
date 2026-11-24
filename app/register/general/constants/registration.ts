@@ -165,5 +165,13 @@ export const HARDWARE_INTEREST_FORM_URL = "";
 
 export const LEGAL_URL = "/legal";
 
+/** The four tabs of /legal, in the order the 2027 legal checkbox names them. */
+export const LEGAL_DOCUMENTS = [
+    "Privacy Policy",
+    "Terms & Conditions",
+    "Code of Conduct",
+    "Complaint Procedures"
+] as const;
+
 export const AGE_ELIGIBILITY_NOTE =
     "You must be at least 18 years old on or before February 26th 2027 to attend HackIllinois 2027";

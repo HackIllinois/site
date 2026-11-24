@@ -53,9 +53,27 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
     const listboxRef = useRef<HTMLUListElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const normalizedValue = multiple
-        ? options.filter(o => Array.isArray(value) && value.includes(o.value))
-        : options.find(o => o.value === value) || null;
+    // MUI Autocomplete clears the typed text whenever `value` changes
+    // identity, and callers rebuild `options`/`value` every render. Reuse the
+    // last array while it holds the same options, so a re-render (e.g. a draft
+    // autosave) doesn't wipe what the applicant is typing.
+    const lastMultiValue = useRef<Option[]>([]);
+    let normalizedValue: Option[] | Option | null;
+    if (multiple) {
+        const next = options.filter(
+            o => Array.isArray(value) && value.includes(o.value)
+        );
+        const prev = lastMultiValue.current;
+        const same =
+            next.length === prev.length &&
+            next.every((o, i) => o.value === prev[i].value);
+        if (!same) {
+            lastMultiValue.current = next;
+        }
+        normalizedValue = lastMultiValue.current;
+    } else {
+        normalizedValue = options.find(o => o.value === value) || null;
+    }
 
     const defaultFilterOptions = createFilterOptions<Option>();
 
