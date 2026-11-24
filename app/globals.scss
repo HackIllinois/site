@@ -6,7 +6,7 @@
 
 /* Keep fragment targets and focused controls below the fixed navbar. */
 html {
-    scroll-padding-top: max(68px, 9vw);
+    scroll-padding-top: var(--navbar-clearance);
 }
 
 html,
@@ -19,8 +19,10 @@ body {
     --max-width: 1100px;
     --border-radius: 12px;
     --font-family-primary: "Montserrat", sans-serif;
+    /* Room for the fixed navbar, which grows with the viewport on desktop. */
+    --navbar-clearance: max(68px, 9vw);
 
-    /* Site footer defaults (warm canyon/wood Frontier theme). /register steps refine via inline CSS vars. */
+    /* Shared site footer palette (warm canyon/wood Frontier theme). */
     --footer-bg-from: #983723;
     --footer-bg-to: #a5372f;
     --footer-link: #ffd8b3;

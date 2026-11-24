@@ -140,7 +140,17 @@ export default function JobBoard({ jobs }: { jobs: JobPosting[] | null }) {
 
     return (
         <main className={styles.room}>
-            <SceneArt src="/job-board/jobs-room" height={1410} priority />
+            <SceneArt
+                src="/job-board/jobs-room"
+                height={1410}
+                phone={{
+                    src: "/job-board/jobs-room-mobile",
+                    width: 402,
+                    height: 1544,
+                    format: "png"
+                }}
+                priority
+            />
             <div className={styles.lighting} aria-hidden="true">
                 {[styles.lightHaloLeft, styles.lightHaloRight].map(side => (
                     <span key={side} className={`${styles.lightHalo} ${side}`}>
@@ -230,44 +240,51 @@ export default function JobBoard({ jobs }: { jobs: JobPosting[] | null }) {
                         className={styles.pages}
                         aria-label="Job listing pages"
                     >
-                        <button
-                            className={`${styles.pageArrow} ${styles.pagePrevious}`}
-                            type="button"
-                            disabled={current === 0}
-                            onClick={() => setPage(current - 1)}
-                        >
-                            <span className={shared.hidden}>Previous page</span>
-                        </button>
-                        <span className={styles.pageNumbers} aria-live="polite">
-                            {pageOptions.map(pageIndex => (
-                                <button
-                                    key={pageIndex}
-                                    type="button"
-                                    className={
-                                        pageIndex === current
-                                            ? styles.currentPage
-                                            : undefined
-                                    }
-                                    aria-current={
-                                        pageIndex === current
-                                            ? "page"
-                                            : undefined
-                                    }
-                                    aria-label={`Page ${pageIndex + 1}`}
-                                    onClick={() => setPage(pageIndex)}
-                                >
-                                    {pageIndex + 1}
-                                </button>
-                            ))}
-                        </span>
-                        <button
-                            className={`${styles.pageArrow} ${styles.pageNext}`}
-                            type="button"
-                            disabled={current === pages - 1}
-                            onClick={() => setPage(current + 1)}
-                        >
-                            <span className={shared.hidden}>Next page</span>
-                        </button>
+                        <div className={styles.pageRow}>
+                            <button
+                                className={`${styles.pageArrow} ${styles.pagePrevious}`}
+                                type="button"
+                                disabled={current === 0}
+                                onClick={() => setPage(current - 1)}
+                            >
+                                <span className={shared.hidden}>
+                                    Previous page
+                                </span>
+                            </button>
+                            <span
+                                className={styles.pageNumbers}
+                                aria-live="polite"
+                            >
+                                {pageOptions.map(pageIndex => (
+                                    <button
+                                        key={pageIndex}
+                                        type="button"
+                                        className={
+                                            pageIndex === current
+                                                ? styles.currentPage
+                                                : undefined
+                                        }
+                                        aria-current={
+                                            pageIndex === current
+                                                ? "page"
+                                                : undefined
+                                        }
+                                        aria-label={`Page ${pageIndex + 1}`}
+                                        onClick={() => setPage(pageIndex)}
+                                    >
+                                        {pageIndex + 1}
+                                    </button>
+                                ))}
+                            </span>
+                            <button
+                                className={`${styles.pageArrow} ${styles.pageNext}`}
+                                type="button"
+                                disabled={current === pages - 1}
+                                onClick={() => setPage(current + 1)}
+                            >
+                                <span className={shared.hidden}>Next page</span>
+                            </button>
+                        </div>
                     </nav>
                 )}
             </div>

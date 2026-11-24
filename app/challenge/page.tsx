@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SceneArt from "@/components/Frontier/SceneArt";
 import shared from "@/components/Frontier/Frontier.module.scss";
+import BarDrinks from "./components/BarDrinks";
 import CactusAnimation from "./components/CactusAnimation";
+import RouletteWheel from "./components/RouletteWheel";
+import SaloonMotion from "./components/SaloonMotion";
+import TableProps from "./components/TableProps";
 import styles from "./track.module.scss";
 
 export const metadata: Metadata = {
@@ -39,10 +43,27 @@ function SaloonArt({
     );
 }
 
+// Brass plaque with notched corners and a stud at each end.
+function Plaque() {
+    return (
+        <svg viewBox="0 0 423 59" preserveAspectRatio="none" aria-hidden="true">
+            <path
+                d="M14 1.5H409A13 15 0 0 0 422 16.5V42.5A13 15 0 0 0 409 57.5H14A13 15 0 0 0 1 42.5V16.5A13 15 0 0 0 14 1.5Z"
+                fill="#2d1713"
+                stroke="#d39a6c"
+                strokeWidth="2"
+            />
+            <circle cx="28.5" cy="29.5" r="6.5" fill="#d9a04d" />
+            <circle cx="394.5" cy="29.5" r="6.5" fill="#d9a04d" />
+        </svg>
+    );
+}
+
 export default function ProTrackLanding() {
     return (
         <div className={shared.page}>
             <main className={styles.saloon}>
+                <SaloonMotion />
                 <section className={styles.entrance}>
                     <SaloonArt
                         name="entrance"
@@ -50,16 +71,51 @@ export default function ProTrackLanding() {
                         phoneHeight={780}
                         priority
                     />
+                    <TableProps scene="entrance" play="load" />
+                    <TableProps scene="entrance-phone" play="load" />
                     <h1>
                         Hack<span>Outlaws</span>
                     </h1>
+                    {/* Plain felt over the cut-off plaque in the artwork, so none
+                        of it shows around the redrawn plaque's notches. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        className={styles.plaquePatch}
+                        src="/challenge/saloon/plaque-patch.webp"
+                        alt=""
+                        width={435}
+                        height={73}
+                    />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        className={styles.plaquePatchPhone}
+                        src="/challenge/saloon/plaque-patch-phone.webp"
+                        alt=""
+                        width={196}
+                        height={37}
+                        loading="lazy"
+                    />
                     <Link href="#about-outlaws" className={styles.plaque}>
-                        HackIllinois Pro-Track
+                        <Plaque />
+                        <span>HackIllinois Pro-Track</span>
                     </Link>
                 </section>
                 <section className={styles.roulette} id="about-outlaws">
-                    <SaloonArt name="roulette" height={816} phoneHeight={370} />
-                    <div>
+                    <SceneArt
+                        src="/challenge/saloon/roulette"
+                        height={816}
+                        largeWidth={2880}
+                        phone={{
+                            src: "/challenge/saloon/roulette-phone",
+                            width: 402,
+                            height: 370,
+                            largeWidth: 1206
+                        }}
+                    />
+                    <TableProps scene="roulette" play="view" />
+                    <TableProps scene="roulette-phone" play="view" />
+                    <RouletteWheel />
+                    <div className={styles.rouletteCopy} data-reveal>
                         <h2>What is HackOutlaws?</h2>
                         <p>
                             HackOutlaws is an exclusive path tailored for
@@ -82,7 +138,7 @@ export default function ProTrackLanding() {
                         phoneHeight={790}
                     />
                     <CactusAnimation />
-                    <div className={styles.menu}>
+                    <div className={styles.menu} data-reveal>
                         <small>The Pro Track Menu</small>
                         <h2>
                             Benefits of
@@ -115,7 +171,7 @@ export default function ProTrackLanding() {
                         height={1098}
                         phoneHeight={732}
                     />
-                    <div className={styles.menu}>
+                    <div className={styles.menu} data-reveal>
                         <h2>
                             How Do I<br />
                             Become a<br />
@@ -134,13 +190,16 @@ export default function ProTrackLanding() {
                             className={styles.start}
                             href="/challenge/description"
                         >
-                            Start Saloon Rush →
+                            Start Saloon Rush <span aria-hidden="true">→</span>
                         </Link>
                     </div>
                 </section>
                 <section className={styles.bar}>
                     <SaloonArt name="bar" height={1002} phoneHeight={693} />
-                    <div className={styles.menu}>
+                    <div className={styles.paper} aria-hidden="true" />
+                    <BarDrinks layout="desktop" />
+                    <BarDrinks layout="phone" />
+                    <div className={styles.menu} data-reveal>
                         <h2>
                             How are HackOutlaws Different from General
                             Attendees?

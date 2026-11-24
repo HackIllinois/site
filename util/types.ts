@@ -191,7 +191,7 @@ export type ProfileFormInfo = {
 
 // Saloon Rush (Pro challenge). Mirrors RegistrationChallengeStatus in Adonix.
 export type ChallengeRouteError = {
-    mercenary: string;
+    driver: string;
     index: number;
     message: string;
 };
@@ -199,23 +199,36 @@ export type ChallengeRouteError = {
 export type ChallengeGradeReport = {
     instance: string;
     score: number;
-    totalContracts: number;
+    totalOrders: number;
     completed: number;
     onTime: number;
     lateMinutes: number;
     travelMinutes: number;
     errors: ChallengeRouteError[];
+    powerupErrors: { index: number; message: string }[];
 };
 
-export type ChallengeStatus = {
+export type ChallengeTier = 1 | 2 | 3;
+
+export type ChallengeTierProgress = {
     instanceId: string;
     attempts: number;
-    complete: boolean;
     bestScore: number;
-    // bestScore / reference score, or null while the floor plan has no reference score yet
     normalizedScore: number | null;
-    passRatio: number;
     lastReport: ChallengeGradeReport | null;
+};
+
+export type ChallengeTierStatus = ChallengeTierProgress & {
+    tier: ChallengeTier;
+    passed: boolean;
+    unlocked: boolean;
+};
+
+export type ChallengeStatus = ChallengeTierProgress & {
+    complete: boolean;
+    passRatio: number;
+    overallScore: number | null;
+    tiers: ChallengeTierStatus[];
 };
 
 export type ChallengeErrorBody = {

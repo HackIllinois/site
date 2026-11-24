@@ -1,11 +1,10 @@
 "use client";
 
-import { clearFooterTheme } from "@/app/register/general/constants/registration";
+import { prizesEnabled } from "@/app/prizes/availability";
 import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 import {
     montserrat,
     tsukimi,
@@ -20,22 +19,10 @@ const StandardSiteLayout = dynamic(() => import("./StandardSiteLayout"));
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
-    const hideFooter = pathname === "/schedule" || pathname === "/faq";
-    const isFrontier = [
-        "/",
-        "/challenge",
-        "/job-board",
-        "/prizes",
-        "/travel"
-    ].includes(pathname);
-    const isRegister = pathname.startsWith("/register");
-
-    // Drop step-specific inline footer vars when leaving /register so the :root default returns.
-    useEffect(() => {
-        if (isRegister) return;
-        clearFooterTheme();
-    }, [isRegister]);
-
+    const hideFooter = pathname === "/faq";
+    const isFrontier =
+        ["/", "/challenge", "/job-board", "/travel"].includes(pathname) ||
+        (prizesEnabled && pathname === "/prizes");
     return (
         <html lang="en">
             <head>

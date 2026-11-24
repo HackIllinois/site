@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import styles from "../page.module.scss";
+import { prizesEnabled } from "../prizes/availability";
 
 const questions = [
     [
@@ -42,10 +43,14 @@ const questions = [
     ],
     [
         "What prizes will be offered this year?",
-        <>
-            Explore the <Link href="/prizes">prizes page</Link> for the event’s
-            awards and tracks.
-        </>
+        prizesEnabled ? (
+            <>
+                Explore the <Link href="/prizes">prizes page</Link> for the
+                event’s awards and tracks.
+            </>
+        ) : (
+            "Prize details will be announced later."
+        )
     ]
 ] as const;
 

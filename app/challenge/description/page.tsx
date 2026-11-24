@@ -2,7 +2,12 @@
 
 import useWindowSize from "@/hooks/use-window-size";
 import { downloadChallengeWorld, loadChallengeStatus } from "@/util/api";
-import { ChallengeErrorBody, ChallengeStatus } from "@/util/types";
+import {
+    ChallengeErrorBody,
+    ChallengeStatus,
+    ChallengeTier,
+    ChallengeTierStatus
+} from "@/util/types";
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import CodeIcon from "@mui/icons-material/Code";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
@@ -27,9 +32,25 @@ import {
     SCORING
 } from "../constants";
 
+// During the frontend-first rollout, the existing API exposes only Tier 1 to this UI.
+function playableTiers(status: ChallengeStatus): ChallengeTierStatus[] {
+    if (status.tiers?.length && typeof status.tiers[0].unlocked === "boolean")
+        return status.tiers;
+    return [
+        {
+            ...status,
+            tier: 1,
+            unlocked: true,
+            passed: (status.normalizedScore ?? 0) >= status.passRatio
+        }
+    ];
+}
+
 function Saloon() {
     const { width, height } = useWindowSize();
     const [status, setStatus] = useState<ChallengeStatus | null>(null);
+    const [selectedTier, setSelectedTier] = useState<ChallengeTier>(1);
+    const [submitting, setSubmitting] = useState(false);
     const [loadError, setLoadError] = useState<ChallengeErrorBody | null>(null);
     const [downloading, setDownloading] = useState(false);
     const [downloadError, setDownloadError] = useState<string | null>(null);
@@ -37,7 +58,16 @@ function Saloon() {
 
     useEffect(() => {
         loadChallengeStatus()
-            .then(setStatus)
+            .then(initial => {
+                const tiers = playableTiers(initial);
+                setSelectedTier(
+                    (
+                        tiers.find(tier => tier.unlocked && !tier.passed) ??
+                        tiers[tiers.length - 1]
+                    ).tier
+                );
+                setStatus(initial);
+            })
             .catch((error: ChallengeErrorBody) =>
                 setLoadError(
                     error?.error
@@ -54,7 +84,7 @@ function Saloon() {
         setDownloading(true);
         setDownloadError(null);
         try {
-            await downloadChallengeWorld();
+            await downloadChallengeWorld(selectedTier);
         } catch (error) {
             setDownloadError(
                 (error as ChallengeErrorBody)?.message ??
@@ -108,6 +138,19 @@ function Saloon() {
         return <SaloonLoading text="Unrolling your floor plan…" />;
     }
 
+    const tiers = playableTiers(status);
+    const current =
+        tiers.find(tier => tier.tier === selectedTier && tier.unlocked) ??
+        tiers[0];
+    const nextTier = tiers.find(
+        tier => tier.tier === current.tier + 1 && tier.unlocked
+    );
+
+    function selectTier(tier: ChallengeTier) {
+        setDownloadError(null);
+        setSelectedTier(tier);
+    }
+
     const passPercent = Math.round(
         (status.passRatio ?? DEFAULT_PASS_RATIO) * 100
     );
@@ -118,28 +161,28 @@ function Saloon() {
             suit: "♠",
             icon: <MapOutlinedIcon />,
             title: "Get the floor plan",
-            body: "Download world.json: your saloon, every contract and your pickpocket. Each applicant is dealt one of several floor plans."
+            body: "Download world.json. It contains the map, orders, deadlines and available Hack-Outlaws."
         },
         {
             rank: "K",
             suit: "♥",
             icon: <CodeIcon />,
             title: "Plan the night",
-            body: "Write a program, in any language, that plans your pickpocket’s route: which bags to grab, in what order, and when to drop each one off. Use any approach you like."
+            body: "Write a program that assigns orders to Hack-Outlaws and creates a route for each one."
         },
         {
             rank: "Q",
             suit: "♣",
             icon: <UploadFileOutlinedIcon />,
-            title: "Lay down your plan",
-            body: "Upload plan.json. We replay every move in seconds and show exactly where a route went wrong."
+            title: "Submit your plan",
+            body: "Upload plan.json below. The grader validates it and returns a score."
         },
         {
             rank: "J",
             suit: "♦",
             icon: <AutoGraphIcon />,
-            title: "Beat the house",
-            body: `Reach ${passPercent}% of our reference score to pass. Resubmit as often as you like; only your best counts.`
+            title: "Improve your score",
+            body: `Reach ${passPercent}% of the reference score to pass. You can submit again at any time.`
         }
     ];
 
@@ -167,22 +210,45 @@ function Saloon() {
                 {/* ---------- Hero ---------- */}
                 <section className={styles.hero}>
                     <div>
-                        <p className={styles.kicker}>
-                            HackOutlaws · Pro Track Challenge
-                        </p>
                         <h1 className={styles.title}>
                             Saloon
                             <br />
                             Rush
                         </h1>
                         <p className={styles.lede}>
-                            You run a HackOutlaw gang for one night in the
-                            roughest saloon in the territory. The dealers want
-                            cash bags lifted from the game tables and carried to
-                            their back rooms, each before its own deadline. Plan
-                            the night, upload the plan, and get scored on the
-                            spot.
+                            Plan a route for your Hack-Outlaw gang, deliver
+                            jewelry by the deadlines, and earn as many points as
+                            possible.
                         </p>
+                        <div
+                            id="floor-plans"
+                            className={styles.tierPicker}
+                            role="group"
+                            aria-label="Challenge tiers"
+                        >
+                            {tiers.map(tier => (
+                                <button
+                                    type="button"
+                                    key={tier.tier}
+                                    aria-pressed={tier.tier === current.tier}
+                                    disabled={
+                                        !tier.unlocked ||
+                                        downloading ||
+                                        submitting
+                                    }
+                                    onClick={() => selectTier(tier.tier)}
+                                >
+                                    Tier {tier.tier}
+                                    <span>
+                                        {tier.passed
+                                            ? "Passed"
+                                            : tier.unlocked
+                                              ? "Available"
+                                              : "Locked"}
+                                    </span>
+                                </button>
+                            ))}
+                        </div>
                         <div className={styles.btnRow}>
                             <button
                                 type="button"
@@ -205,7 +271,10 @@ function Saloon() {
                             </p>
                         )}
                     </div>
-                    <WantedPoster status={status} />
+                    <WantedPoster
+                        status={current}
+                        passRatio={status.passRatio}
+                    />
                 </section>
 
                 {/* ---------- How it works ---------- */}
@@ -213,10 +282,6 @@ function Saloon() {
                     <h2 id="how" className={styles.sectionTitle}>
                         How the night works
                     </h2>
-                    <p className={styles.sectionSub}>
-                        Higher stakes, bolder builders. Four cards, one winning
-                        hand.
-                    </p>
                     <ul
                         className={styles.cards}
                         style={{ listStyle: "none", padding: 0, margin: 0 }}
@@ -230,44 +295,41 @@ function Saloon() {
                 {/* ---------- House rules ---------- */}
                 <section className={styles.section} aria-labelledby="rules">
                     <h2 id="rules" className={styles.sectionTitle}>
-                        House rules
+                        Challenge rules
                     </h2>
-                    <p className={styles.sectionSub}>
-                        Everything is known up front and nothing is random. The
-                        same plan always gets the same score.
-                    </p>
 
                     <div className={styles.ledger}>
                         <div className={styles.ledgerGrid}>
                             <div>
                                 <h3 className={styles.ruleHeading}>
-                                    <span>♠</span> The night
+                                    <span>♠</span> The goal
                                 </h3>
                                 <p className={styles.ruleText}>
-                                    Time is in whole minutes, from{" "}
-                                    <code>0</code> when the doors open to{" "}
-                                    <code>shift_end</code>, the sheriff’s last
-                                    round. No new contracts show up mid-night.
+                                    Read <code>world.json</code>, assign
+                                    contracts to Hack-Outlaws, choose routes and
+                                    write
+                                    <code>plan.json</code>. Complete as many
+                                    contracts as possible and deliver them as
+                                    close to their deadlines as possible.
                                 </p>
                                 <h3
                                     className={styles.ruleHeading}
                                     style={{ marginTop: 28 }}
                                 >
-                                    <span>♥</span> The floor plan
+                                    <span>♥</span> World model
                                 </h3>
                                 <p className={styles.ruleText}>
-                                    An undirected graph. Spots are the{" "}
-                                    <code>hideout</code>, a{" "}
-                                    <code>game_table</code> (where bags are
-                                    picked up), a <code>back_room</code> (where
-                                    they’re dropped off), or a plain{" "}
-                                    <code>hallway</code>.
+                                    Time is in whole minutes from <code>0</code>
+                                    through <code>shift_end</code>. The map is
+                                    an undirected graph of hideouts, game
+                                    tables, back rooms, fences and
+                                    intersections.
                                 </p>
                                 <p className={styles.ruleText}>
-                                    Each connection has a <code>length</code> in
-                                    paces and a <code>crowd</code> from 1.0
-                                    (empty walkway) to 2.5 (a crush of
-                                    drinkers).
+                                    Every node, connection, contract and
+                                    Hack-Outlaw is known up front. Nothing is
+                                    random: the same plan and instance always
+                                    produce the same score.
                                 </p>
                             </div>
 
@@ -277,16 +339,29 @@ function Saloon() {
                                 </h3>
                                 <p className={styles.ruleText}>
                                     Each contract is one cash bag with a{" "}
-                                    <code>table</code>, a <code>back_room</code>
-                                    , a <code>ready_at</code> minute and a{" "}
-                                    <code>deadline</code>. Lift the bag at its
-                                    table once it’s ready, then carry it to its
-                                    back room.
+                                    <code>target</code>, a <code>fence</code>, a{" "}
+                                    <code>ready_at</code> minute and a{" "}
+                                    <code>deadline</code>. The Hack-Outlaw must
+                                    visit the table after <code>ready_at</code>,
+                                    pick up the bag and carry it to the back
+                                    room.
                                 </p>
+                                <ul className={styles.ruleList}>
+                                    <li>Each bag uses one cargo slot.</li>
+                                    <li>Pickup and dropoff take no minutes.</li>
+                                    <li>
+                                        A bag cannot be picked up twice or
+                                        delivered after it is already complete.
+                                    </li>
+                                    <li>
+                                        Incomplete or undropped contracts score
+                                        zero.
+                                    </li>
+                                </ul>
                                 <p className={styles.ruleText}>
-                                    You don’t have to take every contract.
-                                    Choosing which ones are worth the walk is
-                                    part of the game.
+                                    You do not have to take every contract.
+                                    Choosing which contracts are worth the
+                                    travel is part of the challenge.
                                 </p>
                                 <h3
                                     className={styles.ruleHeading}
@@ -295,16 +370,21 @@ function Saloon() {
                                     <span>♦</span> Walking
                                 </h3>
                                 <p className={styles.ruleText}>
-                                    Crossing one connection takes
+                                    Each connection has a <code>length</code>, a
+                                    <code>congestion</code> multiplier, and
+                                    optional tags such as <code>narrow</code> or{" "}
+                                    <code>exposed</code>.
                                 </p>
                                 <code className={styles.formula}>
-                                    ceil(length ÷ speed × crowd) minutes
+                                    ceil(length ÷ speed × congestion) minutes
                                 </code>
                                 <p className={styles.ruleText}>
-                                    Walking between two spots takes the fastest
-                                    path, adding up the connections along the
-                                    way. Every mercenary starts at their hideout
-                                    at minute 0.
+                                    Travel between two spots uses the shortest
+                                    valid path for that Hack-Outlaw&apos;s
+                                    class. Every Hack-Outlaw starts at its
+                                    hideout at minute <code>0</code>. Waiting is
+                                    implicit: a later <code>t</code> means it
+                                    waits at its current node.
                                 </p>
                             </div>
 
@@ -318,7 +398,7 @@ function Saloon() {
                                             Tier 1 · your gang
                                         </span>
                                         <h4 style={{ marginTop: 8 }}>
-                                            Pickpocket
+                                            Pickpocket (speedster)
                                         </h4>
                                         <dl>
                                             <dt>Speed</dt>
@@ -326,32 +406,38 @@ function Saloon() {
                                             <dt>Satchel</dt>
                                             <dd>4 cash bags at once</dd>
                                             <dt>Crowds</dt>
-                                            <dd>Slow her down</dd>
+                                            <dd>Slows them down</dd>
                                         </dl>
                                     </div>
-                                    <div className={styles.crewCardLocked}>
-                                        <span className={styles.crewTag}>
-                                            Later tier
-                                        </span>
+                                    <div className={styles.crewCard}>
                                         <h4 style={{ marginTop: 8 }}>
                                             Disguiser
                                         </h4>
-                                        <p className={styles.ruleText}>
-                                            Blends into crowds, but stays off
-                                            the main floor.
-                                        </p>
+                                        <dl>
+                                            <dt>Speed</dt>
+                                            <dd>1 pace / min</dd>
+                                            <dt>Capacity</dt>
+                                            <dd>2 orders</dd>
+                                            <dt>Crowds</dt>
+                                            <dd>Ignore congestion</dd>
+                                            <dt>Edges</dt>
+                                            <dd>No exposed edges</dd>
+                                        </dl>
                                     </div>
-                                    <div className={styles.crewCardLocked}>
-                                        <span className={styles.crewTag}>
-                                            Later tier
-                                        </span>
+                                    <div className={styles.crewCard}>
                                         <h4 style={{ marginTop: 8 }}>
-                                            Heavy Lifter
+                                            Heavy Lifter (hauler)
                                         </h4>
-                                        <p className={styles.ruleText}>
-                                            Carries the most, but can’t fit
-                                            through crawlspaces.
-                                        </p>
+                                        <dl>
+                                            <dt>Speed</dt>
+                                            <dd>1.5 paces / min</dd>
+                                            <dt>Capacity</dt>
+                                            <dd>8 orders</dd>
+                                            <dt>Crowds</dt>
+                                            <dd>Affected</dd>
+                                            <dt>Edges</dt>
+                                            <dd>No narrow edges</dd>
+                                        </dl>
                                     </div>
                                 </div>
                             </div>
@@ -362,13 +448,16 @@ function Saloon() {
                                 </h3>
                                 <p className={styles.ruleText}>
                                     Your plan lists timestamped commands for
-                                    each mercenary. Every command needs a whole
-                                    minute <code>t</code> that is no earlier
-                                    than that mercenary’s previous command and
-                                    no later than <code>shift_end</code>.
+                                    each Hack-Outlaw. Every command needs a
+                                    whole minute <code>t</code> that is no
+                                    earlier than that Hack-Outlaw’s previous
+                                    command and no later than{" "}
+                                    <code>shift_end</code>.
                                 </p>
                                 <div className={styles.tableWrap}>
-                                    <table className={styles.cmdTable}>
+                                    <table
+                                        className={`${styles.cmdTable} ${styles.ledgerTable}`}
+                                    >
                                         <thead>
                                             <tr>
                                                 <th>Command</th>
@@ -387,32 +476,33 @@ function Saloon() {
                                                     <code>t</code> plus the
                                                     fastest walk to{" "}
                                                     <code>to</code>. Arriving
-                                                    later is fine; she just
-                                                    waits.
+                                                    later is fine; the
+                                                    Hack-Outlaw just waits.
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     <code>pickup</code> +{" "}
-                                                    <code>contract</code>
+                                                    <code>order</code>
                                                 </td>
                                                 <td>
-                                                    She’s at the contract’s game
-                                                    table,{" "}
+                                                    The Hack-Outlaw is at the
+                                                    contract’s game table,{" "}
                                                     <code>t ≥ ready_at</code>,
                                                     nobody lifted the bag yet,
-                                                    and her satchel has room.
+                                                    and the satchel has room.
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     <code>dropoff</code> +{" "}
-                                                    <code>contract</code>
+                                                    <code>order</code>
                                                 </td>
                                                 <td>
-                                                    She’s at the contract’s back
-                                                    room, carrying that bag.
-                                                    That completes the contract.
+                                                    The Hack-Outlaw is at the
+                                                    contract’s back room,
+                                                    carrying that bag. That
+                                                    completes the contract.
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -422,123 +512,337 @@ function Saloon() {
                                     className={styles.ruleText}
                                     style={{ marginTop: 14 }}
                                 >
-                                    The first invalid command stops the rest of
-                                    that mercenary’s route, but contracts
-                                    finished before it still count. A file we
-                                    can’t read at all (bad JSON, the wrong floor
-                                    plan, an unknown spot or contract) isn’t
-                                    graded, and we tell you why.
+                                    You do not need to list every intermediate
+                                    intersection. A <code>go</code> command
+                                    moves along the shortest valid path.
                                 </p>
                             </div>
 
                             <div className={styles.ledgerWide}>
                                 <h3 className={styles.ruleHeading}>
-                                    <span>♣</span> Scoring
+                                    <span>♦</span> Validation
                                 </h3>
-                                <div className={styles.chips}>
-                                    <div className={styles.chipItem}>
-                                        <div className={styles.chip}>
-                                            <span>
-                                                {SCORING.pointsPerContract}
-                                            </span>
-                                        </div>
-                                        <p>points per completed contract</p>
-                                    </div>
-                                    <div className={styles.chipItem}>
-                                        <div className={styles.chipRed}>
-                                            <span>
-                                                −{SCORING.penaltyPerLateMinute}
-                                            </span>
-                                        </div>
-                                        <p>per minute past the deadline</p>
-                                    </div>
-                                    <div className={styles.chipItem}>
-                                        <div className={styles.chipBlack}>
-                                            <span>
-                                                {SCORING.minPointsPerContract}
-                                            </span>
-                                        </div>
-                                        <p>
-                                            minimum for a late contract, so it’s
-                                            always worth finishing
-                                        </p>
-                                    </div>
-                                    <div className={styles.chipItem}>
-                                        <div className={styles.chipBrass}>
-                                            <span>{passPercent}%</span>
-                                        </div>
-                                        <p>
-                                            of our reference solver’s score to
-                                            pass
-                                        </p>
-                                    </div>
-                                </div>
+                                <p className={styles.ruleText}>
+                                    Broken files are rejected without a score:
+                                    invalid JSON, an instance that does not
+                                    match
+                                    <code>world.json</code>, unknown
+                                    Hack-Outlaws or nodes, and unknown
+                                    contracts.
+                                </p>
+                                <p className={styles.ruleText}>
+                                    An invalid command stops only that
+                                    Hack-Outlaw&apos;s route. Contracts
+                                    delivered before the invalid command still
+                                    count. The report identifies the route,
+                                    command index and why the command failed.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* ---------- Paperwork ---------- */}
-                <section className={styles.section} aria-labelledby="files">
-                    <h2 id="files" className={styles.sectionTitle}>
-                        The paperwork
-                    </h2>
-                    <p className={styles.sectionSub}>
-                        Your program reads world.json and writes plan.json. A
-                        plan only works on the floor plan named in its{" "}
-                        <code>instance</code>.
-                    </p>
-                    <div className={styles.paperwork}>
-                        <CodeBlock
-                            filename="world.json (trimmed)"
-                            code={EXAMPLE_WORLD}
-                            caption="What you download. Yours has every spot, connection and contract for your floor plan."
-                        />
-                        <CodeBlock
-                            filename="plan.json"
-                            code={EXAMPLE_PLAN}
-                            copyable
-                            caption="A valid plan that scores 100. The pickpocket reaches table T3 at minute 12 and waits until the bag is ready at 24. She walks 8 minutes to back room B17 and drops it off at 32, before the minute-37 deadline."
-                        />
-                    </div>
-                </section>
-
-                {/* ---------- Upload ---------- */}
+                {/* ---------- Submission and grading ---------- */}
                 <section
-                    id="upload"
+                    id="submission"
                     className={styles.section}
-                    aria-labelledby="upload-title"
+                    aria-labelledby="submission-title"
                 >
-                    <h2 id="upload-title" className={styles.sectionTitle}>
-                        Deal me in
+                    <h2 id="submission-title" className={styles.sectionTitle}>
+                        Submission and grading
                     </h2>
-                    <p className={styles.sectionSub}>
-                        Upload your plan.json and the dealer tallies your haul
-                        in seconds.
-                    </p>
                     <div className={styles.felt}>
-                        {status.complete && (
-                            <div
-                                className={styles.noticeSuccess}
-                                style={{ marginBottom: 28 }}
-                            >
-                                <strong>Welcome to the gang</strong>
-                                You passed Saloon Rush with a best haul of{" "}
-                                {status.bestScore}. Keep tuning if you like:
-                                reviewers see your best score.{" "}
-                                <Link
-                                    className={styles.btnBrass}
-                                    href="/register/general"
-                                >
-                                    Finish registration
-                                </Link>
+                        <h3 className={styles.ruleHeading}>
+                            Create your submission
+                        </h3>
+                        <p className={styles.ruleText}>
+                            Use any language or approach. The program you submit
+                            is not graded directly; it only needs to produce a
+                            <code>plan.json</code>. Download{" "}
+                            <code>world.json</code>, read the instance data, and
+                            write a route for each Hack-Outlaw you use.
+                        </p>
+                        <p className={styles.ruleText}>
+                            <code>world.json</code> contains{" "}
+                            <code>instance</code>,<code>shift_end</code>,{" "}
+                            <code>nodes</code>,<code>edges</code>,{" "}
+                            <code>drivers</code>
+                            and <code>orders</code>. Each node has an{" "}
+                            <code>id</code> and type. Each connection has{" "}
+                            <code>a</code>, <code>b</code>, <code>length</code>,
+                            <code>congestion</code> and optional{" "}
+                            <code>tags</code>. Each contract has <code>id</code>
+                            , <code>target</code>, <code>fence</code>,{" "}
+                            <code>ready_at</code> and <code>deadline</code>.
+                        </p>
+                        <div className={styles.paperwork}>
+                            <CodeBlock
+                                filename="world.json (example)"
+                                code={EXAMPLE_WORLD}
+                                caption="The map and contracts available to your program."
+                            />
+                            <CodeBlock
+                                filename="plan.json"
+                                code={EXAMPLE_PLAN}
+                                copyable
+                                caption="Use the exact instance name and exact driver IDs from world.json."
+                            />
+                        </div>
+                        <p className={styles.ruleText}>
+                            In <code>plan.json</code>, <code>instance</code>{" "}
+                            must match <code>world.json</code>. The{" "}
+                            <code>routes</code>
+                            object uses one driver ID as each key. Each route is
+                            an array of timestamped commands. Routes may be
+                            empty. Commands are in chronological order:
+                        </p>
+                        <ul className={styles.ruleList}>
+                            <li>
+                                <code>{`{"t": 5, "cmd": "go", "to": "T1"}`}</code>{" "}
+                                arrives at node <code>T1</code> at minute 5.
+                            </li>
+                            <li>
+                                <code>{`{"t": 5, "cmd": "pickup", "order": "O1"}`}</code>{" "}
+                                picks up contract <code>O1</code> at its table.
+                            </li>
+                            <li>
+                                <code>{`{"t": 10, "cmd": "dropoff", "order": "O1"}`}</code>{" "}
+                                delivers <code>O1</code> to its back room.
+                            </li>
+                        </ul>
+                        <p className={styles.ruleText}>
+                            <code>t</code> must be a whole minute greater than
+                            or equal to the previous command and no greater than{" "}
+                            <code>shift_end</code>. Do not include every hallway
+                            in the route; use <code>go</code> to travel between
+                            named nodes. The shortest path is calculated by the
+                            grader.
+                        </p>
+
+                        <h3
+                            className={styles.ruleHeading}
+                            style={{ marginTop: 32 }}
+                        >
+                            Submit your plan
+                        </h3>
+                        <p className={styles.ruleText}>
+                            Upload <code>plan.json</code> using the upload box
+                            below. It must be a JSON file no larger than 1 MB.
+                            Submission deadline: <strong>TBD</strong>.
+                        </p>
+                        <p className={styles.ruleText}>
+                            Submissions are unlimited and do not affect your
+                            score. The grader returns a report immediately, and
+                            only your highest valid score is kept.
+                        </p>
+                        <p className={styles.ruleText}>
+                            Reach <strong>{passPercent}%</strong> of your floor
+                            plan’s reference score to pass that tier and unlock
+                            the next available tier. Pro Track qualification
+                            uses your average across all live tiers, with the
+                            same {passPercent}% threshold.
+                        </p>
+
+                        <h3
+                            className={styles.ruleHeading}
+                            style={{ marginTop: 32 }}
+                        >
+                            How grading works
+                        </h3>
+                        <p className={styles.ruleText}>
+                            The grader replay begins with each Hack-Outlaw at
+                            its starting hideout at minute 0. It replays routes
+                            in time order, checks whether <code>go</code>,
+                            <code>pickup</code> and <code>dropoff</code>{" "}
+                            commands are valid, and counts a contract only after
+                            a valid dropoff.
+                        </p>
+                        <div className={styles.chips}>
+                            <div className={styles.chipItem}>
+                                <div className={styles.chip}>
+                                    <span>{SCORING.pointsPerContract}</span>
+                                </div>
+                                <p>points for a completed delivery</p>
                             </div>
-                        )}
-                        <PlanUpload
-                            status={status}
-                            onStatusChange={setStatus}
-                            onPassed={() => setCelebrate(true)}
-                        />
+                            <div className={styles.chipItem}>
+                                <div className={styles.chipRed}>
+                                    <span>−{SCORING.penaltyPerLateMinute}</span>
+                                </div>
+                                <p>points per minute late</p>
+                            </div>
+                            <div className={styles.chipItem}>
+                                <div className={styles.chipBlack}>
+                                    <span>{SCORING.minPointsPerContract}</span>
+                                </div>
+                                <p>minimum points per delivery</p>
+                            </div>
+                        </div>
+                        <p className={styles.ruleText}>
+                            A delivered contract earns 100 points minus 5 points
+                            for each minute it arrives after its deadline. The
+                            score for one contract is never lower than 20
+                            points:
+                            <code className={styles.formula}>
+                                max(20, 100 - 5 × max(0, dropoff time -
+                                deadline))
+                            </code>
+                        </p>
+                        <p className={styles.ruleText}>
+                            Undelivered contracts score 0, even if they were
+                            picked up. Tie-breaking is the total Hack-Outlaw
+                            travel minutes, with fewer travel minutes first,
+                            followed by earlier submission time.
+                        </p>
+
+                        <h3
+                            className={styles.ruleHeading}
+                            style={{ marginTop: 32 }}
+                        >
+                            Tiers
+                        </h3>
+                        <div className={styles.crew}>
+                            <div className={styles.crewCard}>
+                                <h4>Tier 1: Solo Mission</h4>
+                                <p className={styles.ruleText}>
+                                    One Hack-Outlaw, about 15 contracts and no
+                                    route restrictions beyond its class. This
+                                    tier tests shortest paths and the sequencing
+                                    of pickups and dropoffs.
+                                </p>
+                            </div>
+                            <div className={styles.crewCard}>
+                                <h4>Tier 2: Full Crew</h4>
+                                <p className={styles.ruleText}>
+                                    Mixed classes, edge restrictions and more
+                                    contracts than the crew can carry. It tests
+                                    assignment, route trade-offs and choosing
+                                    which contracts to leave behind.
+                                </p>
+                            </div>
+                            <div className={styles.crewCard}>
+                                <h4>Tier 3: Saloon Heist</h4>
+                                <p className={styles.ruleText}>
+                                    Adds coins and power-ups to the routing
+                                    problem. It tests resource allocation on top
+                                    of assignment and sequencing.
+                                </p>
+                            </div>
+                        </div>
+                        <p className={styles.ruleText}>
+                            Each tier contributes its best score divided by its
+                            reference score. An unplayed tier contributes zero
+                            to the average.
+                        </p>
+                        <p className={styles.ruleText}>
+                            Tier 3 starts with 0 coins. Deliveries on or before
+                            their deadline earn 50 coins; deliveries at least 10
+                            minutes early earn 100. Coins may be spent
+                            immediately on one of these power-ups:
+                        </p>
+                        <div className={styles.tableWrap}>
+                            <table className={styles.cmdTable}>
+                                <thead>
+                                    <tr>
+                                        <th>Power-up</th>
+                                        <th>Cost</th>
+                                        <th>Effect</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Big Belly Burger</td>
+                                        <td>300 coins</td>
+                                        <td>
+                                            One Hack-Outlaw moves 1.5× faster
+                                            for 30 minutes after activation.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Refreshing Cactus Cocktail</td>
+                                        <td>150 coins</td>
+                                        <td>
+                                            Adds 15 minutes to one
+                                            contract&apos;s deadline.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Extra Satchel</td>
+                                        <td>400 coins</td>
+                                        <td>
+                                            Adds 2 cargo slots to one
+                                            Hack-Outlaw for the rest of the
+                                            shift.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p className={styles.ruleText}>
+                            Tier 3 plans can include a <code>powerups</code>
+                            array. Each entry identifies an activation time{" "}
+                            <code>t</code>, a <code>type</code>, and a target.
+                            Use <code>big_belly_burger</code> or{" "}
+                            <code>extra_satchel</code> with a{" "}
+                            <code>driver</code> ID, or{" "}
+                            <code>cactus_cocktail</code> with an{" "}
+                            <code>order</code> ID. A power-up is bought and
+                            activated in one command. There is no inventory: the
+                            effect begins immediately. The grader verifies that
+                            coins earned by all earlier dropoffs cover the cost
+                            and that the referenced Hack-Outlaw or contract
+                            exists.
+                        </p>
+                        <p className={styles.ruleText}>
+                            Unaffordable or invalid power-ups are skipped and
+                            logged. The rest of the plan continues unless later
+                            commands depend on an effect that was skipped.
+                        </p>
+
+                        <div id="upload" style={{ marginTop: 32 }}>
+                            {status.complete && (
+                                <div
+                                    className={styles.noticeSuccess}
+                                    style={{ marginBottom: 28 }}
+                                >
+                                    <strong>Welcome to the gang</strong>
+                                    You qualified for the Pro Track. You can
+                                    keep improving your tier scores.{" "}
+                                    <Link
+                                        className={styles.btnBrass}
+                                        href="/register/general"
+                                    >
+                                        Finish registration
+                                    </Link>
+                                </div>
+                            )}
+                            <h3 className={styles.ruleHeading}>
+                                Tier {current.tier} submission
+                            </h3>
+                            <PlanUpload
+                                key={current.tier}
+                                tier={current}
+                                qualified={status.complete}
+                                submitting={submitting}
+                                setSubmitting={setSubmitting}
+                                onStatusChange={setStatus}
+                                onPassed={() => setCelebrate(true)}
+                            />
+                            {nextTier && (
+                                <div className={styles.btnRow}>
+                                    <a
+                                        href="#floor-plans"
+                                        className={styles.btnBrass}
+                                        onClick={event => {
+                                            if (submitting || downloading)
+                                                event.preventDefault();
+                                            else selectTier(nextTier.tier);
+                                        }}
+                                    >
+                                        Continue to Tier {nextTier.tier}
+                                    </a>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </section>
             </div>

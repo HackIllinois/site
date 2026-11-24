@@ -77,12 +77,19 @@
 
 .search input {
     display: block;
+    box-sizing: border-box;
     width: 100%;
     font-size: clamp(15px, 1.45cqw, 24px);
     color: #fff;
     background: transparent;
     border: 0;
+    outline: 1px solid rgb(255 255 255 / 12%);
+    outline-offset: -1px;
     padding: 0.5em 0;
+}
+
+.search input:focus-visible {
+    outline-color: rgb(255 255 255 / 18%);
 }
 
 .search input::placeholder {
@@ -101,12 +108,6 @@
     min-width: 0;
 }
 
-.grid button,
-.message {
-    color: #342014;
-    background: #e3bc76 url("/job-board/poster.webp") center/100% 100% no-repeat;
-}
-
 .grid button {
     box-sizing: border-box;
     position: relative;
@@ -117,8 +118,10 @@
     justify-items: center;
     width: 100%;
     aspect-ratio: 247/286;
+    color: #342014;
     text-align: center;
-    background-color: transparent;
+    background: transparent url("/job-board/poster.webp") center/100% 100%
+        no-repeat;
     padding: 14% 10.5% 12%;
     gap: 1.5%;
     cursor: pointer;
@@ -276,11 +279,17 @@
 }
 
 .message {
+    box-sizing: border-box;
+    display: grid;
+    place-content: center;
     align-self: center;
     margin: 5% auto;
-    width: min(85%, 36em);
-    padding: 3em 3.5em;
-    background-color: transparent;
+    width: min(72%, 36em);
+    aspect-ratio: 1568/1003;
+    padding: 12% 13%;
+    color: #342014;
+    background: transparent url("/job-board/detail-poster.png") center/100% 100%
+        no-repeat;
     text-align: center;
     font-size: clamp(15px, 1.6cqw, 25px);
 }
@@ -297,12 +306,17 @@
     margin-top: 12px;
 }
 
+/*
+ * Pagination plank, built from the Figma "arrows" group (node 1831:321).
+ * Design units are Figma px on a 471 x 133 frame; inside .pageRow,
+ * --px is one design px at the rendered size.
+ */
 .pages {
     position: relative;
     margin-top: auto;
     align-self: center;
     width: min(40cqw, 471px);
-    aspect-ratio: 471/137;
+    aspect-ratio: 471/133;
 }
 
 .pages::before,
@@ -312,66 +326,81 @@
     pointer-events: none;
 }
 
+/* Drop shadow under the plank: 449 x 67 at (18, 66). */
 .pages::before {
     z-index: 0;
-    inset: 10% 1.5% 19%;
-    border: 3px solid #8a4c1b;
-    background:
-        linear-gradient(rgb(177 102 43 / 40%), rgb(147 76 27 / 25%)),
-        repeating-linear-gradient(
-            2deg,
-            #b76d31 0 10px,
-            #a96029 10px 13px,
-            #be7536 13px 24px
-        );
-    box-shadow:
-        inset 0 2px 0 rgb(246 166 84 / 38%),
-        inset 0 -3px 0 rgb(91 45 16 / 28%),
-        9px 11px 0 rgb(202 198 201 / 68%),
-        9px 14px 0 rgb(54 28 15 / 22%);
-    clip-path: polygon(
-        3% 0,
-        97% 2%,
-        100% 13%,
-        99% 88%,
-        96% 100%,
-        3% 97%,
-        0 86%,
-        1% 11%
-    );
+    left: 3.822%;
+    top: 49.624%;
+    width: 95.329%;
+    height: 50.376%;
+    /*
+     * Figma uses #8b7b7b with multiply. .board is its own stacking context,
+     * so multiply would have no wall behind it to blend with; a translucent
+     * dark fill gives the same darkening (multiply by ~0.5) over any wall.
+     */
+    background: rgb(0 0 0 / 48%);
+    filter: blur(2px);
+    border-radius: 0 0 5px 5px;
 }
 
+/* Wooden plank: 471 x 131 at (0, 0). */
 .pages::after {
     z-index: 1;
-    inset: 13% 3.5% 23%;
-    border-top: 2px solid rgb(255 179 92 / 23%);
-    border-bottom: 2px solid rgb(85 39 13 / 22%);
-    pointer-events: none;
+    inset: 0 0 auto;
+    height: 98.496%;
+    background: url("/job-board/page-plank.webp") center/100% 100% no-repeat;
+}
+
+.pageRow {
+    --px: calc(100cqw / 471);
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    container-type: inline-size;
+    display: flex;
+    align-items: flex-start;
+}
+
+/*
+ * Spacing lives on the children: cqw on .pageRow itself would resolve
+ * against the outer container, and padding would shrink its content box.
+ */
+.pagePrevious {
+    margin-left: calc(33 * var(--px));
 }
 
 .pageArrow {
-    position: absolute;
-    z-index: 3;
-    top: 4%;
-    bottom: 14%;
-    width: 19%;
+    position: relative;
+    flex: none;
+    width: calc(63 * var(--px));
+    height: calc(72 * var(--px));
+    margin-top: calc(30 * var(--px));
     padding: 0;
     border: 0;
-    background-color: transparent;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
+    background: url("/job-board/page-badge.webp") center/100% 100% no-repeat;
     cursor: pointer;
 }
 
-.pagePrevious {
-    left: 1%;
-    background-image: url("/job-board/page-previous.png");
+/* Chevron: 11.54 x 19 vector, 26px from the badge top. */
+.pageArrow::after {
+    content: "";
+    position: absolute;
+    top: calc(26 * var(--px));
+    width: calc(11.5378 * var(--px));
+    height: calc(19 * var(--px));
+    background: url("/job-board/page-chevron.svg") center/100% 100% no-repeat;
+}
+
+.pagePrevious::after {
+    left: calc(23.46 * var(--px));
 }
 
 .pageNext {
-    right: 1%;
-    background-image: url("/job-board/page-next.png");
+    transform: scaleX(-1);
+}
+
+.pageNext::after {
+    left: calc(24.46 * var(--px));
 }
 
 .pageArrow:hover:not(:disabled),
@@ -385,38 +414,37 @@
     cursor: default;
 }
 
+/* 258 x 67 slot; numbers sit 7.22px down, bottom-aligned, 13px apart. */
 .pageNumbers {
-    position: absolute;
-    z-index: 2;
-    top: 16%;
-    right: 19%;
-    bottom: 24%;
-    left: 19%;
+    flex: none;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    gap: 4%;
+    gap: calc(13 * var(--px));
+    width: calc(258 * var(--px));
+    height: calc(52.569 * var(--px));
+    margin-inline: calc(18 * var(--px));
+    margin-top: calc((35 + 7.22) * var(--px));
 }
 
 .pageNumbers button {
     display: grid;
     place-items: center;
-    width: min(22%, 55px);
-    aspect-ratio: 1;
+    flex: none;
+    width: calc(51 * var(--px));
+    height: calc(51 * var(--px));
     padding: 0;
     border: 0;
-    color: #fff2d0;
-    background: transparent url("/job-board/page-number.png") center/contain
-        no-repeat;
-    font: 400 clamp(17px, 2cqw, 27px) / 1 var(--display);
-    text-shadow: 0 2px 0 #8d5700;
+    color: #fff;
+    background: url("/job-board/page-number.svg") center/100% 100% no-repeat;
+    font: 400 calc(30 * var(--px)) / 1 var(--display);
     cursor: pointer;
 }
 
 .pageNumbers .currentPage {
-    background-image: url("/job-board/page-current.png");
-    color: #fff;
-    text-shadow: 0 2px 0 #160a04;
+    width: calc(48 * var(--px));
+    height: calc(48 * var(--px));
+    background-image: url("/job-board/page-current.svg");
 }
 
 .pageNumbers button:hover,
@@ -471,12 +499,12 @@
 
 .detailHeader {
     position: absolute;
-    top: 16.5%;
+    top: 16.2%;
     left: 19%;
     right: 19%;
     display: grid;
     grid-template-rows: minmax(0, 1fr) auto;
-    gap: 0.3em;
+    gap: 0.1em;
     height: 18.5%;
     text-align: center;
 }
@@ -488,7 +516,7 @@
 
 .detailHeader h2 {
     display: -webkit-box;
-    align-self: center;
+    align-self: end;
     margin: 0;
     overflow: hidden;
     padding: 0.06em 0 0.12em;
@@ -546,7 +574,7 @@
 
     position: absolute;
     z-index: 2;
-    top: 27.5%;
+    top: 25%;
     right: 11.5%;
     display: flex;
     flex-direction: column;
@@ -761,14 +789,10 @@
 
 @media (max-width: 850px) {
     .room {
-        padding: clamp(170px, 43vw, 275px) 5% 50px;
+        min-height: calc(100vw * 1660 / 402);
+        padding: 74.5vw 5% 50px;
         isolation: isolate;
-        background: repeating-linear-gradient(
-            90deg,
-            #57341e 0 17%,
-            #644229 17.4% 18%,
-            #6b4328 18.2% 30%
-        );
+        background: #5c351c;
     }
 
     .room > picture {
@@ -779,36 +803,45 @@
 
     .room > picture img {
         width: 100%;
+        height: calc(100vw * 1660 / 402);
         max-width: 100%;
         margin-left: 0;
     }
 
     .message {
         width: 96%;
-        padding: 3em 2em;
+        padding: 12% 13%;
     }
 
     .board {
         position: static;
         display: flex;
         gap: 10px;
-        padding: 12px 7px 20px;
-        background: #684126;
-        border: 7px ridge #4f3019;
-        box-shadow: 0 3px 6px #26190c;
+        padding: 0 0 20px;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
     }
 
+    /* Keep text clear of the notched left end and the arrow tip on the right. */
     .search {
-        padding: 5px 16px 5px clamp(28px, 8vw, 42px);
+        align-self: center;
+        width: 90%;
+        padding: 3px clamp(26px, 7.5vw, 36px) 3px clamp(28px, 8vw, 42px);
     }
 
+    /* 16px minimum stops iOS Safari from zooming in when the input is focused. */
     .search input {
-        min-height: 42px;
-        font-size: clamp(15px, 4vw, 19px);
+        min-width: 0;
+        min-height: 32px;
+        font-size: clamp(16px, 3.4vw, 18px);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     .lighting {
-        height: 35svh;
+        display: none;
     }
 
     .lightHalo {
@@ -828,6 +861,7 @@
     .grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 6px;
+        padding: 0 10%;
     }
 
     .cardCompany {
@@ -843,8 +877,12 @@
     }
 
     .pages {
-        width: min(100%, 380px);
-        margin-top: 10px;
+        position: absolute;
+        top: calc(100vw * 1038 / 402);
+        left: 50%;
+        width: min(70%, 280px);
+        margin-top: 0;
+        transform: translateX(-50%);
     }
 }
 
@@ -858,16 +896,25 @@
     }
 
     .detailHeader {
-        top: 16.5%;
-        left: 12%;
-        right: 12%;
-        height: 12.5%;
-        gap: 0.15em;
+        top: 10.5%;
+        left: 17%;
+        right: 17%;
+        grid-template-rows: auto auto;
+        align-content: center;
+        height: 19%;
+        gap: 0.1em;
     }
 
     .detailHeader h2 {
-        font-size: clamp(19px, 6.2vw, 30px);
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        overflow: visible;
+        padding-inline: 0.15em;
+        font-size: clamp(14px, 4.6vw, 22px);
         line-height: 1.08;
+        overflow-wrap: anywhere;
+        -webkit-line-clamp: unset;
     }
 
     .company {

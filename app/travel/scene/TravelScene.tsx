@@ -1,12 +1,16 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import Lenis, { type VirtualScrollData } from "lenis";
+import "lenis/dist/lenis.css";
 import {
     animate,
+    cancelFrame,
+    frame,
     motion,
     useMotionValue,
-    useScroll,
-    useTransform
+    useTransform,
+    type FrameData
 } from "motion/react";
 import styles from "./TravelScene.module.scss";
 import pageStyles from "../styles.module.scss";
@@ -42,7 +46,116 @@ export default function TravelScene({
     hero: ReactNode;
     children: ReactNode;
 }) {
-    const { scrollY } = useScroll();
+    // Smooth wheel scrolling for mouse and trackpad users, stepped in Motion's
+    // frame loop so every layer moves in the same frame as the page. Touch,
+    // keyboard and reduced motion keep native scrolling, and the layers follow
+    // it through the scroll event. The loop runs only during a wheel glide: a
+    // frame loop that never stops keeps WebKit from scrolling with arrow keys.
+    const scrollY = useMotionValue(0);
+    useEffect(() => {
+        const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+        const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+        const scrollKeys = new Set([
+            " ",
+            "PageUp",
+            "PageDown",
+            "Home",
+            "End",
+            "ArrowUp",
+            "ArrowDown"
+        ]);
+        let lenis: Lenis | undefined;
+        let gliding = false;
+        let carry = 0;
+
+        const sync = () => scrollY.set(window.scrollY);
+        // Hand an unfinished glide over to native scrolling.
+        const yieldToNative = () => {
+            if (lenis?.isScrolling !== "smooth") return;
+            lenis.stop();
+            lenis.start();
+        };
+        const onScroll = () => {
+            // A jump Lenis did not make (find in page, scrollbar, focus,
+            // scrollIntoView) wins over the glide.
+            if (
+                lenis?.isScrolling === "smooth" &&
+                Math.abs(window.scrollY - lenis.animatedScroll) > 2
+            ) {
+                yieldToNative();
+            }
+            sync();
+        };
+        const onKeyDown = (event: KeyboardEvent) => {
+            if (!event.defaultPrevented && scrollKeys.has(event.key)) {
+                yieldToNative();
+            }
+        };
+        const step = ({ timestamp }: FrameData) => {
+            lenis?.raf(timestamp);
+            if (lenis?.isScrolling === "smooth") return;
+            cancelFrame(step);
+            gliding = false;
+        };
+        const glide = () => {
+            if (gliding || !lenis) return;
+            gliding = true;
+            // Start the clock at this frame, not at the end of the last glide.
+            lenis.time = 0;
+            frame.update(step, true);
+        };
+        const virtualScroll = (data: VirtualScrollData) => {
+            const { event } = data;
+            // Touch, pinch zoom and sideways gestures go to Lenis untouched.
+            if (
+                !(event instanceof WheelEvent) ||
+                event.ctrlKey ||
+                data.deltaY === 0
+            ) {
+                return true;
+            }
+            // Alt+wheel is history navigation in Firefox.
+            if (event.altKey) return false;
+            // Lenis rounds every target, so carry sub-pixel trackpad deltas.
+            const total = data.deltaY + carry;
+            data.deltaY = Math.round(total);
+            carry = total - data.deltaY;
+            if (data.deltaY !== 0) return true;
+            event.preventDefault();
+            return false;
+        };
+        const stop = () => {
+            cancelFrame(step);
+            gliding = false;
+            // stop() settles Lenis first, so its pending velocity timer
+            // cannot re-add the "lenis" class after destroy().
+            lenis?.stop();
+            lenis?.destroy();
+            lenis = undefined;
+        };
+        const update = () => {
+            if (reduceMotion.matches || !finePointer.matches) return stop();
+            if (lenis) return;
+            carry = 0;
+            lenis = new Lenis({ autoRaf: false, lerp: 0.1, virtualScroll });
+            lenis.on("scroll", sync);
+            lenis.on("virtual-scroll", glide);
+        };
+
+        sync();
+        update();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("keydown", onKeyDown);
+        reduceMotion.addEventListener("change", update);
+        finePointer.addEventListener("change", update);
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+            window.removeEventListener("keydown", onKeyDown);
+            reduceMotion.removeEventListener("change", update);
+            finePointer.removeEventListener("change", update);
+            stop();
+        };
+    }, [scrollY]);
     const backdropY = useTransform(
         scrollY,
         y => Math.max(0, y) * (1 - BACKDROP_SPEED)

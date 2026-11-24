@@ -1,11 +1,10 @@
 "use client";
 
-import { authenticate, devLogin, getDevUsers } from "@/util/api";
-import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
+import Loading from "@/components/Loading/Loading";
 import RegistrationBackground from "@/components/RegistrationBackground/RegistrationBackground";
 import { registrationBackgrounds } from "@/modules/RegistrationBackgrounds";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google";
+import { authenticate, devLogin, getDevUsers } from "@/util/api";
+import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Alert, Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -37,6 +36,8 @@ const authButtonSx = {
     fontFamily: "Montserrat"
 };
 
+const REDIRECT_ATTEMPTED_KEY = "googleAuthRedirectAttempted";
+
 type LocalSignInMode = "existing" | "fresh";
 
 const GithubAuthPage = ({
@@ -44,25 +45,72 @@ const GithubAuthPage = ({
 }: {
     mechathonMessage?: boolean;
 }) => {
-    useEffect(() => {
-        const redirectKey = "googleAuthRedirectAttempted";
-        if (!LOCAL_AUTH_ENABLED && !sessionStorage.getItem(redirectKey)) {
-            sessionStorage.setItem(redirectKey, "true");
-            authenticate("google");
-        }
-    }, []);
-
     const [isSigningIn, setIsSigningIn] = useState(false);
     const [signingInMode, setSigningInMode] = useState<LocalSignInMode | null>(
         null
     );
-    const [signInError, setSignInError] = useState("");
+    const [signInError, setSignInError] = useState(() => {
+        if (typeof window === "undefined" || LOCAL_AUTH_ENABLED) {
+            return "";
+        }
+        const searchParams = new URLSearchParams(window.location.search);
+        const errorParam = searchParams.get("error");
+        if (errorParam) {
+            return errorParam === "access_denied"
+                ? "Sign in was cancelled. Please try again."
+                : `Sign in error: ${errorParam}. Please try again.`;
+        }
+        if (sessionStorage.getItem(REDIRECT_ATTEMPTED_KEY)) {
+            return "Sign in could not be completed. Please try again.";
+        }
+        return "";
+    });
+
+    useEffect(() => {
+        if (LOCAL_AUTH_ENABLED) {
+            return;
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorParam = urlParams.get("error");
+        if (errorParam || sessionStorage.getItem(REDIRECT_ATTEMPTED_KEY)) {
+            return;
+        }
+
+        try {
+            sessionStorage.setItem(REDIRECT_ATTEMPTED_KEY, "true");
+            authenticate("google");
+        } catch (error) {
+            setSignInError(
+                error instanceof Error
+                    ? error.message
+                    : "Could not redirect to sign in. Please try again."
+            );
+        }
+    }, []);
+
+    const handleRetryGoogleAuth = () => {
+        setSignInError("");
+        sessionStorage.setItem(REDIRECT_ATTEMPTED_KEY, "true");
+        try {
+            authenticate("google");
+        } catch (error) {
+            setSignInError(
+                error instanceof Error
+                    ? error.message
+                    : "Could not redirect to sign in. Please try again."
+            );
+        }
+    };
 
     const handleLocalSignIn = async (mode: LocalSignInMode) => {
         setIsSigningIn(true);
         setSigningInMode(mode);
         setSignInError("");
         try {
+            if (typeof window !== "undefined") {
+                sessionStorage.removeItem(REDIRECT_ATTEMPTED_KEY);
+            }
             if (mode === "existing") {
                 const { users } = await getDevUsers();
                 const user = users[0];
@@ -86,6 +134,37 @@ const GithubAuthPage = ({
             setSigningInMode(null);
         }
     };
+
+    if (!LOCAL_AUTH_ENABLED) {
+        if (signInError) {
+            return (
+                <Box
+                    sx={{
+                        width: "100%",
+                        minHeight: "100vh",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        textAlign: "center",
+                        px: 3
+                    }}
+                >
+                    <Alert severity="error" sx={{ mb: 3, maxWidth: 500 }}>
+                        {signInError}
+                    </Alert>
+                    <Button
+                        variant="contained"
+                        onClick={handleRetryGoogleAuth}
+                        sx={authButtonSx}
+                    >
+                        Try signing in with Google again
+                    </Button>
+                </Box>
+            );
+        }
+        return <Loading />;
+    }
 
     return (
         <Box
@@ -309,65 +388,34 @@ const GithubAuthPage = ({
                         gap: "16px"
                     }}
                 >
-                    {LOCAL_AUTH_ENABLED ? (
-                        <>
-                            <Box>
-                                <Button
-                                    variant="contained"
-                                    size="large"
-                                    startIcon={<PersonOutlineIcon />}
-                                    onClick={() =>
-                                        handleLocalSignIn("existing")
-                                    }
-                                    disabled={isSigningIn}
-                                    sx={authButtonSx}
-                                >
-                                    {signingInMode === "existing"
-                                        ? "Signing in…"
-                                        : "Sign in as an existing test user"}
-                                </Button>
-                            </Box>
-                            <Box>
-                                <Button
-                                    variant="contained"
-                                    size="large"
-                                    startIcon={<PersonOutlineIcon />}
-                                    onClick={() => handleLocalSignIn("fresh")}
-                                    disabled={isSigningIn}
-                                    sx={authButtonSx}
-                                >
-                                    {signingInMode === "fresh"
-                                        ? "Signing in…"
-                                        : "Sign in as a fresh test user"}
-                                </Button>
-                            </Box>
-                        </>
-                    ) : (
-                        [
-                            {
-                                provider: "google" as const,
-                                label: "Google",
-                                icon: <GoogleIcon />
-                            },
-                            {
-                                provider: "github" as const,
-                                label: "GitHub",
-                                icon: <GitHubIcon />
-                            }
-                        ].map(({ provider, label, icon }) => (
-                            <Box key={provider}>
-                                <Button
-                                    variant="contained"
-                                    size="large"
-                                    startIcon={icon}
-                                    onClick={() => authenticate(provider)}
-                                    sx={authButtonSx}
-                                >
-                                    Sign in with {label}
-                                </Button>
-                            </Box>
-                        ))
-                    )}
+                    <Box>
+                        <Button
+                            variant="contained"
+                            size="large"
+                            startIcon={<PersonOutlineIcon />}
+                            onClick={() => handleLocalSignIn("existing")}
+                            disabled={isSigningIn}
+                            sx={authButtonSx}
+                        >
+                            {signingInMode === "existing"
+                                ? "Signing in…"
+                                : "Sign in as an existing test user"}
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button
+                            variant="contained"
+                            size="large"
+                            startIcon={<PersonOutlineIcon />}
+                            onClick={() => handleLocalSignIn("fresh")}
+                            disabled={isSigningIn}
+                            sx={authButtonSx}
+                        >
+                            {signingInMode === "fresh"
+                                ? "Signing in…"
+                                : "Sign in as a fresh test user"}
+                        </Button>
+                    </Box>
                 </Box>
                 {signInError && (
                     <Alert severity="error" sx={{ mt: 3, maxWidth: 500 }}>

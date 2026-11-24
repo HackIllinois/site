@@ -37,11 +37,7 @@ import {
     subscribe
 } from "@/util/api";
 import RegistrationStepper from "./components/RegistrationStepper";
-import {
-    applyFooterTheme,
-    REGISTER_FOOTER_DEFAULT,
-    steps
-} from "./constants/registration";
+import { steps } from "./constants/registration";
 import GithubAuthPage from "./formPages/GithubAuthPage";
 import { useRegistrationSteps } from "./hooks/use-registration-steps";
 
@@ -319,6 +315,8 @@ export const GeneralRegistration = () => {
             }
             try {
                 const body = valuesToDraftContent(formik.values);
+                // Optional here, but adonix requires the key on submit.
+                body.vcInvolvement ??= [];
                 await submitDraft(body);
                 setIsSubmitted(true);
             } catch (error: any) {
@@ -413,14 +411,6 @@ export const GeneralRegistration = () => {
             );
         }
     };
-
-    useEffect(() => {
-        applyFooterTheme(
-            (registrationAuth.authenticated &&
-                steps[currentStep]?.footerTheme) ||
-                REGISTER_FOOTER_DEFAULT
-        );
-    }, [registrationAuth.authenticated, currentStep]);
 
     if (registrationAuth.loadError || loadFailed) {
         return (

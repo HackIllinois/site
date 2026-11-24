@@ -25,11 +25,13 @@ npm run format     # prettier --write
 npx tsc --noEmit   # typecheck
 ```
 
-There is no test suite. To verify a change, run `npm run lint` and `npx tsc --noEmit`, then load the affected page in the dev server.
+To verify a change, run `npm run lint` and `npx tsc --noEmit`, then load the affected page in the dev server.
+
+Some pages have Playwright suites in `tests/<page>/`, run with `npm run test:<page>` (for example `test:travel`). The configs do not start a server, so start one first and point the suite at it with that page's base URL variable, for example `TRAVEL_BASE_URL=http://localhost:3000 npm run test:travel`. They use the locally installed Chrome.
 
 ## Directory map
 
-- `app/`: the live routes — landing page, `register/`, `rsvp/`, `profile/`, `schedule/`, `ctf/`, `challenge/`, `judges/`, `mentors/`, `prizes/`, `travel/`, `faq/`, `legal/`.
+- `app/`: the live routes — landing page, `register/`, `rsvp/`, `profile/`, `ctf/`, `challenge/`, `judges/`, `mentors/`, `prizes/`, `travel/`, `faq/`, `legal/`.
 - `components/`: shared components (`Navbar`, `Footer`, `Form`, `EventCountdown`, `StaffCard`, `GradientButton`, the MUI-wrapping form inputs, etc.).
 - `util/`: the API client (`api.ts`, `api-config.ts`), shared types (`types.ts`), form validation and select options.
 - `hooks/`: shared React hooks.

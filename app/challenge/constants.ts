@@ -9,40 +9,31 @@ export const SCORING = {
     minPointsPerContract: 20
 } as const;
 
-// From one Tier 1 floor plan (tier1-03). It scores 100.
+// A complete, small example with a five-minute walk on each leg.
 export const EXAMPLE_PLAN = `{
-  "instance": "tier1-03",
-  "gang": "example",
+  "instance": "tier1-sample",
   "routes": {
-    "pickpocket-1": [
-      { "t": 12, "cmd": "go", "to": "T3" },
-      { "t": 24, "cmd": "pickup", "contract": "C-01" },
-      { "t": 32, "cmd": "go", "to": "B17" },
-      { "t": 32, "cmd": "dropoff", "contract": "C-01" }
+    "speedster-1": [
+      { "t": 5, "cmd": "go", "to": "T1" },
+      { "t": 5, "cmd": "pickup", "order": "O1" },
+      { "t": 10, "cmd": "go", "to": "F1" },
+      { "t": 10, "cmd": "dropoff", "order": "O1" }
     ]
   }
 }`;
 
 export const EXAMPLE_WORLD = `{
-  "instance": "tier1-03",
-  "shift_end": 180,
+  "instance": "tier1-sample",
+  "shift_end": 120,
   "nodes": [
-    { "id": "HQ", "type": "hideout" },
-    { "id": "T3", "type": "game_table", "name": "Faro Table" },
-    { "id": "B17", "type": "back_room" },
-    { "id": "H4", "type": "hallway" },
-    ...
+    { "id": "S0", "type": "starting-location" },
+    { "id": "T1", "type": "target" },
+    { "id": "F1", "type": "fence" }
   ],
-  "connections": [
-    { "a": "HQ", "b": "B18", "length": 3, "crowd": 2.1, "tags": [] },
-    ...
+  "edges": [
+    { "a": "S0", "b": "T1", "length": 10, "congestion": 1 },
+    { "a": "T1", "b": "F1", "length": 10, "congestion": 1 }
   ],
-  "mercenaries": [
-    { "id": "pickpocket-1", "class": "pickpocket", "hideout": "HQ" }
-  ],
-  "contracts": [
-    { "id": "C-01", "table": "T3", "back_room": "B17",
-      "ready_at": 24, "deadline": 37 },
-    ...
-  ]
+  "drivers": [{ "id": "speedster-1", "class": "speedster", "start": "S0" }],
+  "orders": [{ "id": "O1", "target": "T1", "fence": "F1", "ready_at": 5, "deadline": 20 }]
 }`;

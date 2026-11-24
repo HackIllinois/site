@@ -1,18 +1,24 @@
-import { ChallengeStatus } from "@/util/types";
+import { ChallengeTierStatus } from "@/util/types";
 import clsx from "clsx";
 import styles from "./Saloon.module.scss";
 
 const percent = (ratio: number) => `${Math.round(ratio * 100)}%`;
 
 /** The applicant's challenge status, styled as a wanted poster. */
-export default function WantedPoster({ status }: { status: ChallengeStatus }) {
-    const { normalizedScore, passRatio, complete } = status;
+export default function WantedPoster({
+    status,
+    passRatio
+}: {
+    status: ChallengeTierStatus;
+    passRatio: number;
+}) {
+    const { normalizedScore, passed } = status;
     const calibrated = normalizedScore !== null;
     const fill = calibrated ? Math.min(normalizedScore, 1) : 0;
 
     let note: string;
-    if (complete) {
-        note = `You beat the house. Reviewers see your best score, so keep improving if you like.`;
+    if (passed) {
+        note = `You passed Tier ${status.tier}. Your best score is saved.`;
     } else if (!calibrated) {
         note =
             "The house score for your floor plan isn’t posted yet. Your scores are saved; once it’s posted, upload again to be checked against the bar.";
@@ -23,7 +29,7 @@ export default function WantedPoster({ status }: { status: ChallengeStatus }) {
     }
 
     return (
-        <aside className={styles.poster} aria-label="Your challenge status">
+        <aside className={styles.poster} aria-label="Selected tier status">
             <p className={styles.posterSub}>HackOutlaws Pro Track</p>
             <h2 className={styles.posterHeading}>WANTED</h2>
             <p className={styles.posterSub}>
@@ -58,7 +64,7 @@ export default function WantedPoster({ status }: { status: ChallengeStatus }) {
                     <div
                         className={clsx(
                             styles.meterFill,
-                            complete && styles.meterFillPassed
+                            passed && styles.meterFillPassed
                         )}
                         style={{ width: `${fill * 100}%` }}
                     />
@@ -72,15 +78,11 @@ export default function WantedPoster({ status }: { status: ChallengeStatus }) {
 
             <p className={styles.posterNote}>{note}</p>
 
-            <span
-                className={complete ? styles.stampPassed : styles.stampPending}
-            >
-                {complete ? "PASSED" : "AT LARGE"}
+            <span className={passed ? styles.stampPassed : styles.stampPending}>
+                {passed ? "PASSED" : "AT LARGE"}
             </span>
 
-            <p className={styles.posterReward}>
-                Reward: a seat at the Pro table
-            </p>
+            <p className={styles.posterReward}>Tier {status.tier}</p>
         </aside>
     );
 }

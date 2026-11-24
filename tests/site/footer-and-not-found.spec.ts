@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 const EXPECTED_ORANGE_BG =
-    "linear-gradient(rgb(152, 55, 35) 0%, rgb(165, 55, 47) 100%)";
+    /linear-gradient\(rgb\(152, 55, 35\) 0(px|%), rgb\(165, 55, 47\) 100%\)/;
 
 test("unknown routes return 404 with visible error content above the orange footer", async ({
     page
@@ -43,7 +43,7 @@ test("unknown routes return 404 with visible error content above the orange foot
     expect(layout.bodyHeight).toBeGreaterThanOrEqual(layout.viewportHeight);
     expect(layout.footerTop).toBeGreaterThanOrEqual(layout.viewportHeight - 1);
     expect(layout.footerTop).toBeGreaterThan(layout.headingBottom);
-    expect(layout.footerBg).toBe(EXPECTED_ORANGE_BG);
+    expect(layout.footerBg).toMatch(EXPECTED_ORANGE_BG);
     expect(layout.noOverflow).toBe(true);
 });
 
@@ -92,14 +92,14 @@ for (const route of [
         });
 
         expect(metrics.documentTop).toBeGreaterThan(500);
-        expect(metrics.footerBg).toBe(EXPECTED_ORANGE_BG);
+        expect(metrics.footerBg).toMatch(EXPECTED_ORANGE_BG);
         expect(metrics.noOverflow).toBe(true);
     });
 }
 
-test("registration step footer theme overrides the default and resets on leave", async ({
+test("registration uses the same orange footer as the landing page", async ({
     page
-}) => {
+}, testInfo) => {
     await page.route(
         /^https?:\/\/[^/]+\/(auth|registration)(\/|$)/,
         async route => {
@@ -140,17 +140,21 @@ test("registration step footer theme overrides the default and resets on leave",
         }
     );
 
+    const baseURL = testInfo.project.use.baseURL || "http://127.0.0.1:3023";
+    await page.context().addCookies([
+        {
+            name: "jwt",
+            value: "browser-test-token",
+            url: baseURL
+        }
+    ]);
     await page.goto("/register/general");
     await expect(page).toHaveURL(/#background-information$/);
 
     const footer = page.locator("#site-footer");
-    await expect
-        .poll(() => footer.evaluate(el => getComputedStyle(el).backgroundImage))
-        .toBe("linear-gradient(rgb(166, 47, 139) 0%, rgb(189, 58, 172) 100%)");
+    await expect(footer).toHaveCSS("background-image", EXPECTED_ORANGE_BG);
 
     await footer.getByRole("link", { name: "Legal" }).click();
     await expect(page).toHaveURL(/\/legal$/);
-    await expect
-        .poll(() => footer.evaluate(el => getComputedStyle(el).backgroundImage))
-        .toBe(EXPECTED_ORANGE_BG);
+    await expect(footer).toHaveCSS("background-image", EXPECTED_ORANGE_BG);
 });

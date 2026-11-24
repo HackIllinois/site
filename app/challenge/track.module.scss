@@ -50,12 +50,31 @@
     line-height: 1.15;
     text-shadow: 0 0.1em #401e14;
 }
+.plaquePatch,
+.plaquePatchPhone {
+    position: absolute;
+    height: auto;
+    pointer-events: none;
+}
+.plaquePatch {
+    left: 31.528%;
+    top: 59.18%;
+    width: 30.208%;
+}
+.plaquePatchPhone {
+    display: none;
+    left: 28.856%;
+    top: 52.179%;
+    width: 48.756%;
+}
 .plaque {
     position: absolute;
-    left: 32.1%;
-    top: 60.3%;
-    width: 28.9%;
-    height: 5.1%;
+    // Centred under the title. The plaque baked into the artwork, off to the
+    // left and cut off on the right, is covered by .plaquePatch.
+    left: 35.31%;
+    top: 59.77%;
+    width: 29.38%;
+    height: 5.76%;
     display: grid;
     place-content: center;
     color: #fff0d9;
@@ -63,9 +82,24 @@
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+    isolation: isolate;
+    svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: visible;
+        filter: drop-shadow(0 0.2cqw 0 rgb(48 14 8 / 0.6));
+    }
 }
-.roulette > div {
+.roulette {
+    isolation: isolate;
+}
+.rouletteCopy {
     position: absolute;
+    // Above the dealt cards, which overlap the copy on phones.
+    z-index: 4;
     left: 11.46%;
     top: 19.5%;
     width: 55%;
@@ -136,6 +170,78 @@
     height: auto;
     transform: translate(-50%, -50%);
 }
+.wheel {
+    position: absolute;
+    // Rotor centre (1279, 498.5) and radius 206 on the 1440 × 816 artwork.
+    left: 74.51%;
+    top: 35.84%;
+    width: 28.61%;
+    aspect-ratio: 1;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+.rotor {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: url("/challenge/saloon/roulette-wheel/rotor.webp") center / 100%
+        100% no-repeat;
+    will-change: transform;
+}
+.ball {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 2.91%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 34% 30%,
+        #fff 0 18%,
+        #f3ebdd 45%,
+        #b8aa94 100%
+    );
+    box-shadow: 0.08cqw 0.12cqw 0.12cqw rgb(20 6 0 / 0.55);
+    transform: translate(-50%, -50%);
+}
+.hubShadow {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.drinks {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    user-select: none;
+    img {
+        position: absolute;
+        height: auto;
+    }
+}
+@keyframes drink-spin {
+    from {
+        transform: rotate(var(--start));
+    }
+    to {
+        transform: rotate(calc(var(--start) - 360deg));
+    }
+}
+.drinkSpin {
+    transform: rotate(var(--start));
+    animation: drink-spin var(--period) linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+    .drinkSpin {
+        animation: none;
+    }
+}
 .admission .menu {
     left: 59.5%;
     top: 29.9%;
@@ -157,6 +263,20 @@
     width: 49.3%;
     transform: rotate(-2deg);
 }
+/* Clean rectangular sheet laid over the paper baked into bar.webp, which has a
+   second sheet peeking out underneath and doesn't read as a rectangle. Sized to
+   fully cover the baked paper (838x389 at -2deg, centred on 720,446 of 1440x1002). */
+.paper {
+    position: absolute;
+    left: 20.417%;
+    top: 24.451%;
+    width: 59.167%;
+    height: 40.12%;
+    background: #f9eee0;
+    transform: rotate(-2deg);
+    box-shadow: 0.5cqw 0.6cqw 0.9cqw rgba(28, 12, 4, 0.45);
+    pointer-events: none;
+}
 @media (min-width: 701px) and (max-width: 940px) {
     .saloon :is(p, dd, dt) {
         font-size: 1.45cqw;
@@ -172,13 +292,24 @@
         display: block;
     }
     .plaque {
-        left: 30%;
-        width: 46%;
-        top: 52.3%;
-        height: 4.1%;
+        left: 26.99%;
+        width: 46.02%;
+        top: 52.82%;
+        height: 3.33%;
         font-size: 2.1cqw;
     }
-    .roulette > div {
+    .plaquePatch {
+        display: none;
+    }
+    .plaquePatchPhone {
+        display: block;
+    }
+    .wheel,
+    .desktopOnly {
+        // The phone artwork has no wheel and only placeholder glasses.
+        display: none;
+    }
+    .rouletteCopy {
         left: 3%;
         top: 15%;
         width: 61%;
@@ -220,6 +351,9 @@
         width: 64%;
         transform: none;
     }
+    .paper {
+        display: none;
+    }
     .bar .menu {
         left: 18%;
         top: 25.7%;
@@ -235,5 +369,184 @@
     .start {
         font-size: 4cqw;
         padding: 0.3em 0;
+    }
+}
+
+// ---- Motion and hover ------------------------------------------------------
+
+.tableProps {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    user-select: none;
+    img {
+        position: absolute;
+        height: auto;
+    }
+}
+.card,
+.chip {
+    pointer-events: auto;
+    filter: drop-shadow(0.05cqw 0.12cqw 0.08cqw rgb(25 8 2 / 0.35));
+    transition:
+        translate 0.35s cubic-bezier(0.3, 1.4, 0.5, 1),
+        rotate 0.35s cubic-bezier(0.3, 1.4, 0.5, 1),
+        scale 0.35s cubic-bezier(0.3, 1.4, 0.5, 1),
+        filter 0.35s ease;
+}
+.card:hover {
+    translate: 0 -0.45cqw;
+    rotate: -2.5deg;
+    scale: 1.05;
+    filter: drop-shadow(0.25cqw 0.6cqw 0.4cqw rgb(25 8 2 / 0.4));
+}
+.chip:hover {
+    translate: 0 -0.3cqw;
+    rotate: 30deg;
+    scale: 1.06;
+    filter: drop-shadow(0.15cqw 0.4cqw 0.25cqw rgb(25 8 2 / 0.4));
+}
+// Until the table scrolls into view, the props wait off the felt.
+.armed :is(.card, .chip) {
+    opacity: 0;
+}
+@keyframes deal-card {
+    from {
+        opacity: 0;
+        translate: var(--from-x) var(--from-y);
+        rotate: var(--from-turn);
+        scale: 1.12;
+        filter: drop-shadow(0.6cqw 1.4cqw 0.8cqw rgb(25 8 2 / 0.35));
+    }
+    15% {
+        opacity: 1;
+    }
+}
+@keyframes toss-chip {
+    0% {
+        opacity: 0;
+        translate: 0 -2.2cqw;
+        scale: 1.3;
+    }
+    55% {
+        opacity: 1;
+        translate: 0 0.15cqw;
+        scale: 0.96;
+    }
+    78% {
+        translate: 0 -0.25cqw;
+        scale: 1.01;
+    }
+    100% {
+        translate: 0 0;
+        scale: 1;
+    }
+}
+@keyframes write-in {
+    from {
+        clip-path: inset(-20% 100% -20% 0);
+    }
+    to {
+        clip-path: inset(-20% 0 -20% 0);
+    }
+}
+@keyframes stud-on {
+    from {
+        opacity: 0;
+        scale: 0.3;
+    }
+}
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        translate: 0 1.4cqw;
+    }
+}
+.saloon :is(.start, .menu a, .plaque) {
+    transition:
+        translate 0.3s ease,
+        color 0.3s ease,
+        filter 0.3s ease;
+}
+.start span {
+    display: inline-block;
+    transition: translate 0.3s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+.start:hover span {
+    translate: 0.3em 0;
+}
+.start:hover,
+.menu a:hover {
+    color: #8a2f1c;
+}
+// The plaque stays put: moving it would uncover the cut-off plaque in the art.
+.plaque:hover {
+    filter: brightness(1.12);
+}
+.plaque svg circle {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: filter 0.3s ease;
+}
+.plaque:hover svg circle {
+    filter: drop-shadow(0 0 0.35cqw #ffcf75);
+}
+.rotor {
+    transition: rotate 0.7s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+.wheel:hover .rotor {
+    rotate: 7deg;
+}
+.drinks .drinkSpin {
+    pointer-events: auto;
+    transition:
+        rotate 1.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+        scale 0.4s ease;
+}
+.drinks .drinkSpin:hover {
+    rotate: -50deg;
+    scale: 1.05;
+}
+@media (prefers-reduced-motion: no-preference) {
+    .dealt .card {
+        animation: deal-card 0.75s cubic-bezier(0.2, 0.75, 0.25, 1) var(--delay)
+            backwards;
+    }
+    .dealt .chip {
+        animation: toss-chip 0.7s ease-out var(--delay) backwards;
+    }
+    .entrance h1 {
+        animation: fade-up 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s backwards;
+    }
+    // The text is written onto the plaque from left to right; the studs
+    // light up as each end is reached.
+    .plaque span {
+        animation: write-in 1.1s cubic-bezier(0.45, 0, 0.25, 1) 0.45s backwards;
+    }
+    .plaque svg circle {
+        animation: stud-on 0.35s ease-out backwards;
+    }
+    .plaque svg circle:first-of-type {
+        animation-delay: 0.35s;
+    }
+    .plaque svg circle:last-of-type {
+        animation-delay: 1.5s;
+    }
+    .revealArmed [data-reveal] {
+        transition:
+            opacity 0.9s ease,
+            translate 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .revealArmed [data-reveal]:not(.revealed) {
+        opacity: 0;
+        translate: 0 1.4cqw;
+    }
+}
+// Desktop and phone artwork lay the scenes out differently, so each has its
+// own set of props.
+@media (width > 850px) {
+    .phoneOnly {
+        display: none;
     }
 }
