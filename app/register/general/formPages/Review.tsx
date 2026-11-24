@@ -9,7 +9,7 @@ import {
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Box, Grid, Link as MuiLink, Stack } from "@mui/material";
 import { FormikProps } from "formik";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import {
     AckLinkStyle,
     ReviewField,
@@ -18,6 +18,7 @@ import {
 } from "../components/Review";
 import SectionHeader from "../components/SectionHeader";
 import {
+    LEGAL_DOCUMENTS,
     LEGAL_URL,
     MLH_CODE_OF_CONDUCT_URL,
     MLH_CONTEST_TERMS_URL,
@@ -371,16 +372,26 @@ const Review = ({ formik, onEditStep, accentColor }: ReviewProps) => {
                         label="Legal Acknowledgement"
                         optionLabel={
                             <>
-                                I have read and agree to the{" "}
-                                <MuiLink
-                                    href={LEGAL_URL}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    sx={AckLinkStyle}
-                                >
-                                    HackIllinois legal terms
-                                </MuiLink>
-                                .
+                                By registering for or participating in
+                                HackIllinois, I acknowledge that I have had an
+                                opportunity to read and understand the{" "}
+                                {LEGAL_DOCUMENTS.map((name, i) => (
+                                    <Fragment key={name}>
+                                        {i === LEGAL_DOCUMENTS.length - 1 &&
+                                            "and "}
+                                        <MuiLink
+                                            href={LEGAL_URL}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            sx={AckLinkStyle}
+                                        >
+                                            {name}
+                                        </MuiLink>
+                                        {i < LEGAL_DOCUMENTS.length - 1 && ", "}
+                                    </Fragment>
+                                ))}{" "}
+                                and agree to comply with the rules and
+                                obligations applicable to my participation.
                             </>
                         }
                         required
