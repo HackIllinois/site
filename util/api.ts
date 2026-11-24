@@ -5,6 +5,7 @@ import {
     AttendeeProfile,
     ChallengeResponse,
     ChallengeStatus,
+    ChallengeTier,
     DevLoginRequest,
     DevLoginResponse,
     DevUsersResponse,
@@ -109,9 +110,11 @@ export async function loadChallengeStatus(): Promise<ChallengeStatus> {
 }
 
 // Downloads the applicant's assigned Saloon Rush floor plan as world.json.
-export async function downloadChallengeWorld(): Promise<void> {
+export async function downloadChallengeWorld(
+    tier: ChallengeTier
+): Promise<void> {
     const response = await fetch(
-        API_BASE_URL + "/registration/challenge/world/",
+        API_BASE_URL + `/registration/challenge/world/${tier}/`,
         {
             method: "GET",
             mode: "cors",
@@ -139,16 +142,22 @@ export async function downloadChallengeWorld(): Promise<void> {
     URL.revokeObjectURL(url);
 }
 
-export async function submitChallenge(file: File): Promise<ChallengeResponse> {
+export async function submitChallenge(
+    tier: ChallengeTier,
+    file: File
+): Promise<ChallengeResponse> {
     const form = new FormData();
     form.append("solution", file);
 
-    const response = await fetch(API_BASE_URL + "/registration/challenge/", {
-        method: "POST",
-        mode: "cors",
-        credentials: "include",
-        body: form
-    });
+    const response = await fetch(
+        API_BASE_URL + `/registration/challenge/${tier}/`,
+        {
+            method: "POST",
+            mode: "cors",
+            credentials: "include",
+            body: form
+        }
+    );
 
     const responseJSON = await response.json().catch(() => ({
         error: "UnknownError",

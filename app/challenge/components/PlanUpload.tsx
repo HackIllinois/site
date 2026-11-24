@@ -1,7 +1,11 @@
 "use client";
 
 import { loadChallengeStatus, submitChallenge } from "@/util/api";
-import { ChallengeErrorBody, ChallengeStatus } from "@/util/types";
+import {
+    ChallengeErrorBody,
+    ChallengeStatus,
+    ChallengeTierStatus
+} from "@/util/types";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import React, { useRef, useState } from "react";
@@ -62,11 +66,17 @@ function describeError(status: number, body: ChallengeErrorBody): Outcome {
 }
 
 export default function PlanUpload({
-    status,
+    tier,
+    qualified,
+    submitting,
+    setSubmitting,
     onStatusChange,
     onPassed
 }: {
-    status: ChallengeStatus;
+    tier: ChallengeTierStatus;
+    qualified: boolean;
+    submitting: boolean;
+    setSubmitting: (pending: boolean) => void;
     onStatusChange: (status: ChallengeStatus) => void;
     onPassed: () => void;
 }) {
@@ -74,7 +84,6 @@ export default function PlanUpload({
     const [file, setFile] = useState<File | null>(null);
     const [fileError, setFileError] = useState<string | null>(null);
     const [dragging, setDragging] = useState(false);
-    const [submitting, setSubmitting] = useState(false);
     const [outcome, setOutcome] = useState<Outcome | null>(null);
 
     const chooseFile = (picked: File | null) => {
@@ -104,10 +113,10 @@ export default function PlanUpload({
         setSubmitting(true);
         setOutcome(null);
         try {
-            const response = await submitChallenge(file);
+            const response = await submitChallenge(tier.tier, file);
             if (response.status === 200) {
                 const next = response.body as ChallengeStatus;
-                const justPassed = !status.complete && next.complete;
+                const justPassed = !qualified && next.complete;
                 onStatusChange(next);
                 setOutcome({ kind: "graded" });
                 if (justPassed) onPassed();
@@ -116,7 +125,7 @@ export default function PlanUpload({
                 // saved result before asking the applicant to submit the plan again.
                 const latest = await loadChallengeStatus().catch(() => null);
                 if (latest) onStatusChange(latest);
-                if (latest?.complete && !status.complete) {
+                if (latest?.complete && !qualified) {
                     setOutcome({ kind: "graded" });
                     onPassed();
                 } else {
@@ -162,11 +171,11 @@ export default function PlanUpload({
                 {outcome.message}
             </div>
         );
-    } else if (status.lastReport) {
+    } else if (tier.lastReport) {
         result = (
             <ScoreReport
                 label={outcome ? "This upload" : "Your last upload"}
-                report={status.lastReport}
+                report={tier.lastReport}
             />
         );
     } else {

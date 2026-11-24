@@ -2,7 +2,12 @@
 
 import useWindowSize from "@/hooks/use-window-size";
 import { downloadChallengeWorld, loadChallengeStatus } from "@/util/api";
-import { ChallengeErrorBody, ChallengeStatus } from "@/util/types";
+import {
+    ChallengeErrorBody,
+    ChallengeStatus,
+    ChallengeTier,
+    ChallengeTierStatus
+} from "@/util/types";
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import CodeIcon from "@mui/icons-material/Code";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
@@ -27,9 +32,25 @@ import {
     SCORING
 } from "../constants";
 
+// During the frontend-first rollout, the existing API exposes only Tier 1 to this UI.
+function playableTiers(status: ChallengeStatus): ChallengeTierStatus[] {
+    if (status.tiers?.length && typeof status.tiers[0].unlocked === "boolean")
+        return status.tiers;
+    return [
+        {
+            ...status,
+            tier: 1,
+            unlocked: true,
+            passed: (status.normalizedScore ?? 0) >= status.passRatio
+        }
+    ];
+}
+
 function Saloon() {
     const { width, height } = useWindowSize();
     const [status, setStatus] = useState<ChallengeStatus | null>(null);
+    const [selectedTier, setSelectedTier] = useState<ChallengeTier>(1);
+    const [submitting, setSubmitting] = useState(false);
     const [loadError, setLoadError] = useState<ChallengeErrorBody | null>(null);
     const [downloading, setDownloading] = useState(false);
     const [downloadError, setDownloadError] = useState<string | null>(null);
@@ -37,7 +58,16 @@ function Saloon() {
 
     useEffect(() => {
         loadChallengeStatus()
-            .then(setStatus)
+            .then(initial => {
+                const tiers = playableTiers(initial);
+                setSelectedTier(
+                    (
+                        tiers.find(tier => tier.unlocked && !tier.passed) ??
+                        tiers[tiers.length - 1]
+                    ).tier
+                );
+                setStatus(initial);
+            })
             .catch((error: ChallengeErrorBody) =>
                 setLoadError(
                     error?.error
@@ -54,7 +84,7 @@ function Saloon() {
         setDownloading(true);
         setDownloadError(null);
         try {
-            await downloadChallengeWorld();
+            await downloadChallengeWorld(selectedTier);
         } catch (error) {
             setDownloadError(
                 (error as ChallengeErrorBody)?.message ??
@@ -106,6 +136,19 @@ function Saloon() {
 
     if (!status) {
         return <SaloonLoading text="Unrolling your floor plan…" />;
+    }
+
+    const tiers = playableTiers(status);
+    const current =
+        tiers.find(tier => tier.tier === selectedTier && tier.unlocked) ??
+        tiers[0];
+    const nextTier = tiers.find(
+        tier => tier.tier === current.tier + 1 && tier.unlocked
+    );
+
+    function selectTier(tier: ChallengeTier) {
+        setDownloadError(null);
+        setSelectedTier(tier);
     }
 
     const passPercent = Math.round(
@@ -177,6 +220,35 @@ function Saloon() {
                             jewelry by the deadlines, and earn as many points as
                             possible.
                         </p>
+                        <div
+                            id="floor-plans"
+                            className={styles.tierPicker}
+                            role="group"
+                            aria-label="Challenge tiers"
+                        >
+                            {tiers.map(tier => (
+                                <button
+                                    type="button"
+                                    key={tier.tier}
+                                    aria-pressed={tier.tier === current.tier}
+                                    disabled={
+                                        !tier.unlocked ||
+                                        downloading ||
+                                        submitting
+                                    }
+                                    onClick={() => selectTier(tier.tier)}
+                                >
+                                    Tier {tier.tier}
+                                    <span>
+                                        {tier.passed
+                                            ? "Passed"
+                                            : tier.unlocked
+                                              ? "Available"
+                                              : "Locked"}
+                                    </span>
+                                </button>
+                            ))}
+                        </div>
                         <div className={styles.btnRow}>
                             <button
                                 type="button"
@@ -199,7 +271,10 @@ function Saloon() {
                             </p>
                         )}
                     </div>
-                    <WantedPoster status={status} />
+                    <WantedPoster
+                        status={current}
+                        passRatio={status.passRatio}
+                    />
                 </section>
 
                 {/* ---------- How it works ---------- */}
@@ -264,8 +339,8 @@ function Saloon() {
                                 </h3>
                                 <p className={styles.ruleText}>
                                     Each contract is one cash bag with a{" "}
-                                    <code>table</code>, a <code>back_room</code>
-                                    , a <code>ready_at</code> minute and a{" "}
+                                    <code>target</code>, a <code>fence</code>, a{" "}
+                                    <code>ready_at</code> minute and a{" "}
                                     <code>deadline</code>. The Hack-Outlaw must
                                     visit the table after <code>ready_at</code>,
                                     pick up the bag and carry it to the back
@@ -296,7 +371,6 @@ function Saloon() {
                                 </h3>
                                 <p className={styles.ruleText}>
                                     Each connection has a <code>length</code>, a
-                                    <code> crowd</code> or{" "}
                                     <code>congestion</code> multiplier, and
                                     optional tags such as <code>narrow</code> or{" "}
                                     <code>exposed</code>.
@@ -324,7 +398,7 @@ function Saloon() {
                                             Tier 1 · your gang
                                         </span>
                                         <h4 style={{ marginTop: 8 }}>
-                                            Pickpocket
+                                            Pickpocket (speedster)
                                         </h4>
                                         <dl>
                                             <dt>Speed</dt>
@@ -352,7 +426,7 @@ function Saloon() {
                                     </div>
                                     <div className={styles.crewCard}>
                                         <h4 style={{ marginTop: 8 }}>
-                                            Heavy Lifter
+                                            Heavy Lifter (hauler)
                                         </h4>
                                         <dl>
                                             <dt>Speed</dt>
@@ -409,7 +483,7 @@ function Saloon() {
                                             <tr>
                                                 <td>
                                                     <code>pickup</code> +{" "}
-                                                    <code>contract</code>
+                                                    <code>order</code>
                                                 </td>
                                                 <td>
                                                     The Hack-Outlaw is at the
@@ -422,7 +496,7 @@ function Saloon() {
                                             <tr>
                                                 <td>
                                                     <code>dropoff</code> +{" "}
-                                                    <code>contract</code>
+                                                    <code>order</code>
                                                 </td>
                                                 <td>
                                                     The Hack-Outlaw is at the
@@ -491,19 +565,19 @@ function Saloon() {
                         <p className={styles.ruleText}>
                             <code>world.json</code> contains{" "}
                             <code>instance</code>,<code>shift_end</code>,{" "}
-                            <code>nodes</code>,<code>connections</code>,{" "}
-                            <code>mercenaries</code>
-                            and <code>contracts</code>. Each node has an{" "}
+                            <code>nodes</code>,<code>edges</code>,{" "}
+                            <code>drivers</code>
+                            and <code>orders</code>. Each node has an{" "}
                             <code>id</code> and type. Each connection has{" "}
                             <code>a</code>, <code>b</code>, <code>length</code>,
-                            <code>crowd</code> and optional <code>tags</code>.
-                            Each contract has <code>id</code>,{" "}
-                            <code>table</code>, <code>back_room</code>,{" "}
+                            <code>congestion</code> and optional{" "}
+                            <code>tags</code>. Each contract has <code>id</code>
+                            , <code>target</code>, <code>fence</code>,{" "}
                             <code>ready_at</code> and <code>deadline</code>.
                         </p>
                         <div className={styles.paperwork}>
                             <CodeBlock
-                                filename="world.json (trimmed)"
+                                filename="world.json (example)"
                                 code={EXAMPLE_WORLD}
                                 caption="The map and contracts available to your program."
                             />
@@ -511,30 +585,29 @@ function Saloon() {
                                 filename="plan.json"
                                 code={EXAMPLE_PLAN}
                                 copyable
-                                caption="Use the exact instance name and exact mercenary IDs from world.json."
+                                caption="Use the exact instance name and exact driver IDs from world.json."
                             />
                         </div>
                         <p className={styles.ruleText}>
                             In <code>plan.json</code>, <code>instance</code>{" "}
                             must match <code>world.json</code>. The{" "}
                             <code>routes</code>
-                            object uses one mercenary ID as each key. Each route
-                            is an array of timestamped commands. Routes may be
+                            object uses one driver ID as each key. Each route is
+                            an array of timestamped commands. Routes may be
                             empty. Commands are in chronological order:
                         </p>
                         <ul className={styles.ruleList}>
                             <li>
-                                <code>{`{"t": 12, "cmd": "go", "to": "T3"}`}</code>{" "}
-                                arrives at node <code>T3</code> at minute 12.
+                                <code>{`{"t": 5, "cmd": "go", "to": "T1"}`}</code>{" "}
+                                arrives at node <code>T1</code> at minute 5.
                             </li>
                             <li>
-                                <code>{`{"t": 24, "cmd": "pickup", "contract": "C-01"}`}</code>{" "}
-                                picks up contract <code>C-01</code> at its
-                                table.
+                                <code>{`{"t": 5, "cmd": "pickup", "order": "O1"}`}</code>{" "}
+                                picks up contract <code>O1</code> at its table.
                             </li>
                             <li>
-                                <code>{`{"t": 32, "cmd": "dropoff", "contract": "C-01"}`}</code>{" "}
-                                delivers <code>C-01</code> to its back room.
+                                <code>{`{"t": 10, "cmd": "dropoff", "order": "O1"}`}</code>{" "}
+                                delivers <code>O1</code> to its back room.
                             </li>
                         </ul>
                         <p className={styles.ruleText}>
@@ -563,11 +636,11 @@ function Saloon() {
                             only your highest valid score is kept.
                         </p>
                         <p className={styles.ruleText}>
-                            To be accepted into the Pro Challenge, your best
-                            score must reach <strong>{passPercent}%</strong> of
-                            the reference solver&apos;s score. No other score or
-                            application cutoff is required by the challenge
-                            grading page.
+                            Reach <strong>{passPercent}%</strong> of your floor
+                            plan’s reference score to pass that tier and unlock
+                            the next available tier. Pro Track qualification
+                            uses your average across all live tiers, with the
+                            same {passPercent}% threshold.
                         </p>
 
                         <h3
@@ -656,10 +729,9 @@ function Saloon() {
                             </div>
                         </div>
                         <p className={styles.ruleText}>
-                            Each tier is scored separately. The final score is
-                            the sum of each tier’s score divided by the
-                            reference solver’s score for that tier, multiplied
-                            by 100.
+                            Each tier contributes its best score divided by its
+                            reference score. An unplayed tier contributes zero
+                            to the average.
                         </p>
                         <p className={styles.ruleText}>
                             Tier 3 starts with 0 coins. Deliveries on or before
@@ -708,8 +780,12 @@ function Saloon() {
                         <p className={styles.ruleText}>
                             Tier 3 plans can include a <code>powerups</code>
                             array. Each entry identifies an activation time{" "}
-                            <code>t</code>, a power-up name, and the affected
-                            Hack-Outlaw or contract. A power-up is bought and
+                            <code>t</code>, a <code>type</code>, and a target.
+                            Use <code>big_belly_burger</code> or{" "}
+                            <code>extra_satchel</code> with a{" "}
+                            <code>driver</code> ID, or{" "}
+                            <code>cactus_cocktail</code> with an{" "}
+                            <code>order</code> ID. A power-up is bought and
                             activated in one command. There is no inventory: the
                             effect begins immediately. The grader verifies that
                             coins earned by all earlier dropoffs cover the cost
@@ -729,9 +805,8 @@ function Saloon() {
                                     style={{ marginBottom: 28 }}
                                 >
                                     <strong>Welcome to the gang</strong>
-                                    You passed Saloon Rush with a best haul of{" "}
-                                    {status.bestScore}. Keep tuning if you like:
-                                    reviewers see your best score.{" "}
+                                    You qualified for the Pro Track. You can
+                                    keep improving your tier scores.{" "}
                                     <Link
                                         className={styles.btnBrass}
                                         href="/register/general"
@@ -740,11 +815,33 @@ function Saloon() {
                                     </Link>
                                 </div>
                             )}
+                            <h3 className={styles.ruleHeading}>
+                                Tier {current.tier} submission
+                            </h3>
                             <PlanUpload
-                                status={status}
+                                key={current.tier}
+                                tier={current}
+                                qualified={status.complete}
+                                submitting={submitting}
+                                setSubmitting={setSubmitting}
                                 onStatusChange={setStatus}
                                 onPassed={() => setCelebrate(true)}
                             />
+                            {nextTier && (
+                                <div className={styles.btnRow}>
+                                    <a
+                                        href="#floor-plans"
+                                        className={styles.btnBrass}
+                                        onClick={event => {
+                                            if (submitting || downloading)
+                                                event.preventDefault();
+                                            else selectTier(nextTier.tier);
+                                        }}
+                                    >
+                                        Continue to Tier {nextTier.tier}
+                                    </a>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </section>

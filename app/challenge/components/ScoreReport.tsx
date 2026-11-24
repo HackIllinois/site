@@ -21,7 +21,7 @@ export default function ScoreReport({
                 <div>
                     <dt>Completed</dt>
                     <dd>
-                        {report.completed} / {report.totalContracts}
+                        {report.completed} / {report.totalOrders}
                     </dd>
                 </div>
                 <div>
@@ -47,9 +47,19 @@ export default function ScoreReport({
                     </p>
                     <ul>
                         {report.errors.map(error => (
-                            <li key={`${error.mercenary}-${error.index}`}>
+                            <li key={`${error.driver}-${error.index}`}>
                                 {error.message}
                             </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+            {report.powerupErrors?.length > 0 && (
+                <div className={styles.errors}>
+                    <h4>Skipped power-ups</h4>
+                    <ul>
+                        {report.powerupErrors.map(error => (
+                            <li key={error.index}>{error.message}</li>
                         ))}
                     </ul>
                 </div>
