@@ -240,6 +240,17 @@ test("VC and event suggestions can be left blank through submit", async ({
     await expect(page.getByText("VC involvement (optional)")).toBeVisible();
     await expect(page.getByText("Event suggestions (optional)")).toBeVisible();
 
+    const legalLinks = page.locator("#legalAcknowledge a");
+    await expect(legalLinks).toHaveText([
+        "Privacy Policy",
+        "Terms & Conditions",
+        "Code of Conduct",
+        "Complaint Procedures"
+    ]);
+    for (const link of await legalLinks.all()) {
+        await expect(link).toHaveAttribute("href", "/legal");
+    }
+
     for (const field of [
         "reviewedAcknowledge",
         "codeOfConductAcknowledge",
