@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { STATE_REIMBURSEMENT, REIMBURSEMENT_TIERS } from "../constants";
 import styles from "./Reimbursement.module.scss";
@@ -28,12 +28,51 @@ function colorFor(amount: number) {
 export default function Reimbursement() {
     const [open, setOpen] = useState(false);
     const [pinned, setPinned] = useState(false);
+    const [below, setBelow] = useState(false);
+    const area = useRef<HTMLDivElement>(null);
     const ticket = useRef<HTMLButtonElement>(null);
-    const closeRates = () => {
+    const popup = useRef<HTMLElement>(null);
+    const close = () => {
         setOpen(false);
         setPinned(false);
-        ticket.current?.focus();
     };
+
+    // Open above the ticket unless that would run under the fixed header.
+    useLayoutEffect(() => {
+        if (!open || !ticket.current || !popup.current) return;
+        const headerBottom =
+            document.querySelector("header")?.getBoundingClientRect().bottom ??
+            0;
+        const room = ticket.current.getBoundingClientRect().top - headerBottom;
+        setBelow(room < popup.current.offsetHeight + 8);
+    }, [open]);
+
+    useEffect(() => {
+        if (!open) return;
+        const closeOnOutsidePress = (event: PointerEvent) => {
+            const target = event.target as Node;
+            if (
+                !ticket.current?.contains(target) &&
+                !popup.current?.contains(target)
+            ) {
+                close();
+            }
+        };
+        const closeOnEscape = (event: KeyboardEvent) => {
+            if (event.key !== "Escape") return;
+            event.preventDefault();
+            if (area.current?.contains(document.activeElement)) {
+                ticket.current?.focus();
+            }
+            close();
+        };
+        document.addEventListener("pointerdown", closeOnOutsidePress);
+        document.addEventListener("keydown", closeOnEscape);
+        return () => {
+            document.removeEventListener("pointerdown", closeOnOutsidePress);
+            document.removeEventListener("keydown", closeOnEscape);
+        };
+    }, [open]);
 
     return (
         <section
@@ -81,64 +120,6 @@ export default function Reimbursement() {
                     </ComposableMap>
                 </div>
             </div>
-            <div
-                className={styles.ticketArea}
-                onMouseEnter={() => setOpen(true)}
-                onMouseLeave={() => {
-                    if (!pinned) setOpen(false);
-                }}
-                onBlur={event => {
-                    if (!event.currentTarget.contains(event.relatedTarget)) {
-                        setOpen(false);
-                        setPinned(false);
-                    }
-                }}
-                onKeyDown={event => {
-                    if (event.key === "Escape") {
-                        event.preventDefault();
-                        closeRates();
-                    }
-                }}
-            >
-                <button
-                    ref={ticket}
-                    type="button"
-                    className={styles.ticket}
-                    aria-label="International reimbursement rates"
-                    aria-expanded={open}
-                    aria-controls="international-rates"
-                    onClick={() => {
-                        setOpen(true);
-                        setPinned(true);
-                    }}
-                >
-                    <span className={styles.ticketText}>
-                        <small>Hover or tap for</small>International
-                        <br />
-                        rates
-                    </span>
-                </button>
-                {open && (
-                    <section
-                        id="international-rates"
-                        className={styles.international}
-                        aria-label="International reimbursement rates"
-                    >
-                        <h3>International rates</h3>
-                        <dl>
-                            {internationalRates.map(([location, rate]) => (
-                                <div key={location}>
-                                    <dt>{location}</dt>
-                                    <dd>${rate}</dd>
-                                </div>
-                            ))}
-                        </dl>
-                        <button type="button" onClick={closeRates}>
-                            Close rates
-                        </button>
-                    </section>
-                )}
-            </div>
             <ul className={styles.legend} aria-label="Reimbursement tiers">
                 {tiers.map(amount => (
                     <li key={amount}>
@@ -150,6 +131,61 @@ export default function Reimbursement() {
                     </li>
                 ))}
             </ul>
+            <div
+                ref={area}
+                className={styles.ticketArea}
+                onMouseEnter={() => setOpen(true)}
+                onMouseLeave={() => {
+                    if (!pinned) setOpen(false);
+                }}
+                onBlur={event => {
+                    if (!event.currentTarget.contains(event.relatedTarget)) {
+                        close();
+                    }
+                }}
+            >
+                <button
+                    ref={ticket}
+                    type="button"
+                    className={styles.ticket}
+                    aria-label="International reimbursement rates"
+                    aria-expanded={open}
+                    aria-controls="international-rates"
+                    onClick={() => {
+                        if (open && pinned) {
+                            close();
+                        } else {
+                            setOpen(true);
+                            setPinned(true);
+                        }
+                    }}
+                >
+                    <span className={styles.ticketText}>
+                        <small>Hover or tap for</small>International
+                        <br />
+                        rates
+                    </span>
+                </button>
+                {open && (
+                    <section
+                        id="international-rates"
+                        ref={popup}
+                        tabIndex={-1}
+                        className={`${styles.international} ${below ? styles.below : ""}`}
+                        aria-label="International reimbursement rates"
+                    >
+                        <h3>International rates</h3>
+                        <dl>
+                            {internationalRates.map(([location, rate]) => (
+                                <div key={location}>
+                                    <dt>{location}</dt>
+                                    <dd>${rate}</dd>
+                                </div>
+                            ))}
+                        </dl>
+                    </section>
+                )}
+            </div>
         </section>
     );
 }

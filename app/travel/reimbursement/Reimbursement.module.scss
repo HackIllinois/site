@@ -1,6 +1,11 @@
 .reimbursement {
     position: relative;
     min-width: 0;
+    // Paper plus key is about 0.92x as tall as the section is wide; cap the
+    // width so both fit in one viewport below the fixed navbar.
+    width: min(100%, calc((100svh - max(68px, 6.6vw) - 24px) / 0.92));
+    margin-inline: auto;
+    container-type: inline-size;
     color: #40390e;
 }
 .hint {
@@ -32,10 +37,15 @@
     outline: none;
 }
 .ticketArea {
-    position: relative;
-    width: 44%;
-    margin: -26% -9% 0 auto;
+    position: absolute;
+    right: -10%;
+    bottom: -6%;
+    width: 34%;
     z-index: 2;
+    pointer-events: none;
+    > * {
+        pointer-events: auto;
+    }
 }
 .ticket {
     width: 100%;
@@ -65,6 +75,10 @@
     z-index: 3;
     right: 0;
     bottom: calc(100% - 10px);
+    &.below {
+        bottom: auto;
+        top: calc(100% - 10px);
+    }
     width: 300px;
     max-width: 65vw;
     padding: 20px;
@@ -89,24 +103,19 @@
     dd {
         font-weight: 700;
     }
-    button {
-        margin-top: 14px;
-        padding: 10px 15px;
-        border: 1px solid #402611;
-        cursor: pointer;
-    }
 }
 .legend {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(4, max-content);
+    justify-content: start;
+    gap: 8px 1em;
     list-style: none;
     width: 85%;
-    margin: 4% 0 0 auto;
-    padding: 20px 14px;
+    margin: 1% 0 0 auto;
+    padding: 14px;
     background: #dbccaa;
     transform: rotate(2deg);
-    font-size: clamp(12px, 1.3vw, 18px);
+    font-size: clamp(10px, 2.3cqw, 18px);
     li {
         font-family: "Travel Ultra", Georgia, serif;
         color: #69432f;
@@ -126,7 +135,7 @@
         font-size: 19px;
     }
     .ticketArea {
-        margin-right: -3%;
+        right: -3%;
         width: 43%;
     }
     .ticket {
@@ -138,11 +147,14 @@
         width: 280px;
         padding: 15px;
     }
+}
+@container (max-width: 400px) {
     .legend {
         width: 88%;
-        padding: 15px 10px;
-        gap: 8px;
-        margin-top: 4%;
-        font-size: clamp(10px, 2.8vw, 16px);
+        padding: 10px;
+        grid-template-columns: repeat(2, max-content);
+        gap: 6px 1.2em;
+        margin-top: 1%;
+        font-size: clamp(10px, 3.7cqw, 16px);
     }
 }
