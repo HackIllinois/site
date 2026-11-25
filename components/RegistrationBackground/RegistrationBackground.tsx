@@ -34,6 +34,21 @@ type ArtLayerProps = {
 
 const ArtLayer = ({ art, opacity, blurPx, onReady }: ArtLayerProps) => {
     const imgRef = useRef<HTMLImageElement | null>(null);
+    const [entered, setEntered] = useState(false);
+
+    // A layer mounted for art that is already loaded (going back a step) would
+    // otherwise appear at full opacity with nothing to transition from. Hold
+    // it transparent for one painted frame so it fades in like the rest.
+    useEffect(() => {
+        let inner = 0;
+        const outer = requestAnimationFrame(() => {
+            inner = requestAnimationFrame(() => setEntered(true));
+        });
+        return () => {
+            cancelAnimationFrame(outer);
+            cancelAnimationFrame(inner);
+        };
+    }, []);
 
     // An image restored from cache can finish before React attaches `onLoad`
     // (or before hydration), so ask the element directly once it is mounted.
@@ -61,7 +76,7 @@ const ArtLayer = ({ art, opacity, blurPx, onReady }: ArtLayerProps) => {
             style={{
                 ...LAYER_STYLE,
                 display: "block",
-                opacity,
+                opacity: entered ? opacity : 0,
                 filter: blurPx > 0 ? `blur(${blurPx}px)` : undefined,
                 transform: blurPx > 0 ? "scale(1.1)" : undefined,
                 transition: `opacity ${FADE_MS}ms ease-out`

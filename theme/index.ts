@@ -68,7 +68,14 @@ theme = createTheme(theme, {
             styleOverrides: {
                 root: ({ theme }: { theme: Theme }) => ({
                     // use body2 (small notes) for helper text
-                    ...theme.typography.body2
+                    ...theme.typography.body2,
+                    // The default error red disappears into the scene art,
+                    // so errors stay white and read by weight instead.
+                    "&.Mui-error": {
+                        color: "#ffffff",
+                        fontWeight: 600,
+                        textShadow: "0 1px 2px rgb(0 0 0 / 0.45)"
+                    }
                 })
             }
         }
