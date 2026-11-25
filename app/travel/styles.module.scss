@@ -131,13 +131,33 @@
         // match; the extra 0.5% compensates for the slanted script ink.
         padding: 23% 19.5% 40% 12.5%;
         color: #40390e;
-        background: url("/travel/frontier/paper/requirement-card.webp") center /
-            100% 100% no-repeat;
+        // Card art plus its soft drop shadow, shipped as a separate 1x layer
+        // (a soft alpha gradient is expensive in the 4x card file).
+        background:
+            url("/travel/frontier/paper/requirement-card.webp") center / 100%
+                100% no-repeat,
+            url("/travel/frontier/paper/requirement-card-shadow.webp") center /
+                100% 100% no-repeat;
         font:
             500 clamp(19px, 2.1vw, 34px)/1.2 "Travel Hand",
             cursive;
         text-align: center;
         transition: transform 160ms ease;
+        // The span keeps the text one flex item around its <wbr>; the global
+        // `*` font-family rule would otherwise reset its font.
+        span {
+            font: inherit;
+        }
+        // "Hack<wbr>Illinois" may only split where the cards are narrowest
+        // (just above the mobile layout). Elsewhere the name fits on a line by
+        // itself, and an active <wbr> would split it greedily ("attend Hack /
+        // Illinois").
+        wbr {
+            display: none;
+            @media (min-width: 701px) and (max-width: 740px) {
+                display: inline;
+            }
+        }
         // Wax seal, drawn as a vector over the card (viewBox 82 272 76 76 of
         // the 240 × 400 card) so it stays sharp at any size.
         &::after {
@@ -174,14 +194,16 @@
     font-size: clamp(14px, 1.39vw, 22px);
     line-height: 1.5;
     text-align: center;
-    // Keeps the box close to the art's wood-face proportions (980 × 107) so the
-    // nails aren't stretched.
-    padding: 1.6vw 6%;
-    // The plank art's bottom 18 of 125 rows are its drop shadow; scale it so the
-    // wood face (rows 0-107) fills the box and the text centres on the wood.
-    // The box-shadow below stands in for the clipped art shadow.
-    background: #40270f url("/travel/frontier/panels/warning-plank.webp") center
-        top / 100% calc(100% * 125 / 107) no-repeat;
+    // The plank art (wood face only, 980 × 107) keeps its aspect ratio: the box
+    // is at least that tall, and when the text needs more room the art stays
+    // centred and the wood colour fills the rest, so the nails never stretch.
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 980 / 107;
+    padding: 0.8vw 6%;
+    background: #40270f url("/travel/frontier/panels/warning-plank.webp")
+        center / 100% auto no-repeat;
     box-shadow: 0 4px 5px #28150880;
 }
 .details {
@@ -265,9 +287,13 @@
             aspect-ratio: 0.53;
             font-size: clamp(12px, 3.4vw, 22px);
             padding: 28% 16% 42% 10.5%;
+            background-image:
+                url("/travel/frontier/paper/requirement-card-sm.webp"),
+                url("/travel/frontier/paper/requirement-card-shadow.webp");
         }
     }
     .warning {
+        aspect-ratio: auto;
         background-image: none;
         padding: 16px 10px;
         font-size: 14px;
