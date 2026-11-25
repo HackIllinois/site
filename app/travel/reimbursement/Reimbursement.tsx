@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { STATE_REIMBURSEMENT, REIMBURSEMENT_TIERS } from "../constants";
 import styles from "./Reimbursement.module.scss";
@@ -28,12 +28,21 @@ function colorFor(amount: number) {
 export default function Reimbursement() {
     const [open, setOpen] = useState(false);
     const [pinned, setPinned] = useState(false);
+    const area = useRef<HTMLDivElement>(null);
     const ticket = useRef<HTMLButtonElement>(null);
-    const closeRates = () => {
-        setOpen(false);
-        setPinned(false);
-        ticket.current?.focus();
-    };
+
+    useEffect(() => {
+        if (!open) return;
+        const closeOnOutsidePress = (event: PointerEvent) => {
+            if (!area.current?.contains(event.target as Node)) {
+                setOpen(false);
+                setPinned(false);
+            }
+        };
+        document.addEventListener("pointerdown", closeOnOutsidePress);
+        return () =>
+            document.removeEventListener("pointerdown", closeOnOutsidePress);
+    }, [open]);
 
     return (
         <section
@@ -81,7 +90,19 @@ export default function Reimbursement() {
                     </ComposableMap>
                 </div>
             </div>
+            <ul className={styles.legend} aria-label="Reimbursement tiers">
+                {tiers.map(amount => (
+                    <li key={amount}>
+                        <span
+                            aria-hidden="true"
+                            style={{ backgroundColor: colorFor(amount) }}
+                        />
+                        ${amount}
+                    </li>
+                ))}
+            </ul>
             <div
+                ref={area}
                 className={styles.ticketArea}
                 onMouseEnter={() => setOpen(true)}
                 onMouseLeave={() => {
@@ -96,7 +117,9 @@ export default function Reimbursement() {
                 onKeyDown={event => {
                     if (event.key === "Escape") {
                         event.preventDefault();
-                        closeRates();
+                        setOpen(false);
+                        setPinned(false);
+                        ticket.current?.focus();
                     }
                 }}
             >
@@ -121,6 +144,7 @@ export default function Reimbursement() {
                 {open && (
                     <section
                         id="international-rates"
+                        tabIndex={-1}
                         className={styles.international}
                         aria-label="International reimbursement rates"
                     >
@@ -133,23 +157,9 @@ export default function Reimbursement() {
                                 </div>
                             ))}
                         </dl>
-                        <button type="button" onClick={closeRates}>
-                            Close rates
-                        </button>
                     </section>
                 )}
             </div>
-            <ul className={styles.legend} aria-label="Reimbursement tiers">
-                {tiers.map(amount => (
-                    <li key={amount}>
-                        <span
-                            aria-hidden="true"
-                            style={{ backgroundColor: colorFor(amount) }}
-                        />
-                        ${amount}
-                    </li>
-                ))}
-            </ul>
         </section>
     );
 }

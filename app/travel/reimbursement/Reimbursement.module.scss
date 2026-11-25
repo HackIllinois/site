@@ -1,6 +1,10 @@
 .reimbursement {
     position: relative;
     min-width: 0;
+    // Paper plus key is about 0.9x as tall as the section is wide; cap the
+    // width so both fit in one viewport.
+    width: min(100%, calc((100svh - 24px) / 0.9));
+    margin-inline: auto;
     color: #40390e;
 }
 .hint {
@@ -32,9 +36,10 @@
     outline: none;
 }
 .ticketArea {
-    position: relative;
+    position: absolute;
+    right: -9%;
+    bottom: 0;
     width: 44%;
-    margin: -26% -9% 0 auto;
     z-index: 2;
 }
 .ticket {
@@ -89,21 +94,16 @@
     dd {
         font-weight: 700;
     }
-    button {
-        margin-top: 14px;
-        padding: 10px 15px;
-        border: 1px solid #402611;
-        cursor: pointer;
-    }
 }
 .legend {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(4, max-content);
+    justify-content: start;
+    gap: 8px 1em;
     list-style: none;
     width: 85%;
-    margin: 4% 0 0 auto;
-    padding: 20px 14px;
+    margin: 1% 0 0 auto;
+    padding: 14px;
     background: #dbccaa;
     transform: rotate(2deg);
     font-size: clamp(12px, 1.3vw, 18px);
@@ -140,9 +140,10 @@
     }
     .legend {
         width: 88%;
-        padding: 15px 10px;
-        gap: 8px;
-        margin-top: 4%;
+        padding: 10px;
+        grid-template-columns: repeat(2, max-content);
+        gap: 6px 1.2em;
+        margin-top: 1%;
         font-size: clamp(10px, 2.8vw, 16px);
     }
 }
