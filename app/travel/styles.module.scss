@@ -120,20 +120,42 @@
     padding: 3vw 6%;
     list-style: none;
     li {
+        position: relative;
         min-width: 0;
         aspect-ratio: 210 / 380;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 23% 16% 40%;
+        // The torn paper is not centred in the card art: beside the text its
+        // centre sits at ~47% of the width (measured), so the padding is offset to
+        // match; the extra 0.5% compensates for the slanted script ink.
+        padding: 23% 19.5% 40% 12.5%;
         color: #40390e;
-        background: url("/travel/frontier/paper/requirement-card.webp") center /
-            100% 100% no-repeat;
+        // Card art plus its soft drop shadow, shipped as a separate 1x layer
+        // (a soft alpha gradient is expensive in the 4x card file).
+        background:
+            url("/travel/frontier/paper/requirement-card.webp") center / 100%
+                100% no-repeat,
+            url("/travel/frontier/paper/requirement-card-shadow.webp") center /
+                100% 100% no-repeat;
         font:
             500 clamp(19px, 2.1vw, 34px)/1.2 "Travel Hand",
             cursive;
         text-align: center;
         transition: transform 160ms ease;
+        // Wax seal, drawn as a vector over the card (viewBox 82 272 76 76 of
+        // the 240 × 400 card) so it stays sharp at any size.
+        &::after {
+            content: "";
+            position: absolute;
+            left: 34.17%;
+            top: 68%;
+            width: 31.67%;
+            height: 19%;
+            background: url("/travel/frontier/paper/requirement-seal.svg")
+                center / contain no-repeat;
+            pointer-events: none;
+        }
     }
     li:nth-child(1) {
         //transform: rotate(-2deg);
@@ -157,9 +179,16 @@
     font-size: clamp(14px, 1.39vw, 22px);
     line-height: 1.5;
     text-align: center;
-    padding: 2vw 6%;
+    // The plank art (wood face only, 980 × 107) keeps its aspect ratio: the box
+    // is at least that tall, and when the text needs more room the art stays
+    // centred and the wood colour fills the rest, so the nails never stretch.
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 980 / 107;
+    padding: 0.8vw 6%;
     background: #40270f url("/travel/frontier/panels/warning-plank.webp")
-        center / 100% 100% no-repeat;
+        center / 100% auto no-repeat;
     box-shadow: 0 4px 5px #28150880;
 }
 .details {
@@ -242,11 +271,14 @@
         li {
             aspect-ratio: 0.53;
             font-size: clamp(12px, 3.4vw, 22px);
-            // The paper in the card art spans roughly 10%-85% of its width.
-            padding: 28% 15% 42% 12%;
+            padding: 28% 16% 42% 10.5%;
+            background-image:
+                url("/travel/frontier/paper/requirement-card-sm.webp"),
+                url("/travel/frontier/paper/requirement-card-shadow.webp");
         }
     }
     .warning {
+        aspect-ratio: auto;
         background-image: none;
         padding: 16px 10px;
         font-size: 14px;
