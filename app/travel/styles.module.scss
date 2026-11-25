@@ -143,21 +143,6 @@
             cursive;
         text-align: center;
         transition: transform 160ms ease;
-        // The span keeps the text one flex item around its <wbr>; the global
-        // `*` font-family rule would otherwise reset its font.
-        span {
-            font: inherit;
-        }
-        // "Hack<wbr>Illinois" may only split where the cards are narrowest
-        // (just above the mobile layout). Elsewhere the name fits on a line by
-        // itself, and an active <wbr> would split it greedily ("attend Hack /
-        // Illinois").
-        wbr {
-            display: none;
-            @media (min-width: 701px) and (max-width: 740px) {
-                display: inline;
-            }
-        }
         // Wax seal, drawn as a vector over the card (viewBox 82 272 76 76 of
         // the 240 × 400 card) so it stays sharp at any size.
         &::after {

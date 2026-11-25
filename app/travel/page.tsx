@@ -43,20 +43,8 @@ export default function TravelPage() {
                     className={styles.requirements}
                     aria-label="Reimbursement requirements"
                 >
-                    <li>
-                        <span>
-                            RSVP &quot;Yes&quot; to attend Hack
-                            <wbr />
-                            Illinois
-                        </span>
-                    </li>
-                    <li>
-                        <span>
-                            Attend Hack
-                            <wbr />
-                            Illinois in person
-                        </span>
-                    </li>
+                    <li>RSVP &quot;Yes&quot; to attend HackIllinois</li>
+                    <li>Attend HackIllinois in person</li>
                     <li>Submit a qualifying project</li>
                 </ol>
                 <p className={styles.warning}>
