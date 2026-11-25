@@ -15,9 +15,9 @@ export default function LegalLayout({ children }: { children?: ReactNode }) {
                 color: "white",
                 minWidth: "100vw",
                 minHeight: "100vh",
-                px: { xs: 2, md: 4 },
+                px: { xs: 1.5, md: 4 },
                 pt: "max(96px, var(--navbar-clearance))",
-                pb: 4
+                pb: { xs: 4, md: 8 }
             }}
         >
             {children}

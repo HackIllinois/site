@@ -1,1001 +1,256 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Box, Typography, Tabs, Tab, Link as MuiLink } from "@mui/material";
+import {
+    DEFAULT_LEGAL_TAB,
+    LEGAL_DOCS,
+    isLegalTabId,
+    type Block,
+    type LegalDoc,
+    type LegalTabId,
+    type Rich
+} from "./content";
+import styles from "./legal.module.scss";
 
+const FONT = "Montserrat, sans-serif";
 const ACCENT_COLOR = "var(--footer-link)";
 const LINK_SX = {
     color: ACCENT_COLOR,
     // MUI would otherwise underline in the theme's translucent white.
     textDecorationColor: "currentColor",
-    fontWeight: 700
+    fontWeight: 700,
+    overflowWrap: "anywhere"
+};
+const BODY_SX = { fontFamily: FONT, lineHeight: 1.7 };
+
+/** Reads `?tab=` so links (e.g. from registration) can open a specific tab. */
+const readTabFromUrl = (): LegalTabId => {
+    const tab = new URLSearchParams(window.location.search).get("tab");
+    return isLegalTabId(tab) ? tab : DEFAULT_LEGAL_TAB;
 };
 
-function CodeOfConductContent({ setTab }: { setTab: (tab: number) => void }) {
+type SelectTab = (tab: LegalTabId) => void;
+
+function RichText({
+    text,
+    onSelectTab
+}: {
+    text: Rich;
+    onSelectTab: SelectTab;
+}) {
+    if (typeof text === "string") return <>{text}</>;
     return (
-        <Box>
-            <Typography
-                variant="h4"
-                component="h1"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 3
-                }}
-            >
-                HackIllinois Code of Conduct
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 3,
-                    lineHeight: 1.7
-                }}
-            >
-                The HackIllinois Code of Conduct is established to create a
-                positive, safe, and inclusive environment for all participants.
-                This document sets forth the principles and expectations that
-                guide the behavior of attendees, volunteers, staff, and anyone
-                involved in HackIllinois.
-            </Typography>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Respect for Participants
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 1.5,
-                    lineHeight: 1.7
-                }}
-            >
-                All individuals participating in HackIllinois are expected to
-                demonstrate integrity, respect, and professionalism at all
-                times. HackIllinois enforces a zero-tolerance policy toward any
-                form of harassment, discrimination, or exclusionary behavior.
-                This includes, but is not limited to:
-            </Typography>
-            <Box component="ul" sx={{ ml: 3, mb: 2 }}>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Hate speech or offensive language based on race, gender,
-                    sexual orientation, disability, religion, or any other
-                    protected characteristic.
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Unwanted physical contact or sexual advances. Intimidation,
-                    bullying, or deliberate disruption of another
-                    participant&apos;s experience.
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Any form of harassment, including but not limited to
-                    stalking
-                </Typography>
-            </Box>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 3,
-                    lineHeight: 1.7
-                }}
-            >
-                If any incident of harassment or discriminatory behavior is
-                reported, it will be promptly reviewed by HackIllinois staff,
-                and can be escalated by event staff&apos;s discretion.
-                Consequences will be determined on a case-by-case basis, and may
-                include immediate removal from the event and notification of the
-                appropriate university authorities. Further details on the
-                consequences can be found in the{" "}
-                <MuiLink
-                    component="a"
-                    href="#alignment-uiuc"
-                    onClick={(e: { preventDefault: () => void }) => {
-                        e.preventDefault();
-                        document
-                            .getElementById("alignment-uiuc")
-                            ?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    sx={{
-                        ...LINK_SX,
-                        cursor: "pointer"
-                    }}
-                >
-                    Alignment with UIUC Siebel School of Computing Code of
-                    Conduct
-                </MuiLink>{" "}
-                section.
-            </Typography>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Respect for Event Spaces/Resources
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 3,
-                    lineHeight: 1.7
-                }}
-            >
-                Participants are expected to maintain the integrity of the
-                spaces and resources provided by HackIllinois. This includes:
-                Adhering to facility rules as outlined in the attendee guide.
-                Maintain clean and organized common areas (e.g. dispose of waste
-                and restore spaces to their original condition) Properly use and
-                care for equipment and materials.
-            </Typography>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Adherence to Safety Protocols
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 1.5,
-                    lineHeight: 1.7
-                }}
-            >
-                The safety of all participants is of utmost importance.
-                HackIllinois expects full cooperation with all established
-                safety protocols:
-            </Typography>
-            <Box component="ul" sx={{ ml: 3, mb: 3 }}>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    No firearms, weapons (real or fake), or any forms of
-                    violence.
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    In the case of an emergency, remain composed and follow
-                    staff guidance.
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    If you feel unwell or observe any concerning behavior,
-                    please notify event staff or contact on-site EMTs or police
-                    immediately.
-                </Typography>
-            </Box>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Respect for Event Staff
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 1.5,
-                    lineHeight: 1.7
-                }}
-            >
-                Event staff are present to ensure the event runs smoothly,
-                safely, and inclusively. Participants are expected to:
-            </Typography>
-            <Box component="ul" sx={{ ml: 3, mb: 3 }}>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Follow the instructions of HackIllinois event staff and
-                    volunteers at all times.
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Treat event staff with respect and cooperation.
-                </Typography>
-            </Box>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Reporting and Support Resources
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 1.5,
-                    lineHeight: 1.7
-                }}
-            >
-                HackIllinois strives to create a supportive and welcoming
-                environment for all. If at any point during the event you feel
-                unsafe, uncomfortable, or in need of assistance:
-            </Typography>
-            <Box component="ul" sx={{ ml: 3, mb: 2 }}>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Reach out to a HackIllinois staff member or volunteer for
-                    support.
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Utilize CS Cares, a resource available to provide assistance
-                    and ensure attendees feel welcomed and supported.
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Reports of misconduct or violations of the Code of Conduct
-                    will be handled confidentially and with the utmost
-                    seriousness to maintain a safe event atmosphere.
-                </Typography>
-            </Box>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 3,
-                    lineHeight: 1.7
-                }}
-            >
-                Reports of misconduct or violations can be submitted
-                confidentially via email directly to{" "}
-                <MuiLink href="mailto:conduct@hackillinois.org" sx={LINK_SX}>
-                    conduct@hackillinois.org
-                </MuiLink>
-                , which is monitored 24/7 during HackIllinois business hours.
-                All reports will be reviewed by a Code of Conduct Committee,
-                which includes trained leadership and event staff. For a full
-                description of our process for handling complaints, please see{" "}
-                <MuiLink
-                    component="button"
-                    onClick={() => {
-                        setTab(1);
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
-                    sx={{
-                        ...LINK_SX,
-                        cursor: "pointer",
-                        verticalAlign: "baseline",
-                        fontSize: "inherit",
-                        fontFamily: "inherit"
-                    }}
-                >
-                    Complaint Procedures
-                </MuiLink>{" "}
-                .
-            </Typography>
-
-            <Typography
-                id="alignment-uiuc"
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3,
-                    scrollMarginTop: "80px"
-                }}
-            >
-                Alignment with UIUC Siebel School of Computing Code of Conduct
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 1.5,
-                    lineHeight: 1.7
-                }}
-            >
-                HackIllinois fully complies with the broader Code of Conduct of
-                the UIUC Siebel School of Computing and Data Science, and the
-                ACM Code of Conduct. Violations of this Code of Conduct will be
-                taken seriously. Consequences will be determined on a
-                case-by-case basis by the designated staff members, who reserve
-                the right to take immediate action, which include, but are not
-                limited to:
-            </Typography>
-            <Box component="ul" sx={{ ml: 3, mb: 3 }}>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Immediate removal from the event without a refund, or
-                    reimbursement
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Reporting the incident to UIUC Office for Student Conflict
-                    Resolution (OSCR) or other appropriate university
-                    authorities Reporting to the violator&apos;s home
-                    institution if applicable
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Ineligibility for event awards
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Permanent ban from future HackIllinois events
-                </Typography>
-            </Box>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Agreement to the Code of Conduct
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 3,
-                    lineHeight: 1.7
-                }}
-            >
-                By participating in HackIllinois, you acknowledge and agree to
-                uphold this Code of Conduct. You understand that violations may
-                result in immediate action, up to and including removal from the
-                event and exclusion from future HackIllinois activities.
-                HackIllinois is committed to maintaining an inclusive, safe, and
-                productive environment for all. Thank you for contributing to
-                this community and respecting the principles that allow us to
-                collaborate and innovate together.
-            </Typography>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Photo and Media Consent
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 3,
-                    lineHeight: 1.7
-                }}
-            >
-                By attending HackIllinois, you consent to being photographed,
-                filmed, or otherwise recorded by HackIllinois staff or
-                designated media personnel. These photos, videos, and recordings
-                may be used by HackIllinois for promotional purposes, including
-                but not limited to social media, websites, and future event
-                marketing materials.
-            </Typography>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Taxes
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 3,
-                    lineHeight: 1.7
-                }}
-            >
-                All prizes awarded at HackIllinois are subject to applicable
-                federal, state, and local taxes. Winners are solely responsible
-                for reporting and paying any taxes associated with their prizes.
-                HackIllinois and its organizers make no representations
-                regarding the tax implications of any prize and recommend that
-                winners consult a tax professional regarding their individual
-                obligations.
-            </Typography>
-        </Box>
+        <>
+            {text.map((part, i) => {
+                if (typeof part === "string") return part;
+                if ("href" in part) {
+                    const external = !part.href.startsWith("mailto:");
+                    return (
+                        <MuiLink
+                            key={i}
+                            href={part.href}
+                            sx={LINK_SX}
+                            {...(external && {
+                                target: "_blank",
+                                rel: "noopener noreferrer"
+                            })}
+                        >
+                            {part.text}
+                        </MuiLink>
+                    );
+                }
+                return (
+                    <MuiLink
+                        key={i}
+                        href={`?tab=${part.tab}`}
+                        onClick={(e: React.MouseEvent) => {
+                            e.preventDefault();
+                            onSelectTab(part.tab);
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
+                        sx={LINK_SX}
+                    >
+                        {part.text}
+                    </MuiLink>
+                );
+            })}
+        </>
     );
 }
 
-function ComplaintProceduresContent() {
+function LegalBlock({
+    block,
+    onSelectTab
+}: {
+    block: Block;
+    onSelectTab: SelectTab;
+}) {
+    switch (block.type) {
+        case "h2":
+            return (
+                <Typography
+                    variant="h5"
+                    component="h2"
+                    sx={{
+                        fontFamily: FONT,
+                        fontWeight: 700,
+                        fontSize: { xs: "1.2rem", md: "1.4rem" },
+                        mt: 4,
+                        mb: 1.5
+                    }}
+                >
+                    {block.text}
+                </Typography>
+            );
+        case "h3":
+            return (
+                <Typography
+                    variant="h6"
+                    component="h3"
+                    sx={{
+                        fontFamily: FONT,
+                        fontWeight: 700,
+                        fontSize: { xs: "1rem", md: "1.1rem" },
+                        mt: 2.5,
+                        mb: 1
+                    }}
+                >
+                    {block.text}
+                </Typography>
+            );
+        case "p":
+            return (
+                <Typography sx={{ ...BODY_SX, mb: 1.5 }}>
+                    <RichText text={block.text} onSelectTab={onSelectTab} />
+                </Typography>
+            );
+        case "ul":
+            return (
+                <Box component="ul" sx={{ pl: 3, mb: 2 }}>
+                    {block.items.map((item, i) => (
+                        <Typography
+                            key={i}
+                            component="li"
+                            sx={{ ...BODY_SX, mb: 0.5 }}
+                        >
+                            <RichText text={item} onSelectTab={onSelectTab} />
+                        </Typography>
+                    ))}
+                </Box>
+            );
+    }
+}
+
+function LegalDocument({
+    doc,
+    onSelectTab
+}: {
+    doc: LegalDoc;
+    onSelectTab: SelectTab;
+}) {
     return (
-        <Box>
+        <Box
+            component="article"
+            role="tabpanel"
+            id={`legal-panel-${doc.id}`}
+            aria-labelledby={`legal-tab-${doc.id}`}
+        >
             <Typography
                 variant="h4"
                 component="h1"
                 sx={{
-                    fontFamily: "Montserrat, sans-serif",
+                    fontFamily: FONT,
                     fontWeight: 700,
+                    fontSize: { xs: "1.6rem", md: "2.125rem" },
+                    mb: 1
+                }}
+            >
+                {doc.title}
+            </Typography>
+            <Typography
+                sx={{
+                    fontFamily: FONT,
+                    fontStyle: "italic",
+                    color: "rgba(255, 255, 255, 0.75)",
                     mb: 3
                 }}
             >
-                HackIllinois Complaint Procedures
+                {doc.description}
             </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 3,
-                    lineHeight: 1.7
-                }}
-            >
-                This document outlines the procedures HackIllinois organizers
-                will follow when a complaint or violation of the Code of Conduct
-                is reported. Our goal is to ensure a fair, transparent, and
-                respectful process for addressing concerns.
-            </Typography>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Submitting a Complaint
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 1.5,
-                    lineHeight: 1.7
-                }}
-            >
-                Complaints can be submitted by emailing a report to{" "}
-                <MuiLink href="mailto:conduct@hackillinois.org" sx={LINK_SX}>
-                    conduct@hackillinois.org
-                </MuiLink>
-                . Reports should include:
-            </Typography>
-            <Box component="ul" sx={{ ml: 3, mb: 3 }}>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    A description of the incident (including dates, times, and
-                    involved parties).
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Any supporting evidence (e.g., screenshots, witness
-                    statements).
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Whether the reporter wishes to remain anonymous.
-                </Typography>
-            </Box>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Initial Review
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 1.5,
-                    lineHeight: 1.7
-                }}
-            >
-                Upon receiving a report, HackIllinois staff will:
-            </Typography>
-            <Box component="ul" sx={{ ml: 3, mb: 2 }}>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Confirm receipt of the report within 2 hours (if contact
-                    information is provided).
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Notify the reporter of the next steps.
-                </Typography>
-            </Box>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 1.5,
-                    lineHeight: 1.7
-                }}
-            >
-                The report will be forwarded to the HackIllinois Code of Conduct
-                Committee, which consists of:
-            </Typography>
-            <Box component="ul" sx={{ ml: 3, mb: 2 }}>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    The HackIllinois co-directors
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    The HackIllinois leadership team
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    A minimum of two trained staff members
-                </Typography>
-            </Box>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 3,
-                    lineHeight: 1.7
-                }}
-            >
-                The Committee will review the report and assess whether
-                immediate action is necessary to ensure the safety of
-                participants.
-            </Typography>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Investigation
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 1.5,
-                    lineHeight: 1.7
-                }}
-            >
-                The Committee will:
-            </Typography>
-            <Box component="ul" sx={{ ml: 3, mb: 2 }}>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Interview the reporter (if not anonymous) for additional
-                    context
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Speak with any witnesses identified in the report
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Notify the accused individual(s) of the report and provide
-                    an opportunity to respond
-                </Typography>
-            </Box>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 3,
-                    lineHeight: 1.7
-                }}
-            >
-                All information related to the investigation will be handled
-                confidentially, shared only with Committee members and relevant
-                university authorities if necessary.
-            </Typography>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Consequences
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 1.5,
-                    lineHeight: 1.7
-                }}
-            >
-                Once the investigation is complete, the Committee will determine
-                an appropriate course of action. Possible consequences include,
-                but are not limited to:
-            </Typography>
-            <Box component="ul" sx={{ ml: 3, mb: 3 }}>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    A formal warning
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Removal from the event without a refund
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Disqualification from awards or prizes
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Reporting the incident to the UIUC Office for Student
-                    Conflict Resolution (OSCR)
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Permanent ban from all future HackIllinois events
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Reporting the incident to the violator&apos;s home
-                    institution (if applicable)
-                </Typography>
-            </Box>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Appeals Process
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 3,
-                    lineHeight: 1.7
-                }}
-            >
-                If the accused party believes the resolution was unfair, they
-                may submit a written appeal within 24 hours of being notified of
-                the decision. Appeals should be sent to{" "}
-                <MuiLink href="mailto:conduct@hackillinois.org" sx={LINK_SX}>
-                    conduct@hackillinois.org
-                </MuiLink>
-                , where they will be reviewed by an external party (e.g., a
-                university representative, or member of CS Cares).
-            </Typography>
-
-            <Typography
-                variant="h5"
-                component="h2"
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    mb: 1.5,
-                    mt: 3
-                }}
-            >
-                Follow Up
-            </Typography>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 1.5,
-                    lineHeight: 1.7
-                }}
-            >
-                HackIllinois staff will:
-            </Typography>
-            <Box component="ul" sx={{ ml: 3, mb: 2 }}>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Notify the reporter of the outcome (within confidentiality
-                    limits).
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Provide resources or additional support as necessary (e.g.,
-                    referral to CS Cares or university counseling services).
-                </Typography>
-                <Typography
-                    component="li"
-                    sx={{
-                        fontFamily: "Montserrat, sans-serif",
-                        mb: 0.5,
-                        lineHeight: 1.7
-                    }}
-                >
-                    Record the incident in the event&apos;s incident log for
-                    future reference.
-                </Typography>
-            </Box>
-            <Typography
-                sx={{
-                    fontFamily: "Montserrat, sans-serif",
-                    mb: 3,
-                    lineHeight: 1.7
-                }}
-            >
-                The above processes will help HackIllinois Leadership in
-                maintaining a safe, inclusive event environment.
-            </Typography>
+            {doc.blocks.map((block, i) => (
+                <LegalBlock key={i} block={block} onSelectTab={onSelectTab} />
+            ))}
         </Box>
     );
 }
 
 const Legal: React.FC = () => {
-    const [tab, setTab] = useState(0);
+    const [tab, setTab] = useState<LegalTabId>(DEFAULT_LEGAL_TAB);
+
+    useEffect(() => {
+        setTab(readTabFromUrl());
+        const onPopState = () => setTab(readTabFromUrl());
+        window.addEventListener("popstate", onPopState);
+        return () => window.removeEventListener("popstate", onPopState);
+    }, []);
+
+    const selectTab = useCallback((next: LegalTabId) => {
+        setTab(next);
+        const url = new URL(window.location.href);
+        url.searchParams.set("tab", next);
+        window.history.replaceState(null, "", url);
+    }, []);
+
+    const doc = LEGAL_DOCS.find(d => d.id === tab) ?? LEGAL_DOCS[0];
 
     return (
-        <Box sx={{ maxWidth: "900px", mx: "auto" }}>
-            <Tabs
-                value={tab}
-                onChange={(_, newValue) => setTab(newValue)}
-                sx={{
-                    mb: 4,
-                    "& .MuiTabs-indicator": {
-                        backgroundColor: ACCENT_COLOR
-                    },
-                    "& .MuiTab-root": {
-                        fontFamily: "Montserrat, sans-serif",
-                        color: "rgba(255, 255, 255, 0.75)",
-                        textTransform: "none",
-                        fontSize: "16px",
-                        // Let the labels wrap on phones instead of being clipped.
-                        flexShrink: 1,
-                        "&.Mui-selected": {
-                            color: "white"
+        <>
+            <div className={styles.background} aria-hidden="true" />
+            <Box className={styles.panel}>
+                <Tabs
+                    value={tab}
+                    onChange={(_, value: LegalTabId) => selectTab(value)}
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    allowScrollButtonsMobile
+                    aria-label="Legal documents"
+                    sx={{
+                        mb: 4,
+                        borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
+                        "& .MuiTabs-indicator": {
+                            backgroundColor: ACCENT_COLOR
+                        },
+                        "& .MuiTabs-scrollButtons": {
+                            color: "white",
+                            "&.Mui-disabled": { opacity: 0.3 }
+                        },
+                        "& .MuiTab-root": {
+                            fontFamily: FONT,
+                            color: "rgba(255, 255, 255, 0.75)",
+                            textTransform: "none",
+                            fontSize: { xs: "15px", md: "16px" },
+                            px: { xs: 1.5, md: 2 },
+                            "&.Mui-selected": {
+                                color: "white",
+                                fontWeight: 700
+                            }
                         }
-                    }
-                }}
-            >
-                <Tab label="Code of Conduct" />
-                <Tab label="Complaint Procedures" />
-            </Tabs>
-            {tab === 0 && <CodeOfConductContent setTab={setTab} />}
-            {tab === 1 && <ComplaintProceduresContent />}
-        </Box>
+                    }}
+                >
+                    {LEGAL_DOCS.map(d => (
+                        <Tab
+                            key={d.id}
+                            value={d.id}
+                            label={d.label}
+                            id={`legal-tab-${d.id}`}
+                            aria-controls={`legal-panel-${d.id}`}
+                        />
+                    ))}
+                </Tabs>
+                <LegalDocument doc={doc} onSelectTab={selectTab} />
+            </Box>
+        </>
     );
 };
 

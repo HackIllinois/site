@@ -1,3 +1,4 @@
+import type { LegalTabId } from "@/app/legal/content";
 import type { NavButtonThemeId } from "@/components/Form/NavigationButton/navButtonThemes";
 import type {
     RegistrationBackgroundArt,
@@ -95,15 +96,13 @@ export const PRO_TRACK_URL = "/challenge";
 /** Hardware interest form. Leave empty to hide the link until it exists. */
 export const HARDWARE_INTEREST_FORM_URL = "";
 
-export const LEGAL_URL = "/legal";
-
 /** The four tabs of /legal, in the order the 2027 legal checkbox names them. */
-export const LEGAL_DOCUMENTS = [
-    "Privacy Policy",
-    "Terms & Conditions",
-    "Code of Conduct",
-    "Complaint Procedures"
-] as const;
+export const LEGAL_DOCUMENTS: readonly { name: string; tab: LegalTabId }[] = [
+    { name: "Privacy Policy", tab: "privacy-policy" },
+    { name: "Terms & Conditions", tab: "terms-and-conditions" },
+    { name: "Code of Conduct", tab: "code-of-conduct" },
+    { name: "Complaint Procedures", tab: "complaint-procedures" }
+];
 
 export const AGE_ELIGIBILITY_NOTE =
     "You must be at least 18 years old on or before February 26th 2027 to attend HackIllinois 2027";

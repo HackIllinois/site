@@ -2,6 +2,9 @@ import { expect, test } from "@playwright/test";
 
 const EXPECTED_ORANGE_BG =
     /linear-gradient\(rgb\(152, 55, 35\) 0(px|%), rgb\(165, 55, 47\) 100%\)/;
+// /legal sets its own footer palette to match its sunset background.
+const EXPECTED_LEGAL_BG =
+    /linear-gradient\(rgb\(30, 4, 49\) 0(px|%), rgb\(19, 2, 31\) 100%\)/;
 
 test("unknown routes return 404 with visible error content above the orange footer", async ({
     page
@@ -55,9 +58,9 @@ for (const route of [
     "/job-board",
     "/legal"
 ]) {
-    test(`${route} shows the orange site footer at the bottom`, async ({
-        page
-    }) => {
+    const expectedBg =
+        route === "/legal" ? EXPECTED_LEGAL_BG : EXPECTED_ORANGE_BG;
+    test(`${route} shows the site footer at the bottom`, async ({ page }) => {
         const response = await page.goto(route);
         expect(response?.status()).toBe(200);
 
@@ -92,7 +95,7 @@ for (const route of [
         });
 
         expect(metrics.documentTop).toBeGreaterThan(500);
-        expect(metrics.footerBg).toMatch(EXPECTED_ORANGE_BG);
+        expect(metrics.footerBg).toMatch(expectedBg);
         expect(metrics.noOverflow).toBe(true);
     });
 }
@@ -156,5 +159,7 @@ test("registration uses the same orange footer as the landing page", async ({
 
     await footer.getByRole("link", { name: "Legal" }).click();
     await expect(page).toHaveURL(/\/legal$/);
-    await expect(footer).toHaveCSS("background-image", EXPECTED_ORANGE_BG);
+    await expect
+        .poll(() => footer.evaluate(el => getComputedStyle(el).backgroundImage))
+        .toMatch(EXPECTED_LEGAL_BG);
 });

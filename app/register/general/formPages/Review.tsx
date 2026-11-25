@@ -1,3 +1,4 @@
+import { legalTabHref } from "@/app/legal/content";
 import CheckboxSelect from "@/components/CheckboxSelectMUI";
 import {
     FIRST_HACKATHON_OPTION,
@@ -19,7 +20,6 @@ import {
 import SectionHeader from "../components/SectionHeader";
 import {
     LEGAL_DOCUMENTS,
-    LEGAL_URL,
     MLH_CODE_OF_CONDUCT_URL,
     MLH_CONTEST_TERMS_URL,
     MLH_PRIVACY_POLICY_URL,
@@ -375,12 +375,12 @@ const Review = ({ formik, onEditStep, accentColor }: ReviewProps) => {
                                 By registering for or participating in
                                 HackIllinois, I acknowledge that I have had an
                                 opportunity to read and understand the{" "}
-                                {LEGAL_DOCUMENTS.map((name, i) => (
+                                {LEGAL_DOCUMENTS.map(({ name, tab }, i) => (
                                     <Fragment key={name}>
                                         {i === LEGAL_DOCUMENTS.length - 1 &&
                                             "and "}
                                         <MuiLink
-                                            href={LEGAL_URL}
+                                            href={legalTabHref(tab)}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             sx={AckLinkStyle}
