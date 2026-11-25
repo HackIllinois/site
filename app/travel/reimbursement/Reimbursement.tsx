@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { STATE_REIMBURSEMENT, REIMBURSEMENT_TIERS } from "../constants";
 import styles from "./Reimbursement.module.scss";
@@ -28,20 +28,50 @@ function colorFor(amount: number) {
 export default function Reimbursement() {
     const [open, setOpen] = useState(false);
     const [pinned, setPinned] = useState(false);
+    const [below, setBelow] = useState(false);
     const area = useRef<HTMLDivElement>(null);
     const ticket = useRef<HTMLButtonElement>(null);
+    const popup = useRef<HTMLElement>(null);
+    const close = () => {
+        setOpen(false);
+        setPinned(false);
+    };
+
+    // Open above the ticket unless that would run under the fixed header.
+    useLayoutEffect(() => {
+        if (!open || !ticket.current || !popup.current) return;
+        const headerBottom =
+            document.querySelector("header")?.getBoundingClientRect().bottom ??
+            0;
+        const room = ticket.current.getBoundingClientRect().top - headerBottom;
+        setBelow(room < popup.current.offsetHeight + 8);
+    }, [open]);
 
     useEffect(() => {
         if (!open) return;
         const closeOnOutsidePress = (event: PointerEvent) => {
-            if (!area.current?.contains(event.target as Node)) {
-                setOpen(false);
-                setPinned(false);
+            const target = event.target as Node;
+            if (
+                !ticket.current?.contains(target) &&
+                !popup.current?.contains(target)
+            ) {
+                close();
             }
         };
+        const closeOnEscape = (event: KeyboardEvent) => {
+            if (event.key !== "Escape") return;
+            event.preventDefault();
+            if (area.current?.contains(document.activeElement)) {
+                ticket.current?.focus();
+            }
+            close();
+        };
         document.addEventListener("pointerdown", closeOnOutsidePress);
-        return () =>
+        document.addEventListener("keydown", closeOnEscape);
+        return () => {
             document.removeEventListener("pointerdown", closeOnOutsidePress);
+            document.removeEventListener("keydown", closeOnEscape);
+        };
     }, [open]);
 
     return (
@@ -110,16 +140,7 @@ export default function Reimbursement() {
                 }}
                 onBlur={event => {
                     if (!event.currentTarget.contains(event.relatedTarget)) {
-                        setOpen(false);
-                        setPinned(false);
-                    }
-                }}
-                onKeyDown={event => {
-                    if (event.key === "Escape") {
-                        event.preventDefault();
-                        setOpen(false);
-                        setPinned(false);
-                        ticket.current?.focus();
+                        close();
                     }
                 }}
             >
@@ -131,8 +152,12 @@ export default function Reimbursement() {
                     aria-expanded={open}
                     aria-controls="international-rates"
                     onClick={() => {
-                        setOpen(true);
-                        setPinned(true);
+                        if (open && pinned) {
+                            close();
+                        } else {
+                            setOpen(true);
+                            setPinned(true);
+                        }
                     }}
                 >
                     <span className={styles.ticketText}>
@@ -144,8 +169,9 @@ export default function Reimbursement() {
                 {open && (
                     <section
                         id="international-rates"
+                        ref={popup}
                         tabIndex={-1}
-                        className={styles.international}
+                        className={`${styles.international} ${below ? styles.below : ""}`}
                         aria-label="International reimbursement rates"
                     >
                         <h3>International rates</h3>
