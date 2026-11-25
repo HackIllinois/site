@@ -85,7 +85,7 @@ test("error text stays readable on the scene art", async ({
 
     const error = page.getByText("Email is required");
     await expect(error).toBeVisible();
-    await expect(error).toHaveCSS("color", "rgb(255, 107, 107)");
+    await expect(error).toHaveCSS("color", "rgb(255, 168, 160)");
 });
 
 test("school search lists each match once and closes with an animation", async ({
