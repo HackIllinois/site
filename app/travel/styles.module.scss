@@ -120,12 +120,16 @@
     padding: 3vw 6%;
     list-style: none;
     li {
+        position: relative;
         min-width: 0;
         aspect-ratio: 210 / 380;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 23% 16% 40%;
+        // The torn paper is not centred in the card art: beside the text its
+        // centre sits at ~47% of the width (measured), so the padding is offset to
+        // match; the extra 0.5% compensates for the slanted script ink.
+        padding: 23% 19.5% 40% 12.5%;
         color: #40390e;
         background: url("/travel/frontier/paper/requirement-card.webp") center /
             100% 100% no-repeat;
@@ -134,6 +138,19 @@
             cursive;
         text-align: center;
         transition: transform 160ms ease;
+        // Wax seal, drawn as a vector over the card (viewBox 82 272 76 76 of
+        // the 240 × 400 card) so it stays sharp at any size.
+        &::after {
+            content: "";
+            position: absolute;
+            left: 34.17%;
+            top: 68%;
+            width: 31.67%;
+            height: 19%;
+            background: url("/travel/frontier/paper/requirement-seal.svg")
+                center / contain no-repeat;
+            pointer-events: none;
+        }
     }
     li:nth-child(1) {
         //transform: rotate(-2deg);
@@ -157,9 +174,14 @@
     font-size: clamp(14px, 1.39vw, 22px);
     line-height: 1.5;
     text-align: center;
-    padding: 2vw 6%;
-    background: #40270f url("/travel/frontier/panels/warning-plank.webp")
-        center / 100% 100% no-repeat;
+    // Keeps the box close to the art's wood-face proportions (980 × 107) so the
+    // nails aren't stretched.
+    padding: 1.6vw 6%;
+    // The plank art's bottom 18 of 125 rows are its drop shadow; scale it so the
+    // wood face (rows 0-107) fills the box and the text centres on the wood.
+    // The box-shadow below stands in for the clipped art shadow.
+    background: #40270f url("/travel/frontier/panels/warning-plank.webp") center
+        top / 100% calc(100% * 125 / 107) no-repeat;
     box-shadow: 0 4px 5px #28150880;
 }
 .details {
@@ -242,8 +264,7 @@
         li {
             aspect-ratio: 0.53;
             font-size: clamp(12px, 3.4vw, 22px);
-            // The paper in the card art spans roughly 10%-85% of its width.
-            padding: 28% 15% 42% 12%;
+            padding: 28% 16% 42% 10.5%;
         }
     }
     .warning {

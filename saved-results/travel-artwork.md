@@ -22,9 +22,12 @@ Paths are relative to `public/travel/frontier/`. Crop values are `x y width heig
 | board/mobile/board-mobile.webp   | 378 × 1530  | 25076  | Mobile sign-base; `15 890 378 1530`                                                                   |
 | panels/intro-plank.webp          | 980 × 330   | 4604   | Rectangle 1130 and Group 678/680/681/682; `240 1435 980 330`                                          |
 | panels/warning-plank.webp        | 980 × 125   | 3890   | Group 710, text removed; `240 2180 980 125`                                                           |
-| paper/requirement-card.webp      | 240 × 400   | 13934  | Group 702 + Group 707 nail + Group 575 seal, text removed; `325 1775 240 400`                         |
+| paper/requirement-card.webp      | 960 × 1600  | 52454  | Rebuilt at 4× from the 240 × 400 crop of Group 702 + Group 707 nail; seal removed (see below)         |
+| paper/requirement-seal.svg       | vector      | 2681   | Group 575 seal traced from the 240 × 400 crop; viewBox `82 272 76 76` in card pixels                  |
 | paper/map-paper.webp             | 535 × 420   | 61044  | Group 675 and nail; `240 2340 535 420`                                                                |
 | ticket/international-ticket.webp | 200 × 160   | 6364   | Ticket + Nail_3, text removed; `690 2560 200 160`                                                     |
+
+**Requirement card rebuild (2026-11-24):** the 240 × 400 card blurred when scaled up, most visibly the wax seal. The Figma file was not accessible and no higher-resolution export was found, so the card was rebuilt from the 240 × 400 raster: the flat paper from its own silhouette (re-thresholded at 4× for a crisp torn edge), the original soft shadow upscaled, the rule line redrawn from a fitted stroke (same position, thickness and colour), and the nail lifted off the paper and upscaled. The seal was removed from the card and traced as an SVG from the same raster (outline radii, ring centre/radii, emblem rectangles and colours all sampled), placed over the card in CSS.
 
 The ticket artwork already has approximately 23 degrees of clockwise rotation. The requirement card's text area is between its top rule and bottom wax seal. The crest includes a narrow strip of board underneath, so it can overlap the board body naturally. The full board and mobile board are used by the page. The separately extracted crest and board-body alternatives listed above were removed from the final PR because they are unused.
 
