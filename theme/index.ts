@@ -70,11 +70,11 @@ theme = createTheme(theme, {
                     // use body2 (small notes) for helper text
                     ...theme.typography.body2,
                     // The default error red disappears into the scene art,
-                    // so errors stay white and read by weight instead.
+                    // so errors use a lighter red, bold, over a soft shadow.
                     "&.Mui-error": {
-                        color: "#ffffff",
-                        fontWeight: 600,
-                        textShadow: "0 1px 2px rgb(0 0 0 / 0.45)"
+                        color: "#ff6b6b",
+                        fontWeight: 700,
+                        textShadow: "0 1px 2px rgb(0 0 0 / 0.55)"
                     }
                 })
             }
