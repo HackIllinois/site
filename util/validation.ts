@@ -8,6 +8,7 @@ import {
     schoolOptions,
     US_COUNTRY_OPTION
 } from "@/util/options";
+import { isValidPhoneNumber } from "@/util/helpers";
 import {
     ProfileFormInfo,
     RegistrationApplicationDraftBodyForm
@@ -395,7 +396,13 @@ export const validationSchemas = [
         email: Yup.string()
             .email("Invalid email address")
             .required("Email is required"),
-        phoneNumber: Yup.string().required("Phone number is required")
+        phoneNumber: Yup.string()
+            .required("Phone number is required")
+            .test(
+                "phone-format",
+                "Enter a valid phone number",
+                value => !value || isValidPhoneNumber(value)
+            )
     }),
 
     // 1. Background Information

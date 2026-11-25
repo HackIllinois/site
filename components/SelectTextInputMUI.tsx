@@ -3,9 +3,11 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormLabel from "@mui/material/FormLabel";
+import Grow from "@mui/material/Grow";
 import MenuItem from "@mui/material/MenuItem";
+import Popper, { PopperProps } from "@mui/material/Popper";
 import TextField from "@mui/material/TextField";
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { BOX_SHADOW_FILTER } from "@/theme/shadows";
 
 interface Option {
@@ -30,6 +32,38 @@ interface SelectTextInputProps {
     [key: string]: unknown;
 }
 
+/**
+ * Autocomplete's popup with an open and close animation (it has none by
+ * default), growing out of the edge that touches the input.
+ */
+const AnimatedPopper = ({ children, open, ...props }: PopperProps) => {
+    // Autocomplete empties the list the moment it closes, so keep showing the
+    // last open contents while the popup animates out.
+    const lastOpenChildren = useRef(children);
+    if (open) lastOpenChildren.current = children;
+    const content = (open ? children : lastOpenChildren.current) as
+        | React.ReactNode
+        | undefined;
+
+    return (
+        <Popper {...props} open={open} transition>
+            {({ TransitionProps, placement }) => (
+                <Grow
+                    {...TransitionProps}
+                    timeout={{ enter: 200, exit: 140 }}
+                    style={{
+                        transformOrigin: placement.startsWith("top")
+                            ? "center bottom"
+                            : "center top"
+                    }}
+                >
+                    <div>{content}</div>
+                </Grow>
+            )}
+        </Popper>
+    );
+};
+
 const SelectTextInput: React.FC<SelectTextInputProps> = ({
     name,
     label,
@@ -37,7 +71,7 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
     multiple = false,
     required = false,
     placeholder = "Select",
-    options,
+    options: allOptions,
     value,
     onChange,
     error,
@@ -52,6 +86,17 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
     const autocompleteRef = useRef<HTMLDivElement>(null);
     const listboxRef = useRef<HTMLUListElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    // Repeated values share a React key, which leaves stale rows behind in
+    // the list when the search text changes.
+    const options = useMemo(() => {
+        const seen = new Set<string>();
+        return allOptions.filter(option => {
+            if (seen.has(option.value)) return false;
+            seen.add(option.value);
+            return true;
+        });
+    }, [allOptions]);
 
     // MUI Autocomplete clears the typed text whenever `value` changes
     // identity, and callers rebuild `options`/`value` every render. Reuse the
@@ -126,8 +171,13 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                     ref={autocompleteRef}
                     sx={{
                         maxWidth: maxInputWidth,
-                        fontSize: "14px"
+                        fontSize: "14px",
+                        "& .MuiAutocomplete-popupIndicator": {
+                            transition:
+                                "transform 200ms cubic-bezier(0.22, 1, 0.36, 1)"
+                        }
                     }}
+                    slots={{ popper: AnimatedPopper }}
                     filterOptions={filterOptions}
                     multiple={multiple}
                     options={options}
@@ -147,7 +197,10 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                     }}
                     ListboxProps={{
                         onScroll: handleListboxScroll,
-                        ref: listboxRef
+                        ref: listboxRef,
+                        // dvh so the list still fits when a phone keyboard
+                        // or browser toolbar shrinks the viewport
+                        style: { maxHeight: "min(40dvh, 360px)" }
                     }}
                     // handle saving on Tab keypress
                     onKeyDown={event => {
@@ -250,6 +303,8 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                                     whiteSpace: "normal",
                                     wordBreak: "break-word",
                                     fontSize: "14px",
+                                    // comfortable touch target on phones
+                                    minHeight: { xs: 44, sm: 36 },
                                     ...(selected && {
                                         backgroundColor: "#48b7e3ff !important",
                                         color: "#fff"

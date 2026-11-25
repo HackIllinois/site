@@ -1,5 +1,6 @@
 import SelectTextInput from "@/components/SelectTextInputMUI";
 import TextInput from "@/components/TextInputMUI";
+import { formatPhoneNumber } from "@/util/helpers";
 import { ageOptions } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Box, Grid } from "@mui/material";
@@ -71,15 +72,25 @@ const PersonalInfo = ({ formik, accentColor }: PersonalInfoProps) => {
                         accentColor={accentColor}
                         required
                         type="tel"
+                        placeholder="(217) 555-0100"
                         value={values.phoneNumber}
-                        onChange={handleChange}
+                        onChange={e =>
+                            setFieldValue(
+                                "phoneNumber",
+                                formatPhoneNumber(e.target.value)
+                            )
+                        }
                         error={
                             !!touched.phoneNumber && Boolean(errors.phoneNumber)
                         }
                         helperText={
                             touched.phoneNumber ? errors.phoneNumber : ""
                         }
-                        inputProps={{ maxLength: 20 }}
+                        inputProps={{
+                            maxLength: 20,
+                            inputMode: "tel",
+                            autoComplete: "tel"
+                        }}
                     />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 6 }}>
