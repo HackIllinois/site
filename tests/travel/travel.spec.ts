@@ -123,7 +123,7 @@ test("map takes priority over the small disclaimer without a dropdown", async ({
     ).toBe(14);
 });
 
-test("every state uses its reimbursement tier color without hover labels", async ({
+test("every state uses its reimbursement tier color and shows a hover popup with highlight and dimming", async ({
     page
 }, testInfo) => {
     const map = page.getByLabel("United States reimbursement map", {
@@ -153,19 +153,64 @@ test("every state uses its reimbursement tier color without hover labels", async
         }
     }
     expect(colors.size).toBe(8);
+
+    // Legend padding on the right matches the left with no trailing dead space.
+    const legendMetrics = await legend.evaluate(el => {
+        const style = getComputedStyle(el);
+        const items = Array.from(el.querySelectorAll("li"));
+        const maxRight = Math.max(
+            ...items.map(item => item.offsetLeft + item.offsetWidth)
+        );
+        return {
+            paddingLeft: parseFloat(style.paddingLeft),
+            paddingRight: parseFloat(style.paddingRight),
+            trailingSpace: el.clientWidth - maxRight
+        };
+    });
+    expect(legendMetrics.paddingRight).toBeCloseTo(
+        legendMetrics.paddingLeft,
+        1
+    );
+    expect(
+        Math.abs(legendMetrics.trailingSpace - legendMetrics.paddingRight)
+    ).toBeLessThanOrEqual(4);
+
     const illinois = page.getByLabel("Illinois: $100 reimbursement cap", {
         exact: true
     });
-    const before = await illinois.evaluate(el => getComputedStyle(el).fill);
+    const california = page.getByLabel("California: $350 reimbursement cap", {
+        exact: true
+    });
+    const beforeFill = await illinois.evaluate(el => getComputedStyle(el).fill);
+    const beforeStroke = await illinois.evaluate(el =>
+        parseFloat(getComputedStyle(el).strokeWidth)
+    );
     if (testInfo.project.name === "mobile") await illinois.tap();
     else await illinois.hover();
+
+    const tooltip = page.getByRole("tooltip");
+    await expect(tooltip).toBeVisible();
+    await expect(tooltip).toContainText("Illinois");
+    await expect(tooltip).toContainText("$100");
+    await expect(tooltip).toContainText("reimbursement cap");
     expect(await illinois.evaluate(el => getComputedStyle(el).fill)).toBe(
-        before
+        beforeFill
     );
-    await expect(page.getByRole("status")).toHaveCount(0);
-    await expect(page.getByText(/Hover, tap, or select a state/)).toHaveCount(
-        0
-    );
+    await expect
+        .poll(() =>
+            illinois.evaluate(el =>
+                parseFloat(getComputedStyle(el).strokeWidth)
+            )
+        )
+        .toBeGreaterThan(beforeStroke);
+    await expect
+        .poll(() =>
+            california.evaluate(el => parseFloat(getComputedStyle(el).opacity))
+        )
+        .toBeLessThan(1);
+
+    await page.keyboard.press("Escape");
+    await expect(tooltip).toHaveCount(0);
 });
 
 test("local reimbursement JSON covers every state once in the eight allowed tiers", async ({
