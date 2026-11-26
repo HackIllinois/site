@@ -151,6 +151,16 @@ export default function JobBoard({ jobs }: { jobs: JobPosting[] | null }) {
                 }}
                 priority
             />
+            <Image
+                className={styles.titleSign}
+                src="/job-board/title-sign.webp"
+                width={1100}
+                height={599}
+                alt=""
+                aria-hidden="true"
+                priority
+                unoptimized
+            />
             <div className={styles.lighting} aria-hidden="true">
                 {[styles.lightHaloLeft, styles.lightHaloRight].map(side => (
                     <span key={side} className={`${styles.lightHalo} ${side}`}>
