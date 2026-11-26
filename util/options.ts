@@ -104,8 +104,6 @@ export const vcInvolvementOptions: string[] = [
     OTHER_VC_PLEASE_SPECIFY
 ];
 
-export const areaInterestRankOptions: string[] = ["1", "2"];
-
 export const travelReimbursementOptions: string[] = ["Yes", "No"];
 
 export const dietaryRestrictionsOptions: string[] = [

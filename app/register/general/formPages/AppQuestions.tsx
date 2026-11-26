@@ -1,8 +1,8 @@
+import CheckboxGroup from "@/components/CheckboxGroupMUI";
 import CheckboxSelect from "@/components/CheckboxSelectMUI";
+import RadioSelectGroup from "@/components/RadioSelectGroupMUI";
 import ResumeUpload from "@/components/ResumeUploadMUI";
-import RankSelect from "@/components/RankSelectMUI";
 import TextInput from "@/components/TextInputMUI";
-import { areaInterestRankOptions } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Box, Grid, Link, Typography } from "@mui/material";
 import { FormikProps } from "formik";
@@ -21,29 +21,48 @@ interface AppQuestionsProps {
 const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
     const { values, errors, touched, handleChange, setValues } = formik;
 
-    // Software and Hardware must get different ranks, so picking one fills the other.
-    const complementRank = (rank: string) => (rank === "1" ? "2" : "1");
-    const handleRank =
-        (field: "interestSoftware" | "interestHardware") => (rank: string) => {
-            const other =
-                field === "interestSoftware"
-                    ? "interestHardware"
-                    : "interestSoftware";
-            // One setValues so both ranks validate together.
-            setValues({
-                ...values,
-                [field]: rank,
-                ...((rank === "1" || rank === "2") && {
-                    [other]: complementRank(rank)
-                })
-            });
-        };
+    // Stored as the same two rank fields adonix already takes:
+    //   one area picked:            picked = "1", other = ""
+    //   both, preference picked:    preferred = "1", other = "2"
+    //   both, no preference yet:    both "1" (draft only; validation blocks submit)
+    const areaFields = {
+        Software: "interestSoftware",
+        Hardware: "interestHardware"
+    } as const;
+    type Area = keyof typeof areaFields;
+    const areas = Object.keys(areaFields) as Area[];
+    const selectedAreas = areas.filter(area => !!values[areaFields[area]]);
+    const bothSelected = selectedAreas.length === 2;
+    const preferredArea = bothSelected
+        ? areas.find(
+              area =>
+                  values[areaFields[area]] === "1" &&
+                  values[areaFields[areas.find(a => a !== area)!]] === "2"
+          )
+        : undefined;
 
-    // One message for the ranking question (either field's error).
-    const rankError =
-        (touched.interestSoftware && errors.interestSoftware) ||
-        (touched.interestHardware && errors.interestHardware) ||
-        "";
+    const handleAreas = (picked: string[]) => {
+        const has = (area: Area) => picked.includes(area);
+        // Picking a second area never picks a preference for the applicant.
+        setValues({
+            ...values,
+            interestSoftware: has("Software") ? "1" : "",
+            interestHardware: has("Hardware") ? "1" : ""
+        });
+    };
+
+    const handlePreference = (preferred: string | boolean) => {
+        setValues({
+            ...values,
+            interestSoftware: preferred === "Software" ? "1" : "2",
+            interestHardware: preferred === "Hardware" ? "1" : "2"
+        });
+    };
+
+    const areaError =
+        (touched.interestSoftware && errors.interestSoftware) || "";
+    const preferenceError =
+        (touched.interestHardware && errors.interestHardware) || "";
 
     return (
         <Box sx={{ px: { xs: 3, md: 6 }, width: "100%" }}>
@@ -76,28 +95,42 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 </Grid>
 
                 <Grid size={12}>
-                    <RankSelect
-                        name="interestRank"
-                        label="Which area of the hackathon are you most interested in? Please rank Software and Hardware from 1 (most interested) to 2 (least interested)."
-                        required
-                        ranks={areaInterestRankOptions}
-                        items={[
-                            {
-                                name: "interestSoftware",
-                                label: "Software",
-                                value: values.interestSoftware,
-                                onChange: handleRank("interestSoftware")
-                            },
-                            {
-                                name: "interestHardware",
-                                label: "Hardware",
-                                value: values.interestHardware,
-                                onChange: handleRank("interestHardware")
-                            }
-                        ]}
-                        error={!!rankError}
-                        helperText={rankError}
-                    />
+                    {/* Own box: CheckboxGroup fills its parent's height. */}
+                    <Box>
+                        <CheckboxGroup
+                            name="interestAreas"
+                            label="Which area of the hackathon are you interested in? Select one or both."
+                            required
+                            accentColor={accentColor}
+                            options={areas.map(area => ({
+                                label: area,
+                                value: area
+                            }))}
+                            value={selectedAreas}
+                            onChange={handleAreas}
+                            error={!!areaError}
+                            helperText={areaError}
+                        />
+                        {bothSelected && (
+                            <Box sx={{ mt: 3 }}>
+                                <RadioSelectGroup
+                                    name="interestPreference"
+                                    label="Which one are you more interested in?"
+                                    required
+                                    row
+                                    accentColor={accentColor}
+                                    options={areas.map(area => ({
+                                        label: area,
+                                        value: area
+                                    }))}
+                                    value={preferredArea}
+                                    onChange={handlePreference}
+                                    error={!!preferenceError}
+                                    helperText={preferenceError}
+                                />
+                            </Box>
+                        )}
+                    </Box>
                     {HARDWARE_INTEREST_FORM_URL && (
                         <Typography
                             sx={{

@@ -446,15 +446,21 @@ export const validationSchemas = [
 
     // 2. Application Questions
     Yup.object({
+        // See AppQuestions: "" = not picked; both picked = one "1", one "2".
         interestSoftware: Yup.string()
-            .required("Please rank Software")
-            .oneOf(["1", "2"], "Rank must be 1 or 2"),
-        interestHardware: Yup.string()
-            .required("Please rank Hardware")
-            .oneOf(["1", "2"], "Rank must be 1 or 2")
+            .oneOf(["", "1", "2"], "Please choose Software, Hardware, or both")
             .test(
-                "distinct-ranks",
-                "Software and Hardware must have different ranks",
+                "pick-an-area",
+                "Please choose Software, Hardware, or both",
+                function (value) {
+                    return !!value || !!this.parent.interestHardware;
+                }
+            ),
+        interestHardware: Yup.string()
+            .oneOf(["", "1", "2"], "Please choose Software, Hardware, or both")
+            .test(
+                "pick-a-preference",
+                "Please choose which one you are more interested in",
                 function (value) {
                     const { interestSoftware } = this.parent;
                     if (!value || !interestSoftware) return true;
