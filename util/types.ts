@@ -320,4 +320,5 @@ export interface JobPosting {
     jobTitle: string;
     jobDescription: string;
     applicationUrl: string;
+    location?: string;
 }

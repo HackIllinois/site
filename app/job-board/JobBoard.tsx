@@ -37,6 +37,10 @@ function jobDescription(value: string) {
     return description || "No job description has been provided yet.";
 }
 
+function jobLocation(value?: string) {
+    return value?.trim() ?? "";
+}
+
 function visiblePageIndexes(current: number, total: number) {
     const count = Math.min(4, total);
     const start = Math.min(
@@ -97,7 +101,7 @@ export default function JobBoard({ jobs }: { jobs: JobPosting[] | null }) {
     const openStamp = useRef<HTMLSpanElement>(null);
     const router = useRouter();
     const filtered = (jobs ?? []).filter(job =>
-        [job.companyName, job.jobTitle, job.jobDescription]
+        [job.companyName, job.jobTitle, job.jobDescription, job.location ?? ""]
             .join(" ")
             .toLowerCase()
             .includes(query.trim().toLowerCase())
@@ -108,6 +112,7 @@ export default function JobBoard({ jobs }: { jobs: JobPosting[] | null }) {
     const applicationUrl = selected
         ? webUrl(selected.applicationUrl)
         : undefined;
+    const selectedLocation = selected ? jobLocation(selected.location) : "";
     const description = selected ? jobDescription(selected.jobDescription) : "";
 
     useEffect(() => {
@@ -203,6 +208,7 @@ export default function JobBoard({ jobs }: { jobs: JobPosting[] | null }) {
                         {filtered
                             .slice(current * pageSize, (current + 1) * pageSize)
                             .map(job => {
+                                const location = jobLocation(job.location);
                                 return (
                                     <li key={job._id}>
                                         <button
@@ -226,8 +232,11 @@ export default function JobBoard({ jobs }: { jobs: JobPosting[] | null }) {
                                             </span>
                                             <span
                                                 className={styles.cardLocation}
+                                                aria-hidden={
+                                                    !location || undefined
+                                                }
                                             >
-                                                Location not provided
+                                                {location}
                                             </span>
                                         </button>
                                     </li>
@@ -351,7 +360,11 @@ export default function JobBoard({ jobs }: { jobs: JobPosting[] | null }) {
                                                 : ""
                                         }`}
                                         tabIndex={0}
-                                        aria-label="Job location and description"
+                                        aria-label={
+                                            selectedLocation
+                                                ? "Job location and description"
+                                                : "Job description"
+                                        }
                                         onScroll={event => {
                                             const scroller =
                                                 event.currentTarget;
@@ -366,10 +379,14 @@ export default function JobBoard({ jobs }: { jobs: JobPosting[] | null }) {
                                             );
                                         }}
                                     >
-                                        <h3>Location</h3>
-                                        <p className={styles.location}>
-                                            Location not provided
-                                        </p>
+                                        {selectedLocation && (
+                                            <>
+                                                <h3>Location</h3>
+                                                <p className={styles.location}>
+                                                    {selectedLocation}
+                                                </p>
+                                            </>
+                                        )}
                                         <h3>Job Description</h3>
                                         <p className={styles.description}>
                                             {description}
