@@ -70,30 +70,94 @@
 }
 
 .search {
-    display: block;
-    background: url("/job-board/search.webp") center/100% 100%;
-    padding: 1.4cqw 5cqw;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 2.2%;
+    aspect-ratio: 1029 / 96;
+    background: url("/job-board/search.webp") center/100% 100% no-repeat;
+    padding: 0 3.4% 0 4.18%;
+    filter: drop-shadow(0 0.7cqw 0 rgb(0 0 0 / 41%));
+}
+
+.searchField {
+    position: relative;
+    box-sizing: border-box;
+    flex: 0 1 77.5%;
+    min-width: 0;
+    height: 55.2%;
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 3px 4.5% 0 5%;
+    cursor: text;
+}
+
+.searchFieldBg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.searchIcon {
+    position: relative;
+    z-index: 1;
+    flex: none;
+    width: clamp(14px, 1.45cqw, 22px);
+    height: clamp(14px, 1.45cqw, 22px);
+    color: #5f3320;
+    pointer-events: none;
 }
 
 .search input {
+    position: relative;
+    z-index: 1;
     display: block;
     box-sizing: border-box;
+    flex: 1;
+    min-width: 0;
     width: 100%;
-    font-size: clamp(15px, 1.45cqw, 24px);
-    color: #fff;
+    font: 400 clamp(14px, 1.39cqw, 20px) / 1.2 var(--body);
+    color: #5f3320;
+    caret-color: #5f3320;
     background: transparent;
     border: 0;
-    outline: 1px solid rgb(255 255 255 / 12%);
-    outline-offset: -1px;
-    padding: 0.5em 0;
+    outline: none;
+    box-shadow: none;
+    padding: 0.2em 0;
+    appearance: none;
+    -webkit-appearance: none;
 }
 
+.search input:focus,
 .search input:focus-visible {
-    outline-color: rgb(255 255 255 / 18%);
+    outline: none;
+    box-shadow: none;
+}
+
+.search input::-webkit-search-decoration,
+.search input::-webkit-search-cancel-button,
+.search input::-webkit-search-results-button,
+.search input::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .search input::placeholder {
-    color: #fff1db;
+    color: rgb(95 51 32 / 30%);
+    opacity: 1;
+}
+
+.searchCount {
+    flex: none;
+    margin-left: auto;
+    padding-right: 1.4%;
+    font: 400 clamp(11px, 1.65cqw, 24px) / 1 var(--condensed);
+    color: #f0e3ca;
+    text-shadow: 0 2px 0 rgb(0 0 0 / 50%);
+    white-space: nowrap;
 }
 
 .grid {
@@ -827,17 +891,37 @@
     .search {
         align-self: center;
         width: 90%;
-        padding: 3px clamp(26px, 7.5vw, 36px) 3px clamp(28px, 8vw, 42px);
+        aspect-ratio: auto;
+        min-height: 44px;
+        gap: 6px;
+        padding: 6px clamp(16px, 5vw, 24px) 6px clamp(16px, 5vw, 24px);
+    }
+
+    .searchField {
+        flex: 1 1 auto;
+        height: 32px;
+        gap: 5px;
+        padding: 2px 14px 0 16px;
+    }
+
+    .searchIcon {
+        width: 14px;
+        height: 14px;
     }
 
     /* 16px minimum stops iOS Safari from zooming in when the input is focused. */
     .search input {
         min-width: 0;
-        min-height: 32px;
+        min-height: 28px;
         font-size: clamp(16px, 3.4vw, 18px);
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+    }
+
+    .searchCount {
+        padding-right: 4px;
+        font-size: clamp(10px, 2.8vw, 14px);
     }
 
     .lighting {

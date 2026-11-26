@@ -173,18 +173,68 @@ export default function JobBoard({ jobs }: { jobs: JobPosting[] | null }) {
             </div>
             <h1 className={shared.hidden}>Job Board</h1>
             <div className={styles.board}>
-                <label className={styles.search}>
-                    <span className={shared.hidden}>Search job postings</span>
-                    <input
-                        type="search"
-                        value={query}
-                        onChange={e => {
-                            setQuery(e.target.value);
-                            setPage(0);
-                        }}
-                        placeholder="Search bounties by role or company…"
-                    />
-                </label>
+                <div className={styles.search}>
+                    <label className={styles.searchField}>
+                        <svg
+                            className={styles.searchFieldBg}
+                            viewBox="0 0 736 53"
+                            preserveAspectRatio="none"
+                            aria-hidden="true"
+                        >
+                            <defs>
+                                <clipPath id="job-search-field-clip">
+                                    <path d="M0 0 H710 L736 26.5 L710 53 H0 L22 26.5 Z" />
+                                </clipPath>
+                            </defs>
+                            <g clipPath="url(#job-search-field-clip)">
+                                <rect width="736" height="53" fill="#5F3320" />
+                                <path
+                                    d="M0 4 H710 L736 30.5 L710 57 H0 L22 30.5 Z"
+                                    fill="#E7CFA0"
+                                />
+                            </g>
+                        </svg>
+                        <svg
+                            className={styles.searchIcon}
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            aria-hidden="true"
+                        >
+                            <circle
+                                cx="10.5"
+                                cy="10.5"
+                                r="6.5"
+                                stroke="currentColor"
+                                strokeWidth="2.2"
+                            />
+                            <path
+                                d="M15.5 15.5L20 20"
+                                stroke="currentColor"
+                                strokeWidth="2.2"
+                                strokeLinecap="round"
+                            />
+                        </svg>
+                        <span className={shared.hidden}>
+                            Search job postings
+                        </span>
+                        <input
+                            type="search"
+                            value={query}
+                            onChange={e => {
+                                setQuery(e.target.value);
+                                setPage(0);
+                            }}
+                            placeholder="Search bounties by role or company…"
+                        />
+                    </label>
+                    {jobs && (
+                        <span className={styles.searchCount} aria-live="polite">
+                            {filtered.length}{" "}
+                            {filtered.length === 1 ? "Posting" : "Postings"}{" "}
+                            Found
+                        </span>
+                    )}
+                </div>
                 {!jobs ? (
                     <div className={styles.message}>
                         <p>Job postings couldn’t be loaded.</p>
