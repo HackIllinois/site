@@ -5,6 +5,7 @@ import { Box, Typography, Tabs, Tab, Link as MuiLink } from "@mui/material";
 import {
     DEFAULT_LEGAL_TAB,
     LEGAL_DOCS,
+    LEGAL_LAST_UPDATED,
     isLegalTabId,
     type Block,
     type LegalDoc,
@@ -171,12 +172,12 @@ function LegalDocument({
             <Typography
                 sx={{
                     fontFamily: FONT,
-                    fontStyle: "italic",
+                    fontSize: "0.9rem",
                     color: "rgba(255, 255, 255, 0.75)",
                     mb: 3
                 }}
             >
-                {doc.description}
+                {LEGAL_LAST_UPDATED}
             </Typography>
             {doc.blocks.map((block, i) => (
                 <LegalBlock key={i} block={block} onSelectTab={onSelectTab} />
