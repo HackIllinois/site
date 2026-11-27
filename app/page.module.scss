@@ -71,19 +71,10 @@
     height: 165.83cqw;
 }
 
-.backgroundTop img {
-    top: 0;
-}
-
 .backgroundBottom {
     z-index: 0;
     top: calc(231.597cqw + var(--door-shift));
     bottom: 0;
-}
-
-.backgroundBottom img,
-.interiorRoom img {
-    top: -231.597cqw;
 }
 
 .doorTrack {
@@ -93,6 +84,11 @@
     width: 100%;
     height: calc(var(--door-pin) + 100vh);
     pointer-events: none;
+}
+
+.doorSceneContent {
+    position: absolute;
+    inset: 0;
 }
 
 .doorScene {
@@ -112,6 +108,7 @@
 
 .doorExterior {
     z-index: 2;
+    will-change: transform;
 }
 
 .doorInterior {
@@ -126,14 +123,40 @@
     width: 100%;
 }
 
+.backdropFollow {
+    position: absolute;
+    top: 123cqw;
+    left: -12%;
+    width: 124%;
+    aspect-ratio: 1969 / 1561;
+    transform-origin: 50% 72%;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.rasterReset .doorExterior,
+.rasterReset .backdropFollow,
+.rasterReset .backdropCounter,
+.rasterReset .building,
+.rasterReset .mountains {
+    will-change: auto;
+}
+
+.backdropCounter {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% 72%;
+    will-change: transform;
+}
+
 // Rocks, ground and fill behind the building. Only as large as what can be on
 // screen when the pin starts (60cqw down to the bottom of that first view),
 // so the layer stays small when the camera scales it.
 .exteriorBackdrop {
     position: absolute;
-    top: 60cqw;
-    left: 0;
-    width: 100%;
+    top: -63cqw;
+    left: 12cqw;
+    width: 100cqw;
     height: calc(var(--door-top) - 60cqw + 100vh);
     overflow: hidden;
     // Desert ground, continued under the porch.
@@ -159,24 +182,23 @@
     left: 0;
     width: 8cqw;
     transform: translateX(-10cqw);
-    animation: tumble-across 5s linear infinite paused;
+    animation: tumble-across 5s linear infinite;
 }
 
 .tumbleweedHop {
-    animation: tumble-hop 0.75s ease-in-out infinite alternate paused;
+    animation: tumble-hop 0.75s ease-in-out infinite alternate;
 }
 
 .tumbleweed img {
     display: block;
     width: 100%;
     height: auto;
-    animation: tumble-spin 1.5s linear infinite paused;
+    animation: tumble-spin 1.5s linear infinite;
 }
 
-.tumbleweedRolling .tumbleweed,
-.tumbleweedRolling .tumbleweedHop,
-.tumbleweedRolling .tumbleweed img {
-    animation-play-state: running;
+.motionCanvas .paused,
+.motionCanvas .paused * {
+    animation-play-state: paused;
 }
 
 @keyframes tumble-across {
@@ -213,10 +235,6 @@
     height: 105.83cqw;
 }
 
-.exteriorDesert img {
-    top: -60cqw;
-}
-
 // Interior coordinates: 0 is the top of the saloon in the page.
 // The interior only ever shows the walls' width (-42.72cqw to 142.72cqw) and,
 // vertically, the final huge doorway around the anchor; keep every piece
@@ -248,12 +266,12 @@
 
 .interiorEdgeLeft {
     left: -42.72cqw;
-    background-image: url("/landing/frontier/sequence/saloon-edge-left.png");
+    background-image: url("/landing/frontier/sequence/saloon-edge-left.webp");
 }
 
 .interiorEdgeRight {
     left: 100%;
-    background-image: url("/landing/frontier/sequence/saloon-edge-right.png");
+    background-image: url("/landing/frontier/sequence/saloon-edge-right.webp");
 }
 
 .interiorRoom {
@@ -398,6 +416,7 @@
     top: 64cqw;
     left: -4%;
     width: 108%;
+    will-change: transform;
 }
 
 // Wider than the screen so the facade fills it when the entrance pins.
@@ -408,15 +427,14 @@
     left: -12%;
     width: 124%;
     transform-origin: 50% 72%;
+    will-change: transform;
 }
 
-.buildingFrameBase {
-    position: relative;
-}
-
-.buildingFrame {
+.saloonDoors {
     position: absolute;
-    inset: 0 auto auto 0;
+    top: 61.391%;
+    left: 44.49%;
+    width: 11.427%;
 }
 
 .building .challengeHotspot {
@@ -497,7 +515,7 @@
     width: 100%;
     height: 157.5cqw;
     pointer-events: none;
-    background: url("/landing/frontier/sequence/saloon-shader.png") center /
+    background: url("/landing/frontier/sequence/saloon-shader.webp") center /
         100% 100% no-repeat;
     mix-blend-mode: overlay;
 }
@@ -619,9 +637,8 @@
 }
 
 .columns button:focus-visible {
-    //outline: 0.16cqw solid #fff9ed;
-    //outline-offset: -0.2cqw;
-    outline: none;
+    outline: 0.16cqw solid #fff9ed;
+    outline-offset: -0.2cqw;
 }
 
 .answerReveal {
@@ -663,17 +680,15 @@
 .firstMinecart {
     z-index: 8;
     top: calc(609cqw + var(--door-shift));
-    left: 61%;
-    width: 40.7%;
-    filter: drop-shadow(0.45cqw 0.7cqw 0.45cqw #130b0780);
+    left: 60.722%;
+    width: 42.159%;
 }
 
 .howdyNote {
     z-index: 9;
-    top: calc(700cqw + var(--door-shift));
-    left: -1%;
-    width: 45%;
-    filter: drop-shadow(0.4cqw 0.65cqw 0.5cqw #130b0790);
+    top: calc(699.863cqw + var(--door-shift));
+    left: -1.41%;
+    width: 46.573%;
 }
 
 .characterCart {
@@ -705,9 +720,53 @@
 
 .cartCharacter {
     z-index: 3;
+    animation: 4.8s ease-in-out infinite;
+}
+
+@keyframes cart-float-5 {
+    0%,
+    50%,
+    100% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-5px);
+    }
+    75% {
+        transform: translateY(1px);
+    }
+}
+
+@keyframes cart-float-6 {
+    0%,
+    50%,
+    100% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-6px);
+    }
+    75% {
+        transform: translateY(1.2px);
+    }
+}
+
+@keyframes cart-float-7 {
+    0%,
+    50%,
+    100% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-7px);
+    }
+    75% {
+        transform: translateY(1.4px);
+    }
 }
 
 .orangeCharacter {
+    animation-name: cart-float-5;
     z-index: 4;
     top: -26%;
     left: 37%;
@@ -715,6 +774,8 @@
 }
 
 .yellowCharacter {
+    animation-name: cart-float-7;
+    animation-delay: 0.8s;
     z-index: 4;
     top: -10%;
     left: 48%;
@@ -722,6 +783,8 @@
 }
 
 .blueCharacter {
+    animation-name: cart-float-6;
+    animation-delay: 1.5s;
     top: 12%;
     left: 34%;
     width: 40%;
@@ -825,7 +888,12 @@
 
 @media (prefers-reduced-motion: reduce) {
     .cloudTrack,
-    .hangingLight img {
+    .hangingLight img,
+    .cartCharacter {
         animation: none;
+    }
+    .answerReveal,
+    .answer {
+        transition: none;
     }
 }

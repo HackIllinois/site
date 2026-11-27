@@ -1,19 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
+import SequenceImage from "./SequenceImage";
 import styles from "../page.module.scss";
 
-const sequence = "/landing/frontier/sequence/";
 // How long each bulb pattern stays lit.
 const SWAP_MS = 1000;
 
 /**
- * The marquee sign, alternating between its two bulb patterns. Both images
- * stay mounted (so a swap never waits on a load) and only the top one is
- * toggled. The timer runs only while the sign is on screen and the tab is
- * visible, and only this component re-renders on each swap.
+ * The marquee sign, alternating between its two bulb patterns. The second
+ * pattern is an overlay holding only the bulbs that differ (mostly
+ * transparent, so it is small), and only its visibility is toggled. The
+ * timer runs only while the sign is on screen and the tab is visible, and
+ * only this component re-renders on each swap.
  */
 export default function MarqueeSign({ children }: { children: ReactNode }) {
     const ref = useRef<HTMLDivElement>(null);
@@ -31,25 +31,11 @@ export default function MarqueeSign({ children }: { children: ReactNode }) {
 
     return (
         <div ref={ref} className={styles.signLayer}>
-            <Image
-                src={sequence + "SIGN.png"}
-                alt=""
-                aria-hidden="true"
-                width={1216}
-                height={1451}
-                priority
-                unoptimized
-            />
-            <Image
-                src={sequence + "SIGN2.png"}
-                alt=""
-                aria-hidden="true"
-                width={1216}
-                height={1451}
+            <SequenceImage name="marquee-sign" sizes="70vw" priority />
+            <SequenceImage
+                name="marquee-sign-bulbs"
                 className={styles.signAlternate}
                 style={{ visibility: alternate ? "visible" : "hidden" }}
-                priority
-                unoptimized
             />
             {children}
         </div>

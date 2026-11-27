@@ -55,7 +55,7 @@ const questions = [
 ] as const;
 
 export default function MineFaq() {
-    const [active, setActive] = useState<number | null>();
+    const [active, setActive] = useState<number | null>(null);
 
     function item(index: number) {
         const [question, answer] = questions[index];
@@ -80,7 +80,7 @@ export default function MineFaq() {
                 <div
                     id={`answer-${index}`}
                     className={`${styles.answerReveal} ${isOpen ? styles.answerRevealOpen : ""}`}
-                    aria-hidden={!isOpen}
+                    inert={!isOpen}
                 >
                     <div className={styles.answer}>{answer}</div>
                 </div>

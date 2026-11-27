@@ -1,47 +1,61 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { type RefObject, useRef } from "react";
 import {
     motion,
     type MotionValue,
-    useInView,
     useMotionTemplate,
+    useMotionValueEvent,
     useTransform
 } from "motion/react";
 import styles from "../page.module.scss";
-
-const sequence = "/landing/frontier/sequence/";
+import BackgroundSlices, {
+    desertSlices,
+    saloonSlices
+} from "./BackgroundSlices";
+import SequenceImage from "./SequenceImage";
+import usePausedOffscreen from "./usePausedOffscreen";
 
 // The building (.building): top 123cqw, left -12cqw, width 124cqw, so the
-// closed frame (1969 x 1561) is 98.3cqw tall and 1px of art = 0.062976cqw.
+// facade (1969 x 1561) is 98.3cqw tall and 1px of art = 0.062976cqw. Keep in
+// sync with .building and .backdropFollow.
 const BUILDING_TOP = 123;
 const BUILDING_PX = 124 / 1969;
-const BUILDING_HEIGHT = 1561 * BUILDING_PX;
-// Doorway: the transparent hole in hackoutlaws-building.png, x 877-1093 and
+// Doorway: the transparent hole in the facade (1969 x 1561), x 877-1093 and
 // y 963-1248, in canvas cqw.
 const DOOR_CENTER_X = -12 + 985 * BUILDING_PX;
 const DOOR_CENTER_Y = BUILDING_TOP + 1105.5 * BUILDING_PX;
 const DOOR_HALF_W = 108.5 * BUILDING_PX;
 const DOOR_HALF_H = 142.5 * BUILDING_PX;
-// .building's transform-origin (50% 72%) in canvas coordinates.
-const BUILDING_ORIGIN_X = 50;
-const BUILDING_ORIGIN_Y = BUILDING_TOP + 0.72 * BUILDING_HEIGHT;
+// The backdrop behind the building, with a hole where the doorway is so the
+// room shows through. In the building's own box (cqw from its top left),
+// since .backdropFollow moves with the building.
+const HOLE_LEFT = DOOR_CENTER_X - DOOR_HALF_W - 0.3 + 12;
+const HOLE_RIGHT = DOOR_CENTER_X + DOOR_HALF_W + 0.3 + 12;
+const HOLE_TOP = DOOR_CENTER_Y - DOOR_HALF_H - 0.3 - BUILDING_TOP;
+const HOLE_BOTTOM = DOOR_CENTER_Y + DOOR_HALF_H + 0.3 - BUILDING_TOP;
+const BACKDROP_CLIP =
+    "polygon(evenodd, -200cqw -400cqw, 300cqw -400cqw, 300cqw 600cqw, " +
+    "-200cqw 600cqw, -200cqw -400cqw, " +
+    `${HOLE_LEFT}cqw ${HOLE_TOP}cqw, ${HOLE_LEFT}cqw ${HOLE_BOTTOM}cqw, ` +
+    `${HOLE_RIGHT}cqw ${HOLE_BOTTOM}cqw, ${HOLE_RIGHT}cqw ${HOLE_TOP}cqw, ` +
+    `${HOLE_LEFT}cqw ${HOLE_TOP}cqw)`;
 
-// Each frame is drawn at its natural width relative to the closed frame so
-// that all three line up pixel-for-pixel.
-const doorFrames = [
-    { src: "hackoutlaws-building.png", width: 1969, height: 1561 },
-    { src: "hackoutlaws-building-opening.png", width: 1960, height: 1519 },
-    { src: "hackoutlaws-building-open.png", width: 1966, height: 1695 }
-];
+// The facade has an empty doorway; one of these door overlays sits in it.
+const doorStates = ["closed", "opening", "open"] as const;
+// Rows of the original background: where the desert window starts (60cqw)
+// and where the saloon starts.
+const DESERT_ROW = 864;
+const SALOON_ROW = 3335;
 
 export type SaloonMetrics = {
     /** px per cqw */
     cq: number;
     /** sticky scene height in px */
     vh: number;
+    /** viewport height in px */
+    viewport: number;
     /** track top relative to the canvas, px */
     top: number;
     /** pinned scroll distance, px */
@@ -59,10 +73,8 @@ const FADE_END = 0.84;
 const DOLLY_ZOOM = 1.7;
 // By here the building fills the screen, so the scenery behind it is hidden.
 const BACKDROP_HIDDEN = 0.6;
-// Top of .exteriorBackdrop in canvas coordinates (cqw); the rocks start at 64.
-const BACKDROP_TOP = 60;
 
-const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+export const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 const ease = (t: number) =>
     t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -177,16 +189,18 @@ export default function SaloonEntrance({
         const rise = (1 - approach.get()) * APPROACH_RISE;
         return reduceMotion ? identity : camera(q, rise, metrics.current);
     };
-    // Starts rolling the first time it comes into view, then loops on its own.
-    const tumbleweedRef = useRef<HTMLDivElement>(null);
-    const tumbleweedSeen = useInView(tumbleweedRef, { once: true });
+    // Rolls only while it is near the screen.
+    const tumbleweed = usePausedOffscreen<HTMLDivElement>();
+    const scene = usePausedOffscreen<HTMLDivElement>();
 
-    const exX = useTransform(() => cam().exX);
-    const exY = useTransform(() => cam().exY);
-    const exS = useTransform(() => cam().exS);
-    const inX = useTransform(() => cam().inX);
-    const inY = useTransform(() => cam().inY);
-    const inS = useTransform(() => cam().inS);
+    // One camera per frame, read by each layer's transform.
+    const shot = useTransform(cam);
+    const exX = useTransform(shot, c => c.exX);
+    const exY = useTransform(shot, c => c.exY);
+    const exS = useTransform(shot, c => c.exS);
+    const inX = useTransform(shot, c => c.inX);
+    const inY = useTransform(shot, c => c.inY);
+    const inS = useTransform(shot, c => c.inS);
 
     const exteriorOpacity = useTransform(
         pin,
@@ -196,7 +210,7 @@ export default function SaloonEntrance({
     const doorFrame = useTransform(
         pin,
         [DOORS_START, DOORS_END],
-        [0, doorFrames.length - 1]
+        [0, doorStates.length - 1]
     );
     const frameVisibility = (i: number) => (f: number) =>
         Math.round(f) === i ? "visible" : "hidden";
@@ -230,26 +244,40 @@ export default function SaloonEntrance({
         reduceMotion ? [1, 1] : [0.9, 1]
     );
 
-    // The rocks and ground behind the building would otherwise fill the
-    // doorway. Cut a hole that follows the doorway through the building's
-    // approach parallax, so the room behind shows through.
-    const backdropClip = useTransform(() => {
-        const s = buildingScale.get();
-        const dy = buildingShift.get();
-        const px = (x: number) =>
-            BUILDING_ORIGIN_X + s * (x - BUILDING_ORIGIN_X);
-        const py = (y: number) =>
-            BUILDING_ORIGIN_Y + s * (y - BUILDING_ORIGIN_Y) + dy;
-        const l = px(DOOR_CENTER_X - DOOR_HALF_W - 0.3);
-        const r = px(DOOR_CENTER_X + DOOR_HALF_W + 0.3);
-        // Relative to the backdrop box, which starts at BACKDROP_TOP.
-        const t = py(DOOR_CENTER_Y - DOOR_HALF_H - 0.3) - BACKDROP_TOP;
-        const b = py(DOOR_CENTER_Y + DOOR_HALF_H + 0.3) - BACKDROP_TOP;
-        return (
-            "polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, " +
-            `${l}cqw ${t}cqw, ${l}cqw ${b}cqw, ${r}cqw ${b}cqw, ` +
-            `${r}cqw ${t}cqw, ${l}cqw ${t}cqw)`
+    // The backdrop moves with the building (so the doorway hole in its
+    // clip stays put on the building) and is moved back by the inverse
+    // inside, so the rocks and ground stay where they were. The clip never
+    // changes, so nothing is redrawn while the building rises.
+    const counterScale = useTransform(buildingScale, s => 1 / s);
+    const counterShift = useTransform(
+        () => -buildingShift.get() / buildingScale.get()
+    );
+    const counterY = useMotionTemplate`${counterShift}cqw`;
+
+    // The exterior's layers are hinted `will-change: transform`, so the
+    // browser scales their drawn pixels instead of redrawing them. It raises
+    // their drawing resolution as the camera zooms in but never lowers it,
+    // so on the way back out they would need far more tile memory than the
+    // browser allows, and parts are left undrawn. Each time the zoom drops
+    // by another step of sqrt(2) (and when the entrance unpins at the top),
+    // drop the hints for one frame so the layers are redrawn at the current
+    // scale. See .rasterReset in page.module.scss.
+    const rasterStep = useRef(0);
+    const resetRaster = () => {
+        const element = scene.current;
+        if (!element) return;
+        element.classList.add(styles.rasterReset);
+        // Two frames: one drawn without the hints, then put them back.
+        requestAnimationFrame(() =>
+            requestAnimationFrame(() =>
+                element.classList.remove(styles.rasterReset)
+            )
         );
+    };
+    useMotionValueEvent(exS, "change", scale => {
+        const step = Math.floor(2 * Math.log2(Math.max(scale, 1)));
+        if (step < rasterStep.current) resetRaster();
+        rasterStep.current = step;
     });
 
     return (
@@ -259,167 +287,161 @@ export default function SaloonEntrance({
                 className={styles.doorScene}
                 style={{ zIndex, visibility }}
             >
-                <motion.div
-                    className={styles.doorInterior}
-                    style={{ x: inX, y: inY, scale: inS }}
-                    aria-hidden="true"
-                >
-                    <div className={styles.interiorFill} />
-                    <div
-                        className={`${styles.interiorEdge} ${styles.interiorEdgeLeft}`}
-                    />
-                    <div
-                        className={`${styles.interiorEdge} ${styles.interiorEdgeRight}`}
-                    />
-                    <div className={styles.interiorRoom}>
-                        <Image
-                            src={sequence + "background.png"}
-                            alt=""
-                            width={1440}
-                            height={11799}
-                            unoptimized
-                        />
-                    </div>
-                    <div
-                        className={`${styles.hangingLight} ${styles.interiorLightOne}`}
-                    >
-                        <Image
-                            src={sequence + "hanging-light-1.png"}
-                            alt=""
-                            width={240}
-                            height={504}
-                            unoptimized
-                        />
-                    </div>
-                    <div
-                        className={`${styles.hangingLight} ${styles.interiorLightTwo}`}
-                    >
-                        <Image
-                            src={sequence + "hanging-light-2.png"}
-                            alt=""
-                            width={240}
-                            height={504}
-                            unoptimized
-                        />
-                    </div>
+                {/* Pauses the swaying lamps once the scene is long gone. */}
+                <div ref={scene} className={styles.doorSceneContent}>
                     <motion.div
-                        className={`${styles.bartender} ${styles.interiorBartender}`}
-                        style={{ y: bartenderY }}
+                        className={styles.doorInterior}
+                        style={{
+                            x: inX,
+                            y: inY,
+                            scale: inS
+                        }}
+                        aria-hidden="true"
                     >
-                        <Image
-                            src={sequence + "bartender.png"}
-                            alt=""
-                            width={899}
-                            height={985}
-                            unoptimized
+                        <div className={styles.interiorFill} />
+                        <div
+                            className={`${styles.interiorEdge} ${styles.interiorEdgeLeft}`}
                         />
-                    </motion.div>
-                </motion.div>
-
-                <motion.div
-                    className={styles.doorExterior}
-                    style={{
-                        x: exX,
-                        y: exY,
-                        scale: exS,
-                        opacity: exteriorOpacity,
-                        visibility: exteriorVisibility
-                    }}
-                >
-                    <div className={styles.doorWorld}>
-                        <motion.div
-                            className={styles.exteriorBackdrop}
-                            style={{
-                                clipPath: backdropClip,
-                                visibility: backdropVisibility
-                            }}
+                        <div
+                            className={`${styles.interiorEdge} ${styles.interiorEdgeRight}`}
+                        />
+                        <div className={styles.interiorRoom}>
+                            <BackgroundSlices
+                                slices={saloonSlices.slice(0, 2)}
+                                origin={SALOON_ROW}
+                                decodeEarly
+                            />
+                        </div>
+                        <div
+                            className={`${styles.hangingLight} ${styles.interiorLightOne}`}
                         >
-                            <div
-                                className={styles.exteriorDesert}
-                                aria-hidden="true"
-                            >
-                                <Image
-                                    src={sequence + "background.png"}
-                                    alt=""
-                                    width={1440}
-                                    height={11799}
-                                    priority
-                                    unoptimized
-                                />
-                            </div>
-                            {!reduceMotion && (
-                                <div
-                                    ref={tumbleweedRef}
-                                    className={`${styles.tumbleweedLane} ${tumbleweedSeen ? styles.tumbleweedRolling : ""}`}
-                                    aria-hidden="true"
-                                >
-                                    <div className={styles.tumbleweed}>
-                                        <div className={styles.tumbleweedHop}>
-                                            <Image
-                                                src={
-                                                    sequence + "Tumbleweed.png"
-                                                }
-                                                alt=""
-                                                width={155}
-                                                height={131}
-                                                unoptimized
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                            <motion.div
-                                className={styles.mountains}
-                                style={{ y: mountainY, scale: mountainScale }}
-                                aria-hidden="true"
-                            >
-                                <Image
-                                    src={sequence + "rocks-behind-building.png"}
-                                    alt=""
-                                    width={1440}
-                                    height={1601}
-                                    unoptimized
-                                />
-                            </motion.div>
-                        </motion.div>
-                        <motion.div
-                            className={styles.building}
-                            style={{ y: buildingY, scale: buildingScale }}
+                            <SequenceImage name="hanging-light" />
+                        </div>
+                        <div
+                            className={`${styles.hangingLight} ${styles.interiorLightTwo}`}
                         >
-                            {doorFrames.map((frame, i) => (
-                                <motion.div
-                                    key={frame.src}
-                                    className={
-                                        i === 0
-                                            ? styles.buildingFrameBase
-                                            : styles.buildingFrame
-                                    }
-                                    style={{
-                                        width: `${(frame.width / doorFrames[0].width) * 100}%`,
-                                        visibility: frameVisibilities[i]
-                                    }}
-                                >
-                                    <Image
-                                        src={sequence + frame.src}
-                                        alt={
-                                            i === 0
-                                                ? "The HackOutlaws saloon"
-                                                : ""
-                                        }
-                                        width={frame.width}
-                                        height={frame.height}
-                                        unoptimized
-                                    />
-                                </motion.div>
-                            ))}
-                            <Link
-                                href="/challenge"
-                                className={styles.challengeHotspot}
-                                aria-label="Learn more about HackOutlaws"
+                            <SequenceImage name="hanging-light" />
+                        </div>
+                        <motion.div
+                            className={`${styles.bartender} ${styles.interiorBartender}`}
+                            style={{ y: bartenderY }}
+                        >
+                            <SequenceImage
+                                name="bartender"
+                                sizes="63vw"
+                                decodeEarly
                             />
                         </motion.div>
-                    </div>
-                </motion.div>
+                    </motion.div>
+
+                    <motion.div
+                        className={styles.doorExterior}
+                        style={{
+                            x: exX,
+                            y: exY,
+                            scale: exS,
+                            opacity: exteriorOpacity,
+                            visibility: exteriorVisibility
+                        }}
+                    >
+                        <div className={styles.doorWorld}>
+                            <motion.div
+                                className={styles.backdropFollow}
+                                style={{
+                                    y: buildingY,
+                                    scale: buildingScale,
+                                    clipPath: BACKDROP_CLIP,
+                                    visibility: backdropVisibility
+                                }}
+                            >
+                                <motion.div
+                                    className={styles.backdropCounter}
+                                    style={{ y: counterY, scale: counterScale }}
+                                >
+                                    <div className={styles.exteriorBackdrop}>
+                                        <div
+                                            className={styles.exteriorDesert}
+                                            aria-hidden="true"
+                                        >
+                                            <BackgroundSlices
+                                                slices={desertSlices}
+                                                origin={DESERT_ROW}
+                                                decodeEarly
+                                            />
+                                        </div>
+                                        {!reduceMotion && (
+                                            <div
+                                                ref={tumbleweed}
+                                                className={
+                                                    styles.tumbleweedLane
+                                                }
+                                                aria-hidden="true"
+                                            >
+                                                <div
+                                                    className={
+                                                        styles.tumbleweed
+                                                    }
+                                                >
+                                                    <div
+                                                        className={
+                                                            styles.tumbleweedHop
+                                                        }
+                                                    >
+                                                        <SequenceImage name="tumbleweed" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                        <motion.div
+                                            className={styles.mountains}
+                                            style={{
+                                                y: mountainY,
+                                                scale: mountainScale
+                                            }}
+                                            aria-hidden="true"
+                                        >
+                                            <SequenceImage
+                                                name="rocks-behind-building"
+                                                sizes="108vw"
+                                                decodeEarly
+                                            />
+                                        </motion.div>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                            <motion.div
+                                className={styles.building}
+                                style={{ y: buildingY, scale: buildingScale }}
+                            >
+                                <SequenceImage
+                                    name="saloon-facade"
+                                    alt="The HackOutlaws saloon"
+                                    sizes="124vw"
+                                    decodeEarly
+                                />
+                                {doorStates.map((state, i) => (
+                                    <motion.div
+                                        key={state}
+                                        className={styles.saloonDoors}
+                                        style={{
+                                            visibility: frameVisibilities[i]
+                                        }}
+                                    >
+                                        <SequenceImage
+                                            name={`saloon-doors-${state}`}
+                                            decodeEarly
+                                        />
+                                    </motion.div>
+                                ))}
+                                <Link
+                                    href="/challenge"
+                                    className={styles.challengeHotspot}
+                                    aria-label="Learn more about HackOutlaws"
+                                />
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
             </motion.div>
         </div>
     );

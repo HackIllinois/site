@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import {
@@ -17,13 +16,20 @@ import FrontierNewsletter from "./FrontierNewsletter";
 import MarqueeClock from "./MarqueeClock";
 import MarqueeSign from "./MarqueeSign";
 import MineFaq from "./MineFaq";
-import SaloonEntrance, { type SaloonMetrics } from "./SaloonEntrance";
+import SaloonEntrance, { clamp01, type SaloonMetrics } from "./SaloonEntrance";
+import SequenceImage from "./SequenceImage";
+import BackgroundSlices, {
+    desertSlices,
+    saloonSlices
+} from "./BackgroundSlices";
+import usePausedOffscreen from "./usePausedOffscreen";
 import styles from "../page.module.scss";
 
-const sequence = "/landing/frontier/sequence/";
-// background.png is 11799px tall at 1440px wide; 14.4px = 1cqw.
+// The page art was laid out on one 1440 x 11799 background; 14.4px = 1cqw.
 const LEGACY_HEIGHT = 11799 / 14.4;
-const SALOON_TOP = 3335 / 14.4;
+// The saloon starts at this row of that background.
+const SALOON_ROW = 3335;
+const SALOON_TOP = SALOON_ROW / 14.4;
 const socialOrder = [
     "Instagram",
     "Facebook",
@@ -54,6 +60,7 @@ export default function FrontierExperience() {
             metrics.current = {
                 cq: canvas.clientWidth / 100,
                 vh,
+                viewport: document.documentElement.clientHeight,
                 top: track.offsetTop,
                 pin: track.offsetHeight - vh,
                 canvasTop: canvas.getBoundingClientRect().top + window.scrollY
@@ -68,13 +75,25 @@ export default function FrontierExperience() {
     }, [metricsVersion]);
 
     const { scrollY } = useScroll();
-    const { scrollYProgress: pin } = useScroll({
-        target: trackRef,
-        offset: ["start start", "end end"]
+    // Progress through the pinned entrance (0 when it pins, 1 when it lets
+    // go) and through its approach (0 when the track's top enters the bottom
+    // of the screen, 1 when it reaches the top). Derived from the measured
+    // metrics rather than useScroll({ target }), which re-measures the track
+    // on every scroll event.
+    const pin = useTransform(() => {
+        metricsVersion.get();
+        const scroll = scrollY.get();
+        const m = metrics.current;
+        if (!m || m.pin <= 0) return 0;
+        return clamp01((scroll - m.canvasTop - m.top) / m.pin);
     });
-    const { scrollYProgress: approach } = useScroll({
-        target: trackRef,
-        offset: ["start end", "start start"]
+    const approach = useTransform(() => {
+        metricsVersion.get();
+        const scroll = scrollY.get();
+        const m = metrics.current;
+        if (!m || m.viewport <= 0) return 0;
+        const start = m.canvasTop + m.top - m.viewport;
+        return clamp01((scroll - start) / m.viewport);
     });
 
     // Every animation below was tuned against the canvas before the saloon
@@ -96,7 +115,7 @@ export default function FrontierExperience() {
             legacyY = m.top + ((saloonTop - m.top) * (y - m.top)) / m.pin;
         }
         const scrollable = LEGACY_HEIGHT * m.cq - window.innerHeight;
-        return Math.min(1, Math.max(0, legacyY / scrollable));
+        return clamp01(legacyY / scrollable);
     });
     const progress = useSpring(legacyProgress, {
         stiffness: 90,
@@ -207,18 +226,10 @@ export default function FrontierExperience() {
         reduceMotion ? [1, 1, 1] : [0, 1, 1]
     );
 
-    const float = (delay: number, distance: number) =>
-        reduceMotion
-            ? { y: 0 }
-            : {
-                  y: [0, -distance, 0, distance * 0.2, 0],
-                  transition: {
-                      duration: 4.8,
-                      delay,
-                      ease: "easeInOut" as const,
-                      repeat: Infinity
-                  }
-              };
+    const clouds = usePausedOffscreen<HTMLDivElement>();
+    const lightOne = usePausedOffscreen<HTMLDivElement>();
+    const lightTwo = usePausedOffscreen<HTMLDivElement>();
+    const cart = usePausedOffscreen<HTMLDivElement>();
 
     return (
         <div className={shared.page}>
@@ -231,22 +242,16 @@ export default function FrontierExperience() {
                     {/* The desert above the saloon, and the saloon onward
                         (shifted down by the pinned entrance). */}
                     <div className={styles.backgroundTop} aria-hidden="true">
-                        <Image
-                            src={sequence + "background.png"}
-                            alt=""
-                            width={1440}
-                            height={11799}
+                        <BackgroundSlices
+                            slices={desertSlices}
+                            origin={0}
                             priority
-                            unoptimized
                         />
                     </div>
                     <div className={styles.backgroundBottom} aria-hidden="true">
-                        <Image
-                            src={sequence + "background.png"}
-                            alt=""
-                            width={1440}
-                            height={11799}
-                            unoptimized
+                        <BackgroundSlices
+                            slices={saloonSlices}
+                            origin={SALOON_ROW}
                         />
                     </div>
 
@@ -266,21 +271,14 @@ export default function FrontierExperience() {
                     </h1>
 
                     <motion.div
+                        ref={clouds}
                         className={styles.cloudWindow}
                         style={{ y: cloudY }}
                         aria-hidden="true"
                     >
                         <div className={styles.cloudTrack}>
-                            {[0, 1].map(copy => (
-                                <Image
-                                    key={copy}
-                                    src={sequence + "clouds.png"}
-                                    alt=""
-                                    width={1440}
-                                    height={486}
-                                    unoptimized
-                                />
-                            ))}
+                            <SequenceImage name="clouds" sizes="100vw" />
+                            <SequenceImage name="clouds" sizes="100vw" />
                         </div>
                     </motion.div>
 
@@ -297,41 +295,29 @@ export default function FrontierExperience() {
                         bartenderY={bartenderY}
                     />
 
-                    <motion.div
+                    <div
+                        ref={lightOne}
                         className={`${styles.hangingLight} ${styles.lightOne}`}
                         aria-hidden="true"
                     >
-                        <Image
-                            src={sequence + "hanging-light-1.png"}
-                            alt=""
-                            width={240}
-                            height={504}
-                            unoptimized
-                        />
-                    </motion.div>
-                    <motion.div
+                        <SequenceImage name="hanging-light" />
+                    </div>
+                    <div
+                        ref={lightTwo}
                         className={`${styles.hangingLight} ${styles.lightTwo}`}
                         aria-hidden="true"
                     >
-                        <Image
-                            src={sequence + "hanging-light-2.png"}
-                            alt=""
-                            width={240}
-                            height={504}
-                            unoptimized
-                        />
-                    </motion.div>
+                        <SequenceImage name="hanging-light" />
+                    </div>
 
                     <motion.div
                         className={styles.bartender}
                         style={{ y: bartenderY }}
                     >
-                        <Image
-                            src={sequence + "bartender.png"}
+                        <SequenceImage
+                            name="bartender"
                             alt="Last year at HackIllinois"
-                            width={899}
-                            height={985}
-                            unoptimized
+                            sizes="63vw"
                         />
                     </motion.div>
 
@@ -342,36 +328,30 @@ export default function FrontierExperience() {
                         className={`${styles.testimonial} ${styles.testimonialOne}`}
                         style={{ y: storyOneY, opacity: storyOneOpacity }}
                     >
-                        <Image
-                            src={sequence + "testimonial-1.png"}
+                        <SequenceImage
+                            name="testimonial-1"
                             alt="A HackVoyagers participant testimonial"
-                            width={1390}
-                            height={1095}
-                            unoptimized
+                            sizes="94vw"
                         />
                     </motion.div>
                     <motion.div
                         className={`${styles.testimonial} ${styles.testimonialTwo}`}
                         style={{ y: storyTwoY, opacity: storyTwoOpacity }}
                     >
-                        <Image
-                            src={sequence + "testimonial-2.png"}
+                        <SequenceImage
+                            name="testimonial-2"
                             alt="A first-year participant testimonial"
-                            width={1406}
-                            height={993}
-                            unoptimized
+                            sizes="94vw"
                         />
                     </motion.div>
                     <motion.div
                         className={`${styles.testimonial} ${styles.testimonialThree}`}
                         style={{ y: storyThreeY, opacity: storyThreeOpacity }}
                     >
-                        <Image
-                            src={sequence + "testimonial-3.png"}
+                        <SequenceImage
+                            name="testimonial-3"
                             alt="A hardware track participant testimonial"
-                            width={1317}
-                            height={1004}
-                            unoptimized
+                            sizes="94vw"
                         />
                     </motion.div>
 
@@ -395,13 +375,7 @@ export default function FrontierExperience() {
                         }}
                         aria-hidden="true"
                     >
-                        <Image
-                            src={sequence + "minecart-1.png"}
-                            alt=""
-                            width={586}
-                            height={553}
-                            unoptimized
-                        />
+                        <SequenceImage name="minecart-1" />
                     </motion.div>
 
                     <motion.div
@@ -411,75 +385,45 @@ export default function FrontierExperience() {
                             opacity: noteOpacity
                         }}
                     >
-                        <Image
-                            src={sequence + "howdy-note.png"}
+                        <SequenceImage
+                            name="howdy-note"
                             alt="A welcome note from the HackIllinois team"
-                            width={987}
-                            height={1176}
-                            unoptimized
                         />
                     </motion.div>
 
                     <motion.div
+                        ref={cart}
                         className={styles.characterCart}
                         style={{
                             x: characterCartX,
                             y: characterCartY,
                             opacity: characterCartOpacity
                         }}
+                        role="img"
                         aria-label="Three HackIllinois characters riding in a minecart"
                     >
-                        <Image
-                            src={sequence + "minecart-back.png"}
-                            alt=""
-                            width={746}
-                            height={657}
+                        <SequenceImage
+                            name="minecart-back"
                             className={styles.cartBack}
-                            unoptimized
                         />
-                        <motion.div
+                        <div
                             className={`${styles.cartCharacter} ${styles.orangeCharacter}`}
-                            animate={float(0, 5)}
                         >
-                            <Image
-                                src={sequence + "character-orange.png"}
-                                alt=""
-                                width={421}
-                                height={354}
-                                unoptimized
-                            />
-                        </motion.div>
-                        <motion.div
+                            <SequenceImage name="character-orange" />
+                        </div>
+                        <div
                             className={`${styles.cartCharacter} ${styles.yellowCharacter}`}
-                            animate={float(0.8, 7)}
                         >
-                            <Image
-                                src={sequence + "character-yellow.png"}
-                                alt=""
-                                width={385}
-                                height={385}
-                                unoptimized
-                            />
-                        </motion.div>
-                        <motion.div
+                            <SequenceImage name="character-yellow" />
+                        </div>
+                        <div
                             className={`${styles.cartCharacter} ${styles.blueCharacter}`}
-                            animate={float(1.5, 6)}
                         >
-                            <Image
-                                src={sequence + "character-blue.png"}
-                                alt=""
-                                width={314}
-                                height={314}
-                                unoptimized
-                            />
-                        </motion.div>
-                        <Image
-                            src={sequence + "minecart-front.png"}
-                            alt=""
-                            width={746}
-                            height={657}
+                            <SequenceImage name="character-blue" />
+                        </div>
+                        <SequenceImage
+                            name="minecart-front"
                             className={styles.cartFront}
-                            unoptimized
                         />
                     </motion.div>
 
