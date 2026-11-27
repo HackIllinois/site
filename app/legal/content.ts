@@ -30,8 +30,6 @@ export type LegalDoc = {
     id: LegalTabId;
     /** Tab label. */
     label: string;
-    /** One-line summary shown under the document title. */
-    description: string;
     title: string;
     blocks: Block[];
 };
@@ -71,8 +69,6 @@ const CONTACT_US_PARAGRAPH: Block = {
 const codeOfConduct: LegalDoc = {
     id: "code-of-conduct",
     label: "Code of Conduct",
-    description:
-        "Community standards, expected conduct, protected grounds, and prohibited behavior",
     title: "HackIllinois Code of Conduct",
     blocks: [
         {
@@ -291,8 +287,6 @@ const codeOfConduct: LegalDoc = {
 const complaintProcedures: LegalDoc = {
     id: "complaint-procedures",
     label: "Complaint Procedures",
-    description:
-        "Reporting, investigation, enforcement, consequences, appeals, and follow-up",
     title: "HackIllinois Complaint Procedures",
     blocks: [
         {
@@ -436,8 +430,6 @@ const complaintProcedures: LegalDoc = {
 const privacyPolicy: LegalDoc = {
     id: "privacy-policy",
     label: "Privacy Policy",
-    description:
-        "Personal data collection, usage, sharing, and third-party services",
     title: "HackIllinois Privacy Policy",
     blocks: [
         {
@@ -542,8 +534,6 @@ const privacyPolicy: LegalDoc = {
 const termsAndConditions: LegalDoc = {
     id: "terms-and-conditions",
     label: "Terms & Conditions",
-    description:
-        "Participation requirements, eligibility, liability, organizer authority, media release, and applicable policies",
     title: "HackIllinois Terms & Conditions",
     blocks: [
         {
@@ -785,6 +775,9 @@ export const LEGAL_DOCS: LegalDoc[] = [
     privacyPolicy,
     termsAndConditions
 ];
+
+/** Shown under each document title. */
+export const LEGAL_LAST_UPDATED = "Last Updated: November 26, 2026";
 
 export const DEFAULT_LEGAL_TAB: LegalTabId = "code-of-conduct";
 
