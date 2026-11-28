@@ -198,13 +198,13 @@ export default function JobBoard({ jobs }: { jobs: JobPosting[] | null }) {
                         >
                             <defs>
                                 <clipPath id="job-search-field-clip">
-                                    <path d="M0 0 H710 L736 26.5 L710 53 H0 L22 26.5 Z" />
+                                    <path d="M0 0 H710 L736 26.5 L710 53 H0 L42 26.5 Z" />
                                 </clipPath>
                             </defs>
                             <g clipPath="url(#job-search-field-clip)">
                                 <rect width="736" height="53" fill="#5F3320" />
                                 <path
-                                    d="M0 4 H710 L736 30.5 L710 57 H0 L22 30.5 Z"
+                                    d="M0 4 H710 L736 30.5 L710 57 H0 L42 30.5 Z"
                                     fill="#E7CFA0"
                                 />
                             </g>
