@@ -22,20 +22,30 @@ test("the saloon wall is continuous through the doorway and its scroll handoff",
         expect(wall.height / wall.width).toBeCloseTo(120 / 1440, 3);
     }
 
-    await page.evaluate(() => {
-        const track = document.querySelector<HTMLElement>(
-            '[class*="_doorTrack__"]'
-        )!;
-        const scene = track.firstElementChild as HTMLElement;
-        window.scrollTo({
-            top:
-                window.scrollY +
-                track.getBoundingClientRect().bottom -
-                scene.offsetHeight -
-                1,
-            behavior: "instant"
-        });
+    await page.waitForFunction(() => {
+        const zoomArt = document.querySelectorAll(
+            'img[src$="/bg-saloon-1.webp"]'
+        )[1];
+        return (
+            zoomArt.getBoundingClientRect().width > zoomArt.clientWidth * 0.25
+        );
     });
+
+    await page.locator('[class*="_doorTrack__"]').evaluate(async track => {
+        const scene = track.firstElementChild as HTMLElement;
+        const start = window.scrollY + track.getBoundingClientRect().top;
+        const pin = track.clientHeight - scene.clientHeight;
+        for (const progress of [0.15, 0.42, 0.72, 0.94, 0.999]) {
+            window.scrollTo({
+                top: start + pin * progress,
+                behavior: "instant"
+            });
+            await new Promise(resolve =>
+                requestAnimationFrame(() => requestAnimationFrame(resolve))
+            );
+        }
+    });
+
     await expect
         .poll(() =>
             roomArt.evaluateAll(([inPage, duringZoom]) => {
