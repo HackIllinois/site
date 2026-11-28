@@ -41,6 +41,17 @@ type ReviewSection = { key: string; title: string; rows: ReviewRow[] };
 const yesNo = (value?: boolean) =>
     value === undefined ? undefined : value ? "Yes" : "No";
 
+// Reads the rank pair AppQuestions stores (see its comment).
+const areaInterestSummary = (software?: string, hardware?: string) => {
+    if (software && hardware) {
+        if (software === hardware) return "Software and Hardware";
+        return `Software and Hardware (prefers ${software === "1" ? "Software" : "Hardware"})`;
+    }
+    if (software) return "Software";
+    if (hardware) return "Hardware";
+    return "";
+};
+
 const withOther = (
     values: string[] | undefined,
     otherOption: string,
@@ -122,8 +133,13 @@ const buildSections = (
                 value: values.application3,
                 wide: true
             },
-            { label: "Software rank", value: values.interestSoftware },
-            { label: "Hardware rank", value: values.interestHardware },
+            {
+                label: "Interested in",
+                value: areaInterestSummary(
+                    values.interestSoftware,
+                    values.interestHardware
+                )
+            },
             {
                 label: "Resume",
                 value: values.hasResume

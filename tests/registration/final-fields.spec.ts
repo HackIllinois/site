@@ -118,10 +118,7 @@ test("application questions follow the final spec order and limits", async ({
     const order = await page.evaluate(() => {
         const at = (sel: string) => document.querySelector(sel)!;
         const essay = at("textarea[name=application3]");
-        return [
-            "#interestRank, [name=interestRank]",
-            "input[name=hasResume]"
-        ].map(
+        return ["[name=interestAreas]", "input[name=hasResume]"].map(
             sel =>
                 !!(
                     essay.compareDocumentPosition(at(sel)) &
@@ -161,6 +158,95 @@ test("application questions follow the final spec order and limits", async ({
     await expect(
         page.getByPlaceholder("Share your ideas or suggestions with us!")
     ).toBeVisible();
+});
+
+test("area interest: one or both, and a preference only when both", async ({
+    page
+}, testInfo) => {
+    await mockApi(
+        page,
+        {
+            ...draft,
+            interestSoftware: "",
+            interestHardware: "",
+            application3: words(50)
+        },
+        testInfo
+    );
+    await page.goto("/register/general");
+    await expect(page).toHaveURL(/#application-questions$/);
+    await uploadResume(page);
+    const area = (name: string) =>
+        page
+            .locator("[name=interestAreas]")
+            .getByRole("checkbox", { name, exact: true });
+    const preference = page.locator("#interestPreference");
+
+    // Nothing picked: blocked.
+    await next(page, testInfo, "ATTENDING");
+    await expect(
+        page.getByText("Please choose Software, Hardware, or both")
+    ).toBeVisible();
+    await expect(page).toHaveURL(/#application-questions$/);
+
+    // One area: no follow-up, nothing else gets picked for them.
+    await area("Software").check();
+    await expect(area("Hardware")).not.toBeChecked();
+    await expect(preference).toHaveCount(0);
+
+    // Both: asks which they prefer, with nothing preselected.
+    await area("Hardware").check();
+    await expect(preference).toBeVisible();
+    await expect(preference.getByRole("radio")).toHaveCount(2);
+    for (const radio of await preference.getByRole("radio").all()) {
+        await expect(radio).not.toBeChecked();
+    }
+    await next(page, testInfo, "ATTENDING");
+    await expect(
+        page.getByText("Please choose which one you are more interested in")
+    ).toBeVisible();
+    await expect(page).toHaveURL(/#application-questions$/);
+
+    await preference.getByRole("radio", { name: "Hardware" }).check();
+    await expect(
+        page.getByText("Please choose which one you are more interested in")
+    ).toHaveCount(0);
+
+    // Unchecking one drops the follow-up again.
+    await area("Hardware").uncheck();
+    await expect(preference).toHaveCount(0);
+    await expect(area("Software")).toBeChecked();
+    await next(page, testInfo, "ATTENDING");
+    await expect(page).toHaveURL(/#attending-hackillinois$/);
+});
+
+test("a ranked draft shows both areas with its preference", async ({
+    page
+}, testInfo) => {
+    await mockApi(
+        page,
+        {
+            ...draft,
+            interestSoftware: "2",
+            interestHardware: "1",
+            application3: words(50)
+        },
+        testInfo
+    );
+    await page.goto("/register/general");
+    await expect(page).toHaveURL(/#application-questions$/);
+    for (const name of ["Software", "Hardware"]) {
+        await expect(
+            page
+                .locator("[name=interestAreas]")
+                .getByRole("checkbox", { name, exact: true })
+        ).toBeChecked();
+    }
+    await expect(
+        page
+            .locator("#interestPreference")
+            .getByRole("radio", { name: "Hardware" })
+    ).toBeChecked();
 });
 
 test("race options match the final spec", async ({ page }, testInfo) => {
@@ -239,6 +325,12 @@ test("VC and event suggestions can be left blank through submit", async ({
         .click();
     await expect(page.getByText("VC involvement (optional)")).toBeVisible();
     await expect(page.getByText("Event suggestions (optional)")).toBeVisible();
+    await page
+        .getByRole("button", { name: "Show Application Questions" })
+        .click();
+    await expect(
+        page.getByText("Software and Hardware (prefers Software)")
+    ).toBeVisible();
 
     const legalLinks = page.locator("#legalAcknowledge a");
     await expect(legalLinks).toHaveText([
@@ -276,7 +368,9 @@ test("VC and event suggestions can be left blank through submit", async ({
     expect(submitted[0]).toMatchObject({
         race: ["Hispanic or Latinx", "White"],
         vcInvolvement: [],
-        application3: words(50)
+        application3: words(50),
+        interestSoftware: "1",
+        interestHardware: "2"
     });
     expect(submitted[0].eventSuggestions ?? "").toBe("");
     // Non-optional keys of adonix RegistrationApplicationSubmittedRequestSchema;
