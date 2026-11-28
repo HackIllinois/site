@@ -117,6 +117,7 @@ test("landing links work from other routes and synchronize on direct visits", as
     ).toBeInViewport();
 
     await page.goto("/#sponsors");
+    await page.reload();
     await expect(
         page.getByRole("region", { name: "Sponsors", exact: true })
     ).toBeInViewport();
