@@ -42,6 +42,7 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
     const [uploading, setUploading] = useState(false);
     const [localError, setLocalError] = useState<string | null>(null);
     const hasError = !!localError || formikError;
+    const errorMessage = localError || helperText;
 
     const handleClick = () => {
         inputRef.current?.click();
@@ -116,6 +117,7 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
                 component="button"
                 type="button"
                 disabled={uploading}
+                aria-describedby={errorMessage ? `${name}-error` : undefined}
                 onClick={handleClick}
                 sx={{
                     backgroundColor: "#f0f0f0",
@@ -151,6 +153,7 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
                 )}
 
                 <Typography
+                    component="span"
                     aria-live="polite"
                     sx={{
                         fontFamily: "Montserrat, sans-serif",
@@ -173,6 +176,7 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
 
                 {success && !uploading && (
                     <Typography
+                        component="span"
                         sx={{
                             fontFamily: "Montserrat, sans-serif",
                             fontSize: "12px",
@@ -187,11 +191,13 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
                 )}
             </Box>
 
-            {(localError || helperText) && (
-                <FormHelperText sx={{ mt: 0.5, color: "#ffffff" }}>
-                    {localError || helperText}
-                </FormHelperText>
-            )}
+            <FormHelperText
+                id={`${name}-error`}
+                aria-live="polite"
+                sx={{ mt: errorMessage ? 0.5 : 0, color: "#ffffff" }}
+            >
+                {errorMessage}
+            </FormHelperText>
         </FormControl>
     );
 };

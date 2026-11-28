@@ -381,7 +381,7 @@ test("one area suffices to submit with optional answers blank", async ({
 }, testInfo) => {
     const submitted = await mockApi(
         page,
-        { ...draft, interestHardware: "", application3: words(50) },
+        { ...draft, interestHardware: "0", application3: words(50) },
         testInfo
     );
     await page.goto("/register/general");

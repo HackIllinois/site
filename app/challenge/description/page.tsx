@@ -1,5 +1,6 @@
 "use client";
 
+import { REGISTRATION_DEADLINE } from "@/app/register/general/constants/registration";
 import useWindowSize from "@/hooks/use-window-size";
 import { downloadChallengeWorld, loadChallengeStatus } from "@/util/api";
 import {
@@ -628,7 +629,8 @@ function Saloon() {
                         <p className={styles.ruleText}>
                             Upload <code>plan.json</code> using the upload box
                             below. It must be a JSON file no larger than 1 MB.
-                            Submission deadline: <strong>TBD</strong>.
+                            Submission deadline:{" "}
+                            <strong>{REGISTRATION_DEADLINE}</strong>.
                         </p>
                         <p className={styles.ruleText}>
                             Submissions are unlimited and do not affect your

@@ -21,8 +21,10 @@ import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Box, Grid } from "@mui/material";
 import { FormikProps } from "formik";
 import SectionHeader from "../components/SectionHeader";
-import { RESPONSE_LIMITS } from "../constants/registration";
-import { OTHER_SCHOOL_OPTION } from "../constants/registration";
+import {
+    OTHER_SCHOOL_OPTION,
+    RESPONSE_LIMITS
+} from "../constants/registration";
 
 interface BackgroundInfoProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;

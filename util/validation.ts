@@ -159,6 +159,10 @@ export const hydrateDraftFormValues = (
         ...draft
     };
 
+    // Submitted records use zero for an unselected area.
+    if (merged.interestSoftware === "0") merged.interestSoftware = "";
+    if (merged.interestHardware === "0") merged.interestHardware = "";
+
     const savedSchool = (draft.school ?? "").trim();
     const isListedSchool =
         savedSchool === "" ||
