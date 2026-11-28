@@ -121,6 +121,10 @@ test("map takes priority over the small disclaimer without a dropdown", async ({
     expect(
         await policy.evaluate(el => parseFloat(getComputedStyle(el).fontSize))
     ).toBe(14);
+    const mapWidth = await page
+        .getByLabel("United States reimbursement map", { exact: true })
+        .evaluate(el => el.closest("section")!.getBoundingClientRect().width);
+    expect(mapWidth).toBeCloseTo(box!.width, 0);
 });
 
 test("every state uses its reimbursement tier color and shows a hover popup with highlight and dimming", async ({
