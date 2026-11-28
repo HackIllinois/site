@@ -44,6 +44,7 @@ const orderedSocials = socialOrder.flatMap(name =>
 
 export default function FrontierExperience() {
     const canvasRef = useRef<HTMLElement>(null);
+    const roomRef = useRef<HTMLDivElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
     const sceneRef = useRef<HTMLDivElement>(null);
     const metrics = useRef<SaloonMetrics | null>(null);
@@ -54,15 +55,18 @@ export default function FrontierExperience() {
         const canvas = canvasRef.current;
         const track = trackRef.current;
         const scene = sceneRef.current;
-        if (!canvas || !track || !scene) return;
+        const room = roomRef.current;
+        if (!canvas || !track || !scene || !room) return;
         const measure = () => {
             const vh = scene.offsetHeight;
+            const pin = track.offsetHeight - vh;
             metrics.current = {
                 cq: canvas.clientWidth / 100,
                 vh,
                 viewport: document.documentElement.clientHeight,
                 top: track.offsetTop,
-                pin: track.offsetHeight - vh,
+                pin,
+                roomOffset: room.offsetTop - track.offsetTop - pin,
                 canvasTop: canvas.getBoundingClientRect().top + window.scrollY
             };
             metricsVersion.set(metricsVersion.get() + 1);
@@ -98,7 +102,7 @@ export default function FrontierExperience() {
 
     // Every animation below was tuned against the canvas before the saloon
     // entrance was pinned. Map the real scroll back onto that layout: the
-    // pinned stretch walks from the track top to the saloon top, and
+    // pinned stretch walks from the track top to the zoom landing point, and
     // everything after it is shifted up by the extra scroll the pin adds.
     const legacyProgress = useTransform(() => {
         // Read every input before any early return so all are tracked.
@@ -107,12 +111,12 @@ export default function FrontierExperience() {
         const m = metrics.current;
         if (!m) return 0;
         const y = scroll - m.canvasTop;
-        const saloonTop = SALOON_TOP * m.cq;
+        const saloonLanding = SALOON_TOP * m.cq - m.roomOffset;
         let legacyY = y;
         if (y > m.top + m.pin) {
-            legacyY = y - (m.top + m.pin - saloonTop);
+            legacyY = y - (m.top + m.pin - saloonLanding);
         } else if (y > m.top) {
-            legacyY = m.top + ((saloonTop - m.top) * (y - m.top)) / m.pin;
+            legacyY = m.top + ((saloonLanding - m.top) * (y - m.top)) / m.pin;
         }
         const scrollable = LEGACY_HEIGHT * m.cq - window.innerHeight;
         return clamp01(legacyY / scrollable);
@@ -248,7 +252,11 @@ export default function FrontierExperience() {
                             priority
                         />
                     </div>
-                    <div className={styles.backgroundBottom} aria-hidden="true">
+                    <div
+                        ref={roomRef}
+                        className={styles.backgroundBottom}
+                        aria-hidden="true"
+                    >
                         <BackgroundSlices
                             slices={saloonSlices}
                             origin={SALOON_ROW}

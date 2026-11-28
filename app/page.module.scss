@@ -34,7 +34,12 @@
     // just below the bottom of the screen.
     --door-top: max(calc(216.9cqw - 100vh), 100cqw);
     --door-pin: 150vh;
-    --door-shift: calc(var(--door-top) + var(--door-pin) - 231.597cqw);
+    // Land lower on the picture wall when there is room above and below it.
+    --door-overlap: clamp(0px, 100cqw - 100vh, 8cqw);
+    --door-shift: calc(
+        var(--door-top) + var(--door-pin) - 231.597cqw - var(--door-overlap)
+    );
+    --saloon-wall: #491e2a;
     position: relative;
     width: 100%;
     min-width: 0;
@@ -76,6 +81,16 @@
     z-index: 0;
     top: calc(231.597cqw + var(--door-shift));
     bottom: 0;
+}
+
+// The first 120px of the 1440px-wide saloon art contain a purple band.
+.backgroundBottom::after,
+.interiorRoom::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 8.333cqw;
+    background: var(--saloon-wall);
 }
 
 .doorTrack {
@@ -251,7 +266,7 @@
     width: 185.44cqw;
     height: calc(80cqw + var(--room-bottom));
     // Above the room (0-80cqw here) reads as more wall; below, the floor.
-    background: linear-gradient(#3b1a25 80cqw, #24150f 80cqw);
+    background: linear-gradient(var(--saloon-wall) 80cqw, #24150f 80cqw);
 }
 
 .interiorEdge {
@@ -888,6 +903,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .motionCanvas {
+        --door-overlap: 0px;
+    }
     .cloudTrack,
     .hangingLight img,
     .cartCharacter {
