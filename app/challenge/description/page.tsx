@@ -100,12 +100,12 @@ function Saloon() {
             return (
                 <SaloonNotice
                     sub="Members only"
-                    heading="Pro track only"
+                    heading="Pro Level only"
                     actionHref="/"
                     actionText="Back to town"
                 >
-                    Saloon Rush is the HackOutlaws Pro track challenge, and your
-                    application wasn’t submitted for the Pro track.
+                    Saloon Rush is the HackOutlaws Pro Level challenge, and your
+                    application wasn’t submitted for the Pro Level.
                 </SaloonNotice>
             );
         }
@@ -118,7 +118,7 @@ function Saloon() {
                     actionText="Finish your application"
                 >
                     We couldn’t find a submitted application. Submit yours with
-                    the Pro track box ticked, then come back.
+                    the Pro Level box ticked, then come back.
                 </SaloonNotice>
             );
         }
@@ -638,7 +638,7 @@ function Saloon() {
                         <p className={styles.ruleText}>
                             Reach <strong>{passPercent}%</strong> of your floor
                             plan’s reference score to pass that tier and unlock
-                            the next available tier. Pro Track qualification
+                            the next available tier. Pro Level qualification
                             uses your average across all live tiers, with the
                             same {passPercent}% threshold.
                         </p>
@@ -805,7 +805,7 @@ function Saloon() {
                                     style={{ marginBottom: 28 }}
                                 >
                                     <strong>Welcome to the gang</strong>
-                                    You qualified for the Pro Track. You can
+                                    You qualified for the Pro Level. You can
                                     keep improving your tier scores.{" "}
                                     <Link
                                         className={styles.btnBrass}

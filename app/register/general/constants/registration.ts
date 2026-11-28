@@ -88,10 +88,10 @@ export const MLH_CONTEST_TERMS_URL =
 export const MLH_CODE_OF_CONDUCT_URL =
     "https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md";
 
-export const PRO_TRACK_NAME = "HackOutlaws Pro Track";
+export const PRO_LEVEL_NAME = "HackOutlaws Pro Level";
 
-/** Page describing the pro path/track. */
-export const PRO_TRACK_URL = "/challenge";
+/** Page describing HackOutlaws Pro Level. */
+export const PRO_LEVEL_URL = "/challenge";
 
 export const HARDWARE_INTEREST_FORM_URL =
     "https://docs.google.com/forms/d/e/1FAIpQLSdIa_gWdOqxJYPPtwq1R4JE-73zV955AR1f090xjdY6o7i-4Q/viewform";

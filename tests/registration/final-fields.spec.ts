@@ -386,6 +386,12 @@ test("one area suffices to submit with optional answers blank", async ({
     );
     await page.goto("/register/general");
     await expect(page).toHaveURL(/#application-questions$/);
+    await expect(
+        page.getByText(
+            "Would you like to be considered for HackOutlaws Pro Level?"
+        )
+    ).toBeVisible();
+    await page.locator("#pro input[type=checkbox]").check();
     await uploadResume(page);
     await next(page, testInfo, "ATTENDING");
     await expect(page).toHaveURL(/#attending-hackillinois$/);
@@ -394,7 +400,7 @@ test("one area suffices to submit with optional answers blank", async ({
     await expect(page).toHaveURL(/#review-and-submit$/);
     await expect(
         page.getByText(
-            /registration closes on january 15, 2027 at 11:59 p.m. ct/i
+            /^Check that your responses.*Registration closes on January 15, 2027 at 11:59 p\.m\. CT\.$/
         )
     ).toBeVisible();
     await page
@@ -430,7 +436,12 @@ test("one area suffices to submit with optional answers blank", async ({
         );
     }
 
+    await expect(
+        page.getByText(/in order to be considered for HackOutlaws Pro Level/)
+    ).toBeVisible();
+
     for (const field of [
+        "proChallengeAcknowledge",
         "reviewedAcknowledge",
         "codeOfConductAcknowledge",
         "mlhDataSharingAcknowledge",
@@ -443,6 +454,10 @@ test("one area suffices to submit with optional answers blank", async ({
         .last()
         .click();
     await expect.poll(() => submitted.length).toBe(1);
+    await expect(page).toHaveURL(/#confirmation$/);
+    await expect(
+        page.getByRole("link", { name: "Go to Pro Level Challenge" })
+    ).toBeVisible();
     expect(submitted[0]).toMatchObject({
         race: ["Hispanic or Latinx", "White"],
         vcInvolvement: [],

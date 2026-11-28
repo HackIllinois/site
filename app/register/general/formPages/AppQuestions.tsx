@@ -8,8 +8,8 @@ import { Box, Grid, Link, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import SectionHeader from "../components/SectionHeader";
 import {
-    PRO_TRACK_NAME,
-    PRO_TRACK_URL,
+    PRO_LEVEL_NAME,
+    PRO_LEVEL_URL,
     RESPONSE_LIMITS
 } from "../constants/registration";
 
@@ -250,7 +250,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 <Grid size={12}>
                     <CheckboxSelect
                         name="pro"
-                        label={`Would you like to be considered for ${PRO_TRACK_NAME}?`}
+                        label={`Would you like to be considered for ${PRO_LEVEL_NAME}?`}
                         sublabelContent={
                             <Typography
                                 component="p"
@@ -258,9 +258,9 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                                 sx={{ opacity: 0.85, color: "#ffffff" }}
                             >
                                 You will have to complete a coding challenge to
-                                be eligible. Learn more about {PRO_TRACK_NAME}{" "}
+                                be eligible. Learn more about {PRO_LEVEL_NAME}{" "}
                                 <Link
-                                    href={PRO_TRACK_URL}
+                                    href={PRO_LEVEL_URL}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     sx={{

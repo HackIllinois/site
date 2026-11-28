@@ -183,10 +183,10 @@ const Confirmation = ({
                                         Saloon Rush challenge
                                         <br />
                                         and will be considered for the
-                                        HackOutlaws Pro Track.
+                                        HackOutlaws Pro Level.
                                     </>
                                 ) : (
-                                    "To join the Pro Track, you'll need to complete Saloon Rush."
+                                    "To join the Pro Level, you'll need to complete Saloon Rush."
                                 )}
                             </Typography>
                             {!challengePassed && (
@@ -210,7 +210,7 @@ const Confirmation = ({
                                         }
                                     }}
                                 >
-                                    Go to Pro Track Challenge
+                                    Go to Pro Level Challenge
                                 </Button>
                             )}
                         </>

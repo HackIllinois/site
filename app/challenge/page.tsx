@@ -10,9 +10,9 @@ import TableProps from "./components/TableProps";
 import styles from "./track.module.scss";
 
 export const metadata: Metadata = {
-    title: "HackOutlaws | HackIllinois Pro Track",
+    title: "HackOutlaws | HackIllinois Pro Level",
     description:
-        "Join the HackIllinois Pro Track, enter the Saloon Rush coding challenge and compete for the HackOutlaws grand prize."
+        "Join the HackIllinois Pro Level, enter the Saloon Rush coding challenge and compete for the HackOutlaws grand prize."
 };
 
 function SaloonArt({
@@ -97,7 +97,7 @@ export default function ProTrackLanding() {
                     />
                     <Link href="#about-outlaws" className={styles.plaque}>
                         <Plaque />
-                        <span>HackIllinois Pro-Track</span>
+                        <span>HackIllinois Pro Level</span>
                     </Link>
                 </section>
                 <section className={styles.roulette} id="about-outlaws">
@@ -139,7 +139,7 @@ export default function ProTrackLanding() {
                     />
                     <CactusAnimation />
                     <div className={styles.menu} data-reveal>
-                        <small>The Pro Track Menu</small>
+                        <small>The Pro Level Menu</small>
                         <h2>
                             Benefits of
                             <br />
@@ -178,7 +178,7 @@ export default function ProTrackLanding() {
                             HackOutlaw?
                         </h2>
                         <p>
-                            Choose Pro Track on your{" "}
+                            Choose Pro Level on your{" "}
                             <Link href="/register/general">registration</Link>{" "}
                             and complete the Saloon Rush coding challenge.
                         </p>
