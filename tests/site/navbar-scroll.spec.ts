@@ -1,4 +1,4 @@
-import { expect, test, type Locator } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
 // Ticket 51: the navbar must not shift when the page scrolls. The landing
 // page's desktop bar always sits 20px higher (the old scrolled position);
@@ -37,6 +37,21 @@ for (const path of ["/", "/job-board"]) {
     });
 }
 
+async function expectBelowHeader(page: Page, section: Locator) {
+    await expect
+        .poll(async () => {
+            const target = await section.boundingBox();
+            const header = await page.locator("header").first().boundingBox();
+            return Boolean(
+                target &&
+                header &&
+                target.y >= header.y + header.height - 1 &&
+                target.y < header.y + header.height + 65
+            );
+        })
+        .toBe(true);
+}
+
 test("landing links scroll to each section and underline it only while visible", async ({
     page,
     isMobile
@@ -45,24 +60,6 @@ test("landing links scroll to each section and underline it only while visible",
     const nav = page.locator("#frontier-nav");
     const menu = page.getByRole("button", { name: /menu$/ });
     const current = nav.locator('[aria-current="location"]');
-
-    async function expectBelowHeader(section: Locator) {
-        await expect
-            .poll(async () => {
-                const target = await section.boundingBox();
-                const header = await page
-                    .locator("header")
-                    .first()
-                    .boundingBox();
-                return Boolean(
-                    target &&
-                    header &&
-                    target.y >= header.y + header.height - 1 &&
-                    target.y < header.y + header.height + 65
-                );
-            })
-            .toBe(true);
-    }
 
     await expect(current).toHaveCount(0);
     for (const [name, id] of [
@@ -78,8 +75,8 @@ test("landing links scroll to each section and underline it only while visible",
         if (isMobile)
             await expect(menu).toHaveAttribute("aria-expanded", "false");
         const section = page.getByRole("region", { name, exact: true });
-        await expectBelowHeader(section);
         await expect(section).toBeFocused();
+        await expectBelowHeader(page, section);
         if (isMobile) await menu.click();
         await expect(link).toHaveAttribute("aria-current", "location");
         await expect(link).toHaveCSS("text-decoration-line", "underline");
@@ -112,17 +109,18 @@ test("landing links work from other routes and synchronize on direct visits", as
     await faq.click();
     await expect(page).toHaveURL(/\/#faq$/);
     await expect(faq).toHaveAttribute("aria-current", "location");
-    await expect(
-        page.getByRole("heading", { name: "FAQ", exact: true })
-    ).toBeInViewport();
+    const faqSection = page.getByRole("region", { name: "FAQ", exact: true });
+    await expect(faqSection).toBeFocused();
+    await expectBelowHeader(page, faqSection);
 
-    await page.goto("/#sponsors");
-    await page.reload();
+    const direct = await page.context().newPage();
+    await direct.goto("/#sponsors");
+    const sponsors = direct.getByRole("region", {
+        name: "Sponsors",
+        exact: true
+    });
+    await expectBelowHeader(direct, sponsors);
     await expect(
-        page.getByRole("region", { name: "Sponsors", exact: true })
-    ).toBeInViewport();
-    await expect(nav.locator('a[href="/#sponsors"]')).toHaveAttribute(
-        "aria-current",
-        "location"
-    );
+        direct.locator('#frontier-nav a[href="/#sponsors"]')
+    ).toHaveAttribute("aria-current", "location");
 });

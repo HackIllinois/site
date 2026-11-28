@@ -44,8 +44,8 @@ export default function Navbar() {
             const visible = new Set<Element>();
             observer = new IntersectionObserver(
                 entries => {
-                    for (const { target, isIntersecting } of entries) {
-                        if (isIntersecting) visible.add(target);
+                    for (const { target, intersectionRatio } of entries) {
+                        if (intersectionRatio > 0) visible.add(target);
                         else visible.delete(target);
                     }
                     setActiveSection(
@@ -53,7 +53,9 @@ export default function Navbar() {
                     );
                 },
                 {
-                    rootMargin: `-${Math.ceil(navbar.getBoundingClientRect().bottom)}px 0px 0px`
+                    rootMargin: `-${Math.ceil(navbar.getBoundingClientRect().bottom)}px 0px 0px`,
+                    // An edge touching the viewport has zero visible area.
+                    threshold: Number.EPSILON
                 }
             );
             sections.forEach(section => observer.observe(section));
