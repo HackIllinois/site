@@ -88,12 +88,17 @@ export default function MineFaq() {
         );
     }
     return (
-        <div className={styles.questions}>
-            <h2>FAQ</h2>
+        <section
+            id="faq"
+            className={styles.questions}
+            aria-labelledby="faq-title"
+            tabIndex={-1}
+        >
+            <h2 id="faq-title">FAQ</h2>
             <div className={styles.columns}>
                 <div>{[0, 1, 2, 3].map(item)}</div>
                 <div>{[4, 5, 6].map(item)}</div>
             </div>
-        </div>
+        </section>
     );
 }

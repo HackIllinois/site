@@ -364,6 +364,27 @@ export default function FrontierExperience() {
                         aria-hidden="true"
                     />
 
+                    <div className={styles.sponsorsComingSoon}>
+                        <section
+                            id="sponsors"
+                            className={styles.sponsorsCard}
+                            aria-label="Sponsors"
+                            tabIndex={-1}
+                        >
+                            <p className={styles.sponsorsCardTitle}>
+                                Coming Soon!
+                            </p>
+                            <p className={styles.sponsorsCardCopy}>
+                                Our 2027 sponsors will be announced soon.
+                                Interested in sponsoring? Reach out at{" "}
+                                <a href="mailto:contact@hackillinois.org">
+                                    contact@hackillinois.org
+                                </a>
+                                .
+                            </p>
+                        </section>
+                    </div>
+
                     <MineFaq />
 
                     <motion.div
