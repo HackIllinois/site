@@ -584,6 +584,49 @@
     top: calc(404cqw + var(--door-shift));
 }
 
+.sponsorsComingSoon {
+    position: absolute;
+    z-index: 10;
+    top: calc(496cqw + var(--door-shift));
+    left: 11.5%;
+    width: 77%;
+    height: 62cqw;
+    display: grid;
+    place-items: center;
+}
+
+.sponsorsCard {
+    box-sizing: border-box;
+    width: 78%;
+    padding: 5.5cqw 6.5cqw;
+    background: url("/landing/frontier/parchment.webp") center / 100% 100%
+        no-repeat;
+    color: #372514;
+    text-align: center;
+    filter: drop-shadow(0 0.9cqw 1.5cqw rgb(18 9 4 / 55%));
+}
+
+.sponsorsCardTitle {
+    margin: 0;
+    color: #4a2311;
+    font: 400 3.4cqw/1.1 var(--display);
+    letter-spacing: 0.01em;
+}
+
+.sponsorsCardCopy {
+    margin: 1.5cqw auto 0;
+    max-width: 34ch;
+    color: #4a2e1a;
+    font: 500 1.65cqw/1.45 var(--body);
+}
+
+.sponsorsCardCopy a {
+    color: inherit;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.16em;
+}
+
 .questions {
     position: absolute;
     z-index: 10;
