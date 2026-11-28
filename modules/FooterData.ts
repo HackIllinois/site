@@ -15,7 +15,7 @@ export const socials = [
         id: 3,
         name: "TikTok",
         image: "/footer/tiktok.svg",
-        url: "https://www.tiktok.com/@hackillinoisuiuc"
+        url: "https://www.tiktok.com/@hackillinois"
     },
     {
         id: 4,
