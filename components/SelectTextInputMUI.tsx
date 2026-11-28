@@ -242,19 +242,20 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                                     "polygon(12px 0%, calc(100% - 12px) 0%, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0% calc(100% - 12px), 0% 12px)",
                                 color: accentColor,
                                 //border: "2px solid #f0f0f0",
-                                "& .MuiAutocomplete-inputRoot": {
-                                    display: "flex",
-                                    alignItems: "center",
-                                    overflowX: "scroll",
-                                    padding: "4px 12px",
-                                    minHeight: 40,
-                                    whiteSpace: "nowrap",
-                                    scrollbarWidth: "none",
-                                    msOverflowStyle: "none",
-                                    "&::-webkit-scrollbar": {
-                                        display: "none"
-                                    }
-                                },
+                                "& .MuiAutocomplete-inputRoot.MuiOutlinedInput-root":
+                                    {
+                                        display: "flex",
+                                        alignItems: "center",
+                                        overflowX: "scroll",
+                                        padding: "0 0 0 24px",
+                                        minHeight: 40,
+                                        whiteSpace: "nowrap",
+                                        scrollbarWidth: "none",
+                                        msOverflowStyle: "none",
+                                        "&::-webkit-scrollbar": {
+                                            display: "none"
+                                        }
+                                    },
                                 "& .MuiAutocomplete-tag": {
                                     display: "flex",
                                     alignItems: "center",
@@ -262,13 +263,9 @@ const SelectTextInput: React.FC<SelectTextInputProps> = ({
                                     margin: "2px 2px 2px 0"
                                 },
                                 "& .MuiInputBase-input": {
-                                    padding: "0 12px !important",
+                                    padding: "0 12px 0 0 !important",
                                     width: "100%",
                                     boxSizing: "border-box"
-                                },
-                                "& .MuiOutlinedInput-root": {
-                                    padding: 0
-                                    //borderRadius: 6
                                 },
                                 "& .MuiOutlinedInput-notchedOutline": {
                                     border: "none"

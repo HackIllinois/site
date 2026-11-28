@@ -11,9 +11,13 @@ import {
     vcInvolvementOptions
 } from "@/util/options";
 import { RegistrationApplicationDraftBodyForm } from "@/util/types";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Link, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import SectionHeader from "../components/SectionHeader";
+import {
+    HARDWARE_INTEREST_FORM_URL,
+    RESPONSE_LIMITS
+} from "../constants/registration";
 
 interface AttendingHackProps {
     formik: FormikProps<RegistrationApplicationDraftBodyForm>;
@@ -237,34 +241,32 @@ const AttendingHack = ({ formik, accentColor }: AttendingHackProps) => {
                 )}
 
                 <Grid size={12}>
-                    <TextInput
-                        name="hardwareInterest"
-                        label="What kind of hardware would you like to see at the event?"
-                        sublabel="max 100 words"
-                        accentColor={accentColor}
-                        multiline
-                        required
-                        minRows={3}
-                        value={values.hardwareInterest || ""}
-                        onChange={handleChange}
-                        error={
-                            !!touched.hardwareInterest &&
-                            Boolean(errors.hardwareInterest)
-                        }
-                        helperText={
-                            touched.hardwareInterest
-                                ? errors.hardwareInterest
-                                : ""
-                        }
-                        inputProps={{ maxLength: 1000 }}
-                    />
+                    <Typography
+                        sx={{ color: "white", fontFamily: "Montserrat" }}
+                    >
+                        If you’re interested in hardware, please fill out this
+                        brief{" "}
+                        <Link
+                            href={HARDWARE_INTEREST_FORM_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            sx={{
+                                color: "inherit",
+                                fontWeight: 600,
+                                textDecorationColor: "currentColor"
+                            }}
+                        >
+                            interest form
+                        </Link>
+                        !
+                    </Typography>
                 </Grid>
 
                 <Grid size={12}>
                     <TextInput
                         name="eventSuggestions"
                         label="What new activities, entertainment, workshops, or other additions would you like to see at future events? We welcome any suggestions that could help improve your experience."
-                        sublabel="Optional"
+                        sublabel={`Optional, max ${RESPONSE_LIMITS.eventSuggestions} characters`}
                         placeholder="Share your ideas or suggestions with us!"
                         accentColor={accentColor}
                         multiline
@@ -280,7 +282,9 @@ const AttendingHack = ({ formik, accentColor }: AttendingHackProps) => {
                                 ? errors.eventSuggestions
                                 : ""
                         }
-                        inputProps={{ maxLength: 1500 }}
+                        inputProps={{
+                            maxLength: RESPONSE_LIMITS.eventSuggestions
+                        }}
                     />
                 </Grid>
             </Grid>

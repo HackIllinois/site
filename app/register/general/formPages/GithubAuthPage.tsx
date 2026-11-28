@@ -8,6 +8,7 @@ import { LOCAL_AUTH_ENABLED } from "@/util/api-config";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Alert, Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { REGISTRATION_DEADLINE } from "../constants/registration";
 
 const authButtonSx = {
     backgroundColor: "#75462d",
@@ -210,6 +211,8 @@ const GithubAuthPage = ({
                     }}
                 >
                     Sign in to get started!
+                    <br />
+                    Registration closes on {REGISTRATION_DEADLINE}.
                 </Typography>
 
                 {/* Priority and final deadline boxes */}

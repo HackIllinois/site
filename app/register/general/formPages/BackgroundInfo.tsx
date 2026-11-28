@@ -21,6 +21,7 @@ import { RegistrationApplicationDraftBodyForm } from "@/util/types";
 import { Box, Grid } from "@mui/material";
 import { FormikProps } from "formik";
 import SectionHeader from "../components/SectionHeader";
+import { RESPONSE_LIMITS } from "../constants/registration";
 import { OTHER_SCHOOL_OPTION } from "../constants/registration";
 
 interface BackgroundInfoProps {
@@ -306,7 +307,7 @@ const BackgroundInfo = ({ formik, accentColor }: BackgroundInfoProps) => {
                         <TextInput
                             name="firstHackathonReason"
                             label="Why would you like to participate in HackIllinois as your first hackathon?"
-                            sublabel="max 150 words"
+                            sublabel={`max ${RESPONSE_LIMITS.firstHackathonReason} characters`}
                             accentColor={accentColor}
                             multiline
                             required
@@ -322,7 +323,9 @@ const BackgroundInfo = ({ formik, accentColor }: BackgroundInfoProps) => {
                                     ? errors.firstHackathonReason
                                     : ""
                             }
-                            inputProps={{ maxLength: 2000 }}
+                            inputProps={{
+                                maxLength: RESPONSE_LIMITS.firstHackathonReason
+                            }}
                         />
                     </Grid>
                 )}

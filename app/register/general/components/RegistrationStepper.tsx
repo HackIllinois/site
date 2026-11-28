@@ -28,8 +28,14 @@ const RegistrationStepper = ({
                         sx={{
                             [`&.${stepConnectorClasses.alternativeLabel}`]: {
                                 top: 34,
-                                left: "calc(-50% + 36px)",
-                                right: "calc(50% + 36px)"
+                                left: {
+                                    xs: "calc(-50% + 25px)",
+                                    sm: "calc(-50% + 36px)"
+                                },
+                                right: {
+                                    xs: "calc(50% + 25px)",
+                                    sm: "calc(50% + 36px)"
+                                }
                             },
                             [`& .${stepConnectorClasses.line}`]: {
                                 borderColor: "white",
@@ -53,7 +59,7 @@ const RegistrationStepper = ({
                     />
                 }
                 sx={{
-                    pt: { xs: 20, lg: 24 },
+                    pt: { xs: 17, md: 18, lg: "max(152px, 7.5vw)" },
                     width: "100%",
                     "& .MuiStepLabel-root": {
                         zIndex: 1,
@@ -70,7 +76,11 @@ const RegistrationStepper = ({
                     const pose = STEP_HORSE_POSE[i] ?? "gallop";
 
                     return (
-                        <Step key={step.id} completed={i < currentStep}>
+                        <Step
+                            key={step.id}
+                            completed={i < currentStep}
+                            sx={{ minWidth: 0, px: { xs: 0.25, sm: 1 } }}
+                        >
                             <StepLabel
                                 sx={{
                                     "& .MuiStepLabel-label": {
@@ -97,6 +107,8 @@ const RegistrationStepper = ({
                                                 alignItems: "center",
                                                 justifyContent: "center",
                                                 width: 72,
+                                                maxWidth: "100%",
+                                                "& svg": { maxWidth: "100%" },
                                                 height: 68,
                                                 margin: "0 auto",
                                                 boxSizing: "border-box",

@@ -317,6 +317,12 @@ export const GeneralRegistration = () => {
                 const body = valuesToDraftContent(formik.values);
                 // Optional here, but adonix requires the key on submit.
                 body.vcInvolvement ??= [];
+                // Adonix stores both ranks on submit. Zero is the unselected area.
+                body.interestSoftware ||= "0";
+                body.interestHardware ||= "0";
+                // ponytail: Adonix still requires a nonempty string on submit.
+                // Drop this fallback when the submitted schema makes it optional.
+                body.hardwareInterest ||= "Not collected in registration";
                 await submitDraft(body);
                 setIsSubmitted(true);
             } catch (error: any) {
@@ -477,6 +483,7 @@ export const GeneralRegistration = () => {
                     the stage sunset, crossfaded between steps. */}
                 <RegistrationBackground
                     background={steps[currentStep]}
+                    shadeOpacity={0.3}
                     next={steps[currentStep + 1] ?? null}
                 />
                 <Paper
@@ -493,7 +500,14 @@ export const GeneralRegistration = () => {
                         maxStep={maxStep}
                         onGoToStep={handleGoToStepViaStepper}
                     />
-                    <Box sx={{ mb: 4, fontFamily: "Montserrat" }}>
+                    <Box
+                        sx={{
+                            mb: 4,
+                            fontFamily: "Montserrat",
+                            "--registration-title-outline":
+                                steps[currentStep].color
+                        }}
+                    >
                         {renderStepContent(currentStep, formik)}
                     </Box>
 

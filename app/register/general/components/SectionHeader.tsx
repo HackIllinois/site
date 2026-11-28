@@ -1,4 +1,3 @@
-import { TITLE_TEXT_SHADOW } from "@/theme/shadows";
 import { Typography } from "@mui/material";
 
 interface SectionHeaderProps {
@@ -19,7 +18,9 @@ const SectionHeader = ({ title, description }: SectionHeaderProps) => (
                 color: "#ffffff",
                 letterSpacing: "4px",
                 fontSize: { xs: "30px", md: "40px" },
-                textShadow: TITLE_TEXT_SHADOW
+                WebkitTextStroke: "1px var(--registration-title-outline)",
+                paintOrder: "stroke fill",
+                textShadow: "0 4px 0 var(--registration-title-outline)"
             }}
         >
             {title}
