@@ -12,7 +12,8 @@
 }
 
 // The clock and register link sit inside .signLayer, positioned against the
-// boxes drawn in SIGN.png (1216 x 1451), so they stay on the art at any size.
+// boxes drawn in marquee-sign.webp (1181 x 1459), so they stay on the art at any
+// size.
 
 .signLayer img {
     display: block;
@@ -20,7 +21,7 @@
     height: auto;
 }
 
-// SIGN2.png (the other bulb pattern) sits exactly over SIGN.png.
+// marquee-sign-bulbs.webp (the other bulb pattern) sits exactly over the sign.
 .signLayer img.signAlternate {
     position: absolute;
     inset: 0;
@@ -295,11 +296,11 @@
 .clock {
     position: absolute;
     z-index: 1;
-    // Box at x 198-714, y 738-857 in SIGN.png.
-    top: 50.86%;
-    left: 16.28%;
-    width: 42.43%;
-    height: 8.2%;
+    // Box at x 298-817, y 662-779 in marquee-sign.webp.
+    top: 45.37%;
+    left: 25.23%;
+    width: 43.95%;
+    height: 8.02%;
     display: grid;
     place-items: center;
     border: 0.24cqw solid #ffe8c5;
@@ -329,11 +330,11 @@
 }
 
 .registerHotspot {
-    // Plate at x 478-764, y 618-715 in SIGN.png.
-    top: 42.59%;
-    left: 39.31%;
-    width: 23.52%;
-    height: 6.69%;
+    // Plate at x 515-820, y 516-620 in marquee-sign.webp.
+    top: 35.37%;
+    left: 43.61%;
+    width: 25.83%;
+    height: 7.13%;
     pointer-events: auto;
 }
 
