@@ -6,6 +6,16 @@
     font-family: var(--body);
 }
 
+.titleSign {
+    position: absolute;
+    z-index: 1;
+    left: 35%;
+    top: 6.7376%;
+    width: 30.9722%;
+    height: auto;
+    pointer-events: none;
+}
+
 .lighting {
     position: absolute;
     z-index: 4;
@@ -870,6 +880,13 @@
         height: calc(100vw * 1660 / 402);
         max-width: 100%;
         margin-left: 0;
+    }
+
+    .titleSign {
+        left: 18.6567%;
+        top: calc(100vw * 1660 / 402 * 82 / 1544);
+        width: 63.6816%;
+        height: calc(100vw * 1660 / 402 * 139 / 1544);
     }
 
     .message {
