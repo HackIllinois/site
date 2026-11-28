@@ -116,6 +116,7 @@ type RegistrationBackgroundProps = {
     next?: RegistrationBackgroundArt | null;
     /** Soft-focus the art, in CSS pixels. Used by the loading and 404 backdrops. */
     blurPx?: number;
+    shadeOpacity?: number;
 };
 
 /**
@@ -128,7 +129,8 @@ type RegistrationBackgroundProps = {
 const RegistrationBackground = ({
     background,
     next = null,
-    blurPx = 0
+    blurPx = 0,
+    shadeOpacity = 0.2
 }: RegistrationBackgroundProps) => {
     const [readySources, setReadySources] = useState<ReadonlySet<string>>(
         () => new Set()
@@ -210,7 +212,7 @@ const RegistrationBackground = ({
                     ...LAYER_STYLE,
                     zIndex: 1,
                     pointerEvents: "none",
-                    backgroundColor: "rgba(0, 0, 0, 0.2)"
+                    backgroundColor: `rgba(0, 0, 0, ${shadeOpacity})`
                 }}
             />
         </div>

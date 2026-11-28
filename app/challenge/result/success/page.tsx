@@ -74,7 +74,7 @@ function Passed() {
             )}
             <div className={styles.center}>
                 <div className={styles.gateCard}>
-                    <p className={styles.posterSub}>HackOutlaws Pro Track</p>
+                    <p className={styles.posterSub}>HackOutlaws Pro Level</p>
                     <h1 className={styles.posterHeading}>You beat the house</h1>
                     <hr className={styles.posterRule} />
                     <dl className={styles.posterStats}>

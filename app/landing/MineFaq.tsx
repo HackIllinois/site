@@ -37,7 +37,7 @@ const questions = [
         "How do I register?",
         <>
             Head to <Link href="/register/general">registration</Link> to start
-            your application. You can choose the Pro Track if you’d like to take
+            your application. You can choose the Pro Level if you’d like to take
             the coding challenge.
         </>
     ],

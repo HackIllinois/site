@@ -1,5 +1,6 @@
 "use client";
 
+import { REGISTRATION_DEADLINE } from "@/app/register/general/constants/registration";
 import useWindowSize from "@/hooks/use-window-size";
 import { downloadChallengeWorld, loadChallengeStatus } from "@/util/api";
 import {
@@ -100,12 +101,12 @@ function Saloon() {
             return (
                 <SaloonNotice
                     sub="Members only"
-                    heading="Pro track only"
+                    heading="Pro Level only"
                     actionHref="/"
                     actionText="Back to town"
                 >
-                    Saloon Rush is the HackOutlaws Pro track challenge, and your
-                    application wasn’t submitted for the Pro track.
+                    Saloon Rush is the HackOutlaws Pro Level challenge, and your
+                    application wasn’t submitted for the Pro Level.
                 </SaloonNotice>
             );
         }
@@ -118,7 +119,7 @@ function Saloon() {
                     actionText="Finish your application"
                 >
                     We couldn’t find a submitted application. Submit yours with
-                    the Pro track box ticked, then come back.
+                    the Pro Level box ticked, then come back.
                 </SaloonNotice>
             );
         }
@@ -628,7 +629,8 @@ function Saloon() {
                         <p className={styles.ruleText}>
                             Upload <code>plan.json</code> using the upload box
                             below. It must be a JSON file no larger than 1 MB.
-                            Submission deadline: <strong>TBD</strong>.
+                            Submission deadline:{" "}
+                            <strong>{REGISTRATION_DEADLINE}</strong>.
                         </p>
                         <p className={styles.ruleText}>
                             Submissions are unlimited and do not affect your
@@ -638,7 +640,7 @@ function Saloon() {
                         <p className={styles.ruleText}>
                             Reach <strong>{passPercent}%</strong> of your floor
                             plan’s reference score to pass that tier and unlock
-                            the next available tier. Pro Track qualification
+                            the next available tier. Pro Level qualification
                             uses your average across all live tiers, with the
                             same {passPercent}% threshold.
                         </p>
@@ -805,7 +807,7 @@ function Saloon() {
                                     style={{ marginBottom: 28 }}
                                 >
                                     <strong>Welcome to the gang</strong>
-                                    You qualified for the Pro Track. You can
+                                    You qualified for the Pro Level. You can
                                     keep improving your tier scores.{" "}
                                     <Link
                                         className={styles.btnBrass}

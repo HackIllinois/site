@@ -30,7 +30,7 @@ export default function WantedPoster({
 
     return (
         <aside className={styles.poster} aria-label="Selected tier status">
-            <p className={styles.posterSub}>HackOutlaws Pro Track</p>
+            <p className={styles.posterSub}>HackOutlaws Pro Level</p>
             <h2 className={styles.posterHeading}>WANTED</h2>
             <p className={styles.posterSub}>
                 A gang boss who can beat the house

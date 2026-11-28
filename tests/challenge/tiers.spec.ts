@@ -112,7 +112,7 @@ test("keeps a passing report visible, unlocks the next download and resumes on r
         page.getByRole("button", { name: "Tier 3 Available" })
     ).toHaveAttribute("aria-pressed", "true");
     await expect(
-        page.getByText(/You qualified for the Pro Track/)
+        page.getByText(/You qualified for the Pro Level/)
     ).toBeVisible();
     await page.getByRole("button", { name: "Tier 1 Passed" }).click();
     await expect(page.getByText("points on tier1-sample")).toBeVisible();

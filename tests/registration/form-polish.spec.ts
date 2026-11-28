@@ -1,4 +1,10 @@
-import { expect, test, type Page, type TestInfo } from "@playwright/test";
+import {
+    expect,
+    test,
+    type Locator,
+    type Page,
+    type TestInfo
+} from "@playwright/test";
 
 const personal = {
     firstName: "Test",
@@ -53,6 +59,80 @@ const next = (page: Page, testInfo: TestInfo, desktopLabel: string) =>
         name: testInfo.project.name === "mobile" ? "NEXT" : desktopLabel,
         exact: true
     });
+
+const placeholderStyle = (input: Locator) =>
+    input.evaluate(el => {
+        const field = el.closest(".MuiInputBase-root")!;
+        const placeholder = getComputedStyle(el, "::placeholder");
+        return {
+            inset:
+                el.getBoundingClientRect().left -
+                field.getBoundingClientRect().left +
+                parseFloat(getComputedStyle(el).paddingLeft),
+            color: placeholder.color,
+            opacity: placeholder.opacity
+        };
+    });
+
+test("age and background placeholders align with text fields", async ({
+    page
+}, testInfo) => {
+    const saved = { ...personal, age: "", firstName: "" };
+    await mockApi(page, saved, testInfo);
+    await page.goto("/register/general");
+    const firstName = page.locator("input[name=firstName]");
+    const textStyle = await placeholderStyle(firstName);
+    const age = page.locator("#age input");
+    await expect(age).toHaveValue("");
+    expect(await placeholderStyle(age)).toEqual(textStyle);
+
+    Object.assign(saved, personal);
+    await page.reload();
+    await expect(page).toHaveURL(/#background-information$/);
+
+    for (const name of ["gender", "race", "country", "school"]) {
+        const field = page.locator(`#${name} input`);
+        await expect(field).toHaveAttribute("placeholder", "Select");
+        expect(await placeholderStyle(field), `${name} placeholder`).toEqual(
+            textStyle
+        );
+    }
+});
+
+test("registration art is darker and the stepper sits closer to the navbar", async ({
+    page
+}, testInfo) => {
+    await mockApi(page, {}, testInfo);
+    await page.goto("/register/general");
+    const heading = page.getByRole("heading", { name: "Personal Details" });
+    await expect(heading).toBeVisible();
+    await expect(heading).toHaveCSS("-webkit-text-stroke-width", "1px");
+    await expect(heading).toHaveCSS(
+        "text-shadow",
+        "rgb(58, 37, 65) 0px 4px 0px"
+    );
+
+    const shade = page.locator(
+        'picture:has(img[src$="/personal_info-1280.webp"]) ~ div[aria-hidden]'
+    );
+    await expect(shade).toHaveCSS("background-color", "rgba(0, 0, 0, 0.3)");
+
+    const navbar = (await page.getByRole("banner").boundingBox())!;
+    const firstHorse = (await page
+        .getByRole("button", { name: "Personal Details (reached)" })
+        .boundingBox())!;
+    const gap = firstHorse.y - (navbar.y + navbar.height);
+    expect(gap).toBeGreaterThan(0);
+    expect(gap).toBeLessThan(80);
+    const lastHorse = (await page
+        .locator('.MuiStepper-root [aria-label="Confirmation"] svg')
+        .boundingBox())!;
+    const viewportWidth = page.viewportSize()!.width;
+    expect(lastHorse.x + lastHorse.width).toBeLessThanOrEqual(viewportWidth);
+    expect(
+        await page.evaluate(() => document.documentElement.scrollWidth)
+    ).toBe(viewportWidth);
+});
 
 test("phone number only accepts and formats phone numbers", async ({
     page

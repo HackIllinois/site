@@ -1,4 +1,7 @@
-import { OTHER_SCHOOL_OPTION } from "@/app/register/general/constants/registration";
+import {
+    OTHER_SCHOOL_OPTION,
+    RESPONSE_LIMITS
+} from "@/app/register/general/constants/registration";
 import {
     FIRST_HACKATHON_OPTION,
     OTHER_MAJOR_OPTION,
@@ -15,18 +18,10 @@ import {
 } from "@/util/types";
 import * as Yup from "yup";
 
-const maxWordsTest = (maxWords: number) =>
-    Yup.string().test(
-        `max-${maxWords}-words`,
-        `Response cannot be over ${maxWords} words`,
-        value => {
-            if (!value || !value.trim()) return true;
-            const wordCount = value
-                .trim()
-                .split(/\s+/)
-                .filter(word => word.length > 0).length;
-            return wordCount <= maxWords;
-        }
+const maxCharacters = (field: keyof typeof RESPONSE_LIMITS) =>
+    Yup.string().max(
+        RESPONSE_LIMITS[field],
+        `Response cannot be over ${RESPONSE_LIMITS[field]} characters`
     );
 
 /**
@@ -164,6 +159,10 @@ export const hydrateDraftFormValues = (
         ...draft
     };
 
+    // Submitted records use zero for an unselected area.
+    if (merged.interestSoftware === "0") merged.interestSoftware = "";
+    if (merged.interestHardware === "0") merged.interestHardware = "";
+
     const savedSchool = (draft.school ?? "").trim();
     const isListedSchool =
         savedSchool === "" ||
@@ -241,6 +240,10 @@ export const valuesToDraftContent = (
                 value as any;
         }
     }
+
+    // Adonix updates existing drafts by field. Send cleared area selections.
+    draftContent.interestSoftware = values.interestSoftware ?? "";
+    draftContent.interestHardware = values.interestHardware ?? "";
 
     if (draftContent.school === OTHER_SCHOOL_OPTION) {
         draftContent.school = (draftContent.otherSchool || "").trim();
@@ -323,17 +326,17 @@ export const draftValidationSchemas = [
         gender: Yup.string(),
         underrepresented: Yup.string(),
         hackathonsParticipated: Yup.string(),
-        firstHackathonReason: maxWordsTest(150)
+        firstHackathonReason: maxCharacters("firstHackathonReason")
     }),
 
     // 2. Application Questions
     Yup.object({
         interestSoftware: Yup.string(),
         interestHardware: Yup.string(),
-        application1: maxWordsTest(150),
-        application2: maxWordsTest(150),
-        application3: maxWordsTest(50),
-        applicationOptional: maxWordsTest(200),
+        application1: maxCharacters("application1"),
+        application2: maxCharacters("application2"),
+        application3: maxCharacters("application3"),
+        applicationOptional: maxCharacters("applicationOptional"),
         pro: Yup.boolean(),
         hasResume: Yup.boolean(),
         portfolioLink: Yup.string().url("Please enter a valid URL")
@@ -362,8 +365,7 @@ export const draftValidationSchemas = [
             then: schema => schema.trim().required("Please specify"),
             otherwise: schema => schema.notRequired()
         }),
-        hardwareInterest: maxWordsTest(100),
-        eventSuggestions: maxWordsTest(150),
+        eventSuggestions: maxCharacters("eventSuggestions"),
         requestTravelReimbursement: Yup.boolean().nullable(),
         travelAcknowledge: Yup.boolean()
     }),
@@ -436,10 +438,11 @@ export const validationSchemas = [
         firstHackathonReason: Yup.string().when("hackathonsParticipated", {
             is: FIRST_HACKATHON_OPTION,
             then: schema =>
-                schema
-                    .trim()
-                    .required("This field is required")
-                    .concat(maxWordsTest(150)),
+                maxCharacters("firstHackathonReason").test(
+                    "nonblank",
+                    "This field is required",
+                    value => Boolean(value?.trim())
+                ),
             otherwise: schema => schema.notRequired()
         })
     }),
@@ -467,19 +470,19 @@ export const validationSchemas = [
                     return value !== interestSoftware;
                 }
             ),
-        application1: Yup.string()
-            .required("This essay is required")
-            .concat(maxWordsTest(150)),
-        application2: Yup.string()
-            .required("This essay is required")
-            .concat(maxWordsTest(150)),
+        application1: maxCharacters("application1").required(
+            "This essay is required"
+        ),
+        application2: maxCharacters("application2").required(
+            "This essay is required"
+        ),
         hasResume: Yup.boolean()
             .required("Please upload your resume")
             .oneOf([true], "Please upload your resume"),
-        application3: Yup.string()
-            .required("This essay is required")
-            .concat(maxWordsTest(50)),
-        applicationOptional: maxWordsTest(200),
+        application3: maxCharacters("application3").required(
+            "This essay is required"
+        ),
+        applicationOptional: maxCharacters("applicationOptional"),
         pro: Yup.boolean(),
         portfolioLink: Yup.string().url(
             "Please enter a valid URL (including https://)"
@@ -513,10 +516,7 @@ export const validationSchemas = [
             then: schema => schema.trim().required("Please specify"),
             otherwise: schema => schema.notRequired()
         }),
-        hardwareInterest: Yup.string()
-            .required("This field is required")
-            .concat(maxWordsTest(100)),
-        eventSuggestions: maxWordsTest(150),
+        eventSuggestions: maxCharacters("eventSuggestions"),
         requestTravelReimbursement: Yup.boolean().required(
             "Please select Yes or No"
         ),

@@ -24,7 +24,8 @@ import {
     MLH_CONTEST_TERMS_URL,
     MLH_PRIVACY_POLICY_URL,
     OTHER_SCHOOL_OPTION,
-    PRO_TRACK_NAME
+    PRO_LEVEL_NAME,
+    REGISTRATION_DEADLINE
 } from "../constants/registration";
 
 type ReviewRow = {
@@ -167,7 +168,7 @@ const buildSections = (
                 value: values.portfolioLink
             },
             {
-                label: `Considered for ${PRO_TRACK_NAME}`,
+                label: `Considered for ${PRO_LEVEL_NAME}`,
                 value: values.pro ? "Yes" : "No"
             }
         ]
@@ -209,8 +210,9 @@ const buildSections = (
                 )
             },
             {
-                label: "Hardware interest",
+                label: "Previous hardware response",
                 value: values.hardwareInterest,
+                hidden: !values.hardwareInterest,
                 wide: true
             },
             {
@@ -256,7 +258,7 @@ const Review = ({ formik, onEditStep, accentColor }: ReviewProps) => {
         <Box sx={{ px: { xs: 3, md: 6 }, width: "100%" }}>
             <SectionHeader
                 title="REVIEW & SUBMIT"
-                description="Check that your responses look correct. You won't be able to make changes once you submit."
+                description={`Check that your responses look correct. You won’t be able to make changes once you submit. Registration closes on ${REGISTRATION_DEADLINE}.`}
             />
 
             <Stack spacing={{ xs: 2, md: 2.5 }}>
@@ -309,7 +311,7 @@ const Review = ({ formik, onEditStep, accentColor }: ReviewProps) => {
                     <Grid size={12}>
                         <CheckboxSelect
                             {...ack("proChallengeAcknowledge")}
-                            label={`I understand that in order to be considered for ${PRO_TRACK_NAME}, I must complete the challenge I receive after submitting this form before registration closes.`}
+                            label={`I understand that in order to be considered for ${PRO_LEVEL_NAME}, I must complete the challenge I receive after submitting this form before registration closes on ${REGISTRATION_DEADLINE}.`}
                             optionLabel="I understand"
                             required
                         />

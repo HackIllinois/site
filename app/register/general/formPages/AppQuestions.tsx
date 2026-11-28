@@ -8,9 +8,9 @@ import { Box, Grid, Link, Typography } from "@mui/material";
 import { FormikProps } from "formik";
 import SectionHeader from "../components/SectionHeader";
 import {
-    HARDWARE_INTEREST_FORM_URL,
-    PRO_TRACK_NAME,
-    PRO_TRACK_URL
+    PRO_LEVEL_NAME,
+    PRO_LEVEL_URL,
+    RESPONSE_LIMITS
 } from "../constants/registration";
 
 interface AppQuestionsProps {
@@ -76,7 +76,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                     <TextInput
                         name="application3"
                         label="Why are you interested in attending hackathons, and what do you hope to gain out of HackIllinois?"
-                        sublabel="max 50 words"
+                        sublabel={`max ${RESPONSE_LIMITS.application3} characters`}
                         accentColor={accentColor}
                         multiline
                         required
@@ -90,7 +90,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                         helperText={
                             touched.application3 ? errors.application3 : ""
                         }
-                        inputProps={{ maxLength: 2000 }}
+                        inputProps={{ maxLength: RESPONSE_LIMITS.application3 }}
                     />
                 </Grid>
 
@@ -131,32 +131,6 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                             </Box>
                         )}
                     </Box>
-                    {HARDWARE_INTEREST_FORM_URL && (
-                        <Typography
-                            sx={{
-                                mt: 1,
-                                color: "#ffffff",
-                                fontFamily: "Montserrat",
-                                fontSize: "14px"
-                            }}
-                        >
-                            If you&apos;re interested in hardware, please fill
-                            out this brief{" "}
-                            <Link
-                                href={HARDWARE_INTEREST_FORM_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                sx={{
-                                    color: "#ffffff",
-                                    fontWeight: 600,
-                                    textDecorationColor: "#ffffff"
-                                }}
-                            >
-                                interest form
-                            </Link>
-                            !
-                        </Typography>
-                    )}
                 </Grid>
 
                 <Grid size={12}>
@@ -166,12 +140,13 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                         required
                         accentColor={accentColor}
                         value={values.hasResume || false}
+                        fileName={values.resumeFileName}
                         onUploadSuccess={fileName =>
-                            setValues({
-                                ...values,
+                            setValues(current => ({
+                                ...current,
                                 hasResume: true,
                                 resumeFileName: fileName
-                            })
+                            }))
                         }
                         error={!!touched.hasResume && Boolean(errors.hasResume)}
                         helperText={
@@ -186,7 +161,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                     <TextInput
                         name="application1"
                         label="Tell us about a project you have enjoyed working on, technical or non-technical."
-                        sublabel="max 150 words"
+                        sublabel={`max ${RESPONSE_LIMITS.application1} characters`}
                         accentColor={accentColor}
                         multiline
                         required
@@ -200,7 +175,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                         helperText={
                             touched.application1 ? errors.application1 : ""
                         }
-                        inputProps={{ maxLength: 2000 }}
+                        inputProps={{ maxLength: RESPONSE_LIMITS.application1 }}
                     />
                 </Grid>
 
@@ -208,7 +183,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                     <TextInput
                         name="application2"
                         label="Pick a product you like: what's one thing you'd change to make it better and why?"
-                        sublabel="max 150 words"
+                        sublabel={`max ${RESPONSE_LIMITS.application2} characters`}
                         accentColor={accentColor}
                         multiline
                         required
@@ -222,7 +197,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                         helperText={
                             touched.application2 ? errors.application2 : ""
                         }
-                        inputProps={{ maxLength: 2000 }}
+                        inputProps={{ maxLength: RESPONSE_LIMITS.application2 }}
                     />
                 </Grid>
 
@@ -230,7 +205,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                     <TextInput
                         name="applicationOptional"
                         label="If you feel as though an essential aspect of your experience/background has not been included in your application, please use this space to elaborate on it. Your application will not be negatively impacted if you choose not to answer this question."
-                        sublabel="Optional, max 200 words"
+                        sublabel={`Optional, max ${RESPONSE_LIMITS.applicationOptional} characters`}
                         accentColor={accentColor}
                         multiline
                         minRows={4}
@@ -245,7 +220,9 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                                 ? errors.applicationOptional
                                 : ""
                         }
-                        inputProps={{ maxLength: 2000 }}
+                        inputProps={{
+                            maxLength: RESPONSE_LIMITS.applicationOptional
+                        }}
                     />
                 </Grid>
 
@@ -273,7 +250,7 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                 <Grid size={12}>
                     <CheckboxSelect
                         name="pro"
-                        label={`Would you like to be considered for ${PRO_TRACK_NAME}?`}
+                        label={`Would you like to be considered for ${PRO_LEVEL_NAME}?`}
                         sublabelContent={
                             <Typography
                                 component="p"
@@ -281,9 +258,9 @@ const AppQuestions = ({ formik, accentColor }: AppQuestionsProps) => {
                                 sx={{ opacity: 0.85, color: "#ffffff" }}
                             >
                                 You will have to complete a coding challenge to
-                                be eligible. Learn more about {PRO_TRACK_NAME}{" "}
+                                be eligible. Learn more about {PRO_LEVEL_NAME}{" "}
                                 <Link
-                                    href={PRO_TRACK_URL}
+                                    href={PRO_LEVEL_URL}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     sx={{

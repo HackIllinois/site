@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
     Box,
     FormControl,
@@ -19,6 +19,7 @@ interface ResumeUploadProps {
     required?: boolean;
     accentColor?: string;
     value?: boolean;
+    fileName?: string;
     onUploadSuccess?: (fileName: string) => void;
     error?: boolean;
     helperText?: string;
@@ -31,22 +32,17 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
     label,
     required = false,
     accentColor = "#2c2540",
-    value = false,
+    value: success = false,
+    fileName,
     onUploadSuccess,
     error: formikError = false,
     helperText = ""
 }) => {
     const inputRef = useRef<HTMLInputElement>(null);
-    const [fileName, setFileName] = useState<string | null>(null);
     const [uploading, setUploading] = useState(false);
     const [localError, setLocalError] = useState<string | null>(null);
-    const [success, setSuccess] = useState(value);
-
-    useEffect(() => {
-        setSuccess(value);
-    }, [value]);
-
     const hasError = !!localError || formikError;
+    const errorMessage = localError || helperText;
 
     const handleClick = () => {
         inputRef.current?.click();
@@ -56,34 +52,27 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
         const file = event.target.files?.[0];
-        if (!file) return;
+        event.target.value = "";
+        if (!file || uploading) return;
 
         if (file.type !== "application/pdf") {
             setLocalError("Please upload a PDF file.");
-            setSuccess(false);
-            setFileName(null);
             return;
         }
 
         if (file.size > MAX_FILE_SIZE) {
             setLocalError("File must be under 2 MB.");
-            setSuccess(false);
-            setFileName(null);
             return;
         }
 
         setLocalError(null);
-        setFileName(file.name);
         setUploading(true);
-        setSuccess(false);
 
         try {
             await uploadFile(file);
-            setSuccess(true);
             onUploadSuccess?.(file.name);
         } catch {
             setLocalError("Upload failed. Please try again.");
-            setSuccess(false);
         } finally {
             setUploading(false);
         }
@@ -125,6 +114,10 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
             />
 
             <Box
+                component="button"
+                type="button"
+                disabled={uploading}
+                aria-describedby={errorMessage ? `${name}-error` : undefined}
                 onClick={handleClick}
                 sx={{
                     backgroundColor: "#f0f0f0",
@@ -160,12 +153,16 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
                 )}
 
                 <Typography
+                    component="span"
+                    aria-live="polite"
                     sx={{
                         fontFamily: "Montserrat, sans-serif",
                         fontWeight: 600,
                         fontSize: "14px",
                         color: "#333",
-                        textAlign: "center"
+                        textAlign: "center",
+                        maxWidth: "100%",
+                        overflowWrap: "anywhere"
                     }}
                 >
                     {uploading
@@ -177,8 +174,9 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
                             : "Click to upload your resume (PDF, max 2 MB)"}
                 </Typography>
 
-                {success && (
+                {success && !uploading && (
                     <Typography
+                        component="span"
                         sx={{
                             fontFamily: "Montserrat, sans-serif",
                             fontSize: "12px",
@@ -186,16 +184,20 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
                             mt: 0.5
                         }}
                     >
-                        Uploaded successfully!
+                        {localError
+                            ? "Previous upload is still attached."
+                            : "Uploaded successfully!"}
                     </Typography>
                 )}
             </Box>
 
-            {(localError || helperText) && (
-                <FormHelperText sx={{ mt: 0.5, color: "#ffffff" }}>
-                    {localError || helperText}
-                </FormHelperText>
-            )}
+            <FormHelperText
+                id={`${name}-error`}
+                aria-live="polite"
+                sx={{ mt: errorMessage ? 0.5 : 0, color: "#ffffff" }}
+            >
+                {errorMessage}
+            </FormHelperText>
         </FormControl>
     );
 };

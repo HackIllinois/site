@@ -43,7 +43,7 @@ export function SaloonLoading({ text = "Shuffling the deck…" }) {
     );
 }
 
-/** A parchment notice in the middle of the saloon, for dead ends like "not on the Pro track". */
+/** A parchment notice in the middle of the saloon, for dead ends like "not on the Pro Level". */
 export function SaloonNotice({
     heading,
     sub,
@@ -82,7 +82,7 @@ export function SaloonNotice({
 }
 
 /**
- * Only lets signed-in applicants who submitted a Pro-track application through.
+ * Only lets signed-in applicants who submitted a Pro Level application through.
  * Redirects to /registration-closed when registration is closed.
  */
 export default function ChallengeGate({ children }: { children: ReactNode }) {
@@ -117,7 +117,7 @@ export default function ChallengeGate({ children }: { children: ReactNode }) {
                 actionHref="/register/general"
                 actionText="Finish your application"
             >
-                Submit your HackIllinois application with the Pro track box
+                Submit your HackIllinois application with the Pro Level box
                 ticked, then come back to take on Saloon Rush.
             </SaloonNotice>
         );
@@ -127,12 +127,12 @@ export default function ChallengeGate({ children }: { children: ReactNode }) {
         return (
             <SaloonNotice
                 sub="Members only"
-                heading="Pro track only"
+                heading="Pro Level only"
                 actionHref="/"
                 actionText="Back to town"
             >
-                Saloon Rush is the HackOutlaws Pro track challenge. Your
-                application wasn’t submitted for the Pro track, so there’s no
+                Saloon Rush is the HackOutlaws Pro Level challenge. Your
+                application wasn’t submitted for the Pro Level, so there’s no
                 seat at this table for you this time.
             </SaloonNotice>
         );

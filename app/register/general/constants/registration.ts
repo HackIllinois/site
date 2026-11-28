@@ -88,13 +88,24 @@ export const MLH_CONTEST_TERMS_URL =
 export const MLH_CODE_OF_CONDUCT_URL =
     "https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md";
 
-export const PRO_TRACK_NAME = "HackOutlaws Pro Track";
+export const PRO_LEVEL_NAME = "HackOutlaws Pro Level";
 
-/** Page describing the pro path/track. */
-export const PRO_TRACK_URL = "/challenge";
+/** Page describing HackOutlaws Pro Level. */
+export const PRO_LEVEL_URL = "/challenge";
 
-/** Hardware interest form. Leave empty to hide the link until it exists. */
-export const HARDWARE_INTEREST_FORM_URL = "";
+export const HARDWARE_INTEREST_FORM_URL =
+    "https://docs.google.com/forms/d/e/1FAIpQLSdIa_gWdOqxJYPPtwq1R4JE-73zV955AR1f090xjdY6o7i-4Q/viewform";
+
+export const REGISTRATION_DEADLINE = "January 15, 2027 at 11:59 p.m. CT";
+
+export const RESPONSE_LIMITS = {
+    firstHackathonReason: 1500,
+    application1: 1500,
+    application2: 1500,
+    application3: 500,
+    applicationOptional: 2000,
+    eventSuggestions: 1500
+} as const;
 
 /** The four tabs of /legal, in the order the 2027 legal checkbox names them. */
 export const LEGAL_DOCUMENTS: readonly { name: string; tab: LegalTabId }[] = [

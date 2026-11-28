@@ -30,8 +30,7 @@ const draft = {
     application2: words(20),
     attribution: ["Discord"],
     eventInterest: ["Winning Prizes"],
-    requestTravelReimbursement: false,
-    hardwareInterest: "Arduino kits"
+    requestTravelReimbursement: false
 };
 
 async function mockApi(page: Page, saved: object, testInfo: TestInfo) {
@@ -132,24 +131,28 @@ test("application questions follow the final spec order and limits", async ({
             "Why are you interested in attending hackathons, and what do you hope to gain out of HackIllinois?"
         )
     ).toBeVisible();
-    await expect(page.getByText("max 50 words", { exact: true })).toBeVisible();
+    await expect(
+        page.getByText("max 500 characters", { exact: true })
+    ).toBeVisible();
     await expect(
         page.getByText(
             "Upload any supplemental materials that you think might provide more context"
         )
     ).toBeVisible();
-    // Hidden until the hardware interest form URL exists.
-    await expect(page.getByText("interest form")).toHaveCount(0);
+    for (const [field, limit] of [
+        ["application3", 500],
+        ["application1", 1500],
+        ["application2", 1500],
+        ["applicationOptional", 2000]
+    ] as const) {
+        const essay = page.locator(`textarea[name=${field}]`);
+        await expect(essay).toHaveAttribute("maxlength", String(limit));
+        await essay.fill("x".repeat(limit + 1));
+        await expect(essay).toHaveValue("x".repeat(limit));
+    }
 
     await uploadResume(page);
     await essays.first().fill(words(51));
-    await next(page, testInfo, "ATTENDING");
-    await expect(
-        page.getByText("Response cannot be over 50 words")
-    ).toBeVisible();
-    await expect(page).toHaveURL(/#application-questions$/);
-
-    await essays.first().fill(words(50));
     await next(page, testInfo, "ATTENDING");
     await expect(page).toHaveURL(/#attending-hackillinois$/);
     await expect(
@@ -158,6 +161,75 @@ test("application questions follow the final spec order and limits", async ({
     await expect(
         page.getByPlaceholder("Share your ideas or suggestions with us!")
     ).toBeVisible();
+    await expect(
+        page.locator("textarea[name=eventSuggestions]")
+    ).toHaveAttribute("maxlength", "1500");
+    await expect(page.locator("textarea[name=hardwareInterest]")).toHaveCount(
+        0
+    );
+    await expect(
+        page.getByRole("link", { name: "interest form" })
+    ).toHaveAttribute(
+        "href",
+        "https://docs.google.com/forms/d/e/1FAIpQLSdIa_gWdOqxJYPPtwq1R4JE-73zV955AR1f090xjdY6o7i-4Q/viewform"
+    );
+    await page
+        .getByRole("button", {
+            name: testInfo.project.name === "mobile" ? "BACK" : "APPLICATION",
+            exact: true
+        })
+        .click();
+    await expect(page.getByText("resume.pdf", { exact: true })).toBeVisible();
+    await page.locator("input[type=file][name=hasResume]").setInputFiles({
+        name: "replacement.txt",
+        mimeType: "text/plain",
+        buffer: Buffer.from("Not a PDF")
+    });
+    await expect(page.getByText("Please upload a PDF file.")).toBeVisible();
+    await expect(
+        page.getByText("Previous upload is still attached.")
+    ).toBeVisible();
+    await expect(page.getByText("resume.pdf", { exact: true })).toBeVisible();
+    await uploadResume(page);
+    await expect(page.getByText("Please upload a PDF file.")).toHaveCount(0);
+});
+
+test("legacy drafts over the character cap must be edited before continuing", async ({
+    page
+}, testInfo) => {
+    const overLimit = "x".repeat(501);
+    await mockApi(page, { ...draft, application3: overLimit }, testInfo);
+    await page.goto("/register/general");
+    const response = page.locator("textarea[name=application3]");
+    await expect(response).toHaveValue(overLimit);
+    await uploadResume(page);
+    await next(page, testInfo, "ATTENDING");
+    await expect(
+        page.getByText("Response cannot be over 500 characters")
+    ).toBeVisible();
+    await expect(page).toHaveURL(/#application-questions$/);
+    await response.fill("x".repeat(500));
+    await next(page, testInfo, "ATTENDING");
+    await expect(page).toHaveURL(/#attending-hackillinois$/);
+});
+
+test("conditional first-hackathon response uses its character cap", async ({
+    page
+}, testInfo) => {
+    await mockApi(page, { ...draft, hackathonsParticipated: "0" }, testInfo);
+    await page.goto("/register/general");
+    await expect(page).toHaveURL(/#background-information$/);
+    const response = page.locator("textarea[name=firstHackathonReason]");
+    await expect(response).toHaveAttribute("maxlength", "1500");
+    await response.fill(" ".repeat(10));
+    await next(page, testInfo, "APPLICATION");
+    await expect(
+        page.getByText("This field is required", { exact: true })
+    ).toBeVisible();
+    await response.fill("x".repeat(1501));
+    await expect(response).toHaveValue("x".repeat(1500));
+    await next(page, testInfo, "APPLICATION");
+    await expect(page).toHaveURL(/#application-questions$/);
 });
 
 test("area interest: one or both, and a preference only when both", async ({
@@ -304,33 +376,45 @@ test("a draft with a retired race option asks again", async ({
     await expect(page.locator(".MuiChip-root")).toHaveCount(0);
 });
 
-test("VC and event suggestions can be left blank through submit", async ({
+test("one area suffices to submit with optional answers blank", async ({
     page
 }, testInfo) => {
     const submitted = await mockApi(
         page,
-        { ...draft, application3: words(50) },
+        { ...draft, interestHardware: "0", application3: words(50) },
         testInfo
     );
     await page.goto("/register/general");
     await expect(page).toHaveURL(/#application-questions$/);
+    await expect(
+        page.getByText(
+            "Would you like to be considered for HackOutlaws Pro Level?"
+        )
+    ).toBeVisible();
+    await page.locator("#pro input[type=checkbox]").check();
     await uploadResume(page);
     await next(page, testInfo, "ATTENDING");
     await expect(page).toHaveURL(/#attending-hackillinois$/);
     await page.getByText("I understand", { exact: true }).click();
     await next(page, testInfo, "REVIEW");
     await expect(page).toHaveURL(/#review-and-submit$/);
+    await expect(
+        page.getByText(
+            /^Check that your responses.*Registration closes on January 15, 2027 at 11:59 p\.m\. CT\.$/
+        )
+    ).toBeVisible();
     await page
         .getByRole("button", { name: "Show Attending HackIllinois" })
         .click();
     await expect(page.getByText("VC involvement (optional)")).toBeVisible();
     await expect(page.getByText("Event suggestions (optional)")).toBeVisible();
+    await expect(
+        page.getByText("Previous hardware response", { exact: true })
+    ).toHaveCount(0);
     await page
         .getByRole("button", { name: "Show Application Questions" })
         .click();
-    await expect(
-        page.getByText("Software and Hardware (prefers Software)")
-    ).toBeVisible();
+    await expect(page.getByText("Software", { exact: true })).toBeVisible();
 
     const legalLinks = page.locator("#legalAcknowledge a");
     await expect(legalLinks).toHaveText([
@@ -352,7 +436,12 @@ test("VC and event suggestions can be left blank through submit", async ({
         );
     }
 
+    await expect(
+        page.getByText(/in order to be considered for HackOutlaws Pro Level/)
+    ).toBeVisible();
+
     for (const field of [
+        "proChallengeAcknowledge",
         "reviewedAcknowledge",
         "codeOfConductAcknowledge",
         "mlhDataSharingAcknowledge",
@@ -365,12 +454,17 @@ test("VC and event suggestions can be left blank through submit", async ({
         .last()
         .click();
     await expect.poll(() => submitted.length).toBe(1);
+    await expect(page).toHaveURL(/#confirmation$/);
+    await expect(
+        page.getByRole("link", { name: "Go to Pro Level Challenge" })
+    ).toBeVisible();
     expect(submitted[0]).toMatchObject({
         race: ["Hispanic or Latinx", "White"],
         vcInvolvement: [],
+        hardwareInterest: "Not collected in registration",
         application3: words(50),
         interestSoftware: "1",
-        interestHardware: "2"
+        interestHardware: "0"
     });
     expect(submitted[0].eventSuggestions ?? "").toBe("");
     // Non-optional keys of adonix RegistrationApplicationSubmittedRequestSchema;

@@ -23,7 +23,7 @@ test("the desktop window casts the same shadow as the page scrolls underneath", 
         .toBe(false);
     const shaded = await strip.screenshot();
 
-    await page.getByRole("link", { name: "HackIllinois Pro-Track" }).click();
+    await page.getByRole("link", { name: "HackIllinois Pro Level" }).click();
     await expect(
         page.getByRole("heading", { name: "What is HackOutlaws?" })
     ).toBeInViewport();
@@ -51,15 +51,13 @@ test("Back restores the saloon after following the hero plaque", async ({
     page
 }) => {
     await page.goto("/challenge");
-    await page.getByRole("link", { name: "HackIllinois Pro-Track" }).click();
+    await page.getByRole("link", { name: "HackIllinois Pro Level" }).click();
     await expect(page).toHaveURL(/#about-outlaws$/);
     await page
         .getByRole("navigation")
-        .getByRole("link", { name: "Prizes" })
+        .getByRole("link", { name: "Travel" })
         .click();
-    await expect(
-        page.getByRole("heading", { name: "Prizes", exact: true })
-    ).toBeVisible();
+    await expect(page).toHaveURL(/\/travel$/);
     await page.goBack();
     await expect(page).toHaveURL(/\/challenge#about-outlaws$/);
     await expect(
