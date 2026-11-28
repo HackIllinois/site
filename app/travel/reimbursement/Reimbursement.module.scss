@@ -1,9 +1,7 @@
 .reimbursement {
     position: relative;
     min-width: 0;
-    // Paper plus key is about 0.92x as tall as the section is wide; cap the
-    // width so both fit in one viewport below the fixed navbar.
-    width: min(100%, calc((100svh - max(68px, 6.6vw) - 24px) / 0.92));
+    width: 100%;
     margin-inline: auto;
     container-type: inline-size;
     color: #40390e;
