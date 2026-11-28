@@ -60,6 +60,8 @@ export type SaloonMetrics = {
     top: number;
     /** pinned scroll distance, px */
     pin: number;
+    /** Top of the in-page room relative to the viewport at the handoff, px */
+    roomOffset: number;
     canvasTop: number;
 };
 
@@ -96,7 +98,7 @@ const identity: Camera = { exX: 0, exY: 0, exS: 1, inX: 0, inY: 0, inS: 1 };
 const ROOM_VIEW_AT_DOOR = 50;
 // Room row (cqw below the saloon top) the doorway is centred on at first:
 // the picture wall.
-const ROOM_FOCUS_Y = 42;
+const ROOM_FOCUS_Y = 50;
 // The building rises this far (cqw) while it scrolls in before the pin.
 export const APPROACH_RISE = 14;
 
@@ -111,7 +113,7 @@ export const APPROACH_RISE = 14;
  */
 function camera(q: number, rise: number, m: SaloonMetrics | null): Camera {
     if (!m) return { ...identity, inS: 0.2 };
-    const { cq, vh, top } = m;
+    const { cq, vh, top, roomOffset } = m;
     const doorX = DOOR_CENTER_X * cq;
     const doorY = DOOR_CENTER_Y * cq - top;
     // Big enough that the doorway clears the viewport on both axes.
@@ -122,8 +124,10 @@ function camera(q: number, rise: number, m: SaloonMetrics | null): Camera {
     // huge doorway still covers the whole screen.
     const half = DOOR_HALF_H * zoomEnd;
     const anchorX = 50 * cq;
-    const anchorY =
-        Math.min(half - 4, Math.max(vh / cq - half + 4, ROOM_FOCUS_Y)) * cq;
+    const anchorY = Math.min(
+        (half - 4) * cq,
+        Math.max(vh - (half - 4) * cq, ROOM_FOCUS_Y * cq + roomOffset)
+    );
     const midX = 50 * cq;
     const midY = vh * 0.55;
 
@@ -151,7 +155,7 @@ function camera(q: number, rise: number, m: SaloonMetrics | null): Camera {
         exY: cy - rise * cq - zoom * doorY,
         exS: zoom,
         inX: cx - inS * anchorX,
-        inY: cy - inS * anchorY,
+        inY: cy - inS * (anchorY - roomOffset),
         inS
     };
 }
