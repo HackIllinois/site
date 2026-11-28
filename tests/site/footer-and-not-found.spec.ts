@@ -80,6 +80,18 @@ for (const route of [
             footer.getByRole("link", { name: "Contact Us" })
         ).toBeVisible();
         await expect(footer.getByRole("link", { name: "Legal" })).toBeVisible();
+        await expect(
+            footer.getByRole("link", { name: "HackIllinois on Instagram" })
+        ).toHaveAttribute("href", "https://www.instagram.com/hackillinois/");
+        await expect(
+            footer.getByRole("link", { name: "HackIllinois on LinkedIn" })
+        ).toHaveAttribute(
+            "href",
+            "https://www.linkedin.com/company/hackillinois/"
+        );
+        await expect(
+            footer.getByRole("link", { name: /Twitter|on X/i })
+        ).toHaveCount(0);
         await expect(footer).toContainText("© HackIllinois 2027");
 
         const metrics = await page.evaluate(() => {
