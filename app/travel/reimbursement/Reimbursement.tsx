@@ -29,13 +29,80 @@ export default function Reimbursement() {
     const [open, setOpen] = useState(false);
     const [pinned, setPinned] = useState(false);
     const [below, setBelow] = useState(false);
+    const [hoveredState, setHoveredState] = useState<string | null>(null);
+    const [pinnedState, setPinnedState] = useState<string | null>(null);
+    const [popupAnchor, setPopupAnchor] = useState<{
+        x: number;
+        y: number;
+    } | null>(null);
+    const [popupLayout, setPopupLayout] = useState<{
+        left: number;
+        below: boolean;
+    }>({ left: 0, below: false });
+    const sectionRef = useRef<HTMLElement>(null);
+    const mapCanvasRef = useRef<HTMLDivElement>(null);
+    const statePopupRef = useRef<HTMLDivElement>(null);
     const area = useRef<HTMLDivElement>(null);
     const ticket = useRef<HTMLButtonElement>(null);
     const popup = useRef<HTMLElement>(null);
+    const activeState = hoveredState ?? pinnedState;
+    const activeAmount = activeState
+        ? STATE_REIMBURSEMENT[activeState]
+        : undefined;
     const close = () => {
         setOpen(false);
         setPinned(false);
     };
+
+    const setAnchorFromClientPoint = (clientX: number, clientY: number) => {
+        const rect = sectionRef.current?.getBoundingClientRect();
+        if (!rect) return;
+        setPopupAnchor({
+            x: clientX - rect.left,
+            y: clientY - rect.top
+        });
+    };
+
+    const setAnchorFromElement = (element: Element) => {
+        const sectionRect = sectionRef.current?.getBoundingClientRect();
+        if (!sectionRect) return;
+        const box = element.getBoundingClientRect();
+        setPopupAnchor({
+            x: box.left + box.width / 2 - sectionRect.left,
+            y: box.top + box.height / 2 - sectionRect.top
+        });
+    };
+
+    // Keep the state tooltip inside the reimbursement section and below the fixed navbar.
+    useLayoutEffect(() => {
+        if (
+            !activeState ||
+            !popupAnchor ||
+            !sectionRef.current ||
+            !statePopupRef.current
+        ) {
+            return;
+        }
+        const sectionRect = sectionRef.current.getBoundingClientRect();
+        const halfWidth = statePopupRef.current.offsetWidth / 2;
+        const popupHeight = statePopupRef.current.offsetHeight;
+        const margin = 6;
+        const minLeft = Math.min(halfWidth + margin, sectionRect.width / 2);
+        const maxLeft = Math.max(
+            sectionRect.width - halfWidth - margin,
+            sectionRect.width / 2
+        );
+        const left = Math.min(Math.max(popupAnchor.x, minLeft), maxLeft);
+        const headerBottom =
+            document.querySelector("header")?.getBoundingClientRect().bottom ??
+            0;
+        const topInViewport =
+            sectionRect.top + popupAnchor.y - popupHeight - 16;
+        const flipBelow =
+            topInViewport < headerBottom + 4 ||
+            popupAnchor.y < popupHeight + 12;
+        setPopupLayout({ left, below: flipBelow });
+    }, [activeState, popupAnchor]);
 
     // Open above the ticket unless that would run under the fixed header.
     useLayoutEffect(() => {
@@ -46,6 +113,28 @@ export default function Reimbursement() {
         const room = ticket.current.getBoundingClientRect().top - headerBottom;
         setBelow(room < popup.current.offsetHeight + 8);
     }, [open]);
+
+    useEffect(() => {
+        if (!pinnedState && !hoveredState) return;
+        const closeOnOutsidePress = (event: PointerEvent) => {
+            const target = event.target as Node;
+            if (!mapCanvasRef.current?.contains(target)) {
+                setPinnedState(null);
+                setHoveredState(null);
+            }
+        };
+        const closeOnEscape = (event: KeyboardEvent) => {
+            if (event.key !== "Escape") return;
+            setPinnedState(null);
+            setHoveredState(null);
+        };
+        document.addEventListener("pointerdown", closeOnOutsidePress);
+        document.addEventListener("keydown", closeOnEscape);
+        return () => {
+            document.removeEventListener("pointerdown", closeOnOutsidePress);
+            document.removeEventListener("keydown", closeOnEscape);
+        };
+    }, [pinnedState, hoveredState]);
 
     useEffect(() => {
         if (!open) return;
@@ -76,14 +165,19 @@ export default function Reimbursement() {
 
     return (
         <section
+            ref={sectionRef}
             className={styles.reimbursement}
             aria-label="Reimbursement caps"
         >
             <p className={styles.hint}>
-                State colors show reimbursement caps — see the key below
+                Hover or tap a state to see its reimbursement cap
             </p>
             <div className={styles.mapPaper}>
-                <div className={styles.mapCanvas}>
+                <div
+                    ref={mapCanvasRef}
+                    className={styles.mapCanvas}
+                    onMouseLeave={() => setHoveredState(null)}
+                >
                     <ComposableMap
                         projection="geoAlbersUsa"
                         width={mapWidth}
@@ -104,14 +198,82 @@ export default function Reimbursement() {
                                         const name = geo.properties.name;
                                         const amount =
                                             STATE_REIMBURSEMENT[name];
+                                        const isActive = activeState === name;
+                                        const isDimmed = Boolean(
+                                            activeState && !isActive
+                                        );
                                         return (
                                             <Geography
                                                 key={geo.rsmKey}
                                                 geography={geo}
+                                                tabIndex={0}
                                                 role="img"
                                                 aria-label={`${name}: $${amount} reimbursement cap`}
                                                 fill={colorFor(amount)}
-                                                className={styles.state}
+                                                className={
+                                                    isActive
+                                                        ? `${styles.state} ${styles.stateActive}`
+                                                        : isDimmed
+                                                          ? `${styles.state} ${styles.stateDimmed}`
+                                                          : styles.state
+                                                }
+                                                onMouseEnter={event => {
+                                                    setHoveredState(name);
+                                                    setAnchorFromClientPoint(
+                                                        event.clientX,
+                                                        event.clientY
+                                                    );
+                                                }}
+                                                onMouseMove={event => {
+                                                    if (
+                                                        pinnedState &&
+                                                        (event.movementX !==
+                                                            0 ||
+                                                            event.movementY !==
+                                                                0)
+                                                    ) {
+                                                        setPinnedState(null);
+                                                    }
+                                                    if (hoveredState !== name) {
+                                                        setHoveredState(name);
+                                                    }
+                                                    setAnchorFromClientPoint(
+                                                        event.clientX,
+                                                        event.clientY
+                                                    );
+                                                }}
+                                                onMouseLeave={() => {
+                                                    setHoveredState(prev =>
+                                                        prev === name
+                                                            ? null
+                                                            : prev
+                                                    );
+                                                }}
+                                                onFocus={event => {
+                                                    setHoveredState(name);
+                                                    setAnchorFromElement(
+                                                        event.currentTarget
+                                                    );
+                                                }}
+                                                onBlur={() => {
+                                                    setHoveredState(prev =>
+                                                        prev === name
+                                                            ? null
+                                                            : prev
+                                                    );
+                                                }}
+                                                onClick={event => {
+                                                    event.stopPropagation();
+                                                    setHoveredState(null);
+                                                    setPinnedState(prev =>
+                                                        prev === name
+                                                            ? null
+                                                            : name
+                                                    );
+                                                    setAnchorFromElement(
+                                                        event.currentTarget
+                                                    );
+                                                }}
                                             />
                                         );
                                     })
@@ -120,6 +282,30 @@ export default function Reimbursement() {
                     </ComposableMap>
                 </div>
             </div>
+            {activeState && activeAmount !== undefined && popupAnchor && (
+                <div
+                    ref={statePopupRef}
+                    role="tooltip"
+                    className={`${styles.statePopup} ${popupLayout.below ? styles.statePopupBelow : ""}`}
+                    style={{
+                        left: popupLayout.left || popupAnchor.x,
+                        top: popupAnchor.y
+                    }}
+                >
+                    <span className={styles.statePopupName}>{activeState}</span>
+                    <span className={styles.statePopupAmount}>
+                        <span
+                            className={styles.statePopupDot}
+                            aria-hidden="true"
+                            style={{ backgroundColor: colorFor(activeAmount) }}
+                        />
+                        ${activeAmount}
+                    </span>
+                    <span className={styles.statePopupCaption}>
+                        reimbursement cap
+                    </span>
+                </div>
+            )}
             <ul className={styles.legend} aria-label="Reimbursement tiers">
                 {tiers.map(amount => (
                     <li key={amount}>

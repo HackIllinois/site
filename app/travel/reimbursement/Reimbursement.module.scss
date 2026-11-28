@@ -35,6 +35,69 @@
     stroke: #dfd0aa;
     stroke-width: 1.4;
     outline: none;
+    cursor: pointer;
+    transition:
+        opacity 120ms ease,
+        stroke-width 120ms ease,
+        stroke 120ms ease;
+}
+.stateActive {
+    stroke: #fff7e2;
+    stroke-width: 2.6;
+}
+.stateDimmed {
+    opacity: 0.72;
+}
+.statePopup {
+    position: absolute;
+    z-index: 4;
+    min-width: 111px;
+    padding: 8px 12px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+    color: #44240c;
+    background: #f4deb5;
+    border: 1px solid #925820;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
+    pointer-events: none;
+    transform: translate(-50%, calc(-100% - 14px));
+}
+.statePopupBelow {
+    transform: translate(-50%, 16px);
+}
+.statePopupName {
+    font:
+        400 14px/1.2 var(--font-oswald),
+        sans-serif;
+    color: #44240c;
+}
+.statePopupAmount {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 2px 0 3px;
+    font:
+        400 24px/1 "Travel Ultra",
+        Georgia,
+        serif;
+    color: #44240c;
+}
+.statePopupDot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.statePopupCaption {
+    font:
+        400 10px/1.1 "Travel Manrope",
+        sans-serif;
+    color: #44240c;
 }
 .ticketArea {
     position: absolute;
@@ -108,14 +171,15 @@
     display: grid;
     grid-template-columns: repeat(4, max-content);
     justify-content: start;
-    gap: 8px 1em;
+    gap: 10px 1.15em;
     list-style: none;
-    width: 85%;
-    margin: 1% 0 0 auto;
-    padding: 14px;
+    width: fit-content;
+    max-width: 100%;
+    margin: 1.5% auto 0 6%;
+    padding: 16px 20px;
     background: #dbccaa;
     transform: rotate(2deg);
-    font-size: clamp(10px, 2.3cqw, 18px);
+    font-size: clamp(13px, 3.1cqw, 23px);
     li {
         font-family: "Travel Ultra", Georgia, serif;
         color: #69432f;
@@ -123,11 +187,11 @@
     }
     li span {
         display: inline-block;
-        width: 0.6em;
-        height: 0.6em;
+        width: 0.65em;
+        height: 0.65em;
         border-radius: 50%;
         border: 1px solid #40390e55;
-        margin-right: 0.25em;
+        margin-right: 0.3em;
     }
 }
 @media (max-width: 700px) {
@@ -150,11 +214,12 @@
 }
 @container (max-width: 400px) {
     .legend {
-        width: 88%;
-        padding: 10px;
+        width: fit-content;
+        max-width: 65%;
+        padding: 12px 14px;
         grid-template-columns: repeat(2, max-content);
-        gap: 6px 1.2em;
-        margin-top: 1%;
-        font-size: clamp(10px, 3.7cqw, 16px);
+        gap: 8px 1em;
+        margin: 2% auto 0 3%;
+        font-size: clamp(12px, 4.4cqw, 18px);
     }
 }
