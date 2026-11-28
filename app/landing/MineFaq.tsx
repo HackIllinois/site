@@ -55,29 +55,34 @@ const questions = [
 ] as const;
 
 export default function MineFaq() {
-    const [active, setActive] = useState<number | null>(4);
+    const [active, setActive] = useState<number | null>(null);
+
     function item(index: number) {
         const [question, answer] = questions[index];
+        const isOpen = active === index;
+
         return (
-            <div key={question}>
+            <div key={question} className={styles.faqItem}>
                 <h3>
                     <button
                         type="button"
-                        aria-expanded={active === index}
+                        aria-expanded={isOpen}
                         aria-controls={`answer-${index}`}
                         onClick={() =>
-                            setActive(active === index ? null : index)
+                            setActive(current =>
+                                current === index ? null : index
+                            )
                         }
                     >
                         {question}
                     </button>
                 </h3>
                 <div
-                    hidden={active !== index}
                     id={`answer-${index}`}
-                    className={styles.answer}
+                    className={`${styles.answerReveal} ${isOpen ? styles.answerRevealOpen : ""}`}
+                    inert={!isOpen}
                 >
-                    {answer}
+                    <div className={styles.answer}>{answer}</div>
                 </div>
             </div>
         );

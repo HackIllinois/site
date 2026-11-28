@@ -1,406 +1,900 @@
 .landing {
-    font-family: var(--body);
-    h2 {
-        font-family: var(--display);
-        font-size: 3.333cqw;
-        line-height: 1.15;
-        font-weight: 400;
-        text-shadow: 0 0.09em #472710;
-    }
+    background: #24150f;
 }
-.scene,
-.stories,
-.sponsors,
-.mine,
-.frontier {
-    position: relative;
-}
-.clock {
+
+.signLayer {
     position: absolute;
-    top: 49.3%;
-    left: 27.1%;
-    width: 36%;
-    height: 7.7%;
-    display: grid;
-    place-content: center;
-    white-space: nowrap;
-    text-align: center;
-    font: 600 4.5cqw/1 var(--condensed);
-    letter-spacing: 0.16em;
-    font-variant-numeric: tabular-nums;
-    color: #14cfd4;
-    -webkit-text-stroke: 0.045em #dcffff;
-    text-shadow:
-        0 0 0.07em #00ffff,
-        0 0 0.14em #00ffff,
-        0 0 0.3em #00f7ff,
-        0 0 0.5em #00f7ff;
+    z-index: 4;
+    top: 5cqw;
+    left: 15%;
+    width: 70%;
+    pointer-events: none;
 }
-.marqueeLink {
-    position: absolute;
-    left: 22.5%;
-    top: 59.1%;
-    width: 42.5%;
-    height: 14.2%;
-}
-.marqueeLink span {
-    position: absolute;
-    left: 50%;
-    top: 100%;
-    transform: translateX(-50%);
-    background: #2d150c;
-    border: 1px solid #ffc57c;
-    padding: 0.35em 0.85em;
-    font: 500 clamp(14px, 1.6cqw, 26px) var(--condensed);
-    opacity: 0;
-    white-space: nowrap;
-}
-.marqueeLink:is(:hover, :focus-visible) span {
-    opacity: 1;
-}
-.saloonSign {
-    position: absolute;
-    top: 6.95%;
-    left: 28.5%;
-    width: 44.4%;
-    text-align: center;
-    color: #fff0d7;
-}
-.saloonSign span {
-    font-family: var(--condensed);
-    font-size: 2.78cqw;
-}
-.saloonSign h2 {
-    font-size: 4.445cqw;
-    margin-top: 0.12em;
-}
-.saloonSign:hover h2 {
-    color: #ffe0a4;
-}
-.door {
-    position: absolute;
-    left: 42%;
-    top: 67%;
-    width: 16%;
-    height: 20%;
-}
-.storyContent h2,
-.storyContent blockquote {
-    position: absolute;
-}
-.storyContent h2 {
-    top: 5.1%;
-    width: 100%;
-    text-align: center;
-}
-.storyContent blockquote {
-    background: #fffdf9;
-    color: #1e130d;
-    width: 49.17%;
-    padding: 2.15cqw 2.6cqw 1.25cqw;
-    font: 400 1.39cqw/1.36 var(--body);
-    box-shadow: 0 0.25cqw 0.5cqw #33190555;
-}
-.storyContent blockquote:nth-of-type(1) {
-    top: 9.82%;
-    left: 4.86%;
-}
-.storyContent blockquote:nth-of-type(2) {
-    top: 31%;
-    right: 5.07%;
-}
-.storyContent blockquote:nth-of-type(3) {
-    top: 52.28%;
-    left: 7.85%;
-}
-.storyContent cite {
+
+// The clock and register link sit inside .signLayer, positioned against the
+// boxes drawn in marquee-sign.webp (1181 x 1459), so they stay on the art at any
+// size.
+
+.signLayer img {
     display: block;
-    text-align: right;
-    margin-top: 0.3em;
-    font-style: normal;
+    width: 100%;
+    height: auto;
 }
-.sponsorContent {
+
+// marquee-sign-bulbs.webp (the other bulb pattern) sits exactly over the sign.
+.signLayer img.signAlternate {
     position: absolute;
     inset: 0;
-    text-align: center;
-    padding-top: 5.55cqw;
 }
-.sponsorBoard {
-    margin: 3cqw auto 0;
-    width: 75.7%;
-    display: grid;
-    grid-template-columns: repeat(15, 1fr);
-    gap: 1.35cqw;
+// The saloon entrance is pinned for --door-pin of scroll. It starts at
+// --door-top (porch at the bottom of the screen) and everything from the
+// saloon (231.597cqw in background.png) onward moves down by --door-shift.
+.motionCanvas {
+    // The porch's bottom edge (214.9cqw; the art has clear rows below it)
+    // just below the bottom of the screen.
+    --door-top: max(calc(216.9cqw - 100vh), 100cqw);
+    --door-pin: 150vh;
+    --door-shift: calc(var(--door-top) + var(--door-pin) - 231.597cqw);
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    height: calc(819.375cqw + var(--door-shift));
+    // clip, not hidden: hidden would break the sticky entrance scene.
+    overflow: clip;
+    isolation: isolate;
 }
-.sponsorBoard p,
-.sponsorBoard i {
-    border-radius: 0.8cqw;
-    background: #2d1b0f;
+
+.backgroundTop,
+.backgroundBottom,
+.exteriorDesert,
+.interiorRoom {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    pointer-events: none;
 }
-.sponsorBoard p {
+
+.backgroundTop img,
+.backgroundBottom img,
+.exteriorDesert img,
+.interiorRoom img {
+    position: absolute;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.backgroundTop {
+    z-index: 0;
+    top: 0;
+    height: 165.83cqw;
+}
+
+.backgroundBottom {
+    z-index: 0;
+    top: calc(231.597cqw + var(--door-shift));
+    bottom: 0;
+}
+
+.doorTrack {
+    position: absolute;
+    top: var(--door-top);
+    left: 0;
+    width: 100%;
+    height: calc(var(--door-pin) + 100vh);
+    pointer-events: none;
+}
+
+.doorSceneContent {
+    position: absolute;
+    inset: 0;
+}
+
+.doorScene {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+.doorExterior,
+.doorInterior {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    transform-origin: 0 0;
+}
+
+.doorExterior {
+    z-index: 2;
+    will-change: transform;
+}
+
+.doorInterior {
+    z-index: 1;
+}
+
+// World coordinates: children use the same tops as the page canvas.
+.doorWorld {
+    position: absolute;
+    top: calc(-1 * var(--door-top));
+    left: 0;
+    width: 100%;
+}
+
+.backdropFollow {
+    position: absolute;
+    top: 123cqw;
+    left: -12%;
+    width: 124%;
+    aspect-ratio: 1969 / 1561;
+    transform-origin: 50% 72%;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.rasterReset .doorExterior,
+.rasterReset .backdropFollow,
+.rasterReset .backdropCounter,
+.rasterReset .building,
+.rasterReset .mountains {
+    will-change: auto;
+}
+
+.backdropCounter {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% 72%;
+    will-change: transform;
+}
+
+// Rocks, ground and fill behind the building. Only as large as what can be on
+// screen when the pin starts (60cqw down to the bottom of that first view),
+// so the layer stays small when the camera scales it.
+.exteriorBackdrop {
+    position: absolute;
+    top: -63cqw;
+    left: 12cqw;
+    width: 100cqw;
+    height: calc(var(--door-top) - 60cqw + 100vh);
+    overflow: hidden;
+    // Desert ground, continued under the porch.
+    background: #da9059;
+}
+
+// On the desert floor that shows through the notch in the rocks, in backdrop
+// coordinates (backdrop top = 60cqw). Behind the rocks, so it rolls into view
+// through the gap.
+.tumbleweedLane {
+    position: absolute;
+    z-index: 1;
+    top: 57cqw;
+    left: 0;
+    width: 100%;
+    height: 8cqw;
+    pointer-events: none;
+}
+
+.tumbleweed {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 8cqw;
+    transform: translateX(-10cqw);
+    animation: tumble-across 5s linear infinite;
+}
+
+.tumbleweedHop {
+    animation: tumble-hop 0.75s ease-in-out infinite alternate;
+}
+
+.tumbleweed img {
+    display: block;
+    width: 100%;
+    height: auto;
+    animation: tumble-spin 1.5s linear infinite;
+}
+
+.motionCanvas .paused,
+.motionCanvas .paused * {
+    animation-play-state: paused;
+}
+
+@keyframes tumble-across {
+    0% {
+        transform: translateX(30cqw);
+    }
+    40%, //cover distance speed
+    100% {
+        transform: translateX(80cqw);
+    }
+}
+
+@keyframes tumble-hop {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-1.4cqw);
+    }
+}
+
+@keyframes tumble-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.exteriorBackdrop .mountains {
+    top: 4cqw;
+}
+
+.exteriorDesert {
+    top: 0;
+    height: 105.83cqw;
+}
+
+// Interior coordinates: 0 is the top of the saloon in the page.
+// The interior only ever shows the walls' width (-42.72cqw to 142.72cqw) and,
+// vertically, the final huge doorway around the anchor; keep every piece
+// within that so the layer stays small.
+.doorInterior {
+    --room-bottom: max(150cqw, calc(100vh + 30cqw));
+}
+
+.interiorFill {
+    position: absolute;
+    top: -80cqw;
+    left: -42.72cqw;
+    width: 185.44cqw;
+    height: calc(80cqw + var(--room-bottom));
+    // Above the room (0-80cqw here) reads as more wall; below, the floor.
+    background: linear-gradient(#3b1a25 80cqw, #24150f 80cqw);
+}
+
+.interiorEdge {
+    position: absolute;
+    top: -80cqw;
+    width: 42.72cqw;
+    height: calc(80cqw + var(--room-bottom));
+    background-repeat: repeat-y;
+    background-size: 100% auto;
+    // Lines the planks up with where the walls sit in the Figma layout.
+    background-position: 0 81.1cqw;
+}
+
+.interiorEdgeLeft {
+    left: -42.72cqw;
+    background-image: url("/landing/frontier/sequence/saloon-edge-left.webp");
+}
+
+.interiorEdgeRight {
+    left: 100%;
+    background-image: url("/landing/frontier/sequence/saloon-edge-right.webp");
+}
+
+.interiorRoom {
+    top: 0;
+    height: var(--room-bottom);
+}
+
+.motionCanvas :global(img) {
+    user-select: none;
+}
+
+.navCover {
+    position: absolute;
+    z-index: 1;
+    inset: 0 0 auto;
+    height: 9.5cqw;
+    background: #18052f;
+    pointer-events: none;
+}
+
+.clock {
+    position: absolute;
+    z-index: 1;
+    // Box at x 298-817, y 662-779 in marquee-sign.webp.
+    top: 45.37%;
+    left: 25.23%;
+    width: 43.95%;
+    height: 8.02%;
     display: grid;
     place-items: center;
-    grid-column: 1/-1;
-    height: 13.94cqw;
-    color: #e1c7a5;
-    font: 1.5cqw var(--condensed);
+    border: 0.24cqw solid #ffe8c5;
+    border-radius: 0.4cqw;
+    background: #211713;
+    white-space: nowrap;
+    text-align: center;
+    font: 600 3.9cqw/1 var(--condensed);
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+    color: #16e9e7;
+    -webkit-text-stroke: 0.045em #dfffff;
+    box-shadow:
+        inset 0 0 1.7cqw #a26825a0,
+        0 0.35cqw 0.5cqw #4c21158c;
+    text-shadow:
+        0 0 0.08em #00ffff,
+        0 0 0.18em #00ffff,
+        0 0 0.36em #00f7ff;
 }
-.sponsorBoard i {
-    grid-column: span 3;
-    height: 10.42cqw;
+
+.registerHotspot,
+.challengeHotspot {
+    position: absolute;
+    z-index: 10;
+    border-radius: 0.4cqw;
 }
-.sponsorBoard i:nth-child(-n + 4) {
-    grid-column: span 5;
+
+.registerHotspot {
+    // Plate at x 515-820, y 516-620 in marquee-sign.webp.
+    top: 35.37%;
+    left: 43.61%;
+    width: 25.83%;
+    height: 7.13%;
+    pointer-events: auto;
 }
+
+.challengeHotspot {
+    top: 30%;
+    left: 43.2%;
+    width: 14.5%;
+    height: 8.5%;
+}
+
+.registerHotspot:hover,
+.registerHotspot:focus-visible,
+.challengeHotspot:hover,
+.challengeHotspot:focus-visible {
+    background: #fff2;
+    box-shadow: 0 0 1.1cqw #ffe090aa;
+}
+
+.cloudWindow {
+    position: absolute;
+    z-index: 2;
+    top: 34cqw;
+    left: 0;
+    width: 100%;
+    height: 34cqw;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.76;
+    mix-blend-mode: screen;
+}
+
+.cloudTrack {
+    width: 200%;
+    display: flex;
+    animation: cloud-drift 68s linear infinite;
+    will-change: transform;
+}
+
+.cloudTrack img {
+    flex: 0 0 50%;
+    width: 50%;
+    height: auto;
+}
+
+@keyframes cloud-drift {
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+.mountains,
+.building,
+.bartender,
+.testimonial,
+.firstMinecart,
+.howdyNote,
+.characterCart,
+.hangingLight {
+    position: absolute;
+    pointer-events: none;
+    transform-origin: center center;
+}
+
+.mountains img,
+.building img,
+.bartender img,
+.testimonial img,
+.firstMinecart img,
+.howdyNote img,
+.characterCart > img,
+.cartCharacter img,
+.hangingLight img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.mountains {
+    z-index: 2;
+    top: 64cqw;
+    left: -4%;
+    width: 108%;
+    will-change: transform;
+}
+
+// Wider than the screen so the facade fills it when the entrance pins.
+// Keep in sync with BUILDING_* in SaloonEntrance.tsx.
+.building {
+    z-index: 9;
+    top: 123cqw;
+    left: -12%;
+    width: 124%;
+    transform-origin: 50% 72%;
+    will-change: transform;
+}
+
+.saloonDoors {
+    position: absolute;
+    top: 61.391%;
+    left: 44.49%;
+    width: 11.427%;
+}
+
+.building .challengeHotspot {
+    pointer-events: auto;
+}
+
+.hangingLight {
+    z-index: 6;
+}
+
+// The sway lives on the image so a wrapper transform can't override it.
+.hangingLight img {
+    transform-origin: 50% 0;
+    animation: light-sway 5.8s ease-in-out infinite;
+}
+
+// Sized so the top of each chain meets the top of the wall (239.2cqw, where
+// the lavender strip ends) with the bulbs where they were. The chain starts
+// 9px into the 240 x 504 images.
+.lightOne,
+.interiorLightOne {
+    left: 23.74%;
+    width: 13.02%;
+}
+
+.lightTwo,
+.interiorLightTwo {
+    right: 19.77%;
+    width: 14.96%;
+}
+
+.lightOne {
+    top: calc(238.71cqw + var(--door-shift));
+}
+
+.lightTwo {
+    top: calc(238.64cqw + var(--door-shift));
+}
+
+.lightTwo img,
+.interiorLightTwo img {
+    animation-delay: -2.7s;
+}
+
+.interiorLightOne {
+    top: 7.113cqw;
+}
+
+.interiorLightTwo {
+    top: 7.043cqw;
+}
+
+.doorInterior .interiorBartender {
+    top: 46.403cqw;
+}
+
+@keyframes light-sway {
+    0%,
+    100% {
+        transform: rotate(-1.3deg);
+    }
+    50% {
+        transform: rotate(1.3deg);
+    }
+}
+
+// Light shafts over the saloon. White art, so it is blended rather than
+// laid on top. Above the pinned entrance scene (z-index 30) so it can fade in
+// during the zoom.
+// Light shafts over the saloon tables. Its bottom sits on the end of the
+// saloon floor (475.7cqw); the art is 1440 x 2268. White art, so it is blended
+// rather than laid on top.
+.saloonShader {
+    position: absolute;
+    z-index: 9;
+    top: calc(318.2cqw + var(--door-shift));
+    left: 0;
+    width: 100%;
+    height: 157.5cqw;
+    pointer-events: none;
+    background: url("/landing/frontier/sequence/saloon-shader.webp") center /
+        100% 100% no-repeat;
+    mix-blend-mode: overlay;
+}
+
+.bartender {
+    z-index: 7;
+    top: calc(278cqw + var(--door-shift));
+    left: 2.2%;
+    width: 62.4%;
+}
+
+// Cream lettering with a dark brown outline and a hard drop, per the design.
+.hackersHeading {
+    position: absolute;
+    z-index: 9;
+    top: calc(339.5cqw + var(--door-shift));
+    left: 0;
+    width: 100%;
+    margin: 0;
+    pointer-events: none;
+    color: #fff1dc;
+    text-align: center;
+    font: 400 4.2cqw/1 var(--display);
+    letter-spacing: 0.01em;
+    // A ring of hard shadows draws the outline (text-stroke with paint-order
+    // isn't reliable on HTML text), then a short extrude and a soft drop.
+    text-shadow:
+        0.24cqw 0cqw 0 #4a2311,
+        0.222cqw 0.092cqw 0 #4a2311,
+        0.17cqw 0.17cqw 0 #4a2311,
+        0.092cqw 0.222cqw 0 #4a2311,
+        0cqw 0.24cqw 0 #4a2311,
+        -0.092cqw 0.222cqw 0 #4a2311,
+        -0.17cqw 0.17cqw 0 #4a2311,
+        -0.222cqw 0.092cqw 0 #4a2311,
+        -0.24cqw 0cqw 0 #4a2311,
+        -0.222cqw -0.092cqw 0 #4a2311,
+        -0.17cqw -0.17cqw 0 #4a2311,
+        -0.092cqw -0.222cqw 0 #4a2311,
+        -0cqw -0.24cqw 0 #4a2311,
+        0.092cqw -0.222cqw 0 #4a2311,
+        0.17cqw -0.17cqw 0 #4a2311,
+        0.222cqw -0.092cqw 0 #4a2311,
+        0.12cqw 0.17cqw 0 #4a2311,
+        0.24cqw 0.34cqw 0 #4a2311,
+        0.36cqw 0.51cqw 0 #4a2311,
+        0.3cqw 0.6cqw 1.2cqw #1d0b0499;
+}
+
+.testimonial {
+    z-index: 8;
+    width: 94%;
+    left: 3%;
+}
+
+.testimonialOne {
+    top: calc(326cqw + var(--door-shift));
+}
+
+.testimonialTwo {
+    top: calc(365cqw + var(--door-shift));
+}
+
+.testimonialThree {
+    top: calc(404cqw + var(--door-shift));
+}
+
 .questions {
     position: absolute;
-    top: 9.2%;
+    z-index: 10;
+    top: calc(580cqw + var(--door-shift));
     left: 8.6%;
     width: 82.8%;
 }
+
+.questions h2 {
+    margin: 0;
+    color: #ffeed6;
+    font: 400 3.33cqw/1 var(--display);
+    text-shadow: 0.12cqw 0.17cqw #54270f;
+}
+
 .columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.4cqw;
     margin-top: 2.2cqw;
 }
+
+.columns > div {
+    position: relative;
+}
+
+.faqItem + .faqItem {
+    margin-top: 0.55cqw;
+}
+
 .columns h3 {
+    margin: 0;
     font: 400 1.667cqw/1.25 var(--condensed);
 }
+
 .columns button {
-    text-align: left;
-    cursor: pointer;
+    display: block;
     width: 100%;
     min-height: 4.93cqw;
     padding: 0.7em 1.1em;
-    background: url("/landing/frontier/plank.webp") center / 100% 100% no-repeat;
+    border: 0;
     color: #fff2d8;
+    background: url("/landing/frontier/plank.webp") center / 100% 100% no-repeat;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+    text-shadow: 0 0.1cqw #2a1509;
 }
-.columns > div > div + div {
-    margin-top: 0.55cqw;
+
+.columns button:hover {
+    filter: brightness(1.08);
 }
+
+.columns button:focus-visible {
+    outline: 0.16cqw solid #fff9ed;
+    outline-offset: -0.2cqw;
+}
+
+.answerReveal {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+        grid-template-rows 260ms ease,
+        opacity 180ms ease;
+}
+
+.answerRevealOpen {
+    grid-template-rows: 1fr;
+    opacity: 1;
+}
+
 .answer {
+    min-height: 0;
+    overflow: hidden;
+    padding: 0 3.1cqw;
+    color: #372514;
     background: url("/landing/frontier/parchment.webp") center / 100% 100%
         no-repeat;
-    color: #372514;
-    padding: 2.4cqw 3.1cqw;
     font: 1.38cqw/1.36 var(--body);
+    transition: padding 260ms ease;
 }
-.answer a,
-.letter a {
+
+.answerRevealOpen .answer {
+    padding-top: 2.4cqw;
+    padding-bottom: 2.4cqw;
+}
+
+.answer a {
+    color: inherit;
     text-decoration: underline;
     text-underline-offset: 0.15em;
 }
-.letter {
+
+.firstMinecart {
+    z-index: 8;
+    top: calc(609cqw + var(--door-shift));
+    left: 60.722%;
+    width: 42.159%;
+}
+
+.howdyNote {
+    z-index: 9;
+    top: calc(699.863cqw + var(--door-shift));
+    left: -1.41%;
+    width: 46.573%;
+}
+
+.characterCart {
+    z-index: 8;
+    top: calc(700cqw + var(--door-shift));
+    right: 0;
+    width: 54%;
+    aspect-ratio: 746 / 657;
+    filter: drop-shadow(0.5cqw 0.75cqw 0.45cqw #130b0790);
+}
+
+.cartBack,
+.cartFront {
     position: absolute;
-    left: 11.6%;
-    top: 13.3%;
-    width: 25.4%;
-    color: #35210d;
-    font: 1.12cqw/1.42 var(--body);
+    inset: 0;
 }
-.letter p,
-.letter > a {
-    display: block;
-    margin-bottom: 0.65em;
-}
-.newsletter label {
-    display: block;
-    font-weight: 700;
-}
-.newsletter input,
-.newsletter button {
-    display: block;
-    width: 100%;
-    padding: 0.42em 0.6em;
-    border: 1px solid #674426;
-    border-radius: 3px;
-    font: inherit;
-}
-.newsletter input {
-    color: #331e0f;
-    background: #fff3d8;
-}
-.newsletter button {
-    margin-top: 0.3em;
-    background: #543118;
-    color: #fff0dc;
-    cursor: pointer;
-}
-.newsletter p {
-    margin: 0.3em 0 0;
-}
-.social {
+
+.cartCharacter {
     position: absolute;
-    top: 75.8%;
+}
+
+.cartBack {
+    z-index: 1;
+}
+
+.cartFront {
+    z-index: 5;
+}
+
+.cartCharacter {
+    z-index: 3;
+    animation: 4.8s ease-in-out infinite;
+}
+
+@keyframes cart-float-5 {
+    0%,
+    50%,
+    100% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-5px);
+    }
+    75% {
+        transform: translateY(1px);
+    }
+}
+
+@keyframes cart-float-6 {
+    0%,
+    50%,
+    100% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-6px);
+    }
+    75% {
+        transform: translateY(1.2px);
+    }
+}
+
+@keyframes cart-float-7 {
+    0%,
+    50%,
+    100% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-7px);
+    }
+    75% {
+        transform: translateY(1.4px);
+    }
+}
+
+.orangeCharacter {
+    animation-name: cart-float-5;
+    z-index: 4;
+    top: -26%;
+    left: 37%;
+    width: 50%;
+}
+
+.yellowCharacter {
+    animation-name: cart-float-7;
+    animation-delay: 0.8s;
+    z-index: 4;
+    top: -10%;
+    left: 48%;
+    width: 45%;
+}
+
+.blueCharacter {
+    animation-name: cart-float-6;
+    animation-delay: 1.5s;
+    top: 12%;
+    left: 34%;
+    width: 40%;
+}
+
+.socialHotspots {
+    position: absolute;
+    z-index: 12;
+    top: calc(785.8cqw + var(--door-shift));
+    left: 23.2%;
+    width: 53.7%;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2.2cqw;
+}
+
+.socialHotspots a {
     width: 100%;
-    text-align: center;
-}
-.social > div {
-    display: flex;
-    gap: 2.45cqw;
-    justify-content: center;
-    margin-top: 4cqw;
-}
-.social a {
-    width: 6.8cqw;
     aspect-ratio: 1;
     border-radius: 50%;
-    background: #6c4528;
+}
+
+.socialHotspots a:hover,
+.socialHotspots a:focus-visible {
+    background: #fff2;
+    box-shadow: 0 0 0.9cqw #ffe2b0aa;
+}
+
+.newsletterOverlay {
+    position: absolute;
+    z-index: 12;
+    top: calc(800.2cqw + var(--door-shift));
+    left: 24.45%;
+    width: 51.05%;
+}
+
+.newsletter {
+    position: relative;
     display: grid;
-    place-items: center;
+    grid-template-columns: minmax(0, 1fr) 33%;
+    align-items: stretch;
 }
-.social img {
-    width: 45%;
-    height: auto;
+
+.newsletter label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
 }
+
+.newsletter input,
+.newsletter button {
+    height: 5cqw;
+    border: 0.23cqw solid #543018;
+    font: 500 1.7cqw/1 var(--condensed);
+}
+
+.newsletter input {
+    min-width: 0;
+    padding: 0.5cqw 1cqw;
+    color: #321e10;
+    background: #fff1d9;
+    border-radius: 1cqw 0 0 1cqw;
+}
+
+.newsletter button {
+    cursor: pointer;
+    color: #fff2dc;
+    border-radius: 0 1cqw 1cqw 0;
+    background: url("/landing/frontier/plank.webp") center / 100% 100% no-repeat;
+    text-shadow: 0 0.12cqw #2a1509;
+}
+
+.newsletter p {
+    position: absolute;
+    top: calc(100% + 0.5cqw);
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 1.2cqw;
+}
+
 @media (max-width: 850px) {
-    .landing h2 {
-        font-size: clamp(21px, 5.1vw, 35px);
+    .navCover {
+        height: 74px;
+    }
+    .cloudTrack {
+        animation-duration: 88s;
     }
     .clock {
-        left: 23.74%;
-        width: 47%;
-        font-size: 6cqw;
+        font-size: 3.8cqw;
     }
-    .marqueeLink {
-        left: 18.4%;
-        width: 55%;
+    .newsletter input,
+    .newsletter button {
+        height: 5cqw;
+        font-size: 2cqw;
     }
-    .marqueeLink span {
-        opacity: 1;
-        font-size: 13px;
-        top: 101%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cloudTrack,
+    .hangingLight img,
+    .cartCharacter {
+        animation: none;
     }
-    .saloonSign h2 {
-        font-size: 4.45cqw;
-    }
-    .saloonSign span {
-        font-size: 3.1cqw;
-    }
-    .stories {
-        min-height: 800px;
-        background: #73421d;
-        isolation: isolate;
-    }
-    .stories picture,
-    .mine picture,
-    .sponsors picture {
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-    }
-    .landing .stories picture img,
-    .landing .mine picture img,
-    .landing .sponsors picture img {
-        height: 100%;
-        object-fit: cover;
-    }
-    .storyContent {
-        padding: 24px 6% 56px;
-        display: grid;
-        gap: 28px;
-    }
-    .storyContent h2,
-    .storyContent blockquote {
-        position: static;
-    }
-    .storyContent blockquote {
-        width: 90%;
-        padding: 17px 19px;
-        font-size: 15px;
-    }
-    .storyContent blockquote:nth-of-type(2) {
-        justify-self: end;
-    }
-    .storyContent cite {
-        margin-top: 9px;
-        font-size: 13px;
-    }
-    .sponsors {
-        isolation: isolate;
-        padding: 30px 0;
-    }
-    .sponsorContent {
-        position: static;
-        padding: 0;
-    }
-    .sponsorBoard {
-        gap: 6px;
-        width: 77%;
-        margin: 16px auto 0;
-    }
-    .sponsorBoard p {
-        height: 65px;
-        font-size: 15px;
-    }
-    .sponsorBoard i {
-        height: 29px;
-    }
-    .mine {
-        isolation: isolate;
-        min-height: 640px;
-        padding: 34px 6% 185px;
-    }
-    .mine picture img {
-        object-position: 56% bottom;
-    }
-    .questions {
-        position: static;
-        width: 100%;
-    }
-    .columns {
-        display: block;
-        margin-top: 14px;
-    }
-    .columns h3 {
-        font-size: 17px;
-    }
-    .columns button {
-        min-height: 44px;
-    }
-    .columns > div > div + div,
-    .columns > div + div {
-        margin-top: 5px;
-    }
+    .answerReveal,
     .answer {
-        font-size: 15px;
-        padding: 20px 23px;
-    }
-    .frontier {
-        background: #271a14;
-        padding: 25px 6% 32px;
-        isolation: isolate;
-    }
-    .frontier picture {
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        overflow: hidden;
-    }
-    .landing .frontier picture img {
-        height: 100%;
-        object-fit: cover;
-        object-position: right center;
-    }
-    .letter {
-        position: static;
-        width: min(90%, 380px);
-        padding: 48px 24px 42px;
-        background: url("/landing/frontier/parchment.webp") center/100% 100%;
-        font-size: 15px;
-        margin: 0 auto;
-    }
-    .social {
-        position: static;
-        margin: 48px auto 0;
-        text-shadow: 0 2px 4px #190e04;
-    }
-    .social > div {
-        gap: 8px;
-        flex-wrap: wrap;
-    }
-    .social a {
-        width: 44px;
+        transition: none;
     }
 }
