@@ -210,6 +210,12 @@ const buildSections = (
                 )
             },
             {
+                label: "Previous hardware response",
+                value: values.hardwareInterest,
+                hidden: !values.hardwareInterest,
+                wide: true
+            },
+            {
                 label: "Event suggestions (optional)",
                 value: values.eventSuggestions,
                 wide: true

@@ -434,11 +434,11 @@ export const validationSchemas = [
         firstHackathonReason: Yup.string().when("hackathonsParticipated", {
             is: FIRST_HACKATHON_OPTION,
             then: schema =>
-                maxCharacters("firstHackathonReason")
-                    .required("This field is required")
-                    .test("nonblank", "This field is required", value =>
-                        Boolean(value?.trim())
-                    ),
+                maxCharacters("firstHackathonReason").test(
+                    "nonblank",
+                    "This field is required",
+                    value => Boolean(value?.trim())
+                ),
             otherwise: schema => schema.notRequired()
         })
     }),

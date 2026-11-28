@@ -151,6 +151,7 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
                 )}
 
                 <Typography
+                    aria-live="polite"
                     sx={{
                         fontFamily: "Montserrat, sans-serif",
                         fontWeight: 600,
@@ -179,7 +180,9 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({
                             mt: 0.5
                         }}
                     >
-                        Uploaded successfully!
+                        {localError
+                            ? "Previous upload is still attached."
+                            : "Uploaded successfully!"}
                     </Typography>
                 )}
             </Box>

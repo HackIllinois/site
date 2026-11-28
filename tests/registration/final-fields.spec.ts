@@ -186,6 +186,9 @@ test("application questions follow the final spec order and limits", async ({
         buffer: Buffer.from("Not a PDF")
     });
     await expect(page.getByText("Please upload a PDF file.")).toBeVisible();
+    await expect(
+        page.getByText("Previous upload is still attached.")
+    ).toBeVisible();
     await expect(page.getByText("resume.pdf", { exact: true })).toBeVisible();
     await uploadResume(page);
     await expect(page.getByText("Please upload a PDF file.")).toHaveCount(0);
@@ -400,7 +403,7 @@ test("one area suffices to submit with optional answers blank", async ({
     await expect(page.getByText("VC involvement (optional)")).toBeVisible();
     await expect(page.getByText("Event suggestions (optional)")).toBeVisible();
     await expect(
-        page.getByText("Hardware interest", { exact: true })
+        page.getByText("Previous hardware response", { exact: true })
     ).toHaveCount(0);
     await page
         .getByRole("button", { name: "Show Application Questions" })
