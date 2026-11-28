@@ -364,11 +364,13 @@ export default function FrontierExperience() {
                         aria-hidden="true"
                     />
 
-                    <section
-                        className={styles.sponsorsComingSoon}
-                        aria-label="Sponsors"
-                    >
-                        <div className={styles.sponsorsCard}>
+                    <div className={styles.sponsorsComingSoon}>
+                        <section
+                            id="sponsors"
+                            className={styles.sponsorsCard}
+                            aria-label="Sponsors"
+                            tabIndex={-1}
+                        >
                             <p className={styles.sponsorsCardTitle}>
                                 Coming Soon!
                             </p>
@@ -380,8 +382,8 @@ export default function FrontierExperience() {
                                 </a>
                                 .
                             </p>
-                        </div>
-                    </section>
+                        </section>
+                    </div>
 
                     <MineFaq />
 

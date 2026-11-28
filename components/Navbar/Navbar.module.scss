@@ -47,7 +47,8 @@
         font-family: inherit;
         text-shadow: 0 1px 5px #1b0b0a;
     }
-    a:hover {
+    a:hover:not([href^="/#"]),
+    a[aria-current="location"] {
         text-decoration: underline;
         text-underline-offset: 4px;
     }
@@ -89,12 +90,15 @@
         box-shadow: 0 1px 4px #211;
     }
     .links {
+        --menu-top: 64px;
         display: none;
         position: absolute;
-        top: 64px;
+        top: var(--menu-top);
         right: 14px;
         padding: 8px;
         min-width: 170px;
+        max-height: calc(100dvh - var(--menu-top) - 8px);
+        overflow-y: auto;
         background: #29180f;
         border: 1px solid #d9ae73;
         box-shadow: 0 6px 20px #180a0a66;
